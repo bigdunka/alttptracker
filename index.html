@@ -1,0 +1,82 @@
+<html>
+	<head>
+		<title>ALTTP Tracker Launcher</title>
+		<script src="js/index.js"></script>
+		<style>
+			body { font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
+			label { width: 5em; display: inline-block; }
+			div { margin: 5px 0; }
+		</style>
+	</head>
+	<body>
+		<table>
+			<tr>
+				<td>
+					State:
+				</td>
+				<td>
+					<input id="statestandard" value="standard" type="radio" name="stategroup" checked />
+					<label for="statestandard">Standard</label>
+				</td>
+				<td>
+					<input id="stateopen" value="open" type="radio" name="stategroup" />
+					<label for="stateopen">Open</label>
+				</td>
+				<td>
+					<input id="stateinverted" value="inverted" type="radio" name="stategroup" />
+					<label for="stateinverted">Inverted</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Variation:
+				</td>
+				<td>
+					<input id="varnone" value="none" type="radio" name="vargroup" checked />
+					<label for="varnone">None</label>
+				</td>
+				<td>
+					<input id="varkeysanity" value="keysanity" type="radio" name="vargroup" />
+					<label for="varkeysanity">Keysanity</label>
+				</td>
+				<td>
+					<input id="varretro" value="retro" type="radio" name="vargroup" />
+					<label for="varretro">Retro</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Swordless:
+				</td>
+				<td>
+					<input id="swordno" value="no" type="radio" name="swordgroup" checked />
+					<label for="swordno">No</label>
+				</td>
+				<td>
+					<input id="swordyes" value="yes" type="radio" name="swordgroup" />
+					<label for="swordyes">Yes</label>
+				</td>
+			</tr>
+			<tr>
+				<td>
+					Use Map:
+				</td>
+				<td>
+					<input id="mapno" value="no" type="radio" name="mapgroup" checked />
+					<label for="mapno">No</label>
+				</td>
+				<td>
+					<input id="mapyes" value="yes" type="radio" name="mapgroup" />
+					<label for="mapyes">Yes</label>
+				</td>
+			</tr>
+			<tr>
+				<td colspan="4">
+					<center><button type="button" class="launch" onclick="launch_tracker()">Launch Tracker</button><br><br>
+					NOTE: Still in testing and other changes to be made<br>Report any issues to Dunka (BigDunka#8354)</center>
+				</td>
+			</tr>
+		</table>
+		<!-- <br><br>I do not own this tracker! Credit for the tracker goes to crossproduct and halfarebel, with modifications by multiple people.<br><br>Please refer to the official release <a target="_blank" href="https://github.com/crossproduct42/alttprandohelper/releases">here</a> of the official tracker. -->
+	</body>
+</html>
