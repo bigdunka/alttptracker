@@ -249,7 +249,7 @@ body {
 .smallkeyhalf { background-image: url(images/dungeons/smallkeyhalf.png); }
 
 .bomb { background-image: url(images/overlay/bomb.png); }
-.crystal { background-image: url(images/overlay/crystal.png); }
+.crystal { background-image: url(images/dungeons/prize4.png); }
 .pendant-0 { background-image: url(images/overlay/pendant0.png); }
 .pendant-1 { background-image: url(images/overlay/pendant1.png); }
 .pendant-2 { background-image: url(images/overlay/pendant2.png); }
