@@ -5,17 +5,20 @@
 	var state = query.state;
 	var variation = query.variation;
 	var swordless = query.swordless;	
+	var spheres_enabled = query.sphere;
+	var map_enabled = query.map;
 	
     window.prizes = [];
     window.medallions = [0, 0];
-    window.map_enabled = query.map === 'true';
+    //window.map_enabled = query.map === 'true';
+	window.lastItem = null;
 
     // Event of clicking on the item tracker
     window.toggle = function(label) {
         if (label.substring(0,5) === 'chest') {
             var value = items.dec(label);
             document.getElementById(label).className = 'chest-' + value;
-            if (map_enabled) {
+            if (map_enabled != 'no') {
                 var x = label.substring(5);
                 document.getElementById('dungeon'+x).className = 'dungeon ' +
                     (value ? dungeons[x].can_get_chest() : 'opened');
@@ -32,7 +35,7 @@
 				document.getElementById(label).innerHTML = value;
 			}
 			
-            if (map_enabled) {
+            if (map_enabled != 'no') {
                 var x = label.substring(8);
                 document.getElementById('dungeon'+x).className = 'dungeon ' +
                     (value ? dungeons[x].can_get_chest() : 'opened');
@@ -87,6 +90,12 @@
 			}
 			if ((typeof items[label]) === 'boolean') {
 				items[label] = !items[label];
+				
+				if (items[label] == true)
+					lastItem = label;
+				else
+					lastItem = null;
+
 				node.classList[items[label] ? 'add' : 'remove'](is_boss ? 'defeated' : 'active');
 			} else {
 				if (label === 'sword' && swordless === 'yes') {
@@ -94,6 +103,11 @@
 					var value = items.inc(label);
 					node.className = node.className.replace(/ ?active-\w+/, '');
 					if (value) node.classList.add('active-' + value);
+					
+					if (value)
+						lastItem = label + " active-" + value;
+					else				
+						lastItem = null;					
 				}
 			}
 			// Initiate bunny graphics!
@@ -102,7 +116,7 @@
 				//document.getElementsByClassName('tunic')[0].classList[!items.moonpearl ? 'add' : 'remove']('bunny');
 			}
 		}
-        if (map_enabled) {
+        if (map_enabled != 'no') {
             for (var k = 0; k < chests.length; k++) {
                 if (!chests[k].is_opened)
                     document.getElementById('chestMap'+k).className = 'chest ' + chests[k].is_available();
@@ -136,7 +150,7 @@
 
         document.getElementById('dungeonPrize'+n).className = 'prize-' + prizes[n];
 
-        if (map_enabled) {
+        if (map_enabled != 'no') {
             // Update Sahasralah, Fat Fairy, and Master Sword Pedestal
             var pendant_chests = [25, 61, 62];
             for (var k = 0; k < pendant_chests.length; k++) {
@@ -243,6 +257,24 @@
         };
     }
 
+	window.setSphereItem = function(label) {
+		
+		if (lastItem === null) {
+			document.getElementById(label).className = "sphere noitem";
+		} else {
+			if (lastItem.substring(0, 5) === "sword"	|| lastItem.substring(0, 5) === "shiel" || lastItem.substring(0, 5) === "moonp") {
+				document.getElementById(label).className = "sphere sphere" + lastItem;
+			} else if (lastItem.substring(0, 5) === "tunic")
+			{}
+			else
+				document.getElementById(label).className = "sphere " + lastItem;
+			
+		}
+		
+		lastItem = null;
+		
+	}
+
     function caption_to_html(caption) {
         return caption.replace(/\{(\w+?)(\d+)?\}/g, function(__, name, n) {
             var dash = /medallion|pendant/.test(name)
@@ -262,7 +294,7 @@
 //            document.getElementsByClassName('sword')[0].classList.add('active-1');
   //      }
 
-        if (map_enabled) {
+        if (map_enabled != 'no') {
             for (k = 0; k < chests.length; k++) {
                 document.getElementById('chestMap'+k).className = 'chest ' + (chests[k].is_opened ? 'opened' : chests[k].is_available());
             }
@@ -360,6 +392,13 @@
 		} else {
 			document.getElementById('chestMap65').style.visibility = 'hidden';
 			document.getElementById('chestMap66').style.visibility = 'hidden';
+		}
+		
+		if (spheres_enabled == 'no') {
+			document.getElementById('spheres').style.visibility = 'hidden';
+			document.getElementById('app').classList.add('sphereless');
+		} else {
+			document.getElementById('spheres').style.visibility = 'visible';
 		}
 				
     };

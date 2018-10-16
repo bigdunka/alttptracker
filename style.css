@@ -15,8 +15,9 @@ body {
 .normalopen {  }
 .keysanityhidden { visibility: hidden; height: 0px; width: 0px; float: left; }
 
-#app { width: 1340px; height: 448px; overflow: hidden; }
+#app { width: 1340px; height: 744px; overflow: hidden; }
 #app.mapless { width: 448px; }
+#app.sphereless { height: 448px; }
 
 #tracker .item,
 #tracker .boss,
@@ -47,6 +48,7 @@ body {
 #tracker .keysanitytunic { height: 96px; width: 96px; background-size:100%; }
 #tracker .keysanitymoonpearl { height: 40px; width: 40px; background-size:100%; }
 #tracker .keysanity { height: 48px; width: 48px; background-size:100%; }
+#tracker .sphere { height: 37px; width: 37px; background-size:100%; }
 
 [class*="prize-"] {
   width: 32px;
@@ -162,6 +164,15 @@ body {
 .shield.active-3 { background-image: url(images/items/shield3.png); }
 .moonpearl { background-image: url(images/items/moonpearl.png); }
 
+.spheresword.active-1 { background-image: url(images/items/sword1.png); }
+.spheresword.active-2 { background-image: url(images/items/sword2.png); }
+.spheresword.active-3 { background-image: url(images/items/sword3.png); }
+.spheresword.active-4 { background-image: url(images/items/sword4.png); }
+.sphereshield.active-1 { background-image: url(images/items/shield1.png); }
+.sphereshield.active-2 { background-image: url(images/items/shield2.png); }
+.sphereshield.active-3 { background-image: url(images/items/shield3.png); }
+.spheremoonpearl { background-image: url(images/items/moonpearl.png); }
+
 .tunickeysanity.active-1 { background-image: url(images/items/tunic1.png); background-size:100%; float:left; }
 .tunickeysanity.active-2 { background-image: url(images/items/tunic2.png); background-size:100%; float:left; }
 .tunickeysanity.active-3 { background-image: url(images/items/tunic3.png); background-size:100%; float:left; }
@@ -253,6 +264,8 @@ body {
 .pendant-0 { background-image: url(images/overlay/pendant0.png); }
 .pendant-1 { background-image: url(images/overlay/pendant1.png); }
 .pendant-2 { background-image: url(images/overlay/pendant2.png); }
+
+.noitem { background-image: url(images/dungeons/prize0.png); opacity: .25; }
 
 #bossMap0, #dungeon0 { left: 46.8%; top: 38.8%; }
 #bossMap1, #dungeon1 { left: 3.8%;  top: 78.4%; }
