@@ -210,7 +210,7 @@
         }
     };
 
-    if (map_enabled) {
+    if (map_enabled != 'no') {
         // Event of clicking a chest on the map
         window.toggle_chest = function(x) {
             chests[x].is_opened = !chests[x].is_opened;
@@ -304,6 +304,14 @@
                 document.getElementById('bossMap'+k).className = 'boss ' + dungeons[k].is_beatable();
                 document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
             }
+			if (map_enabled === 'small') {
+				var link = document.createElement("link");
+				link.rel = 'stylesheet';
+				link.type = 'text/css';
+				link.href = 'smallmap.css';
+				document.head.appendChild(link);
+				document.getElementById('spheres').style.display = 'none';
+			}
         } else {
             document.getElementById('app').classList.add('mapless');
             document.getElementById('map').style.display = 'none';

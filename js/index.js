@@ -6,7 +6,13 @@ function launch_tracker() {
 	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
 	
 	var width = map === "yes" ? 1340 : 448;
-	var height = sphere === "yes" ? 744 : 448;
+	var height = sphere === "yes" ? 744 : map === "small" ? 692 : 448;
+	
+	if (map === "small" && sphere === "yes") 
+	{
+		alert ('Spheres and the Compact map are incompatible, please change your preferences');
+		return;
+	}
 	
 open('tracker.html?state={state}&variation={variation}&swordless={swordless}&map={map}&sphere={sphere}'
 			.replace('{state}', state)
