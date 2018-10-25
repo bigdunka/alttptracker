@@ -128,7 +128,7 @@ body {
 .available { background-color: lime; }
 .possible { background-color: yellow; }
 .dark { background-color: blue; }
-.sequencebreak { background-color: magenta; }
+.sequencebreak { background-color: red; }
 .opened { background-color: #7f7f7f; }
 
 #caption {

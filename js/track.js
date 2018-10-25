@@ -137,9 +137,9 @@
             if (is_boss) {
                 toggle_boss(label.substring(4));
             }
-            if (label === 'agahnim' || label === 'cape' || label === 'sword' || label === 'lantern' || label === 'smallkeyhalf1') {
+            //if (label === 'agahnim' || label === 'cape' || label === 'sword' || label === 'lantern' || label === 'smallkeyhalf1') {
                 toggle_agahnim();
-            }
+            //}
         }
     };
 

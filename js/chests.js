@@ -157,7 +157,7 @@
 				if (is_keysanity) {
 					if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2))
 					return 'unavailable';
-					if (items.bigkey2) return items.lantern ? 'available' : 'dark';
+					if (items.bigkey2) return (items.lantern || activeFlute()) ? 'available' : 'dark';
 					return 'unavailable';
 				} else {
 					return this.can_get_chest();
@@ -168,7 +168,7 @@
 					if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2))
 					return 'unavailable';
 				
-					if (items.bigkey2 && items.smallkey2 === 1 && melee() && (items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2)) return 'available';
+					if (items.bigkey2 && items.smallkey2 === 1 && melee() && (items.lantern || items.firerod) && ((items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2))) return 'available';
 					
 					if (items.keychest2 >= 5) return (!items.flute && !items.lantern) ? 'dark' : 'possible';
 					if (items.keychest2 >= 4 && items.smallkey2 === 1 && (items.firerod || items.lantern)) return (!items.flute && !items.lantern) ? 'dark' : 'possible';
@@ -759,11 +759,11 @@
 			caption: 'Agahnim {sword1}{lantern}',
 			is_available: function() {
 				if (is_keysanity) {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || is_swordless) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 ?
+					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && items.hammer)) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';					
 				} else {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || is_swordless) && (activeFlute() || items.glove) ?
+					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && items.hammer)) && (activeFlute() || items.glove) ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';
 				}
@@ -969,7 +969,7 @@
 			caption: 'Bombos Tablet {sword2}{book}',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny && items.book ?
+				return canReachLightWorldBunny() && items.book ?
 					(items.sword >= 2 || (is_swordless && items.hammer)) ? 'available' : 'possible' :
 					'unavailable';
 			}
@@ -1080,7 +1080,7 @@
 				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'possible') : 'unavailable';
 			}
 		}, { // [48]
-			caption: 'Desert West Ledge {book}/{mirror}',
+			caption: 'Desert West Ledge {book}',
 			is_opened: false,
 			is_available: function() {
 				return canReachLightWorldBunny() ? (items.book ? (items.moonpearl ? 'available' : (items.mirror ? 'sequencebreak' : 'possible')) : 'possible') : 'unavailable';
@@ -1787,11 +1787,11 @@
 			caption: 'Agahnim {sword2}/ ({cape}{sword1}){lantern}',
 			is_available: function() {
 				if (is_keysanity) {
-					return (items.sword >= 2 || items.cape && items.sword) && items.smallkeyhalf1 === 2 ?
+					return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && items.hammer)) && items.smallkeyhalf1 === 2 ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';
 				} else {
-					return items.sword >= 2 || items.cape && items.sword ?
+					return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && items.hammer)) ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';
 				}

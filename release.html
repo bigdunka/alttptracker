@@ -1,6 +1,6 @@
 <html>
 	<head>
-		<title>ALTTP Community Tracker Release Notes</title>
+		<title>ALTTP Community Tracker - Release Notes</title>
 		<script src="js/index.js"></script>
 		<style>
 			body { font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
@@ -9,23 +9,39 @@
 		</style>
 	</head>
 	<body>
-		<div style="width:530px">
+		<button type="button" onclick="window.location.href = 'index.html';" style="width: 200px; text-align: center;"><== Return to Main</button><br><br>
+		<div style="width:1000px">
 			Latest Changes:<br><br>
-			<i>10/17/2018</i><br>
-			Added Compact map<br>
-			Credit to Sphere tracking goes to Catobat (Will post full credits page soon!)<br><br>
-			<i>10/16/2018</i><br>
-			Added Sphere tracking<br>
-			Credit to Sphere tracking goes to Jem (Will post full credits page soon!)<br><br>
-			<i>10/14/2018</i><br>
-			<b>STILL IN TESTING</b> Added Inverted + Keysanity logic<br>
-			NOTE: Turtle Rock is still fairly untested, as there are two different logic sets (front door and mirror entrances) using the best available options. Not all dungeons have been fully tested, please report issues to Dunka (BigDunka#8354)<br>
-			<br>
-			Disabled some of the Sequence Break logic, will reactivate after the toggle has been added<br>
-			<br>
-			Fixed the inverted + keysanity AGA 1 chests and opening logic<br>
-			<br>
-			Fixed some minor icon issues<br>
+			<b><i>10/25/2018 Build 1.1.003 102518</i></b><br>
+			<ul>
+				<li>Added formal build release schema</li><br>
+				<li>Added reference pages for release notes, known issues, contributors, and downloads</li><br>
+				<li>Fixed swordless bug in logic where AGA 1 was not marked as accessible</li><br>
+				<li>Fixed AGA toggle logic to always check on item changes beyond just normal AGA required items to fix inverted/swordless bug</li><br>
+				<li>Fixed inverted logic for always checking for light world bunny access, would sometimes skip the macro check</li><br>
+				<li>Fixed inverted logic for Tower of Hera with flute and without lantern</li><br>
+				<li>Fixed keysanity logic for chests accessible in Tower of Hera without lantern or fire rod</li><br>
+				<li>Fixed inverted labeling for Desert Ledge to only require book</li><br>
+				<li>Disabled all current sequence breaking logic and labeling, will release formal inclusion in future release</li><br>
+			</ul>
+			<b><i>10/17/2018</i></b><br>
+			<ul>
+				<li>Added Compact map<br>
+				Credit to Compact map goes to Catobat (Will post full credits page soon!)</li><br>
+			</ul>
+			<b><i>10/16/2018</i></b><br>
+			<ul>
+				<li>Added Sphere tracking<br>
+				Credit to Sphere tracking goes to Jem (Will post full credits page soon!)</li><br>
+			</ul>
+			<b><i>10/14/2018</i></b><br>
+			<ul>
+				<li><b>STILL IN TESTING</b> Added Inverted + Keysanity logic<br>
+				NOTE: Turtle Rock is still fairly untested, as there are two different logic sets (front door and mirror entrances) using the best available options. Not all dungeons have been fully tested, please report issues to Dunka (BigDunka#8354)</li><br>
+				<li>Disabled some of the Sequence Break logic, will reactivate after the toggle has been added</li><br>
+				<li>Fixed the inverted + keysanity AGA 1 chests and opening logic</li><br>
+				<li>Fixed some minor icon issues</li><br>
+			</ul>
 		</div>
 
 	</body>
