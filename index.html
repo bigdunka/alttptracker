@@ -16,98 +16,123 @@
 
 		  gtag('config', 'UA-128165990-1');
 		</script>
-		
-		
 	</head>
-	<body>
-		<div >
+	<body onload="load_cookie();">
+		<div>
 			<table width="530px" style="margin: auto;">
 				<tr>
 					<td colspan="4">
 						<center><img src='./images/overlay/header.png' /></center><br>
-						<span style="font-size: 10px; float: right;">Build 1.1.003 102518</span><br>
+						<span style="font-size: 10px; float: right;">Build 1.1.004 111418</span><br>
 					</td>
 				</tr>
+			</table>
+			<table width="900px" height="230px" style="margin: auto;">
 				<tr>
 					<td>
-						State:
+						<table width="450px">
+							<tr>
+								<td colspan="4">
+									<center><b><u>Game Settings</u></b></center>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									State:
+								</td>
+								<td>
+									<input id="statestandard" value="standard" type="radio" name="stategroup" checked />
+									<label for="statestandard">Standard</label>
+								</td>
+								<td>
+									<input id="stateopen" value="open" type="radio" name="stategroup" />
+									<label for="stateopen">Open</label>
+								</td>
+								<td>
+									<input id="stateinverted" value="inverted" type="radio" name="stategroup" />
+									<label for="stateinverted">Inverted</label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Variation:
+								</td>
+								<td>
+									<input id="varnone" value="none" type="radio" name="vargroup" checked />
+									<label for="varnone">None</label>
+								</td>
+								<td>
+									<input id="varkeysanity" value="keysanity" type="radio" name="vargroup" />
+									<label for="varkeysanity">Keysanity</label>
+								</td>
+								<td>
+									<input id="varretro" value="retro" type="radio" name="vargroup" />
+									<label for="varretro">Retro</label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Swordless:
+								</td>
+								<td>
+									<input id="swordno" value="no" type="radio" name="swordgroup" checked />
+									<label for="swordno">No</label>
+								</td>
+								<td>
+									<input id="swordyes" value="yes" type="radio" name="swordgroup" />
+									<label for="swordyes">Yes</label>
+								</td>
+							</tr>
+						</table>
 					</td>
 					<td>
-						<input id="statestandard" value="standard" type="radio" name="stategroup" checked />
-						<label for="statestandard">Standard</label>
-					</td>
-					<td>
-						<input id="stateopen" value="open" type="radio" name="stategroup" />
-						<label for="stateopen">Open</label>
-					</td>
-					<td>
-						<input id="stateinverted" value="inverted" type="radio" name="stategroup" />
-						<label for="stateinverted">Inverted</label>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Variation:
-					</td>
-					<td>
-						<input id="varnone" value="none" type="radio" name="vargroup" checked />
-						<label for="varnone">None</label>
-					</td>
-					<td>
-						<input id="varkeysanity" value="keysanity" type="radio" name="vargroup" />
-						<label for="varkeysanity">Keysanity</label>
-					</td>
-					<td>
-						<input id="varretro" value="retro" type="radio" name="vargroup" />
-						<label for="varretro">Retro</label>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Swordless:
-					</td>
-					<td>
-						<input id="swordno" value="no" type="radio" name="swordgroup" checked />
-						<label for="swordno">No</label>
-					</td>
-					<td>
-						<input id="swordyes" value="yes" type="radio" name="swordgroup" />
-						<label for="swordyes">Yes</label>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Map:
-					</td>
-					<td>
-						<input id="mapno" value="no" type="radio" name="mapgroup" checked />
-						<label for="mapno">None</label>
-					</td>
-					<td>
-						<input id="mapyes" value="yes" type="radio" name="mapgroup" />
-						<label for="mapyes">Normal</label>
-					</td>
-					<td>
-						<input id="mapsmall" value="small" type="radio" name="mapgroup" />
-						<label for="mapsmall">Compact</label>
-					</td>
-				</tr>
-				<tr>
-					<td>
-						Use Spheres:
-					</td>
-					<td>
-						<input id="sphereno" value="no" type="radio" name="spheregroup" checked />
-						<label for="sphereno">No</label>
-					</td>
-					<td>
-						<input id="sphereyes" value="yes" type="radio" name="spheregroup" />
-						<label for="sphereyes">Yes</label>
+						<table width="450px">
+							<tr>
+								<td colspan="4">
+									<center><b><u>Display Settings</u></b></center>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Map:
+								</td>
+								<td>
+									<input id="mapno" value="no" type="radio" name="mapgroup" checked />
+									<label for="mapno">None</label>
+								</td>
+								<td>
+									<input id="mapyes" value="yes" type="radio" name="mapgroup" />
+									<label for="mapyes">Normal</label>
+								</td>
+								<td>
+									<input id="mapsmall" value="small" type="radio" name="mapgroup" />
+									<label for="mapsmall">Compact</label>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									Use Spheres:
+								</td>
+								<td>
+									<input id="sphereno" value="no" type="radio" name="spheregroup" checked />
+									<label for="sphereno">No</label>
+								</td>
+								<td>
+									<input id="sphereyes" value="yes" type="radio" name="spheregroup" />
+									<label for="sphereyes">Yes</label>
+								</td>
+							</tr>
+							<tr>
+								<td colspan="4">
+									<center><input type="checkbox" id="remembersettings"> Remember Display Settings <span title="This site uses a tracking cookie to remember your settings" style="font-size: 10px; color: red; cursor: pointer;">[?]</span></center>
+								</td>
+							</tr>							
+						</table>
 					</td>
 				</tr>
 				<tr>
 					<td colspan="4">
-						<br><center><input type="checkbox" disabled> Remember Default Settings (Coming soon!)<br><br><button type="button" class="launch" style="width: 200px" onclick="launch_tracker()">Launch Tracker</button><br><br></center>
+						<center><button type="button" class="launch" style="width: 200px" onclick="launch_tracker()">Launch Tracker</button></center>
 					</td>
 				</tr>
 				<tr>

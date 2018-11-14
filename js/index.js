@@ -1,3 +1,21 @@
+function load_cookie() {
+	var c = document.cookie;
+	
+	if (c.indexOf('settings') > -1) {
+		//alert('!');
+		document.getElementById("remembersettings").checked = true;
+		if (c.indexOf('m-yes') > -1) {
+			document.getElementById("mapyes").checked = true;
+		}
+		if (c.indexOf('m-small') > -1) {
+			document.getElementById("mapsmall").checked = true;
+		}
+		if (c.indexOf('s-yes') > -1) {
+			document.getElementById("sphereyes").checked = true;
+		}
+	}
+}
+
 function launch_tracker() {
 	var state = document.querySelector('input[name="stategroup"]:checked').value;
 	var variation = document.querySelector('input[name="vargroup"]:checked').value;
@@ -14,7 +32,14 @@ function launch_tracker() {
 		return;
 	}
 	
-open('tracker.html?state={state}&variation={variation}&swordless={swordless}&map={map}&sphere={sphere}'
+	if (document.getElementById("remembersettings").checked == true) {
+		var settings = "m-" + map + "|s-" + sphere;
+		document.cookie = "settings=" + settings + "; expires=Sat, 1 Jan 2023 12:00:00 UTC";
+	} else {
+		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+	}
+	
+	open('tracker.html?state={state}&variation={variation}&swordless={swordless}&map={map}&sphere={sphere}'
 			.replace('{state}', state)
 			.replace('{variation}', variation)
 			.replace('{swordless}', swordless)
