@@ -102,8 +102,7 @@
 					if (!canReachLightWorldBunny()) return 'unavailable';
 					if (!items.bigkey1) return 'unavailable';
 					if (!(melee_bow() || cane() || rod())) return 'unavailable';
-					if (!(items.book && items.glove) && !(items.flute && items.glove === 2 && items.mirror)) return 'unavailable';
-					if (!items.lantern && !items.firerod) return 'unavailable';
+					if (!items.book || !items.glove || (!items.lantern && !items.firerod)) return 'unavailable';
 					return 'available';
 				} else {
 					if (!(melee_bow() || cane() || rod())) return 'unavailable';
