@@ -758,11 +758,11 @@
 			caption: 'Agahnim {sword1}{lantern}',
 			is_available: function() {
 				if (is_keysanity) {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && items.hammer)) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 ?
+					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && (items.hammer || (items.cape && items.net)))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';					
 				} else {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && items.hammer)) && (activeFlute() || items.glove) ?
+					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && (items.hammer || (items.cape && items.net)))) && (activeFlute() || items.glove) ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';
 				}
@@ -1786,11 +1786,11 @@
 			caption: 'Agahnim {sword2}/ ({cape}{sword1}){lantern}',
 			is_available: function() {
 				if (is_keysanity) {
-					return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && items.hammer)) && items.smallkeyhalf1 === 2 ?
+					return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';
 				} else {
-					return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && items.hammer)) ?
+					return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';
 				}
