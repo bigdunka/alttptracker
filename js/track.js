@@ -310,7 +310,7 @@
 				link.type = 'text/css';
 				link.href = 'smallmap.css';
 				document.head.appendChild(link);
-				document.getElementById('spheres').style.display = 'none';
+				//document.getElementById('spheres').style.display = 'none';
 			}
         } else {
             document.getElementById('app').classList.add('mapless');
