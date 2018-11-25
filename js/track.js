@@ -404,9 +404,11 @@
 		
 		if (spheres_enabled == 'no') {
 			document.getElementById('spheres').style.visibility = 'hidden';
+			document.getElementById('spheres').style.display = 'none';
 			document.getElementById('app').classList.add('sphereless');
 		} else {
 			document.getElementById('spheres').style.visibility = 'visible';
+			    
 		}
 				
     };
