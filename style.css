@@ -57,6 +57,13 @@ body {
   bottom: 0;
   right: 0;
 }
+[class*="enemizer-"] {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
 #tracker [class*="medallion-"] {
   width: 32px;
   height: 32px;
@@ -237,6 +244,17 @@ body {
 .boss8, #bossMap8 { background-image: url(images/dungeons/boss8.png); }
 .boss9, #bossMap9 { background-image: url(images/dungeons/boss9.png); }
 .boss10, #bossMap10 { background-image: url(images/dungeons/boss10.png); }
+.enemizer-0 { background-image: url(images/dungeons/prize0.png); background-size: 32px; }
+.enemizer-1 { background-image: url(images/dungeons/boss0.png); background-size: 32px; }
+.enemizer-2 { background-image: url(images/dungeons/boss1.png); background-size: 32px; }
+.enemizer-3 { background-image: url(images/dungeons/boss2.png); background-size: 32px; }
+.enemizer-4 { background-image: url(images/dungeons/boss3.png); background-size: 32px; }
+.enemizer-5 { background-image: url(images/dungeons/boss4.png); background-size: 32px; }
+.enemizer-6 { background-image: url(images/dungeons/boss5.png); background-size: 32px; }
+.enemizer-7 { background-image: url(images/dungeons/boss6.png); background-size: 32px; }
+.enemizer-8 { background-image: url(images/dungeons/boss7.png); background-size: 32px; }
+.enemizer-9 { background-image: url(images/dungeons/boss8.png); background-size: 32px; }
+.enemizer-10 { background-image: url(images/dungeons/boss9.png); background-size: 32px; }
 .prize-0 { background-image: url(images/dungeons/prize0.png); }
 .prize-1 { background-image: url(images/dungeons/prize1.png); }
 .prize-2 { background-image: url(images/dungeons/prize2.png); }

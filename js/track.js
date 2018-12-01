@@ -7,8 +7,10 @@
 	var swordless = query.swordless;	
 	var spheres_enabled = query.sphere;
 	var map_enabled = query.map;
+	var enemizer_enabled = query.enemizer;
 	
     window.prizes = [];
+    window.enemizer = [];
     window.medallions = [0, 0];
     //window.map_enabled = query.map === 'true';
 	window.lastItem = null;
@@ -160,6 +162,16 @@
         }
     };
 
+    // event of clicking on a boss's enemizer portrait
+    window.toggle_enemy = function(n) {
+        enemizer[n] += 1;
+        if (enemizer[n] === 11) enemizer[n] = 0;
+        document.getElementById('dungeonEnemy'+n).className = 'enemizer-' + enemizer[n];
+		dungeons[n].is_beatable();
+		if (!dungeons[n].is_beaten)
+			document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
+    };
+
     // event of clicking on Mire/TRock's medallion subsquare
     window.toggle_medallion = function(n) {
         medallions[n] += 1;
@@ -288,11 +300,21 @@
     window.start = function() {
         for (var k = 0; k < dungeons.length; k++) {
             prizes[k] = 0;
+			enemizer[k] = 0;
         }
 
-        //if (mode === 'standard') {
-//            document.getElementsByClassName('sword')[0].classList.add('active-1');
-  //      }
+		if (enemizer_enabled != 'yes') {
+			document.getElementById('dungeonEnemy0').style.visibility = 'hidden';
+			document.getElementById('dungeonEnemy1').style.visibility = 'hidden';
+			document.getElementById('dungeonEnemy2').style.visibility = 'hidden';
+			document.getElementById('dungeonEnemy3').style.visibility = 'hidden';
+			document.getElementById('dungeonEnemy4').style.visibility = 'hidden';
+			document.getElementById('dungeonEnemy5').style.visibility = 'hidden';
+			document.getElementById('dungeonEnemy6').style.visibility = 'hidden';
+			document.getElementById('dungeonEnemy7').style.visibility = 'hidden';
+			document.getElementById('dungeonEnemy8').style.visibility = 'hidden';
+			document.getElementById('dungeonEnemy9').style.visibility = 'hidden';
+		}
 
         if (map_enabled != 'no') {
             for (k = 0; k < chests.length; k++) {
