@@ -36,6 +36,7 @@
     function melee_bow() { return melee() || items.bow > 1; }
     function cane() { return items.somaria || items.byrna; }
     function rod() { return items.firerod || items.icerod; }
+	function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 1 || items.hammer || items.firerod; }
 
     function always() { return 'available'; }
 
@@ -44,7 +45,7 @@
 			return 'possible';
 		} else if (enemizer[i] === 1) {
 			//Armos
-			if (items.sword > 0 || items.hammer || items.bow > 0 || items.byrna) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (items.sword > 0 || items.hammer || items.bow > 0 || items.boomerang > 0 || items.byrna || items.somaria || items.icerod || items.firerod) return d ? p == true ? 'possible' : 'available' : 'dark';
 			return 'unavailable';
 		} else if (enemizer[i] === 2) {
 			//Lanmola
@@ -899,12 +900,12 @@
 			caption: 'Agahnim {sword1}{lantern}',
 			is_available: function() {
 				if (is_keysanity) {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 ?
+					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 && agatowerweapon() ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';					
 				} else {
 					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) ?
-						items.lantern ? 'available' : 'dark' :
+						items.lantern && agatowerweapon() ? 'available' : 'dark' :
 						'unavailable';
 				}
 			}
@@ -1939,13 +1940,13 @@
 				if (is_keysanity) {
 					if (crystal_count === 7 && items.bigkey10 &&  items.bow > 1 && items.hookshot && (items.firerod || items.lantern)) {
 						if (items.smallkey10 < 3) return 'possible';
-						if (items.smallkey10 >= 3) (is_enemizer && !items.icerod) ? 'possible' : 'available';
+						if (items.smallkey10 >= 3) return (is_enemizer && !items.icerod) ? 'possible' : 'available';
 					}
 					return 'unavailable';
 				} else {
 					if (crystal_count === 7 && items.glove === 2 && items.bow > 1 && items.hookshot && (items.firerod || items.lantern)) {
 						if (!items.somaria || !items.boots || !items.firerod) return 'possible';
-						(is_enemizer && !items.icerod) ? 'possible' : 'available';
+						return (is_enemizer && !items.icerod) ? 'possible' : 'available';
 					} else {
 						return 'unavailable';
 					}
@@ -2018,11 +2019,11 @@
 			caption: 'Agahnim {sword2}/ ({cape}{sword1}){lantern}',
 			is_available: function() {
 				if (is_keysanity) {
-					return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 ?
+					return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 && agatowerweapon() ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';
 				} else {
-					return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) ?
+					return ((items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && agatowerweapon()) ?
 						items.lantern ? 'available' : 'dark' :
 						'unavailable';
 				}
