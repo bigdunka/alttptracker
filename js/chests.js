@@ -127,10 +127,10 @@
 			is_beatable: function() {
 				if (is_keysanity) {
 					if (is_enemizer) {
-						if(!items.bigkey0 || items.bow === 0 || !canReachLightWorld()) return 'unavailable';
+						if(!items.bigkey0 || items.bow < 2 || !canReachLightWorld()) return 'unavailable';
 						return enemizer_check(0, items.lantern, false);
 					} else {
-						if(!items.bigkey0 || items.bow === 0 || !canReachLightWorld()) return 'unavailable';
+						if(!items.bigkey0 || items.bow < 2 || !canReachLightWorld()) return 'unavailable';
 						return items.lantern ? 'available' : 'dark';
 					}
 				} else {
