@@ -109,7 +109,7 @@
 
 	function canReachPyramidWithoutFlippers()
 	{
-		return items.hammer || (items.mirror && canReachLightWorldBunny());
+		return items.hammer || activeFlute() || (items.mirror && canReachLightWorldBunny());
 	}
 
 	function activeFlute()
@@ -1890,20 +1890,21 @@
 							}
 						}
 					}
-					// 3 key chests
-					if (curr_keys > 0) { 
-						curr_keys -= 1;
-						reachable += 1; // Either Trinexx or vanilla big key chest will be obtainable with 3 keys
-					}				
-					
-					// 4 key chests
-					if (curr_keys > 0) { 
-						if (!items.lantern && items.icerod && items.firerod) {
-							dark_chests += 1; // All of TR is clearable in the dark
-							reachable += 1;
-						}
-					}				
-					
+					if (items.bigkey9) {
+						// 3 key chests
+						if (curr_keys > 0) { 
+							curr_keys -= 1;
+							reachable += 1; // Either Trinexx or vanilla big key chest will be obtainable with 3 keys
+						}				
+						
+						// 4 key chests
+						if (curr_keys > 0) { 
+							if (!items.lantern && items.icerod && items.firerod) {
+								dark_chests += 1; // All of TR is clearable in the dark
+								reachable += 1;
+							}
+						}				
+					}
 					if (items.keychest9 > 12 - reachable) {
 						if (items.keychest9 > 12 - (reachable - dark_chests)) {
 							return 'possible';
