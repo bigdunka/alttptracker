@@ -529,9 +529,10 @@
 					if (items.lantern && items.bigkey8 && items.somaria) return 'available';
 
 					if (items.keychest8 >= 5) return 'possible';
-					if (items.keychest8 >= 3 && (items.bigkey8 || (items.lantern || items.firerod))) return 'possible';
+					if (items.keychest8 >= 4 && items.bigkey8) return 'possible';
 					if (items.keychest8 >= 3 && items.bigkey8 && items.somaria && !items.lantern && !items.firerod) return 'dark';
-					if (items.keychest8 >= 2 && items.firerod && items.bigkey8) return 'possible';
+					if (items.keychest8 >= 3 && (items.lantern || items.firerod)) return 'possible';
+					if (items.keychest8 >= 2 && (items.firerod || items.lantern) && items.bigkey8) return 'possible';
 					if (items.keychest8 >= 1 && !items.lantern && items.firerod && items.bigkey8 && items.somaria) return 'dark';
 					return 'unavailable';
 				} else {
@@ -1788,10 +1789,11 @@
 					if (items.lantern && items.bigkey8 && items.somaria) return 'available';
 
 					if (items.keychest8 >= 5) return 'possible';
-					if (items.keychest8 >= 3 && (items.bigkey8 || (items.lantern || items.firerod))) return 'possible';
+					if (items.keychest8 >= 4 && items.bigkey8) return 'possible';
 					if (items.keychest8 >= 3 && items.bigkey8 && items.somaria && !items.lantern && !items.firerod) return 'dark';
-					if (items.keychest8 >= 2 && items.firerod && items.bigkey8) return 'possible';
-					if (items.keychest8 >= 1 && !items.lantern && items.firerod && items.bigkey8 && items.somaria) return 'dark';
+					if (items.keychest8 >= 3 && (items.lantern || items.firerod)) return 'possible';
+					if (items.keychest8 >= 2 && (items.firerod || items.lantern) && items.bigkey8) return 'possible';
+					if (items.keychest8 >= 1 && !items.lantern && items.firerod && items.bigkey8 && items.somaria) return 'dark';					
 					return 'unavailable';
 				} else {
 					if (!items.moonpearl || !items.flute || items.glove !== 2) return 'unavailable';
