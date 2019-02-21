@@ -1,8 +1,11 @@
 <html>
 	<head>
 		<title>ALTTP Community Tracker Launcher</title>
-		<script src="js/index.js?v=11011"></script>
-		<style>
+		<script src="js/index.js?v=12001"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
+		<script type="text/javascript" src="js/jquery.powertip.js"></script>
+		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />		
+		<style type="text/css">
 			body { font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
 			label { width: 5em; display: inline-block; }
 			div { margin: 5px 0; }
@@ -10,11 +13,14 @@
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
 		<script>
-		  window.dataLayer = window.dataLayer || [];
-		  function gtag(){dataLayer.push(arguments);}
-		  gtag('js', new Date());
+			$(function() {
+				$('.south').powerTip({ placement: 's' });
+			});
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
 
-		  gtag('config', 'UA-128165990-1');
+			gtag('config', 'UA-128165990-1');
 		</script>
 		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
 		<meta http-equiv="Pragma" content="no-cache" />
@@ -26,14 +32,14 @@
 				<tr>
 					<td colspan="4">
 						<center><img src='./images/overlay/header.png' /></center><br>
-						<span style="font-size: 10px; float: right;">Build 1.1.012 122318</span><br>
+						<span style="font-size: 10px; float: right;">Build 1.2.001 022021</span><br>
 					</td>
 				</tr>
 			</table>
-			<table width="900px" height="230px" style="margin: auto;">
+			<table width="1000px" height="262px" style="margin: auto;">
 				<tr>
 					<td>
-						<table width="450px" style="border-right: solid; border-width: 1px; border-color: #BBB;">
+						<table width="500px" style="border-right: solid; border-width: 1px; border-color: #BBB;">
 							<tr>
 								<td colspan="4">
 									<center><b><u>Game Settings</u></b></center>
@@ -99,15 +105,29 @@
 									<label for="enemizeryes">Yes</label>
 								</td>
 								<td>
-									<span title="Assumed full shuffle, not just boss shuffle. This does not disqualify some dungeon bosses based off items needed to complete them" style="font-size: 10px; color: red; cursor: pointer;">[?]</span>
+									<span class="south" title="Assumed full shuffle, not just boss shuffle. This does not disqualify some dungeon bosses based off items needed to complete them" style="font-size: 10px; color: red; cursor: pointer;">[?]</span>
 								</td>
-								
-								
+							</tr>
+							<tr>
+								<td>
+									Use Spoiler Log:
+								</td>
+								<td>
+									<input id="spoilerno" value="no" type="radio" name="spoilergroup" checked />
+									<label for="spoilerno">No</label>
+								</td>
+								<td>
+									<input id="spoileryes" value="yes" type="radio" name="spoilergroup" />
+									<label for="spoileryes">Yes</label>
+								</td>
+								<td>
+									<span class="south" title="This will allow you to post a spoiler log after loading to populate items into the map. WARNING! This mode is not currently allowed in the current Spoiler Log Tourney! Do not use during a tourney match for risk of a DQ." style="font-size: 10px; color: red; cursor: pointer;">[?]</span>
+								</td>
 							</tr>
 						</table>
 					</td>
 					<td>
-						<table width="450px">
+						<table width="500px">
 							<tr>
 								<td colspan="4">
 									<center><b><u>Display Settings</u></b></center>
@@ -147,12 +167,12 @@
 								<td colspan="4">
 									<br>
 								</td>
-							</tr>							
+							</tr>
 							<tr>
 								<td colspan="4">
-									<center><input type="checkbox" id="remembersettings"> Remember Display Settings <span title="This site uses a tracking cookie to remember your settings" style="font-size: 10px; color: red; cursor: pointer;">[?]</span></center>
+									<center><input type="checkbox" id="remembersettings"> Remember Display Settings <span class="south" title="This site uses a tracking cookie to remember your settings" style="font-size: 10px; color: red; cursor: pointer;">[?]</span></center>
 								</td>
-							</tr>							
+							</tr>
 						</table>
 					</td>
 				</tr>
@@ -163,7 +183,7 @@
 				</tr>
 				<tr>
 					<td colspan="4">
-						<center>NOTE: Still in testing and other changes to be made<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check the Known Issues below for current outstanding issues</center><br>
+						<center>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check the Known Issues below for current outstanding issues</center><br>
 					</td>
 				</tr>
 			</table>

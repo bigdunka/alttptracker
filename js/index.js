@@ -23,6 +23,7 @@ function launch_tracker() {
 	var map = document.querySelector('input[name="mapgroup"]:checked').value;
 	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
 	var enemizer = document.querySelector('input[name="enemizergroup"]:checked').value;
+	var spoiler = document.querySelector('input[name="spoilergroup"]:checked').value;
 	
 	var width = map === "yes" ? 1340 : 448;
 	var height = sphere === "yes" ? map === "small" ? 988 : 744 : map === "small" ? 692 : 448;
@@ -38,15 +39,19 @@ function launch_tracker() {
 		alert('NOTICE: Not all enemizer settings with maps have been verified and is still in testing');
 	}
 	
-	open('tracker.html?state={state}&variation={variation}&swordless={swordless}&map={map}&sphere={sphere}&enemizer={enemizer}'
+	if (spoiler === "yes") {
+		alert('WARNING! This mode is not currently allowed in the current Spoiler Log Tourney! Do not use during a tourney match for risk of a DQ!');
+	}
+	
+	var trackerWindow = window.open('tracker.html?state={state}&variation={variation}&swordless={swordless}&map={map}&sphere={sphere}&enemizer={enemizer}&spoiler={spoiler}'
 			.replace('{state}', state)
 			.replace('{variation}', variation)
 			.replace('{swordless}', swordless)
 			.replace('{map}', map)
 			.replace('{sphere}', sphere)
-			.replace('{enemizer}', enemizer),
+			.replace('{enemizer}', enemizer)
+			.replace('{spoiler}', spoiler),
 		'',
 		'width={width},height={height},titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0'
 			.replace('{width}', width).replace('{height}', height));
-	//setTimeout('window.close()', 5000);
 }

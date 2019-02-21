@@ -2,12 +2,13 @@
 <head>
 	<title>ALTTP Community Tracker</title>
 
-	<link rel="stylesheet" type="text/css" href="style.css">
-
-	<script src="js/util.js?v=11012"></script>
-	<script src="js/items.js?v=11012"></script>
-	<script src="js/chests.js?v=11012"></script>
-	<script src="js/track.js?v=11012"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css?v=12001">
+	<script src="js/jquery-3.3.1.js?v=12001"></script>
+	<script src="js/bootstrap.min.js?v=12001"></script>
+	<script src="js/util.js?v=12001"></script>
+	<script src="js/items.js?v=12001"></script>
+	<script src="js/chests.js?v=12001"></script>
+	<script src="js/track.js?v=12001"></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -31,31 +32,31 @@
         <div class="cell">
           <div class="row">
             <div class="cell" id="normalopenitems">
-              <div class="item tunic active-1 bunny" onClick="toggle('tunic')"></div>
-              <div class="item sword" onClick="toggle('sword')"></div>
-              <div class="item shield" onClick="toggle('shield')"></div>
-              <div class="item moonpearl" onClick="toggle('moonpearl')"></div>
+              <div class="item tunic active-1 bunny" onClick="toggle('tunic')" onMouseover="findItems(['Armor'])" onMouseout="unhighlightAll()"></div>
+              <div class="item sword" onClick="toggle('sword')" onMouseover="findItems(['Sword'])" onMouseout="unhighlightAll()"></div>
+              <div class="item shield" onClick="toggle('shield')" onMouseover="findItems(['Shield'])" onMouseout="unhighlightAll()"></div>
+              <div class="item moonpearl" onClick="toggle('moonpearl')" onMouseover="findItems(['Moon Pearl'])" onMouseout="unhighlightAll()"></div>
             </div>
 
             <div class="keysanityhidden" id="keysanityitems">
 				<div class="cell">
 				  <div style="width: 96px; height: 96px;">
-				  <div class="item tunic keysanitytunic active-1 bunny" onClick="toggle('tunic')"></div>
-				  <div class="item sword keysanity" onClick="toggle('sword')"></div>
-				  <div class="item shield keysanity" onClick="toggle('shield')"></div>
-				  <div class="item moonpearl keysanitymoonpearl" onClick="toggle('moonpearl')"></div>
+				  <div class="item tunic keysanitytunic active-1 bunny" onClick="toggle('tunic')" onMouseover="findItems(['Armor'])" onMouseout="unhighlightAll()"></div>
+				  <div class="item sword keysanity" onClick="toggle('sword')" onMouseover="findItems(['Sword'])" onMouseout="unhighlightAll()"></div>
+				  <div class="item shield keysanity" onClick="toggle('shield')" onMouseover="findItems(['Shield'])" onMouseout="unhighlightAll()"></div>
+				  <div class="item moonpearl keysanitymoonpearl" onClick="toggle('moonpearl')" onMouseover="findItems(['Moon Pearl'])" onMouseout="unhighlightAll()"></div>
 				  </div>
 				</div>
 				<div>
 				<div class="cell"><div id="smallhalfheader0" class="smallhalfheader">HC</div></div>
-				<div class="cell"><div id="smallkeyhalf0" class="smallkeyhalf" onClick="toggle('smallkeyhalf0')">0</div></div>	
+				<div class="cell"><div id="smallkeyhalf0" class="smallkeyhalf" onClick="toggle('smallkeyhalf0')" onMouseover="findItems(['HC Key'])" onMouseout="unhighlightAll()">0</div></div>	
 				<div class="cell"><div id="smallhalfheader1" class="smallhalfheader">CT</div></div>
-				<div class="cell"><div id="smallkeyhalf1" class="smallkeyhalf" onClick="toggle('smallkeyhalf1')">0</div></div>
+				<div class="cell"><div id="smallkeyhalf1" class="smallkeyhalf" onClick="toggle('smallkeyhalf1')" onMouseover="findItems(['CT Key'])" onMouseout="unhighlightAll()">0</div></div>
 				</div>
 				<div class="row">
-					<div class="cell"><div id="keychest10" class="keychest" onClick="toggle('keychest10')">27</div></div>
-					<div class="cell"><div id="bigkey10" class="bigkey" onClick="toggle('bigkey10')"></div></div>
-					<div class="cell"><div id="smallkey10" class="smallkeyfull" onClick="toggle('smallkey10')">0</div></div>
+					<div class="cell"><div id="keychest10" class="keychest" onClick="toggle('keychest10')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()">27</div></div>
+					<div class="cell"><div id="bigkey10" class="bigkey" onClick="toggle('bigkey10')" onMouseover="findItems(['GT Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell"><div id="smallkey10" class="smallkeyfull" onClick="toggle('smallkey10')" onMouseover="findItems(['GT Key'])" onMouseout="unhighlightAll()">0</div></div>
 				</div>
             </div>
 
@@ -67,12 +68,12 @@
               <div id="dungeonPrize0" class="prize-0" onClick="toggle_dungeon(0)"></div>
             </div>
 			<div id="normalopen0">
-				<div class="cell"><div id="chest0" class="chest-3" onClick="toggle('chest0')"></div></div>
+				<div class="cell"><div id="chest0" class="chest-3" onClick="toggle('chest0')" onMouseover="showNiceItems(0)" onMouseout="clearCaption()"></div></div>
 			</div>
 			<div id="keysanity0" class="keysanityhidden">
-				<div class="cell"><div id="keychest0" class="keychest" onClick="toggle('keychest0')">6</div></div>
-				<div class="cell"><div id="bigkey0" class="bigkey" onClick="toggle('bigkey0')"></div></div>
-				<div class="cell"><div id="smallkey0" class="smallkeyfull" onClick="toggle('smallkey0')">0</div></div>
+				<div class="cell"><div id="keychest0" class="keychest" onClick="toggle('keychest0')" onMouseover="showNiceItems(0)" onMouseout="clearCaption()">6</div></div>
+				<div class="cell"><div id="bigkey0" class="bigkey" onClick="toggle('bigkey0')" onMouseover="findItems(['EP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div id="smallkey0" class="smallkeyfull" onClick="toggle('smallkey0')" onMouseover="findItems(['EP Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
           </div>
           <div class="row">
@@ -82,12 +83,12 @@
               <div id="dungeonPrize1" class="prize-0" onClick="toggle_dungeon(1)"></div>
             </div>
 			<div id="normalopen1">
-            	<div class="cell"><div id="chest1" class="chest-2" onClick="toggle('chest1')"></div></div>
+            	<div class="cell"><div id="chest1" class="chest-2" onClick="toggle('chest1')" onMouseover="showNiceItems(1)" onMouseout="clearCaption()"></div></div>
 			</div>
 			<div id="keysanity1" class="keysanityhidden">
-				<div class="cell"><div id="keychest1" class="keychest" onClick="toggle('keychest1')">6</div></div>
-				<div class="cell"><div id="bigkey1" class="bigkey" onClick="toggle('bigkey1')"></div></div>
-				<div class="cell"><div id="smallkey1" class="smallkeyfull" onClick="toggle('smallkey1')">0</div></div>
+				<div class="cell"><div id="keychest1" class="keychest" onClick="toggle('keychest1')" onMouseover="showNiceItems(1)" onMouseout="clearCaption()">6</div></div>
+				<div class="cell"><div id="bigkey1" class="bigkey" onClick="toggle('bigkey1')" onMouseover="findItems(['DP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div id="smallkey1" class="smallkeyfull" onClick="toggle('smallkey1')" onMouseover="findItems(['DP Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
           </div>
           <div class="row">
@@ -97,50 +98,50 @@
               <div id="dungeonPrize2" class="prize-0" onClick="toggle_dungeon(2)"></div>
             </div>
 			<div id="normalopen2">
-				<div class="cell"><div id="chest2" class="chest-2" onClick="toggle('chest2')"></div></div>
+				<div class="cell"><div id="chest2" class="chest-2" onClick="toggle('chest2')" onMouseover="showNiceItems(2)" onMouseout="clearCaption()"></div></div>
 			</div>
 			<div id="keysanity2" class="keysanityhidden">
-				<div class="cell"><div id="keychest2" class="keychest" onClick="toggle('keychest2')">6</div></div>
-				<div class="cell"><div id="bigkey2" class="bigkey" onClick="toggle('bigkey2')"></div></div>
-				<div class="cell"><div id="smallkey2" class="smallkeyfull" onClick="toggle('smallkey2')">0</div></div>
+				<div class="cell"><div id="keychest2" class="keychest" onClick="toggle('keychest2')" onMouseover="showNiceItems(2)" onMouseout="clearCaption()">6</div></div>
+				<div class="cell"><div id="bigkey2" class="bigkey" onClick="toggle('bigkey2')" onMouseover="findItems(['ToH Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div id="smallkey2" class="smallkeyfull" onClick="toggle('smallkey2')" onMouseover="findItems(['ToH Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
           </div>
         </div>
         <div class="cell">
           <div class="row">
-            <div class="cell"><div class="item bow" onClick="toggle('bow')"></div></div>
-            <div class="cell"><div class="item boomerang" onClick="toggle('boomerang')"></div></div>
-            <div class="cell"><div class="item hookshot" onClick="toggle('hookshot')"></div></div>
-            <div class="cell"><div class="item mushroom" onClick="toggle('mushroom')"></div></div>
-            <div class="cell"><div class="item powder" onClick="toggle('powder')"></div></div>
+            <div class="cell"><div class="item bow" onClick="toggle('bow')" onMouseover="findItems(['Bow','Silver Arrows'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item boomerang" onClick="toggle('boomerang')" onMouseover="findItems(['Blue Boomerang','Red Boomerang'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item hookshot" onClick="toggle('hookshot')" onMouseover="findItems(['Hookshot'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item mushroom" onClick="toggle('mushroom')" onMouseover="findItems(['Mushroom'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item powder" onClick="toggle('powder')" onMouseover="findItems(['Powder'])" onMouseout="unhighlightAll()"></div></div>
           </div>
           <div class="row">
-            <div class="cell"><div class="item firerod" onClick="toggle('firerod')"></div></div>
-            <div class="cell"><div class="item icerod" onClick="toggle('icerod')"></div></div>
-            <div class="cell"><div class="item bombos" onClick="toggle('bombos')"></div></div>
-            <div class="cell"><div class="item ether" onClick="toggle('ether')"></div></div>
-            <div class="cell"><div class="item quake" onClick="toggle('quake')"></div></div>
+            <div class="cell"><div class="item firerod" onClick="toggle('firerod')" onMouseover="findItems(['Fire Rod'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item icerod" onClick="toggle('icerod')" onMouseover="findItems(['Ice Rod'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item bombos" onClick="toggle('bombos')" onMouseover="findItems(['Bombos'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item ether" onClick="toggle('ether')" onMouseover="findItems(['Ether'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item quake" onClick="toggle('quake')" onMouseover="findItems(['Quake'])" onMouseout="unhighlightAll()"></div></div>
           </div>
           <div class="row">
-            <div class="cell"><div class="item lantern" onClick="toggle('lantern')"></div></div>
-            <div class="cell"><div class="item hammer" onClick="toggle('hammer')"></div></div>
-            <div class="cell"><div class="item shovel" onClick="toggle('shovel')"></div></div>
-            <div class="cell"><div class="item net" onClick="toggle('net')"></div></div>
-            <div class="cell"><div class="item book" onClick="toggle('book')"></div></div>
+            <div class="cell"><div class="item lantern" onClick="toggle('lantern')" onMouseover="findItems(['Lamp'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item hammer" onClick="toggle('hammer')" onMouseover="findItems(['Hammer'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item shovel" onClick="toggle('shovel')" onMouseover="findItems(['Shovel'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item net" onClick="toggle('net')" onMouseover="findItems(['Bug Net'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item book" onClick="toggle('book')" onMouseover="findItems(['Book of Mudora'])" onMouseout="unhighlightAll()"></div></div>
           </div>
           <div class="row">
-            <div class="cell"><div class="item bottle" onClick="toggle('bottle')"></div></div>
-            <div class="cell"><div class="item somaria" onClick="toggle('somaria')"></div></div>
-            <div class="cell"><div class="item byrna" onClick="toggle('byrna')"></div></div>
-            <div class="cell"><div class="item cape" onClick="toggle('cape')"></div></div>
-            <div class="cell"><div class="item mirror" onClick="toggle('mirror')"></div></div>
+            <div class="cell"><div class="item bottle" onClick="toggle('bottle')" onMouseover="findItems(['Bottle','Bottle (Red Potion)','Bottle (Green Potion)','Bottle (Blue Potion)','Bottle (Fairy)','Bottle (Bee)','Bottle (Gold Bee)'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item somaria" onClick="toggle('somaria')" onMouseover="findItems(['Cane of Somaria'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item byrna" onClick="toggle('byrna')" onMouseover="findItems(['Cane of Byrna'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item cape" onClick="toggle('cape')" onMouseover="findItems(['Cape'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item mirror" onClick="toggle('mirror')" onMouseover="findItems(['Mirror'])" onMouseout="unhighlightAll()"></div></div>
           </div>
           <div class="row">
-            <div class="cell"><div class="item boots" onClick="toggle('boots')"></div></div>
-            <div class="cell"><div class="item glove" onClick="toggle('glove')"></div></div>
-            <div class="cell"><div class="item flippers" onClick="toggle('flippers')"></div></div>
-            <div class="cell"><div class="item flute" onClick="toggle('flute')"></div></div>
-            <div class="cell"><div class="item agahnim" onClick="toggle('agahnim')"></div></div>
+            <div class="cell"><div class="item boots" onClick="toggle('boots')" onMouseover="findItems(['Pegasus Boots'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item glove" onClick="toggle('glove')" onMouseover="findItems(['Gloves'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item flippers" onClick="toggle('flippers')" onMouseover="findItems(['Flippers'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item flute" onClick="toggle('flute')" onMouseover="findItems(['Flute','Flute (active)'])" onMouseout="unhighlightAll()"></div></div>
+            <div class="cell"><div class="item agahnim" onClick="toggle('agahnim')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()"></div></div>
           </div>
         </div>
       </div>
@@ -185,49 +186,49 @@
       </div>
       <div class="row">
 		<div id="normalopen3">
-	        <div class="cell"><div id="chest3" class="chest-5" onClick="toggle('chest3')"></div></div>
-	        <div class="cell"><div id="chest4" class="chest-6" onClick="toggle('chest4')"></div></div>
-	        <div class="cell"><div id="chest5" class="chest-2" onClick="toggle('chest5')"></div></div>
-	        <div class="cell"><div id="chest6" class="chest-4" onClick="toggle('chest6')"></div></div>
-	        <div class="cell"><div id="chest7" class="chest-3" onClick="toggle('chest7')"></div></div>
-	        <div class="cell"><div id="chest8" class="chest-2" onClick="toggle('chest8')"></div></div>
-	        <div class="cell"><div id="chest9" class="chest-5" onClick="toggle('chest9')"></div></div>
+	        <div class="cell"><div id="chest3" class="chest-5" onClick="toggle('chest3')" onMouseover="showNiceItems(3)" onMouseout="clearCaption()"></div></div>
+	        <div class="cell"><div id="chest4" class="chest-6" onClick="toggle('chest4')" onMouseover="showNiceItems(4)" onMouseout="clearCaption()"></div></div>
+	        <div class="cell"><div id="chest5" class="chest-2" onClick="toggle('chest5')" onMouseover="showNiceItems(5)" onMouseout="clearCaption()"></div></div>
+	        <div class="cell"><div id="chest6" class="chest-4" onClick="toggle('chest6')" onMouseover="showNiceItems(6)" onMouseout="clearCaption()"></div></div>
+	        <div class="cell"><div id="chest7" class="chest-3" onClick="toggle('chest7')" onMouseover="showNiceItems(7)" onMouseout="clearCaption()"></div></div>
+	        <div class="cell"><div id="chest8" class="chest-2" onClick="toggle('chest8')" onMouseover="showNiceItems(8)" onMouseout="clearCaption()"></div></div>
+	        <div class="cell"><div id="chest9" class="chest-5" onClick="toggle('chest9')" onMouseover="showNiceItems(9)" onMouseout="clearCaption()"></div></div>
 		</div>
 		<div id="keysanity3" class="keysanityhidden">
 			<div class="lowerchest">
-				<div class="cell"><div id="keychest3" class="keychest" onClick="toggle('keychest3')">14</div></div>
-				<div class="cell"><div id="bigkey3" class="bigkey" onClick="toggle('bigkey3')"></div></div>
-				<div class="cell"><div id="smallkey3" class="smallkeyfull" onClick="toggle('smallkey3')">0</div></div>
+				<div class="cell"><div id="keychest3" class="keychest" onClick="toggle('keychest3')" onMouseover="showNiceItems(3)" onMouseout="clearCaption()">14</div></div>
+				<div class="cell"><div id="bigkey3" class="bigkey" onClick="toggle('bigkey3')" onMouseover="findItems(['PoD Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div id="smallkey3" class="smallkeyfull" onClick="toggle('smallkey3')" onMouseover="findItems(['PoD Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
-				<div class="cell"><div id="keychest4" class="keychest" onClick="toggle('keychest4')">10</div></div>
-				<div class="cell"><div id="bigkey4" class="bigkey" onClick="toggle('bigkey4')"></div></div>
-				<div class="cell"><div id="smallkey4" class="smallkeyfull" onClick="toggle('smallkey4')">0</div></div>
+				<div class="cell"><div id="keychest4" class="keychest" onClick="toggle('keychest4')" onMouseover="showNiceItems(4)" onMouseout="clearCaption()">10</div></div>
+				<div class="cell"><div id="bigkey4" class="bigkey" onClick="toggle('bigkey4')" onMouseover="findItems(['SP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div id="smallkey4" class="smallkeyfull" onClick="toggle('smallkey4')" onMouseover="findItems(['SP Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
-				<div class="cell"><div id="keychest5" class="keychest" onClick="toggle('keychest5')">8</div></div>
-				<div class="cell"><div id="bigkey5" class="bigkey" onClick="toggle('bigkey5')"></div></div>
-				<div class="cell"><div id="smallkey5" class="smallkeyfull" onClick="toggle('smallkey5')">0</div></div>
+				<div class="cell"><div id="keychest5" class="keychest" onClick="toggle('keychest5')" onMouseover="showNiceItems(5)" onMouseout="clearCaption()">8</div></div>
+				<div class="cell"><div id="bigkey5" class="bigkey" onClick="toggle('bigkey5')" onMouseover="findItems(['SW Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div id="smallkey5" class="smallkeyfull" onClick="toggle('smallkey5')" onMouseover="findItems(['SW Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
-				<div class="cell"><div id="keychest6" class="keychest" onClick="toggle('keychest6')">8</div></div>
-				<div class="cell"><div id="bigkey6" class="bigkey" onClick="toggle('bigkey6')"></div></div>
-				<div class="cell"><div id="smallkey6" class="smallkeyfull" onClick="toggle('smallkey6')">0</div></div>
+				<div class="cell"><div id="keychest6" class="keychest" onClick="toggle('keychest6')" onMouseover="showNiceItems(6)" onMouseout="clearCaption()">8</div></div>
+				<div class="cell"><div id="bigkey6" class="bigkey" onClick="toggle('bigkey6')" onMouseover="findItems(['TT Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div id="smallkey6" class="smallkeyfull" onClick="toggle('smallkey6')" onMouseover="findItems(['TT Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
-				<div class="cell"><div id="keychest7" class="keychest" onClick="toggle('keychest7')">8</div></div>
-				<div class="cell"><div id="bigkey7" class="bigkey" onClick="toggle('bigkey7')"></div></div>
-				<div class="cell"><div id="smallkey7" class="smallkeyfull" onClick="toggle('smallkey7')">0</div></div>
+				<div class="cell"><div id="keychest7" class="keychest" onClick="toggle('keychest7')" onMouseover="showNiceItems(7)" onMouseout="clearCaption()">8</div></div>
+				<div class="cell"><div id="bigkey7" class="bigkey" onClick="toggle('bigkey7')" onMouseover="findItems(['IP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div id="smallkey7" class="smallkeyfull" onClick="toggle('smallkey7')" onMouseover="findItems(['IP Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
-				<div class="cell"><div id="keychest8" class="keychest" onClick="toggle('keychest8')">8</div></div>
-				<div class="cell"><div id="bigkey8" class="bigkey" onClick="toggle('bigkey8')"></div></div>
-				<div class="cell"><div id="smallkey8" class="smallkeyfull" onClick="toggle('smallkey8')">0</div></div>
+				<div class="cell"><div id="keychest8" class="keychest" onClick="toggle('keychest8')" onMouseover="showNiceItems(8)" onMouseout="clearCaption()">8</div></div>
+				<div class="cell"><div id="bigkey8" class="bigkey" onClick="toggle('bigkey8')" onMouseover="findItems(['MM Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div id="smallkey8" class="smallkeyfull" onClick="toggle('smallkey8')" onMouseover="findItems(['MM Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
-				<div class="cell"><div id="keychest9" class="keychest" onClick="toggle('keychest9')">12</div></div>
-				<div class="cell"><div id="bigkey9" class="bigkey" onClick="toggle('bigkey9')"></div></div>
-				<div class="cell"><div id="smallkey9" class="smallkeyfull" onClick="toggle('smallkey9')">0</div></div>
+				<div class="cell"><div id="keychest9" class="keychest" onClick="toggle('keychest9')" onMouseover="showNiceItems(9)" onMouseout="clearCaption()">12</div></div>
+				<div class="cell"><div id="bigkey9" class="bigkey" onClick="toggle('bigkey9')" onMouseover="findItems(['TR Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div id="smallkey9" class="smallkeyfull" onClick="toggle('smallkey9')" onMouseover="findItems(['TR Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 		</div>
       </div>
@@ -443,6 +444,76 @@
     </div>
   </div>
 
+	<div class="modal fade" id="spoilerModal" aria-hidden="true" style="width: 400px; height: 400px; background-color: rgba(255, 255, 255, 1); z-index: 2; position: absolute; top: 20px; left: 20px;">
+		<div>
+			<center><h3>Load Spoiler Log</h3></center>
+			<center>Step 1) Select which items should be treated as trash and get marked as checked on the map by default</center>
+			<table width="380px" height="72px" style="margin: auto;">
+				<tr>
+					<td>
+						<input id="fewrupees" type="checkbox" checked />
+						<label for="fewrupees" style="width: 160px">1/5/20 Rupees</label>
+					</td>
+					<td>
+						<input id="manyrupees" type="checkbox" />
+						<label for="manyrupees" style="width: 160px">50/100/300 Rupees</label>
+					</td>
+					<td>
+						<input id="threebombs" type="checkbox" checked />
+						<label for="threebombs" style="width: 160px">3 Bombs</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="tenbombs" type="checkbox" />
+						<label for="tenbombs" style="width: 160px">10 Bombs</label>
+					</td>
+					<td>
+						<input id="arrows" type="checkbox" checked />
+						<label for="arrows" style="width: 160px">Arrows</label>
+					</td>
+					<td>
+						<input id="heartpieces" type="checkbox" checked />
+						<label for="heartpieces" style="width: 160px">Pieces of Heart</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="heartcontainers" type="checkbox" />
+						<label for="heartcontainers" style="width: 160px">Heart Containers</label>
+					</td>
+					<td>
+						<input id="armor" type="checkbox" />
+						<label for="armor" style="width: 160px">Armor</label>
+					</td>
+					<td>
+						<input id="boomerangs" type="checkbox" />
+						<label for="boomerangs" style="width: 160px">Boomerangs</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="shields" type="checkbox" checked />
+						<label for="shields" style="width: 160px">Shields</label>
+					</td>
+					<td>
+						<input id="maps" type="checkbox" checked />
+						<label for="maps" style="width: 160px">Maps</label>
+					</td>
+					<td>
+						<input id="compasses" type="checkbox" checked />
+						<label for="compasses" style="width: 160px">Compasses</label>
+					</td>
+				</tr>
+			</table>
+			<br><br>
+			<center>Step 2) Select and load the spoiler log<br><br>
+			<input type="file" onchange="readSpoilerLog(this.files[0])"></center>
+			<br><br>
+			<center><input type="button" onclick="closeSpoilerModal();" value="Cancel and Close" /></center>
+		</div>
+	</div>
+  
   <script>start()</script>
 
 </body>

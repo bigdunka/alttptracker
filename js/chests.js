@@ -379,7 +379,7 @@
 					if (items.keychest4 >= 2 && items.smallkey4 === 1 && items.hammer && items.hookshot) return 'possible';
 					return 'unavailable';					
 				} else {
-					if (!items.mirror || !items.flippers) return 'unavailable';
+					if (!items.moonpearl || !items.mirror || !items.flippers) return 'unavailable';
 					if (!canReachLightWorldBunny()) return 'unavailable';
 					var entryMethod = items.moonpearl ? 'available' : 'sequencebreak';
 					if (items.chest4 <= 2) return !items.hammer || !items.hookshot ? 'unavailable' : entryMethod;
@@ -499,18 +499,22 @@
 				if (!melee_bow()) return 'unavailable';
 				if (!(activeFlute() || (items.mirror && canReachLightWorldBunny())) || !items.somaria) return 'unavailable';
 				if (!items.boots && !items.hookshot) return 'unavailable';
-				var state = medallion_check(0);
-				if (state) return state;
+
 				
 				if (is_keysanity) {
 					if (!items.bigkey8) return 'unavailable';
-
+					var state = medallion_check(0);
+					if (state) return state;
+					
 					if (is_enemizer) {
 						return enemizer_check(8, items.lantern, false);
 					} else {
 						return items.lantern || items.firerod ? items.lantern ? 'available' : 'dark' : 'possible';
 					}
 				} else {
+					var state = medallion_check(0);
+					if (state) return state;
+					
 					if (is_enemizer) {
 						if (!items.firerod && !items.lantern) return enemizer_check(8, items.lantern, true);
 						return enemizer_check(8, items.lantern, false);
@@ -628,90 +632,70 @@
 						//Back door is available, override normal logic
 						//First 4 chests are available from the laser bridge based off safety
 						//if (items.smallkey9 === 0) {
-							if (items.somaria) {
-								//With cane, no small keys, can get all 12 chests based off items as long as no doors are opened from behind
-								//4 chests with safety, sequencebreak without safety
-								//Lantern is only required for one chest if you don't have a small key or the big key
-								//Fire rod adds 2 chests
-								//Fire rod, ice rod, and big key adds 1 chest (Trinexx)
-								//Big Key adds 1 chest
-								
-								if (items.bigkey9 && items.firerod && items.icerod)
-								{
-									if (items.keychest9 >= 5) return (items.lantern || items.flute) ? 'available' : 'dark';
-									return (items.byrna || items.cape || items.shield === 3) ? (items.lantern || items.flute) ? 'available' : 'dark' : (items.lantern || items.flute) ? 'available' : 'dark';
-									//TEMPORARLY DISABLING THE SEQUENCE BREAK CHECK, WILL ADD INTO TOGGLE SWITCH
-									//return (items.byrna || items.cape || items.shield === 3) ? (items.lantern || items.flute) ? 'available' : 'dark' : (items.lantern || items.flute) ? 'sequencebreak' : 'dark';									
-								}
-								
-								var totalchests = 0;
-								var darkchests = 0;
-								var sequencechests = 0;
-								
-								totalchests = 3;
-								
-								if (items.bigkey9) totalchests = totalchests + 1;
-								if (items.firerod) totalchests = totalchests + 2;
+						if (items.somaria) {
+							//With cane, no small keys, can get all 12 chests based off items as long as no doors are opened from behind
+							//4 chests with safety, sequencebreak without safety
+							//Lantern is only required for one chest if you don't have a small key or the big key
+							//Fire rod adds 2 chests
+							//Fire rod, ice rod, and big key adds 1 chest (Trinexx)
+							//Big Key adds 1 chest
+							
+							if (items.bigkey9 && items.firerod && items.icerod)
+							{
+								if (items.keychest9 >= 5) return (items.lantern || items.flute) ? 'available' : 'dark';
+								return (items.byrna || items.cape || items.shield === 3) ? (items.lantern || items.flute) ? 'available' : 'dark' : (items.lantern || items.flute) ? 'available' : 'dark';
+								//TEMPORARLY DISABLING THE SEQUENCE BREAK CHECK, WILL ADD INTO TOGGLE SWITCH
+								//return (items.byrna || items.cape || items.shield === 3) ? (items.lantern || items.flute) ? 'available' : 'dark' : (items.lantern || items.flute) ? 'sequencebreak' : 'dark';									
+							}
+							
+							var totalchests = 0;
+							var darkchests = 0;
+							var sequencechests = 0;
+							
+							totalchests = 3;
+							
+							if (items.bigkey9) totalchests = totalchests + 1;
+							if (items.firerod) totalchests = totalchests + 2;
 
-								if (items.byrna || items.cape || items.shield === 3)
-								{
-									totalchests = totalchests + 4;
-								}
-								else
-								{
-									sequencechests = sequencechests + 4;
-									totalchests = totalchests + 4;
-								}
+							if (items.byrna || items.cape || items.shield === 3)
+							{
+								totalchests = totalchests + 4;
+							}
+							else
+							{
+								sequencechests = sequencechests + 4;
+								totalchests = totalchests + 4;
+							}
 
-								if (!items.lantern && !items.bigkey9 && items.smallkey9 == 0)
-								{
-									darkchests = darkchests + 1;
-									totalchests = totalchests + 1;
-								}
-								else
-								{
-									totalchests = totalchests + 1;
-								}
-								
-								sequencechests = 0;
-								
-								if (items.keychest9 > 12 - totalchests) {
-									if (items.keychest9 > 12 - (totalchests - darkchests - sequencechests)) {
-										return items.lantern ? 'possible' : 'dark';
-									} else {
-										return items.lantern ? 'possible' : 'dark';
-									}
-								}
-								
-								return 'unavailable';
-						
-								/* if (!items.bigkey9) totalchests = totalchests - 2;
-								if (items.bigkey9 && !items.icerod) totalchests = totalchests - 1;
-								if (items.byrna || items.cape || items.shield === 3) 
-								{
-									totalchests = totalchests - 4;
-									sequencechests = 4;
-								}
-								if (!items.firerod) totalchests = totalchests - 2;
-								
-								
-
-								if (items.keychest9 >= 9) {
-									return (items.byrna || items.cape || items.shield === 3) ? 'available' : 'sequencebreak';
+							if (!items.lantern && !items.bigkey9 && items.smallkey9 == 0)
+							{
+								darkchests = darkchests + 1;
+								totalchests = totalchests + 1;
+							}
+							else
+							{
+								totalchests = totalchests + 1;
+							}
+							
+							sequencechests = 0;
+							
+							if (items.keychest9 > 12 - totalchests) {
+								if (items.keychest9 > 12 - (totalchests - darkchests - sequencechests)) {
+									return items.lantern ? 'possible' : 'dark';
 								} else {
-									return 'unavailable';
-								} */
-								
-								//########
-							} else {
-								//No cane, no small keys
-								if (items.keychest9 >= 9) {
-									return (items.byrna || items.cape || items.shield === 3) ? 'available' : 'sequencebreak';
-								} else {
-									return 'unavailable';
+									return items.lantern ? 'possible' : 'dark';
 								}
 							}
-						//}
+							
+							return 'unavailable';
+						} else {
+							//No cane, no small keys
+							if (items.keychest9 >= 9) {
+								return (items.byrna || items.cape || items.shield === 3) ? 'available' : 'sequencebreak';
+							} else {
+								return 'unavailable';
+							}
+						}
 					}
 					else
 					{
@@ -1261,8 +1245,8 @@
 					return 'unavailable';
 				if(items.flippers)
 					return 'available';
-				if(items.boots)
-					return 'sequencebreak';
+				//if(items.boots)
+					//return 'sequencebreak';
 				return 'possible';
 			}
 		}, { // [54]
@@ -2099,7 +2083,7 @@
 			is_opened: false,
 			is_available: always
 		}, { // [10]
-			caption: 'West of Mire (2)',
+			caption: 'Mire Shed (2)',
 			is_opened: false,
 			is_available: function() {
 				return items.moonpearl && items.flute && items.glove === 2 ? 'available' : 'unavailable';
@@ -2139,7 +2123,7 @@
 				return can_reach_outcast() || (items.agahnim && items.moonpearl && items.hammer) ? 'available' : 'unavailable';
 			}
 		}, { // [17]
-			caption: 'Death Mountain East (5 + 2 {bomb})',
+			caption: 'Paradox Cave (5 + 2 {bomb})',
 			is_opened: false,
 			is_available: function() {
 				return (items.glove || items.flute) && (items.hookshot || items.mirror && items.hammer) ?
@@ -2161,7 +2145,7 @@
 			is_opened: false,
 			is_available: always
 		}, { // [21]
-			caption: 'Cave Under Rock (bottom chest) {hookshot}/{boots}',
+			caption: 'Hookshot Cave (bottom chest) {hookshot}/{boots}',
 			is_opened: false,
 			is_available: function() {
 				return items.moonpearl && items.glove === 2 && (items.hookshot || (items.mirror && items.hammer && items.boots)) ?
@@ -2169,7 +2153,7 @@
 					'unavailable';
 			}
 		}, { // [22]
-			caption: 'Cave Under Rock (3 top chests) {hookshot}',
+			caption: 'Hookshot Cave (3 top chests) {hookshot}',
 			is_opened: false,
 			is_available: function() {
 				return items.moonpearl && items.glove === 2 && items.hookshot ?
