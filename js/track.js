@@ -927,8 +927,8 @@
 	
     window.start = function() {
 		
-		if (spoiler_enabled === 'no') {
-			$('#spoilerModal').hide();
+		if (spoiler_enabled === 'yes') {
+			$('#spoilerModal').show();
 		}
 		
         for (var k = 0; k < dungeons.length; k++) {
