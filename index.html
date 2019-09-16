@@ -1,12 +1,13 @@
 <html>
 	<head>
 		<title>ALTTP Community Tracker Launcher</title>
-		<script src="js/index.js?v=12001"></script>
+		<script src="js/index.js?v=13001"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />		
+		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
+		<link href="css/fonts.css" rel="stylesheet">
 		<style type="text/css">
-			body { font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
+			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; }
 			label { width: 5em; display: inline-block; }
 			div { margin: 5px 0; }
 		</style>
@@ -26,185 +27,373 @@
 		<meta http-equiv="Pragma" content="no-cache" />
 		<meta http-equiv="Expires" content="0" />
 	</head>
-	<body onload="load_cookie();">
-		<div>
-			<table width="530px" style="margin: auto;">
-				<tr>
-					<td colspan="4">
-						<center><img src='./images/overlay/header.png' /></center><br>
-						<span style="font-size: 10px; float: right;">Build 1.2.001 022021</span><br>
-					</td>
-				</tr>
-			</table>
-			<table width="1000px" height="262px" style="margin: auto;">
-				<tr>
-					<td>
-						<table width="500px" style="border-right: solid; border-width: 1px; border-color: #BBB;">
-							<tr>
-								<td colspan="4">
-									<center><b><u>Game Settings</u></b></center>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									State:
-								</td>
-								<td>
-									<input id="statestandard" value="standard" type="radio" name="stategroup" checked />
-									<label for="statestandard">Standard</label>
-								</td>
-								<td>
-									<input id="stateopen" value="open" type="radio" name="stategroup" />
-									<label for="stateopen">Open</label>
-								</td>
-								<td>
-									<input id="stateinverted" value="inverted" type="radio" name="stategroup" />
-									<label for="stateinverted">Inverted</label>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Variation:
-								</td>
-								<td>
-									<input id="varnone" value="none" type="radio" name="vargroup" checked />
-									<label for="varnone">None</label>
-								</td>
-								<td>
-									<input id="varkeysanity" value="keysanity" type="radio" name="vargroup" />
-									<label for="varkeysanity">Keysanity</label>
-								</td>
-								<td>
-									<input id="varretro" value="retro" type="radio" name="vargroup" />
-									<label for="varretro">Retro</label>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Swordless:
-								</td>
-								<td>
-									<input id="swordno" value="no" type="radio" name="swordgroup" checked />
-									<label for="swordno">No</label>
-								</td>
-								<td>
-									<input id="swordyes" value="yes" type="radio" name="swordgroup" />
-									<label for="swordyes">Yes</label>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Enemizer:
-								</td>
-								<td>
-									<input id="enemizerno" value="no" type="radio" name="enemizergroup" checked />
-									<label for="enemizerno">No</label>
-								</td>
-								<td>
-									<input id="enemizeryes" value="yes" type="radio" name="enemizergroup" />
-									<label for="enemizeryes">Yes</label>
-								</td>
-								<td>
-									<span class="south" title="Assumed full shuffle, not just boss shuffle. This does not disqualify some dungeon bosses based off items needed to complete them" style="font-size: 10px; color: red; cursor: pointer;">[?]</span>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Use Spoiler Log:
-								</td>
-								<td>
-									<input id="spoilerno" value="no" type="radio" name="spoilergroup" checked />
-									<label for="spoilerno">No</label>
-								</td>
-								<td>
-									<input id="spoileryes" value="yes" type="radio" name="spoilergroup" />
-									<label for="spoileryes">Yes</label>
-								</td>
-								<td>
-									<span class="south" title="This will allow you to post a spoiler log after loading to populate items into the map. WARNING! This mode is not currently allowed in the current Spoiler Log Tourney! Do not use during a tourney match for risk of a DQ." style="font-size: 10px; color: red; cursor: pointer;">[?]</span>
-								</td>
-							</tr>
-						</table>
-					</td>
-					<td>
-						<table width="500px">
-							<tr>
-								<td colspan="4">
-									<center><b><u>Display Settings</u></b></center>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Map:
-								</td>
-								<td>
-									<input id="mapno" value="no" type="radio" name="mapgroup" checked />
-									<label for="mapno">None</label>
-								</td>
-								<td>
-									<input id="mapyes" value="yes" type="radio" name="mapgroup" />
-									<label for="mapyes">Normal</label>
-								</td>
-								<td>
-									<input id="mapsmall" value="small" type="radio" name="mapgroup" />
-									<label for="mapsmall">Compact</label>
-								</td>
-							</tr>
-							<tr>
-								<td>
-									Use Spheres:
-								</td>
-								<td>
-									<input id="sphereno" value="no" type="radio" name="spheregroup" checked />
-									<label for="sphereno">No</label>
-								</td>
-								<td>
-									<input id="sphereyes" value="yes" type="radio" name="spheregroup" />
-									<label for="sphereyes">Yes</label>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4">
-									<br>
-								</td>
-							</tr>
-							<tr>
-								<td colspan="4">
-									<center><input type="checkbox" id="remembersettings"><label for="remembersettings" style="width: 220px">Remember Display Settings</label> <span class="south" title="This site uses a tracking cookie to remember your settings" style="font-size: 10px; color: red; cursor: pointer;">[?]</span></center>
-								</td>
-							</tr>
-						</table>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4">
-						<center><button type="button" class="launch" style="width: 200px" onclick="launch_tracker()">Launch Tracker</button></center>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="4">
-						<center>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check the Known Issues below for current outstanding issues</center><br>
-					</td>
-				</tr>
-			</table>
-			<table width="530px" style="margin: auto;">
-				<tr>
-					<td colspan="2">
-						<center><a href="release.html"><img src='./images/overlay/release.png' /></a></center><br>
-					</td>
-					<td colspan="2">
-						<center><a href="issues.html"><img src='./images/overlay/issues.png' /></a></center><br>
-					</td>
-				</tr>
-				<tr>
-					<td colspan="2">
-						<center><a href="contributors.html"><img src='./images/overlay/contributors.png' /></a></center><br>
-					</td>
-					<td colspan="2">
-						<center><a href="downloads.html"><img src='./images/overlay/downloads.png' /></a></center><br>
-					</td>
-				</tr>
-			</table>
+	<body onload="load_cookie();" background="./images/overlay/background.png">
+		<div style="float: left; width: 400px;">
+			<img src="./images/overlay/header.png" style="width: 380px"><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.3.001 091619 - Compatible for v31</span><br><br>
+			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
+			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
+			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
+			<a href="downloads.html"><img src='./images/overlay/downloads.png' style="width: 380px"/></a><br><br>
+			<span style="font-size: 14px; color: white;">Report any issues to Dunka (Discord: BigDunka#8354)<br>Check the Known Issues below for current outstanding issues</span>
+		</div>
+		<div style="float: left">
+			<div>
+				
+				<table width="1000px" style="margin: auto;">
+					<tr>
+						<td>
+							<center><span style="font-size: 15px; color: white;">NOTICE: This release has not been fully tested with all of the recently released v31 logic and there will likely be logic issues until we are able to fully investigate all logic changes! Please see the Known Issues page for already known issues. Please report any issues to Dunka (Discord: BigDunka#8354) and we will address them, thank you! There will be several revisions over the next few weeks addressing minor issues and updating features.<br><br>
+							Please read the Release Notes for all of the changes, there are a few!</span></center>
+						<td>
+					</tr>
+					
+					<tr>
+						<td>
+							<table width="1000px" height="220px" background="./images/overlay/gameplay.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+								<tr height="40px">
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										World State:
+									</td>
+									<td>
+										<input id="gametypestandard" value="S" type="radio" name="gametypegroup" checked />
+										<label for="gametypestandard" style="width:100px" >Standard</label>
+									</td>
+									<td>
+										<input id="gametypeopen" value="O" type="radio" name="gametypegroup" />
+										<label for="gametypeopen" style="width:100px" >Open</label>
+									</td>
+									<td>
+										<input id="gametypeinverted" value="I" type="radio" name="gametypegroup" />
+										<label for="gametypeinverted" style="width:100px" >Inverted</label>
+									</td>
+									<td>
+										<input id="gametyperetro" value="R" type="radio" name="gametypegroup" />
+										<label for="gametyperetro" style="width:100px" >Retro</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="140px">
+										Entrance Shuffle: <span class="south" title="Entrance will be the next major revision, coming soon(tm)" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input disabled id="entrancenone" value="N" type="radio" name="entrancegroup" checked />
+										<label for="entrancenone" style="width:100px" >None</label>
+									</td>
+									<td>
+										<input disabled id="entrancesimple" value="S" type="radio" name="entrancegroup" />
+										<label for="entrancesimple" style="width:100px" >Simple</label>
+									</td>
+									<td>
+										<input disabled id="entrancerestricted" value="R" type="radio" name="entrancegroup" />
+										<label for="entrancerestricted" style="width:100px" >Restricted</label>
+									</td>
+									<td>
+										<input disabled id="entrancefull" value="F" type="radio" name="entrancegroup" />
+										<label for="entrancefull" style="width:100px" >Full</label>
+									</td>
+									<td>
+										<input disabled id="entrancecrossed" value="C" type="radio" name="entrancegroup" />
+										<label for="entrancecrossed" style="width:100px" >Crossed</label>
+									</td>
+									<td>
+										<input disabled id="entranceinsanity" value="I" type="radio" name="entrancegroup" />
+										<label for="entranceinsanity" style="width:100px" >Insanity</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Boss Shuffle:
+									</td>
+									<td>
+										<input id="bossnone" value="N" type="radio" name="bossgroup" checked />
+										<label for="bossnone" style="width:100px" >None</label>
+									</td>
+									<td>
+										<input id="bosssimple" value="S" type="radio" name="bossgroup" />
+										<label for="bosssimple" style="width:100px" >Simple</label>
+									</td>
+									<td>
+										<input id="bossfull" value="F" type="radio" name="bossgroup" />
+										<label for="bossfull" style="width:100px" >Full</label>
+									</td>
+									<td>
+										<input id="bossrandom" value="R" type="radio" name="bossgroup" />
+										<label for="bossrandom" style="width:100px" >Random</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Enemy Shuffle: <span class="south" title="This should be released in one of the next two major revisions" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input disabled id="enemynone" value="N" type="radio" name="enemygroup" checked />
+										<label for="enemynone" style="width:100px" >None</label>
+									</td>
+									<td>
+										<input disabled id="enemyshuffled" value="S" type="radio" name="enemygroup" />
+										<label for="enemyshuffled" style="width:100px" >Shuffled</label>
+									</td>
+									<td>
+										<input disabled id="enemyrandom" value="F" type="radio" name="enemygroup" />
+										<label for="enemyrandom" style="width:100px" >Random</label>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table width="1000px" height="180px" background="./images/overlay/logic.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+								<tr height="40px">
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Glitches: <span class="south" title="Glitches should be released in one of the next two major revisions" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input disabled id="glitchesnone" value="N" type="radio" name="glitchesgroup" checked />
+										<label for="glitchesnone" style="width:100px">None</label>
+									</td>
+									<td>
+										<input disabled id="glitchesoverworld" value="O" type="radio" name="glitchesgroup" />
+										<label for="glitchesoverworld" style="width:100px">Overworld</label>
+									</td>
+									<td>
+										<input disabled id="glitchesoverworld" value="M" type="radio" name="glitchesgroup" />
+										<label for="glitchesoverworld" style="width:100px">Major</label>
+									</td>
+									<td>
+										<input disabled id="glitchesoverworld" value="L" type="radio" name="glitchesgroup" />
+										<label for="glitchesoverworld" style="width:100px">No Logic</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="120px">
+										Dungeon Items:
+									</td>
+									<td>
+										<input id="dungeonstandard" value="S" type="radio" name="dungeongroup" checked />
+										<label for="dungeonstandard" style="width:100px">Standard</label>
+									</td>
+									<td>
+										<input id="dungeonmcshuffle" value="M" type="radio" name="dungeongroup" />
+										<label for="dungeonmcshuffle" style="width:100px">MC Shuffle</label>
+									</td>
+									<td>
+										<input id="dungeonmcsshuffle" value="K" type="radio" name="dungeongroup" />
+										<label for="dungeonmcsshuffle" style="width:100px">MCS Shuffle</label>
+									</td>
+									<td>
+										<input id="dungeonfullshuffle" value="F" type="radio" name="dungeongroup" />
+										<label for="dungeonfullshuffle" style="width:100px" >Keysanity</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="120px">
+										Item Placement: <span class="south" title="This should be released in the next minor revision" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input disabled id="placementbasic" value="B" type="radio" name="placementgroup" checked />
+										<label for="placementbasic" style="width:100px">Basic</label>
+									</td>
+									<td>
+										<input disabled id="placementadvanced" value="A" type="radio" name="placementgroup" />
+										<label for="placementadvanced" style="width:100px">Advanced</label>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table width="1000px" height="180px" background="./images/overlay/goal.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+								<tr height="40px">
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Goal:
+									</td>
+									<td>
+										<input id="goalganon" value="G" type="radio" name="goalgroup" checked />
+										<label for="goalganon" style="width:100px">Ganon</label>
+									</td>
+									<td>
+										<input id="goaldungeons" value="A" type="radio" name="goalgroup" />
+										<label for="goaldungeons" style="width:100px">All Dungeons</label>
+									</td>
+									<td>
+										<input id="goalpedestal" value="P" type="radio" name="goalgroup" />
+										<label for="goalpedestal" style="width:100px">Pedestal</label>
+									</td>
+									<td>
+										<input id="goalother" value="O" type="radio" name="goalgroup" />
+										<label for="goalother" style="width:100px">Other</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Open Tower: <span class="south" title="Open Tower/Ganon Vuln flags will be available in the next minor revision" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input disabled id="goalcrystal" value="C" type="radio" name="towergroup" checked />
+										<label for="goalcrystal" style="width:100px">
+										  <select disabled id="towerselect" style="width: 40px">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7" selected>7</option>
+										  </select> Crystals</label>
+									</td>
+									<td>
+										<input disabled id="goalrandom" value="R" type="radio" name="towergroup" />
+										<label for="goalrandom" style="width:100px">Random</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="140px">
+										Ganon Vulnerable: <span class="south" title="Open Tower/Ganon Vuln flags will be available in the next minor revision" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input disabled id="ganoncrystal" value="C" type="radio" name="ganongroup" checked />
+										<label for="ganoncrystal" style="width:100px">
+										<label for="ganoncrystal" style="width:100px">
+										  <select disabled id="ganonselect" style="width: 40px">
+											<option value="0">0</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+											<option value="3">3</option>
+											<option value="4">4</option>
+											<option value="5">5</option>
+											<option value="6">6</option>
+											<option value="7" selected>7</option>
+										  </select> Crystals</label>
+									</td>
+									<td>
+										<input disabled id="ganonrandom" value="R" type="radio" name="ganongroup" />
+										<label for="ganonrandom" style="width:100px">Random</label>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table width="1000px" height="100px" background="./images/overlay/difficulty.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+								<tr height="40px">
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Swords:
+									</td>
+									<td>
+										<input id="swordsassured" value="A" type="radio" name="swordsgroup" checked />
+										<label for="swordsassured">Assured</label>
+									</td>
+									<td>
+										<input id="swordsrandomized" value="R" type="radio" name="swordsgroup" />
+										<label for="swordsrandomized">Randomized</label>
+									</td>
+									<td>
+										<input id="swordsvanilla" value="V" type="radio" name="swordsgroup" />
+										<label for="swordsvanilla">Vanilla</label>
+									</td>
+									<td>
+										<input id="swordsswordless" value="S" type="radio" name="swordsgroup" />
+										<label for="swordsswordless">Swordless</label>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<table width="1000px" height="230px" background="./images/overlay/display.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+								<tr height="40px">
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Sprite: <span class="south" title="We would to add the ability to change the sprite, but will need the proper sprite images to load, may or may not happen" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<select disabled id="spriteselect" style="width: 100%">
+										  <option value="link">Link</option>
+										</select>									
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Map:
+									</td>
+									<td>
+										<input checked id="mapno" value="N" type="radio" name="mapgroup" />
+										<label for="mapno">None</label>
+									</td>
+									<td>
+										<input id="mapyes" value="M" type="radio" name="mapgroup" />
+										<label for="mapyes">Normal</label>
+									</td>
+									<td>
+										<input id="mapsmall" value="C" type="radio" name="mapgroup" />
+										<label for="mapsmall">Compact</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Use Spoiler Log: <span class="south" title="This will allow you to post a spoiler log after loading to populate items into the map<br>This feature will be re-enabled after we determine the format of the v31 spoiler logs." style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input disabled id="spoilerno" value="N" type="radio" name="spoilergroup" checked />
+										<label for="spoilerno">No</label>
+									</td>
+									<td>
+										<input disabled id="spoileryes" value="Y" type="radio" name="spoilergroup" />
+										<label for="spoileryes">Yes</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Use Spheres: <span class="south" title="This will add additional sphere tracking functionality (See Instructions for details)" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input id="sphereno" value="N" type="radio" name="spheregroup" checked />
+										<label for="sphereno">No</label>
+									</td>
+									<td>
+										<input id="sphereyes" value="Y" type="radio" name="spheregroup" />
+										<label for="sphereyes">Yes</label>
+									</td>
+								</tr>
+								<tr>
+									<td colspan="4">
+										<center><input type="checkbox" id="remembersettings"><label for="remembersettings" style="width: 220px">Remember Display Settings</label> <span class="south" title="This site uses a tracking cookie to remember your settings" style="font-size: 12px; color: red; cursor: pointer;">[?]</span></center>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr>
+						<td colspan="4">
+							<center><button type="button" class="launch" style="width: 400px; font-family: 'roboto_condensedregular', sans-serif; font-size: 50px; background-color: #BBB;" onclick="launch_tracker()">LAUNCH TRACKER</button></center>
+						</td>
+					</tr>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>

@@ -1,6 +1,7 @@
 (function(window) {
     'use strict';
 
+	
     // based on https://github.com/medialize/URI.js/blob/gh-pages/src/URI.js
     window.uri_query = memoize(function() {
         var q, href = location.href + '',
@@ -30,4 +31,5 @@
         memoized._cache = {};
         return memoized;
     };
+	
 }(window));

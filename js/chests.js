@@ -1,21 +1,15 @@
 (function(window) {
     'use strict';
 
-    var query = uri_query();
-	var state = query.state;
-	var variation = query.variation;
-	var swordless = query.swordless;
-	var enem = query.enemizer;
-	
-	var is_standard = state === 'standard';
-	var is_keysanity = variation === 'keysanity';
-	var is_inverted = state === 'inverted';
-	var is_swordless = swordless === 'yes';
-	var is_retro = variation === 'retro';
-	var is_enemizer = enem === 'yes';
+	var is_swordless = flags.swordmode === 'S';
+	var is_standard = flags.gametype === 'S';
+	var is_bossshuffle = flags.bossshuffle != 'N';
+	var is_enemyshuffle = flags.enemyshuffle != 'N';
+	var is_retro = flags.gametype === 'R';
+	var is_advanced = flags.itemplacement === 'A';
 	
     function medallion_check(i) {
-        if ((!items.sword && swordless === 'no') || !items.bombos && !items.ether && !items.quake) return 'unavailable';
+        if ((!items.sword && !is_swordless) || !items.bombos && !items.ether && !items.quake) return 'unavailable';
         if (medallions[i] === 1 && !items.bombos ||
             medallions[i] === 2 && !items.ether ||
             medallions[i] === 3 && !items.quake) return 'unavailable';
@@ -33,55 +27,160 @@
 	}		
 
     function melee() { return items.sword || items.hammer; }
-    function melee_bow() { return melee() || items.bow > 1; }
+    function melee_bow() { return melee() || items.bow > 0; }
     function cane() { return items.somaria || items.byrna; }
     function rod() { return items.firerod || items.icerod; }
-	function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 1 || items.hammer || items.firerod; }
+	function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 0 || items.hammer || items.firerod; }
 
     function always() { return 'available'; }
 
+	function enemizer_check_new(i) {
+		switch (enemizer[i]) {
+			case 0:
+				return 'possible';
+				break;
+			case 1:
+				if (items.sword > 0 || items.hammer || items.bow > 0 || items.boomerang > 0 || items.byrna || items.somaria || items.icerod || items.firerod) return 'available';
+				break;
+			case 2:
+				if (melee_bow() || cane() || rod() || items.hammer) return 'available';
+				break;
+			case 3:
+				if (items.sword > 0 || items.hammer) return 'available';
+				break;
+			case 4:
+				if (items.sword > 0 || items.hammer) return 'available';
+				break;
+			case 5:
+				if (items.hookshot && (items.sword > 0 || items.hammer)) return 'available';
+				break;
+			case 6:
+				if (items.sword > 0 || items.hammer || items.firerod) return 'available';
+				break;
+			case 7:
+				if (items.sword > 0 || items.hammer || items.somaria || items.byrna) return 'available';
+				break;
+			case 8:
+				if (items.firerod || (items.bombos && (items.sword > 0 || items.hammer))) return 'available';
+				break;
+			case 9:
+				if (melee_bow() || items.hammer) return 'available';
+				break;
+			case 10:
+				if (items.firerod && items.icerod && (items.hammer || items.sword > 0)) return 'available';
+				break;
+				
+		}
+		
+		return 'unavailable';
+	}
+	
+	function available_chests(allchests, smkeys, maxchest, chestcount) {
+		var achests = 0;
+		var pchests = 0;
+		var dachests = 0;
+		var dpchests = 0;
+		var uchests = 0;
+		
+		//Move dungeon item and key chests from available to possible (Don't count big key, is a 1 for 1)
+		switch (flags.dungeonitems) {
+			case 'S':
+				achests = -2;
+				pchests = 2;
+				break;
+			case 'K':
+			case 'F':
+				achests = achests - smkeys;
+				pchests = pchests + smkeys;
+				break;
+		}
+
+		for (var i = 0; i < allchests.length; i++) {
+			switch (allchests[i]) {
+				case 'A':
+					achests++;
+					break;
+				case 'P':
+					pchests++;
+					break;
+				case 'DA':
+					dachests++;
+					break;
+				case 'DP':
+					dpchests++;
+					break;
+				case 'U':
+					uchests++;
+					break;
+			}
+		}
+		
+		achests = achests - uchests;
+		
+		var itemscollected = (maxchest - chestcount);
+		
+		for (var i = 0; i < itemscollected; i++) {
+			if (achests > 0) {
+				achests--;
+			} else if (dachests > 0) {
+				dachests--;
+			} else if (pchests > 0) {
+				pchests--;
+			} else if (dpchests > 0) {
+				dpchests--;
+			}
+		}
+		
+		if (achests > 0) return 'available';
+		if (pchests > 0) return 'possible';
+		if (dachests > 0) return 'darkavailable';
+		if (dpchests > 0) return 'darkpossible';
+		return 'unavailable';
+	}
+	
+	
 	function enemizer_check(i, d, p) {
 		if (enemizer[i] === 0) {
 			return 'possible';
 		} else if (enemizer[i] === 1) {
 			//Armos
-			if (items.sword > 0 || items.hammer || items.bow > 0 || items.boomerang > 0 || items.byrna || items.somaria || items.icerod || items.firerod) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (items.sword > 0 || items.hammer || items.bow > 0 || items.boomerang > 0 || items.byrna || items.somaria || items.icerod || items.firerod) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
 			return 'unavailable';
 		} else if (enemizer[i] === 2) {
 			//Lanmola
-			if (melee_bow() || cane() || rod() || items.hammer) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (melee_bow() || cane() || rod() || items.hammer) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
 			return 'unavailable';
 		} else if (enemizer[i] === 3) {
 			//Moldorm
-			if (items.sword > 0 || items.hammer) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (items.sword > 0 || items.hammer) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
 			return 'unavailable';
 		} else if (enemizer[i] === 4) {
 			//Helmasaur
-			if (items.sword > 0 || items.hammer) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (items.sword > 0 || items.hammer) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
 			return 'unavailable';
 		} else if (enemizer[i] === 5) {
 			//Arrghus
-			if (items.hookshot && (items.sword > 0 || items.hammer)) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (items.hookshot && (items.sword > 0 || items.hammer)) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
 			return 'unavailable';
 		} else if (enemizer[i] === 6) {
 			//Mothula
-			if (items.sword > 0 || items.hammer || items.firerod) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (items.sword > 0 || items.hammer || items.firerod) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
 			return 'unavailable';
 		} else if (enemizer[i] === 7) {
 			//Blind
-			if (items.sword > 0 || items.hammer || items.somaria) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (items.sword > 0 || items.hammer || items.somaria) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
 			return 'unavailable';
 		} else if (enemizer[i] === 8) {
 			//Kholdstare
-			if (items.firerod || (items.bombos && (items.sword > 0 || items.hammer))) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (items.firerod || (items.bombos && (items.sword > 0 || items.hammer))) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
 			return 'unavailable';
 		} else if (enemizer[i] === 9) {
 			//Vitreous
-			if (melee_bow() || items.hammer) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (melee_bow() || items.hammer) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
 			return 'unavailable';
 		} else if (enemizer[i] === 10) {
 			//Trinexx
-			if (items.firerod && items.icerod && (items.hammer || items.sword > 0)) return d ? p == true ? 'possible' : 'available' : 'dark';
+			if (items.firerod && items.icerod && (items.hammer || items.sword > 0)) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
 			return 'unavailable';
 		}
 	}
@@ -116,782 +215,1159 @@
 	{
 		return items.flute && canReachLightWorld();
 	}
-
 	
-// define dungeon chests
-	if(is_inverted)
+	if (flags.gametype === "I")
 	{
+		// define dungeon chests
 		window.dungeons = [{ // [0]
-			caption: 'Eastern Palace {lantern}',
+			caption: 'Eastern Palace',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity) {
-					if (is_enemizer) {
-						if(!items.bigkey0 || items.bow < 2 || !canReachLightWorld()) return 'unavailable';
-						return enemizer_check(0, items.lantern, false);
-					} else {
-						if(!items.bigkey0 || items.bow < 2 || !canReachLightWorld()) return 'unavailable';
-						return items.lantern ? 'available' : 'dark';
-					}
-				} else {
-					if (is_enemizer) {
-						return canReachLightWorld() ? enemizer_check(0, items.lantern) : 'unavailable';
-					} else {
-						return items.bow > 1 && canReachLightWorld() ?
-							items.lantern ? 'available' : 'dark' :
-							'unavailable';
-					}
+				if (!items.bigkey0 || items.bow === 0 || !canReachLightWorld()) return 'unavailable';
+				if (enemizer_check_new(0) === 'available') {
+					return items.lantern ? 'available' : 'darkavailable';
+				} else if (enemizer_check_new(0) === 'possible') {
+					return items.lantern ? 'possible' : 'darkavailable';
 				}
+				return 'unavailable';
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!canReachLightWorldBunny()) return 'unavailable';
-					if (items.bigkey0 && items.bow > 1 && items.lantern) return 'available';
-					if (items.keychest0 >= 4) return 'possible';
-					if (items.keychest0 >= 3 && !items.bigkey0 && !items.lantern) return 'dark';
-					if (items.keychest0 >= 3 && (items.bigkey0 || items.lantern)) return 'possible';
-					if (items.keychest0 >= 2 && items.bigkey0) return items.lantern ? 'possible' : 'dark';
-					if (items.bigkey0 && items.bow > 1 && !items.lantern) return 'dark';
-					return 'unavailable';					
-				} else {
-					return canReachLightWorldBunny() ? (items.chest0 <= 2 && !items.lantern ||
-						items.chest0 === 1 && !(items.bow > 1 && items.moonpearl) ?
-						'possible' : (items.moonpearl ? 'available' : (items.mirror ? 'sequencebreak' : 'unavailable'))) : 'unavailable';
+				if (!canReachLightWorldBunny()) return 'unavailable';
+				switch (flags.dungeonitems) {
+					case 'S':
+						return items.chest0 <= 2 && !items.lantern || items.chest0 === 1 && !(items.bow > 0) ? 'possible' : 'available';
+						break;
+					case 'M':
+						//break;
+					case 'K':
+						if (items.chest0 >= 3) return 'available';
+						if (items.chest0 >= 2) return items.lantern ? 'available' : 'darkavailable';
+						if (items.chest0 === 1) {
+							if (dungeoncheck === 'unavailable') {
+								return dungeoncheck;
+							}
+							if (items.bow > 0) return items.lantern ? dungeoncheck : 'darkavailable';
+						}
+						return 'unavailable';
+					case 'F':
+						if (items.bigkey0 && items.bow > 0 && items.lantern) return 'available';
+						if (items.chest0 >= 4) return 'available';
+						if (items.chest0 >= 3 && !items.bigkey0 && !items.lantern) return 'darkavailable';
+						if (items.chest0 >= 3 && (items.bigkey0 || items.lantern)) return 'possible';
+						if (items.chest0 >= 2 && items.bigkey0) return items.lantern ? 'possible' : 'darkavailable';
+						if (items.chest0 === 1) {
+							if (dungeoncheck === 'unavailable') {
+								return dungeoncheck;
+							}
+							if (items.bigkey0 && items.bow > 0) return items.lantern ? dungeoncheck : 'darkavailable';
+						}
+						return 'unavailable';
+						break;
 				}
 			}
 		}, { // [1]
-			caption: 'Desert Palace',
+			caption: 'Desert Palace {book}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity) {
-					if (is_enemizer) {
-					} else {
-					}
-					if (!canReachLightWorldBunny()) return 'unavailable';
-					if (!items.bigkey1) return 'unavailable';
-					if (!(melee_bow() || cane() || rod())) return 'unavailable';
-					if (!items.book || !items.glove || (!items.lantern && !items.firerod)) return 'unavailable';
-					return 'available';
-				} else {
-					if (is_enemizer) {
-					} else {
-					}
-					if (!(melee_bow() || cane() || rod())) return 'unavailable';
-					if (!(items.book && items.glove && canReachLightWorld())) return 'unavailable';
-					if (!items.lantern && !items.firerod) return 'unavailable';
-					return items.boots ? 'available' : 'possible';
-				}
-			},
-			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!canReachLightWorldBunny() || !items.book) return 'unavailable';
-					if (items.bigkey1 && items.smallkey1 === 1 && items.glove && (items.lantern || items.firerod) && items.boots) return 'available';
-									
-					// item count approach
-					var reachable = 0;
-					var curr_keys = 0;
-					curr_keys += items.smallkey1;
-					reachable += 1; // free first chest
-					// 0 key chests
-					if (items.boots) {
-						reachable += 1; // bonk spot on torch
-					}
-
-					if (items.bigkey1) {
-						reachable += 1; // big chest
-						if (items.glove && (items.lantern || items.firerod)) {
-							reachable += 1; // boss kill
+				if (!canReachLightWorldBunny()) return 'unavailable';				
+				if (!items.book || !items.glove || (!items.lantern && !items.firerod)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(1);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (dungeoncheck === 'available') {
+							return items.boots ? 'available' : 'possible';
 						}
-					}
-									
-					// 1 key chests
-					if (curr_keys > 0) {
-						reachable += 2; // Right side small key room
-						curr_keys -= 1;
-					}				
-					
-					if (items.keychest1 > 6 - reachable) {
-						return 'possible';
-					}					
-					return 'unavailable';					
-				} else {
-					if (!items.book || !canReachLightWorldBunny() || (!items.moonpearl && !items.mirror)) return 'unavailable';
-					if (items.glove && (items.firerod || items.lantern) && items.boots) return (items.moonpearl ? 'available' : 'sequencebreak');
-					return items.chest1 > 1 && items.boots ? (items.moonpearl ? 'available' : 'sequencebreak') : 'possible';
-				}
-			}
-		}, { // [2]
-			caption: 'Tower of Hera',
-			is_beaten: false,
-			is_beatable: function() {
-				if (is_keysanity) {
-					if (is_enemizer) {
-					} else {
-					}
-					if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2))
-					return 'unavailable';
-					if (items.bigkey2) return (items.lantern || activeFlute()) ? 'available' : 'dark';
-					return 'unavailable';
-				} else {
-					if (is_enemizer) {
-					} else {
-					}
-					return this.can_get_chest();
-				}
-			},
-			can_get_chest: function() {
-				if (is_keysanity) {
-					if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2))
-					return 'unavailable';
-				
-					if (items.bigkey2 && items.smallkey2 === 1 && melee() && (items.lantern || items.firerod) && ((items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2))) return 'available';
-					
-					if (items.keychest2 >= 5) return (!items.flute && !items.lantern) ? 'dark' : 'possible';
-					if (items.keychest2 >= 4 && items.smallkey2 === 1 && (items.firerod || items.lantern)) return (!items.flute && !items.lantern) ? 'dark' : 'possible';
-					if (items.keychest2 >= 3 && items.bigkey2) return (!items.flute && !items.lantern) ? 'dark' : 'possible';
-					if (items.keychest2 >= 2 && items.bigkey2 && (melee() || (items.smallkey2 === 1 && (items.firerod || items.lantern)))) return (!items.flute && !items.lantern) ? 'dark' : 'possible';
-					return 'unavailable';
-				} else {
-					if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2))
-						return 'unavailable';
-					return items.firerod || items.lantern ?
-						(items.lantern || activeFlute() ? 'available' : 'dark') :
-						'possible';					
-				}
-			}
-		}, { // [3]
-			caption: 'Palace of Darkness {lantern}',
-			is_beaten: false,
-			is_beatable: function() {
-				if(!canReachPyramid() || !(items.bow > 1) || !items.hammer) return 'unavailable';
-				if (is_keysanity) {
-					if (!items.bigkey3 || items.smallkey3 === 0) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(3, items.lantern, items.smallkey3 < 6);
-					} else {
-						if (items.smallkey3 < 6) return items.lantern ? 'possible' : 'dark';
-						return items.lantern ? 'available' : 'dark';
-					}
-				} else {
-					if (is_enemizer) {
-						return enemizer_check(3, items.lantern, false);
-					} else {
-						return items.lantern ? 'available' : 'dark';
-					}
-				}
-			},
-			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!canReachPyramidWithoutFlippers() && !canReachPyramid()) return 'unavailable';
-					if (items.smallkey3 === 6 && items.bigkey3 && items.hammer && items.bow > 1 && items.lantern) return 'available';
-					// item count approach
-					var reachable = 0;
-					var curr_keys = 0;
-					var dark_chests = 0;
-					curr_keys += items.smallkey3;
-					reachable += 1; // free first chest
-					// 0 key chests
-					if (items.bow > 1) reachable += 2; // bow locked right side
-					// conditioned key usage
-					if (items.bow > 1 && items.hammer) {
-						reachable += 2; // bridge and dropdown
-					} else {
-						if (curr_keys > 0) {
-							reachable += 2; // bridge and dropdown
-							curr_keys -= 1; // front door used
+						return dungeoncheck;
+						break;
+					case 'K':
+						if (items.smallkey1 === 1) {
+							if (dungeoncheck === 'available') {
+								return items.boots ? 'available' : 'possible';
+							}
+							return dungeoncheck;
 						}
-					}
-					// 1 key chests
-					if (curr_keys > 0) {
-						reachable += 3; // Back side of POD, since it yields most chests for the key
-						curr_keys -= 1;
-						dark_chests += 2;
-					}
-					if (curr_keys > 0) {
-						reachable += items.bigkey3 ? 3 : 2; // Dark area with big chest
-						curr_keys -= 1;
-						dark_chests += items.bigkey3 ? 3 : 2;
-					}
-					if (items.bow > 1 && items.hammer && items.bigkey3 && curr_keys > 0) {
-						reachable += 1; // King Helmasaur. We do not prioritize him when he is beatable. This way we show the max amount of items.
-						curr_keys -= 1;
-						dark_chests += 1;
-					}
-					if (curr_keys > 0) {
-						reachable += 1; // Spike Room
-						curr_keys -= 1;
-					}
-					if (curr_keys > 0) {
-						reachable += 1; // Vanilla big key chest
-						curr_keys -= 1;
-					}
-
-					if (items.keychest3 > 14 - reachable) {
-						if (items.keychest3 > 14 - (reachable - dark_chests)) {
-							return 'possible';
+						return dungeoncheck === 'unavailable' ? 'unavailable' : 'possible';
+						break;
+					case 'F':
+						if (!items.bigkey1) return 'unavailable';
+						return dungeoncheck;
+						break;
+				}
+			},
+			can_get_chest: function() {
+				if (!items.book || !canReachLightWorldBunny()) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(1);
+				switch (flags.dungeonitems) {
+					case 'S':
+						if (items.chest1 === 2) return items.boots ? 'available' : 'possible';
+						if (items.chest1 === 1) {
+							if (items.glove && (items.firerod || items.lantern) && items.boots) return dungeoncheck === 'unavailable' ? 'possible' : dungeoncheck;
+							return 'possible'
+						}
+						break;
+					case 'M':
+						if (items.chest1 === 4) return 'available';
+						if (items.chest1 > 1) return items.boots ? 'available' : 'possible';
+						if (items.chest1 === 1) {
+							if (items.glove && (items.firerod || items.lantern) && items.boots) return dungeoncheck === 'unavailable' ? 'possible' : dungeoncheck;
+							return 'possible'
+						}
+						break;
+					case 'K':
+						if (items.chest1 === 5) return 'available';
+						if (items.smallkey1 === 0) {
+							if (items.chest1 === 4) return items.boots ? 'available' : 'possible';
+							if (items.chest1 === 3) return items.boots ? (dungeoncheck === 'unavailable' ? 'unavailable' : 'possible') : 'unavailable';
 						} else {
-							return items.lantern ? 'possible' : 'dark';
+							if (items.chest1 > 2) return 'available';
+							if (items.chest1 > 1) return items.boots ? 'available' : 'possible';
+							if (items.chest1 === 1) return items.boots ? dungeoncheck : 'unavailable';
 						}
-					}
-					
-					return 'unavailable'; // We got all reachable chests or even more if helmasaur was not prioritized
-				} else {
-					if(canReachPyramidWithoutFlippers())
-						return !(items.bow > 1 && items.lantern) ||
-							items.chest3 === 1 && !items.hammer ?
-							'possible' : 'available';
-					if(!items.flippers) //Will add back in sequence break logic later
-						return 'unavailable';
-					return !(items.bow > 1) ||
-						items.chest3 === 1 && !items.hammer ?
-						'possible' : (items.flippers ? (items.lantern ? 'available' : 'possible') : 'sequencebreak');
-				}
-			}
-		}, { // [4]
-			caption: 'Swamp Palace {mirror}',
-			is_beaten: false,
-			is_beatable: function() {
-				if (is_keysanity) {
-					if (items.smallkey4 === 0 || !items.moonpearl || !canReachLightWorldBunny() || !items.mirror || !items.flippers || !items.hammer || !items.hookshot) return 'unavailable';					
-					if (is_enemizer) {
-						return enemizer_check(4, true, false);
-					} else {
-						return 'available'
-					}
-				} else {
-					if (!items.moonpearl || !canReachLightWorldBunny() || !items.mirror || !items.flippers || !items.hammer || !items.hookshot) return 'unavailable';	
-					if (is_enemizer) {
-						return enemizer_check(4, true, false);
-					} else {
-						return 'available'
-					}
-				}
-			},
-			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!items.moonpearl || !items.mirror || !items.flippers) return 'unavailable';
-					if (!canReachLightWorldBunny()) return 'unavailable';
-					if (items.bigkey4 && items.smallkey4 === 1 && items.hammer && items.hookshot) return 'available';
-					if (items.keychest4 === 10) return 'possible';
-					if (items.keychest4 >= 9 && items.smallkey4 === 1) return 'possible';
-					if (items.keychest4 >= 6 && items.smallkey4 === 1 && items.hammer) return 'possible';
-					if (items.keychest4 >= 5 && items.bigkey4 && items.smallkey4 === 1 && items.hammer) return 'possible';				
-					if (items.keychest4 >= 2 && items.smallkey4 === 1 && items.hammer && items.hookshot) return 'possible';
-					return 'unavailable';					
-				} else {
-					if (!items.moonpearl || !items.mirror || !items.flippers) return 'unavailable';
-					if (!canReachLightWorldBunny()) return 'unavailable';
-					var entryMethod = items.moonpearl ? 'available' : 'sequencebreak';
-					if (items.chest4 <= 2) return !items.hammer || !items.hookshot ? 'unavailable' : entryMethod;
-					if (items.chest4 <= 4) return !items.hammer ? 'unavailable' : !items.hookshot ? 'possible' : entryMethod;
-					if (items.chest4 <= 5) return !items.hammer ? 'unavailable' : entryMethod;
-					return !items.hammer ? 'possible' : entryMethod;
-				}
-			}
-		}, { // [5]
-			caption: 'Skull Woods',
-			is_beaten: false,
-			is_beatable: function() {
-				if (!items.firerod || (items.sword == 0 && !is_swordless)) {
-					return 'unavailable';
-				}
-				if (is_enemizer) {
-					return enemizer_check(5, true, false);
-				} else {
-					return 'available';
-				}
-			},
-			can_get_chest: function() {
-				if (is_keysanity) {
-					if (items.bigkey5 && items.firerod && (items.sword > 0 || swordless === 'yes')) return 'available';
-					if (items.keychest5 >= 4) return 'possible';
-					if (items.keychest5 >= 3 && (items.bigkey5 || items.firerod)) return 'possible';
-					if (items.keychest5 >= 2 && items.firerod && ((items.sword > 0 && swordless === 'no') || items.bigkey5)) return 'possible';
-					return 'unavailable';					
-				} else {
-					return items.firerod ? 'available' : 'possible';
-				}
-			}
-		}, { // [6]
-			caption: 'Thieves\' Town',
-			is_beaten: false,
-			is_beatable: function() {
-				if (!(melee() || cane())) return 'unavailable';
-				if (is_keysanity) {
-					if (!items.bigkey6) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(6, true, false);
-					} else {
-						return 'available';
-					}
-				} else {
-					if (is_enemizer) {
-						return enemizer_check(6, true, false);
-					} else {
-						return 'available';
-					}
-				}
-			},
-			can_get_chest: function() {
-				if (is_keysanity) {
-					if (items.bigkey6 && items.smallkey6 === 1 && items.hammer) return 'available';
-					if (items.keychest6 >= 5) return 'possible';
-					if (items.keychest6 >= 3 && items.bigkey6) return 'possible';
-					if (items.keychest6 >= 2 && items.bigkey6 && (melee() || cane())) return 'possible';
-					return 'unavailable';
-				} else {
-					return items.chest6 === 1 && !items.hammer ? 'possible' : 'available';
-				}
-			}
-		}, { // [7]
-			caption: 'Ice Palace (yellow=must bomb jump)',
-			is_beaten: false,
-			is_beatable: function() {
-				if (!items.flippers || !items.hammer) return 'unavailable';
-				if (!items.firerod && !items.bombos) return 'unavailable';
-				if (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';
-				if (is_keysanity) {
-					if (is_enemizer) {
-						if (items.bigkey7 && ((items.smallkey7 > 0 && items.somaria) || items.smallkey7 > 1)) {
-							return enemizer_check(7, true, false);
-						} else {
-							return enemizer_check(7, true, true);
+						break;
+					case 'F':
+						if (items.chest1 === 6) return 'available';
+						if (items.chest1 === 5) {
+							if (items.bigkey1 || items.boots || items.smallkey1 === 1) return 'available';
 						}
-					} else {
-						if (items.bigkey7 && ((items.smallkey7 > 0 && items.somaria) || items.smallkey7 > 1)) return 'available';
-						return 'possible'; /* via bomb jump */
-					}
-				} else {
-					if (is_enemizer) {
-						if (items.hookshot || items.somaria) {
-							return enemizer_check(7, true, false);
-						} else {
-							return enemizer_check(7, true, true);
+						if (items.chest1 === 4) {
+							if (items.bigkey1 && !items.boots && items.smallkey1 === 0 && items.glove && (items.lantern || items.firerod)) return dungeoncheck;
+							if ((items.bigkey1 && items.boots) || items.smallkey1 === 1) return 'available';
 						}
-					} else {
-						return (items.hookshot || items.somaria) ? 'available' : 'unavailable';
-					}
-				}
-			},
-			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!items.flippers) return 'unavailable';
-					if (!items.firerod && !items.bombos) return 'unavailable';
-					if (items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';
-					if (items.bigkey7 && items.hammer) return ((items.smallkey7 === 1 && items.somaria) || items.smallkey7 === 2) ? 'available' : 'possible';
-					if (items.bigkey7 && items.hammer) return 'possible';
-					if (items.keychest7 >= 5) return 'possible';
-					if (items.keychest7 >= 4 && items.bigkey7) return 'possible';
-					if (items.keychest7 >= 2 && items.hammer) return 'possible';
-					return 'unavailable';
-				} else {
-					if (!items.flippers) return 'unavailable';
-					if (!items.firerod && !items.bombos) return 'unavailable';
-					if (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';
-					return items.hammer && items.glove !== 0 ? (items.flippers ? 'available' : (items.boots || canReachPyramidWithoutFlippers() ? 'sequencebreak' : 'unavailable')) : 
-						(items.flippers || items.boots || canReachPyramidWithoutFlippers() ? 'possible' : 'unavailable');
-				}
-			}
-		}, { // [8]
-			caption: 'Misery Mire {medallion0}{lantern}',
-			is_beaten: false,
-			is_beatable: function() {
-				if (!melee_bow()) return 'unavailable';
-				if (!(activeFlute() || (items.mirror && canReachLightWorldBunny())) || !items.somaria) return 'unavailable';
-				if (!items.boots && !items.hookshot) return 'unavailable';
-
-				
-				if (is_keysanity) {
-					if (!items.bigkey8) return 'unavailable';
-					var state = medallion_check(0);
-					if (state) return state;
-					
-					if (is_enemizer) {
-						return enemizer_check(8, items.lantern, false);
-					} else {
-						return items.lantern || items.firerod ? items.lantern ? 'available' : 'dark' : 'possible';
-					}
-				} else {
-					var state = medallion_check(0);
-					if (state) return state;
-					
-					if (is_enemizer) {
-						if (!items.firerod && !items.lantern) return enemizer_check(8, items.lantern, true);
-						return enemizer_check(8, items.lantern, false);
-					} else {
-						return items.lantern || items.firerod ? items.lantern ? 'available' : 'dark' : 'possible';
-					}
-				}
-			},
-			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!(activeFlute() || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
-					if (!items.boots && !items.hookshot) return 'unavailable';
-					var state = medallion_check(0);
-					if (state) return state;
-
-					if (items.lantern && items.bigkey8 && items.somaria) return 'available';
-
-					if (items.keychest8 >= 5) return 'possible';
-					if (items.keychest8 >= 4 && items.bigkey8) return 'possible';
-					if (items.keychest8 >= 3 && items.bigkey8 && items.somaria && !items.lantern && !items.firerod) return 'dark';
-					if (items.keychest8 >= 3 && (items.lantern || items.firerod)) return 'possible';
-					if (items.keychest8 >= 2 && (items.firerod || items.lantern) && items.bigkey8) return 'possible';
-					if (items.keychest8 >= 1 && !items.lantern && items.firerod && items.bigkey8 && items.somaria) return 'dark';
-					return 'unavailable';
-				} else {
-					if (!(activeFlute() || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
-					if (!items.boots && !items.hookshot) return 'unavailable';
-					if(!(items.sword || items.hammer || items.somaria || items.byrna || items.firerod || items.bow > 1))
-						return 'unavailable';
-					var state = medallion_check(0);
-					if (state) return state;
-
-					return (items.chest8 > 1 ?
-						items.lantern || items.firerod :
-						items.lantern && items.somaria) ?
-						'available' : 'possible';
-				}
-			}
-		}, { // [9]
-			caption: 'Turtle Rock {medallion0}/{mirror}{lantern}',
-			is_beaten: false,
-			is_beatable: function() {
-				if (!(items.glove || activeFlute()) || !items.somaria) return 'unavailable';
-				if ((!items.icerod && !is_enemizer) || !items.firerod || !melee()) return 'unavailable';
-				if (is_keysanity) {
-					if (!items.bigkey9) return 'unavailable';
-					
-					if (is_enemizer) {
-						if (items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2 && items.hammer)))
-						{
-							//Back door is available, override normal logic
-							return enemizer_check(9, items.lantern, items.smallkey9 < 4);
-						}
-						else
-						{
-							if (items.smallkey9 < 3) return 'unavailable';
-							//Back door is not available, use normal logic
-							var state = medallion_check(1);
-							if(state) return state;
-							if (items.smallkey9 === 4) {
-								return enemizer_check(9, items.lantern, false);
+						if (items.chest1 === 3) {
+							if (items.smallkey1 === 1) {
+								if (items.bigkey1 || items.boots) return 'available';
+							} else {
+								if (items.bigkey1 && items.boots && items.glove && (items.lantern || items.firerod)) return dungeoncheck;
 							}
 						}
-					} else {
-						if (items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2 && items.hammer)))
-						{
-							//Back door is available, override normal logic
-							return items.smallkey9 === 4 ? (items.lantern || items.flute) ? 'available' : 'dark' : (items.lantern || items.flute) ? 'possible' : 'dark';
-						}
-						else
-						{
-							if (items.smallkey9 < 3) return 'unavailable';
-							//Back door is not available, use normal logic
-							var state = medallion_check(1);
-							if(state) return state;
-							return items.smallkey9 === 4 ? 'available' : 'possible';
-						}
-					}
-				} else {
-					if (is_enemizer) {
-						if(items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2 && items.hammer)))
-						{
-							if(!items.lantern || !(items.byrna || items.cape || items.shield === 3))
-								return enemizer_check(9, items.lantern, true);
-							if(medallion_check(1))
-								return enemizer_check(9, items.lantern, true);
-							return enemizer_check(9, items.lantern, false);
-						}
-						var state = medallion_check(1);
-						if(state) return state;
-						if(!items.lantern || !(items.byrna || items.cape || items.shield === 3)) {
-							return enemizer_check(9, items.lantern, true);
-						} else {
-							return enemizer_check(9, items.lantern, false);
-						}
-					} else {
-						if(items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2 && items.hammer)))
-						{
-							if(!items.lantern || !(items.byrna || items.cape || items.shield === 3))
-								return 'possible';
-							if(medallion_check(1))
-								return 'possible';
-							return 'available';
-						}
-						var state = medallion_check(1);
-						if(state) return state;
-						return 'possible';
-					}
-				}				
-			},
-			can_get_chest: function() {
-				if (is_keysanity) {
-					if (items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2 && items.hammer)))
-					{
-						//Back door is available, override normal logic
-						//First 4 chests are available from the laser bridge based off safety
-						//if (items.smallkey9 === 0) {
-						if (items.somaria) {
-							//With cane, no small keys, can get all 12 chests based off items as long as no doors are opened from behind
-							//4 chests with safety, sequencebreak without safety
-							//Lantern is only required for one chest if you don't have a small key or the big key
-							//Fire rod adds 2 chests
-							//Fire rod, ice rod, and big key adds 1 chest (Trinexx)
-							//Big Key adds 1 chest
-							
-							if (items.bigkey9 && items.firerod && items.icerod)
-							{
-								if (items.keychest9 >= 5) return (items.lantern || items.flute) ? 'available' : 'dark';
-								return (items.byrna || items.cape || items.shield === 3) ? (items.lantern || items.flute) ? 'available' : 'dark' : (items.lantern || items.flute) ? 'available' : 'dark';
-								//TEMPORARLY DISABLING THE SEQUENCE BREAK CHECK, WILL ADD INTO TOGGLE SWITCH
-								//return (items.byrna || items.cape || items.shield === 3) ? (items.lantern || items.flute) ? 'available' : 'dark' : (items.lantern || items.flute) ? 'sequencebreak' : 'dark';									
-							}
-							
-							var totalchests = 0;
-							var darkchests = 0;
-							var sequencechests = 0;
-							
-							totalchests = 3;
-							
-							if (items.bigkey9) totalchests = totalchests + 1;
-							if (items.firerod) totalchests = totalchests + 2;
-
-							if (items.byrna || items.cape || items.shield === 3)
-							{
-								totalchests = totalchests + 4;
-							}
-							else
-							{
-								sequencechests = sequencechests + 4;
-								totalchests = totalchests + 4;
-							}
-
-							if (!items.lantern && !items.bigkey9 && items.smallkey9 == 0)
-							{
-								darkchests = darkchests + 1;
-								totalchests = totalchests + 1;
-							}
-							else
-							{
-								totalchests = totalchests + 1;
-							}
-							
-							sequencechests = 0;
-							
-							if (items.keychest9 > 12 - totalchests) {
-								if (items.keychest9 > 12 - (totalchests - darkchests - sequencechests)) {
-									return items.lantern ? 'possible' : 'dark';
+						if (items.chest1 === 2) {
+							if (items.smallkey1 === 0 || !items.bigkey1) {
+								return 'unavailable';
+							} else {
+								if (items.boots) {
+									return 'available';
 								} else {
-									return items.lantern ? 'possible' : 'dark';
+									if (items.glove && (items.lantern || items.firerod)) return dungeoncheck;
 								}
 							}
-							
-							return 'unavailable';
-						} else {
-							//No cane, no small keys
-							if (items.keychest9 >= 9) {
-								return (items.byrna || items.cape || items.shield === 3) ? 'available' : 'sequencebreak';
+						}
+						if (items.chest1 === 1) {
+							if (!items.boots) return 'unavailable';
+							if (items.bigkey1 && items.smallkey1 === 1 && items.glove && (items.lantern || items.firerod)) return dungeoncheck;
+						}
+						break;
+				}
+				return 'unavailable';
+			}
+		}, { // [2]
+			caption: 'Tower of Hera {hammer} [{hookshot}/{glove2}]',
+			is_beaten: false,
+			is_beatable: function() {
+				if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(2);
+				if (dungeoncheck === 'unavailable') return 'unavailable';
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (!items.lantern && !items.firerod) return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						if (!items.lantern && !items.flute) return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+						return dungeoncheck;
+						break;
+					case 'K':
+						if ((!items.lantern && !items.firerod) || items.smallkey2 === 0) return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						if (!items.lantern && !items.flute) return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+						return dungeoncheck;
+						break;
+					case 'F':
+						if (!items.bigkey2) return 'unavailable';
+						if (!items.lantern && !items.flute) return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+						return dungeoncheck;
+						break;
+				}
+			},
+			can_get_chest: function() {
+				if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(2);				
+				switch (flags.dungeonitems) {
+					case 'S':
+						if (items.lantern || items.firerod) {
+							if (!items.lantern && !items.flute) {
+								return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
 							} else {
-								return 'unavailable';
+								return dungeoncheck === 'available' ? 'available' : 'possible';
 							}
 						}
-					}
-					else
-					{
-						//Back door is not available, use normal logic
-						if (!items.somaria) return 'unavailable';						
-						
-						var state = medallion_check(1);
-						if (state) return state;
-
-						if (items.bigkey9 && items.smallkey9 === 4 && items.firerod && items.icerod && items.lantern && (items.byrna || items.cape || items.shield === 3)) return 'available';
+						return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						break;
+					case 'M':
+						if (items.chest2 === 4) {
+							return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+						}
+						if (items.chest2 === 3) {
+							if (items.lantern || items.firerod) return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+							return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						}
+						if (items.chest2 === 2) {
+							if (items.lantern || items.firerod) {
+								if (!items.lantern && !items.flute) {
+									return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+								} else {
+									return dungeoncheck === 'available' ? 'available' : 'possible';
+								}
+							}
+							return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						}
+						if (dungeoncheck === 'unavailable') return 'unavailable';
+						if (!items.lantern && !items.firerod) return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						return dungeoncheck === 'available' ? ((!items.lantern && !items.flute) ? 'darkavailable' : 'available') : ((!items.lantern && !items.flute) ? 'darkpossible' : 'possible');
+						break;
+					case 'K':
+						if (items.chest2 > 3) {
+							return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+						}
+						if (items.chest2 > 1) {
+							if (items.smallkey2 === 0 || (!items.lantern && !items.firerod)) {
+								return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+							} else {
+								return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+							}
+						}
+						if (items.chest2 === 1) {
+							if (items.smallkey2 === 0 || (!items.lantern && !items.firerod) || dungeoncheck === 'unavailable') return 'unavailable';
+						}
+						return dungeoncheck === 'available' ? ((!items.lantern && !items.flute) ? 'darkavailable' : 'available') : ((!items.lantern && !items.flute) ? 'darkpossible' : 'possible'); 
+						break;
+					case 'F':
+					
+						if (items.chest2 > 4) {
+							return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+						}
+						if (items.chest2 === 4) {
+							if (items.smallkey2 === 0 && !items.bigkey2) return 'unavailable';
+							if (!items.bigkey2 && (items.smallkey2 === 1 || (!items.lantern && !items.firerod))) return 'unavailable';
+							return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+						}
+						if (items.chest2 === 3) {
+							if (items.bigkey2) return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+							return 'unavailable';
+						}
+						if (items.chest2 === 2 && items.bigkey2) {
+							if (dungeoncheck != 'unavailable') {
+								return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+							} else {
+								if (items.smallkey2 === 0 || (!items.lantern && !items.firerod)) return 'unavailable';
+								return dungeoncheck === 'available' ? ((!items.lantern && !items.flute) ? 'darkavailable' : 'available') : ((!items.lantern && !items.flute) ? 'darkpossible' : 'possible');
+							}
+						}
+						if (items.chest2 === 1 && items.bigkey2 && items.smallkey2 == 1 && (items.lantern || items.firerod) && dungeoncheck != 'unavailable') return dungeoncheck === 'available' ? ((!items.lantern && !items.flute) ? 'darkavailable' : 'available') : ((!items.lantern && !items.flute) ? 'darkpossible' : 'possible');
+						break;
+				}				
+				return 'unavailable';
+			}
+		}, { // [3]
+			caption: 'Palace of Darkness',
+			is_beaten: false,
+			is_beatable: function() {
+				if(!canReachPyramid() || !(items.bow > 0) || !items.hammer) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(3);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (dungeoncheck === 'unavailable') return 'unavailable';
+						return dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'darkpossible' : 'darkpossible') ;
+						break;
+					case 'K':
+						if (items.smallkey3 < 6) return 'unavailable'
+						if (dungeoncheck === 'unavailable') return 'unavailable';
+						return dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'darkpossible' : 'darkpossible') ;
+						break;
+					case 'F':
+						if (items.smallkey3 < 6 || !items.bigkey3) return 'unavailable'
+						if (dungeoncheck === 'unavailable') return 'unavailable';
+						return dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'darkpossible' : 'darkpossible') ;
+						break;
+				}
+			},
+			can_get_chest: function() {
+				if (!canReachPyramidWithoutFlippers() && !canReachPyramid()) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(2);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (items.hammer && items.bow > 0 && items.lantern) return 'available';
+						if (items.chest3 > 3) {
+							if (!items.hammer && !items.bow) return items.lantern ? 'available' : 'possible';
+						}
+						if (items.chest3 > 1) {
+							return (items.bow) ? 'available' : 'possible';
+						}
+						return 'possible'
+						break;
+					case 'K':
+						//Prioritize Helma last
+						if (items.smallkey3 === 6 && items.hammer && items.bow > 0 && items.lantern && dungeoncheck === 'available') return 'available';
 						
 						// item count approach
 						var reachable = 0;
 						var curr_keys = 0;
 						var dark_chests = 0;
-						curr_keys += items.smallkey9;
+						curr_keys += items.smallkey3;
 						reachable += 1; // free first chest
 						// 0 key chests
-						if (items.firerod) {
-							reachable += 2; // fire rod locked right side				
+						if (items.bow > 0) reachable += 2; // bow locked right side
+						// conditioned key usage
+						if (items.bow > 0 && items.hammer) {
+							reachable += 2; // bridge and dropdown
+						} else {
+							if (curr_keys > 0) {
+								reachable += 2; // bridge and dropdown
+								curr_keys -= 1; // front door used
+							}
 						}
 						// 1 key chests
 						if (curr_keys > 0) {
-							reachable += 1; // Chain Chomp room
+							reachable += 3; // Back side of POD, since it yields most chests for the key
+							curr_keys -= 1;
+							dark_chests += 2;
+						}
+						if (curr_keys > 0) {
+							reachable += 3; // Dark area with big chest, always assume big key is possible
+							curr_keys -= 1;
+							dark_chests += 3;
+						}
+						if (items.bow > 0 && items.hammer && curr_keys > 0) {
+							reachable += 1; // King Helmasaur. We do not prioritize him when he is beatable. This way we show the max amount of items.
+							curr_keys -= 1;
+							dark_chests += 1;
+						}
+						if (curr_keys > 0) {
+							reachable += 1; // Spike Room
 							curr_keys -= 1;
 						}
-						// 2 key chests
-						if (curr_keys > 0) { 
+						if (curr_keys > 0) {
+							reachable += 1; // Vanilla big key chest
 							curr_keys -= 1;
-							if (!items.bigkey9) {
-								// Unable to proceed beyond big key room, but can get vanilla big key chest
-								reachable += 1;
+						}
+
+						if (items.chest3 > 13 - reachable) {
+							if (items.chest3 > 13 - (reachable - dark_chests)) {
+								return 'possible';
 							} else {
-								reachable += 2; // Big chest and roller room
-								if (items.byrna || items.cape || items.shield === 3) {
-									// Logic for laser bridge, needs safety item to be in logic
-									reachable += 4;
-									if (!items.lantern) {
-										dark_chests += 4;
+								return items.lantern ? 'possible' : 'darkavailable';
+							}
+						}
+						return 'unavailable'; // We got all reachable chests or even more if helmasaur was not prioritized
+						break;
+					case 'F':
+						if (items.smallkey3 === 6 && items.bigkey3 && items.hammer && items.bow > 0 && items.lantern && dungeoncheck === 'available') return 'available';
+						// item count approach
+						var reachable = 0;
+						var curr_keys = 0;
+						var dark_chests = 0;
+						curr_keys += items.smallkey3;
+						reachable += 1; // free first chest
+						// 0 key chests
+						if (items.bow > 0) reachable += 2; // bow locked right side
+						// conditioned key usage
+						if (items.bow > 0 && items.hammer) {
+							reachable += 2; // bridge and dropdown
+						} else {
+							if (curr_keys > 0) {
+								reachable += 2; // bridge and dropdown
+								curr_keys -= 1; // front door used
+							}
+						}
+						// 1 key chests
+						if (curr_keys > 0) {
+							reachable += 3; // Back side of POD, since it yields most chests for the key
+							curr_keys -= 1;
+							dark_chests += 2;
+						}
+						if (curr_keys > 0) {
+							reachable += items.bigkey3 ? 3 : 2; // Dark area with big chest
+							curr_keys -= 1;
+							dark_chests += items.bigkey3 ? 3 : 2;
+						}
+						if (items.bow > 0 && items.hammer && items.bigkey3 && curr_keys > 0) {
+							reachable += 1; // King Helmasaur. We do not prioritize him when he is beatable. This way we show the max amount of items.
+							curr_keys -= 1;
+							dark_chests += 1;
+						}
+						if (curr_keys > 0) {
+							reachable += 1; // Spike Room
+							curr_keys -= 1;
+						}
+						if (curr_keys > 0) {
+							reachable += 1; // Vanilla big key chest
+							curr_keys -= 1;
+						}
+
+						if (items.chest3 > 14 - reachable) {
+							if (items.chest3 > 14 - (reachable - dark_chests)) {
+								return 'possible';
+							} else {
+								return items.lantern ? 'possible' : 'darkavailable';
+							}
+						}
+						
+						return 'unavailable'; // We got all reachable chests or even more if helmasaur was not prioritized
+						break;
+				}
+			}
+		}, { // [4]
+			caption: 'Swamp Palace {mirror} {flippers}',
+			is_beaten: false,
+			is_beatable: function() {
+				if (!items.moonpearl || !canReachLightWorldBunny() || !items.mirror || !items.flippers || !items.hammer || !items.hookshot) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(4);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						return dungeoncheck;
+						break;
+					case 'K':
+					case 'F':
+						if (items.smallkey4 === 0) return 'unavailable';
+						return dungeoncheck;
+						break;
+				}
+			},
+			can_get_chest: function() {
+				if (!items.moonpearl || !canReachLightWorldBunny() || !items.mirror || !items.flippers) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(4);
+				switch (flags.dungeonitems) {
+					case 'S':
+						if (items.chest4 === 6) return 'available';
+						if (!items.hammer) return 'unavailable';
+						if (items.chest4 === 5) return 'available';
+						if (items.chest4 > 2) return !items.hookshot ? 'possible' : 'available';
+						return !items.hookshot ? 'unavailable' : 'available';
+						break;
+					case 'M':
+						if (items.chest4 === 8) return 'available';
+						if (!items.hammer) return 'unavailable';
+						if (items.chest4 > 4) return 'available';
+						return !items.hookshot ? 'unavailable' : 'available';
+						break;
+					case 'K':
+						if (items.chest4 === 9) return 'available';
+						if (items.smallkey4 === 0) return 'unavailable';
+						if (items.chest4 === 8) return 'available';
+						if (!items.hammer) return 'unavailable';
+						if (items.chest4 > 4) return 'available';
+						return !items.hookshot ? 'unavailable' : 'available';
+						break;
+					case 'F':
+						if (items.chest4 === 10) return 'available';
+						if (items.smallkey4 === 0) return 'unavailable';
+						if (items.chest4 === 9) return 'available';
+						if (!items.hammer) return 'unavailable';
+						if (items.chest4 > 5) return 'available';
+						if (items.chest4 === 5 && (items.bigkey4 || items.hookshot)) return 'available';
+						if (items.chest4 > 1) return !items.hookshot ? 'unavailable' : 'available';
+						if (items.chest4 === 1) return items.bigkey4 ? 'available' : 'unavailable';
+						break;
+				}
+				return 'unavailable';
+			}
+		}, { // [5]
+			caption: 'Skull Woods',
+			is_beaten: false,
+			is_beatable: function() {
+				if (!items.firerod || (items.sword == 0 && !is_swordless)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(5);
+				return dungeoncheck;
+			},
+			can_get_chest: function() {
+				var dungeoncheck = enemizer_check_new(5);
+				switch (flags.dungeonitems) {
+					case 'S':
+						if (items.chest5 === 2) return !items.firerod ? 'possible' : 'available';
+						return dungeoncheck === 'unavailable' || !items.firerod || (items.sword == 0 && !is_swordless) ? 'possible' : 'available';
+						break;
+					case 'M':
+						if (items.chest5 > 2) return 'available';
+						if (items.chest5 === 2) !items.firerod ? 'possible' : 'available';
+						return dungeoncheck === 'unavailable' || !items.firerod || (items.sword == 0 && !is_swordless) ? 'possible' : 'available';
+						break;
+					case 'K':
+						if (items.chest5 > 2) return 'available';
+						if (items.chest5 === 2) return !items.firerod ? 'unavailable' : 'available';
+						return dungeoncheck === 'unavailable' || (items.sword == 0 && !is_swordless) ? 'unavailable' : dungeoncheck;
+						break;
+					case 'F':
+						if (items.chest5 > 3) return 'available';
+						if (items.chest5 < 4 && !items.firerod && !items.bigkey5) return 'unavailable';
+						if (items.chest5 === 3 && (items.firerod || items.bigkey5)) return 'available';
+						if (items.chest5 === 2 && !items.firerod) return 'unavailable';
+						if (items.chest5 === 2) {
+							if (items.bigkey5) return 'available';
+							if (items.sword > 0 || is_swordless) return dungeoncheck;
+						}
+						return (!items.firerod || (items.sword == 0 && !is_swordless) || !items.bigkey5) ? 'unavailable' : 'available';
+						if (!items.bigkey5 || dungeoncheck === 'unavailable' || (!is_swordless && items.sword === 0)) return 'unavailable';
+						return dungeoncheck;
+						break;
+				}
+				return 'unavailable';
+			}
+		}, { // [6]
+			caption: 'Thieves\' Town',
+			is_beaten: false,
+			is_beatable: function() {
+				var dungeoncheck = enemizer_check_new(6);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+					case 'K':
+						return dungeoncheck;
+						break;
+					case 'F':
+						return (!items.bigkey6) ? 'unavailable' : dungeoncheck;
+						break;
+				}
+			},
+			can_get_chest: function() {
+				var dungeoncheck = enemizer_check_new(6);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (items.chest6 > 2) return 'available';
+						if (items.chest6 === 2) {
+							if ((!items.hammer) && dungeoncheck === 'unavailable') return 'possible';
+							if (items.hammer) return 'available';
+							return dungeoncheck;
+						}							
+						return (items.chest6 === 1 && (!items.hammer)) ? 'possible' : dungeoncheck;
+						break;
+					case 'K':
+						if (items.chest6 > 2) return 'available';
+						if (items.chest6 === 2) {
+							if ((!items.hammer || items.smallkey6 === 0) && dungeoncheck === 'unavailable') return 'unavailable';
+							if (items.hammer && items.smallkey6 === 1) return 'available';
+							return dungeoncheck;
+						}							
+						return (items.chest6 === 1 && (!items.hammer || items.smallkey6 === 0)) ? 'unavailable' : dungeoncheck;
+						break;
+					case 'F':
+						if (items.chest6 > 4) return 'available';
+						if (items.chest6 < 5 && !items.bigkey6) return 'unavailable';
+						if (items.chest6 > 2) return 'available';
+						if (items.chest6 > 1) {
+							if (items.smallkey6 === 1 && items.hammer) return 'available';
+							return dungeoncheck;
+						}
+						if ((items.smallkey6 === 0 || !items.hammer || dungeoncheck === 'unavailable')) return 'unavailable'; 
+						return dungeoncheck;
+						break;
+				}
+			}
+		}, { // [7]
+			caption: 'Ice Palace {flippers} [{firerod}/{bombos}]',
+			is_beaten: false,
+			is_beatable: function() {
+				if (!items.flippers || !items.hammer) return 'unavailable';
+				if (!items.firerod && !items.bombos) return 'unavailable';
+				if (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(7);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+					case 'K':
+					case 'F':
+						return dungeoncheck;
+						break;
+				}
+			},
+			can_get_chest: function() {
+				if (!items.flippers) return 'unavailable';
+				if (!items.firerod && !items.bombos) return 'unavailable';
+				if (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';				
+				var dungeoncheck = enemizer_check_new(7);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (items.chest7 > 1 && items.hammer && (items.hookshot || items.somaria)) return 'available';
+						if (items.chest7 === 1 && items.hammer && (items.hookshot || items.somaria) && dungeoncheck === 'available') return 'available';
+						return 'possible';
+						break;
+					case 'K':
+						//if (items.hammer) return ((items.smallkey7 === 1 && items.somaria) || items.smallkey7 === 2) ? 'available' : 'possible';
+						//if (items.hammer) return 'possible';
+						if (items.chest7 >= 4) return 'possible';
+						if (items.chest7 >= 2 && items.hammer) return 'possible';
+						break;
+					case 'F':
+						if (items.bigkey7 && items.hammer) return ((items.smallkey7 === 1 && items.somaria) || items.smallkey7 === 2) ? 'available' : 'possible';
+						if (items.bigkey7 && items.hammer) return 'possible';
+						if (items.chest7 >= 5) return 'possible';
+						if (items.chest7 >= 4 && items.bigkey7) return 'possible';
+						if (items.chest7 >= 2 && items.hammer) return 'possible';
+						break;
+				}
+				return 'unavailable';	
+			}
+		}, { // [8]
+			caption: 'Misery Mire {medallion0}',
+			is_beaten: false,
+			is_beatable: function() {
+				if (!melee_bow()) return 'unavailable';
+				if (!(activeFlute() || (items.mirror && canReachLightWorldBunny())) || !items.somaria) return 'unavailable';
+				if (!items.boots && !items.hookshot) return 'unavailable';
+				var state = medallion_check(0);
+				if (state) return state;
+				var dungeoncheck = enemizer_check_new(8);
+				if (dungeoncheck === 'unavailable') return 'unavailable';
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+					case 'K':
+						if (!items.lantern && !items.firerod) return 'darkpossible';
+						return dungeoncheck === 'available' ? (!items.lantern ? 'darkavailable' : 'available') : (!items.lantern ? 'darkpossible' : 'possible');
+						break;
+					case 'F':
+						if (!items.bigkey8) return 'unavailable';
+						return dungeoncheck === 'available' ? (!items.lantern ? 'darkavailable' : 'available') : (!items.lantern ? 'darkpossible' : 'possible');
+						break;
+				}
+			},
+			can_get_chest: function() {
+				if (!(activeFlute() || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
+				if (!items.boots && !items.hookshot) return 'unavailable';
+				var state = medallion_check(0);
+				if (state) return state;
+				var dungeoncheck = enemizer_check_new(8);
+				switch (flags.dungeonitems) {
+					case 'S':
+						if ((items.lantern || items.firerod) && items.somaria) return (!items.lantern ? 'darkavailable' : 'available');
+						return 'possible';
+						break;
+					case 'M':
+						if ((items.lantern || items.firerod) && items.somaria) return (!items.lantern ? 'darkavailable' : 'available');
+						if (items.chest8 === 4) return 'available';
+						if (!items.lantern && !items.firerod) return 'possible';
+						if (dungeoncheck === 'unavailable' || !items.somaria) return 'possible';
+						return dungeoncheck === 'available' ? (!items.lantern ? 'darkavailable' : 'available') : (!items.lantern ? 'darkpossible' : 'possible');
+						break;
+					case 'K':
+						if ((items.lantern || items.firerod) && items.somaria) return (!items.lantern ? 'darkavailable' : 'available');
+						if (items.chest8 > 3) return 'available';
+						if (!items.lantern && !items.firerod && !items.somaria) return 'unavailable';
+						if (items.chest8 === 3) {
+							if (!items.lantern && !items.firerod && items.somaria && dungeoncheck != 'unavailable') return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+							if (items.lantern || items.firerod) return 'available';
+						}
+						if (items.chest8 === 2 && (items.lantern || items.firerod)) return 'available';
+						return 'unavailable';
+						break;
+					case 'F':
+						if (items.lantern && items.bigkey8 && items.somaria) return 'available';
+						if (items.chest8 >= 5) return 'available';
+						if (items.chest8 >= 4 && items.bigkey8) return 'available';
+						if (items.chest8 >= 3 && items.bigkey8 && items.somaria && !items.lantern && !items.firerod) return 'darkavailable';
+						if (items.chest8 >= 3 && (items.lantern || items.firerod)) return 'available';
+						if (items.chest8 >= 2 && (items.firerod || items.lantern) && items.bigkey8) return 'available';
+						if (items.chest8 >= 1 && !items.lantern && items.firerod && items.bigkey8 && items.somaria) return 'darkavailable';
+						return 'unavailable';					
+						break;
+				}
+			}
+		}, { // [9]
+			caption: 'Turtle Rock {medallion0}/{mirror}',
+			is_beaten: false,
+			is_beatable: function() {
+				//All win conditions require Somaria and a way to DM,
+				if (!(items.glove || activeFlute()) || !items.somaria) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(9);
+				if (dungeoncheck === 'unavailable') return 'unavailable';
+				
+				//First, check for back door access through mirror, it has logic priority
+				if (items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2)))
+				{
+					switch (flags.dungeonitems) {
+						case 'S':
+						case 'M':
+							//Can go in through big key/laser eye room, get up to 2 items without any required items, which could be small/big key, no other items needed (Although unlikely)
+							return 'possible';
+							break;
+						case 'K':
+							/* if (items.smallkey9 === 0 || !items.bigkey9) return 'unavailable';
+							return dungeoncheck;
+							break; */
+						case 'F':
+							if (items.smallkey9 === 0 || !items.bigkey9) return 'unavailable';
+							return 'possible';
+							break;
+					}
+				}
+				else  //Back door not available, go through the front
+				{
+					var state = medallion_check(1);
+					if (state) return state;
+
+					switch (flags.dungeonitems) {
+						case 'S':
+						case 'M':
+							//Need a safety or advanced on to get all items, but not fire rod (map/compass may be on right)
+							if ((items.byrna || items.cape || items.shield === 3) || is_advanced) {
+								if (items.firerod) return dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible');
+							}
+							return (items.lantern ? 'possible' : 'darkpossible');
+							break;
+						case 'K':
+						case 'F':
+								if (items.smallkey9 < 4 || !items.bigkey9) return 'unavailable';
+								if ((items.byrna || items.cape || items.shield === 3) || is_advanced) {
+									if (items.firerod) return dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible');
+								}
+								return (items.lantern ? 'possible' : 'darkpossible');
+							break;
+					}
+				}
+			},
+			can_get_chest: function() {
+				switch (flags.dungeonitems) {
+					case 'S':
+						if(!(items.glove || activeFlute())) return 'unavailable';
+						var laser_safety = items.byrna || items.cape || items.shield === 3, dark_room = items.lantern ? 'available' : 'darkavailable';
+						if(items.mirror && ((items.hookshot && items.moonpearl) || items.glove === 2))
+						{
+							if(!items.somaria)
+								return 'possible';
+							if(medallion_check(1))
+							{
+								if(items.chest9 <= 3)
+									return 'possible';
+								if(items.chest9 <= 4)
+									return laser_safety && items.lantern ? 'available' : 'possible';
+								return laser_safety && items.lantern ? 'available' : 'possible';
+							}
+							//Disabled sequence break logic until that revision
+							if(items.chest9 <= 1)
+								return !laser_safety ? (items.firerod && items.icerod ? 'possible' : 'possible') : items.firerod && items.icerod && items.lantern ? 'available' : 'possible';
+							if(items.chest9 <= 2)
+								return !laser_safety ? (items.firerod ? 'possible' : 'possible') : items.firerod && items.lantern ? 'available' : 'possible';
+							if(items.chest9 <= 3)
+								return !laser_safety ? (items.firerod ? 'possible' : 'possible') : items.firerod ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'possible';
+							return !laser_safety ? (items.firerod ? 'possible' : 'possible') : items.firerod ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : (items.lantern ? 'available' : 'possible');
+						}
+						if(!items.somaria)
+							return 'unavailable';
+						var state = medallion_check(1);
+						if(state)
+							return state;
+						return 'possible';
+						break;
+					case 'M':
+						if(!(items.glove || activeFlute())) return 'unavailable';
+						var laser_safety = items.byrna || items.cape || items.shield === 3, dark_room = items.lantern ? 'available' : 'darkavailable';
+						if(items.mirror && ((items.hookshot && items.moonpearl) || items.glove === 2))
+						{
+							if(!items.somaria)
+								return 'possible';
+							if(medallion_check(1))
+							{
+								if(items.chest9 <= 3)
+									return 'possible';
+								if(items.chest9 <= 4)
+									return laser_safety && items.lantern ? 'available' : 'possible';
+								return laser_safety && items.lantern ? 'available' : 'possible';
+							}
+							//Disabled sequence break logic until that revision
+							if(items.chest9 <= 1)
+								return !laser_safety ? (items.firerod && items.icerod ? 'possible' : 'possible') : items.firerod && items.icerod && items.lantern ? 'available' : 'possible';
+							if(items.chest9 <= 2)
+								return !laser_safety ? (items.firerod ? 'possible' : 'possible') : items.firerod && items.lantern ? 'available' : 'possible';
+							if(items.chest9 <= 3)
+								return !laser_safety ? (items.firerod ? 'possible' : 'possible') : items.firerod ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'possible';
+							return !laser_safety ? (items.firerod ? 'possible' : 'possible') : items.firerod ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : (items.lantern ? 'available' : 'possible');
+						}
+						if(!items.somaria) return 'unavailable';
+						var state = medallion_check(1);
+						if(state) return state;
+						return 'possible';
+						break;
+					case 'K':
+						if (items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2)))
+						{
+							if (items.somaria) {
+								if (items.bigkey9 && items.firerod && items.icerod)
+								{
+									if (items.chest9 >= 5) return (items.lantern || items.flute) ? 'available' : 'darkavailable';
+									return (items.byrna || items.cape || items.shield === 3) ? (items.lantern || items.flute) ? 'available' : 'darkavailable' : (items.lantern || items.flute) ? 'available' : 'darkavailable';									
+								}
+								
+								var totalchests = 0;
+								var darkchests = 0;
+								var sequencechests = 0;
+								
+								totalchests = 3;
+								
+								if (items.bigkey9) totalchests = totalchests + 1;
+								if (items.firerod) totalchests = totalchests + 2;
+
+								if (items.byrna || items.cape || items.shield === 3)
+								{
+									totalchests = totalchests + 4;
+								}
+								else
+								{
+									sequencechests = sequencechests + 4;
+									totalchests = totalchests + 4;
+								}
+
+								if (!items.lantern && !items.bigkey9 && items.smallkey9 == 0)
+								{
+									darkchests = darkchests + 1;
+									totalchests = totalchests + 1;
+								}
+								else
+								{
+									totalchests = totalchests + 1;
+								}
+								
+								sequencechests = 0;
+								
+								if (items.chest9 > 12 - totalchests) {
+									if (items.chest9 > 12 - (totalchests - darkchests - sequencechests)) {
+										return items.lantern ? 'possible' : 'darkavailable';
+									} else {
+										return items.lantern ? 'possible' : 'darkavailable';
 									}
+								}
+								
+								return 'unavailable';
+							} else {
+								if (items.chest9 >= 9) {
+									return (items.byrna || items.cape || items.shield === 3) ? 'available' : 'sequencebreak';
+								} else {
+									return 'unavailable';
 								}
 							}
 						}
-						// 3 key chests
-						if (curr_keys > 0) { 
-							curr_keys -= 1;
-							reachable += 1; // Either Trinexx or vanilla big key chest will be obtainable with 3 keys
-						}				
-						
-						// 4 key chests
-						if (curr_keys > 0) { 
-							if (!items.lantern && items.icerod && items.firerod) {
-								dark_chests += 1; // All of TR is clearable in the dark
-								reachable += 1;
-							}
-						}
-						
-						if (items.keychest9 > 12 - reachable) {
-							if (items.keychest9 > 12 - (reachable - dark_chests)) {
-								return 'possible';
-							} else {
-								return items.lantern ? 'possible' : 'dark';
-							}
-						}
-						
-						return 'unavailable';
-					}					
-					
-					return 'unavailable';
-				} else {
-					if(!(items.glove || activeFlute()))
-						return 'unavailable';
-					var laser_safety = items.byrna || items.cape || items.shield === 3,
-						dark_room = items.lantern ? 'available' : 'dark';
-					if(items.mirror && ((items.hookshot && items.moonpearl) || items.glove === 2))
-					{
-						if(!items.somaria)
-							return 'possible';
-						if(medallion_check(1))
+						else
 						{
-							if(items.chest9 <= 3)
-								return 'possible';
-							if(items.chest9 <= 4)
-								return laser_safety && items.lantern ? 'available' : 'possible';
-							return laser_safety && items.lantern ? 'available' : 'possible';
-						}
-						//Disabled sequence break logic until that revision
-						if(items.chest9 <= 1)
-							return !laser_safety ? (items.firerod && items.icerod ? 'possible' : 'possible') : items.firerod && items.icerod && items.lantern ? 'available' : 'possible';
-						if(items.chest9 <= 2)
-							return !laser_safety ? (items.firerod ? 'possible' : 'possible') : items.firerod && items.lantern ? 'available' : 'possible';
-						if(items.chest9 <= 3)
-							return !laser_safety ? (items.firerod ? 'possible' : 'possible') : items.firerod ? (items.lantern || activeFlute() ? 'available' : 'dark') : 'possible';
-						return !laser_safety ? (items.firerod ? 'possible' : 'possible') : items.firerod ? (items.lantern || activeFlute() ? 'available' : 'dark') : (items.lantern ? 'available' : 'possible');
-					}
-					if(!items.somaria)
+							//Back door is not available, use normal logic
+							if (!items.somaria) return 'unavailable';						
+							
+							var state = medallion_check(1);
+							if (state) return state;
+
+							if (items.bigkey9 && items.smallkey9 === 4 && items.firerod && items.icerod && items.lantern && (items.byrna || items.cape || items.shield === 3)) return 'available';
+							
+							// item count approach
+							var reachable = 0;
+							var curr_keys = 0;
+							var dark_chests = 0;
+							curr_keys += items.smallkey9;
+							reachable += 1; // free first chest
+							// 0 key chests
+							if (items.firerod) {
+								reachable += 2; // fire rod locked right side				
+							}
+							// 1 key chests
+							if (curr_keys > 0) {
+								reachable += 1; // Chain Chomp room
+								curr_keys -= 1;
+							}
+							// 2 key chests
+							if (curr_keys > 0) { 
+								curr_keys -= 1;
+								if (!items.bigkey9) {
+									// Unable to proceed beyond big key room, but can get vanilla big key chest
+									reachable += 1;
+								} else {
+									reachable += 2; // Big chest and roller room
+									if (items.byrna || items.cape || items.shield === 3) {
+										// Logic for laser bridge, needs safety item to be in logic
+										reachable += 4;
+										if (!items.lantern) {
+											dark_chests += 4;
+										}
+									}
+								}
+							}
+							// 3 key chests
+							if (curr_keys > 0) { 
+								curr_keys -= 1;
+								reachable += 1; // Either Trinexx or vanilla big key chest will be obtainable with 3 keys
+							}				
+							
+							// 4 key chests
+							if (curr_keys > 0) { 
+								if (!items.lantern && items.icerod && items.firerod) {
+									dark_chests += 1; // All of TR is clearable in the dark
+									reachable += 1;
+								}
+							}
+							
+							if (items.chest9 > 1 - reachable) {
+								if (items.chest9 > 1 - (reachable - dark_chests)) {
+									return 'possible';
+								} else {
+									return items.lantern ? 'possible' : 'darkavailable';
+								}
+							}
+							
+							return 'unavailable';
+						}					
+						
 						return 'unavailable';
-					var state = medallion_check(1);
-					if(state)
-						return state;
-					return 'possible';
+						break;
+					case 'F':
+						if (items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2)))
+						{
+							//Back door is available, override normal logic
+							//First 4 chests are available from the laser bridge based off safety
+							//if (items.smallkey9 === 0) {
+							if (items.somaria) {
+								//With cane, no small keys, can get all 12 chests based off items as long as no doors are opened from behind
+								//4 chests with safety, sequencebreak without safety
+								//Lantern is only required for one chest if you don't have a small key or the big key
+								//Fire rod adds 2 chests
+								//Fire rod, ice rod, and big key adds 1 chest (Trinexx)
+								//Big Key adds 1 chest
+								
+								if (items.bigkey9 && items.firerod && items.icerod)
+								{
+									if (items.chest9 >= 5) return (items.lantern || items.flute) ? 'available' : 'darkavailable';
+									return (items.byrna || items.cape || items.shield === 3) ? (items.lantern || items.flute) ? 'available' : 'darkavailable' : (items.lantern || items.flute) ? 'available' : 'darkavailable';
+									//TEMPORARLY DISABLING THE SEQUENCE BREAK CHECK, WILL ADD INTO TOGGLE SWITCH
+									//return (items.byrna || items.cape || items.shield === 3) ? (items.lantern || items.flute) ? 'available' : 'darkavailable' : (items.lantern || items.flute) ? 'sequencebreak' : 'darkavailable';									
+								}
+								
+								var totalchests = 0;
+								var darkchests = 0;
+								var sequencechests = 0;
+								
+								totalchests = 3;
+								
+								if (items.bigkey9) totalchests = totalchests + 1;
+								if (items.firerod) totalchests = totalchests + 2;
+
+								if (items.byrna || items.cape || items.shield === 3)
+								{
+									totalchests = totalchests + 4;
+								}
+								else
+								{
+									sequencechests = sequencechests + 4;
+									totalchests = totalchests + 4;
+								}
+
+								if (!items.lantern && !items.bigkey9 && items.smallkey9 == 0)
+								{
+									darkchests = darkchests + 1;
+									totalchests = totalchests + 1;
+								}
+								else
+								{
+									totalchests = totalchests + 1;
+								}
+								
+								sequencechests = 0;
+								
+								if (items.chest9 > 12 - totalchests) {
+									if (items.chest9 > 12 - (totalchests - darkchests - sequencechests)) {
+										return items.lantern ? 'possible' : 'darkavailable';
+									} else {
+										return items.lantern ? 'possible' : 'darkavailable';
+									}
+								}
+								
+								return 'unavailable';
+							} else {
+								//No cane, no small keys
+								if (items.chest9 >= 9) {
+									return (items.byrna || items.cape || items.shield === 3) ? 'available' : 'sequencebreak';
+								} else {
+									return 'unavailable';
+								}
+							}
+						}
+						else
+						{
+							//Back door is not available, use normal logic
+							if (!items.somaria) return 'unavailable';						
+							
+							var state = medallion_check(1);
+							if (state) return state;
+
+							if (items.bigkey9 && items.smallkey9 === 4 && items.firerod && items.icerod && items.lantern && (items.byrna || items.cape || items.shield === 3)) return 'available';
+							
+							// item count approach
+							var reachable = 0;
+							var curr_keys = 0;
+							var dark_chests = 0;
+							curr_keys += items.smallkey9;
+							reachable += 1; // free first chest
+							// 0 key chests
+							if (items.firerod) {
+								reachable += 2; // fire rod locked right side				
+							}
+							// 1 key chests
+							if (curr_keys > 0) {
+								reachable += 1; // Chain Chomp room
+								curr_keys -= 1;
+							}
+							// 2 key chests
+							if (curr_keys > 0) { 
+								curr_keys -= 1;
+								if (!items.bigkey9) {
+									// Unable to proceed beyond big key room, but can get vanilla big key chest
+									reachable += 1;
+								} else {
+									reachable += 2; // Big chest and roller room
+									if (items.byrna || items.cape || items.shield === 3) {
+										// Logic for laser bridge, needs safety item to be in logic
+										reachable += 4;
+										if (!items.lantern) {
+											dark_chests += 4;
+										}
+									}
+								}
+							}
+							// 3 key chests
+							if (curr_keys > 0) { 
+								curr_keys -= 1;
+								reachable += 1; // Either Trinexx or vanilla big key chest will be obtainable with 3 keys
+							}				
+							
+							// 4 key chests
+							if (curr_keys > 0) { 
+								if (!items.lantern && items.icerod && items.firerod) {
+									dark_chests += 1; // All of TR is clearable in the dark
+									reachable += 1;
+								}
+							}
+							
+							if (items.chest9 > 12 - reachable) {
+								if (items.chest9 > 12 - (reachable - dark_chests)) {
+									return 'possible';
+								} else {
+									return items.lantern ? 'possible' : 'darkavailable';
+								}
+							}
+							
+							return 'unavailable';
+						}					
+						
+						return 'unavailable';
+						break;
 				}
 			}
 		}, { // [10]
-			caption: 'Ganon\'s Castle (7 Crystals)',
+			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
-				if (crystal_check() < 7) {
-					return 'unavailable';
-				}
+				if (crystal_check() < 7) return 'unavailable'; //Need to modify with the updated cyrstal count logic
 				
-				if (is_keysanity) {
-					if (items.bigkey10 &&  items.bow > 1 && items.hookshot && (items.firerod || items.lantern)) {
-						if (items.smallkey10 < 3) return 'possible';
-						if (items.smallkey10 >= 3) return (is_enemizer && !items.icerod) ? 'possible' : 'available';
-					}
-					return 'unavailable';
-				} else {
-					if (items.bow > 1 && items.hookshot && (items.firerod || items.lantern)) {
-						if (!items.somaria || !items.boots) return 'possible';
-						return (is_enemizer && !items.icerod) ? 'possible' : 'available';
-					} else {
-						return 'unavailable';
-					}
-				}
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (items.bow > 0 && items.hookshot && (items.firerod || items.lantern)) {
+							if (!items.somaria || !items.boots || !items.firerod) return 'possible';
+							return (is_bossshuffle && !items.icerod) ? 'possible' : 'available';
+						}
+						break;
+					case 'K':
+					case 'F':		
+						if (items.bigkey10 &&  items.bow > 0 && items.hookshot && (items.firerod || items.lantern)) {
+							if (items.smallkey10 < 3) return 'possible';
+							if (items.smallkey10 >= 3) return (is_bossshuffle && !items.icerod) ? 'possible' : 'available';
+						}
+						break;
+				}				
+				return 'unavailable';				
 			},
 			can_get_chest: function() {
 				if (crystal_check() < 7) {
 					return 'unavailable';
 				}
 				
-				if (is_keysanity) {
-					if (items.bigkey10 && items.smallkey10 > 2 && items.bow > 1 && items.hookshot && items.firerod && items.somaria) return 'available';
-					// Counting reachable items and keys
-					var reachable = 0;
-					var curr_keys = 0;
-					curr_keys += items.smallkey10;
-					curr_keys += 1; // free key on left side
-					// 0 key chests
-					reachable += 2; // first two right side chests
-					if (items.boots) reachable += 1; // torch
-					if (items.somaria) reachable += 1; // tile room
-					if (items.hookshot && items.hammer) reachable += 4; // stalfos room
-					if (items.bigkey10 && items.bow > 1 && (items.lantern || items.firerod)){ 
-						reachable += 2; // mini helmasaur room
-						curr_keys += 1; // mini helmasaur room
-					}
-					// 0 key chests with common sense
-					if (items.somaria && items.firerod && curr_keys > 0) reachable += 4; // rest of the right side chests. The key is gained back after those.
-					if (items.hookshot && items.hammer) reachable += 1; // chest before randomizer room. We assume the key in the switch room is used for this one
-					if (items.bigkey10 && items.bow > 1 && (items.lantern || items.firerod) && curr_keys > 0) {
-						reachable += 1; // room after mini helmasaurs. We assume players keep enough keys to reach top. If they didnt, then they got other chests for that key.
-						curr_keys -= 1;
-					}
-					if (items.bigkey10 && items.bow > 1 && (items.lantern || items.firerod) && items.hookshot && ((items.sword > 0 || swordless === 'yes') || items.hammer) && curr_keys > 0) {
-						reachable += 1; // Chest after Moldorm. See assumptions above.
-						curr_keys -= 1;
-					}
-					// 1 key chests 
-					if (curr_keys > 0) {
-						if (items.hookshot && items.hammer) { // we can reach randomizer room and the area after that
-							reachable += items.bigkey10 ? 9 : 8;
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (items.bow > 0 && items.hookshot && (items.firerod || items.lantern)) {
+							if (!items.somaria || !items.boots || !items.firerod) return 'possible';
+							return (is_bossshuffle && !items.icerod) ? 'possible' : 'available';
+						}
+						break;
+					case 'K':
+					case 'F':		
+						if (items.bigkey10 && items.smallkey10 > 2 && items.bow > 0 && items.hookshot && items.firerod && items.somaria) return 'available';
+						// Counting reachable items and keys
+						var reachable = 0;
+						var curr_keys = 0;
+						curr_keys += items.smallkey10;
+						curr_keys += 1; // free key on left side
+						// 0 key chests
+						reachable += 2; // first two right side chests
+						if (items.boots) reachable += 1; // torch
+						if (items.somaria) reachable += 1; // tile room
+						if (items.hookshot && items.hammer) reachable += 4; // stalfos room
+						if (items.bigkey10 && items.bow > 0 && (items.lantern || items.firerod)){ 
+							reachable += 2; // mini helmasaur room
+							curr_keys += 1; // mini helmasaur room
+						}
+						// 0 key chests with common sense
+						if (items.somaria && items.firerod && curr_keys > 0) reachable += 4; // rest of the right side chests. The key is gained back after those.
+						if (items.hookshot && items.hammer) reachable += 1; // chest before randomizer room. We assume the key in the switch room is used for this one
+						if (items.bigkey10 && items.bow > 0 && (items.lantern || items.firerod) && curr_keys > 0) {
+							reachable += 1; // room after mini helmasaurs. We assume players keep enough keys to reach top. If they didnt, then they got other chests for that key.
 							curr_keys -= 1;
-						} else {
-							if (items.somaria && items.firerod) {    // we can reach armos' area via right side
-								reachable += items.bigkey10 ? 5 : 4;
+						}
+						if (items.bigkey10 && items.bow > 0 && (items.lantern || items.firerod) && items.hookshot && ((items.sword > 0 || is_swordless) || items.hammer) && curr_keys > 0) {
+							reachable += 1; // Chest after Moldorm. See assumptions above.
+							curr_keys -= 1;
+						}
+						// 1 key chests 
+						if (curr_keys > 0) {
+							if (items.hookshot && items.hammer) { // we can reach randomizer room and the area after that
+								reachable += items.bigkey10 ? 9 : 8;
 								curr_keys -= 1;
+							} else {
+								if (items.somaria && items.firerod) {    // we can reach armos' area via right side
+									reachable += items.bigkey10 ? 5 : 4;
+									curr_keys -= 1;
+								}
 							}
 						}
-					}
-					if ((items.hookshot || items.boots) && items.hammer && curr_keys > 0) {
-						reachable += 1; // Vanilla map chest aka double firebar chest. Since one item for one key is the least bang for the buck we check this one last.
-						curr_keys -= 1;
-					}
-					// 1 key chests
-					if (items.keychest10 > (27 - reachable)) return 'possible'; // available was checked at the beginning. You can get all items with 2 smallkey10 alone but let's make it 'possible' in case someone had to open second right side door to get to armos in order to get hookshot
+						if ((items.hookshot || items.boots) && items.hammer && curr_keys > 0) {
+							reachable += 1; // Vanilla map chest aka double firebar chest. Since one item for one key is the least bang for the buck we check this one last.
+							curr_keys -= 1;
+						}
+						// 1 key chests
+						if (items.chest10 > (27 - reachable)) return 'possible'; // available was checked at the beginning. You can get all items with 2 smallkey10 alone but let's make it 'possible' in case someone had to open second right side door to get to armos in order to get hookshot
 
-					return 'unavailable'; // We got all reachable items or even more than that in case the player did not follow the 'common sense'
+						return 'unavailable'; // We got all reachable items or even more than that in case the player did not follow the 'common sense'
+						break;
+				}				
+				return 'unavailable';					
+				
+				if (flags.dungeonitems === 'F') {
+					
+				} else if (flags.dungeonitems === 'K') {
+					
 				} else {
-					if (items.bow > 1 && items.hookshot && items.firerod && items.somaria && items.boots) return 'available';
-					return 'possible';
+
 				}
 			}
 		}];
 
 		window.agahnim = {
-			caption: 'Agahnim {sword1}{lantern}',
+			caption: 'Agahnim',
 			is_available: function() {
-				if (is_keysanity) {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 && agatowerweapon() ?
-						items.lantern ? 'available' : 'dark' :
-						'unavailable';					
-				} else {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 1))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) ?
-						items.lantern && agatowerweapon() ? 'available' : 'dark' :
-						'unavailable';
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) ? items.lantern && agatowerweapon() ? 'available' : 'darkavailable' : 'unavailable';					
+						break;
+					case 'K':
+					case 'F':
+						return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+						break;
 				}
 			}
 		};
@@ -918,7 +1394,7 @@
 			is_opened: false,
 			is_available: function() {
 				return (activeFlute() || items.glove) && ((items.hookshot && items.moonpearl) || items.glove === 2) ?
-					(items.moonpearl ? (items.lantern || activeFlute() ? 'available' : 'dark') : 'sequencebreak') :
+					(items.moonpearl ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'sequencebreak') :
 					'unavailable';
 			}
 		}, { // [4]
@@ -926,7 +1402,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.hammer && items.moonpearl && (activeFlute() || items.glove) && (items.hookshot || items.glove === 2) ?
-					(items.lantern || activeFlute() ? 'available' : 'dark') :
+					(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
 					'unavailable';
 			}
 		}, { // [5]
@@ -966,7 +1442,7 @@
 			is_opened: false,
 			is_available: function() {
 				return (activeFlute() || items.glove) ?
-					(items.lantern || activeFlute() ? 'available' : 'dark') :
+					(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
 					'unavailable';
 			}
 		}, { // [12]
@@ -980,7 +1456,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.glove && items.hammer && (items.byrna || items.cape) ?
-					items.lantern || activeFlute() ? 'available' : 'dark' :
+					items.lantern || activeFlute() ? 'available' : 'darkavailable' :
 					'unavailable';
 			}
 		}, { // [14]
@@ -1004,7 +1480,7 @@
 			is_opened: false,
 			is_available: function() {
 				return (activeFlute() || items.glove) && ((items.hookshot && items.moonpearl) || items.glove === 2) ?
-					(items.moonpearl ? (items.lantern || activeFlute() ? 'available' : 'dark') : (items.sword >= 2 ? 'possible' : 'unavailable')) :
+					(items.moonpearl ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : (items.sword >= 2 ? 'possible' : 'unavailable')) :
 					'unavailable';
 			}
 		}, { // [18]
@@ -1030,7 +1506,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.glove && (items.boots || items.hookshot) ?
-					(items.lantern || activeFlute() ? 'available' : 'dark') :
+					(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
 					'unavailable';
 			}
 		}, { // [22]
@@ -1038,7 +1514,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.glove && items.hookshot ?
-					(items.lantern || activeFlute() ? 'available' : 'dark') :
+					(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
 					'unavailable';
 			}
 		}, { // [23]
@@ -1088,7 +1564,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.moonpearl && items.hammer && items.book && (activeFlute() || items.glove) && (items.hookshot || items.glove === 2) ?
-					(items.sword >= 2 || (is_swordless && items.hammer) ? (items.lantern || activeFlute() ? 'available' : 'dark') : 'possible') :
+					(items.sword >= 2 || (is_swordless && items.hammer) ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'possible') :
 					'unavailable';
 			}
 		}, { // [31]
@@ -1119,7 +1595,7 @@
 			caption: 'Lost Old Man {lantern}',
 			is_opened: false,
 			is_available: function() {
-				return items.glove || activeFlute() ? items.lantern ? 'available' : 'dark' : 'unavailable';
+				return items.glove || activeFlute() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 			}
 		}, { // [35]
 			caption: 'Witch: Give her {mushroom}',
@@ -1143,7 +1619,7 @@
 			caption: 'Spectacle Rock Cave',
 			is_opened: false,
 			is_available: function() {
-				return items.glove || activeFlute() ? (items.lantern || activeFlute() ? 'available' : 'dark') : 'unavailable';
+				return items.glove || activeFlute() ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'unavailable';
 			}
 		}, { // [39]
 			caption: 'South of Grove',
@@ -1188,7 +1664,7 @@
 				if(!(items.glove || activeFlute()))
 					return 'unavailable';
 				return items.moonpearl && items.hammer && (items.hookshot || items.glove === 2) ?
-					(items.lantern || activeFlute() ? 'available' : 'dark') :
+					(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
 					'possible';
 			}
 		}, { // [46]
@@ -1196,7 +1672,7 @@
 			is_opened: false,
 			is_available: function() {
 				return (activeFlute() || items.glove) && ((items.hookshot && items.moonpearl) || items.glove === 2) ?
-					(items.lantern || activeFlute() ? 'available' : 'dark') :
+					(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
 					'unavailable';
 			}
 		}, { // [47]
@@ -1320,7 +1796,7 @@
 			caption: 'Escape Sewer Dark Room {lantern}',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.moonpearl ? (items.lantern ? 'available' : 'dark') : (items.mirror ? 'sequencebreak' : 'unavailable')) : 'unavailable';
+				return canReachLightWorldBunny() ? (items.moonpearl ? (items.lantern ? 'available' : 'darkavailable') : (items.mirror ? 'sequencebreak' : 'unavailable')) : 'unavailable';
 			}
 		}, { // [64]
 			caption: 'Waterfall of Wishing (2) {flippers}',
@@ -1332,590 +1808,894 @@
 			caption: 'Castle Tower',
 			is_opened: false,
 			is_available: function() {
-				return (activeFlute() || items.glove) ? items.lantern ? 'available' : 'dark' : 'unavailable';
+				return (activeFlute() || items.glove) ? (items.lantern || items.flute) ? 'available' : 'darkavailable' : 'unavailable';
 			}
 		}, { // [66]
 			caption: 'Castle Tower (small key)',
 			is_opened: false,
 			is_available: function() {
 				if (is_retro) {
-					return (activeFlute() || items.glove) ? items.lantern ? 'available' : 'dark' : 'unavailable';
+					return (activeFlute() || items.glove) ? (items.lantern || items.flute) ? 'available' : 'darkavailable' : 'unavailable';
 				} else {
-					return (activeFlute() || items.glove) && items.smallkeyhalf1 > 0 ? items.lantern ? 'available' : 'dark' : 'unavailable';
+					return (activeFlute() || items.glove) && items.smallkeyhalf1 > 0 ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 				}
 			}
 		}];
+		
+		
 	}
 	else
 	{
 		// define dungeon chests
 		window.dungeons = [{ // [0]
-			caption: 'Eastern Palace {lantern}',
+			caption: 'Eastern Palace',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity && !items.bigkey0) return 'unavailable';
-				if (is_enemizer) {
-					return enemizer_check(0, items.lantern, false);
-				} else {
-					return items.bow > 1 ?
-						items.lantern ? 'available' : 'dark' :
-						'unavailable';
-				}
+				var dungeoncheck = enemizer_check_new(0);
+				//Standard check
+				if (!items.bigkey0 || dungeoncheck === 'unavailable' || !(items.bow > 0 && !is_enemyshuffle)) return 'unavailable';
+				//Dark Room check
+				if (!items.lantern && !(items.firerod && is_advanced)) return dungeoncheck === 'possible' ? 'darkpossible' : 'darkavailable';
+				return dungeoncheck;
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (items.bigkey0 && items.bow > 1 && items.lantern) return 'available';
-					if (items.keychest0 >= 4) return 'possible';
-					if (items.keychest0 >= 3 && !items.bigkey0 && !items.lantern) return 'dark';
-					if (items.keychest0 >= 3 && (items.bigkey0 || items.lantern)) return 'possible';
-					if (items.keychest0 >= 2 && items.bigkey0) return items.lantern ? 'possible' : 'dark';
-					if (items.bigkey0 && items.bow > 1 && !items.lantern) return 'dark';
-					return 'unavailable';			
-				} else {
-					return items.chest0 <= 2 && !items.lantern ||
-						items.chest0 === 1 && !(items.bow > 1) ?
-						'possible' : 'available';
+				var dungeoncheck = enemizer_check_new(0);
+
+				switch (flags.dungeonitems) {
+					case 'S':
+						return items.chest0 <= 2 && !items.lantern || items.chest0 === 1 && !(items.bow > 0) ? 'possible' : 'available';
+						break;
+					case 'M':
+					case 'K':
+						if (items.chest0 >= 3) return 'available';
+						if (items.chest0 >= 2) return items.lantern ? 'available' : 'darkavailable';
+						if (items.chest0 === 1) {
+							if (dungeoncheck === 'unavailable') {
+								return dungeoncheck;
+							}
+							if (items.bow > 0) return items.lantern ? dungeoncheck : 'darkavailable';
+						}
+						return 'unavailable';
+						break;
+					case 'F':
+						if (items.bigkey0 && items.bow > 0 && items.lantern) return 'available';
+						if (items.chest0 >= 4) return 'available';
+						if (items.chest0 >= 3 && !items.bigkey0 && !items.lantern) return 'darkavailable';
+						if (items.chest0 >= 3 && (items.bigkey0 || items.lantern)) return 'possible';
+						if (items.chest0 >= 2 && items.bigkey0) return items.lantern ? 'possible' : 'darkavailable';
+						if (items.chest0 === 1) {
+							if (dungeoncheck === 'unavailable') {
+								return dungeoncheck;
+							}
+							if (items.bigkey0 && items.bow > 0) return items.lantern ? dungeoncheck : 'darkavailable';
+						}
+						return 'unavailable';			
+						break;				
+				
+				/* var epchests = ['U','U','U','U','U','U'];
+				
+				//Compass Chest
+				epchests[0] = 'A';
+				//Big Chest
+				epchests[1] = (flags.dungeonitems === 'F' ? (items.bigkey0 ? 'A' : 'U') : ((is_advanced && items.firerod) || items.lantern ? 'A' : 'P'));
+				//Cannonball Chest
+				epchests[2] = 'A';
+				//Big Key Chest
+				epchests[3] = ((is_advanced && items.firerod) || items.lantern ? 'A' : 'DA');
+				//Map Chest
+				epchests[4] = 'A';
+				//Boss
+				epchests[5] = (items.bigkey0 && dungeoncheck != 'unavailable') ? 'A' : 'U';
+				if (epchests[5] === 'A') {
+					if (is_enemyshuffle) {
+						epchests[5] = 'P';
+					} else {
+						if (items.bow === 0) epchests[5] = 'U';
+					}					
+					if (!items.lantern && !(items.firerod && is_advanced)) {
+						epchests[5] = (epchests[5] === 'P') ? 'DP' : 'DA';
+					}
+				}
+				
+				return available_chests(epchests, 0, items.maxchest0, items.chest0); */
 				}
 			}
 		}, { // [1]
-			caption: 'Desert Palace',
+			caption: 'Desert Palace {book} / {glove2} {mirror} {flute}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity) {
-					if (!items.bigkey1) return 'unavailable';
-					if (!(items.book && items.glove) && !(items.flute && items.glove === 2 && items.mirror)) return 'unavailable';
-					if (!items.lantern && !items.firerod) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(1, true, false);
-					} else {
-						if (!(melee_bow() || cane() || rod())) return 'unavailable';
-						return 'available';
-					}					
-				} else {
-					if (!(items.book && items.glove) && !(items.flute && items.glove === 2 && items.mirror)) return 'unavailable';
-					if (!items.lantern && !items.firerod) return 'unavailable';
-					if (is_enemizer) {
-						return items.boots ? enemizer_check(1, true, false) : enemizer_check(1, true, true);
-					} else {
-						if (!(melee_bow() || cane() || rod())) return 'unavailable';
-						return items.boots ? 'available' : 'possible';
-					}
+				if (!(items.book && items.glove) && !(items.flute && items.glove === 2 && items.mirror) || (!items.lantern && !items.firerod)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(1);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (dungeoncheck === 'available') {
+							return items.boots ? 'available' : 'possible';
+						}
+						return dungeoncheck;
+						break;
+					case 'K':
+						if (items.smallkey1 === 1) {
+							if (dungeoncheck === 'available') {
+								return items.boots ? 'available' : 'possible';
+							}
+							return dungeoncheck;
+						}
+						return dungeoncheck === 'unavailable' ? 'unavailable' : 'possible';
+						break;
+					case 'F':
+						if (!items.bigkey1) return 'unavailable';
+						return dungeoncheck;
+						break;
 				}
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!items.book && !(items.flute && items.glove === 2 && items.mirror)) return 'unavailable';
-					if (items.bigkey1 && items.smallkey1 === 1 && items.glove && (items.lantern || items.firerod) && items.boots) return 'available';
-					
-					// item count approach
-					var reachable = 0;
-					var curr_keys = 0;
-					curr_keys += items.smallkey1;
-					reachable += 1; // free first chest
-					// 0 key chests
-					if (items.boots) {
-						reachable += 1; // bonk spot on torch
-					}
-
-					if (items.bigkey1) {
-						reachable += 1; // big chest
-						if (items.glove && (items.lantern || items.firerod)) {
-							reachable += 1; // boss kill
+				if (!items.book && !(items.flute && items.glove === 2 && items.mirror)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(1);
+				switch (flags.dungeonitems) {
+					case 'S':
+						if (items.chest1 === 2) return items.boots ? 'available' : 'possible';
+						if (items.chest1 === 1) {
+							if (items.glove && (items.firerod || items.lantern) && items.boots) return dungeoncheck === 'unavailable' ? 'possible' : dungeoncheck;
+							return 'possible'
 						}
-					}
-									
-					// 1 key chests
-					if (curr_keys > 0) {
-						reachable += 2; // Right side small key room
-						curr_keys -= 1;
-					}				
-					
-					if (items.keychest1 > 6 - reachable) {
-						return 'possible';
-					}					
-					return 'unavailable'; 
-				} else {
-					if (!items.book && !(items.flute && items.glove === 2 && items.mirror)) return 'unavailable';
-					if (items.glove && (items.firerod || items.lantern) && items.boots) return 'available';
-					return items.chest1 > 1 && items.boots ? 'available' : 'possible';
+						break;
+					case 'M':
+						if (items.chest1 === 4) return 'available';
+						if (items.chest1 > 1) return items.boots ? 'available' : 'possible';
+						if (items.chest1 === 1) {
+							if (items.glove && (items.firerod || items.lantern) && items.boots) return dungeoncheck === 'unavailable' ? 'possible' : dungeoncheck;
+							return 'possible'
+						}
+						break;
+					case 'K':
+						if (items.chest1 === 5) return 'available';
+						if (items.smallkey1 === 0) {
+							if (items.chest1 === 4) return items.boots ? 'available' : 'possible';
+							if (items.chest1 === 3) return items.boots ? (dungeoncheck === 'unavailable' ? 'unavailable' : 'possible') : 'unavailable';
+						} else {
+							if (items.chest1 > 2) return 'available';
+							if (items.chest1 > 1) return items.boots ? 'available' : 'possible';
+							if (items.chest1 === 1) return items.boots ? dungeoncheck : 'unavailable';
+						}
+						break;
+					case 'F':
+						if (items.chest1 === 6) return 'available';
+						if (items.chest1 === 5) {
+							if (items.bigkey1 || items.boots || items.smallkey1 === 1) return 'available';
+						}
+						if (items.chest1 === 4) {
+							if (items.bigkey1 && !items.boots && items.smallkey1 === 0 && items.glove && (items.lantern || items.firerod)) return dungeoncheck;
+							if ((items.bigkey1 && items.boots) || items.smallkey1 === 1) return 'available';
+						}
+						if (items.chest1 === 3) {
+							if (items.smallkey1 === 1) {
+								if (items.bigkey1 || items.boots) return 'available';
+							} else {
+								if (items.bigkey1 && items.boots && items.glove && (items.lantern || items.firerod)) return dungeoncheck;
+							}
+						}
+						if (items.chest1 === 2) {
+							if (items.smallkey1 === 0 || !items.bigkey1) {
+								return 'unavailable';
+							} else {
+								if (items.boots) {
+									return 'available';
+								} else {
+									if (items.glove && (items.lantern || items.firerod)) return dungeoncheck;
+								}
+							}
+						}
+						if (items.chest1 === 1) {
+							if (!items.boots) return 'unavailable';
+							if (items.bigkey1 && items.smallkey1 === 1 && items.glove && (items.lantern || items.firerod)) return dungeoncheck;
+						}
+						break;
 				}
+				return 'unavailable';
 			}
 		}, { // [2]
-			caption: 'Tower of Hera',
+			caption: 'Tower of Hera {mirror} / {hookshot} {hammer}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity) {
-					if (!melee() || !items.bigkey2) return 'unavailable';
-					if (!items.flute && !items.glove) return 'unavailable';
-					if (!items.mirror && !(items.hookshot && items.hammer)) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(2, items.lantern, false);
-					} else {
-						return !items.flute && !items.lantern ? 'dark' : 'available';
-					}
-				} else {
-					if (!items.flute && !items.glove) return 'unavailable';
-					if (!items.mirror && !(items.hookshot && items.hammer)) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(2, (items.flute || items.lantern), false);
-					} else {
-						if (!melee()) return 'unavailable';
-						return this.can_get_chest();
-					}
+				if (!items.flute && !items.glove) return 'unavailable';
+				if (!items.mirror && !(items.hookshot && items.hammer)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(2);
+				if (dungeoncheck === 'unavailable') return 'unavailable';
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (!items.lantern && !items.firerod) return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						if (!items.lantern && !items.flute) return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+						return dungeoncheck;
+						break;
+					case 'K':
+						if ((!items.lantern && !items.firerod) || items.smallkey2 === 0) return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						if (!items.lantern && !items.flute) return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+						return dungeoncheck;
+						break;
+					case 'F':
+						if (!items.bigkey2) return 'unavailable';
+						if (!items.lantern && !items.flute) return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+						return dungeoncheck;
+						break;
 				}
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!(items.flute || items.glove) || !(items.mirror || (items.hookshot && items.hammer))) return 'unavailable';	
-					if (items.bigkey2 && items.smallkey2 === 1 && melee() && (items.lantern || items.firerod)) return (!items.flute && !items.lantern) ? 'dark' : 'available';
-					if (items.keychest2 >= 5) return (!items.flute && !items.lantern) ? 'dark' : 'possible';
-					if (items.keychest2 >= 4 && items.smallkey2 === 1 && (items.firerod || items.lantern)) return (!items.flute && !items.lantern) ? 'dark' : 'possible';
-					if (items.keychest2 >= 3 && items.bigkey2) return (!items.flute && !items.lantern) ? 'dark' : 'possible';
-					if (items.keychest2 >= 2 && items.bigkey2 && (melee() || (items.smallkey2 === 1 && (items.firerod || items.lantern)))) return (!items.flute && !items.lantern) ? 'dark' : 'possible';
-					return 'unavailable';
-				} else {
-					if (!items.flute && !items.glove) return 'unavailable';
-					if (!items.mirror && !(items.hookshot && items.hammer)) return 'unavailable';
-					return items.firerod || items.lantern ?
-						items.flute || items.lantern ? 'available' : 'dark' :
-						'possible';
-				}
+				if (!items.flute && !items.glove) return 'unavailable';
+				if (!items.mirror && !(items.hookshot && items.hammer)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(2);
+				switch (flags.dungeonitems) {
+					case 'S':
+						if (items.lantern || items.firerod) {
+							if (!items.lantern && !items.flute) {
+								return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+							} else {
+								return dungeoncheck === 'available' ? 'available' : 'possible';
+							}
+						}
+						return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						break;
+					case 'M':
+						if (items.chest2 === 4) {
+							return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+						}
+						if (items.chest2 === 3) {
+							if (items.lantern || items.firerod) return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+							return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						}
+						if (items.chest2 === 2) {
+							if (items.lantern || items.firerod) {
+								if (!items.lantern && !items.flute) {
+									return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+								} else {
+									return dungeoncheck === 'available' ? 'available' : 'possible';
+								}
+							}
+							return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						}
+						if (dungeoncheck === 'unavailable') return 'unavailable';
+						if (!items.lantern && !items.firerod) return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+						return dungeoncheck === 'available' ? ((!items.lantern && !items.flute) ? 'darkavailable' : 'available') : ((!items.lantern && !items.flute) ? 'darkpossible' : 'possible');
+						break;
+					case 'K':
+						if (items.chest2 > 3) {
+							return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+						}
+						if (items.chest2 > 1) {
+							if (items.smallkey2 === 0 || (!items.lantern && !items.firerod)) {
+								return (!items.lantern && !items.flute) ? 'darkpossible' : 'possible';
+							} else {
+								return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+							}
+						}
+						if (items.chest2 === 1) {
+							if (items.smallkey2 === 0 || (!items.lantern && !items.firerod) || dungeoncheck === 'unavailable') return 'unavailable';
+						}
+						return dungeoncheck === 'available' ? ((!items.lantern && !items.flute) ? 'darkavailable' : 'available') : ((!items.lantern && !items.flute) ? 'darkpossible' : 'possible'); 
+						break;
+					case 'F':
+						if (items.chest2 > 4) {
+							return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+						}
+						if (items.chest2 === 4) {
+							if (items.smallkey2 === 0 && !items.bigkey2) return 'unavailable';
+							if (!items.bigkey2 && (items.smallkey2 === 1 || (!items.lantern && !items.firerod))) return 'unavailable';
+							return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+						}
+						if (items.chest2 === 3) {
+							if (items.bigkey2) return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+							return 'unavailable';
+						}
+						if (items.chest2 === 2 && items.bigkey2) {
+							if (dungeoncheck != 'unavailable') {
+								return (!items.lantern && !items.flute) ? 'darkavailable' : 'available';
+							} else {
+								if (items.smallkey2 === 0 || (!items.lantern && !items.firerod)) return 'unavailable';
+								return dungeoncheck === 'available' ? ((!items.lantern && !items.flute) ? 'darkavailable' : 'available') : ((!items.lantern && !items.flute) ? 'darkpossible' : 'possible');
+							}
+						}
+						if (items.chest2 === 1 && items.bigkey2 && items.smallkey2 == 1 && (items.lantern || items.firerod) && dungeoncheck != 'unavailable') return dungeoncheck === 'available' ? ((!items.lantern && !items.flute) ? 'darkavailable' : 'available') : ((!items.lantern && !items.flute) ? 'darkpossible' : 'possible');
+						break;
+				}				
+				return 'unavailable';
 			}
 		}, { // [3]
-			caption: 'Palace of Darkness {lantern}',
+			caption: 'Palace of Darkness',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity) {
-					if (!items.moonpearl || !(items.bow > 1) || !items.hammer) return 'unavailable';
-					if (!items.agahnim && !items.glove) return 'unavailable';
-					if (!items.bigkey3 || items.smallkey3 === 0) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(3, items.lantern, items.smallkey3 < 6);
-					} else {
-						if (items.smallkey3 < 6) return items.lantern ? 'possible' : 'dark';
-						return items.lantern ? 'available' : 'dark';
-					}
-					
-				} else {
-					if (!items.moonpearl || !(items.bow > 1) || !items.hammer) return 'unavailable';
-					if (!items.agahnim && !items.glove) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(3, items.lantern, false);
-					} else {
-						return items.lantern ? 'available' : 'dark';
-					}					
+				if (!items.moonpearl || !(items.bow > 0) || !items.hammer) return 'unavailable';
+				if (!items.agahnim && !items.glove) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(3);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (dungeoncheck === 'unavailable') return 'unavailable';
+						return dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'darkpossible' : 'darkpossible') ;
+						break;
+					case 'K':
+						if (items.smallkey3 < 6) return 'unavailable'
+						if (dungeoncheck === 'unavailable') return 'unavailable';
+						return dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'darkpossible' : 'darkpossible') ;
+						break;
+					case 'F':
+						if (items.smallkey3 < 6 || !items.bigkey3) return 'unavailable'
+						if (dungeoncheck === 'unavailable') return 'unavailable';
+						return dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'darkpossible' : 'darkpossible') ;
+						break;
 				}
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!items.moonpearl) return 'unavailable';
-					if (!items.agahnim && !(items.hammer && items.glove) && !(items.glove === 2 && items.flippers)) return 'unavailable';
-					if (items.smallkey3 === 6 && items.bigkey3 && items.hammer && items.bow > 1 && items.lantern) return 'available';
-					// item count approach
-					var reachable = 0;
-					var curr_keys = 0;
-					var dark_chests = 0;
-					curr_keys += items.smallkey3;
-					reachable += 1; // free first chest
-					// 0 key chests
-					if (items.bow > 1) reachable += 2; // bow locked right side
-					// conditioned key usage
-					if (items.bow > 1 && items.hammer) {
-						reachable += 2; // bridge and dropdown
-					} else {
-						if (curr_keys > 0) {
+				if (!items.moonpearl) return 'unavailable';
+				if (!items.agahnim && !items.glove) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(2);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (items.hammer && items.bow > 0 && items.lantern) return 'available';
+						if (items.chest3 > 3) {
+							if (!items.hammer && !items.bow) return items.lantern ? 'available' : 'possible';
+						}
+						if (items.chest3 > 1) {
+							return (items.bow) ? 'available' : 'possible';
+						}
+						return 'possible'
+						break;
+					case 'K':
+						//Prioritize Helma last
+						if (items.smallkey3 === 6 && items.hammer && items.bow > 0 && items.lantern && dungeoncheck === 'available') return 'available';
+						
+						// item count approach
+						var reachable = 0;
+						var curr_keys = 0;
+						var dark_chests = 0;
+						curr_keys += items.smallkey3;
+						reachable += 1; // free first chest
+						// 0 key chests
+						if (items.bow > 0) reachable += 2; // bow locked right side
+						// conditioned key usage
+						if (items.bow > 0 && items.hammer) {
 							reachable += 2; // bridge and dropdown
-							curr_keys -= 1; // front door used
-						}
-					}
-					// 1 key chests
-					if (curr_keys > 0) {
-						reachable += 3; // Back side of POD, since it yields most chests for the key
-						curr_keys -= 1;
-						dark_chests += 2;
-					}
-					if (curr_keys > 0) {
-						reachable += items.bigkey3 ? 3 : 2; // Dark area with big chest
-						curr_keys -= 1;
-						dark_chests += items.bigkey3 ? 3 : 2;
-					}
-					if (items.bow > 1 && items.hammer && items.bigkey3 && curr_keys > 0) {
-						reachable += 1; // King Helmasaur. We do not prioritize him when he is beatable. This way we show the max amount of items.
-						curr_keys -= 1;
-						dark_chests += 1;
-					}
-					if (curr_keys > 0) {
-						reachable += 1; // Spike Room
-						curr_keys -= 1;
-					}
-					if (curr_keys > 0) {
-						reachable += 1; // Vanilla big key chest
-						curr_keys -= 1;
-					}
-
-					if (items.keychest3 > 14 - reachable) {
-						if (items.keychest3 > 14 - (reachable - dark_chests)) {
-							return 'possible';
 						} else {
-							return items.lantern ? 'possible' : 'dark';
+							if (curr_keys > 0) {
+								reachable += 2; // bridge and dropdown
+								curr_keys -= 1; // front door used
+							}
 						}
-					}
-					
-					return 'unavailable'; // We got all reachable chests or even more if helmasaur was not prioritized
-				} else {
-					if (!items.moonpearl) return 'unavailable';
-					if (!items.agahnim && !(items.hammer && items.glove) && !(items.glove === 2 && items.flippers)) return 'unavailable';
-					return !(items.bow > 1 && items.lantern) ||
-						items.chest3 === 1 && !items.hammer ?
-						'possible' : 'available';
+						// 1 key chests
+						if (curr_keys > 0) {
+							reachable += 3; // Back side of POD, since it yields most chests for the key
+							curr_keys -= 1;
+							dark_chests += 2;
+						}
+						if (curr_keys > 0) {
+							reachable += 3; // Dark area with big chest, always assume big key is possible
+							curr_keys -= 1;
+							dark_chests += 3;
+						}
+						if (items.bow > 0 && items.hammer && curr_keys > 0) {
+							reachable += 1; // King Helmasaur. We do not prioritize him when he is beatable. This way we show the max amount of items.
+							curr_keys -= 1;
+							dark_chests += 1;
+						}
+						if (curr_keys > 0) {
+							reachable += 1; // Spike Room
+							curr_keys -= 1;
+						}
+						if (curr_keys > 0) {
+							reachable += 1; // Vanilla big key chest
+							curr_keys -= 1;
+						}
+
+						if (items.chest3 > 13 - reachable) {
+							if (items.chest3 > 13 - (reachable - dark_chests)) {
+								return 'possible';
+							} else {
+								return items.lantern ? 'possible' : 'darkavailable';
+							}
+						}
+						return 'unavailable'; // We got all reachable chests or even more if helmasaur was not prioritized
+						break;
+					case 'F':
+						if (items.smallkey3 === 6 && items.bigkey3 && items.hammer && items.bow > 0 && items.lantern && dungeoncheck === 'available') return 'available';
+						// item count approach
+						var reachable = 0;
+						var curr_keys = 0;
+						var dark_chests = 0;
+						curr_keys += items.smallkey3;
+						reachable += 1; // free first chest
+						// 0 key chests
+						if (items.bow > 0) reachable += 2; // bow locked right side
+						// conditioned key usage
+						if (items.bow > 0 && items.hammer) {
+							reachable += 2; // bridge and dropdown
+						} else {
+							if (curr_keys > 0) {
+								reachable += 2; // bridge and dropdown
+								curr_keys -= 1; // front door used
+							}
+						}
+						// 1 key chests
+						if (curr_keys > 0) {
+							reachable += 3; // Back side of POD, since it yields most chests for the key
+							curr_keys -= 1;
+							dark_chests += 2;
+						}
+						if (curr_keys > 0) {
+							reachable += items.bigkey3 ? 3 : 2; // Dark area with big chest
+							curr_keys -= 1;
+							dark_chests += items.bigkey3 ? 3 : 2;
+						}
+						if (items.bow > 0 && items.hammer && items.bigkey3 && curr_keys > 0) {
+							reachable += 1; // King Helmasaur. We do not prioritize him when he is beatable. This way we show the max amount of items.
+							curr_keys -= 1;
+							dark_chests += 1;
+						}
+						if (curr_keys > 0) {
+							reachable += 1; // Spike Room
+							curr_keys -= 1;
+						}
+						if (curr_keys > 0) {
+							reachable += 1; // Vanilla big key chest
+							curr_keys -= 1;
+						}
+
+						if (items.chest3 > 14 - reachable) {
+							if (items.chest3 > 14 - (reachable - dark_chests)) {
+								return 'possible';
+							} else {
+								return items.lantern ? 'possible' : 'darkavailable';
+							}
+						}
+						
+						return 'unavailable'; // We got all reachable chests or even more if helmasaur was not prioritized
+						break;
 				}
 			}
 		}, { // [4]
-			caption: 'Swamp Palace {mirror}',
+			caption: 'Swamp Palace {mirror} {flippers}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity) {
-					if (!items.moonpearl || !items.mirror || !items.flippers) return 'unavailable';
-					if (!items.hammer || !items.hookshot || items.smallkey4 === 0) return 'unavailable';
-					if (!items.glove && !items.agahnim) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(4, true, false);
-					} else {
-						return 'available';
-					}
-				} else {
-					if (!items.moonpearl || !items.mirror || !items.flippers) return 'unavailable';
-					if (!items.hammer || !items.hookshot) return 'unavailable';
-					if (!items.glove && !items.agahnim) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(4, true, false);
-					} else {
-						return 'available';				
-					}					
+				if (!items.moonpearl || !items.mirror || !items.flippers || !items.hammer || !items.hookshot) return 'unavailable';
+				if (!items.glove && !items.agahnim) return 'unavailable';				
+				var dungeoncheck = enemizer_check_new(4);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						return dungeoncheck;
+						break;
+					case 'K':
+					case 'F':
+						if (items.smallkey4 === 0) return 'unavailable';
+						return dungeoncheck;
+						break;
 				}
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!items.moonpearl || !items.mirror || !items.flippers) return 'unavailable';
-					if (!can_reach_outcast() && !(items.agahnim && items.hammer)) return 'unavailable';
-					if (items.bigkey4 && items.smallkey4 === 1 && items.hammer && items.hookshot) return 'available';
-					if (items.keychest4 === 10) return 'possible';
-					if (items.keychest4 >= 9 && items.smallkey4 === 1) return 'possible';
-					if (items.keychest4 >= 6 && items.smallkey4 === 1 && items.hammer) return 'possible';
-					if (items.keychest4 >= 5 && items.bigkey4 && items.smallkey4 === 1 && items.hammer) return 'possible';				
-					if (items.keychest4 >= 2 && items.smallkey4 === 1 && items.hammer && items.hookshot) return 'possible';
-					return 'unavailable';
-				} else {
-					if (!items.moonpearl || !items.mirror || !items.flippers) return 'unavailable';
-					if (!can_reach_outcast() && !(items.agahnim && items.hammer)) return 'unavailable';
-					if (items.chest4 <= 2) return !items.hammer || !items.hookshot ? 'unavailable' : 'available';
-					if (items.chest4 <= 4) return !items.hammer ? 'unavailable' : !items.hookshot ? 'possible' : 'available';
-					if (items.chest4 <= 5) return !items.hammer ? 'unavailable' : 'available';
-					return !items.hammer ? 'possible' : 'available';
+				if (!items.moonpearl || !items.mirror || !items.flippers) return 'unavailable';
+				if (!items.glove && !items.agahnim) return 'unavailable';				
+				var dungeoncheck = enemizer_check_new(4);
+				switch (flags.dungeonitems) {
+					case 'S':
+						if (items.chest4 === 6) return 'available';
+						if (!items.hammer) return 'unavailable';
+						if (items.chest4 === 5) return 'available';
+						if (items.chest4 > 2) return !items.hookshot ? 'possible' : 'available';
+						return !items.hookshot ? 'unavailable' : 'available';
+						break;
+					case 'M':
+						if (items.chest4 === 8) return 'available';
+						if (!items.hammer) return 'unavailable';
+						if (items.chest4 > 4) return 'available';
+						return !items.hookshot ? 'unavailable' : 'available';
+						break;
+					case 'K':
+						if (items.chest4 === 9) return 'available';
+						if (items.smallkey4 === 0) return 'unavailable';
+						if (items.chest4 === 8) return 'available';
+						if (!items.hammer) return 'unavailable';
+						if (items.chest4 > 4) return 'available';
+						return !items.hookshot ? 'unavailable' : 'available';
+						break;
+					case 'F':
+						if (items.chest4 === 10) return 'available';
+						if (items.smallkey4 === 0) return 'unavailable';
+						if (items.chest4 === 9) return 'available';
+						if (!items.hammer) return 'unavailable';
+						if (items.chest4 > 5) return 'available';
+						if (items.chest4 === 5 && (items.bigkey4 || items.hookshot)) return 'available';
+						if (items.chest4 > 1) return !items.hookshot ? 'unavailable' : 'available';
+						if (items.chest4 === 1) return items.bigkey4 ? 'available' : 'unavailable';
+						break;
 				}
+				return 'unavailable';
 			}
 		}, { // [5]
 			caption: 'Skull Woods',
 			is_beaten: false,
 			is_beatable: function() {
-				if(!can_reach_outcast() || !items.firerod || (items.sword == 0 && !is_swordless)) {
-					return 'unavailable';
-				}
-				if (is_enemizer) {
-					return enemizer_check(5, true, false);
-				} else {
-					return 'available';
-				}
+				if (!can_reach_outcast() || !items.firerod || (items.sword == 0 && !is_swordless)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(5);
+				return dungeoncheck;
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!can_reach_outcast()) return 'unavailable';
-					if (items.bigkey5 && items.firerod && (items.sword > 0 || swordless === 'yes')) return 'available';
-					if (items.keychest5 >= 4) return 'possible';
-					if (items.keychest5 >= 3 && (items.bigkey5 || items.firerod)) return 'possible';
-					if (items.keychest5 >= 2 && items.firerod && ((items.sword > 0 && swordless === 'no') || items.bigkey5)) return 'possible';
-					return 'unavailable';
-				} else {
-					if (!can_reach_outcast()) return 'unavailable';
-					return items.firerod ? 'available' : 'possible';				
+				if (!can_reach_outcast()) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(5);
+				switch (flags.dungeonitems) {
+					case 'S':
+						if (items.chest5 === 2) return !items.firerod ? 'possible' : 'available';
+						return dungeoncheck === 'unavailable' || !items.firerod || (items.sword == 0 && !is_swordless) ? 'possible' : 'available';
+						break;
+					case 'M':
+						if (items.chest5 > 2) return 'available';
+						if (items.chest5 === 2) !items.firerod ? 'possible' : 'available';
+						return dungeoncheck === 'unavailable' || !items.firerod || (items.sword == 0 && !is_swordless) ? 'possible' : 'available';
+						break;
+					case 'K':
+						if (items.chest5 > 2) return 'available';
+						if (items.chest5 === 2) return !items.firerod ? 'unavailable' : 'available';
+						return dungeoncheck === 'unavailable' || (items.sword == 0 && !is_swordless) ? 'unavailable' : dungeoncheck;
+						break;
+					case 'F':
+						if (items.chest5 > 3) return 'available';
+						if (items.chest5 < 4 && !items.firerod && !items.bigkey5) return 'unavailable';
+						if (items.chest5 === 3 && (items.firerod || items.bigkey5)) return 'available';
+						if (items.chest5 === 2 && !items.firerod) return 'unavailable';
+						if (items.chest5 === 2) {
+							if (items.bigkey5) return 'available';
+							if (items.sword > 0 || is_swordless) return dungeoncheck;
+						}
+						return (!items.firerod || (items.sword == 0 && !is_swordless) || !items.bigkey5) ? 'unavailable' : 'available';
+						if (!items.bigkey5 || dungeoncheck === 'unavailable' || (!is_swordless && items.sword === 0)) return 'unavailable';
+						return dungeoncheck;
+						break;
 				}
+				return 'unavailable';
 			}
 		}, { // [6]
 			caption: 'Thieves\' Town',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity) {
-					if (!(melee() || cane())) return 'unavailable';
-					if (!can_reach_outcast()) return 'unavailable';
-					if (!items.bigkey6) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(6, true, false);
-					} else {
-						return 'available';
-					}
-				} else {
-					if (!(melee() || cane())) return 'unavailable';
-					if (!can_reach_outcast()) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(6, true, false);
-					} else {
-						return 'available';
-					}
+				if (!can_reach_outcast()) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(6);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+					case 'K':
+						return dungeoncheck;
+						break;
+					case 'F':
+						return (!items.bigkey6) ? 'unavailable' : dungeoncheck;
+						break;
 				}
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!can_reach_outcast()) return 'unavailable';
-					if (items.bigkey6 && items.smallkey6 === 1 && items.hammer) return 'available';
-					if (items.keychest6 >= 5) return 'possible';
-					if (items.keychest6 >= 3 && items.bigkey6) return 'possible';
-					if (items.keychest6 >= 2 && items.bigkey6 && (melee() || cane())) return 'possible';
-					return 'unavailable';
-				} else {
-					if (!can_reach_outcast()) return 'unavailable';
-					return items.chest6 === 1 && !items.hammer ? 'possible' : 'available';
+				if (!can_reach_outcast()) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(6);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (items.chest6 > 2) return 'available';
+						if (items.chest6 === 2) {
+							if ((!items.hammer) && dungeoncheck === 'unavailable') return 'possible';
+							if (items.hammer) return 'available';
+							return dungeoncheck;
+						}							
+						return (items.chest6 === 1 && (!items.hammer)) ? 'possible' : dungeoncheck;
+						break;
+					case 'K':
+						if (items.chest6 > 2) return 'available';
+						if (items.chest6 === 2) {
+							if ((!items.hammer || items.smallkey6 === 0) && dungeoncheck === 'unavailable') return 'unavailable';
+							if (items.hammer && items.smallkey6 === 1) return 'available';
+							return dungeoncheck;
+						}							
+						return (items.chest6 === 1 && (!items.hammer || items.smallkey6 === 0)) ? 'unavailable' : dungeoncheck;
+						break;
+					case 'F':
+						if (items.chest6 > 4) return 'available';
+						if (items.chest6 < 5 && !items.bigkey6) return 'unavailable';
+						if (items.chest6 > 2) return 'available';
+						if (items.chest6 > 1) {
+							if (items.smallkey6 === 1 && items.hammer) return 'available';
+							return dungeoncheck;
+						}
+						if ((items.smallkey6 === 0 || !items.hammer || dungeoncheck === 'unavailable')) return 'unavailable'; 
+						return dungeoncheck;
+						break;
 				}
 			}
 		}, { // [7]
-			caption: 'Ice Palace (yellow=must bomb jump)',
+			caption: 'Ice Palace {flippers} [{firerod}/{bombos}]',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity) {
-					if (!items.moonpearl || !items.flippers || items.glove !== 2 || !items.hammer) return 'unavailable';
-					if (!items.firerod && !items.bombos) return 'unavailable';
-					if (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';
-
-					if (items.bigkey7 && ((items.smallkey7 > 0 && items.somaria) || items.smallkey7 > 1)) {
-						if (is_enemizer) {
-							return enemizer_check(7, true, false);
-						} else {
-							return 'available';
-						}
-					}
-					if (is_enemizer) {
-						return enemizer_check(7, true, true);
-					} else {
-						return 'possible'; /* via bomb jump */
-					}
-					
-				} else {
-					if (!items.moonpearl || !items.flippers || items.glove !== 2 || !items.hammer) return 'unavailable';
-					if (!items.firerod && !items.bombos) return 'unavailable';
-					if (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';
-					if (is_enemizer) {
-						if (items.hookshot || items.somaria) {
-							return enemizer_check(7, true, false);
-						}
-						return enemizer_check(7, true, true);
-						//return 'possible'; /* via bomb jump */
-					} else {
-						return items.hookshot || items.somaria ? 'available' : 'possible';				
-					}
-					
+				if (!items.moonpearl || !items.flippers || items.glove !== 2 || !items.hammer) return 'unavailable';
+				if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && !is_swordless))) return 'unavailable';
+				if (!items.hookshot && (!items.somaria || !items.bigkey7)) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(7);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+					case 'K':
+					case 'F':
+						return dungeoncheck;
+						break;
 				}
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!items.moonpearl || !items.flippers || items.glove !== 2) return 'unavailable';
-					if (!items.firerod && !items.bombos) return 'unavailable';
-					if (items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';
-					if (items.bigkey7 && items.hammer) return ((items.smallkey7 === 1 && items.somaria) || items.smallkey7 === 2) ? 'available' : 'possible';
-					if (items.bigkey7 && items.hammer) return 'possible';
-					if (items.keychest7 >= 5) return 'possible';
-					if (items.keychest7 >= 4 && items.bigkey7) return 'possible';
-					if (items.keychest7 >= 2 && items.hammer) return 'possible';
-					return 'unavailable';
-				} else {
-					if (!items.moonpearl || !items.flippers || items.glove !== 2) return 'unavailable';
-					if (!items.firerod && !items.bombos) return 'unavailable';
-					if (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';
-					return items.hammer ? 'available' : 'possible';
+				if (!items.moonpearl || !items.flippers || items.glove !== 2) return 'unavailable';
+				if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && !is_swordless))) return 'unavailable';
+				var dungeoncheck = enemizer_check_new(7);
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (items.chest7 > 1 && items.hammer && (items.hookshot || items.somaria)) return 'available';
+						if (items.chest7 === 1 && items.hammer && (items.hookshot || items.somaria) && dungeoncheck === 'available') return 'available';
+						return 'possible';
+						break;
+					case 'K':
+						//if (items.hammer) return ((items.smallkey7 === 1 && items.somaria) || items.smallkey7 === 2) ? 'available' : 'possible';
+						//if (items.hammer) return 'possible';
+						if (items.chest7 >= 4) return 'possible';
+						if (items.chest7 >= 2 && items.hammer) return 'possible';
+						break;
+					case 'F':
+						if (items.bigkey7 && items.hammer) return ((items.smallkey7 === 1 && items.somaria) || items.smallkey7 === 2) ? 'available' : 'possible';
+						if (items.bigkey7 && items.hammer) return 'possible';
+						if (items.chest7 >= 5) return 'possible';
+						if (items.chest7 >= 4 && items.bigkey7) return 'possible';
+						if (items.chest7 >= 2 && items.hammer) return 'possible';
+						break;
 				}
+				return 'unavailable';				
 			}
 		}, { // [8]
-			caption: 'Misery Mire {medallion0}{lantern}',
+			caption: 'Misery Mire {medallion0}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity) {
-					if (!melee_bow()) return 'unavailable';
-					if (!items.moonpearl || !items.flute || items.glove !== 2 || !items.somaria) return 'unavailable';
-					if (!items.boots && !items.hookshot) return 'unavailable';
-					var state = medallion_check(0);
-					if (state) return state;
-					if (!items.bigkey8) return 'unavailable';
-					if (is_enemizer) {
-						return enemizer_check(8, items.lantern, false);
-					} else {
-						return items.lantern ? 'available' : 'dark'
-					}
-				} else {
-					if (!melee_bow()) return 'unavailable';
-					if (!items.moonpearl || !items.flute || items.glove !== 2 || !items.somaria) return 'unavailable';
-					if (!items.boots && !items.hookshot) return 'unavailable';
-					var state = medallion_check(0);
-					if (state) return state;
-
-					if (is_enemizer) {
-						if (!items.firerod && !items.lantern) return enemizer_check(8, items.lantern, true);
-						return enemizer_check(8, items.lantern, false);
-					} else {
-						return items.lantern || items.firerod ? items.lantern ? 'available' : 'dark' : 'possible';
-					}
+				if (!melee_bow()) return 'unavailable';
+				if (!items.moonpearl || !items.flute || items.glove !== 2 || !items.somaria) return 'unavailable';
+				if (!items.boots && !items.hookshot) return 'unavailable';
+				var state = medallion_check(0);
+				if (state) return state;
+				var dungeoncheck = enemizer_check_new(8);
+				if (dungeoncheck === 'unavailable') return 'unavailable';
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+					case 'K':
+						if (!items.lantern && !items.firerod) return 'darkpossible';
+						return dungeoncheck === 'available' ? (!items.lantern ? 'darkavailable' : 'available') : (!items.lantern ? 'darkpossible' : 'possible');
+						break;
+					case 'F':
+						if (!items.bigkey8) return 'unavailable';
+						return dungeoncheck === 'available' ? (!items.lantern ? 'darkavailable' : 'available') : (!items.lantern ? 'darkpossible' : 'possible');
+						break;
 				}
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!items.moonpearl || !items.flute || items.glove !== 2) return 'unavailable';
-					if (!items.boots && !items.hookshot) return 'unavailable';
-					var state = medallion_check(0);
-					if (state) return state;
-
-					if (items.lantern && items.bigkey8 && items.somaria) return 'available';
-
-					if (items.keychest8 >= 5) return 'possible';
-					if (items.keychest8 >= 4 && items.bigkey8) return 'possible';
-					if (items.keychest8 >= 3 && items.bigkey8 && items.somaria && !items.lantern && !items.firerod) return 'dark';
-					if (items.keychest8 >= 3 && (items.lantern || items.firerod)) return 'possible';
-					if (items.keychest8 >= 2 && (items.firerod || items.lantern) && items.bigkey8) return 'possible';
-					if (items.keychest8 >= 1 && !items.lantern && items.firerod && items.bigkey8 && items.somaria) return 'dark';					
-					return 'unavailable';
-				} else {
-					if (!items.moonpearl || !items.flute || items.glove !== 2) return 'unavailable';
-					if (!items.boots && !items.hookshot) return 'unavailable';
-					var state = medallion_check(0);
-					if (state) return state;
-
-					return (items.chest8 > 1 ?
-						items.lantern || items.firerod :
-						items.lantern && items.somaria) ?
-						'available' : 'possible';
+				if (!items.moonpearl || !items.flute || items.glove !== 2) return 'unavailable';
+				if (!items.boots && !items.hookshot) return 'unavailable';
+				if (items.sword === 0 && !is_swordless) return 'unavailable';
+				var state = medallion_check(0);
+				if (state) return state;
+				var dungeoncheck = enemizer_check_new(8);
+				switch (flags.dungeonitems) {
+					case 'S':
+						if ((items.lantern || items.firerod) && items.somaria) return (!items.lantern ? 'darkavailable' : 'available');
+						return 'possible';
+						break;
+					case 'M':
+						if ((items.lantern || items.firerod) && items.somaria) return (!items.lantern ? 'darkavailable' : 'available');
+						if (items.chest8 === 4) return 'available';
+						if (!items.lantern && !items.firerod) return 'possible';
+						if (dungeoncheck === 'unavailable' || !items.somaria) return 'possible';
+						return dungeoncheck === 'available' ? (!items.lantern ? 'darkavailable' : 'available') : (!items.lantern ? 'darkpossible' : 'possible');
+						break;
+					case 'K':
+						if ((items.lantern || items.firerod) && items.somaria) return (!items.lantern ? 'darkavailable' : 'available');
+						if (items.chest8 > 3) return 'available';
+						if (!items.lantern && !items.firerod && !items.somaria) return 'unavailable';
+						if (items.chest8 === 3) {
+							if (!items.lantern && !items.firerod && items.somaria && dungeoncheck != 'unavailable') return dungeoncheck === 'available' ? 'darkavailable' : 'darkpossible';
+							if (items.lantern || items.firerod) return 'available';
+						}
+						if (items.chest8 === 2 && (items.lantern || items.firerod)) return 'available';
+						return 'unavailable';
+						break;
+					case 'F':
+						if (items.lantern && items.bigkey8 && items.somaria) return 'available';
+						if (items.chest8 >= 5) return 'available';
+						if (items.chest8 >= 4 && items.bigkey8) return 'available';
+						if (items.chest8 >= 3 && items.bigkey8 && items.somaria && !items.lantern && !items.firerod) return 'darkavailable';
+						if (items.chest8 >= 3 && (items.lantern || items.firerod)) return 'available';
+						if (items.chest8 >= 2 && (items.firerod || items.lantern) && items.bigkey8) return 'available';
+						if (items.chest8 >= 1 && !items.lantern && items.firerod && items.bigkey8 && items.somaria) return 'darkavailable';
+						return 'unavailable';					
+						break;
 				}
 			}
 		}, { // [9]
-			caption: 'Turtle Rock {medallion0}{lantern}',
+			caption: 'Turtle Rock {medallion0} {hammer}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (is_keysanity) {
-					if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria) return 'unavailable';
-					if (!items.hookshot && !items.mirror) return 'unavailable';
-					if ((!items.icerod && !is_enemizer) || !items.firerod) return 'unavailable';
-					if (!items.bigkey9 || items.smallkey9 < 3) return 'unavailable';
-					var state = medallion_check(1);
-					if (state) return state;
-					if (items.smallkey9 === 3) {
-						if (is_enemizer) {
-							return enemizer_check(9, items.lantern, true);
-						} else {
-							return items.lantern ? 'possible' : 'dark';
+				if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria) return 'unavailable';
+				if (!items.hookshot && !items.mirror) return 'unavailable';
+				var state = medallion_check(1);
+				if (state) return state;				
+				
+				var dungeoncheck = enemizer_check_new(9);
+				if (dungeoncheck === 'unavailable') return 'unavailable';
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if ((items.byrna || items.cape || items.shield === 3) || is_advanced) {
+							if (items.firerod) return dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible');
 						}
-					}
-					if (is_enemizer) {
-						return enemizer_check(9, items.lantern, false);
-					} else {
-						return items.lantern ? 'available' : 'dark';
-					}
-				} else {
-					if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria) return 'unavailable';
-					if (!items.hookshot && !items.mirror) return 'unavailable';
-					if ((!items.icerod && !is_enemizer) || !items.firerod) return 'unavailable';
-					var state = medallion_check(1);
-					if (state) return state;
-					
-					if (is_enemizer) {
-						if (items.byrna || items.cape || items.shield === 3) {
-							return enemizer_check(9, items.lantern, false);
-						} else {
-							return enemizer_check(9, items.lantern, true);
+						return (items.lantern ? 'possible' : 'darkpossible');
+						break;
+					case 'K':
+					case 'F':
+						if (items.smallkey9 < 4 || !items.bigkey9) return 'unavailable';
+						if ((items.byrna || items.cape || items.shield === 3) || is_advanced) {
+							if (items.firerod) return dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible');
 						}
-					} else {
-						return items.byrna || items.cape || items.shield === 3 ?
-							items.lantern ? 'available' : 'dark' :
-							'possible';
-					}	
-
+						return (items.lantern ? 'possible' : 'darkpossible');
+						break;
 				}
 			},
 			can_get_chest: function() {
-				if (is_keysanity) {
-					if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria) return 'unavailable';
-					if (!items.hookshot && !items.mirror) return 'unavailable';
-					var state = medallion_check(1);
-					if (state) return state;
-
-					if (items.bigkey9 && items.smallkey9 === 4 && items.firerod && items.icerod && items.lantern && (items.byrna || items.cape || items.shield === 3)) return 'available';
-					
-					// item count approach
-					var reachable = 0;
-					var curr_keys = 0;
-					var dark_chests = 0;
-					curr_keys += items.smallkey9;
-					reachable += 1; // free first chest
-					// 0 key chests
-					if (items.firerod) {
-						reachable += 2; // fire rod locked right side				
-					}
-					// 1 key chests
-					if (curr_keys > 0) {
-						reachable += 1; // Chain Chomp room
-						curr_keys -= 1;
-					}
-					// 2 key chests
-					if (curr_keys > 0) { 
-						curr_keys -= 1;
-						if (!items.bigkey9) {
-							// Unable to proceed beyond big key room, but can get vanilla big key chest
-							reachable += 1;
-						} else {
-							reachable += 2; // Big chest and roller room
-							if (items.byrna || items.cape || items.shield === 3) {
-								// Logic for laser bridge, needs safety item to be in logic
-								reachable += 4;
-								if (!items.lantern) {
-									dark_chests += 4;
+				if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria) return 'unavailable';
+				if (!items.hookshot && !items.mirror) return 'unavailable';
+				var state = medallion_check(1);
+				if (state) return state;				
+				
+				var dungeoncheck = enemizer_check_new(9);
+				switch (flags.dungeonitems) {
+					case 'S':
+						if (dungeoncheck === 'available' && items.lantern && (items.byrna || items.cape || items.shield === 3)) return 'available';
+						var laser_safety = items.byrna || items.cape || items.shield === 3, dark_room = items.lantern ? 'available' : 'darkavailable';
+						if (items.chest9 <= 1) return !laser_safety ? 'unavailable' : (dungeoncheck != 'unavailable') ? dark_room : 'possible';
+						if (items.chest9 <= 2) return !laser_safety ? 'unavailable' : items.firerod ? dark_room : 'possible';
+						if (items.chest9 <= 4) return laser_safety && items.firerod && items.lantern ? 'available' : 'possible';
+						return items.firerod ? 'available' : 'possible';
+						break;
+					case 'M':
+						if (dungeoncheck === 'available' && items.lantern && (items.byrna || items.cape || items.shield === 3)) return 'available';
+						
+						var laser_safety = items.byrna || items.cape || items.shield === 3, dark_room = items.lantern ? 'available' : 'darkavailable';
+						if (items.chest9 <= 1) return !laser_safety ? 'unavailable' : (dungeoncheck != 'unavailable') ? dark_room : 'possible';
+						if (items.chest9 <= 4) return !laser_safety ? 'unavailable' : items.firerod ? dark_room : 'possible';
+						if (items.chest9 <= 6) return laser_safety && items.firerod && items.lantern ? 'available' : 'possible';
+						return items.firerod ? 'available' : 'possible';						
+						
+						break;
+					case 'K':
+						if (dungeoncheck === 'available' && items.smallkey9 === 4 && items.firerod && items.icerod && items.lantern && (items.byrna || items.cape || items.shield === 3)) return 'available';
+						//Assumed big key is available
+						
+						// item count approach
+						var reachable = 0;
+						var curr_keys = 0;
+						var dark_chests = 0;
+						curr_keys += items.smallkey9;
+						reachable += 1; // free first chest
+						// 0 key chests
+						if (items.firerod) {
+							reachable += 2; // fire rod locked right side				
+						}
+						// 1 key chests
+						if (curr_keys > 0) {
+							reachable += 1; // Chain Chomp room
+							curr_keys -= 1;
+						}
+						// 2 key chests
+						if (curr_keys > 0) { 
+							curr_keys -= 1;
+							if (!items.bigkey9) {
+								// Unable to proceed beyond big key room, but can get vanilla big key chest
+								reachable += 1;
+							} else {
+								reachable += 2; // Big chest and roller room
+								if (items.byrna || items.cape || items.shield === 3) {
+									// Logic for laser bridge, needs safety item to be in logic
+									reachable += 4;
+									if (!items.lantern) {
+										dark_chests += 4;
+									}
 								}
 							}
 						}
-					}
-					if (items.bigkey9) {
-						// 3 key chests
+						if (items.bigkey9) {
+							// 3 key chests
+							if (curr_keys > 0) { 
+								curr_keys -= 1;
+								reachable += 1; // Either Trinexx or vanilla big key chest will be obtainable with 3 keys
+							}				
+							
+							// 4 key chests
+							if (curr_keys > 0) { 
+								if (!items.lantern && items.icerod && items.firerod) {
+									dark_chests += 1; // All of TR is clearable in the dark
+									reachable += 1;
+								}
+							}				
+						}
+						if (items.chest9 > 12 - reachable) {
+							if (items.chest9 > 12 - (reachable - dark_chests)) {
+								return 'possible';
+							} else {
+								return items.lantern ? 'possible' : 'darkavailable';
+							}
+						}
+						
+						return 'unavailable';						
+												
+						break;
+					case 'F':
+						if (dungeoncheck === 'available' && items.bigkey9 && items.smallkey9 === 4 && items.firerod && items.icerod && items.lantern && (items.byrna || items.cape || items.shield === 3)) return 'available';
+
+						// item count approach
+						var reachable = 0;
+						var curr_keys = 0;
+						var dark_chests = 0;
+						curr_keys += items.smallkey9;
+						reachable += 1; // free first chest
+						// 0 key chests
+						if (items.firerod) {
+							reachable += 2; // fire rod locked right side				
+						}
+						// 1 key chests
+						if (curr_keys > 0) {
+							reachable += 1; // Chain Chomp room
+							curr_keys -= 1;
+						}
+						// 2 key chests
 						if (curr_keys > 0) { 
 							curr_keys -= 1;
-							reachable += 1; // Either Trinexx or vanilla big key chest will be obtainable with 3 keys
-						}				
-						
-						// 4 key chests
-						if (curr_keys > 0) { 
-							if (!items.lantern && items.icerod && items.firerod) {
-								dark_chests += 1; // All of TR is clearable in the dark
+							if (!items.bigkey9) {
+								// Unable to proceed beyond big key room, but can get vanilla big key chest
 								reachable += 1;
+							} else {
+								reachable += 2; // Big chest and roller room
+								if (items.byrna || items.cape || items.shield === 3) {
+									// Logic for laser bridge, needs safety item to be in logic
+									reachable += 4;
+									if (!items.lantern) {
+										dark_chests += 4;
+									}
+								}
 							}
-						}				
-					}
-					if (items.keychest9 > 12 - reachable) {
-						if (items.keychest9 > 12 - (reachable - dark_chests)) {
-							return 'possible';
-						} else {
-							return items.lantern ? 'possible' : 'dark';
 						}
-					}
-					
-					return 'unavailable';
-				} else {
-					if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria) return 'unavailable';
-					if (!items.hookshot && !items.mirror) return 'unavailable';
-					var state = medallion_check(1);
-					if (state) return state;
-
-					var laser_safety = items.byrna || items.cape || items.shield === 3,
-						dark_room = items.lantern ? 'available' : 'dark';
-					if (items.chest9 <= 1) return !laser_safety ? 'unavailable' : items.firerod && items.icerod ? dark_room : 'possible';
-					if (items.chest9 <= 2) return !laser_safety ? 'unavailable' : items.firerod ? dark_room : 'possible';
-					if (items.chest9 <= 4) return laser_safety && items.firerod && items.lantern ? 'available' : 'possible';
-					return items.firerod && items.lantern ? 'available' : 'possible';
+						if (items.bigkey9) {
+							// 3 key chests
+							if (curr_keys > 0) { 
+								curr_keys -= 1;
+								reachable += 1; // Either Trinexx or vanilla big key chest will be obtainable with 3 keys
+							}				
+							
+							// 4 key chests
+							if (curr_keys > 0) { 
+								if (!items.lantern && items.icerod && items.firerod) {
+									dark_chests += 1; // All of TR is clearable in the dark
+									reachable += 1;
+								}
+							}				
+						}
+						if (items.chest9 > 12 - reachable) {
+							if (items.chest9 > 12 - (reachable - dark_chests)) {
+								return 'possible';
+							} else {
+								return items.lantern ? 'possible' : 'darkavailable';
+							}
+						}
+						
+						return 'unavailable';
+						break;
 				}
 			}
 		}, { // [10]
-			caption: 'Ganon\'s Castle (7 Crystals)',
+			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
 				var crystal_count = 0;
@@ -1924,20 +2704,26 @@
 						crystal_count++;
 					}
 				}
-				if (is_keysanity) {
-					if (crystal_count === 7 && items.bigkey10 &&  items.bow > 1 && items.hookshot && (items.firerod || items.lantern)) {
-						if (items.smallkey10 < 3) return 'possible';
-						if (items.smallkey10 >= 3) return (is_enemizer && !items.icerod) ? 'possible' : 'available';
-					}
-					return 'unavailable';
-				} else {
-					if (crystal_count === 7 && items.glove === 2 && items.bow > 1 && items.hookshot && (items.firerod || items.lantern)) {
-						if (!items.somaria || !items.boots || !items.firerod) return 'possible';
-						return (is_enemizer && !items.icerod) ? 'possible' : 'available';
-					} else {
-						return 'unavailable';
-					}
-				}
+				
+				if (crystal_count < 7) return 'unavailable'; //Need to modify with the updated cyrstal count logic
+				
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						if (items.glove === 2 && items.bow > 0 && items.hookshot && (items.firerod || items.lantern)) {
+							if (!items.somaria || !items.boots || !items.firerod) return 'possible';
+							return (is_bossshuffle && !items.icerod) ? 'possible' : 'available';
+						}
+						break;
+					case 'K':
+					case 'F':		
+						if (items.bigkey10 &&  items.bow > 0 && items.hookshot && (items.firerod || items.lantern)) {
+							if (items.smallkey10 < 3) return 'possible';
+							if (items.smallkey10 >= 3) return (is_bossshuffle && !items.icerod) ? 'possible' : 'available';
+						}
+						break;
+				}				
+				return 'unavailable';
 			},
 			can_get_chest: function() {
 				var crystal_count = 0;
@@ -1948,71 +2734,79 @@
 				}
 				if (crystal_count < 7 || items.glove < 2 || !items.hammer) return 'unavailable';
 				
-				if (is_keysanity) {
-					if (items.bigkey10 && items.smallkey10 > 2 && items.bow > 1 && items.hookshot && items.firerod && items.somaria) return 'available';
-					// Counting reachable items and keys
-					var reachable = 0;
-					var curr_keys = 0;
-					curr_keys += items.smallkey10;
-					curr_keys += 1; // free key on left side
-					// 0 key chests
-					reachable += 2; // first two right side chests
-					if (items.boots) reachable += 1; // torch
-					if (items.somaria) reachable += 1; // tile room
-					if (items.hookshot && items.hammer) reachable += 4; // stalfos room
-					if (items.bigkey10 && items.bow > 1 && (items.lantern || items.firerod)){ 
-						reachable += 2; // mini helmasaur room
-						curr_keys += 1; // mini helmasaur room
-					}
-					// 0 key chests with common sense
-					if (items.somaria && items.firerod && curr_keys > 0) reachable += 4; // rest of the right side chests. The key is gained back after those.
-					if (items.hookshot && items.hammer) reachable += 1; // chest before randomizer room. We assume the key in the switch room is used for this one
-					if (items.bigkey10 && items.bow > 1 && (items.lantern || items.firerod) && curr_keys > 0) {
-						reachable += 1; // room after mini helmasaurs. We assume players keep enough keys to reach top. If they didnt, then they got other chests for that key.
-						curr_keys -= 1;
-					}
-					if (items.bigkey10 && items.bow > 1 && (items.lantern || items.firerod) && items.hookshot && ((items.sword > 0 || swordless === 'yes') || items.hammer) && curr_keys > 0) {
-						reachable += 1; // Chest after Moldorm. See assumptions above.
-						curr_keys -= 1;
-					}
-					// 1 key chests 
-					if (curr_keys > 0) {
-						if (items.hookshot && items.hammer) { // we can reach randomizer room and the area after that
-							reachable += items.bigkey10 ? 9 : 8;
-							curr_keys -= 1;
-						} else {
-							if (items.somaria && items.firerod) {    // we can reach armos' area via right side
-								reachable += items.bigkey10 ? 5 : 4;
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						//THIS NEEDS TO BE REDESIGNED
+						if (items.bow > 0 && items.hookshot && items.firerod && items.somaria && items.boots) return 'available';
+						return 'possible';
+						break;
+					case 'K':
+					case 'F':		
+						if (items.bigkey10 && items.smallkey10 > 2 && items.bow > 0 && items.hookshot && items.firerod && items.somaria) return 'available';
+							// Counting reachable items and keys
+							var reachable = 0;
+							var curr_keys = 0;
+							curr_keys += items.smallkey10;
+							curr_keys += 1; // free key on left side
+							// 0 key chests
+							reachable += 2; // first two right side chests
+							if (items.boots) reachable += 1; // torch
+							if (items.somaria) reachable += 1; // tile room
+							if (items.hookshot && items.hammer) reachable += 4; // stalfos room
+							if (items.bigkey10 && items.bow > 0 && (items.lantern || items.firerod)){ 
+								reachable += 2; // mini helmasaur room
+								curr_keys += 1; // mini helmasaur room
+							}
+							// 0 key chests with common sense
+							if (items.somaria && items.firerod && curr_keys > 0) reachable += 4; // rest of the right side chests. The key is gained back after those.
+							if (items.hookshot && items.hammer) reachable += 1; // chest before randomizer room. We assume the key in the switch room is used for this one
+							if (items.bigkey10 && items.bow > 0 && (items.lantern || items.firerod) && curr_keys > 0) {
+								reachable += 1; // room after mini helmasaurs. We assume players keep enough keys to reach top. If they didnt, then they got other chests for that key.
 								curr_keys -= 1;
 							}
-						}
-					}
-					if ((items.hookshot || items.boots) && items.hammer && curr_keys > 0) {
-						reachable += 1; // Vanilla map chest aka double firebar chest. Since one item for one key is the least bang for the buck we check this one last.
-						curr_keys -= 1;
-					}
-					// 1 key chests
-					if (items.keychest10 > (27 - reachable)) return 'possible'; // available was checked at the beginning. You can get all items with 2 smallkey10 alone but let's make it 'possible' in case someone had to open second right side door to get to armos in order to get hookshot
+							if (items.bigkey10 && items.bow > 0 && (items.lantern || items.firerod) && items.hookshot && ((items.sword > 0 || is_swordless) || items.hammer) && curr_keys > 0) {
+								reachable += 1; // Chest after Moldorm. See assumptions above.
+								curr_keys -= 1;
+							}
+							// 1 key chests 
+							if (curr_keys > 0) {
+								if (items.hookshot && items.hammer) { // we can reach randomizer room and the area after that
+									reachable += items.bigkey10 ? 9 : 8;
+									curr_keys -= 1;
+								} else {
+									if (items.somaria && items.firerod) {    // we can reach armos' area via right side
+										reachable += items.bigkey10 ? 5 : 4;
+										curr_keys -= 1;
+									}
+								}
+							}
+							if ((items.hookshot || items.boots) && items.hammer && curr_keys > 0) {
+								reachable += 1; // Vanilla map chest aka double firebar chest. Since one item for one key is the least bang for the buck we check this one last.
+								curr_keys -= 1;
+							}
+							// 1 key chests
+							if (items.chest10 > (27 - reachable)) return 'possible'; // available was checked at the beginning. You can get all items with 2 smallkey10 alone but let's make it 'possible' in case someone had to open second right side door to get to armos in order to get hookshot
 
-					return 'unavailable'; // We got all reachable items or even more than that in case the player did not follow the 'common sense'
-				} else {
-					if (items.bow > 1 && items.hookshot && items.firerod && items.somaria && items.boots) return 'available';
-					return 'possible';
-				}
+							return 'unavailable'; // We got all reachable items or even more than that in case the player did not follow the 'common sense'
+						break;
+				}				
+				return 'unavailable';
 			}
 		}];
 
 		window.agahnim = {
 			caption: 'Agahnim {sword2}/ ({cape}{sword1}){lantern}',
 			is_available: function() {
-				if (is_keysanity) {
-					return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 && agatowerweapon() ?
-						items.lantern ? 'available' : 'dark' :
-						'unavailable';
-				} else {
-					return ((items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && agatowerweapon()) ?
-						items.lantern ? 'available' : 'dark' :
-						'unavailable';
+				switch (flags.dungeonitems) {
+					case 'S':
+					case 'M':
+						return ((items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && agatowerweapon()) ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+						break;
+					case 'K':
+					case 'F':
+						return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+						break;
 				}
 			}
 		};
@@ -2032,14 +2826,14 @@
 			is_available: always
 		}, { // [2]
 			caption: 'Stoops Lonk\'s Hoose',
-			is_opened: is_standard,
+			is_opened: (is_standard),
 			is_available: always
 		}, { // [3]
 			caption: 'Spiral Cave',
 			is_opened: false,
 			is_available: function() {
 				return (items.glove || items.flute) && (items.hookshot || items.mirror && items.hammer) ?
-					items.lantern || items.flute ? 'available' : 'dark' :
+					items.lantern || items.flute ? 'available' : 'darkavailable' :
 					'unavailable';
 			}
 		}, { // [4]
@@ -2050,12 +2844,12 @@
 				var state = medallion_check(1);
 				if (state) return state;
 
-				if (is_keysanity) {
+				if (flags.dungeonitems === 'F') {
 					return items.smallkey9 <= 1 ? 'unavailable' : 'available';
 				}
 
 				return items.firerod ?
-					items.lantern || items.flute ? 'available' : 'dark' :
+					items.lantern || items.flute ? 'available' : 'darkavailable' :
 					'possible';
 			}
 		}, { // [5]
@@ -2093,7 +2887,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.moonpearl && items.glove === 2 && (items.hookshot || items.mirror && items.hammer) ?
-					items.lantern || items.flute ? 'available' : 'dark' :
+					items.lantern || items.flute ? 'available' : 'darkavailable' :
 					'unavailable';
 			}
 		}, { // [12]
@@ -2105,7 +2899,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.moonpearl && items.glove && items.hammer && (items.byrna || items.cape) ?
-					items.lantern || items.flute ? 'available' : 'dark' :
+					items.lantern || items.flute ? 'available' : 'darkavailable' :
 					'unavailable';
 			}
 		}, { // [14]
@@ -2127,7 +2921,7 @@
 			is_opened: false,
 			is_available: function() {
 				return (items.glove || items.flute) && (items.hookshot || items.mirror && items.hammer) ?
-					items.lantern || items.flute ? 'available' : 'dark' :
+					items.lantern || items.flute ? 'available' : 'darkavailable' :
 					'unavailable';
 			}
 		}, { // [18]
@@ -2149,7 +2943,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.moonpearl && items.glove === 2 && (items.hookshot || (items.mirror && items.hammer && items.boots)) ?
-					items.lantern || items.flute ? 'available' : 'dark' :
+					items.lantern || items.flute ? 'available' : 'darkavailable' :
 					'unavailable';
 			}
 		}, { // [22]
@@ -2157,7 +2951,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.moonpearl && items.glove === 2 && items.hookshot ?
-					items.lantern || items.flute ? 'available' : 'dark' :
+					items.lantern || items.flute ? 'available' : 'darkavailable' :
 					'unavailable';
 			}
 		}, { // [23]
@@ -2209,8 +3003,8 @@
 			is_opened: false,
 			is_available: function() {
 				return items.book && (items.glove || items.flute) && (items.mirror || items.hookshot && items.hammer) ?
-					(items.sword >= 2 || swordless === 'yes') ?
-						items.lantern || items.flute ? 'available' : 'dark' :
+					(items.sword >= 2 || is_swordless) ?
+						items.lantern || items.flute ? 'available' : 'darkavailable' :
 						'possible' :
 					'unavailable';
 			}
@@ -2219,7 +3013,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.book && items.mirror && (can_reach_outcast() || items.agahnim && items.moonpearl && items.hammer) ?
-					(items.sword >= 2 || swordless === 'yes')? 'available' : 'possible' :
+					(items.sword >= 2 || is_swordless)? 'available' : 'possible' :
 					'unavailable';
 			}
 		}, { // [32]
@@ -2240,7 +3034,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.glove || items.flute ?
-					items.lantern ? 'available' : 'dark' :
+					items.lantern ? 'available' : 'darkavailable' :
 					'unavailable';
 			}
 		}, { // [35]
@@ -2264,7 +3058,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.glove || items.flute ?
-					items.lantern || items.flute ? 'available' : 'dark' :
+					items.lantern || items.flute ? 'available' : 'darkavailable' :
 					'unavailable';
 			}
 		}, { // [39]
@@ -2307,7 +3101,7 @@
 			is_available: function() {
 				return items.glove || items.flute ?
 					items.mirror ?
-						items.lantern || items.flute ? 'available' : 'dark' :
+						items.lantern || items.flute ? 'available' : 'darkavailable' :
 						'possible' :
 					'unavailable';
 			}
@@ -2317,7 +3111,7 @@
 			is_available: function() {
 				return (items.glove || items.flute) && (items.hookshot || items.hammer && items.mirror) ?
 					items.mirror && items.moonpearl && items.glove === 2 ?
-						items.lantern || items.flute ? 'available' : 'dark' :
+						items.lantern || items.flute ? 'available' : 'darkavailable' :
 						'possible' :
 					'unavailable';
 			}
@@ -2380,13 +3174,13 @@
 			is_opened: false,
 			is_available: function() {
 				if (is_standard) return 'available';
-				if (is_keysanity) {
+				if (flags.dungeonitems === 'F') {
 					if (items.glove) return 'available';
-					if (items.smallkeyhalf0 === 1) return items.lantern ? 'available' : 'dark';
+					if (items.smallkeyhalf0 === 1) return items.lantern ? 'available' : 'darkavailable';
 					return 'unavailable';
 				}
 				
-				return items.glove ? 'available' : items.lantern ? 'possible' : 'dark';
+				return items.glove ? 'available' : items.lantern ? 'possible' : 'darkavailable';
 			}
 		}, { // [56]
 			caption: "Castle Secret Entrance (Uncle + 1)",
@@ -2443,7 +3237,7 @@
 			caption: 'Escape Sewer Dark Room {lantern}',
 			is_opened: is_standard,
 			is_available: function() {
-				return is_standard || items.lantern ? 'available' : 'dark';
+				return is_standard || items.lantern ? 'available' : 'darkavailable';
 			}
 		}, { // [64]
 			caption: 'Waterfall of Wishing (2) {flippers}',
@@ -2462,11 +3256,23 @@
 			is_opened: false,
 			is_available: function() {
 				if (is_retro) {
-					return (items.sword >= 2 || (is_swordless && items.hammer) || items.cape) ? items.lantern ? 'available' : 'dark' : 'unavailable';
+					return (items.sword >= 2 || (is_swordless && items.hammer) || items.cape) ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 				} else {
-					return (items.sword >= 2 || (is_swordless && items.hammer) || items.cape) && items.smallkeyhalf1 > 0 ? items.lantern ? 'available' : 'dark' : 'unavailable';
+					return (items.sword >= 2 || (is_swordless && items.hammer) || items.cape) && items.smallkeyhalf1 > 0 ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 				}
 			}
 		}];
+
+
+		
 	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
 }(window));

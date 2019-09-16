@@ -2,7 +2,6 @@ function load_cookie() {
 	var c = document.cookie;
 	
 	if (c.indexOf('settings') > -1) {
-		//alert('!');
 		document.getElementById("remembersettings").checked = true;
 		if (c.indexOf('m-yes') > -1) {
 			document.getElementById("mapyes").checked = true;
@@ -17,16 +16,29 @@ function load_cookie() {
 }
 
 function launch_tracker() {
-	var state = document.querySelector('input[name="stategroup"]:checked').value;
-	var variation = document.querySelector('input[name="vargroup"]:checked').value;
-	var swordless = document.querySelector('input[name="swordgroup"]:checked').value;
+	var type = document.querySelector('input[name="gametypegroup"]:checked').value;
+	var entrance = document.querySelector('input[name="entrancegroup"]:checked').value;
+	var boss = document.querySelector('input[name="bossgroup"]:checked').value;
+	var enemy = document.querySelector('input[name="enemygroup"]:checked').value;
+	var glitches = document.querySelector('input[name="glitchesgroup"]:checked').value;
+	var dungeon = document.querySelector('input[name="dungeongroup"]:checked').value;
+	var item = document.querySelector('input[name="placementgroup"]:checked').value;
+	var goal = document.querySelector('input[name="goalgroup"]:checked').value;
+	var tower = document.querySelector('input[name="towergroup"]:checked').value;
+	var ganon = document.querySelector('input[name="ganongroup"]:checked').value;
+	var towersel = document.getElementById("towerselect");
+	var towercrystals = towersel.options[towersel.selectedIndex].value;
+	var ganonsel = document.getElementById("ganonselect");
+	var ganoncrystals = ganonsel.options[ganonsel.selectedIndex].value;
+	var swords = document.querySelector('input[name="swordsgroup"]:checked').value;
+	var spritesel = document.getElementById("spriteselect");
+	var sprite = spritesel.options[spritesel.selectedIndex].value;
 	var map = document.querySelector('input[name="mapgroup"]:checked').value;
-	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
-	var enemizer = document.querySelector('input[name="enemizergroup"]:checked').value;
 	var spoiler = document.querySelector('input[name="spoilergroup"]:checked').value;
+	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
 	
-	var width = map === "yes" ? 1340 : 448;
-	var height = sphere === "yes" ? map === "small" ? 988 : 744 : map === "small" ? 692 : 448;
+	var width = map === "M" ? 1340 : 448;
+	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
 	
 	if (document.getElementById("remembersettings").checked == true) {
 		var settings = "m-" + map + "|s-" + sphere;
@@ -35,22 +47,24 @@ function launch_tracker() {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 	}
 	
-	if (enemizer === "yes") {
-		alert('NOTICE: Not all enemizer settings with maps have been verified and is still in testing');
-	}
-	
-	if (spoiler === "yes") {
-		alert('WARNING! This mode is not currently allowed in the current Spoiler Log Tourney! Do not use during a tourney match for risk of a DQ!');
-	}
-	
-	var trackerWindow = window.open('tracker.html?state={state}&variation={variation}&swordless={swordless}&map={map}&sphere={sphere}&enemizer={enemizer}&spoiler={spoiler}'
-			.replace('{state}', state)
-			.replace('{variation}', variation)
-			.replace('{swordless}', swordless)
+	var trackerWindow = window.open('tracker.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganoncrystals}{ganon}{swords}{map}{spoiler}{sphere}&sprite={sprite}'
+			.replace('{type}', type)
+			.replace('{entrance}', entrance)
+			.replace('{boss}', boss)
+			.replace('{enemy}', enemy)
+			.replace('{glitches}', glitches)
+			.replace('{dungeon}', dungeon)
+			.replace('{item}', item)
+			.replace('{goal}', goal)
+			.replace('{tower}', tower)
+			.replace('{towercrystals}', towercrystals)
+			.replace('{ganon}', ganon)
+			.replace('{ganoncrystals}', ganoncrystals)
+			.replace('{swords}', swords)
 			.replace('{map}', map)
+			.replace('{spoiler}', spoiler)
 			.replace('{sphere}', sphere)
-			.replace('{enemizer}', enemizer)
-			.replace('{spoiler}', spoiler),
+			.replace('{sprite}', sprite),
 		'',
 		'width={width},height={height},titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0'
 			.replace('{width}', width).replace('{height}', height));

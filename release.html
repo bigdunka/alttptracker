@@ -2,17 +2,38 @@
 	<head>
 		<title>ALTTP Community Tracker - Release Notes</title>
 		<script src="js/index.js"></script>
+		<link href="css/fonts.css" rel="stylesheet">
 		<style>
-			body { font-family: Arial, Helvetica, sans-serif; font-size: 14px; }
+			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; }
 			label { width: 5em; display: inline-block; }
 			div { margin: 5px 0; }
 		</style>
 	</head>
-	<body>
-		<button type="button" onclick="window.location.href = 'index.html';" style="width: 200px; text-align: center;"><== Return to Main</button><br><br>
-		<div style="width:1000px">
+	<body background="./images/overlay/background.png">
+		<button type="button" onclick="window.location.href = 'index.html';" style="width: 200px; text-align: center; font-family: 'roboto_condensedregular', Arial, Helvetica, sans-serif;"><== RETURN TO MAIN</button><br><br>
+		<div style="width:1000px; color: white; font-size: 20px;">
 			Latest Changes:<br><br>
-			<b><i>2/21/2019 Build 1.2.001 022021</i></b><br>
+			<b><i>9/16/2019 Build 1.3.001 091619</i></b><br>
+			<ul>
+				<li>First major release for v31!<br>
+				<li>Complete overhaul of launcher to show all available flags, and several that will be released in the future, including entrance!<br>
+				<li>Updated all sub-page interfaces and stylesheets<br>
+				<li>Overhaul of logic to match new v31 options<br>
+				NOTICE: There will be several incremental updates once v31 is formally released. We are basing the logic off what limited information has been released to this point. Please be sure to report any issues when you find them and we will make an updated list on the Known Issues page.<br>
+				<li>Removed "known easy sequence breaks" to line up the general logic, but continue to allow "common sense" sequence breaks<br>
+				To expand on this, the original tracker always had Ice Palace built in with a possible sequence break with the bomb jump. That has since been removed and the notation in the comments also removed. If you do not have the Hookshot or Somaria, Ice Palace will show as not completable. This is because there are going to be new flags in the logic to allow for certain glitches to be auto-populated and the previous logic would override that.<br>
+				Other common sense logic, however, has not been removed. For example, in Full Shuffle, Desert Palace is not completable by logic without both the big key and the small key, to prevent a potential small key lock. However, if you have the big key and not the small key, the tracker will show that the dungeon boss is indeed killable. This is to allow for ease of recognition of clearable dungeons while in go mode.<br>
+				<li>Added a new purple color coded map tracker function for "Dark Room Possible". The current color codes are now as follows:<br>
+				Red = Unavailable<br>
+				Green = Available<br>
+				Yellow = Possible<br>
+				Blue = Dark Room Available<br>
+				Purple = Dark Room Possible<br>
+				<li>Right clicking on crystal/pendant icons will go backwards, making for faster crystal selection<br>
+				<li>This release is assuming Basic Item Placement, which means required items are using the v30 logic (Laser Bridge for example still requires a safety). Advanced logic will be added in a future release.<br>
+				<li>Entrance Shuffle, Enemy Shuffle, Glitches, Item Placement, Open Tower, Ganon Vulnerable, and Spoiler Log settings are currently disabled, pending more development and validation</li><br>
+			</ul>
+			<b><i>2/21/2019 Build 1.2.001 022019</i></b><br>
 			<ul>
 				<li>Added ability to upload a spoiler log to mark items on the tracker. Credit to Catobat for this feature!<br>
 				NOTICE: At this time, there is a Spoiler Log Tournament going on, but using a parser to parse out the spoiler log is NOT ALLOWED by the rules! Please do not use this feature in the tournament or risk a disqualification.</li><br>
