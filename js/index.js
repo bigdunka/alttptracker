@@ -3,13 +3,13 @@ function load_cookie() {
 	
 	if (c.indexOf('settings') > -1) {
 		document.getElementById("remembersettings").checked = true;
-		if (c.indexOf('m-yes') > -1) {
+		if (c.indexOf('m-M') > -1) {
 			document.getElementById("mapyes").checked = true;
 		}
-		if (c.indexOf('m-small') > -1) {
+		if (c.indexOf('m-C') > -1) {
 			document.getElementById("mapsmall").checked = true;
 		}
-		if (c.indexOf('s-yes') > -1) {
+		if (c.indexOf('s-Y') > -1) {
 			document.getElementById("sphereyes").checked = true;
 		}
 	}
