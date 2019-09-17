@@ -141,6 +141,11 @@
 		return items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim && items.hookshot && (items.hammer || items.glove || items.flippers));
 	}
 	
+	function canReachDarkWorld()
+	{
+		return items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim);
+	}
+	
 	function canReachLightWorld()//Can walk around in Light World as Link
 	{
 		return items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim);
@@ -1212,7 +1217,8 @@
 			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
-				if (crystal_check() < flags.ganonvulncount) return 'unavailable';
+				if (crystal_check() < flags.ganonvulncount || !canReachLightWorld()) return 'unavailable';
+				if (flags.goals === 'F' && (items.sword > 1 || is_swordless && items.hammer) && (items.lantern || items.firerod)) return 'available';
 				
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -2053,7 +2059,7 @@
 			caption: 'Palace of Darkness',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!items.moonpearl || !(items.bow > 0) || !items.hammer) return 'unavailable';
+				if (!canReachDarkWorld() || !(items.bow > 0) || !items.hammer) return 'unavailable';
 				if (!items.agahnim && !items.glove) return 'unavailable';
 				var dungeoncheck = enemizer_check(3);
 				switch (flags.dungeonitems) {
@@ -2075,7 +2081,7 @@
 				}
 			},
 			can_get_chest: function() {
-				if (!items.moonpearl) return 'unavailable';
+				if (!canReachDarkWorld()) return 'unavailable';
 				if (!items.agahnim && !items.glove) return 'unavailable';
 				var dungeoncheck = enemizer_check(2);
 				switch (flags.dungeonitems) {
@@ -2205,8 +2211,8 @@
 			caption: 'Swamp Palace {mirror} {flippers}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!items.moonpearl || !items.mirror || !items.flippers || !items.hammer || !items.hookshot) return 'unavailable';
-				if (!items.glove && !items.agahnim) return 'unavailable';				
+				if (!canReachDarkWorld() || !items.mirror || !items.flippers || !items.hammer || !items.hookshot) return 'unavailable';
+				if (!items.glove && !items.agahnim) return 'unavailable';
 				var dungeoncheck = enemizer_check(4);
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -2221,7 +2227,7 @@
 				}
 			},
 			can_get_chest: function() {
-				if (!items.moonpearl || !items.mirror || !items.flippers) return 'unavailable';
+				if (!canReachDarkWorld() || !items.mirror || !items.flippers) return 'unavailable';
 				if (!items.glove && !items.agahnim) return 'unavailable';				
 				var dungeoncheck = enemizer_check(4);
 				switch (flags.dungeonitems) {
@@ -2263,12 +2269,12 @@
 			caption: 'Skull Woods',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!can_reach_outcast() || !items.firerod || (items.sword == 0 && !is_swordless)) return 'unavailable';
+				if (!can_reach_outcast() || !canReachDarkWorld() || !items.firerod || (items.sword == 0 && !is_swordless)) return 'unavailable';
 				var dungeoncheck = enemizer_check(5);
 				return dungeoncheck;
 			},
 			can_get_chest: function() {
-				if (!can_reach_outcast()) return 'unavailable';
+				if (!can_reach_outcast() || !canReachDarkWorld()) return 'unavailable';
 				var dungeoncheck = enemizer_check(5);
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -2305,7 +2311,7 @@
 			caption: 'Thieves\' Town',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!can_reach_outcast()) return 'unavailable';
+				if (!can_reach_outcast() || !canReachDarkWorld()) return 'unavailable';
 				var dungeoncheck = enemizer_check(6);
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -2319,7 +2325,7 @@
 				}
 			},
 			can_get_chest: function() {
-				if (!can_reach_outcast()) return 'unavailable';
+				if (!can_reach_outcast() || !canReachDarkWorld()) return 'unavailable';
 				var dungeoncheck = enemizer_check(6);
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -2358,7 +2364,7 @@
 			caption: 'Ice Palace {flippers} [{firerod}/{bombos}]',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!items.moonpearl || !items.flippers || items.glove !== 2 || !items.hammer) return 'unavailable';
+				if (!items.moonpearl || !items.flippers || items.glove !== 2 || !items.hammer || !canReachDarkWorld()) return 'unavailable';
 				if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && !is_swordless))) return 'unavailable';
 				if (!items.hookshot && (!items.somaria || !items.bigkey7)) return 'unavailable';
 				var dungeoncheck = enemizer_check(7);
@@ -2372,7 +2378,7 @@
 				}
 			},
 			can_get_chest: function() {
-				if (!items.moonpearl || !items.flippers || items.glove !== 2) return 'unavailable';
+				if (!items.moonpearl || !items.flippers || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
 				if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && !is_swordless))) return 'unavailable';
 				var dungeoncheck = enemizer_check(7);
 				switch (flags.dungeonitems) {
@@ -2402,8 +2408,7 @@
 			caption: 'Misery Mire {medallion0}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!melee_bow()) return 'unavailable';
-				if (!items.moonpearl || !items.flute || items.glove !== 2 || !items.somaria) return 'unavailable';
+				if (!items.moonpearl || !items.flute || items.glove !== 2 || !items.somaria || !canReachDarkWorld() || !melee_bow()) return 'unavailable';
 				if (!items.boots && !items.hookshot) return 'unavailable';
 				var state = medallion_check(0);
 				if (state) return state;
@@ -2423,7 +2428,7 @@
 				}
 			},
 			can_get_chest: function() {
-				if (!items.moonpearl || !items.flute || items.glove !== 2) return 'unavailable';
+				if (!items.moonpearl || !items.flute || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
 				if (!items.boots && !items.hookshot) return 'unavailable';
 				if (items.sword === 0 && !is_swordless) return 'unavailable';
 				var state = medallion_check(0);
@@ -2468,7 +2473,7 @@
 			caption: 'Turtle Rock {medallion0} {hammer}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria) return 'unavailable';
+				if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria || !canReachDarkWorld()) return 'unavailable';
 				if (!items.hookshot && !items.mirror) return 'unavailable';
 				var state = medallion_check(1);
 				if (state) return state;				
@@ -2494,7 +2499,7 @@
 				}
 			},
 			can_get_chest: function() {
-				if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria) return 'unavailable';
+				if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria || !canReachDarkWorld()) return 'unavailable';
 				if (!items.hookshot && !items.mirror) return 'unavailable';
 				var state = medallion_check(1);
 				if (state) return state;				
@@ -2647,7 +2652,8 @@
 			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
-				if (crystal_check() < flags.ganonvulncount) return 'unavailable';
+				if (crystal_check() < flags.ganonvulncount || !canReachDarkWorld()) return 'unavailable';
+				if (flags.goals === 'F' && (items.sword > 1 || is_swordless && items.hammer) && (items.lantern || items.firerod)) return 'available';
 				
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -2668,7 +2674,7 @@
 				return 'unavailable';
 			},
 			can_get_chest: function() {
-				if (crystal_check() < flags.opentowercount || items.glove < 2 || !items.hammer) return 'unavailable';
+				if (crystal_check() < flags.opentowercount || items.glove < 2 || !items.hammer || !canReachDarkWorld()) return 'unavailable';
 				
 				switch (flags.dungeonitems) {
 					case 'S':

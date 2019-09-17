@@ -365,7 +365,7 @@
 	}
 
 	window.ganonGoal = function() {
-		if (flags.ganonvuln === 'R' && flags.goals === 'G') {
+		if (flags.ganonvuln === 'R' && (flags.goals === 'G' || flags.goals === 'F')) {
 			document.getElementById('ganonselectdiv').style.visibility = 'inherit';
 		}
 	}
@@ -415,6 +415,7 @@
 		
 		switch (flags.goals) {
 			case 'G':
+			case 'F':
 				if (flags.ganonvuln === 'R') {
 					document.getElementById('ganondiv').classList.add('ganon');
 					flags.ganonvulncount = 8;
@@ -586,6 +587,10 @@
 			document.getElementById('app').classList.add('sphereless');
 		} else {
 			document.getElementById('spheres').style.visibility = 'visible';
+		}
+		
+		if (flags.swordmode === 'A') {
+			toggle('sword');
 		}
 				
     };
