@@ -47,7 +47,7 @@ function launch_tracker() {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 	}
 	
-	var trackerWindow = window.open('tracker.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganoncrystals}{ganon}{swords}{map}{spoiler}{sphere}&sprite={sprite}'
+	var trackerWindow = window.open('tracker.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}&sprite={sprite}'
 			.replace('{type}', type)
 			.replace('{entrance}', entrance)
 			.replace('{boss}', boss)

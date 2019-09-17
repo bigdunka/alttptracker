@@ -30,9 +30,9 @@ body {
 #tracker [id^="smallhalfheader"] { width: 32px; height: 16px; color: #FFF; font-size: 9px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 2px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 
 #tracker .tunic { width: 128px; height: 128px; }
-#tracker .goal { position: absolute; top: 0; left: 0; height: 48px; width: 48px; }
 #tracker .sword { position: absolute; top: 0; right: 0; height: 48px; width: 48px; }
-#tracker .goal { position: absolute; top: 0; left: 0; height: 32px; width: 32px; }
+#tracker .crystalgoal { position: absolute; top: 0; left: 0; height: 24px; width: 24px; }
+#tracker .ganongoal { position: absolute; top: 24; left: 0; height: 24px; width: 24px; }
 #tracker .shield { position: absolute; bottom: 0; left: 0; height: 48px; width: 48px; }
 #tracker .moonpearl {
   width: 48px;
@@ -192,18 +192,32 @@ body {
 .shield.active-2 { background-image: url(../images/items/shield2.png); background-size:100%; float:left; }
 .shield.active-3 { background-image: url(../images/items/shield3.png); background-size:100%; float:left; }
 .moonpearl { background-image: url(../images/items/moonpearl.png); background-size:100%; }
-.goal.crystals0 { background-image: url(../images/dungeons/prize4.png); background-size:100%; }
-.goal.crystals1 { background-image: url(../images/dungeons/prize4.png); background-size:100%; }
-.goal.crystals2 { background-image: url(../images/dungeons/prize4.png); background-size:100%; }
-.goal.crystals3 { background-image: url(../images/dungeons/prize4.png); background-size:100%; }
-.goal.crystals4 { background-image: url(../images/dungeons/prize4.png); background-size:100%; }
-.goal.crystals5 { background-image: url(../images/dungeons/prize4.png); background-size:100%; }
-.goal.crystals6 { background-image: url(../images/dungeons/prize4.png); background-size:100%; }
-.goal.crystals7 { background-image: url(../images/dungeons/prize4.png); background-size:100%; }
-.goal.crystals { background-image: url(../images/dungeons/crystal.png); background-size:100%; }
-.goal.alldungeons { background-image: url(../images/dungeons/alldungeons.png); background-size:100%; }
-.goal.pendants { background-image: url(../images/dungeons/prize1.png); background-size:100%; }
-.goal.other { visibility: collapse; }
+.crystalgoal.crystals0 { background-image: url(../images/dungeons/crystal0.png); background-size:100%; }
+.crystalgoal.crystals1 { background-image: url(../images/dungeons/crystal1.png); background-size:100%; }
+.crystalgoal.crystals2 { background-image: url(../images/dungeons/crystal2.png); background-size:100%; }
+.crystalgoal.crystals3 { background-image: url(../images/dungeons/crystal3.png); background-size:100%; }
+.crystalgoal.crystals4 { background-image: url(../images/dungeons/crystal4.png); background-size:100%; }
+.crystalgoal.crystals5 { background-image: url(../images/dungeons/crystal5.png); background-size:100%; }
+.crystalgoal.crystals6 { background-image: url(../images/dungeons/crystal6.png); background-size:100%; }
+.crystalgoal.crystals7 { background-image: url(../images/dungeons/crystal7.png); background-size:100%; }
+.crystalgoal.crystals { background-image: url(../images/dungeons/crystal.png); background-size:100%; }
+.crystalgoal.pendants { background-image: url(../images/dungeons/prize1.png); background-size:100%; }
+.crystalgoal.other { visibility: collapse; }
+.ganongoal.ganon0 { background-image: url(../images/dungeons/ganon0.png); background-size:100%; }
+.ganongoal.ganon1 { background-image: url(../images/dungeons/ganon1.png); background-size:100%; }
+.ganongoal.ganon2 { background-image: url(../images/dungeons/ganon2.png); background-size:100%; }
+.ganongoal.ganon3 { background-image: url(../images/dungeons/ganon3.png); background-size:100%; }
+.ganongoal.ganon4 { background-image: url(../images/dungeons/ganon4.png); background-size:100%; }
+.ganongoal.ganon5 { background-image: url(../images/dungeons/ganon5.png); background-size:100%; }
+.ganongoal.ganon6 { background-image: url(../images/dungeons/ganon6.png); background-size:100%; }
+.ganongoal.ganon7 { background-image: url(../images/dungeons/ganon7.png); background-size:100%; }
+.ganongoal.ganon { background-image: url(../images/dungeons/ganon.png); background-size:100%; }
+.ganongoal.alldungeons { background-image: url(../images/dungeons/alldungeons.png); background-size:100%; }
+.ganongoal.pendants { background-image: url(../images/dungeons/prize1.png); background-size:100%; }
+.ganongoal.other { visibility: collapse; }
+.crystalgoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 0; left: 0; }
+.ganongoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 24; left: 0; }
+.goalselect { height: 24px; width: 24px; } 
 
 .bow { background-image: url(../images/items/bow0.png); }
 .bow.active-1 { background-image: url(../images/items/bow1.png); }

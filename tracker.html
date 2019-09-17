@@ -2,15 +2,16 @@
 <head>
 	<title>ALTTP Community Tracker</title>
 
-	<script src="js/jquery-3.3.1.js?v=13001"></script>
-	<script src="js/bootstrap.min.js?v=13001"></script>
-	<link rel="stylesheet" type="text/css" href="css/style.css?v=13001">
+	<script src="js/jquery-3.3.1.js?v=13002"></script>
+	<script src="js/bootstrap.min.js?v=13002"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css?v=13002">
 	<link href="css/fonts.css" rel="stylesheet">		
 
-	<script src="js/util.js?v=13001"></script>
-	<script src="js/items.js?v=13001"></script>
-	<script src="js/chests.js?v=13001"></script>
-	<script src="js/track.js?v=13001"></script>
+	<script src="js/util.js?v=13002"></script>
+	<script src="js/items.js?v=13002"></script>
+	<script src="js/chests.js?v=13002"></script>
+	<script src="js/track.js?v=13002"></script>
+	<script src="js/spoiler.js?v=13002"></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -37,7 +38,30 @@
 				<div class="cell">
 				  <div style="width: 96px; height: 96px;">
 				  <div class="item tunic tunic active-1 bunny" onClick="toggle('tunic')" onMouseover="findItems(['Armor'])" onMouseout="unhighlightAll()"></div>
-				  <div id="goaldiv" class="item active goal" onClick="checkGoal()"></div>
+				  <div id="crystalsdiv" class="item active crystalgoal" onClick="crystalGoal()"></div>
+				  <div id="crystalsselectdiv" class="crystalgoalselect" style="visibility: collapse;">
+					  <img class="goalselect" src="./images/dungeons/crystal.png" onClick="setCrystalGoal('')"/>
+					  <img class="goalselect" src="./images/dungeons/crystal0.png" onClick="setCrystalGoal(0)"/>
+					  <img class="goalselect" src="./images/dungeons/crystal1.png" onClick="setCrystalGoal(1)"/>
+					  <img class="goalselect" src="./images/dungeons/crystal2.png" onClick="setCrystalGoal(2)"/>
+					  <img class="goalselect" src="./images/dungeons/crystal3.png" onClick="setCrystalGoal(3)"/>
+					  <img class="goalselect" src="./images/dungeons/crystal4.png" onClick="setCrystalGoal(4)"/>
+					  <img class="goalselect" src="./images/dungeons/crystal5.png" onClick="setCrystalGoal(5)"/>
+					  <img class="goalselect" src="./images/dungeons/crystal6.png" onClick="setCrystalGoal(6)"/>
+					  <img class="goalselect" src="./images/dungeons/crystal7.png" onClick="setCrystalGoal(7)"/>
+				  </div>
+				  <div id="ganonselectdiv" class="ganongoalselect" style="visibility: collapse;">
+					  <img class="goalselect" src="./images/dungeons/ganon.png" onClick="setGanonGoal('')"/>
+					  <img class="goalselect" src="./images/dungeons/ganon0.png" onClick="setGanonGoal(0)"/>
+					  <img class="goalselect" src="./images/dungeons/ganon1.png" onClick="setGanonGoal(1)"/>
+					  <img class="goalselect" src="./images/dungeons/ganon2.png" onClick="setGanonGoal(2)"/>
+					  <img class="goalselect" src="./images/dungeons/ganon3.png" onClick="setGanonGoal(3)"/>
+					  <img class="goalselect" src="./images/dungeons/ganon4.png" onClick="setGanonGoal(4)"/>
+					  <img class="goalselect" src="./images/dungeons/ganon5.png" onClick="setGanonGoal(5)"/>
+					  <img class="goalselect" src="./images/dungeons/ganon6.png" onClick="setGanonGoal(6)"/>
+					  <img class="goalselect" src="./images/dungeons/ganon7.png" onClick="setGanonGoal(7)"/>
+				  </div>
+				  <div id="ganondiv" class="item active ganongoal" onClick="ganonGoal()"></div>
 				  <div class="item sword" onClick="toggle('sword')" onMouseover="findItems(['Sword'])" onMouseout="unhighlightAll()"></div>
 				  <div class="item shield" onClick="toggle('shield')" onMouseover="findItems(['Shield'])" onMouseout="unhighlightAll()"></div>
 				  <div class="item moonpearl" onClick="toggle('moonpearl')" onMouseover="findItems(['Moon Pearl'])" onMouseout="unhighlightAll()"></div>

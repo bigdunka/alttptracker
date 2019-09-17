@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>ALTTP Community Tracker Launcher</title>
-		<script src="js/index.js?v=13001"></script>
+		<script src="js/index.js?v=13002"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
@@ -30,7 +30,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.3.001 091619 - Compatible for v31</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.3.002 091619a - Compatible for v31</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
 			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
@@ -114,21 +114,13 @@
 										<label for="bossnone" style="width:100px" >None</label>
 									</td>
 									<td>
-										<input id="bosssimple" value="S" type="radio" name="bossgroup" />
-										<label for="bosssimple" style="width:100px" >Simple</label>
-									</td>
-									<td>
-										<input id="bossfull" value="F" type="radio" name="bossgroup" />
-										<label for="bossfull" style="width:100px" >Full</label>
-									</td>
-									<td>
-										<input id="bossrandom" value="R" type="radio" name="bossgroup" />
-										<label for="bossrandom" style="width:100px" >Random</label>
+										<input id="bossshuffled" value="S" type="radio" name="bossgroup" />
+										<label for="bossshuffled" style="width:100px" >Simple/Full/Random</label>
 									</td>
 								</tr>
 								<tr>
 									<td width="100px">
-										Enemy Shuffle: <span class="south" title="This should be released in one of the next two major revisions" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Enemy Shuffle: <span class="south" title="Temporarily disabled" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
 									</td>
 									<td>
 										<input disabled id="enemynone" value="N" type="radio" name="enemygroup" checked />
@@ -136,11 +128,8 @@
 									</td>
 									<td>
 										<input disabled id="enemyshuffled" value="S" type="radio" name="enemygroup" />
-										<label for="enemyshuffled" style="width:100px" >Shuffled</label>
+										<label for="enemyshuffled" style="width:100px" >Shuffled/Random</label>
 									</td>
-									<td>
-										<input disabled id="enemyrandom" value="F" type="radio" name="enemygroup" />
-										<label for="enemyrandom" style="width:100px" >Random</label>
 								</tr>
 							</table>
 						</td>
@@ -196,7 +185,7 @@
 								</tr>
 								<tr>
 									<td width="120px">
-										Item Placement: <span class="south" title="This should be released in the next minor revision" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Item Placement: <span class="south" title="Temporarily disabled, defaulted to Basic" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
 									</td>
 									<td>
 										<input disabled id="placementbasic" value="B" type="radio" name="placementgroup" checked />
@@ -240,12 +229,12 @@
 								</tr>
 								<tr>
 									<td width="100px">
-										Open Tower: <span class="south" title="Open Tower/Ganon Vuln flags will be available in the next minor revision" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Open Tower:
 									</td>
 									<td>
-										<input disabled id="goalcrystal" value="C" type="radio" name="towergroup" checked />
+										<input id="goalcrystal" value="C" type="radio" name="towergroup" checked />
 										<label for="goalcrystal" style="width:100px">
-										  <select disabled id="towerselect" style="width: 40px">
+										  <select id="towerselect" style="width: 40px">
 											<option value="0">0</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
@@ -257,19 +246,19 @@
 										  </select> Crystals</label>
 									</td>
 									<td>
-										<input disabled id="goalrandom" value="R" type="radio" name="towergroup" />
+										<input id="goalrandom" value="R" type="radio" name="towergroup" />
 										<label for="goalrandom" style="width:100px">Random</label>
 									</td>
 								</tr>
 								<tr>
 									<td width="140px">
-										Ganon Vulnerable: <span class="south" title="Open Tower/Ganon Vuln flags will be available in the next minor revision" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Ganon Vulnerable:
 									</td>
 									<td>
-										<input disabled id="ganoncrystal" value="C" type="radio" name="ganongroup" checked />
+										<input id="ganoncrystal" value="C" type="radio" name="ganongroup" checked />
 										<label for="ganoncrystal" style="width:100px">
 										<label for="ganoncrystal" style="width:100px">
-										  <select disabled id="ganonselect" style="width: 40px">
+										  <select id="ganonselect" style="width: 40px">
 											<option value="0">0</option>
 											<option value="1">1</option>
 											<option value="2">2</option>
@@ -281,7 +270,7 @@
 										  </select> Crystals</label>
 									</td>
 									<td>
-										<input disabled id="ganonrandom" value="R" type="radio" name="ganongroup" />
+										<input id="ganonrandom" value="R" type="radio" name="ganongroup" />
 										<label for="ganonrandom" style="width:100px">Random</label>
 									</td>
 								</tr>
@@ -341,11 +330,11 @@
 										Map:
 									</td>
 									<td>
-										<input checked id="mapno" value="N" type="radio" name="mapgroup" />
+										<input id="mapno" value="N" type="radio" name="mapgroup" />
 										<label for="mapno">None</label>
 									</td>
 									<td>
-										<input id="mapyes" value="M" type="radio" name="mapgroup" />
+										<input checked id="mapyes" value="M" type="radio" name="mapgroup" />
 										<label for="mapyes">Normal</label>
 									</td>
 									<td>
@@ -368,7 +357,7 @@
 								</tr>
 								<tr>
 									<td>
-										Use Spheres: <span class="south" title="This will add additional sphere tracking functionality (See Instructions for details)" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Use Spheres: <span class="south" title="This will add additional sphere tracking functionality" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
 									</td>
 									<td>
 										<input id="sphereno" value="N" type="radio" name="spheregroup" checked />

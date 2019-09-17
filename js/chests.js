@@ -24,7 +24,7 @@
 			}
 		}
 		return crystal_count;
-	}		
+	}
 
     function melee() { return items.sword || items.hammer; }
     function melee_bow() { return melee() || items.bow > 0; }
@@ -34,7 +34,7 @@
 
     function always() { return 'available'; }
 
-	function enemizer_check_new(i) {
+	function enemizer_check(i) {
 		switch (enemizer[i]) {
 			case 0:
 				return 'possible';
@@ -49,13 +49,13 @@
 				if (items.sword > 0 || items.hammer) return 'available';
 				break;
 			case 4:
-				if (items.sword > 0 || items.hammer) return 'available';
+				if (items.sword > 0 || items.hammer || items.bow > 0) return 'available';
 				break;
 			case 5:
 				if (items.hookshot && (items.sword > 0 || items.hammer)) return 'available';
 				break;
 			case 6:
-				if (items.sword > 0 || items.hammer || items.firerod) return 'available';
+				if (items.sword > 0 || items.hammer || items.firerod || items.byrna || items.somaria) return 'available';
 				break;
 			case 7:
 				if (items.sword > 0 || items.hammer || items.somaria || items.byrna) return 'available';
@@ -71,7 +71,6 @@
 				break;
 				
 		}
-		
 		return 'unavailable';
 	}
 	
@@ -138,57 +137,8 @@
 		return 'unavailable';
 	}
 	
-	
-	function enemizer_check(i, d, p) {
-		if (enemizer[i] === 0) {
-			return 'possible';
-		} else if (enemizer[i] === 1) {
-			//Armos
-			if (items.sword > 0 || items.hammer || items.bow > 0 || items.boomerang > 0 || items.byrna || items.somaria || items.icerod || items.firerod) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
-			return 'unavailable';
-		} else if (enemizer[i] === 2) {
-			//Lanmola
-			if (melee_bow() || cane() || rod() || items.hammer) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
-			return 'unavailable';
-		} else if (enemizer[i] === 3) {
-			//Moldorm
-			if (items.sword > 0 || items.hammer) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
-			return 'unavailable';
-		} else if (enemizer[i] === 4) {
-			//Helmasaur
-			if (items.sword > 0 || items.hammer) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
-			return 'unavailable';
-		} else if (enemizer[i] === 5) {
-			//Arrghus
-			if (items.hookshot && (items.sword > 0 || items.hammer)) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
-			return 'unavailable';
-		} else if (enemizer[i] === 6) {
-			//Mothula
-			if (items.sword > 0 || items.hammer || items.firerod) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
-			return 'unavailable';
-		} else if (enemizer[i] === 7) {
-			//Blind
-			if (items.sword > 0 || items.hammer || items.somaria) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
-			return 'unavailable';
-		} else if (enemizer[i] === 8) {
-			//Kholdstare
-			if (items.firerod || (items.bombos && (items.sword > 0 || items.hammer))) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
-			return 'unavailable';
-		} else if (enemizer[i] === 9) {
-			//Vitreous
-			if (melee_bow() || items.hammer) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
-			return 'unavailable';
-		} else if (enemizer[i] === 10) {
-			//Trinexx
-			if (items.firerod && items.icerod && (items.hammer || items.sword > 0)) return d ? p == true ? 'possible' : 'available' : 'darkavailable';
-			return 'unavailable';
-		}
-	}
-	
 	function can_reach_outcast() {
-		return items.moonpearl && (
-			items.glove === 2 || items.glove && items.hammer ||
-			items.agahnim && items.hookshot && (items.hammer || items.glove || items.flippers));
+		return items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim && items.hookshot && (items.hammer || items.glove || items.flippers));
 	}
 	
 	function canReachLightWorld()//Can walk around in Light World as Link
@@ -216,6 +166,7 @@
 		return items.flute && canReachLightWorld();
 	}
 	
+	//Is Inverted Mode
 	if (flags.gametype === "I")
 	{
 		// define dungeon chests
@@ -224,9 +175,9 @@
 			is_beaten: false,
 			is_beatable: function() {
 				if (!items.bigkey0 || items.bow === 0 || !canReachLightWorld()) return 'unavailable';
-				if (enemizer_check_new(0) === 'available') {
+				if (enemizer_check(0) === 'available') {
 					return items.lantern ? 'available' : 'darkavailable';
-				} else if (enemizer_check_new(0) === 'possible') {
+				} else if (enemizer_check(0) === 'possible') {
 					return items.lantern ? 'possible' : 'darkavailable';
 				}
 				return 'unavailable';
@@ -271,7 +222,7 @@
 			is_beatable: function() {
 				if (!canReachLightWorldBunny()) return 'unavailable';				
 				if (!items.book || !items.glove || (!items.lantern && !items.firerod)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(1);
+				var dungeoncheck = enemizer_check(1);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -297,7 +248,7 @@
 			},
 			can_get_chest: function() {
 				if (!items.book || !canReachLightWorldBunny()) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(1);
+				var dungeoncheck = enemizer_check(1);
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (items.chest1 === 2) return items.boots ? 'available' : 'possible';
@@ -365,7 +316,7 @@
 			is_beaten: false,
 			is_beatable: function() {
 				if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(2);
+				var dungeoncheck = enemizer_check(2);
 				if (dungeoncheck === 'unavailable') return 'unavailable';
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -388,7 +339,7 @@
 			},
 			can_get_chest: function() {
 				if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(2);				
+				var dungeoncheck = enemizer_check(2);				
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (items.lantern || items.firerod) {
@@ -470,7 +421,7 @@
 			is_beaten: false,
 			is_beatable: function() {
 				if(!canReachPyramid() || !(items.bow > 0) || !items.hammer) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(3);
+				var dungeoncheck = enemizer_check(3);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -491,7 +442,7 @@
 			},
 			can_get_chest: function() {
 				if (!canReachPyramidWithoutFlippers() && !canReachPyramid()) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(2);
+				var dungeoncheck = enemizer_check(2);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -620,7 +571,7 @@
 			is_beaten: false,
 			is_beatable: function() {
 				if (!items.moonpearl || !canReachLightWorldBunny() || !items.mirror || !items.flippers || !items.hammer || !items.hookshot) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(4);
+				var dungeoncheck = enemizer_check(4);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -635,7 +586,7 @@
 			},
 			can_get_chest: function() {
 				if (!items.moonpearl || !canReachLightWorldBunny() || !items.mirror || !items.flippers) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(4);
+				var dungeoncheck = enemizer_check(4);
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (items.chest4 === 6) return 'available';
@@ -676,11 +627,11 @@
 			is_beaten: false,
 			is_beatable: function() {
 				if (!items.firerod || (items.sword == 0 && !is_swordless)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(5);
+				var dungeoncheck = enemizer_check(5);
 				return dungeoncheck;
 			},
 			can_get_chest: function() {
-				var dungeoncheck = enemizer_check_new(5);
+				var dungeoncheck = enemizer_check(5);
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (items.chest5 === 2) return !items.firerod ? 'possible' : 'available';
@@ -716,7 +667,7 @@
 			caption: 'Thieves\' Town',
 			is_beaten: false,
 			is_beatable: function() {
-				var dungeoncheck = enemizer_check_new(6);
+				var dungeoncheck = enemizer_check(6);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -729,7 +680,7 @@
 				}
 			},
 			can_get_chest: function() {
-				var dungeoncheck = enemizer_check_new(6);
+				var dungeoncheck = enemizer_check(6);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -770,7 +721,7 @@
 				if (!items.flippers || !items.hammer) return 'unavailable';
 				if (!items.firerod && !items.bombos) return 'unavailable';
 				if (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(7);
+				var dungeoncheck = enemizer_check(7);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -784,7 +735,7 @@
 				if (!items.flippers) return 'unavailable';
 				if (!items.firerod && !items.bombos) return 'unavailable';
 				if (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless)) return 'unavailable';				
-				var dungeoncheck = enemizer_check_new(7);
+				var dungeoncheck = enemizer_check(7);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -817,7 +768,7 @@
 				if (!items.boots && !items.hookshot) return 'unavailable';
 				var state = medallion_check(0);
 				if (state) return state;
-				var dungeoncheck = enemizer_check_new(8);
+				var dungeoncheck = enemizer_check(8);
 				if (dungeoncheck === 'unavailable') return 'unavailable';
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -837,7 +788,7 @@
 				if (!items.boots && !items.hookshot) return 'unavailable';
 				var state = medallion_check(0);
 				if (state) return state;
-				var dungeoncheck = enemizer_check_new(8);
+				var dungeoncheck = enemizer_check(8);
 				switch (flags.dungeonitems) {
 					case 'S':
 						if ((items.lantern || items.firerod) && items.somaria) return (!items.lantern ? 'darkavailable' : 'available');
@@ -879,7 +830,7 @@
 			is_beatable: function() {
 				//All win conditions require Somaria and a way to DM,
 				if (!(items.glove || activeFlute()) || !items.somaria) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(9);
+				var dungeoncheck = enemizer_check(9);
 				if (dungeoncheck === 'unavailable') return 'unavailable';
 				
 				//First, check for back door access through mirror, it has logic priority
@@ -1261,7 +1212,7 @@
 			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
-				if (crystal_check() < 7) return 'unavailable'; //Need to modify with the updated cyrstal count logic
+				if (crystal_check() < flags.ganonvulncount) return 'unavailable';
 				
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -1282,9 +1233,7 @@
 				return 'unavailable';				
 			},
 			can_get_chest: function() {
-				if (crystal_check() < 7) {
-					return 'unavailable';
-				}
+				if (crystal_check() < flags.opentowercount) return 'unavailable';
 				
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -1831,7 +1780,7 @@
 			caption: 'Eastern Palace',
 			is_beaten: false,
 			is_beatable: function() {
-				var dungeoncheck = enemizer_check_new(0);
+				var dungeoncheck = enemizer_check(0);
 				//Standard check
 				if (!items.bigkey0 || dungeoncheck === 'unavailable' || !(items.bow > 0 && !is_enemyshuffle)) return 'unavailable';
 				//Dark Room check
@@ -1839,7 +1788,7 @@
 				return dungeoncheck;
 			},
 			can_get_chest: function() {
-				var dungeoncheck = enemizer_check_new(0);
+				var dungeoncheck = enemizer_check(0);
 
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -1905,7 +1854,7 @@
 			is_beaten: false,
 			is_beatable: function() {
 				if (!(items.book && items.glove) && !(items.flute && items.glove === 2 && items.mirror) || (!items.lantern && !items.firerod)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(1);
+				var dungeoncheck = enemizer_check(1);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -1931,7 +1880,7 @@
 			},
 			can_get_chest: function() {
 				if (!items.book && !(items.flute && items.glove === 2 && items.mirror)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(1);
+				var dungeoncheck = enemizer_check(1);
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (items.chest1 === 2) return items.boots ? 'available' : 'possible';
@@ -2000,7 +1949,7 @@
 			is_beatable: function() {
 				if (!items.flute && !items.glove) return 'unavailable';
 				if (!items.mirror && !(items.hookshot && items.hammer)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(2);
+				var dungeoncheck = enemizer_check(2);
 				if (dungeoncheck === 'unavailable') return 'unavailable';
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -2024,7 +1973,7 @@
 			can_get_chest: function() {
 				if (!items.flute && !items.glove) return 'unavailable';
 				if (!items.mirror && !(items.hookshot && items.hammer)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(2);
+				var dungeoncheck = enemizer_check(2);
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (items.lantern || items.firerod) {
@@ -2106,7 +2055,7 @@
 			is_beatable: function() {
 				if (!items.moonpearl || !(items.bow > 0) || !items.hammer) return 'unavailable';
 				if (!items.agahnim && !items.glove) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(3);
+				var dungeoncheck = enemizer_check(3);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -2128,7 +2077,7 @@
 			can_get_chest: function() {
 				if (!items.moonpearl) return 'unavailable';
 				if (!items.agahnim && !items.glove) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(2);
+				var dungeoncheck = enemizer_check(2);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -2258,7 +2207,7 @@
 			is_beatable: function() {
 				if (!items.moonpearl || !items.mirror || !items.flippers || !items.hammer || !items.hookshot) return 'unavailable';
 				if (!items.glove && !items.agahnim) return 'unavailable';				
-				var dungeoncheck = enemizer_check_new(4);
+				var dungeoncheck = enemizer_check(4);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -2274,7 +2223,7 @@
 			can_get_chest: function() {
 				if (!items.moonpearl || !items.mirror || !items.flippers) return 'unavailable';
 				if (!items.glove && !items.agahnim) return 'unavailable';				
-				var dungeoncheck = enemizer_check_new(4);
+				var dungeoncheck = enemizer_check(4);
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (items.chest4 === 6) return 'available';
@@ -2315,12 +2264,12 @@
 			is_beaten: false,
 			is_beatable: function() {
 				if (!can_reach_outcast() || !items.firerod || (items.sword == 0 && !is_swordless)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(5);
+				var dungeoncheck = enemizer_check(5);
 				return dungeoncheck;
 			},
 			can_get_chest: function() {
 				if (!can_reach_outcast()) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(5);
+				var dungeoncheck = enemizer_check(5);
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (items.chest5 === 2) return !items.firerod ? 'possible' : 'available';
@@ -2357,7 +2306,7 @@
 			is_beaten: false,
 			is_beatable: function() {
 				if (!can_reach_outcast()) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(6);
+				var dungeoncheck = enemizer_check(6);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -2371,7 +2320,7 @@
 			},
 			can_get_chest: function() {
 				if (!can_reach_outcast()) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(6);
+				var dungeoncheck = enemizer_check(6);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -2412,7 +2361,7 @@
 				if (!items.moonpearl || !items.flippers || items.glove !== 2 || !items.hammer) return 'unavailable';
 				if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && !is_swordless))) return 'unavailable';
 				if (!items.hookshot && (!items.somaria || !items.bigkey7)) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(7);
+				var dungeoncheck = enemizer_check(7);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -2425,7 +2374,7 @@
 			can_get_chest: function() {
 				if (!items.moonpearl || !items.flippers || items.glove !== 2) return 'unavailable';
 				if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && !is_swordless))) return 'unavailable';
-				var dungeoncheck = enemizer_check_new(7);
+				var dungeoncheck = enemizer_check(7);
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
@@ -2458,7 +2407,7 @@
 				if (!items.boots && !items.hookshot) return 'unavailable';
 				var state = medallion_check(0);
 				if (state) return state;
-				var dungeoncheck = enemizer_check_new(8);
+				var dungeoncheck = enemizer_check(8);
 				if (dungeoncheck === 'unavailable') return 'unavailable';
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -2479,7 +2428,7 @@
 				if (items.sword === 0 && !is_swordless) return 'unavailable';
 				var state = medallion_check(0);
 				if (state) return state;
-				var dungeoncheck = enemizer_check_new(8);
+				var dungeoncheck = enemizer_check(8);
 				switch (flags.dungeonitems) {
 					case 'S':
 						if ((items.lantern || items.firerod) && items.somaria) return (!items.lantern ? 'darkavailable' : 'available');
@@ -2524,7 +2473,7 @@
 				var state = medallion_check(1);
 				if (state) return state;				
 				
-				var dungeoncheck = enemizer_check_new(9);
+				var dungeoncheck = enemizer_check(9);
 				if (dungeoncheck === 'unavailable') return 'unavailable';
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -2550,7 +2499,7 @@
 				var state = medallion_check(1);
 				if (state) return state;				
 				
-				var dungeoncheck = enemizer_check_new(9);
+				var dungeoncheck = enemizer_check(9);
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (dungeoncheck === 'available' && items.lantern && (items.byrna || items.cape || items.shield === 3)) return 'available';
@@ -2698,14 +2647,7 @@
 			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
-				var crystal_count = 0;
-				for (var k = 0; k < 10; k++) {
-					if ((prizes[k] === 3 || prizes[k] === 4) && items['boss'+k]) {
-						crystal_count++;
-					}
-				}
-				
-				if (crystal_count < 7) return 'unavailable'; //Need to modify with the updated cyrstal count logic
+				if (crystal_check() < flags.ganonvulncount) return 'unavailable';
 				
 				switch (flags.dungeonitems) {
 					case 'S':
@@ -2726,13 +2668,7 @@
 				return 'unavailable';
 			},
 			can_get_chest: function() {
-				var crystal_count = 0;
-				for (var k = 0; k < 10; k++) {
-					if ((prizes[k] === 3 || prizes[k] === 4) && items['boss'+k]) {
-						crystal_count++;
-					}
-				}
-				if (crystal_count < 7 || items.glove < 2 || !items.hammer) return 'unavailable';
+				if (crystal_check() < flags.opentowercount || items.glove < 2 || !items.hammer) return 'unavailable';
 				
 				switch (flags.dungeonitems) {
 					case 'S':
