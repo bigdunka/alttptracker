@@ -20,7 +20,7 @@
 		if (label.substring(0,5) === 'chest') {
             var value = items.dec(label);
 			if (value === 0) {
-				if (flags.dungeonitems != 'F' && flags.dungeonitems != 'K' && flags.gametype != 'R') {
+				if (flags.dungeonitems != 'F' && flags.dungeonitems != 'K' && flags.gametype != 'R' && label != 'chest10') {
 					document.getElementById(label).className = 'chest-' + value + ' large';
 				} else {
 					document.getElementById(label).className = 'chest-' + value;
@@ -28,7 +28,7 @@
 				
 				document.getElementById(label).innerHTML = '';
 			} else {
-				if (flags.dungeonitems != 'F' && flags.dungeonitems != 'K' && flags.gametype != 'R') {
+				if (flags.dungeonitems != 'F' && flags.dungeonitems != 'K' && flags.gametype != 'R' && label != 'chest10') {
 					document.getElementById(label).className = 'chest large';
 				} else {
 					document.getElementById(label).className = 'chest';
