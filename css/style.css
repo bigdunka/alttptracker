@@ -95,14 +95,6 @@ body {
   float: left;
 }
 
-.largechest {
-	width: 64px !important;
-    height: 64px !important;
-    background-size: cover !important;
-    font-size: 26px !important;
-    padding-top: 12px !important;
-}
-
 #map .boss {
   width: 24px;
   height: 24px;
@@ -141,6 +133,7 @@ body {
 .castle.highlight,
 .dungeon.highlight { background-image: url(../images/overlay/highlighted.png); }
 .chest.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; }
+.chest-0.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; }
 .unavailable { background-color: red; }
 .available { background-color: lime; }
 .possible { background-color: yellow; }
