@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>ALTTP Community Tracker Launcher</title>
-		<script src="js/index.js?v=13003"></script>
+		<script src="js/index.js?v=13004"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
@@ -30,7 +30,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.3.003 091719 - Compatible for v31</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.3.004 091819 - Compatible for v31</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
 			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
@@ -46,6 +46,22 @@
 							<center><span style="font-size: 15px; color: white;">NOTICE: This release has not been fully tested with all of the recently released v31 logic and there will likely be logic issues until we are able to fully investigate all logic changes! Please see the Known Issues page for already known issues. Please report any issues to Dunka (Discord: BigDunka#8354) and we will address them, thank you! There will be several revisions over the next few weeks addressing minor issues and updating features.<br><br>
 							Please read the Release Notes for all of the changes, there are a few!</span></center>
 						<td>
+					</tr>
+					
+					<tr>
+						<td>
+							<table width="1000px" height="100px" background="./images/overlay/presets.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+								<tr height="40px">
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										<input type="button" value="ALTTPR 2019 Tourney Qualifiers" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB;" onclick="load2019preset()" />
+									</td>
+								</tr>
+							</table>
+						</td>
 					</tr>
 					
 					<tr>
@@ -123,11 +139,11 @@
 										Enemy Shuffle:
 									</td>
 									<td>
-										<input disabled id="enemynone" value="N" type="radio" name="enemygroup" checked />
+										<input id="enemynone" value="N" type="radio" name="enemygroup" checked />
 										<label for="enemynone" style="width:100px" >None</label>
 									</td>
 									<td>
-										<input disabled id="enemyshuffled" value="S" type="radio" name="enemygroup" />
+										<input id="enemyshuffled" value="S" type="radio" name="enemygroup" />
 										<label for="enemyshuffled" style="width:100px" >Shuffled/Random</label>
 									</td>
 								</tr>
@@ -188,11 +204,11 @@
 										Item Placement:
 									</td>
 									<td>
-										<input disabled id="placementbasic" value="B" type="radio" name="placementgroup" checked />
+										<input id="placementbasic" value="B" type="radio" name="placementgroup" checked />
 										<label for="placementbasic" style="width:100px">Basic</label>
 									</td>
 									<td>
-										<input disabled id="placementadvanced" value="A" type="radio" name="placementgroup" />
+										<input id="placementadvanced" value="A" type="radio" name="placementgroup" />
 										<label for="placementadvanced" style="width:100px">Advanced</label>
 									</td>
 								</tr>

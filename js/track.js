@@ -548,7 +548,37 @@
 			document.getElementById('smallhalfheader0').style.visibility = 'hidden';
 			document.getElementById('smallkeyhalf0').style.visibility = 'hidden';
 			document.getElementById('smallhalfheader1').style.visibility = 'hidden';
-			document.getElementById('smallkeyhalf1').style.visibility = 'hidden';		
+			document.getElementById('smallkeyhalf1').style.visibility = 'hidden';	
+			document.getElementById('chest0').classList.add('large');
+			document.getElementById("c0bkdiv").remove();
+			document.getElementById("c0skdiv").remove();
+			document.getElementById('chest1').classList.add('large');
+			document.getElementById("c1bkdiv").remove();
+			document.getElementById("c1skdiv").remove();
+			document.getElementById('chest2').classList.add('large');
+			document.getElementById("c2bkdiv").remove();
+			document.getElementById("c2skdiv").remove();
+			document.getElementById('chest3').classList.add('large');
+			document.getElementById("c3bkdiv").remove();
+			document.getElementById("c3skdiv").remove();
+			document.getElementById('chest4').classList.add('large');
+			document.getElementById("c4bkdiv").remove();
+			document.getElementById("c4skdiv").remove();
+			document.getElementById('chest5').classList.add('large');
+			document.getElementById("c5bkdiv").remove();
+			document.getElementById("c5skdiv").remove();
+			document.getElementById('chest6').classList.add('large');
+			document.getElementById("c6bkdiv").remove();
+			document.getElementById("c6skdiv").remove();
+			document.getElementById('chest7').classList.add('large');
+			document.getElementById("c7bkdiv").remove();
+			document.getElementById("c7skdiv").remove();
+			document.getElementById('chest8').classList.add('large');
+			document.getElementById("c8bkdiv").remove();
+			document.getElementById("c8skdiv").remove();
+			document.getElementById('chest9').classList.add('large');
+			document.getElementById("c9bkdiv").remove();
+			document.getElementById("c9skdiv").remove();			
 		}
 		
 		//If game type is Retro, default the keys to max and decrement

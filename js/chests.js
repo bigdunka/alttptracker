@@ -74,25 +74,12 @@
 		return 'unavailable';
 	}
 	
-	function available_chests(allchests, smkeys, maxchest, chestcount) {
+	function available_chests(allchests, keys, maxchest, chestcount) {
 		var achests = 0;
 		var pchests = 0;
 		var dachests = 0;
 		var dpchests = 0;
 		var uchests = 0;
-		
-		//Move dungeon item and key chests from available to possible (Don't count big key, is a 1 for 1)
-		switch (flags.dungeonitems) {
-			case 'S':
-				achests = -2;
-				pchests = 2;
-				break;
-			case 'K':
-			case 'F':
-				achests = achests - smkeys;
-				pchests = pchests + smkeys;
-				break;
-		}
 
 		for (var i = 0; i < allchests.length; i++) {
 			switch (allchests[i]) {
@@ -114,7 +101,22 @@
 			}
 		}
 		
-		achests = achests - uchests;
+		//Move dungeon item and key chests from available to possible (Don't count big key, is a 1 for 1)
+		switch (flags.dungeonitems) {
+			case 'S':
+				pchests = pchests + (achests > 1 ? 2 : achests);
+				achests = achests - (achests > 1 ? 2 : achests) - keys;
+				break;
+			case 'M':
+				achests = achests - keys;
+				pchests = pchests + keys;
+				break;
+			case 'K':
+			case 'F':
+				achests = achests - keys;
+				pchests = pchests + keys;
+				break;
+		}		
 		
 		var itemscollected = (maxchest - chestcount);
 		
@@ -130,6 +132,8 @@
 			}
 		}
 		
+		//if (uchests >= chestcount && (achests > 0 || pchests > 0 || dachests > 0 || dpchests > 0)) return 'possible';
+//		if (uchests >= chestcount) return 'unavailable';
 		if (achests > 0) return 'available';
 		if (pchests > 0) return 'possible';
 		if (dachests > 0) return 'darkavailable';
@@ -179,13 +183,13 @@
 			caption: 'Eastern Palace',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!items.bigkey0 || items.bow === 0 || !canReachLightWorld()) return 'unavailable';
-				if (enemizer_check(0) === 'available') {
-					return items.lantern ? 'available' : 'darkavailable';
-				} else if (enemizer_check(0) === 'possible') {
-					return items.lantern ? 'possible' : 'darkavailable';
-				}
-				return 'unavailable';
+				if (!canReachLightWorld()) return 'unavailable';				
+				var dungeoncheck = enemizer_check(0);
+				//Standard check
+				if (!items.bigkey0 || dungeoncheck === 'unavailable' || !(items.bow > 0 && !is_enemyshuffle)) return 'unavailable';
+				//Dark Room check
+				if (!items.lantern && !(items.firerod && is_advanced)) return dungeoncheck === 'possible' ? 'darkpossible' : 'darkavailable';
+				return dungeoncheck;
 			},
 			can_get_chest: function() {
 				if (!canReachLightWorldBunny()) return 'unavailable';
@@ -1795,7 +1799,8 @@
 			},
 			can_get_chest: function() {
 				var dungeoncheck = enemizer_check(0);
-
+				var keys = 0;
+				
 				switch (flags.dungeonitems) {
 					case 'S':
 						return items.chest0 <= 2 && !items.lantern || items.chest0 === 1 && !(items.bow > 0) ? 'possible' : 'available';
@@ -1825,35 +1830,37 @@
 							if (items.bigkey0 && items.bow > 0) return items.lantern ? dungeoncheck : 'darkavailable';
 						}
 						return 'unavailable';			
-						break;				
+						break;
+				}
 				
-				/* var epchests = ['U','U','U','U','U','U'];
+				/* var chests = ['U','U','U','U','U','U'];
 				
-				//Compass Chest
-				epchests[0] = 'A';
-				//Big Chest
-				epchests[1] = (flags.dungeonitems === 'F' ? (items.bigkey0 ? 'A' : 'U') : ((is_advanced && items.firerod) || items.lantern ? 'A' : 'P'));
 				//Cannonball Chest
-				epchests[2] = 'A';
-				//Big Key Chest
-				epchests[3] = ((is_advanced && items.firerod) || items.lantern ? 'A' : 'DA');
+				chests[0] = 'A';
+				//Compass Chest
+				chests[1] = 'A';
 				//Map Chest
-				epchests[4] = 'A';
+				chests[2] = 'A';				
+				//Big Chest
+				chests[3] = (flags.dungeonitems === 'F' ? (items.bigkey0 ? 'A' : 'U') : (items.lantern ? 'A' : 'P'));
+				//Big Key Chest
+				chests[4] = (items.lantern ? 'A' : 'DA');
+				if (chests[4] === 'A') keys = 1;
 				//Boss
-				epchests[5] = (items.bigkey0 && dungeoncheck != 'unavailable') ? 'A' : 'U';
-				if (epchests[5] === 'A') {
+				chests[5] = (items.bigkey0 && dungeoncheck != 'unavailable') ? 'A' : 'U';
+				if (chests[5] === 'A') {
 					if (is_enemyshuffle) {
-						epchests[5] = 'P';
+						chests[5] = 'P';
 					} else {
-						if (items.bow === 0) epchests[5] = 'U';
+						if (items.bow === 0) chests[5] = 'U';
 					}					
 					if (!items.lantern && !(items.firerod && is_advanced)) {
-						epchests[5] = (epchests[5] === 'P') ? 'DP' : 'DA';
+						chests[5] = (chests[5] === 'P') ? 'DP' : 'DA';
 					}
 				}
 				
-				return available_chests(epchests, 0, items.maxchest0, items.chest0); */
-				}
+				return available_chests(chests, keys, items.maxchest0, items.chest0); */
+				
 			}
 		}, { // [1]
 			caption: 'Desert Palace {book} / {glove2} {mirror} {flute}',
@@ -1886,7 +1893,33 @@
 			},
 			can_get_chest: function() {
 				if (!items.book && !(items.flute && items.glove === 2 && items.mirror)) return 'unavailable';
+				
 				var dungeoncheck = enemizer_check(1);
+				/*var keys = 0;
+				var chests = ['U','U','U','U','U','U'];
+				
+				//Torch
+				chests[0] = (items.boots ? 'A' : 'U');
+				//Compass Chest
+				chests[1] = ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? (items.smallkey1 === 1 ? 'A' : 'U') : (items.boots ? 'A' : 'P'));
+				//Map Chest
+				chests[2] = 'A';
+				//Big Chest
+				chests[3] = (flags.dungeonitems === 'F' ? (items.bigkey1 ? 'A' : 'U') : (items.boots ? 'A' : 'P'));
+				//Big Key Chest
+				chests[4] = ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? (items.smallkey1 === 1 ? 'A' : 'U') : (items.boots ? 'A' : 'P'));
+				//Boss
+				chests[5] = (items.bigkey1 && items.glove > 0 && (items.lantern || items.firerod) && dungeoncheck != 'unavailable') ? 'A' : 'U';
+				
+				if (items.boots) keys = 2;
+				
+				return available_chests(chests, keys, items.maxchest1, items.chest1); */
+				//return available_chests(chests, 1, chests[3], items.maxchest1, items.chest1);			
+								
+				
+				
+				
+				
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (items.chest1 === 2) return items.boots ? 'available' : 'possible';
@@ -1947,7 +1980,7 @@
 						}
 						break;
 				}
-				return 'unavailable';
+				//return 'unavailable';
 			}
 		}, { // [2]
 			caption: 'Tower of Hera {mirror} / {hookshot} {hammer}',
@@ -1980,6 +2013,28 @@
 				if (!items.flute && !items.glove) return 'unavailable';
 				if (!items.mirror && !(items.hookshot && items.hammer)) return 'unavailable';
 				var dungeoncheck = enemizer_check(2);
+				
+				/*var keys = 0;
+				var chests = ['U','U','U','U','U','U'];
+				
+				//Small Key
+				chests[0] = 'A';
+				//Compass Chest
+				chests[1] = 'A';
+				//Big Key Chest
+				chests[2] = ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? (items.smallkey2 === 1 && (items.lantern || items.firerod) ? 'A' : 'U') : (items.lantern || items.firerod) ? 'P' : 'U');
+				//Map Chest
+				chests[3] = (flags.dungeonitems === 'K' ? (items.bigkey2 ? 'A' : 'U') : 'P');
+				//Big Chest
+				chests[4] = (flags.dungeonitems === 'K' ? (items.bigkey2 ? 'A' : 'U') : 'P');
+				//Boss
+				chests[5] = (!items.bigkey1 || dungeoncheck === 'unavailable') ? 'U' : (dungeoncheck === 'available' ? 'A' : 'P');
+				
+				if (items.lantern || items.firerod) keys = 2;
+				
+				return available_chests(chests, keys, items.maxchest2, items.chest2);*/
+				
+				
 				switch (flags.dungeonitems) {
 					case 'S':
 						if (items.lantern || items.firerod) {

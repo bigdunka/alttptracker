@@ -140,7 +140,7 @@ body {
 .chest.highlight,
 .castle.highlight,
 .dungeon.highlight { background-image: url(../images/overlay/highlighted.png); }
-
+.chest.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; }
 .unavailable { background-color: red; }
 .available { background-color: lime; }
 .possible { background-color: yellow; }

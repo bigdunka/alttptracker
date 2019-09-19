@@ -2,16 +2,16 @@
 <head>
 	<title>ALTTP Community Tracker</title>
 
-	<script src="js/jquery-3.3.1.js?v=13002"></script>
-	<script src="js/bootstrap.min.js?v=13002"></script>
-	<link rel="stylesheet" type="text/css" href="css/style.css?v=13002">
+	<script src="js/jquery-3.3.1.js?v=13004"></script>
+	<script src="js/bootstrap.min.js?v=13004"></script>
+	<link rel="stylesheet" type="text/css" href="css/style.css?v=13004">
 	<link href="css/fonts.css" rel="stylesheet">		
 
-	<script src="js/util.js?v=13002"></script>
-	<script src="js/items.js?v=13002"></script>
-	<script src="js/chests.js?v=13002"></script>
-	<script src="js/track.js?v=13002"></script>
-	<script src="js/spoiler.js?v=13002"></script>
+	<script src="js/util.js?v=13004"></script>
+	<script src="js/items.js?v=13004"></script>
+	<script src="js/chests.js?v=13004"></script>
+	<script src="js/track.js?v=13004"></script>
+	<script src="js/spoiler.js?v=13004"></script>
 
 	<!-- Global site tag (gtag.js) - Google Analytics -->
 	<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -89,8 +89,8 @@
             </div>
 			<div>
 				<div class="cell"><div id="chest0" class="chest" onClick="toggle('chest0')" onMouseover="showNiceItems(0)" onMouseout="clearCaption()">6</div></div>
-				<div class="cell"><div id="bigkey0" class="bigkey" onClick="toggle('bigkey0')" onMouseover="findItems(['EP Big Key'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div id="smallkey0" class="smallkeyfull" onClick="toggle('smallkey0')" onMouseover="findItems(['EP Key'])" onMouseout="unhighlightAll()">0</div></div>
+				<div class="cell" id="c0bkdiv"><div id="bigkey0" class="bigkey" onClick="toggle('bigkey0')" onMouseover="findItems(['EP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell" id="c0skdiv"><div id="smallkey0" class="smallkeyfull" onClick="toggle('smallkey0')" onMouseover="findItems(['EP Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
           </div>
           <div class="row">
@@ -101,8 +101,8 @@
             </div>
 			<div>
 				<div class="cell"><div id="chest1" class="chest" onClick="toggle('chest1')" onMouseover="showNiceItems(1)" onMouseout="clearCaption()">6</div></div>
-				<div class="cell"><div id="bigkey1" class="bigkey" onClick="toggle('bigkey1')" onMouseover="findItems(['DP Big Key'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div id="smallkey1" class="smallkeyfull" onClick="toggle('smallkey1')" onMouseover="findItems(['DP Key'])" onMouseout="unhighlightAll()">0</div></div>
+				<div class="cell" id="c1bkdiv"><div id="bigkey1" class="bigkey" onClick="toggle('bigkey1')" onMouseover="findItems(['DP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell" id="c1skdiv"><div id="smallkey1" class="smallkeyfull" onClick="toggle('smallkey1')" onMouseover="findItems(['DP Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
           </div>
           <div class="row">
@@ -113,8 +113,8 @@
             </div>
 			<div>
 				<div class="cell"><div id="chest2" class="chest" onClick="toggle('chest2')" onMouseover="showNiceItems(2)" onMouseout="clearCaption()">6</div></div>
-				<div class="cell"><div id="bigkey2" class="bigkey" onClick="toggle('bigkey2')" onMouseover="findItems(['ToH Big Key'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div id="smallkey2" class="smallkeyfull" onClick="toggle('smallkey2')" onMouseover="findItems(['ToH Key'])" onMouseout="unhighlightAll()">0</div></div>
+				<div class="cell" id="c2bkdiv"><div id="bigkey2" class="bigkey" onClick="toggle('bigkey2')" onMouseover="findItems(['ToH Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell" id="c2skdiv"><div id="smallkey2" class="smallkeyfull" onClick="toggle('smallkey2')" onMouseover="findItems(['ToH Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
           </div>
         </div>
@@ -199,38 +199,38 @@
 		<div>
 			<div class="lowerchest">
 				<div class="cell"><div id="chest3" class="chest" onClick="toggle('chest3')" onMouseover="showNiceItems(3)" onMouseout="clearCaption()">14</div></div>
-				<div class="cell"><div id="bigkey3" class="bigkey" onClick="toggle('bigkey3')" onMouseover="findItems(['PoD Big Key'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div id="smallkey3" class="smallkeyfull" onClick="toggle('smallkey3')" onMouseover="findItems(['PoD Key'])" onMouseout="unhighlightAll()">0</div></div>
+				<div class="cell" id="c3bkdiv"><div id="bigkey3" class="bigkey" onClick="toggle('bigkey3')" onMouseover="findItems(['PoD Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell" id="c3skdiv"><div id="smallkey3" class="smallkeyfull" onClick="toggle('smallkey3')" onMouseover="findItems(['PoD Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
 				<div class="cell"><div id="chest4" class="chest" onClick="toggle('chest4')" onMouseover="showNiceItems(4)" onMouseout="clearCaption()">10</div></div>
-				<div class="cell"><div id="bigkey4" class="bigkey" onClick="toggle('bigkey4')" onMouseover="findItems(['SP Big Key'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div id="smallkey4" class="smallkeyfull" onClick="toggle('smallkey4')" onMouseover="findItems(['SP Key'])" onMouseout="unhighlightAll()">0</div></div>
+				<div class="cell" id="c4bkdiv"><div id="bigkey4" class="bigkey" onClick="toggle('bigkey4')" onMouseover="findItems(['SP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell" id="c4skdiv"><div id="smallkey4" class="smallkeyfull" onClick="toggle('smallkey4')" onMouseover="findItems(['SP Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
 				<div class="cell"><div id="chest5" class="chest" onClick="toggle('chest5')" onMouseover="showNiceItems(5)" onMouseout="clearCaption()">8</div></div>
-				<div class="cell"><div id="bigkey5" class="bigkey" onClick="toggle('bigkey5')" onMouseover="findItems(['SW Big Key'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div id="smallkey5" class="smallkeyfull" onClick="toggle('smallkey5')" onMouseover="findItems(['SW Key'])" onMouseout="unhighlightAll()">0</div></div>
+				<div class="cell" id="c5bkdiv"><div id="bigkey5" class="bigkey" onClick="toggle('bigkey5')" onMouseover="findItems(['SW Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell" id="c5skdiv"><div id="smallkey5" class="smallkeyfull" onClick="toggle('smallkey5')" onMouseover="findItems(['SW Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
 				<div class="cell"><div id="chest6" class="chest" onClick="toggle('chest6')" onMouseover="showNiceItems(6)" onMouseout="clearCaption()">8</div></div>
-				<div class="cell"><div id="bigkey6" class="bigkey" onClick="toggle('bigkey6')" onMouseover="findItems(['TT Big Key'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div id="smallkey6" class="smallkeyfull" onClick="toggle('smallkey6')" onMouseover="findItems(['TT Key'])" onMouseout="unhighlightAll()">0</div></div>
+				<div class="cell" id="c6bkdiv"><div id="bigkey6" class="bigkey" onClick="toggle('bigkey6')" onMouseover="findItems(['TT Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell" id="c6skdiv"><div id="smallkey6" class="smallkeyfull" onClick="toggle('smallkey6')" onMouseover="findItems(['TT Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
 				<div class="cell"><div id="chest7" class="chest" onClick="toggle('chest7')" onMouseover="showNiceItems(7)" onMouseout="clearCaption()">8</div></div>
-				<div class="cell"><div id="bigkey7" class="bigkey" onClick="toggle('bigkey7')" onMouseover="findItems(['IP Big Key'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div id="smallkey7" class="smallkeyfull" onClick="toggle('smallkey7')" onMouseover="findItems(['IP Key'])" onMouseout="unhighlightAll()">0</div></div>
+				<div class="cell" id="c7bkdiv"><div id="bigkey7" class="bigkey" onClick="toggle('bigkey7')" onMouseover="findItems(['IP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell" id="c7skdiv"><div id="smallkey7" class="smallkeyfull" onClick="toggle('smallkey7')" onMouseover="findItems(['IP Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
 				<div class="cell"><div id="chest8" class="chest" onClick="toggle('chest8')" onMouseover="showNiceItems(8)" onMouseout="clearCaption()">8</div></div>
-				<div class="cell"><div id="bigkey8" class="bigkey" onClick="toggle('bigkey8')" onMouseover="findItems(['MM Big Key'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div id="smallkey8" class="smallkeyfull" onClick="toggle('smallkey8')" onMouseover="findItems(['MM Key'])" onMouseout="unhighlightAll()">0</div></div>
+				<div class="cell" id="c8bkdiv"><div id="bigkey8" class="bigkey" onClick="toggle('bigkey8')" onMouseover="findItems(['MM Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell" id="c8skdiv"><div id="smallkey8" class="smallkeyfull" onClick="toggle('smallkey8')" onMouseover="findItems(['MM Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 			<div class="lowerchest">
 				<div class="cell"><div id="chest9" class="chest" onClick="toggle('chest9')" onMouseover="showNiceItems(9)" onMouseout="clearCaption()">12</div></div>
-				<div class="cell"><div id="bigkey9" class="bigkey" onClick="toggle('bigkey9')" onMouseover="findItems(['TR Big Key'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div id="smallkey9" class="smallkeyfull" onClick="toggle('smallkey9')" onMouseover="findItems(['TR Key'])" onMouseout="unhighlightAll()">0</div></div>
+				<div class="cell" id="c9bkdiv"><div id="bigkey9" class="bigkey" onClick="toggle('bigkey9')" onMouseover="findItems(['TR Big Key'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell" id="c9skdiv"><div id="smallkey9" class="smallkeyfull" onClick="toggle('smallkey9')" onMouseover="findItems(['TR Key'])" onMouseout="unhighlightAll()">0</div></div>
 			</div>
 		</div>
       </div>
