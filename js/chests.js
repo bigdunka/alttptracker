@@ -1980,7 +1980,7 @@
 						}
 						break;
 				}
-				//return 'unavailable';
+				return 'unavailable';
 			}
 		}, { // [2]
 			caption: 'Tower of Hera {mirror} / {hookshot} {hammer}',
