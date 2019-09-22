@@ -162,6 +162,17 @@
             }
         }
     };	
+	
+	
+    // event of right clicking on a boss's enemizer portrait
+    window.rightClickEnemy = function(n) {
+        enemizer[n] -= 1;
+        if (enemizer[n] === -1) enemizer[n] = 10;
+        document.getElementById('dungeonEnemy'+n).className = 'enemizer-' + enemizer[n];
+		dungeons[n].is_beatable();
+		if (!dungeons[n].is_beaten)
+			document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
+    };	
 
     // event of clicking on a boss's enemizer portrait
     window.toggle_enemy = function(n) {
@@ -393,6 +404,8 @@
 		document.getElementById('crystalsdiv').classList.add('crystals' + x);
 		document.getElementById('crystalsselectdiv').style.visibility = 'collapse';
 		flags.opentowercount = (x === '' ? 8 : x);
+		toggle('moonpearl');
+		toggle('moonpearl');		
 	}
 
 	window.setGanonGoal = function(x) {
@@ -408,6 +421,8 @@
 		document.getElementById('ganondiv').classList.add('ganon' + x);
 		document.getElementById('ganonselectdiv').style.visibility = 'collapse';
 		flags.ganonvulncount = (x === '' ? 8 : x);
+		toggle('moonpearl');
+		toggle('moonpearl');
 	}
 
     window.start = function() {
@@ -632,6 +647,10 @@
 		if (flags.swordmode === 'A') {
 			toggle('sword');
 		}
-				
+		
+		//This is to reset the map after initialization flags have been set, the bad way
+		toggle('moonpearl');
+		toggle('moonpearl');
+		
     };
 }(window));

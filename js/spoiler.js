@@ -1,6 +1,9 @@
 (function(window) {
     'use strict';
 
+	window.spoilerLoaded = false;
+	var spoiler;
+
     function caption_to_html(caption) {
         return caption.replace(/\{(\w+?)(\d+)?\}/g, function(__, name, n) {
             var dash = /medallion|pendant/.test(name)
@@ -22,7 +25,7 @@
 		for(var i = 0; i < locationNames.length; i++)
 		{
 			var locationName = locationNames[i],fullName = prefix+locationName;
-			if(fullName in region)
+			if(addTheOne(fullName) in region)
 			{
 				var item = region[fullName],niceName = getNiceName(item),itemAtLocation = niceName+" at "+locationName;
 				contents[locationName] = niceName;
@@ -81,7 +84,7 @@
 	{
 		if(locationName in region)
 		{
-			var prize = region[locationName];
+			var prize = removeTheOne(region[locationName]);
 			switch(prize)
 			{
 			case "PendantOfCourage":
@@ -113,7 +116,7 @@
 
 	window.setBoss = function(index,region,locationName)
 	{
-		if(locationName in region)
+		if(removeTheOne(locationName) in region)
 		{
 			var boss = region[locationName];
 			switch(boss)
@@ -396,6 +399,17 @@
 			return name;
 		}
 	}
+	
+	function removeTheOne(s) {
+		if (s.indexOf(':1') > -1) {
+			return s.substring(0, s.indexOf(':1'));
+		}
+		return s;
+	}
+
+	function addTheOne(s) {
+		return s + ':1';
+	}
 
 	window.loadSpoiler = function(s)
 	{
@@ -403,28 +417,28 @@
 		var light = spoiler["Light World"],dark = spoiler["Dark World"],mountain = spoiler["Death Mountain"],bosses = spoiler["Bosses"],special = spoiler["Special"];
 		var ep = spoiler["Eastern Palace"],dp = spoiler["Desert Palace"],toh = spoiler["Tower Of Hera"],castle = spoiler["Hyrule Castle"],aga = spoiler["Castle Tower"];
 		var pod = spoiler["Dark Palace"],sp = spoiler["Swamp Palace"],sw = spoiler["Skull Woods"],tt = spoiler["Thieves Town"],ip = spoiler["Ice Palace"],mm = spoiler["Misery Mire"],tr = spoiler["Turtle Rock"],gt = spoiler["Ganons Tower"];
-		window.setPrize(0,ep,"Eastern Palace - Prize");
-		window.setPrize(1,dp,"Desert Palace - Prize");
-		window.setPrize(2,toh,"Tower of Hera - Prize");
-		window.setPrize(3,pod,"Palace of Darkness - Prize");
-		window.setPrize(4,sp,"Swamp Palace - Prize");
-		window.setPrize(5,sw,"Skull Woods - Prize");
-		window.setPrize(6,tt,"Thieves' Town - Prize");
-		window.setPrize(7,ip,"Ice Palace - Prize");
-		window.setPrize(8,mm,"Misery Mire - Prize");
-		window.setPrize(9,tr,"Turtle Rock - Prize");
-		window.setBoss(0,bosses,"Eastern Palace");
-		window.setBoss(1,bosses,"Desert Palace");
-		window.setBoss(2,bosses,"Tower Of Hera");
-		window.setBoss(3,bosses,"Palace Of Darkness");
-		window.setBoss(4,bosses,"Swamp Palace");
-		window.setBoss(5,bosses,"Skull Woods");
-		window.setBoss(6,bosses,"Thieves Town");
-		window.setBoss(7,bosses,"Ice Palace");
-		window.setBoss(8,bosses,"Misery Mire");
-		window.setBoss(9,bosses,"Turtle Rock");
-		window.setMedallion(0,special,"Misery Mire Medallion");
-		window.setMedallion(1,special,"Turtle Rock Medallion");
+		window.setPrize(0,ep,addTheOne("Eastern Palace - Prize"));
+		window.setPrize(1,dp,addTheOne("Desert Palace - Prize"));
+		window.setPrize(2,toh,addTheOne("Tower of Hera - Prize"));
+		window.setPrize(3,pod,addTheOne("Palace of Darkness - Prize"));
+		window.setPrize(4,sp,addTheOne("Swamp Palace - Prize"));
+		window.setPrize(5,sw,addTheOne("Skull Woods - Prize"));
+		window.setPrize(6,tt,addTheOne("Thieves' Town - Prize"));
+		window.setPrize(7,ip,addTheOne("Ice Palace - Prize"));
+		window.setPrize(8,mm,addTheOne("Misery Mire - Prize"));
+		window.setPrize(9,tr,addTheOne("Turtle Rock - Prize"));
+		window.setBoss(0,bosses,addTheOne("Eastern Palace"));
+		window.setBoss(1,bosses,addTheOne("Desert Palace"));
+		window.setBoss(2,bosses,addTheOne("Tower Of Hera"));
+		window.setBoss(3,bosses,addTheOne("Palace Of Darkness"));
+		window.setBoss(4,bosses,addTheOne("Swamp Palace"));
+		window.setBoss(5,bosses,addTheOne("Skull Woods"));
+		window.setBoss(6,bosses,addTheOne("Thieves Town"));
+		window.setBoss(7,bosses,addTheOne("Ice Palace"));
+		window.setBoss(8,bosses,addTheOne("Misery Mire"));
+		window.setBoss(9,bosses,addTheOne("Turtle Rock"));
+		window.setMedallion(0,special,addTheOne("Misery Mire Medallion"));
+		window.setMedallion(1,special,addTheOne("Turtle Rock Medallion"));
 		window.setDungeonContents(0,ep,"Eastern Palace - ",["Cannonball Chest","Map Chest","Compass Chest","Big Chest","Big Key Chest","Boss"]);
 		window.setDungeonContents(1,dp,"Desert Palace - ",["Map Chest","Torch","Compass Chest","Big Key Chest","Big Chest","Boss"]);
 		window.setDungeonContents(2,toh,"Tower of Hera - ",["Basement Cage","Map Chest","Big Key Chest","Compass Chest","Big Chest","Boss"]);

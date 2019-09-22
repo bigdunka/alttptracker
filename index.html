@@ -30,7 +30,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.3.005 091819a - Compatible for v31</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.3.006 092219 - Compatible for v31</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
 			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
@@ -43,8 +43,7 @@
 				<table width="1000px" style="margin: auto;">
 					<tr>
 						<td>
-							<center><span style="font-size: 15px; color: white;">NOTICE: This release has not been fully tested with all of the recently released v31 logic and there will likely be logic issues until we are able to fully investigate all logic changes! Please see the Known Issues page for already known issues. Please report any issues to Dunka (Discord: BigDunka#8354) and we will address them, thank you! There will be several revisions over the next few weeks addressing minor issues and updating features.<br><br>
-							Please read the Release Notes for all of the changes, there are a few!</span></center>
+							<center><span style="font-size: 15px; color: white;">NOTICE: We are still working on releasing all new logic for every dungeon to fit every available flag. We understand it has been a week since v31 release, but the logic with all available modes is very complex in some situations and we are working to ensure it is accurate before releasing. We will have it out as soon as it is completed and verified. Please report any issues to Dunka (Discord: BigDunka#8354) and we will address them, thank you!<br><br></span></center>
 						<td>
 					</tr>
 					
@@ -204,12 +203,12 @@
 										Item Placement:
 									</td>
 									<td>
-										<input id="placementbasic" value="B" type="radio" name="placementgroup" checked />
-										<label for="placementbasic" style="width:100px">Basic</label>
+										<input checked id="placementadvanced" value="A" type="radio" name="placementgroup" />
+										<label for="placementadvanced" style="width:100px">Advanced</label>
 									</td>
 									<td>
-										<input id="placementadvanced" value="A" type="radio" name="placementgroup" />
-										<label for="placementadvanced" style="width:100px">Advanced</label>
+										<input id="placementbasic" value="B" type="radio" name="placementgroup" />
+										<label for="placementbasic" style="width:100px">Basic</label>
 									</td>
 								</tr>
 							</table>
