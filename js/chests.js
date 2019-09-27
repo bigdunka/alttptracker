@@ -307,7 +307,6 @@
 				}
 			}
 		}, { // [10]
-//*****TODO*****
 			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
@@ -529,7 +528,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.moonpearl && items.hammer && items.book && (activeFlute() || items.glove) && (items.hookshot || items.glove === 2) ?
-					(items.sword >= 2 || (is_swordless && items.hammer) ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'possible') :
+					(items.sword >= 2 || (is_swordless && items.hammer) ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'information') :
 					'unavailable';
 			}
 		}, { // [31]
@@ -537,7 +536,7 @@
 			is_opened: false,
 			is_available: function() {
 				return canReachLightWorldBunny() && items.book ?
-					(items.sword >= 2 || (is_swordless && items.hammer)) ? 'available' : 'possible' :
+					(items.sword >= 2 || (is_swordless && items.hammer)) ? 'available' : 'information' :
 					'unavailable';
 			}
 		}, { // [32]
@@ -578,7 +577,7 @@
 			caption: 'Lumberjack Tree {agahnim}{boots}',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.agahnim && items.boots && items.moonpearl ? 'available' : 'possible') : 'unavailable';
+				return canReachLightWorldBunny() ? (items.agahnim && items.boots && items.moonpearl ? 'available' : 'information') : 'unavailable';
 			}
 		}, { // [38]
 			caption: 'Spectacle Rock Cave',
@@ -614,7 +613,7 @@
 			caption: 'Library {boots}',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.boots ? (items.moonpearl ? 'available' : (items.mirror ? 'sequencebreak' : 'possible')) : 'possible') : 'unavailable';
+				return canReachLightWorldBunny() ? (items.boots ? (items.moonpearl ? 'available' : 'information') : 'information') : 'unavailable';
 			}
 		}, { // [44]
 			caption: 'Mushroom',
@@ -630,7 +629,7 @@
 					return 'unavailable';
 				return items.moonpearl && items.hammer && (items.hookshot || items.glove === 2) ?
 					(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
-					'possible';
+					'information';
 			}
 		}, { // [46]
 			caption: 'Floating Island',
@@ -650,7 +649,7 @@
 			caption: 'Desert West Ledge {book}',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.book ? (items.moonpearl ? 'available' : (items.mirror ? 'sequencebreak' : 'possible')) : 'possible') : 'unavailable';
+				return canReachLightWorldBunny() ? (items.book ? (items.moonpearl ? 'available' : 'information') : 'information') : 'unavailable';
 			}
 		}, { // [49]
 			caption: 'Lake Hylia Island {flippers}',
@@ -658,13 +657,13 @@
 			is_available: function() {
 				if(!canReachLightWorldBunny())
 					return 'unavailable';
-				return items.moonpearl ? (items.flippers ? 'available' : 'sequencebreak') : 'possible';
+				return items.moonpearl ? (items.flippers ? 'available' : 'information') : 'information';
 			}
 		}, { // [50]
 			caption: 'Bumper Cave {cape}{mirror}',
 			is_opened: false,
 			is_available: function() {
-				return items.glove && items.cape && items.mirror && canReachLightWorld() ? 'available' : 'possible';
+				return items.glove && items.cape && items.mirror && canReachLightWorld() ? 'available' : 'information';
 			}
 		}, { // [51]
 			caption: 'Pyramid',
@@ -686,9 +685,7 @@
 					return 'unavailable';
 				if(items.flippers)
 					return 'available';
-				//if(items.boots)
-					//return 'sequencebreak';
-				return 'possible';
+				return 'information';
 			}
 		}, { // [54]
 			caption: 'Buried Item {shovel}',
@@ -755,7 +752,7 @@
 					if((prizes[k] === 1 || prizes[k] === 2) && items['boss'+k])
 						if(++pendant_count === 3)
 							return 'available';
-				return items.book ? 'possible' : 'unavailable';
+				return items.book ? 'information' : 'unavailable';
 			}
 		}, { // [63]
 			caption: 'Escape Sewer Dark Room {lantern}',
@@ -920,7 +917,6 @@
 				return window.TRFrontChests();
 			}
 		}, { // [10]
-//*****TODO*****
 			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
@@ -1145,7 +1141,7 @@
 				return items.book && (items.glove || items.flute) && (items.mirror || items.hookshot && items.hammer) ?
 					(items.sword >= 2 || is_swordless) ?
 						items.lantern || items.flute ? 'available' : 'darkavailable' :
-						'possible' :
+						'information' :
 					'unavailable';
 			}
 		}, { // [31]
@@ -1153,7 +1149,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.book && items.mirror && (can_reach_outcast() || items.agahnim && items.moonpearl && items.hammer) ?
-					(items.sword >= 2 || is_swordless)? 'available' : 'possible' :
+					(items.sword >= 2 || is_swordless)? 'available' : 'information' :
 					'unavailable';
 			}
 		}, { // [32]
@@ -1191,7 +1187,7 @@
 			caption: 'Lumberjack Tree {agahnim}{boots}',
 			is_opened: false,
 			is_available: function() {
-				return items.agahnim && items.boots ? 'available' : 'possible';
+				return items.agahnim && items.boots ? 'available' : 'information';
 			}
 		}, { // [38]
 			caption: 'Spectacle Rock Cave',
@@ -1229,7 +1225,7 @@
 			caption: 'Library {boots}',
 			is_opened: false,
 			is_available: function() {
-				return items.boots ? 'available' : 'possible';
+				return items.boots ? 'available' : 'information';
 			}
 		}, { // [44]
 			caption: 'Mushroom',
@@ -1242,7 +1238,7 @@
 				return items.glove || items.flute ?
 					items.mirror ?
 						items.lantern || items.flute ? 'available' : 'darkavailable' :
-						'possible' :
+						'information' :
 					'unavailable';
 			}
 		}, { // [46]
@@ -1252,7 +1248,7 @@
 				return (items.glove || items.flute) && (items.hookshot || items.hammer && items.mirror) ?
 					items.mirror && items.moonpearl && items.glove === 2 ?
 						items.lantern || items.flute ? 'available' : 'darkavailable' :
-						'possible' :
+						'information' :
 					'unavailable';
 			}
 		}, { // [47]
@@ -1263,7 +1259,7 @@
 			caption: 'Desert West Ledge {book}/{mirror}',
 			is_opened: false,
 			is_available: function() {
-				return items.book || items.flute && items.glove === 2 && items.mirror ? 'available' : 'possible';
+				return items.book || items.flute && items.glove === 2 && items.mirror ? 'available' : 'information';
 			}
 		}, { // [49]
 			caption: 'Lake Hylia Island {mirror}',
@@ -1272,14 +1268,14 @@
 				return items.flippers ?
 					items.moonpearl && items.mirror && (items.agahnim || items.glove === 2 || items.glove && items.hammer) ?
 						'available' : 'possible' :
-					'unavailable';
+					'information';
 			}
 		}, { // [50]
 			caption: 'Bumper Cave {cape}',
 			is_opened: false,
 			is_available: function() {
 				return can_reach_outcast() ?
-					items.glove && items.cape ? 'available' : 'possible' :
+					items.glove && items.cape ? 'available' : 'information' :
 					'unavailable';
 			}
 		}, { // [51]
@@ -1300,7 +1296,7 @@
 			is_opened: false,
 			is_available: function() {
 				if (items.flippers) return 'available';
-				if (items.glove) return 'possible';
+				if (items.glove) return 'information';
 				return 'unavailable';
 			}
 		}, { // [54]
@@ -1371,7 +1367,7 @@
 						if (++pendant_count === 3) return 'available';
 					}
 				}
-				return items.book ? 'possible' : 'unavailable';
+				return items.book ? 'information' : 'unavailable';
 			}
 		}, { // [63]
 			caption: 'Escape Sewer Dark Room {lantern}',
@@ -1402,17 +1398,5 @@
 				}
 			}
 		}];
-
-
-		
-	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
+	}	
 }(window));

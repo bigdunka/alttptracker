@@ -138,6 +138,7 @@ body {
 .unavailable { background-color: red; }
 .available { background-color: lime; }
 .possible { background-color: yellow; }
+.information { background-color: orange; }
 .darkavailable { background-color: blue; }
 .darkpossible { background-color: purple; } 
 .sequencebreak { background-color: red; }
