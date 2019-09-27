@@ -162,7 +162,18 @@
             smallkey9: { min: 0, max: 4 },
 			smallkey10: { min: 0, max: 4 },
 			smallkeyhalf0: { min: 0, max: 1 },
-			smallkeyhalf1: { min: 0, max: 2 }			
+			smallkeyhalf1: { min: 0, max: 2 },
+			chest0: { min: 0, max: chests0 },
+			chest1: { min: 0, max: chests1 },
+			chest2: { min: 0, max: chests2 },
+			chest3: { min: 0, max: chests3 },
+			chest4: { min: 0, max: chests4 },
+			chest5: { min: 0, max: chests5 },
+			chest6: { min: 0, max: chests6 },
+			chest7: { min: 0, max: chests7 },
+			chest8: { min: 0, max: chests8 },
+			chest9: { min: 0, max: chests9 },
+			chest10: { min: 0, max: chests10 }
         }),
         dec: limit(-1, {
 			chest0: { max: chests0 },

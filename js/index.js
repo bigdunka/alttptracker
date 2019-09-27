@@ -78,9 +78,9 @@ function load2019preset() {
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("dungeonstandard").checked = true;
 	document.getElementById("placementadvanced").checked = true;
-	document.getElementById("goalfast").checked = true;
+	document.getElementById("goalganon").checked = true;
 	document.getElementById("goalcrystal").checked = true;
-	document.getElementById("towerselect").value = 4;
+	document.getElementById("towerselect").value = 7;
 	document.getElementById("ganoncrystal").checked = true;
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;

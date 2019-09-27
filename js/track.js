@@ -172,7 +172,7 @@
 		dungeons[n].is_beatable();
 		if (!dungeons[n].is_beaten)
 			document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
-    };	
+    };
 
     // event of clicking on a boss's enemizer portrait
     window.toggle_enemy = function(n) {
@@ -183,6 +183,69 @@
 		if (!dungeons[n].is_beaten)
 			document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
     };
+	
+	window.rightClickChest = function(label) {
+		var value = items.inc(label);
+		if (value === 0) {
+			if (flags.dungeonitems != 'F' && flags.dungeonitems != 'K' && flags.gametype != 'R' && label != 'chest10') {
+				document.getElementById(label).className = 'chest-' + value + ' large';
+			} else {
+				document.getElementById(label).className = 'chest-' + value;
+			}
+			
+			document.getElementById(label).innerHTML = '';
+		} else {
+			if (flags.dungeonitems != 'F' && flags.dungeonitems != 'K' && flags.gametype != 'R' && label != 'chest10') {
+				document.getElementById(label).className = 'chest large';
+			} else {
+				document.getElementById(label).className = 'chest';
+			}
+			
+			document.getElementById(label).innerHTML = value;
+		}
+		
+		if (flags.mapmode != 'N') {
+			var x = label.substring(5);
+			document.getElementById('dungeon'+x).className = 'dungeon ' +
+				(value ? dungeons[x].can_get_chest() : 'opened');
+		}
+	};
+	
+	window.rightClickKey = function(label) {
+		if (label.substring(0,12) === 'smallkeyhalf') {
+			if (flags.gametype != 'R') {
+				var value = items.dec(label);
+				document.getElementById(label).innerHTML = value;
+			} else {
+				var value = items.inc(label);
+				document.getElementById(label).innerHTML = value;
+			}
+        }		
+		if (label.substring(0,8) === 'smallkey' && label.substring(0,12) != 'smallkeyhalf') {
+			if (flags.gametype != 'R') {
+				var value = items.dec(label);
+				document.getElementById(label).innerHTML = value;
+			} else {
+				var value = items.inc(label);
+				document.getElementById(label).innerHTML = value;
+			}
+        }
+		
+        if (flags.mapmode != 'N') {
+            for (var k = 0; k < chests.length; k++) {
+                if (!chests[k].is_opened)
+                    document.getElementById('locationMap'+k).className = 'location ' + chests[k].is_available();
+            }
+            for (var k = 0; k < dungeons.length; k++) {
+                if (!dungeons[k].is_beaten)
+                    document.getElementById('bossMap'+k).className = 'boss ' + dungeons[k].is_beatable();
+					if (items['chest'+k])
+						document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
+			}
+
+			toggle_agahnim();
+        }		
+	};
 
     // event of clicking on Mire/TRock's medallion subsquare
     window.toggle_medallion = function(n) {
