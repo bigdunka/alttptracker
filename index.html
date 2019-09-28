@@ -1,7 +1,7 @@
 <html>
 	<head>
 		<title>ALTTP Community Tracker Launcher</title>
-		<script src="js/index.js?v=13008"></script>
+		<script src="js/index.js?v=13008a"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
@@ -60,6 +60,15 @@
 								<tr>
 									<td width="100px">
 										<input type="button" value="ALTTPR 2019 Tourney Qualifiers" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB;" onclick="load2019preset()" />
+									</td>
+									<td width="200px">
+									</td>
+									<td width="140px">
+										Enter Seed Hash: <span class="south" title="This will import the flags from the ALTTPR generator and import automatically (Does not work when offline)" style="font-size: 12px; color: red; height: 25px; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input type="text" id="importflag" style="width:140px; height: 26px;" />
+										<input type="button" value="Import Flags" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB;" onclick="importflags()" />
 									</td>
 								</tr>
 							</table>

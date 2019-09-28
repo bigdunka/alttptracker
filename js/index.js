@@ -86,3 +86,77 @@ function load2019preset() {
 	document.getElementById("swordsrandomized").checked = true;
 	launch_tracker();
 }
+
+function importflags() {
+	$.getJSON("https://s3.us-east-2.amazonaws.com/alttpr-patches/" + document.getElementById("importflag").value + ".json", function(data) {
+	var d = data.spoiler;
+	
+	document.getElementById("gametype" + d.meta.mode).checked = true;
+	//Entrance flag
+	if (data.spoiler.meta["enemizer.enemy_shuffle"] === "none") {
+		document.getElementById("enemynone").checked = true;
+	} else {
+		document.getElementById("enemyshuffled").checked = true;
+	}
+	if (data.spoiler.meta["enemizer.boss_shuffle"] === "none") {
+		document.getElementById("bossnone").checked = true;
+	} else {
+		document.getElementById("bossshuffled").checked = true;
+	}
+	
+	document.getElementById("enemynone").checked = true;
+	//Glitches flag
+	switch (d.meta.dungeon_items) {
+		case "standard":
+			document.getElementById("dungeonstandard").checked = true;
+			break;
+		case "mc":
+			document.getElementById("dungeonmcshuffle").checked = true;
+			break;
+		case "mcs":
+			document.getElementById("dungeonmcsshuffle").checked = true;
+			break;
+		case "full":
+			document.getElementById("dungeonfullshuffle").checked = true;
+			break;
+	}
+	document.getElementById("placement" + d.meta.item_placement).checked = true;
+	
+	switch (d.meta.goal) {
+		case "ganon":
+			document.getElementById("goalganon").checked = true;
+			break;
+		case "fast_ganon":
+			document.getElementById("goalfast").checked = true;
+			break;
+		case "dungeons":
+			document.getElementById("goaldungeons").checked = true;
+			break;
+		case "pedestal":
+			document.getElementById("goalpedestal").checked = true;
+			break;
+		default:
+			document.getElementById("goalother").checked = true;
+			break;
+		
+	}
+	
+	if (d.meta.entry_crystals_tower === 'random') {
+		document.getElementById("goalrandom").checked = true;
+		document.getElementById("towerselect").value = 7;
+	} else {
+		document.getElementById("goalcrystal").checked = true;
+		document.getElementById("towerselect").value = d.meta.entry_crystals_tower;
+	}
+
+	if (d.meta.entry_crystals_ganon === 'random') {
+		document.getElementById("ganonrandom").checked = true;
+		document.getElementById("ganonselect").value = 7;
+	} else {
+		document.getElementById("ganoncrystal").checked = true;
+		document.getElementById("ganonselect").value = d.meta.entry_crystals_ganon;
+	}
+	
+	document.getElementById("swords" + d.meta.weapons).checked = true;
+	});
+}
