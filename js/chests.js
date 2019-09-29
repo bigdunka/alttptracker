@@ -350,7 +350,7 @@
 			caption: 'Light World Swamp (2)',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : (items.mirror ? 'sequencebreak' : 'unavailable')) : 'unavailable';
+				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'unavailable') : 'unavailable';
 			}
 		}, { // [2]
 			caption: 'Stoops Lonk\'s Hoose',
@@ -361,7 +361,7 @@
 			is_opened: false,
 			is_available: function() {
 				return (activeFlute() || items.glove) && ((items.hookshot && items.moonpearl) || items.glove === 2) ?
-					(items.moonpearl ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'sequencebreak') :
+					(items.moonpearl ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'unavailable') :
 					'unavailable';
 			}
 		}, { // [4]
@@ -376,7 +376,7 @@
 			caption: 'Tavern',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : (items.mirror ? 'sequencebreak' : 'unavailable')) : 'unavailable';
+				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'unavailable') : 'unavailable';
 			}
 		}, { // [6]
 			caption: 'Chicken House {bomb}',
@@ -416,7 +416,7 @@
 			caption: 'Sahasrahla\'s Hut (3) {bomb}/{boots}',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : (items.mirror && items.boots ? 'sequencebreak' : 'unavailable')) : 'unavailable';
+				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'unavailable') : 'unavailable';
 			}
 		}, { // [13]
 			caption: 'Byrna Spike Cave',
@@ -524,7 +524,7 @@
 			caption: 'Fugitive under the bridge {flippers}',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorld() ? (items.flippers ? 'available' : 'sequencebreak') : 'unavailable';
+				return canReachLightWorld() ? (items.flippers ? 'available' : 'unavailable') : 'unavailable';
 			}
 		}, { // [30]
 			caption: 'Ether Tablet {sword2}{book}',
@@ -550,13 +550,13 @@
 					return 'unavailable';
 				if(canReachPyramid())
 					return 'available';
-				return items.boots ? 'sequencebreak' : 'unavailable';
+				return 'unavailable';
 			}
 		}, { // [33]
 			caption: 'King Zora: Pay 500 rupees',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorld() ? (items.flippers || items.glove ? 'available' : 'sequencebreak') : 'unavailable';
+				return canReachLightWorld() ? (items.flippers || items.glove ? 'available' : 'unavailable') : 'unavailable';
 			}
 		}, { // [34]
 			caption: 'Lost Old Man {lantern}',
@@ -592,7 +592,7 @@
 			caption: 'South of Grove',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : (items.mirror ? 'sequencebreak' : 'possible')) : 'unavailable';
+				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : (items.mirror ? 'unavailable' : 'possible')) : 'unavailable';
 			}
 		}, { // [40]
 			caption: 'Graveyard Cliff Cave',
@@ -674,7 +674,7 @@
 			is_available: function() {
 				if(canReachPyramid())
 					return 'available';
-				return items.boots ? 'sequencebreak' : 'unavailable';
+				return 'unavailable';
 			}
 		}, { // [52]
 			caption: 'Alec Baldwin\'s Dig-a-Thon: Pay 80 rupees',
@@ -713,13 +713,13 @@
 			caption: 'Hyrule Castle Dungeon (3)',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : (items.mirror ? 'sequencebreak' : 'unavailable')) : 'unavailable';
+				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'unavailable') : 'unavailable';
 			}
 		}, { // [58]
 			caption: 'Sanctuary',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : (items.mirror ? 'sequencebreak' : 'unavailable')) : 'unavailable';
+				return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'unavailable') : 'unavailable';
 			}
 		}, { // [59]
 			caption: 'Mad Batter {hammer} + {powder}',
@@ -761,13 +761,13 @@
 			caption: 'Escape Sewer Dark Room {lantern}',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorldBunny() ? (items.moonpearl ? (items.lantern ? 'available' : 'darkavailable') : (items.mirror ? 'sequencebreak' : 'unavailable')) : 'unavailable';
+				return canReachLightWorldBunny() && items.moonpearl ? ((items.lantern || (is_advanced && items.firerod)) ? 'available' : 'darkavailable') : 'unavailable';
 			}
 		}, { // [64]
 			caption: 'Waterfall of Wishing (2) {flippers}',
 			is_opened: false,
 			is_available: function() {
-				return canReachLightWorld() ? (items.flippers ? 'available' : 'sequencebreak') : 'unavailable';
+				return canReachLightWorld() ? (items.flippers ? 'available' : 'unavailable') : 'unavailable';
 			}
 		}, { // [65]
 			caption: 'Castle Tower',
@@ -1379,7 +1379,7 @@
 			caption: 'Escape Sewer Dark Room {lantern}',
 			is_opened: is_standard,
 			is_available: function() {
-				return is_standard || items.lantern ? 'available' : 'darkavailable';
+				return is_standard || (items.lantern || (is_advanced && items.firerod)) ? 'available' : 'darkavailable';
 			}
 		}, { // [64]
 			caption: 'Waterfall of Wishing (2) {flippers}',
