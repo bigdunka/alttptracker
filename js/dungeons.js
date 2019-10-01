@@ -212,7 +212,13 @@
 
     window.IPBoss = function() {
 		var dungeoncheck = enemizer_check(7);
-		if (!items.hammer || (!items.somaria && !items.hookshot && items.smallkey7 < 2)) return 'unavailable'
+		if (flags.dungeonitems === 'F') {
+			if (!items.hammer) return 'unavailable';
+			if (!items.hookshot && (!items.somaria || !items.bigkey7)) return 'unavailable';
+		} else {
+			if (!items.hammer || (!items.somaria && !items.hookshot)) return 'unavailable';
+		}
+		
 		return dungeoncheck;
     };
 
