@@ -1,0 +1,769 @@
+<html>
+	<head>
+		<title>ALTTP Randomizer Community Tracker</title>
+
+		<script src="js/jquery-3.3.1.js?v=14001"></script>
+		<script src="js/bootstrap.min.js?v=14001"></script>
+		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=14001">
+		<link href="css/fonts.css" rel="stylesheet">		
+
+		<script src="js/util.js?v=14001"></script>
+		<script src="js/items.js?v=14001"></script>
+		<script src="js/entrancechests.js?v=14001"></script>
+		<script src="js/track.js?v=14001"></script>
+		<script src="js/dungeons.js?v=14001"></script>
+		<script src="js/spoiler.js?v=14001"></script>
+
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
+		<script>
+		  window.dataLayer = window.dataLayer || [];
+		  function gtag(){dataLayer.push(arguments);}
+		  gtag('js', new Date());
+
+		  gtag('config', 'UA-128165990-1');
+		</script>
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
+	</head>
+
+	<body>
+
+	  <div id="app" class="row">
+		<div id="tracker" class="cell">
+		  <div class="row">
+			<div class="cell">
+			  <div class="row">
+				<div>
+					<div class="cell">
+					  <div style="width: 96px; height: 96px;">
+					  <div class="item tunic tunic active-1 bunny" onClick="toggle('tunic')" onMouseover="findItems(['Armor'])" onMouseout="unhighlightAll()"></div>
+					  <div id="crystalsdiv" class="item active crystalgoal" onClick="crystalGoal()"></div>
+					  <div id="crystalsselectdiv" class="crystalgoalselect" style="visibility: collapse;">
+						  <img class="goalselect" src="./images/dungeons/crystal.png" onClick="setCrystalGoal('')"/>
+						  <img class="goalselect" src="./images/dungeons/crystal0.png" onClick="setCrystalGoal(0)"/>
+						  <img class="goalselect" src="./images/dungeons/crystal1.png" onClick="setCrystalGoal(1)"/>
+						  <img class="goalselect" src="./images/dungeons/crystal2.png" onClick="setCrystalGoal(2)"/>
+						  <img class="goalselect" src="./images/dungeons/crystal3.png" onClick="setCrystalGoal(3)"/>
+						  <img class="goalselect" src="./images/dungeons/crystal4.png" onClick="setCrystalGoal(4)"/>
+						  <img class="goalselect" src="./images/dungeons/crystal5.png" onClick="setCrystalGoal(5)"/>
+						  <img class="goalselect" src="./images/dungeons/crystal6.png" onClick="setCrystalGoal(6)"/>
+						  <img class="goalselect" src="./images/dungeons/crystal7.png" onClick="setCrystalGoal(7)"/>
+					  </div>
+					  <div id="ganonselectdiv" class="ganongoalselect" style="visibility: collapse;">
+						  <img class="goalselect" src="./images/dungeons/ganon.png" onClick="setGanonGoal('')"/>
+						  <img class="goalselect" src="./images/dungeons/ganon0.png" onClick="setGanonGoal(0)"/>
+						  <img class="goalselect" src="./images/dungeons/ganon1.png" onClick="setGanonGoal(1)"/>
+						  <img class="goalselect" src="./images/dungeons/ganon2.png" onClick="setGanonGoal(2)"/>
+						  <img class="goalselect" src="./images/dungeons/ganon3.png" onClick="setGanonGoal(3)"/>
+						  <img class="goalselect" src="./images/dungeons/ganon4.png" onClick="setGanonGoal(4)"/>
+						  <img class="goalselect" src="./images/dungeons/ganon5.png" onClick="setGanonGoal(5)"/>
+						  <img class="goalselect" src="./images/dungeons/ganon6.png" onClick="setGanonGoal(6)"/>
+						  <img class="goalselect" src="./images/dungeons/ganon7.png" onClick="setGanonGoal(7)"/>
+					  </div>
+					  <div id="ganondiv" class="item active ganongoal" onClick="ganonGoal()"></div>
+					  <div class="item sword" onClick="toggle('sword')" onMouseover="findItems(['Sword'])" onMouseout="unhighlightAll()"></div>
+					  <div class="item shield" onClick="toggle('shield')" onMouseover="findItems(['Shield'])" onMouseout="unhighlightAll()"></div>
+					  <div class="item moonpearl" onClick="toggle('moonpearl')" onMouseover="findItems(['Moon Pearl'])" onMouseout="unhighlightAll()"></div>
+					  </div>
+					</div>
+					<div>
+					<div class="cell"><div id="smallhalfheader0" class="smallhalfheader">HC</div></div>
+					<div class="cell"><div id="smallkeyhalf0" class="smallkeyhalf" onClick="toggle('smallkeyhalf0')" onMouseover="findItems(['HC Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkeyhalf0');return false;">0</div></div>	
+					<div class="cell"><div id="smallhalfheader1" class="smallhalfheader">CT</div></div>
+					<div class="cell"><div id="smallkeyhalf1" class="smallkeyhalf" onClick="toggle('smallkeyhalf1')" onMouseover="findItems(['CT Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkeyhalf1');return false;">0</div></div>
+					</div>
+					<div class="row">
+						<div class="cell"><div id="chest10" class="chest" onClick="toggle('chest10')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest10');return false;">27</div></div>
+						<div class="cell"><div id="bigkey10" class="bigkey" onClick="toggle('bigkey10')" onMouseover="findItems(['GT Big Key'])" onMouseout="unhighlightAll()"></div></div>
+						<div class="cell"><div id="smallkey10" class="smallkeyfull" onClick="toggle('smallkey10')" onMouseover="findItems(['GT Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey10');return false;">0</div></div>
+					</div>
+				</div>
+
+			  </div>
+			  <div class="row">
+				<div class="cell">
+				  <div class="boss boss0" onClick="toggle('boss0')"></div>
+				  <div id="dungeonEnemy0" class="enemizer-0" onClick="toggle_enemy(0)" oncontextmenu="javascript:rightClickEnemy(0);return false;"></div>
+				  <div id="dungeonPrize0" class="prize-0" onClick="toggle_dungeon(0)" oncontextmenu="javascript:rightClickPrize(0);return false;"></div>
+				</div>
+				<div>
+					<div class="cell"><div id="chest0" class="chest" onClick="toggle('chest0')" onMouseover="showNiceItems(0)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest0');return false;">6</div></div>
+					<div class="cell" id="c0bkdiv"><div id="bigkey0" class="bigkey" onClick="toggle('bigkey0')" onMouseover="findItems(['EP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell" id="c0skdiv"><div id="smallkey0" class="smallkeyfull" onClick="toggle('smallkey0')" onMouseover="findItems(['EP Key'])" onMouseout="unhighlightAll()">0</div></div>
+				</div>
+			  </div>
+			  <div class="row">
+				<div class="cell">
+				  <div class="boss boss1" onClick="toggle('boss1')"></div>
+				  <div id="dungeonEnemy1" class="enemizer-0" onClick="toggle_enemy(1)" oncontextmenu="javascript:rightClickEnemy(1);return false;"></div>
+				  <div id="dungeonPrize1" class="prize-0" onClick="toggle_dungeon(1)" oncontextmenu="javascript:rightClickPrize(1);return false;"></div>
+				</div>
+				<div>
+					<div class="cell"><div id="chest1" class="chest" onClick="toggle('chest1')" onMouseover="showNiceItems(1)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest1');return false;">6</div></div>
+					<div class="cell" id="c1bkdiv"><div id="bigkey1" class="bigkey" onClick="toggle('bigkey1')" onMouseover="findItems(['DP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell" id="c1skdiv"><div id="smallkey1" class="smallkeyfull" onClick="toggle('smallkey1')" onMouseover="findItems(['DP Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey1');return false;">0</div></div>
+				</div>
+			  </div>
+			  <div class="row">
+				<div class="cell">
+				  <div class="boss boss2" onClick="toggle('boss2')"></div>
+				  <div id="dungeonEnemy2" class="enemizer-0" onClick="toggle_enemy(2)" oncontextmenu="javascript:rightClickEnemy(2);return false;"></div>
+				  <div id="dungeonPrize2" class="prize-0" onClick="toggle_dungeon(2)" oncontextmenu="javascript:rightClickPrize(2);return false;"></div>
+				</div>
+				<div>
+					<div class="cell"><div id="chest2" class="chest" onClick="toggle('chest2')" onMouseover="showNiceItems(2)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest2');return false;">6</div></div>
+					<div class="cell" id="c2bkdiv"><div id="bigkey2" class="bigkey" onClick="toggle('bigkey2')" onMouseover="findItems(['ToH Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell" id="c2skdiv"><div id="smallkey2" class="smallkeyfull" onClick="toggle('smallkey2')" onMouseover="findItems(['ToH Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey2');return false;">0</div></div>
+				</div>
+			  </div>
+			</div>
+			<div class="cell">
+			  <div class="row">
+				<div class="cell"><div class="item bow" onClick="toggle('bow')" onMouseover="findItems(['Bow','Silver Arrows'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item boomerang" onClick="toggle('boomerang')" onMouseover="findItems(['Blue Boomerang','Red Boomerang'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item hookshot" onClick="toggle('hookshot')" onMouseover="findItems(['Hookshot'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item mushroom" onClick="toggle('mushroom')" onMouseover="findItems(['Mushroom'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item powder" onClick="toggle('powder')" onMouseover="findItems(['Powder'])" onMouseout="unhighlightAll()"></div></div>
+			  </div>
+			  <div class="row">
+				<div class="cell"><div class="item firerod" onClick="toggle('firerod')" onMouseover="findItems(['Fire Rod'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item icerod" onClick="toggle('icerod')" onMouseover="findItems(['Ice Rod'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item bombos" onClick="toggle('bombos')" onMouseover="findItems(['Bombos'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item ether" onClick="toggle('ether')" onMouseover="findItems(['Ether'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item quake" onClick="toggle('quake')" onMouseover="findItems(['Quake'])" onMouseout="unhighlightAll()"></div></div>
+			  </div>
+			  <div class="row">
+				<div class="cell"><div class="item lantern" onClick="toggle('lantern')" onMouseover="findItems(['Lamp'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item hammer" onClick="toggle('hammer')" onMouseover="findItems(['Hammer'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item shovel" onClick="toggle('shovel')" onMouseover="findItems(['Shovel'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item net" onClick="toggle('net')" onMouseover="findItems(['Bug Net'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item book" onClick="toggle('book')" onMouseover="findItems(['Book of Mudora'])" onMouseout="unhighlightAll()"></div></div>
+			  </div>
+			  <div class="row">
+				<div class="cell"><div class="item bottle" onClick="toggle('bottle')" onMouseover="findItems(['Bottle','Bottle (Red Potion)','Bottle (Green Potion)','Bottle (Blue Potion)','Bottle (Fairy)','Bottle (Bee)','Bottle (Gold Bee)'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item somaria" onClick="toggle('somaria')" onMouseover="findItems(['Cane of Somaria'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item byrna" onClick="toggle('byrna')" onMouseover="findItems(['Cane of Byrna'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item cape" onClick="toggle('cape')" onMouseover="findItems(['Cape'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item mirror" onClick="toggle('mirror')" onMouseover="findItems(['Mirror'])" onMouseout="unhighlightAll()"></div></div>
+			  </div>
+			  <div class="row">
+				<div class="cell"><div class="item boots" onClick="toggle('boots')" onMouseover="findItems(['Pegasus Boots'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item glove" onClick="toggle('glove')" onMouseover="findItems(['Gloves'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item flippers" onClick="toggle('flippers')" onMouseover="findItems(['Flippers'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item flute" onClick="toggle('flute')" onMouseover="findItems(['Flute','Flute (active)'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item agahnim" onClick="toggle('agahnim')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()"></div><!--<div class="item agahnim2" onClick="toggle('agahnim2')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()"></div>-->
+				</div>
+			  </div>
+			</div>
+		  </div>
+		  <div class="row">
+			<div class="cell">
+			  <div class="boss boss3" onClick="toggle('boss3')"></div>
+			  <div id="dungeonEnemy3" class="enemizer-0" onClick="toggle_enemy(3)" oncontextmenu="javascript:rightClickEnemy(3);return false;"></div>
+			  <div id="dungeonPrize3" class="prize-0" onClick="toggle_dungeon(3)" oncontextmenu="javascript:rightClickPrize(3);return false;"></div>
+			</div>
+			<div class="cell">
+			  <div class="boss boss4" onClick="toggle('boss4')"></div>
+			  <div id="dungeonEnemy4" class="enemizer-0" onClick="toggle_enemy(4)" oncontextmenu="javascript:rightClickEnemy(4);return false;"></div>
+			  <div id="dungeonPrize4" class="prize-0" onClick="toggle_dungeon(4)" oncontextmenu="javascript:rightClickPrize(4);return false;"></div>
+			</div>
+			<div class="cell">
+			  <div class="boss boss5" onClick="toggle('boss5')"></div>
+			  <div id="dungeonEnemy5" class="enemizer-0" onClick="toggle_enemy(5)" oncontextmenu="javascript:rightClickEnemy(5);return false;"></div>
+			  <div id="dungeonPrize5" class="prize-0" onClick="toggle_dungeon(5)" oncontextmenu="javascript:rightClickPrize(5);return false;"></div>
+			</div>
+			<div class="cell">
+			  <div class="boss boss6" onClick="toggle('boss6')"></div>
+			  <div id="dungeonEnemy6" class="enemizer-0" onClick="toggle_enemy(6)" oncontextmenu="javascript:rightClickEnemy(6);return false;"></div>
+			  <div id="dungeonPrize6" class="prize-0" onClick="toggle_dungeon(6)" oncontextmenu="javascript:rightClickPrize(6);return false;"></div>
+			</div>
+			<div class="cell">
+			  <div class="boss boss7" onClick="toggle('boss7')"></div>
+			  <div id="dungeonEnemy7" class="enemizer-0" onClick="toggle_enemy(7)" oncontextmenu="javascript:rightClickEnemy(7);return false;"></div>
+			  <div id="dungeonPrize7" class="prize-0" onClick="toggle_dungeon(7)" oncontextmenu="javascript:rightClickPrize(7);return false;"></div>
+			</div>
+			<div class="cell">
+			  <div class="boss boss8" onClick="toggle('boss8')"></div>
+			  <div id="dungeonEnemy8" class="enemizer-0" onClick="toggle_enemy(8)" oncontextmenu="javascript:rightClickEnemy(8);return false;"></div>
+			  <div id="medallion0" class="medallion-0" onClick="toggle_medallion(0)"></div>
+			  <div id="dungeonPrize8" class="prize-0" onClick="toggle_dungeon(8)" oncontextmenu="javascript:rightClickPrize(8);return false;"></div>
+			</div>
+			<div class="cell">
+			  <div class="boss boss9" onClick="toggle('boss9')"></div>
+			  <div id="dungeonEnemy9" class="enemizer-0" onClick="toggle_enemy(9)" oncontextmenu="javascript:rightClickEnemy(9);return false;"></div>
+			  <div id="medallion1" class="medallion-0" onClick="toggle_medallion(1)"></div>
+			  <div id="dungeonPrize9" class="prize-0" onClick="toggle_dungeon(9)" oncontextmenu="javascript:rightClickPrize(9);return false;"></div>
+			</div>
+		  </div>
+		  <div class="row">
+			<div>
+				<div class="lowerchest">
+					<div class="cell"><div id="chest3" class="chest" onClick="toggle('chest3')" onMouseover="showNiceItems(3)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest3');return false;">14</div></div>
+					<div class="cell" id="c3bkdiv"><div id="bigkey3" class="bigkey" onClick="toggle('bigkey3')" onMouseover="findItems(['PoD Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell" id="c3skdiv"><div id="smallkey3" class="smallkeyfull" onClick="toggle('smallkey3')" onMouseover="findItems(['PoD Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey3');return false;">0</div></div>
+				</div>
+				<div class="lowerchest">
+					<div class="cell"><div id="chest4" class="chest" onClick="toggle('chest4')" onMouseover="showNiceItems(4)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest4');return false;">10</div></div>
+					<div class="cell" id="c4bkdiv"><div id="bigkey4" class="bigkey" onClick="toggle('bigkey4')" onMouseover="findItems(['SP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell" id="c4skdiv"><div id="smallkey4" class="smallkeyfull" onClick="toggle('smallkey4')" onMouseover="findItems(['SP Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey4');return false;">0</div></div>
+				</div>
+				<div class="lowerchest">
+					<div class="cell"><div id="chest5" class="chest" onClick="toggle('chest5')" onMouseover="showNiceItems(5)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest5');return false;">8</div></div>
+					<div class="cell" id="c5bkdiv"><div id="bigkey5" class="bigkey" onClick="toggle('bigkey5')" onMouseover="findItems(['SW Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell" id="c5skdiv"><div id="smallkey5" class="smallkeyfull" onClick="toggle('smallkey5')" onMouseover="findItems(['SW Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey5');return false;">0</div></div>
+				</div>
+				<div class="lowerchest">
+					<div class="cell"><div id="chest6" class="chest" onClick="toggle('chest6')" onMouseover="showNiceItems(6)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest6');return false;">8</div></div>
+					<div class="cell" id="c6bkdiv"><div id="bigkey6" class="bigkey" onClick="toggle('bigkey6')" onMouseover="findItems(['TT Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell" id="c6skdiv"><div id="smallkey6" class="smallkeyfull" onClick="toggle('smallkey6')" onMouseover="findItems(['TT Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey6');return false;">0</div></div>
+				</div>
+				<div class="lowerchest">
+					<div class="cell"><div id="chest7" class="chest" onClick="toggle('chest7')" onMouseover="showNiceItems(7)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest7');return false;">8</div></div>
+					<div class="cell" id="c7bkdiv"><div id="bigkey7" class="bigkey" onClick="toggle('bigkey7')" onMouseover="findItems(['IP Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell" id="c7skdiv"><div id="smallkey7" class="smallkeyfull" onClick="toggle('smallkey7')" onMouseover="findItems(['IP Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey7');return false;">0</div></div>
+				</div>
+				<div class="lowerchest">
+					<div class="cell"><div id="chest8" class="chest" onClick="toggle('chest8')" onMouseover="showNiceItems(8)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest8');return false;">8</div></div>
+					<div class="cell" id="c8bkdiv"><div id="bigkey8" class="bigkey" onClick="toggle('bigkey8')" onMouseover="findItems(['MM Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell" id="c8skdiv"><div id="smallkey8" class="smallkeyfull" onClick="toggle('smallkey8')" onMouseover="findItems(['MM Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey8');return false;">0</div></div>
+				</div>
+				<div class="lowerchest">
+					<div class="cell"><div id="chest9" class="chest" onClick="toggle('chest9')" onMouseover="showNiceItems(9)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest9');return false;">12</div></div>
+					<div class="cell" id="c9bkdiv"><div id="bigkey9" class="bigkey" onClick="toggle('bigkey9')" onMouseover="findItems(['TR Big Key'])" onMouseout="unhighlightAll()"></div></div>
+					<div class="cell" id="c9skdiv"><div id="smallkey9" class="smallkeyfull" onClick="toggle('smallkey9')" onMouseover="findItems(['TR Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey9');return false;">0</div></div>
+				</div>
+			</div>
+		  </div>
+			  <div id="spheres">
+				<div class="row">
+					<div class="cell"><div id="sphere1_1" class="sphere noitem" onClick="setSphereItem('sphere1_1')"></div></div>
+					<div class="cell"><div id="sphere1_2" class="sphere noitem" onClick="setSphereItem('sphere1_2')"></div></div>
+					<div class="cell"><div id="sphere1_3" class="sphere noitem" onClick="setSphereItem('sphere1_3')"></div></div>
+					<div class="cell"><div id="sphere1_4" class="sphere noitem" onClick="setSphereItem('sphere1_4')"></div></div>
+					<div class="cell"><div id="sphere1_5" class="sphere noitem" onClick="setSphereItem('sphere1_5')"></div></div>
+					<div class="cell"><div id="sphere1_6" class="sphere noitem" onClick="setSphereItem('sphere1_6')"></div></div>
+					<div class="cell"><div id="sphere1_7" class="sphere noitem" onClick="setSphereItem('sphere1_7')"></div></div>
+					<div class="cell"><div id="sphere1_8" class="sphere noitem" onClick="setSphereItem('sphere1_8')"></div></div>
+					<div class="cell"><div id="sphere1_9" class="sphere noitem" onClick="setSphereItem('sphere1_9')"></div></div>
+					<div class="cell"><div id="sphere1_10" class="sphere noitem" onClick="setSphereItem('sphere1_10')"></div></div>
+					<div class="cell"><div id="sphere1_11" class="sphere noitem" onClick="setSphereItem('sphere1_11')"></div></div>
+					<div class="cell"><div id="sphere1_12" class="sphere noitem" onClick="setSphereItem('sphere1_12')"></div></div>
+				</div>
+				<div class="row">
+					<div class="cell"><div id="sphere2_1" class="sphere noitem" onClick="setSphereItem('sphere2_1')"></div></div>
+					<div class="cell"><div id="sphere2_2" class="sphere noitem" onClick="setSphereItem('sphere2_2')"></div></div>
+					<div class="cell"><div id="sphere2_3" class="sphere noitem" onClick="setSphereItem('sphere2_3')"></div></div>
+					<div class="cell"><div id="sphere2_4" class="sphere noitem" onClick="setSphereItem('sphere2_4')"></div></div>
+					<div class="cell"><div id="sphere2_5" class="sphere noitem" onClick="setSphereItem('sphere2_5')"></div></div>
+					<div class="cell"><div id="sphere2_6" class="sphere noitem" onClick="setSphereItem('sphere2_6')"></div></div>
+					<div class="cell"><div id="sphere2_7" class="sphere noitem" onClick="setSphereItem('sphere2_7')"></div></div>
+					<div class="cell"><div id="sphere2_8" class="sphere noitem" onClick="setSphereItem('sphere2_8')"></div></div>
+					<div class="cell"><div id="sphere2_9" class="sphere noitem" onClick="setSphereItem('sphere2_9')"></div></div>
+					<div class="cell"><div id="sphere2_10" class="sphere noitem" onClick="setSphereItem('sphere2_10')"></div></div>
+					<div class="cell"><div id="sphere2_11" class="sphere noitem" onClick="setSphereItem('sphere2_11')"></div></div>
+					<div class="cell"><div id="sphere2_12" class="sphere noitem" onClick="setSphereItem('sphere2_12')"></div></div>
+				</div>
+				<div class="row">
+					<div class="cell"><div id="sphere3_1" class="sphere noitem" onClick="setSphereItem('sphere3_1')"></div></div>
+					<div class="cell"><div id="sphere3_2" class="sphere noitem" onClick="setSphereItem('sphere3_2')"></div></div>
+					<div class="cell"><div id="sphere3_3" class="sphere noitem" onClick="setSphereItem('sphere3_3')"></div></div>
+					<div class="cell"><div id="sphere3_4" class="sphere noitem" onClick="setSphereItem('sphere3_4')"></div></div>
+					<div class="cell"><div id="sphere3_5" class="sphere noitem" onClick="setSphereItem('sphere3_5')"></div></div>
+					<div class="cell"><div id="sphere3_6" class="sphere noitem" onClick="setSphereItem('sphere3_6')"></div></div>
+					<div class="cell"><div id="sphere3_7" class="sphere noitem" onClick="setSphereItem('sphere3_7')"></div></div>
+					<div class="cell"><div id="sphere3_8" class="sphere noitem" onClick="setSphereItem('sphere3_8')"></div></div>
+					<div class="cell"><div id="sphere3_9" class="sphere noitem" onClick="setSphereItem('sphere3_9')"></div></div>
+					<div class="cell"><div id="sphere3_10" class="sphere noitem" onClick="setSphereItem('sphere3_10')"></div></div>
+					<div class="cell"><div id="sphere3_11" class="sphere noitem" onClick="setSphereItem('sphere3_11')"></div></div>
+					<div class="cell"><div id="sphere3_12" class="sphere noitem" onClick="setSphereItem('sphere3_12')"></div></div>
+				</div>
+				<div class="row">
+					<div class="cell"><div id="sphere4_1" class="sphere noitem" onClick="setSphereItem('sphere4_1')"></div></div>
+					<div class="cell"><div id="sphere4_2" class="sphere noitem" onClick="setSphereItem('sphere4_2')"></div></div>
+					<div class="cell"><div id="sphere4_3" class="sphere noitem" onClick="setSphereItem('sphere4_3')"></div></div>
+					<div class="cell"><div id="sphere4_4" class="sphere noitem" onClick="setSphereItem('sphere4_4')"></div></div>
+					<div class="cell"><div id="sphere4_5" class="sphere noitem" onClick="setSphereItem('sphere4_5')"></div></div>
+					<div class="cell"><div id="sphere4_6" class="sphere noitem" onClick="setSphereItem('sphere4_6')"></div></div>
+					<div class="cell"><div id="sphere4_7" class="sphere noitem" onClick="setSphereItem('sphere4_7')"></div></div>
+					<div class="cell"><div id="sphere4_8" class="sphere noitem" onClick="setSphereItem('sphere4_8')"></div></div>
+					<div class="cell"><div id="sphere4_9" class="sphere noitem" onClick="setSphereItem('sphere4_9')"></div></div>
+					<div class="cell"><div id="sphere4_10" class="sphere noitem" onClick="setSphereItem('sphere4_10')"></div></div>
+					<div class="cell"><div id="sphere4_11" class="sphere noitem" onClick="setSphereItem('sphere4_11')"></div></div>
+					<div class="cell"><div id="sphere4_12" class="sphere noitem" onClick="setSphereItem('sphere4_12')"></div></div>
+				</div>
+				<div class="row">
+					<div class="cell"><div id="sphere5_1" class="sphere noitem" onClick="setSphereItem('sphere5_1')"></div></div>
+					<div class="cell"><div id="sphere5_2" class="sphere noitem" onClick="setSphereItem('sphere5_2')"></div></div>
+					<div class="cell"><div id="sphere5_3" class="sphere noitem" onClick="setSphereItem('sphere5_3')"></div></div>
+					<div class="cell"><div id="sphere5_4" class="sphere noitem" onClick="setSphereItem('sphere5_4')"></div></div>
+					<div class="cell"><div id="sphere5_5" class="sphere noitem" onClick="setSphereItem('sphere5_5')"></div></div>
+					<div class="cell"><div id="sphere5_6" class="sphere noitem" onClick="setSphereItem('sphere5_6')"></div></div>
+					<div class="cell"><div id="sphere5_7" class="sphere noitem" onClick="setSphereItem('sphere5_7')"></div></div>
+					<div class="cell"><div id="sphere5_8" class="sphere noitem" onClick="setSphereItem('sphere5_8')"></div></div>
+					<div class="cell"><div id="sphere5_9" class="sphere noitem" onClick="setSphereItem('sphere5_9')"></div></div>
+					<div class="cell"><div id="sphere5_10" class="sphere noitem" onClick="setSphereItem('sphere5_10')"></div></div>
+					<div class="cell"><div id="sphere5_11" class="sphere noitem" onClick="setSphereItem('sphere5_11')"></div></div>
+					<div class="cell"><div id="sphere5_12" class="sphere noitem" onClick="setSphereItem('sphere5_12')"></div></div>
+				</div>
+				<div class="row">
+					<div class="cell"><div id="sphere6_1" class="sphere noitem" onClick="setSphereItem('sphere6_1')"></div></div>
+					<div class="cell"><div id="sphere6_2" class="sphere noitem" onClick="setSphereItem('sphere6_2')"></div></div>
+					<div class="cell"><div id="sphere6_3" class="sphere noitem" onClick="setSphereItem('sphere6_3')"></div></div>
+					<div class="cell"><div id="sphere6_4" class="sphere noitem" onClick="setSphereItem('sphere6_4')"></div></div>
+					<div class="cell"><div id="sphere6_5" class="sphere noitem" onClick="setSphereItem('sphere6_5')"></div></div>
+					<div class="cell"><div id="sphere6_6" class="sphere noitem" onClick="setSphereItem('sphere6_6')"></div></div>
+					<div class="cell"><div id="sphere6_7" class="sphere noitem" onClick="setSphereItem('sphere6_7')"></div></div>
+					<div class="cell"><div id="sphere6_8" class="sphere noitem" onClick="setSphereItem('sphere6_8')"></div></div>
+					<div class="cell"><div id="sphere6_9" class="sphere noitem" onClick="setSphereItem('sphere6_9')"></div></div>
+					<div class="cell"><div id="sphere6_10" class="sphere noitem" onClick="setSphereItem('sphere6_10')"></div></div>
+					<div class="cell"><div id="sphere6_11" class="sphere noitem" onClick="setSphereItem('sphere6_11')"></div></div>
+					<div class="cell"><div id="sphere6_12" class="sphere noitem" onClick="setSphereItem('sphere6_12')"></div></div>
+				</div>
+				<div class="row">
+					<div class="cell"><div id="sphere7_1" class="sphere noitem" onClick="setSphereItem('sphere7_1')"></div></div>
+					<div class="cell"><div id="sphere7_2" class="sphere noitem" onClick="setSphereItem('sphere7_2')"></div></div>
+					<div class="cell"><div id="sphere7_3" class="sphere noitem" onClick="setSphereItem('sphere7_3')"></div></div>
+					<div class="cell"><div id="sphere7_4" class="sphere noitem" onClick="setSphereItem('sphere7_4')"></div></div>
+					<div class="cell"><div id="sphere7_5" class="sphere noitem" onClick="setSphereItem('sphere7_5')"></div></div>
+					<div class="cell"><div id="sphere7_6" class="sphere noitem" onClick="setSphereItem('sphere7_6')"></div></div>
+					<div class="cell"><div id="sphere7_7" class="sphere noitem" onClick="setSphereItem('sphere7_7')"></div></div>
+					<div class="cell"><div id="sphere7_8" class="sphere noitem" onClick="setSphereItem('sphere7_8')"></div></div>
+					<div class="cell"><div id="sphere7_9" class="sphere noitem" onClick="setSphereItem('sphere7_9')"></div></div>
+					<div class="cell"><div id="sphere7_10" class="sphere noitem" onClick="setSphereItem('sphere7_10')"></div></div>
+					<div class="cell"><div id="sphere7_11" class="sphere noitem" onClick="setSphereItem('sphere7_11')"></div></div>
+					<div class="cell"><div id="sphere7_12" class="sphere noitem" onClick="setSphereItem('sphere7_12')"></div></div>
+				</div>
+				<div class="row">
+					<div class="cell"><div id="sphere8_1" class="sphere noitem" onClick="setSphereItem('sphere8_1')"></div></div>
+					<div class="cell"><div id="sphere8_2" class="sphere noitem" onClick="setSphereItem('sphere8_2')"></div></div>
+					<div class="cell"><div id="sphere8_3" class="sphere noitem" onClick="setSphereItem('sphere8_3')"></div></div>
+					<div class="cell"><div id="sphere8_4" class="sphere noitem" onClick="setSphereItem('sphere8_4')"></div></div>
+					<div class="cell"><div id="sphere8_5" class="sphere noitem" onClick="setSphereItem('sphere8_5')"></div></div>
+					<div class="cell"><div id="sphere8_6" class="sphere noitem" onClick="setSphereItem('sphere8_6')"></div></div>
+					<div class="cell"><div id="sphere8_7" class="sphere noitem" onClick="setSphereItem('sphere8_7')"></div></div>
+					<div class="cell"><div id="sphere8_8" class="sphere noitem" onClick="setSphereItem('sphere8_8')"></div></div>
+					<div class="cell"><div id="sphere8_9" class="sphere noitem" onClick="setSphereItem('sphere8_9')"></div></div>
+					<div class="cell"><div id="sphere8_10" class="sphere noitem" onClick="setSphereItem('sphere8_10')"></div></div>
+					<div class="cell"><div id="sphere8_11" class="sphere noitem" onClick="setSphereItem('sphere8_11')"></div></div>
+					<div class="cell"><div id="sphere8_12" class="sphere noitem" onClick="setSphereItem('sphere8_12')"></div></div>
+				</div>
+			</div>
+		</div>
+
+		<div id="map" class="cell">
+		  <div id="locationMap0" onClick="toggle_chest(0)" onMouseover="highlight(0)" onMouseout="unhighlight(0)"></div>
+		  <div id="locationMap1" onClick="toggle_chest(1)" onMouseover="highlight(1)" onMouseout="unhighlight(1)"></div>
+		  <div id="locationMap2" onClick="toggle_chest(2)" onMouseover="highlight(2)" onMouseout="unhighlight(2)"></div>
+		  <div id="locationMap3" onClick="toggle_chest(3)" onMouseover="highlight(3)" onMouseout="unhighlight(3)"></div>
+		  <div id="locationMap4" onClick="toggle_chest(4)" onMouseover="highlight(4)" onMouseout="unhighlight(4)"></div>
+		  <div id="locationMap5" onClick="toggle_chest(5)" onMouseover="highlight(5)" onMouseout="unhighlight(5)"></div>
+		  <div id="locationMap6" onClick="toggle_chest(6)" onMouseover="highlight(6)" onMouseout="unhighlight(6)"></div>
+		  <div id="locationMap7" onClick="toggle_chest(7)" onMouseover="highlight(7)" onMouseout="unhighlight(7)"></div>
+		  <div id="locationMap8" onClick="toggle_chest(8)" onMouseover="highlight(8)" onMouseout="unhighlight(8)"></div>
+		  <div id="locationMap9" onClick="toggle_chest(9)" onMouseover="highlight(9)" onMouseout="unhighlight(9)"></div>
+		  <div id="locationMap10" onClick="toggle_chest(10)" onMouseover="highlight(10)" onMouseout="unhighlight(10)"></div>
+		  <div id="locationMap11" onClick="toggle_chest(11)" onMouseover="highlight(11)" onMouseout="unhighlight(11)"></div>
+		  <div id="locationMap12" onClick="toggle_chest(12)" onMouseover="highlight(12)" onMouseout="unhighlight(12)"></div>
+		  <div id="locationMap13" onClick="toggle_chest(13)" onMouseover="highlight(13)" onMouseout="unhighlight(13)"></div>
+		  <div id="locationMap14" onClick="toggle_chest(14)" onMouseover="highlight(14)" onMouseout="unhighlight(14)"></div>
+		  <div id="locationMap15" onClick="toggle_chest(15)" onMouseover="highlight(15)" onMouseout="unhighlight(15)"></div>
+		  <div id="locationMap16" onClick="toggle_chest(16)" onMouseover="highlight(16)" onMouseout="unhighlight(16)"></div>
+		  <div id="locationMap17" onClick="toggle_chest(17)" onMouseover="highlight(17)" onMouseout="unhighlight(17)"></div>
+		  <div id="locationMap18" onClick="toggle_chest(18)" onMouseover="highlight(18)" onMouseout="unhighlight(18)"></div>
+		  <div id="locationMap19" onClick="toggle_chest(19)" onMouseover="highlight(19)" onMouseout="unhighlight(19)"></div>
+		  <div id="locationMap20" onClick="toggle_chest(20)" onMouseover="highlight(20)" onMouseout="unhighlight(20)"></div>
+		  <div id="locationMap21" onClick="toggle_chest(21)" onMouseover="highlight(21)" onMouseout="unhighlight(21)"></div>
+		  <div id="locationMap22" onClick="toggle_chest(22)" onMouseover="highlight(22)" onMouseout="unhighlight(22)"></div>
+		  <div id="locationMap23" onClick="toggle_chest(23)" onMouseover="highlight(23)" onMouseout="unhighlight(23)"></div>		
+		
+		  <div id="entranceMap0" onClick="toggle_location(0)" onMouseover="highlight_entrance(0)" onMouseout="unhighlight_entrance(0)" oncontextmenu="javascript:rightClickEntrance(0);return false;"></div>
+		  <div id="entranceMap1" onClick="toggle_location(1)" onMouseover="highlight_entrance(1)" onMouseout="unhighlight_entrance(1)" oncontextmenu="javascript:rightClickEntrance(1);return false;"></div>
+		  <div id="entranceMap2" onClick="toggle_location(2)" onMouseover="highlight_entrance(2)" onMouseout="unhighlight_entrance(2)" oncontextmenu="javascript:rightClickEntrance(2);return false;"></div>
+		  <div id="entranceMap3" onClick="toggle_location(3)" onMouseover="highlight_entrance(3)" onMouseout="unhighlight_entrance(3)" oncontextmenu="javascript:rightClickEntrance(3);return false;"></div>
+		  <div id="entranceMap4" onClick="toggle_location(4)" onMouseover="highlight_entrance(4)" onMouseout="unhighlight_entrance(4)" oncontextmenu="javascript:rightClickEntrance(4);return false;"></div>
+		  <div id="entranceMap5" onClick="toggle_location(5)" onMouseover="highlight_entrance(5)" onMouseout="unhighlight_entrance(5)" oncontextmenu="javascript:rightClickEntrance(5);return false;"></div>
+		  <div id="entranceMap6" onClick="toggle_location(6)" onMouseover="highlight_entrance(6)" onMouseout="unhighlight_entrance(6)" oncontextmenu="javascript:rightClickEntrance(6);return false;"></div>
+		  <div id="entranceMap7" onClick="toggle_location(7)" onMouseover="highlight_entrance(7)" onMouseout="unhighlight_entrance(7)" oncontextmenu="javascript:rightClickEntrance(7);return false;"></div>
+		  <div id="entranceMap8" onClick="toggle_location(8)" onMouseover="highlight_entrance(8)" onMouseout="unhighlight_entrance(8)" oncontextmenu="javascript:rightClickEntrance(8);return false;"></div>
+		  <div id="entranceMap9" onClick="toggle_location(9)" onMouseover="highlight_entrance(9)" onMouseout="unhighlight_entrance(9)" oncontextmenu="javascript:rightClickEntrance(9);return false;"></div>
+		  <div id="entranceMap10" onClick="toggle_location(10)" onMouseover="highlight_entrance(10)" onMouseout="unhighlight_entrance(10)" oncontextmenu="javascript:rightClickEntrance(10);return false;"></div>
+		  <div id="entranceMap11" onClick="toggle_location(11)" onMouseover="highlight_entrance(11)" onMouseout="unhighlight_entrance(11)" oncontextmenu="javascript:rightClickEntrance(11);return false;"></div>
+		  <div id="entranceMap12" onClick="toggle_location(12)" onMouseover="highlight_entrance(12)" onMouseout="unhighlight_entrance(12)" oncontextmenu="javascript:rightClickEntrance(12);return false;"></div>
+		  <div id="entranceMap13" onClick="toggle_location(13)" onMouseover="highlight_entrance(13)" onMouseout="unhighlight_entrance(13)" oncontextmenu="javascript:rightClickEntrance(13);return false;"></div>
+		  <div id="entranceMap14" onClick="toggle_location(14)" onMouseover="highlight_entrance(14)" onMouseout="unhighlight_entrance(14)" oncontextmenu="javascript:rightClickEntrance(14);return false;"></div>
+		  <div id="entranceMap15" onClick="toggle_location(15)" onMouseover="highlight_entrance(15)" onMouseout="unhighlight_entrance(15)" oncontextmenu="javascript:rightClickEntrance(15);return false;"></div>
+		  <div id="entranceMap16" onClick="toggle_location(16)" onMouseover="highlight_entrance(16)" onMouseout="unhighlight_entrance(16)" oncontextmenu="javascript:rightClickEntrance(16);return false;"></div>
+		  <div id="entranceMap17" onClick="toggle_location(17)" onMouseover="highlight_entrance(17)" onMouseout="unhighlight_entrance(17)" oncontextmenu="javascript:rightClickEntrance(17);return false;"></div>
+		  <div id="entranceMap18" onClick="toggle_location(18)" onMouseover="highlight_entrance(18)" onMouseout="unhighlight_entrance(18)" oncontextmenu="javascript:rightClickEntrance(18);return false;"></div>
+		  <div id="entranceMap19" onClick="toggle_location(19)" onMouseover="highlight_entrance(19)" onMouseout="unhighlight_entrance(19)" oncontextmenu="javascript:rightClickEntrance(19);return false;"></div>
+		  <div id="entranceMap20" onClick="toggle_location(20)" onMouseover="highlight_entrance(20)" onMouseout="unhighlight_entrance(20)" oncontextmenu="javascript:rightClickEntrance(20);return false;"></div>
+		  <div id="entranceMap21" onClick="toggle_location(21)" onMouseover="highlight_entrance(21)" onMouseout="unhighlight_entrance(21)" oncontextmenu="javascript:rightClickEntrance(21);return false;"></div>
+		  <div id="entranceMap22" onClick="toggle_location(22)" onMouseover="highlight_entrance(22)" onMouseout="unhighlight_entrance(22)" oncontextmenu="javascript:rightClickEntrance(22);return false;"></div>
+		  <div id="entranceMap23" onClick="toggle_location(23)" onMouseover="highlight_entrance(23)" onMouseout="unhighlight_entrance(23)" oncontextmenu="javascript:rightClickEntrance(23);return false;"></div>
+		  <div id="entranceMap24" onClick="toggle_location(24)" onMouseover="highlight_entrance(24)" onMouseout="unhighlight_entrance(24)" oncontextmenu="javascript:rightClickEntrance(24);return false;"></div>
+		  <div id="entranceMap25" onClick="toggle_location(25)" onMouseover="highlight_entrance(25)" onMouseout="unhighlight_entrance(25)" oncontextmenu="javascript:rightClickEntrance(25);return false;"></div>
+		  <div id="entranceMap26" onClick="toggle_location(26)" onMouseover="highlight_entrance(26)" onMouseout="unhighlight_entrance(26)" oncontextmenu="javascript:rightClickEntrance(26);return false;"></div>
+		  <div id="entranceMap27" onClick="toggle_location(27)" onMouseover="highlight_entrance(27)" onMouseout="unhighlight_entrance(27)" oncontextmenu="javascript:rightClickEntrance(27);return false;"></div>
+		  <div id="entranceMap28" onClick="toggle_location(28)" onMouseover="highlight_entrance(28)" onMouseout="unhighlight_entrance(28)" oncontextmenu="javascript:rightClickEntrance(28);return false;"></div>
+		  <div id="entranceMap29" onClick="toggle_location(29)" onMouseover="highlight_entrance(29)" onMouseout="unhighlight_entrance(29)" oncontextmenu="javascript:rightClickEntrance(29);return false;"></div>
+		  <div id="entranceMap30" onClick="toggle_location(30)" onMouseover="highlight_entrance(30)" onMouseout="unhighlight_entrance(30)" oncontextmenu="javascript:rightClickEntrance(30);return false;"></div>
+		  <div id="entranceMap31" onClick="toggle_location(31)" onMouseover="highlight_entrance(31)" onMouseout="unhighlight_entrance(31)" oncontextmenu="javascript:rightClickEntrance(31);return false;"></div>
+		  <div id="entranceMap32" onClick="toggle_location(32)" onMouseover="highlight_entrance(32)" onMouseout="unhighlight_entrance(32)" oncontextmenu="javascript:rightClickEntrance(32);return false;"></div>
+		  <div id="entranceMap33" onClick="toggle_location(33)" onMouseover="highlight_entrance(33)" onMouseout="unhighlight_entrance(33)" oncontextmenu="javascript:rightClickEntrance(33);return false;"></div>
+		  <div id="entranceMap34" onClick="toggle_location(34)" onMouseover="highlight_entrance(34)" onMouseout="unhighlight_entrance(34)" oncontextmenu="javascript:rightClickEntrance(34);return false;"></div>
+		  <div id="entranceMap35" onClick="toggle_location(35)" onMouseover="highlight_entrance(35)" onMouseout="unhighlight_entrance(35)" oncontextmenu="javascript:rightClickEntrance(35);return false;"></div>
+		  <div id="entranceMap36" onClick="toggle_location(36)" onMouseover="highlight_entrance(36)" onMouseout="unhighlight_entrance(36)" oncontextmenu="javascript:rightClickEntrance(36);return false;"></div>
+		  <div id="entranceMap37" onClick="toggle_location(37)" onMouseover="highlight_entrance(37)" onMouseout="unhighlight_entrance(37)" oncontextmenu="javascript:rightClickEntrance(37);return false;"></div>
+		  <div id="entranceMap38" onClick="toggle_location(38)" onMouseover="highlight_entrance(38)" onMouseout="unhighlight_entrance(38)" oncontextmenu="javascript:rightClickEntrance(38);return false;"></div>
+		  <div id="entranceMap39" onClick="toggle_location(39)" onMouseover="highlight_entrance(39)" onMouseout="unhighlight_entrance(39)" oncontextmenu="javascript:rightClickEntrance(39);return false;"></div>
+		  <div id="entranceMap40" onClick="toggle_location(40)" onMouseover="highlight_entrance(40)" onMouseout="unhighlight_entrance(40)" oncontextmenu="javascript:rightClickEntrance(40);return false;"></div>
+		  <div id="entranceMap41" onClick="toggle_location(41)" onMouseover="highlight_entrance(41)" onMouseout="unhighlight_entrance(41)" oncontextmenu="javascript:rightClickEntrance(41);return false;"></div>
+		  <div id="entranceMap42" onClick="toggle_location(42)" onMouseover="highlight_entrance(42)" onMouseout="unhighlight_entrance(42)" oncontextmenu="javascript:rightClickEntrance(42);return false;"></div>
+		  <div id="entranceMap43" onClick="toggle_location(43)" onMouseover="highlight_entrance(43)" onMouseout="unhighlight_entrance(43)" oncontextmenu="javascript:rightClickEntrance(43);return false;"></div>
+		  <div id="entranceMap44" onClick="toggle_location(44)" onMouseover="highlight_entrance(44)" onMouseout="unhighlight_entrance(44)" oncontextmenu="javascript:rightClickEntrance(44);return false;"></div>
+		  <div id="entranceMap45" onClick="toggle_location(45)" onMouseover="highlight_entrance(45)" onMouseout="unhighlight_entrance(45)" oncontextmenu="javascript:rightClickEntrance(45);return false;"></div>
+		  <div id="entranceMap46" onClick="toggle_location(46)" onMouseover="highlight_entrance(46)" onMouseout="unhighlight_entrance(46)" oncontextmenu="javascript:rightClickEntrance(46);return false;"></div>
+		  <div id="entranceMap47" onClick="toggle_location(47)" onMouseover="highlight_entrance(47)" onMouseout="unhighlight_entrance(47)" oncontextmenu="javascript:rightClickEntrance(47);return false;"></div>
+		  <div id="entranceMap48" onClick="toggle_location(48)" onMouseover="highlight_entrance(48)" onMouseout="unhighlight_entrance(48)" oncontextmenu="javascript:rightClickEntrance(48);return false;"></div>
+		  <div id="entranceMap49" onClick="toggle_location(49)" onMouseover="highlight_entrance(49)" onMouseout="unhighlight_entrance(49)" oncontextmenu="javascript:rightClickEntrance(49);return false;"></div>
+		  <div id="entranceMap50" onClick="toggle_location(50)" onMouseover="highlight_entrance(50)" onMouseout="unhighlight_entrance(50)" oncontextmenu="javascript:rightClickEntrance(50);return false;"></div>
+		  <div id="entranceMap51" onClick="toggle_location(51)" onMouseover="highlight_entrance(51)" onMouseout="unhighlight_entrance(51)" oncontextmenu="javascript:rightClickEntrance(51);return false;"></div>
+		  <div id="entranceMap52" onClick="toggle_location(52)" onMouseover="highlight_entrance(52)" onMouseout="unhighlight_entrance(52)" oncontextmenu="javascript:rightClickEntrance(52);return false;"></div>
+		  <div id="entranceMap53" onClick="toggle_location(53)" onMouseover="highlight_entrance(53)" onMouseout="unhighlight_entrance(53)" oncontextmenu="javascript:rightClickEntrance(53);return false;"></div>
+		  <div id="entranceMap54" onClick="toggle_location(54)" onMouseover="highlight_entrance(54)" onMouseout="unhighlight_entrance(54)" oncontextmenu="javascript:rightClickEntrance(54);return false;"></div>
+		  <div id="entranceMap55" onClick="toggle_location(55)" onMouseover="highlight_entrance(55)" onMouseout="unhighlight_entrance(55)" oncontextmenu="javascript:rightClickEntrance(55);return false;"></div>
+		  <div id="entranceMap56" onClick="toggle_location(56)" onMouseover="highlight_entrance(56)" onMouseout="unhighlight_entrance(56)" oncontextmenu="javascript:rightClickEntrance(56);return false;"></div>
+		  <div id="entranceMap57" onClick="toggle_location(57)" onMouseover="highlight_entrance(57)" onMouseout="unhighlight_entrance(57)" oncontextmenu="javascript:rightClickEntrance(57);return false;"></div>
+		  <div id="entranceMap58" onClick="toggle_location(58)" onMouseover="highlight_entrance(58)" onMouseout="unhighlight_entrance(58)" oncontextmenu="javascript:rightClickEntrance(58);return false;"></div>
+		  <div id="entranceMap59" onClick="toggle_location(59)" onMouseover="highlight_entrance(59)" onMouseout="unhighlight_entrance(59)" oncontextmenu="javascript:rightClickEntrance(59);return false;"></div>
+		  <div id="entranceMap60" onClick="toggle_location(60)" onMouseover="highlight_entrance(60)" onMouseout="unhighlight_entrance(60)" oncontextmenu="javascript:rightClickEntrance(60);return false;"></div>
+		  <div id="entranceMap61" onClick="toggle_location(61)" onMouseover="highlight_entrance(61)" onMouseout="unhighlight_entrance(61)" oncontextmenu="javascript:rightClickEntrance(61);return false;"></div>
+		  <div id="entranceMap62" onClick="toggle_location(62)" onMouseover="highlight_entrance(62)" onMouseout="unhighlight_entrance(62)" oncontextmenu="javascript:rightClickEntrance(62);return false;"></div>
+		  <div id="entranceMap63" onClick="toggle_location(63)" onMouseover="highlight_entrance(63)" onMouseout="unhighlight_entrance(63)" oncontextmenu="javascript:rightClickEntrance(63);return false;"></div>
+		  <div id="entranceMap64" onClick="toggle_location(64)" onMouseover="highlight_entrance(64)" onMouseout="unhighlight_entrance(64)" oncontextmenu="javascript:rightClickEntrance(64);return false;"></div>
+		  <div id="entranceMap65" onClick="toggle_location(65)" onMouseover="highlight_entrance(65)" onMouseout="unhighlight_entrance(65)" oncontextmenu="javascript:rightClickEntrance(65);return false;"></div>
+		  <div id="entranceMap66" onClick="toggle_location(66)" onMouseover="highlight_entrance(66)" onMouseout="unhighlight_entrance(66)" oncontextmenu="javascript:rightClickEntrance(66);return false;"></div>
+		  <div id="entranceMap67" onClick="toggle_location(67)" onMouseover="highlight_entrance(67)" onMouseout="unhighlight_entrance(67)" oncontextmenu="javascript:rightClickEntrance(67);return false;"></div>
+		  <div id="entranceMap68" onClick="toggle_location(68)" onMouseover="highlight_entrance(68)" onMouseout="unhighlight_entrance(68)" oncontextmenu="javascript:rightClickEntrance(68);return false;"></div>
+		  <div id="entranceMap69" onClick="toggle_location(69)" onMouseover="highlight_entrance(69)" onMouseout="unhighlight_entrance(69)" oncontextmenu="javascript:rightClickEntrance(69);return false;"></div>
+		  <div id="entranceMap70" onClick="toggle_location(70)" onMouseover="highlight_entrance(70)" onMouseout="unhighlight_entrance(70)" oncontextmenu="javascript:rightClickEntrance(70);return false;"></div>
+		  <div id="entranceMap71" onClick="toggle_location(71)" onMouseover="highlight_entrance(71)" onMouseout="unhighlight_entrance(71)" oncontextmenu="javascript:rightClickEntrance(71);return false;"></div>
+		  <div id="entranceMap72" onClick="toggle_location(72)" onMouseover="highlight_entrance(72)" onMouseout="unhighlight_entrance(72)" oncontextmenu="javascript:rightClickEntrance(72);return false;"></div>
+		  <div id="entranceMap73" onClick="toggle_location(73)" onMouseover="highlight_entrance(73)" onMouseout="unhighlight_entrance(73)" oncontextmenu="javascript:rightClickEntrance(73);return false;"></div>
+		  <div id="entranceMap74" onClick="toggle_location(74)" onMouseover="highlight_entrance(74)" onMouseout="unhighlight_entrance(74)" oncontextmenu="javascript:rightClickEntrance(74);return false;"></div>
+		  <div id="entranceMap75" onClick="toggle_location(75)" onMouseover="highlight_entrance(75)" onMouseout="unhighlight_entrance(75)" oncontextmenu="javascript:rightClickEntrance(75);return false;"></div>
+		  <div id="entranceMap76" onClick="toggle_location(76)" onMouseover="highlight_entrance(76)" onMouseout="unhighlight_entrance(76)" oncontextmenu="javascript:rightClickEntrance(76);return false;"></div>
+		  <div id="entranceMap77" onClick="toggle_location(77)" onMouseover="highlight_entrance(77)" onMouseout="unhighlight_entrance(77)" oncontextmenu="javascript:rightClickEntrance(77);return false;"></div>
+		  <div id="entranceMap78" onClick="toggle_location(78)" onMouseover="highlight_entrance(78)" onMouseout="unhighlight_entrance(78)" oncontextmenu="javascript:rightClickEntrance(78);return false;"></div>
+		  <div id="entranceMap79" onClick="toggle_location(79)" onMouseover="highlight_entrance(79)" onMouseout="unhighlight_entrance(79)" oncontextmenu="javascript:rightClickEntrance(79);return false;"></div>
+		  <div id="entranceMap80" onClick="toggle_location(80)" onMouseover="highlight_entrance(80)" onMouseout="unhighlight_entrance(80)" oncontextmenu="javascript:rightClickEntrance(80);return false;"></div>
+		  <div id="entranceMap81" onClick="toggle_location(81)" onMouseover="highlight_entrance(81)" onMouseout="unhighlight_entrance(81)" oncontextmenu="javascript:rightClickEntrance(81);return false;"></div>
+		  <div id="entranceMap82" onClick="toggle_location(82)" onMouseover="highlight_entrance(82)" onMouseout="unhighlight_entrance(82)" oncontextmenu="javascript:rightClickEntrance(82);return false;"></div>
+		  <div id="entranceMap83" onClick="toggle_location(83)" onMouseover="highlight_entrance(83)" onMouseout="unhighlight_entrance(83)" oncontextmenu="javascript:rightClickEntrance(83);return false;"></div>
+		  <div id="entranceMap84" onClick="toggle_location(84)" onMouseover="highlight_entrance(84)" onMouseout="unhighlight_entrance(84)" oncontextmenu="javascript:rightClickEntrance(84);return false;"></div>
+		  <div id="entranceMap85" onClick="toggle_location(85)" onMouseover="highlight_entrance(85)" onMouseout="unhighlight_entrance(85)" oncontextmenu="javascript:rightClickEntrance(85);return false;"></div>
+		  <div id="entranceMap86" onClick="toggle_location(86)" onMouseover="highlight_entrance(86)" onMouseout="unhighlight_entrance(86)" oncontextmenu="javascript:rightClickEntrance(86);return false;"></div>
+		  <div id="entranceMap87" onClick="toggle_location(87)" onMouseover="highlight_entrance(87)" onMouseout="unhighlight_entrance(87)" oncontextmenu="javascript:rightClickEntrance(87);return false;"></div>
+		  <div id="entranceMap88" onClick="toggle_location(88)" onMouseover="highlight_entrance(88)" onMouseout="unhighlight_entrance(88)" oncontextmenu="javascript:rightClickEntrance(88);return false;"></div>
+		  <div id="entranceMap89" onClick="toggle_location(89)" onMouseover="highlight_entrance(89)" onMouseout="unhighlight_entrance(89)" oncontextmenu="javascript:rightClickEntrance(89);return false;"></div>
+		  <div id="entranceMap90" onClick="toggle_location(90)" onMouseover="highlight_entrance(90)" onMouseout="unhighlight_entrance(90)" oncontextmenu="javascript:rightClickEntrance(90);return false;"></div>
+		  <div id="entranceMap91" onClick="toggle_location(91)" onMouseover="highlight_entrance(91)" onMouseout="unhighlight_entrance(91)" oncontextmenu="javascript:rightClickEntrance(91);return false;"></div>
+		  <div id="entranceMap92" onClick="toggle_location(92)" onMouseover="highlight_entrance(92)" onMouseout="unhighlight_entrance(92)" oncontextmenu="javascript:rightClickEntrance(92);return false;"></div>
+		  <div id="entranceMap93" onClick="toggle_location(93)" onMouseover="highlight_entrance(93)" onMouseout="unhighlight_entrance(93)" oncontextmenu="javascript:rightClickEntrance(93);return false;"></div>
+		  <div id="entranceMap94" onClick="toggle_location(94)" onMouseover="highlight_entrance(94)" onMouseout="unhighlight_entrance(94)" oncontextmenu="javascript:rightClickEntrance(94);return false;"></div>
+		  <div id="entranceMap95" onClick="toggle_location(95)" onMouseover="highlight_entrance(95)" onMouseout="unhighlight_entrance(95)" oncontextmenu="javascript:rightClickEntrance(95);return false;"></div>
+		  <div id="entranceMap96" onClick="toggle_location(96)" onMouseover="highlight_entrance(96)" onMouseout="unhighlight_entrance(96)" oncontextmenu="javascript:rightClickEntrance(96);return false;"></div>
+		  <div id="entranceMap97" onClick="toggle_location(97)" onMouseover="highlight_entrance(97)" onMouseout="unhighlight_entrance(97)" oncontextmenu="javascript:rightClickEntrance(97);return false;"></div>
+		  <div id="entranceMap98" onClick="toggle_location(98)" onMouseover="highlight_entrance(98)" onMouseout="unhighlight_entrance(98)" oncontextmenu="javascript:rightClickEntrance(98);return false;"></div>
+		  <div id="entranceMap99" onClick="toggle_location(99)" onMouseover="highlight_entrance(99)" onMouseout="unhighlight_entrance(99)" oncontextmenu="javascript:rightClickEntrance(99);return false;"></div>
+		  <div id="entranceMap100" onClick="toggle_location(100)" onMouseover="highlight_entrance(100)" onMouseout="unhighlight_entrance(100)" oncontextmenu="javascript:rightClickEntrance(100);return false;"></div>
+		  <div id="entranceMap101" onClick="toggle_location(101)" onMouseover="highlight_entrance(101)" onMouseout="unhighlight_entrance(101)" oncontextmenu="javascript:rightClickEntrance(101);return false;"></div>
+		  <div id="entranceMap102" onClick="toggle_location(102)" onMouseover="highlight_entrance(102)" onMouseout="unhighlight_entrance(102)" oncontextmenu="javascript:rightClickEntrance(102);return false;"></div>
+		  <div id="entranceMap103" onClick="toggle_location(103)" onMouseover="highlight_entrance(103)" onMouseout="unhighlight_entrance(103)" oncontextmenu="javascript:rightClickEntrance(103);return false;"></div>
+		  <div id="entranceMap104" onClick="toggle_location(104)" onMouseover="highlight_entrance(104)" onMouseout="unhighlight_entrance(104)" oncontextmenu="javascript:rightClickEntrance(104);return false;"></div>
+		  <div id="entranceMap105" onClick="toggle_location(105)" onMouseover="highlight_entrance(105)" onMouseout="unhighlight_entrance(105)" oncontextmenu="javascript:rightClickEntrance(105);return false;"></div>
+		  <div id="entranceMap106" onClick="toggle_location(106)" onMouseover="highlight_entrance(106)" onMouseout="unhighlight_entrance(106)" oncontextmenu="javascript:rightClickEntrance(106);return false;"></div>
+		  <div id="entranceMap107" onClick="toggle_location(107)" onMouseover="highlight_entrance(107)" onMouseout="unhighlight_entrance(107)" oncontextmenu="javascript:rightClickEntrance(107);return false;"></div>
+		  <div id="entranceMap108" onClick="toggle_location(108)" onMouseover="highlight_entrance(108)" onMouseout="unhighlight_entrance(108)" oncontextmenu="javascript:rightClickEntrance(108);return false;"></div>
+		  <div id="entranceMap109" onClick="toggle_location(109)" onMouseover="highlight_entrance(109)" onMouseout="unhighlight_entrance(109)" oncontextmenu="javascript:rightClickEntrance(109);return false;"></div>
+		  <div id="entranceMap110" onClick="toggle_location(110)" onMouseover="highlight_entrance(110)" onMouseout="unhighlight_entrance(110)" oncontextmenu="javascript:rightClickEntrance(110);return false;"></div>
+		  <div id="entranceMap111" onClick="toggle_location(111)" onMouseover="highlight_entrance(111)" onMouseout="unhighlight_entrance(111)" oncontextmenu="javascript:rightClickEntrance(111);return false;"></div>
+		  <div id="entranceMap112" onClick="toggle_location(112)" onMouseover="highlight_entrance(112)" onMouseout="unhighlight_entrance(112)" oncontextmenu="javascript:rightClickEntrance(112);return false;"></div>
+		  <div id="entranceMap113" onClick="toggle_location(113)" onMouseover="highlight_entrance(113)" onMouseout="unhighlight_entrance(113)" oncontextmenu="javascript:rightClickEntrance(113);return false;"></div>
+		  <div id="entranceMap114" onClick="toggle_location(114)" onMouseover="highlight_entrance(114)" onMouseout="unhighlight_entrance(114)" oncontextmenu="javascript:rightClickEntrance(114);return false;"></div>
+		  <div id="entranceMap115" onClick="toggle_location(115)" onMouseover="highlight_entrance(115)" onMouseout="unhighlight_entrance(115)" oncontextmenu="javascript:rightClickEntrance(115);return false;"></div>
+		  <div id="entranceMap116" onClick="toggle_location(116)" onMouseover="highlight_entrance(116)" onMouseout="unhighlight_entrance(116)" oncontextmenu="javascript:rightClickEntrance(116);return false;"></div>
+		  <div id="entranceMap117" onClick="toggle_location(117)" onMouseover="highlight_entrance(117)" onMouseout="unhighlight_entrance(117)" oncontextmenu="javascript:rightClickEntrance(117);return false;"></div>
+		  <div id="entranceMap118" onClick="toggle_location(118)" onMouseover="highlight_entrance(118)" onMouseout="unhighlight_entrance(118)" oncontextmenu="javascript:rightClickEntrance(118);return false;"></div>
+		  <div id="entranceMap119" onClick="toggle_location(119)" onMouseover="highlight_entrance(119)" onMouseout="unhighlight_entrance(119)" oncontextmenu="javascript:rightClickEntrance(119);return false;"></div>
+		  <div id="entranceMap120" onClick="toggle_location(120)" onMouseover="highlight_entrance(120)" onMouseout="unhighlight_entrance(120)" oncontextmenu="javascript:rightClickEntrance(120);return false;"></div>
+		  <div id="entranceMap121" onClick="toggle_location(121)" onMouseover="highlight_entrance(121)" onMouseout="unhighlight_entrance(121)" oncontextmenu="javascript:rightClickEntrance(121);return false;"></div>
+		  <div id="entranceMap122" onClick="toggle_location(122)" onMouseover="highlight_entrance(122)" onMouseout="unhighlight_entrance(122)" oncontextmenu="javascript:rightClickEntrance(122);return false;"></div>
+		  <div id="entranceMap123" onClick="toggle_location(123)" onMouseover="highlight_entrance(123)" onMouseout="unhighlight_entrance(123)" oncontextmenu="javascript:rightClickEntrance(123);return false;"></div>
+		  <div id="entranceMap124" onClick="toggle_location(124)" onMouseover="highlight_entrance(124)" onMouseout="unhighlight_entrance(124)" oncontextmenu="javascript:rightClickEntrance(124);return false;"></div>
+		  <div id="entranceMap125" onClick="toggle_location(125)" onMouseover="highlight_entrance(125)" onMouseout="unhighlight_entrance(125)" oncontextmenu="javascript:rightClickEntrance(125);return false;"></div>
+		  <div id="entranceMap126" onClick="toggle_location(126)" onMouseover="highlight_entrance(126)" onMouseout="unhighlight_entrance(126)" oncontextmenu="javascript:rightClickEntrance(126);return false;"></div>
+		  <div id="entranceMap127" onClick="toggle_location(127)" onMouseover="highlight_entrance(127)" onMouseout="unhighlight_entrance(127)" oncontextmenu="javascript:rightClickEntrance(127);return false;"></div>
+		  <div id="entranceMap128" onClick="toggle_location(128)" onMouseover="highlight_entrance(128)" onMouseout="unhighlight_entrance(128)" oncontextmenu="javascript:rightClickEntrance(128);return false;"></div>
+		  <div id="entranceMap129" onClick="toggle_location(129)" onMouseover="highlight_entrance(129)" onMouseout="unhighlight_entrance(129)" oncontextmenu="javascript:rightClickEntrance(129);return false;"></div>
+		  <div id="entranceMap130" onClick="toggle_location(130)" onMouseover="highlight_entrance(130)" onMouseout="unhighlight_entrance(130)" oncontextmenu="javascript:rightClickEntrance(130);return false;"></div>
+		  <div id="entranceMap131" onClick="toggle_location(131)" onMouseover="highlight_entrance(131)" onMouseout="unhighlight_entrance(131)" oncontextmenu="javascript:rightClickEntrance(131);return false;"></div>
+		  <div id="entranceMap132" onClick="toggle_location(132)" onMouseover="highlight_entrance(132)" onMouseout="unhighlight_entrance(132)" oncontextmenu="javascript:rightClickEntrance(132);return false;"></div>
+		  <div id="entranceMap133" onClick="toggle_location(133)" onMouseover="highlight_entrance(133)" onMouseout="unhighlight_entrance(133)" oncontextmenu="javascript:rightClickEntrance(133);return false;"></div>
+		  <div id="entranceMap134" onClick="toggle_location(134)" onMouseover="highlight_entrance(134)" onMouseout="unhighlight_entrance(134)" oncontextmenu="javascript:rightClickEntrance(134);return false;"></div>
+		  <div id="entranceMap135" onClick="toggle_location(135)" onMouseover="highlight_entrance(135)" onMouseout="unhighlight_entrance(135)" oncontextmenu="javascript:rightClickEntrance(135);return false;"></div>
+		  <div id="entranceMap136" onClick="toggle_location(136)" onMouseover="highlight_entrance(136)" onMouseout="unhighlight_entrance(136)" oncontextmenu="javascript:rightClickEntrance(136);return false;"></div>
+		  <div id="entranceMap137" onClick="toggle_location(137)" onMouseover="highlight_entrance(137)" onMouseout="unhighlight_entrance(137)" oncontextmenu="javascript:rightClickEntrance(137);return false;"></div>
+		  <div id="entranceMap138" onClick="toggle_location(138)" onMouseover="highlight_entrance(138)" onMouseout="unhighlight_entrance(138)" oncontextmenu="javascript:rightClickEntrance(138);return false;"></div>
+		  <div id="entranceMap139" onClick="toggle_location(139)" onMouseover="highlight_entrance(139)" onMouseout="unhighlight_entrance(139)" oncontextmenu="javascript:rightClickEntrance(139);return false;"></div>
+		  <div id="connectorStart" onClick="StartAConnector()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2;"><img src="./images/items/connect.png" id="connectorStartImg" /></div>
+		  <div id="hideConnectorLines" onClick="HideConnectors()" style="cursor: pointer; position: absolute; top: 89.6%; left: 50.6%; z-index: 2;"><img src="./images/items/show.png" id="hideConnectorLinesImg" /></div>
+		  <div id="connectorLineDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 0; visibility: collapse;">
+		  </div>
+		  
+		  <div id="caption">&nbsp;</div>
+		</div>
+	</div>
+	  
+	<div class="modal fade" id="entranceModal" aria-hidden="true" style="width: 884px; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: absolute; top: 0px; left: 456px; display: none;" onclick="hideEntranceModal()">
+		<div id="entranceModalMain" style="width: 780px; height: 300px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 50px; left: 50px; border-style: solid; border-color: white; color: #FFF; " onclick="overrideEntranceClose();">
+			<div style="margin: 0px 10px 0px 10px;">
+				<input id="entranceID" type="text" style="visibility: collapse; height: 0px;"/><br>
+				<span id="entranceModalTitle">Title</span>
+				<div id="entranceModalDisconnect"><span>Connected To --> 
+					<span id="entranceModalConnector"></span><br><br>
+					<span>Disconnect:&nbsp;&nbsp;&nbsp;</span><img onclick="entranceDisconnect();" style="cursor: pointer; height: 15px;" src="./images/items/disconnect.png" />
+					</span>
+				</div>
+				
+				<div id="modalTags">
+					<table style="color: white;">
+						<tr>
+							<td colspan="5">
+								Light World Dungeons
+							</td>
+							<td width="208px">
+							</td>
+							<td colspan="5">
+								Dark World Dungeons
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<img src="./images/items/hc_m.png" style="cursor: pointer;" onclick="tagEntrance('hc_m', true)" id="hc_m" />
+							</td>
+							<td>
+								<img src="./images/items/hc_w.png" style="cursor: pointer;" onclick="tagEntrance('hc_w', true)" id="hc_w" />
+							</td>
+							<td>
+								<img src="./images/items/hc_e.png" style="cursor: pointer;" onclick="tagEntrance('hc_e', true)" id="hc_e" />
+							</td>
+							<td>
+								<img src="./images/items/ct.png" style="cursor: pointer;" onclick="tagEntrance('ct', true)" id="ct" />
+							</td>
+							<td>
+								<img src="./images/items/ep.png" style="cursor: pointer;" onclick="tagEntrance('ep', true)" id="ep" />
+							</td>
+							<td width="208px">
+							</td>
+							<td>
+								<img src="./images/items/pod.png" style="cursor: pointer;" onclick="tagEntrance('pod', true)" id="pod" />
+							</td>
+							<td>
+								<img src="./images/items/sp.png" style="cursor: pointer;" onclick="tagEntrance('sp', true)" id="sp" />
+							</td>
+							<td>
+								<img src="./images/items/sw.png" style="cursor: pointer;" onclick="tagEntrance('sw', true)" id="sw" />
+							</td>
+							<td>
+								<img src="./images/items/tt.png" style="cursor: pointer;" onclick="tagEntrance('tt', true)" id="tt" />
+							</td>
+							<td>
+								<img src="./images/items/ip.png" style="cursor: pointer;" onclick="tagEntrance('ip', true)" id="ip" />
+							</td>							
+						</tr>
+						<tr>
+							<td>
+								<img src="./images/items/dp_m.png" style="cursor: pointer;" onclick="tagEntrance('dp_m', true)" id="dp_m" />
+							</td>
+							<td>
+								<img src="./images/items/dp_w.png" style="cursor: pointer;" onclick="tagEntrance('dp_w', true)" id="dp_w" />
+							</td>
+							<td>
+								<img src="./images/items/dp_e.png" style="cursor: pointer;" onclick="tagEntrance('dp_e', true)" id="dp_e" />
+							</td>
+							<td>
+								<img src="./images/items/dp_n.png" style="cursor: pointer;" onclick="tagEntrance('dp_n', true)" id="dp_n" />
+							</td>
+							<td>
+								<img src="./images/items/toh.png" style="cursor: pointer;" onclick="tagEntrance('toh', true)" id="toh" />
+							</td>
+							<td width="208px">
+							</td>
+							<td>
+								<img src="./images/items/mm.png" style="cursor: pointer;" onclick="tagEntrance('mm', true)" id="mm" />
+							</td>
+							<td>
+								<img src="./images/items/tr_m.png" style="cursor: pointer;" onclick="tagEntrance('tr_m', true)" id="tr_m" />
+							</td>
+							<td>
+								<img src="./images/items/tr_w.png" style="cursor: pointer;" onclick="tagEntrance('tr_w', true)" id="tr_w" />
+							</td>
+							<td>
+								<img src="./images/items/tr_e.png" style="cursor: pointer;" onclick="tagEntrance('tr_e', true)" id="tr_e" />
+							</td>
+							<td>
+								<img src="./images/items/tr_b.png" style="cursor: pointer;" onclick="tagEntrance('tr_b', true)" id="tr_b" />
+							</td>							
+						</tr>
+						<tr>
+							<td colspan="5">
+								Light World Key Locations
+							</td>
+							<td>
+							</td>
+							<td>
+								<img src="./images/items/gt.png" style="cursor: pointer;" onclick="tagEntrance('gt', true)" id="gt" />
+							</td>
+						</tr>							
+						<tr>
+							<td>
+								<img src="./images/items/magic.png" style="cursor: pointer;" onclick="tagEntrance('magic', false)" id="magic" />
+							</td>
+							<td>
+								<img src="./images/items/kid.png" style="cursor: pointer;" onclick="tagEntrance('kid', false)" id="kid" />
+							</td>
+							<td>
+								<img src="./images/items/smith.png" style="cursor: pointer;" onclick="tagEntrance('smith', false)" id="smith" />
+							</td>
+							<td>
+								<img src="./images/items/bat.png" style="cursor: pointer;" onclick="tagEntrance('bat', false)" id="bat" />
+							</td>
+							<td>
+								<img src="./images/items/library.png" style="cursor: pointer;" onclick="tagEntrance('library', false)" id="library" />
+							</td>
+							<td>
+							</td>
+							<td colspan="5">
+								Dark World Key Locations
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<img src="./images/items/sahas.png" style="cursor: pointer;" onclick="tagEntrance('sahas', false)" id="sahas" />
+							</td>
+							<td>
+								<img src="./images/items/mimic.png" style="cursor: pointer;" onclick="tagEntrance('mimic', false)" id="mimic" />
+							</td>
+							<td>
+								<img src="./images/items/rupee.png" style="cursor: pointer;" onclick="tagEntrance('rupee', false)" id="rupee" />
+							</td>
+							<td>
+								<img src="./images/items/shop.png" style="cursor: pointer;" onclick="tagEntrance('shop', false)" id="shop" />
+							</td>
+							<td>
+								<img src="./images/items/dark.png" style="cursor: pointer;" onclick="tagEntrance('dark', false)" id="dark" />
+							</td>
+							<td>
+							</td>
+							<td>
+								<img src="./images/items/bomb.png" style="cursor: pointer;" onclick="tagEntrance('bomb', false)" id="bomb" />
+							</td>
+							<td>
+								<img src="./images/items/bumper.png" style="cursor: pointer;" onclick="tagEntrance('bumper', false)" id="bumper" />
+							</td>
+							<td>
+								<img src="./images/items/spike.png" style="cursor: pointer;" onclick="tagEntrance('spike', false)" id="spike" />
+							</td>
+							<td>
+								<img src="./images/items/hook.png" style="cursor: pointer;" onclick="tagEntrance('hook', false)" id="hook" />
+							</td>
+						</tr>
+					</table>
+				</div>
+				<br>
+				<span>Note: <input id="entranceModalNote" type="text" style="width: 236px;" onkeypress="return checkReturn(event);" /></span><br>			
+			</div>
+			</div>
+		</div>
+	</div>
+
+	<div class="modal fade" id="spoilerModal" aria-hidden="true" style="width: 400px; height: 440px; background-color: rgba(255, 255, 255, 1); z-index: 2; position: absolute; top: 6px; left: 20px; display: none;">
+		<div>
+			<center><h3>Load Spoiler Log</h3></center>
+			<center>Step 1) Select which items should be treated as trash and get marked as checked on the map by default</center>
+			<table width="380px" height="72px" style="margin: auto;">
+				<tr>
+					<td>
+						<input id="fewrupees" type="checkbox" checked />
+						<label for="fewrupees" style="width: 160px">1/5/20 Rupees</label>
+					</td>
+					<td>
+						<input id="manyrupees" type="checkbox" />
+						<label for="manyrupees" style="width: 160px">50/100/300 Rupees</label>
+					</td>
+					<td>
+						<input id="threebombs" type="checkbox" checked />
+						<label for="threebombs" style="width: 160px">3 Bombs</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="tenbombs" type="checkbox" />
+						<label for="tenbombs" style="width: 160px">10 Bombs</label>
+					</td>
+					<td>
+						<input id="arrows" type="checkbox" checked />
+						<label for="arrows" style="width: 160px">Arrows</label>
+					</td>
+					<td>
+						<input id="heartpieces" type="checkbox" checked />
+						<label for="heartpieces" style="width: 160px">Pieces of Heart</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="heartcontainers" type="checkbox" />
+						<label for="heartcontainers" style="width: 160px">Heart Containers</label>
+					</td>
+					<td>
+						<input id="armor" type="checkbox" />
+						<label for="armor" style="width: 160px">Armor</label>
+					</td>
+					<td>
+						<input id="boomerangs" type="checkbox" />
+						<label for="boomerangs" style="width: 160px">Boomerangs</label>
+					</td>
+				</tr>
+				<tr>
+					<td>
+						<input id="shields" type="checkbox" checked />
+						<label for="shields" style="width: 160px">Shields</label>
+					</td>
+					<td>
+						<input id="maps" type="checkbox" checked />
+						<label for="maps" style="width: 160px">Maps</label>
+					</td>
+					<td>
+						<input id="compasses" type="checkbox" checked />
+						<label for="compasses" style="width: 160px">Compasses</label>
+					</td>
+				</tr>
+			</table>
+			<br><br>
+			<center>Step 2) Select and load the spoiler log<br><br>
+			<input type="file" onchange="readSpoilerLog(this.files[0])"></center>
+			<br><br>
+			<center><input type="button" onclick="closeSpoilerModal();" value="Cancel and Close" /></center>
+		</div>
+	</div>
+	  
+	  <script>start()</script>
+
+	</body>
+</html>

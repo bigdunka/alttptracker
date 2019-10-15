@@ -31,116 +31,9 @@
     function cane() { return items.somaria || items.byrna; }
     function rod() { return items.firerod || items.icerod; }
 	function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 0 || items.hammer || items.firerod; }
-
+	function isdarkdm() { return !items.flute && !items.lantern; }
     function always() { return 'available'; }
 
-	function enemizer_check(i) {
-		switch (enemizer[i]) {
-			case 0:
-				return 'possible';
-				break;
-			case 1:
-				if (items.sword > 0 || items.hammer || items.bow > 0 || items.boomerang > 0 || items.byrna || items.somaria || items.icerod || items.firerod) return 'available';
-				break;
-			case 2:
-				if (melee_bow() || cane() || rod() || items.hammer) return 'available';
-				break;
-			case 3:
-				if (items.sword > 0 || items.hammer) return 'available';
-				break;
-			case 4:
-				if (items.sword > 0 || items.hammer || items.bow > 0) return 'available';
-				break;
-			case 5:
-				if (items.hookshot && (items.sword > 0 || items.hammer)) return 'available';
-				break;
-			case 6:
-				if (items.sword > 0 || items.hammer || items.firerod || items.byrna || items.somaria) return 'available';
-				break;
-			case 7:
-				if (items.sword > 0 || items.hammer || items.somaria || items.byrna) return 'available';
-				break;
-			case 8:
-				if (items.firerod || (items.bombos && (items.sword > 0 || items.hammer))) return 'available';
-				break;
-			case 9:
-				if (melee_bow() || items.hammer) return 'available';
-				break;
-			case 10:
-				if (items.firerod && items.icerod && (items.hammer || items.sword > 0)) return 'available';
-				break;
-				
-		}
-		return 'unavailable';
-	}
-	
-	function available_chests(allchests, keys, maxchest, chestcount) {
-		var achests = 0;
-		var pchests = 0;
-		var dachests = 0;
-		var dpchests = 0;
-		var uchests = 0;
-
-		for (var i = 0; i < allchests.length; i++) {
-			switch (allchests[i]) {
-				case 'A':
-					achests++;
-					break;
-				case 'P':
-					pchests++;
-					break;
-				case 'DA':
-					dachests++;
-					break;
-				case 'DP':
-					dpchests++;
-					break;
-				case 'U':
-					uchests++;
-					break;
-			}
-		}
-		
-		//Move dungeon item and key chests from available to possible (Don't count big key, is a 1 for 1)
-		switch (flags.dungeonitems) {
-			case 'S':
-				pchests = pchests + (achests > 1 ? 2 : achests);
-				achests = achests - (achests > 1 ? 2 : achests) - keys;
-				break;
-			case 'M':
-				achests = achests - keys;
-				pchests = pchests + keys;
-				break;
-			case 'K':
-			case 'F':
-				achests = achests - keys;
-				pchests = pchests + keys;
-				break;
-		}		
-		
-		var itemscollected = (maxchest - chestcount);
-		
-		for (var i = 0; i < itemscollected; i++) {
-			if (achests > 0) {
-				achests--;
-			} else if (dachests > 0) {
-				dachests--;
-			} else if (pchests > 0) {
-				pchests--;
-			} else if (dpchests > 0) {
-				dpchests--;
-			}
-		}
-		
-		//if (uchests >= chestcount && (achests > 0 || pchests > 0 || dachests > 0 || dpchests > 0)) return 'possible';
-//		if (uchests >= chestcount) return 'unavailable';
-		if (achests > 0) return 'available';
-		if (pchests > 0) return 'possible';
-		if (dachests > 0) return 'darkavailable';
-		if (dpchests > 0) return 'darkpossible';
-		return 'unavailable';
-	}
-	
 	function can_reach_outcast() {
 		return items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim && items.hookshot && (items.hammer || items.glove || items.flippers));
 	}
@@ -313,12 +206,12 @@
 			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
-				if (crystal_check() < flags.ganonvulncount || !canReachLightWorld()) return 'unavailable';
+				if (crystal_check() < flags.ganonvulncount || (crystal_check() < flags.opentowercount && flags.goals != 'F') || !canReachLightWorld()) return 'unavailable';
 				if (flags.goals === 'F' && (items.sword > 1 || is_swordless && items.hammer) && (items.lantern || items.firerod)) return 'available';
 				return window.GTBoss();			
 			},
 			can_get_chest: function() {
-				if (crystal_check() < flags.opentowercount) return 'unavailable';
+				if (crystal_check() < flags.opentowercount || !canReachLightWorld()) return 'unavailable';
 				return window.GTChests();
 			}
 		}];
@@ -889,7 +782,7 @@
 			caption: 'Misery Mire {medallion0} [{boots}/{hookshot}]',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!items.moonpearl || !items.flute || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
+				if (!items.moonpearl || !items.flute || items.glove !== 2 || !items.somaria || !canReachDarkWorld()) return 'unavailable';
 				if (!items.boots && !items.hookshot) return 'unavailable';
 				if (!items.bigkey8) return 'unavailable';
 				var state = medallion_check(0);
@@ -926,7 +819,7 @@
 			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
-				if (crystal_check() < flags.ganonvulncount || !canReachDarkWorld()) return 'unavailable';
+				if (crystal_check() < flags.ganonvulncount || (crystal_check() < flags.opentowercount && flags.goals != 'F') || !canReachDarkWorld()) return 'unavailable';
 				//Fast Ganon
 				if (flags.goals === 'F' && (items.sword > 1 || is_swordless && (items.hammer || items.net)) && (items.lantern || items.firerod)) return 'available';
 				return window.GTBoss();
@@ -1273,7 +1166,7 @@
 			is_available: function() {
 				return items.flippers ?
 					items.moonpearl && items.mirror && (items.agahnim || items.glove === 2 || items.glove && items.hammer) ?
-						'available' : 'possible' :
+						'available' : 'information' :
 					'information';
 			}
 		}, { // [50]

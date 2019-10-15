@@ -80,6 +80,7 @@
         flippers: false,
         flute: false,
         agahnim: false,
+        agahnim2: false,
 
         boss0: false,
         boss1: false,

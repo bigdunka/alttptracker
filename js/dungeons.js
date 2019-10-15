@@ -157,7 +157,15 @@
 		if (!items.bigkey0 || dungeoncheck === 'unavailable') return 'unavailable';
 		if (items.bow === 0 && !is_enemyshuffle) return 'unavailable';
 		//Dark Room check
-		if (!items.lantern && !(items.firerod && is_advanced)) return dungeoncheck === 'possible' ? 'darkpossible' : 'darkavailable';
+		if (!items.lantern) {
+			if (flags.dungeonitems == 'F') {
+				if (items.firerod && is_advanced) return dungeoncheck;
+				return dungeoncheck === 'possible' ? 'darkpossible' : 'darkavailable';
+			} else {
+				if (items.firerod && is_advanced) return 'possible';
+				return dungeoncheck === 'possible' ? 'darkpossible' : 'darkavailable';
+			}
+		}
 		return dungeoncheck;
     };
 
@@ -1118,6 +1126,7 @@
 
     window.GTChests = function() {
 		var dungeoncheck = enemizer_check(0);
+		var isDark = (!items.flute && !items.lantern && flags.gametype != 'I');
 
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U'];
 		
@@ -1289,6 +1298,13 @@
 				}
 			}
 		}
+		
+		if (isDark) {
+			for (var i = 0; i < 27; i++) {
+				if (chests[i] === 'A') chests[i] = 'DA';
+				if (chests[i] === 'P') chests[i] = 'DP';
+			}
+		}		
 		
 		return available_chests(chests, items.maxchest10, items.chest10);
     };

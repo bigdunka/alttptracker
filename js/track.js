@@ -3,7 +3,11 @@
 
 	var spoilerLoaded = false;
 	var spoiler;
-
+	var overrideEntranceCloseFlag = false;
+	var connectStart = false;
+	var connectFinish = false;
+	var connectorid = 0;
+	
     window.prizes = [];
     window.enemizer = [];
     window.medallions = [0, 0];
@@ -38,9 +42,11 @@
 			}
 			
             if (flags.mapmode != 'N') {
-                var x = label.substring(5);
-                document.getElementById('dungeon'+x).className = 'dungeon ' +
-                    (value ? dungeons[x].can_get_chest() : 'opened');
+				if (flags.entrancemode === 'N') {
+					var x = label.substring(5);
+					document.getElementById('dungeon'+x).className = 'dungeon ' +
+						(value ? dungeons[x].can_get_chest() : 'opened');
+				}
             }
             return;
         }
@@ -116,11 +122,32 @@
                 if (!chests[k].is_opened)
                     document.getElementById('locationMap'+k).className = 'location ' + chests[k].is_available();
             }
-            for (var k = 0; k < dungeons.length; k++) {
-                if (!dungeons[k].is_beaten)
-                    document.getElementById('bossMap'+k).className = 'boss ' + dungeons[k].is_beatable();
-					if (items['chest'+k])
-						document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
+			if (flags.entrancemode != 'N') {					
+				for (var k = 0; k < entrances.length; k++) {
+					if (!entrances[k].is_opened) {
+						var entrancetype = '';
+						if (entrances[k].is_available()) {
+							if (entrances[k].type === 1) {
+							//Connector
+								entrancetype = 'connector';
+							} else if (entrances[k].type === 2) {
+							//Dungeon
+								entrancetype = 'dungeon';
+							} else if (entrances[k].type === 3) {
+							//Location
+								entrancetype = 'keylocation';
+							}
+						}
+						document.getElementById('entranceMap'+k).className = 'entrance ' + entrances[k].is_available() + entrancetype;
+					}
+				}
+			} else {
+				for (var k = 0; k < dungeons.length; k++) {
+					if (!dungeons[k].is_beaten)
+						document.getElementById('bossMap'+k).className = 'boss ' + dungeons[k].is_beatable();
+						if (items['chest'+k])
+							document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
+				}
 			}
             // Clicking a boss on the tracker will check it off on the map!
             if (is_boss) {
@@ -129,7 +156,7 @@
 			toggle_agahnim();
         }
     };
-
+	
     // event of clicking on a boss's pendant/crystal subsquare
     window.toggle_dungeon = function(n) {
         prizes[n] += 1;
@@ -137,7 +164,7 @@
 
         document.getElementById('dungeonPrize'+n).className = 'prize-' + prizes[n];
 
-        if (flags.mapmode != 'N') {
+        if (flags.mapmode != 'N' && flags.entrance === 'N') {
             // Update Sahasralah, Fat Fairy, and Master Sword Pedestal
             var pendant_chests = [25, 61, 62];
             for (var k = 0; k < pendant_chests.length; k++) {
@@ -153,7 +180,7 @@
 
         document.getElementById('dungeonPrize'+n).className = 'prize-' + prizes[n];
 
-        if (flags.mapmode != 'N') {
+        if (flags.mapmode != 'N' && flags.entrance === 'N') {
             // Update Sahasralah, Fat Fairy, and Master Sword Pedestal
             var pendant_chests = [25, 61, 62];
             for (var k = 0; k < pendant_chests.length; k++) {
@@ -206,8 +233,8 @@
 		
 		if (flags.mapmode != 'N') {
 			var x = label.substring(5);
-			document.getElementById('dungeon'+x).className = 'dungeon ' +
-				(value ? dungeons[x].can_get_chest() : 'opened');
+			if (document.getElementById('dungeon'+x) != null) 
+				document.getElementById('dungeon'+x).className = 'dungeon ' + (value ? dungeons[x].can_get_chest() : 'opened');
 		}
 	};
 	
@@ -236,16 +263,200 @@
                 if (!chests[k].is_opened)
                     document.getElementById('locationMap'+k).className = 'location ' + chests[k].is_available();
             }
-            for (var k = 0; k < dungeons.length; k++) {
-                if (!dungeons[k].is_beaten)
-                    document.getElementById('bossMap'+k).className = 'boss ' + dungeons[k].is_beatable();
-					if (items['chest'+k])
-						document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
+            if (flags.entrancemode != 'N') {
+				for (var k = 0; k < entrances.length; k++) {
+                if (!entrances[k].is_opened)
+                    document.getElementById('entranceMap'+k).className = 'entrance ' + entrances[k].is_available();
+				}
+			} else {
+	            for (var k = 0; k < dungeons.length; k++) {
+	                if (!dungeons[k].is_beaten)
+	                    document.getElementById('bossMap'+k).className = 'boss ' + dungeons[k].is_beatable();
+						if (items['chest'+k])
+							document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
+				}
 			}
 
 			toggle_agahnim();
         }		
 	};
+	
+	window.rightClickEntrance = function(n) {
+		$('#entranceModal').show();
+		document.getElementById('entranceID').value = n;
+		document.getElementById('entranceModalTitle').innerHTML = entrances[n].caption;
+		document.getElementById('entranceModalNote').value = entrances[n].note;
+		if (entrances[n].connected_to === -1) {
+			document.getElementById('entranceModalDisconnect').style.visibility = 'collapse';
+			document.getElementById('entranceModalDisconnect').style.height = '0px';
+			document.getElementById('entranceModalMain').style.height = '280px';
+			document.getElementById('entranceModalConnector').innerHTML = '';
+		} else {
+			document.getElementById('entranceModalConnector').innerHTML = entrances[entrances[n].connected_to].caption;
+			document.getElementById('entranceModalDisconnect').style.visibility = 'visible';
+			document.getElementById('entranceModalDisconnect').style.height = '60px';
+			document.getElementById('entranceModalMain').style.height = '150px';
+		}
+		if (entrances[n].type === 1) {
+			document.getElementById('modalTags').style.visibility = 'collapse';
+		} else {
+			document.getElementById('modalTags').style.visibility = 'visible';
+		}
+		document.getElementById('entranceModalNote').focus();
+		
+		document.getElementById('hc_m').style.backgroundColor = '#000';
+		document.getElementById('hc_w').style.backgroundColor = '#000';
+		document.getElementById('hc_e').style.backgroundColor = '#000';
+		document.getElementById('ct').style.backgroundColor = '#000';
+		document.getElementById('ep').style.backgroundColor = '#000';
+		document.getElementById('dp_m').style.backgroundColor = '#000';
+		document.getElementById('dp_w').style.backgroundColor = '#000';
+		document.getElementById('dp_e').style.backgroundColor = '#000';
+		document.getElementById('dp_n').style.backgroundColor = '#000';
+		document.getElementById('toh').style.backgroundColor = '#000';
+		document.getElementById('pod').style.backgroundColor = '#000';
+		document.getElementById('sp').style.backgroundColor = '#000';
+		document.getElementById('sw').style.backgroundColor = '#000';
+		document.getElementById('tt').style.backgroundColor = '#000';
+		document.getElementById('ip').style.backgroundColor = '#000';
+		document.getElementById('mm').style.backgroundColor = '#000';
+		document.getElementById('tr_m').style.backgroundColor = '#000';
+		document.getElementById('tr_w').style.backgroundColor = '#000';
+		document.getElementById('tr_e').style.backgroundColor = '#000';
+		document.getElementById('tr_b').style.backgroundColor = '#000';
+		document.getElementById('gt').style.backgroundColor = '#000';
+		document.getElementById('magic').style.backgroundColor = '#000';
+		document.getElementById('kid').style.backgroundColor = '#000';
+		document.getElementById('smith').style.backgroundColor = '#000';
+		document.getElementById('bat').style.backgroundColor = '#000';
+		document.getElementById('library').style.backgroundColor = '#000';
+		document.getElementById('sahas').style.backgroundColor = '#000';
+		document.getElementById('mimic').style.backgroundColor = '#000';
+		document.getElementById('rupee').style.backgroundColor = '#000';
+		document.getElementById('shop').style.backgroundColor = '#000';
+		document.getElementById('dark').style.backgroundColor = '#000';
+		document.getElementById('bomb').style.backgroundColor = '#000';
+		document.getElementById('bumper').style.backgroundColor = '#000';
+		document.getElementById('spike').style.backgroundColor = '#000';
+		document.getElementById('hook').style.backgroundColor = '#000';		
+		
+		if (entrances[n].known_location != '') {
+			document.getElementById(entrances[n].known_location).style.backgroundColor = '#00F';
+		}
+	}
+	
+	window.checkReturn = function(n) {
+		if (n.keyCode == 13) {
+			hideEntranceModal();
+		}
+	}
+	
+	window.hideEntranceModal = function(n) {
+		if (overrideEntranceCloseFlag === false) {
+			entrances[document.getElementById('entranceID').value].note = document.getElementById('entranceModalNote').value;
+			$('#entranceModal').hide();
+		} else {
+			overrideEntranceCloseFlag = false;
+		}
+		
+		toggle('moonpearl');
+		toggle('moonpearl');
+	}
+	
+	window.overrideEntranceClose = function(n) {
+		overrideEntranceCloseFlag = true;
+	}
+	
+	window.entranceConnect = function(n) {
+		prepareToConnect = true;
+		$('#entranceModal').hide();
+	}
+	
+	window.entranceDisconnect = function(n) {
+		entrances[entrances[document.getElementById('entranceID').value].connected_to].type = 0;
+		entrances[document.getElementById('entranceID').value].type = 0;
+		entrances[entrances[document.getElementById('entranceID').value].connected_to].connected_to = -1;
+		entrances[document.getElementById('entranceID').value].connected_to = -1;
+		
+		document.getElementById('entranceModalDisconnect').style.visibility = 'collapse';
+		//document.getElementById('entranceModalConnect').style.visibility = 'visible';		
+		var divtoremove = document.getElementById('connectordiv' + entrances[document.getElementById('entranceID').value].connector_id);
+		divtoremove.remove();
+		toggle('moonpearl');
+		toggle('moonpearl');
+		
+		hideEntranceModal();
+	}
+	
+	window.StartAConnector = function(n) {
+		if (connectStart === false) {
+			document.getElementById('connectorStartImg').src = './images/items/cancel.png';
+			connectStart = true;
+		} else {
+			document.getElementById('connectorStartImg').src = './images/items/connect.png';
+			connectStart = false;
+			connectFinish = false;
+		}
+	}
+	
+	window.HideConnectors = function(n) {
+		if (document.getElementById('connectorLineDiv').style.visibility === 'collapse') {
+			document.getElementById('connectorLineDiv').style.visibility = 'visible';
+			document.getElementById('hideConnectorLinesImg').src = './images/items/hide.png';
+		} else {
+			document.getElementById('connectorLineDiv').style.visibility = 'collapse';
+			document.getElementById('hideConnectorLinesImg').src = './images/items/show.png';
+		}
+	}
+	
+	window.tagEntrance = function(n, t) {
+		document.getElementById('hc_m').style.backgroundColor = '#000';
+		document.getElementById('hc_w').style.backgroundColor = '#000';
+		document.getElementById('hc_e').style.backgroundColor = '#000';
+		document.getElementById('ct').style.backgroundColor = '#000';
+		document.getElementById('ep').style.backgroundColor = '#000';
+		document.getElementById('dp_m').style.backgroundColor = '#000';
+		document.getElementById('dp_w').style.backgroundColor = '#000';
+		document.getElementById('dp_e').style.backgroundColor = '#000';
+		document.getElementById('dp_n').style.backgroundColor = '#000';
+		document.getElementById('toh').style.backgroundColor = '#000';
+		document.getElementById('pod').style.backgroundColor = '#000';
+		document.getElementById('sp').style.backgroundColor = '#000';
+		document.getElementById('sw').style.backgroundColor = '#000';
+		document.getElementById('tt').style.backgroundColor = '#000';
+		document.getElementById('ip').style.backgroundColor = '#000';
+		document.getElementById('mm').style.backgroundColor = '#000';
+		document.getElementById('tr_m').style.backgroundColor = '#000';
+		document.getElementById('tr_w').style.backgroundColor = '#000';
+		document.getElementById('tr_e').style.backgroundColor = '#000';
+		document.getElementById('tr_b').style.backgroundColor = '#000';
+		document.getElementById('gt').style.backgroundColor = '#000';
+		document.getElementById('magic').style.backgroundColor = '#000';
+		document.getElementById('kid').style.backgroundColor = '#000';
+		document.getElementById('smith').style.backgroundColor = '#000';
+		document.getElementById('bat').style.backgroundColor = '#000';
+		document.getElementById('library').style.backgroundColor = '#000';
+		document.getElementById('sahas').style.backgroundColor = '#000';
+		document.getElementById('mimic').style.backgroundColor = '#000';
+		document.getElementById('rupee').style.backgroundColor = '#000';
+		document.getElementById('shop').style.backgroundColor = '#000';
+		document.getElementById('dark').style.backgroundColor = '#000';
+		document.getElementById('bomb').style.backgroundColor = '#000';
+		document.getElementById('bumper').style.backgroundColor = '#000';
+		document.getElementById('spike').style.backgroundColor = '#000';
+		document.getElementById('hook').style.backgroundColor = '#000';
+		
+		if (entrances[document.getElementById('entranceID').value].known_location === n) {
+			entrances[document.getElementById('entranceID').value].known_location = '';
+			entrances[document.getElementById('entranceID').value].type = 0;
+		} else {
+			entrances[document.getElementById('entranceID').value].known_location = n;
+			entrances[document.getElementById('entranceID').value].type = (t === true ? 2 : 3);
+			document.getElementById(n).style.backgroundColor = '#00F';
+		}
+		
+		hideEntranceModal();
+	}
 
     // event of clicking on Mire/TRock's medallion subsquare
     window.toggle_medallion = function(n) {
@@ -297,7 +508,7 @@
         }
     };
 
-    if (flags.mapmode != 'N') {
+//    if (flags.mapmode != 'N') {
         // Event of clicking a chest on the map
         window.toggle_chest = function(x) {
             chests[x].is_opened = !chests[x].is_opened;
@@ -306,15 +517,90 @@
                 (chests[x].is_opened ? 'opened' : chests[x].is_available()) +
                 (highlight ? ' highlight' : '');
         };
+		// Event of clicking on an entrance on the map
+        window.toggle_location = function(x) {
+			if (connectStart === false) {
+				entrances[x].is_opened = !entrances[x].is_opened;
+				var highlight = document.getElementById('entranceMap'+x).classList.contains('highlight');
+				document.getElementById('entranceMap'+x).className = 'entrance ' +
+					(entrances[x].is_opened ? 'opened' : entrances[x].is_available()) +
+					(highlight ? ' highlight' : '');
+			} else if (connectFinish === true) {
+				if (x != parseInt(document.getElementById('entranceID').value)) {
+					entrances[x].connected_to = parseInt(document.getElementById('entranceID').value);
+					entrances[x].type = 1;
+					entrances[x].known_location = '';
+					entrances[x].connector_id = connectorid;
+					entrances[parseInt(document.getElementById('entranceID').value)].connected_to = x;
+					entrances[parseInt(document.getElementById('entranceID').value)].type = 1;
+					entrances[parseInt(document.getElementById('entranceID').value)].connector_id = connectorid;
+					toggle('moonpearl');
+					toggle('moonpearl');
+					//Need to replace this with better update logic
+					
+					var divtoadd = document.createElement('div');
+					divtoadd.id = 'connectordiv' + connectorid;
+					var connector1 = document.getElementById('entranceMap' + x);
+					var connector2 = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
+					
+					if (connector1.offsetTop > connector2.offsetTop) {
+						divtoadd.style.top = connector2.offsetTop + 6;
+					} else {
+						divtoadd.style.top = connector1.offsetTop + 6;
+					}
+					if (connector1.offsetLeft > connector2.offsetLeft) {
+						divtoadd.style.left = connector2.offsetLeft + 6;
+					} else {
+						divtoadd.style.left = connector1.offsetLeft + 6;
+					}
+					
+					if (connector1.offsetLeft > connector2.offsetLeft) {
+						if (connector1.offsetTop > connector2.offsetTop) {
+							divtoadd.className = 'crossedright';
+						} else {
+							divtoadd.className = 'crossedleft';
+						}
+					} else {
+						if (connector1.offsetTop > connector2.offsetTop) {
+							divtoadd.className = 'crossedleft';
+						} else {
+							divtoadd.className = 'crossedright';
+						}
+					}
+
+					divtoadd.style.width = Math.abs(connector1.offsetLeft - connector2.offsetLeft);
+					divtoadd.style.height = Math.abs(connector1.offsetTop - connector2.offsetTop);
+					divtoadd.style.position = 'absolute';
+					
+					document.getElementById('connectorLineDiv').appendChild(divtoadd);
+					connectorid++;
+				}
+				
+				document.getElementById('connectorStartImg').src = './images/items/connect.png';
+				connectStart = false;
+				connectFinish = false;
+				
+			} else {
+				document.getElementById('entranceID').value = x;
+				connectFinish = true;
+			}
+			
+			toggle('moonpearl');
+			toggle('moonpearl');
+        };
+		
         // Event of clicking a dungeon location (not really)
         window.toggle_boss = function(x) {
             dungeons[x].is_beaten = !dungeons[x].is_beaten;
-            document.getElementById('bossMap'+x).className = 'boss ' +
-                (dungeons[x].is_beaten ? 'opened' : dungeons[x].is_beatable());
+			if (document.getElementById('bossMap'+x) != null) {
+				document.getElementById('bossMap'+x).className = 'boss ' + (dungeons[x].is_beaten ? 'opened' : dungeons[x].is_beatable());
+			}
         };
         window.toggle_agahnim = function() {
-            document.getElementById('castle').className = 'castle ' +
-                (items.agahnim ? 'opened' : agahnim.is_available());
+			if (flags.entrancemode === 'N') {
+				document.getElementById('castle').className = 'castle ' +
+					(items.agahnim ? 'opened' : agahnim.is_available());
+			}
         };
         // Highlights a chest location and shows the caption
         window.highlight = function(x) {
@@ -323,6 +609,26 @@
         };
         window.unhighlight = function(x) {
             document.getElementById('locationMap'+x).classList.remove('highlight');
+            document.getElementById('caption').innerHTML = '&nbsp;';
+        };
+        // Highlights a entrance location and shows the caption
+        window.highlight_entrance = function(x) {
+            document.getElementById('entranceMap'+x).classList.add('highlight');
+			var displayCaption = entrances[x].caption;
+			if (entrances[x].type != 0) {
+				if (entrances[x].type === 1) {
+					displayCaption = displayCaption + ' > Connected To: '+ entrances[entrances[x].connected_to].caption;
+				} else {
+					displayCaption = displayCaption + ' -- '+ getFriendlyName(entrances[x].known_location);
+				}
+			}
+			if (entrances[x].note != '') {
+				displayCaption = displayCaption + ' ['+entrances[x].note+']';
+			}
+			document.getElementById('caption').innerHTML = caption_to_html(displayCaption);
+        };
+        window.unhighlight_entrance = function(x) {
+            document.getElementById('entranceMap'+x).classList.remove('highlight');
             document.getElementById('caption').innerHTML = '&nbsp;';
         };
         // Highlights a chest location and shows the caption (but for dungeons)
@@ -342,7 +648,121 @@
             document.getElementById('castle').classList.remove('highlight');
             document.getElementById('caption').innerHTML = '&nbsp;';
         };
-    }
+    //}
+
+	window.getFriendlyName = function(x) {
+		var friendly = '';
+		
+		switch (x) {
+			case 'hc_m':
+				friendly = 'Hyrule Castle (Main)';
+				break;
+			case 'hc_w':
+				friendly = 'Hyrule Castle (West)';
+				break;
+			case 'hc_e':
+				friendly = 'Hyrule Castle (East)';
+				break;
+			case 'ct':
+				friendly = 'Castle Tower';
+				break;
+			case 'ep':
+				friendly = 'Eastern Palace';
+				break;
+			case 'dp_m':
+				friendly = 'Desert Palace (Main)';
+				break;
+			case 'dp_w':
+				friendly = 'Desert Palace (West)';
+				break;
+			case 'dp_e':
+				friendly = 'Desert Palace (East)';
+				break;
+			case 'dp_n':
+				friendly = 'Desert Palace (North)';
+				break;
+			case 'toh':
+				friendly = 'Tower of Hera';
+				break;
+			case 'pod':
+				friendly = 'Palace of Darkness';
+				break;
+			case 'sp':
+				friendly = 'Swamp Palace';
+				break;
+			case 'sw':
+				friendly = 'Skull Woods (Back)';
+				break;
+			case 'tt':
+				friendly = 'Thieve\'s Town';
+				break;
+			case 'ip':
+				friendly = 'Ice Palace';
+				break;
+			case 'mm':
+				friendly = 'Misery Mire';
+				break;
+			case 'tr_m':
+				friendly = 'Turtle Rock (Main)';
+				break;
+			case 'tr_w':
+				friendly = 'Turtle Rock (West)';
+				break;
+			case 'tr_e':
+				friendly = 'Turtle Rock (East)';
+				break;
+			case 'tr_b':
+				friendly = 'Turtle Rock (Back)';
+				break;
+			case 'gt':
+				friendly = 'Ganon\'s Tower';
+				break;
+			case 'magic':
+				friendly = 'Magic Shop';
+				break;
+			case 'kid':
+				friendly = 'Lazy Kid';
+				break;
+			case 'smith':
+				friendly = 'Swordsmiths';
+				break;
+			case 'bat':
+				friendly = 'Magic Bat';
+				break;
+			case 'library':
+				friendly = 'Library';
+				break;
+			case 'sahas':
+				friendly = 'Sahasrahla\'s Hut';
+				break;
+			case 'mimic':
+				friendly = 'Mimic Cave';
+				break;
+			case 'rupee':
+				friendly = 'Rupee Cave';
+				break;
+			case 'shop':
+				friendly = 'Shop';
+				break;
+			case 'dark':
+				friendly = 'Dark Cave';
+				break;
+			case 'bomb':
+				friendly = 'Bomb Shop';
+				break;
+			case 'bumper':
+				friendly = 'Bumper Cave';
+				break;
+			case 'spike':
+				friendly = 'Spike Cave';
+				break;
+			case 'hook':
+				friendly = 'Hookshot Cave';
+				break;			
+		}
+		
+		return friendly;
+	}
 
 	window.findItems = function(items) {
 		if(spoilerLoaded && flags.mapmode != "N")
@@ -400,6 +820,8 @@
 			{
 				for(var i = 0; i < chests.length; i++)
 					document.getElementById('locationMap'+i).classList.remove('highlight');
+				for(var i = 0; i < entrances.length; i++)
+					document.getElementById('entranceMap'+i).classList.remove('highlight');
 				for(var i = 0; i < dungeonContents.length; i++)
 						document.getElementById('dungeon'+i).classList.remove('highlight');
 			}
@@ -563,12 +985,14 @@
             for (k = 0; k < chests.length; k++) {
                 document.getElementById('locationMap'+k).className = 'location ' + (chests[k].is_opened ? 'opened' : chests[k].is_available());
             }
-            document.getElementById('bossMapAgahnim').className = 'boss';
-            document.getElementById('castle').className = 'castle ' + agahnim.is_available();
-            for (k = 0; k < dungeons.length; k++) {
-                document.getElementById('bossMap'+k).className = 'boss ' + dungeons[k].is_beatable();
-                document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
-            }
+			if (flags.entrancemode === 'N') {
+				document.getElementById('bossMapAgahnim').className = 'boss';
+				document.getElementById('castle').className = 'castle ' + agahnim.is_available();
+				for (k = 0; k < dungeons.length; k++) {
+					document.getElementById('bossMap'+k).className = 'boss ' + dungeons[k].is_beatable();
+					document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
+				}
+			}
 			if (flags.mapmode === 'C') {
 				var link = document.createElement("link");
 				link.rel = 'stylesheet';
@@ -620,8 +1044,10 @@
 		
 		//If small keys are not shuffled, hide the icons
 		if (flags.dungeonitems != 'F' && flags.dungeonitems != 'K' && flags.gametype != 'R') {
-			document.getElementById('locationMap65').style.visibility = 'hidden';
-			document.getElementById('locationMap66').style.visibility = 'hidden';
+			if (document.getElementById('locationMap65') != null) {
+				document.getElementById('locationMap65').style.visibility = 'hidden';
+				document.getElementById('locationMap66').style.visibility = 'hidden';
+			}
 			document.getElementById('smallkey0').style.visibility = 'hidden';
 			document.getElementById('smallkey1').style.visibility = 'hidden';
 			document.getElementById('smallkey2').style.visibility = 'hidden';

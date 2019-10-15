@@ -47,7 +47,15 @@ function launch_tracker() {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 	}
 	
-	var trackerWindow = window.open('tracker.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}&sprite={sprite}'
+	var trackerName = entrance === 'N' ? 'tracker' : 'entrancetracker';
+	
+	if (entrance != 'N' && map === "C") {
+		alert('Entrance mode and Compact map are currenly not compatible.');
+		return;
+	}
+	
+	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}&sprite={sprite}'
+			.replace('{tracker}', trackerName)
 			.replace('{type}', type)
 			.replace('{entrance}', entrance)
 			.replace('{boss}', boss)
@@ -92,7 +100,14 @@ function importflags() {
 	var d = data.spoiler;
 	
 	document.getElementById("gametype" + d.meta.mode).checked = true;
+	
 	//Entrance flag
+	if (d.meta.shuffle != null) {
+		document.getElementById("entrance" + d.meta.shuffle).checked = true;
+	} else {
+		document.getElementById("entrancenone").checked = true;
+	}
+	
 	if (data.spoiler.meta["enemizer.enemy_shuffle"] === "none") {
 		document.getElementById("enemynone").checked = true;
 	} else {

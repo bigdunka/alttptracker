@@ -1,0 +1,511 @@
+
+body {
+  margin: 0px;
+  background-color: black;
+  font-family: roboto_condensedregular, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  overflow: hidden;
+  style: opacity: 0.85;
+}
+
+* { box-sizing: border-box; }
+
+.row:before,
+.row:after { content: " "; display: table; }
+.row:after { clear: both; }
+.cell { position: relative; float: left; }
+.normalopen {  }
+
+#app { width: 1340px; height: 744px; overflow: hidden; }
+#app.mapless { width: 448px; }
+#app.sphereless { height: 448px; }
+
+#tracker .item,
+#tracker .boss,
+#tracker [id^="item"] { width: 64px; height: 64px; }
+#tracker [id^="chest"] { width: 32px; height: 32px; font-size: 15px; text-align: center; font-family: roboto_condensedregular, "Arial Black", Gadget, sans-serif; font-weight: bold; padding-top: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none; }
+#tracker [id^="bigkey"] { width: 32px; height: 32px; }
+#tracker [id^="smallkey"] { width: 64px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 0px; padding-left: 32px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
+#tracker [id^="smallkeyhalf"] { width: 32px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 6px; padding-left: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
+#tracker [id^="smallhalfheader"] { width: 32px; height: 16px; color: #FFF; font-size: 9px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 2px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
+
+#tracker .tunic { width: 128px; height: 128px; }
+#tracker .sword { position: absolute; top: 0; right: 0; height: 48px; width: 48px; }
+#tracker .crystalgoal { position: absolute; top: 0; left: 0; height: 24px; width: 24px; }
+#tracker .ganongoal { position: absolute; top: 24; left: 0; height: 24px; width: 24px; }
+#tracker .shield { position: absolute; bottom: 0; left: 0; height: 48px; width: 48px; }
+#tracker .moonpearl {
+  width: 48px;
+  height: 48px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+
+#tracker .item,
+#tracker .boss { opacity: .25; }
+#tracker .item[class*="active"],
+#tracker .boss.defeated { opacity: 1; }
+#tracker .bigkey { opacity: .25; }
+#tracker .collected { opacity: 1; }
+#tracker .tunic { height: 96px; width: 96px; background-size:100%; }
+#tracker .moonpearl { height: 40px; width: 40px; background-size:100%; }
+#tracker .sphere { height: 37px; width: 37px; background-size:100%; }
+
+[class*="prize-"] {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  bottom: 0;
+  right: 0;
+}
+[class*="enemizer-"] {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+#tracker [class*="medallion-"] {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  bottom: 0;
+}
+
+#map {
+  width: 884px;
+  height: 448px;
+  margin-left: 8px;
+  background-image: url(../images/overlay/map.png);
+  background-size: 100% 100%;
+}
+
+.location {
+  width: 16;
+  height: 16;
+  margin-left: -12px;
+  margin-top: -12px;
+  position: absolute;
+  background-size: 100% 100%;
+}
+
+.entrance {
+  width: 12;
+  height: 12;
+  margin-left: -12px;
+  margin-top: -12px;
+  position: absolute;
+  background-size: 100% 100%;
+  transform: rotateY(0deg) rotate(45deg);
+}
+
+.lowerchest {
+  width: 64px;
+  float: left;
+}
+
+#map .boss {
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  margin-top: -12px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 75% 75%;
+  z-index: 2;
+}
+
+#bossMapAgahnim { background-color: transparent; }
+.castle {
+  width: 36px;
+  height: 36px;
+  margin-left: -18px;
+  margin-top: -18px;
+  position: absolute;
+  background-size: 100% 100%;
+}
+
+.dungeon {
+  width: 48px;
+  height: 48px;
+  margin-left: -24px;
+  margin-top: -24px;
+  position: absolute;
+  background-size: 100% 100%;
+}
+
+.location,
+.entrance,
+.castle,
+.dungeon { background-image: url(../images/overlay/poi.png); }
+.chest.highlight,
+.castle.highlight,
+.location.highlight,
+.entrance.highlight,
+.dungeon.highlight { background-image: url(../images/overlay/highlighted.png); }
+.chest.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; }
+.chest-0.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; }
+.unavailable { background-color: red; }
+.available { background-color: lime; }
+.availableconnector { background-color: turquoise; }
+.availabledungeon { background-color: violet; }
+.availablekeylocation { background-color: blue; }
+.possible { background-color: yellow; }
+.information { background-color: orange; }
+.darkavailable { background-color: blue; }
+.darkpossible { background-color: purple; } 
+.opened { background-color: #7f7f7f; }
+
+#caption {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  color: white;
+  background-color: black;
+  font-size: 12px;
+  text-align: center;
+}
+
+.icon {
+  width: 16px;
+  height: 16px;
+  display: inline-block;
+  background-size: 100% 100%;
+  vertical-align: text-bottom;
+}
+.crossedleft {
+    background: 
+       linear-gradient(to top left,
+           rgba(0,0,0,0) 0%,
+           rgba(0,0,0,0) calc(50% - 2px),
+           rgba(0,255,255,1) 50%,
+           rgba(0,0,0,0) calc(50% + 2px),
+           rgba(0,0,0,0) 100%);
+}
+
+.crossedright {
+    background: 
+       linear-gradient(to top right,
+           rgba(0,0,0,0) 0%,
+           rgba(0,0,0,0) calc(50% - 2px),
+           rgba(0,255,255,1) 50%,
+           rgba(0,0,0,0) calc(50% + 2px),
+           rgba(0,0,0,0) 100%);
+}
+.spheresword.active-1 { background-image: url(../images/items/sword1.png); }
+.spheresword.active-2 { background-image: url(../images/items/sword2.png); }
+.spheresword.active-3 { background-image: url(../images/items/sword3.png); }
+.spheresword.active-4 { background-image: url(../images/items/sword4.png); }
+.sphereshield.active-1 { background-image: url(../images/items/shield1.png); }
+.sphereshield.active-2 { background-image: url(../images/items/shield2.png); }
+.sphereshield.active-3 { background-image: url(../images/items/shield3.png); }
+.spheremoonpearl { background-image: url(../images/items/moonpearl.png); }
+
+.tunic.active-1 { background-image: url(../images/items/tunic1.png); background-size:100%; float:left; }
+.tunic.active-2 { background-image: url(../images/items/tunic2.png); background-size:100%; float:left; }
+.tunic.active-3 { background-image: url(../images/items/tunic3.png); background-size:100%; float:left; }
+.tunic.active-1.bunny { background-image: url(../images/items/tunicbunny1.png); }
+.tunic.active-2.bunny { background-image: url(../images/items/tunicbunny2.png); }
+.tunic.active-3.bunny { background-image: url(../images/items/tunicbunny3.png); }
+.sword.active-0 { background-image: url(../images/items/sword1.png); opacity: .25; background-size:100%; float:left; }
+.sword.active-1 { background-image: url(../images/items/sword1.png); background-size:100%; }
+.sword.active-2 { background-image: url(../images/items/sword2.png); background-size:100%; }
+.sword.active-3 { background-image: url(../images/items/sword3.png); background-size:100%; }
+.sword.active-4 { background-image: url(../images/items/sword4.png); background-size:100%; }
+.shield.active-0 { background-image: url(../images/items/shield1.png); opacity: .25; background-size:100%; float:left; }
+.shield.active-1 { background-image: url(../images/items/shield1.png); background-size:100%; float:left; }
+.shield.active-2 { background-image: url(../images/items/shield2.png); background-size:100%; float:left; }
+.shield.active-3 { background-image: url(../images/items/shield3.png); background-size:100%; float:left; }
+.moonpearl { background-image: url(../images/items/moonpearl.png); background-size:100%; }
+.crystalgoal.crystals0 { background-image: url(../images/dungeons/crystal0.png); background-size:100%; }
+.crystalgoal.crystals1 { background-image: url(../images/dungeons/crystal1.png); background-size:100%; }
+.crystalgoal.crystals2 { background-image: url(../images/dungeons/crystal2.png); background-size:100%; }
+.crystalgoal.crystals3 { background-image: url(../images/dungeons/crystal3.png); background-size:100%; }
+.crystalgoal.crystals4 { background-image: url(../images/dungeons/crystal4.png); background-size:100%; }
+.crystalgoal.crystals5 { background-image: url(../images/dungeons/crystal5.png); background-size:100%; }
+.crystalgoal.crystals6 { background-image: url(../images/dungeons/crystal6.png); background-size:100%; }
+.crystalgoal.crystals7 { background-image: url(../images/dungeons/crystal7.png); background-size:100%; }
+.crystalgoal.crystals { background-image: url(../images/dungeons/crystal.png); background-size:100%; }
+.crystalgoal.pendants { background-image: url(../images/dungeons/prize1.png); background-size:100%; }
+.crystalgoal.other { visibility: collapse; }
+.ganongoal.ganon0 { background-image: url(../images/dungeons/ganon0.png); background-size:100%; }
+.ganongoal.ganon1 { background-image: url(../images/dungeons/ganon1.png); background-size:100%; }
+.ganongoal.ganon2 { background-image: url(../images/dungeons/ganon2.png); background-size:100%; }
+.ganongoal.ganon3 { background-image: url(../images/dungeons/ganon3.png); background-size:100%; }
+.ganongoal.ganon4 { background-image: url(../images/dungeons/ganon4.png); background-size:100%; }
+.ganongoal.ganon5 { background-image: url(../images/dungeons/ganon5.png); background-size:100%; }
+.ganongoal.ganon6 { background-image: url(../images/dungeons/ganon6.png); background-size:100%; }
+.ganongoal.ganon7 { background-image: url(../images/dungeons/ganon7.png); background-size:100%; }
+.ganongoal.ganon { background-image: url(../images/dungeons/ganon.png); background-size:100%; }
+.ganongoal.alldungeons { background-image: url(../images/dungeons/alldungeons.png); background-size:100%; }
+.ganongoal.pendants { background-image: url(../images/dungeons/prize1.png); background-size:100%; }
+.ganongoal.other { visibility: collapse; }
+.crystalgoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 0; left: 0; }
+.ganongoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 24; left: 0; }
+.goalselect { height: 24px; width: 24px; } 
+
+.bow { background-image: url(../images/items/bow0.png); }
+.bow.active-1 { background-image: url(../images/items/bow1.png); }
+.bow.active-2 { background-image: url(../images/items/bow2.png); }
+.bow.active-3 { background-image: url(../images/items/bow3.png); }
+.boomerang { background-image: url(../images/items/boomerang1.png); }
+.boomerang.active-2 { background-image: url(../images/items/boomerang2.png); }
+.boomerang.active-3 { background-image: url(../images/items/boomerang3.png); }
+.hookshot { background-image: url(../images/items/hookshot.png); }
+.mushroom { background-image: url(../images/items/mushroom.png); }
+.powder { background-image: url(../images/items/powder.png); }
+.firerod { background-image: url(../images/items/firerod.png); }
+.icerod { background-image: url(../images/items/icerod.png); }
+.bombos { background-image: url(../images/items/bombos.png); }
+.ether { background-image: url(../images/items/ether.png); }
+.quake { background-image: url(../images/items/quake.png); }
+.lantern { background-image: url(../images/items/lantern.png); }
+.hammer { background-image: url(../images/items/hammer.png); }
+.shovel { background-image: url(../images/items/shovel.png); }
+.net { background-image: url(../images/items/net.png); }
+.book { background-image: url(../images/items/book.png); }
+.bottle { background-image: url(../images/items/bottle0.png); }
+.bottle.active-1 { background-image: url(../images/items/bottle1.png); }
+.bottle.active-2 { background-image: url(../images/items/bottle2.png); }
+.bottle.active-3 { background-image: url(../images/items/bottle3.png); }
+.bottle.active-4 { background-image: url(../images/items/bottle4.png); }
+.somaria { background-image: url(../images/items/somaria.png); }
+.byrna { background-image: url(../images/items/byrna.png); }
+.cape { background-image: url(../images/items/cape.png); }
+.mirror { background-image: url(../images/items/mirror.png); }
+.boots { background-image: url(../images/items/boots.png); }
+.glove { background-image: url(../images/items/glove1.png); }
+.glove.active-2 { background-image: url(../images/items/glove2.png); }
+.flippers { background-image: url(../images/items/flippers.png); }
+.flute { background-image: url(../images/items/flute.png); }
+/*.agahnim, #bossMapAgahnim { width: 32 !important; height: 32 !important; background-size: 100%; background-image:url(../images/dungeons/agahnim0.png); }
+.agahnim.active { width: 32 !important; height: 32 !important; background-size: 100%; background-image:url(../images/dungeons/agahnim1.png); } */
+.agahnim, #bossMapAgahnim { background-image:url(../images/dungeons/agahnim0.png); }
+.agahnim.active { background-image:url(../images/dungeons/agahnim1.png); }
+.agahnim2 { margin-left: 32; width: 32 !important; height: 32 !important; background-size: 100%; background-image:url(../images/dungeons/agahnim20.png); }
+.agahnim2.active { margin-left: 32; width: 32 !important; height: 32 !important; background-size: 100%; background-image:url(../images/dungeons/agahnim1.png); }
+.boss0, #bossMap0 { background-image: url(../images/dungeons/boss0.png); }
+.boss1, #bossMap1 { background-image: url(../images/dungeons/boss1.png); }
+.boss2, #bossMap2 { background-image: url(../images/dungeons/boss2.png); }
+.boss3, #bossMap3 { background-image: url(../images/dungeons/boss3.png); }
+.boss4, #bossMap4 { background-image: url(../images/dungeons/boss4.png); }
+.boss5, #bossMap5 { background-image: url(../images/dungeons/boss5.png); }
+.boss6, #bossMap6 { background-image: url(../images/dungeons/boss6.png); }
+.boss7, #bossMap7 { background-image: url(../images/dungeons/boss7.png); }
+.boss8, #bossMap8 { background-image: url(../images/dungeons/boss8.png); }
+.boss9, #bossMap9 { background-image: url(../images/dungeons/boss9.png); }
+.boss10, #bossMap10 { background-image: url(../images/dungeons/boss10.png); }
+.enemizer-0 { background-image: url(../images/dungeons/prize0.png); background-size: 32px; }
+.enemizer-1 { background-image: url(../images/dungeons/boss0.png); background-size: 32px; }
+.enemizer-2 { background-image: url(../images/dungeons/boss1.png); background-size: 32px; }
+.enemizer-3 { background-image: url(../images/dungeons/boss2.png); background-size: 32px; }
+.enemizer-4 { background-image: url(../images/dungeons/boss3.png); background-size: 32px; }
+.enemizer-5 { background-image: url(../images/dungeons/boss4.png); background-size: 32px; }
+.enemizer-6 { background-image: url(../images/dungeons/boss5.png); background-size: 32px; }
+.enemizer-7 { background-image: url(../images/dungeons/boss6.png); background-size: 32px; }
+.enemizer-8 { background-image: url(../images/dungeons/boss7.png); background-size: 32px; }
+.enemizer-9 { background-image: url(../images/dungeons/boss8.png); background-size: 32px; }
+.enemizer-10 { background-image: url(../images/dungeons/boss9.png); background-size: 32px; }
+.prize-0 { background-image: url(../images/dungeons/prize0.png); }
+.prize-1 { background-image: url(../images/dungeons/prize1.png); }
+.prize-2 { background-image: url(../images/dungeons/prize2.png); }
+.prize-3 { background-image: url(../images/dungeons/prize3.png); }
+.prize-4 { background-image: url(../images/dungeons/prize4.png); }
+.medallion-0 { background-image: url(../images/dungeons/medallion0.png); }
+.medallion-1 { background-image: url(../images/dungeons/medallion1.png); }
+.medallion-2 { background-image: url(../images/dungeons/medallion2.png); }
+.medallion-3 { background-image: url(../images/dungeons/medallion3.png); }
+.chest-0 { background-image: url(../images/dungeons/keychest0.png); }
+.chest { background-image: url(../images/dungeons/keychest.png); }
+.bigkey { background-image: url(../images/dungeons/bigkey.png); }
+.smallkeyfull { background-image: url(../images/dungeons/smallkeyfull.png); }
+.smallkeyhalf { background-image: url(../images/dungeons/smallkeyhalf.png); }
+
+.bomb { background-image: url(../images/overlay/bomb.png); }
+.crystal { background-image: url(../images/dungeons/prize4.png); }
+.pendant-0 { background-image: url(../images/overlay/pendant0.png); }
+.pendant-1 { background-image: url(../images/overlay/pendant1.png); }
+.pendant-2 { background-image: url(../images/overlay/pendant2.png); }
+
+.noitem { background-image: url(../images/dungeons/prize0.png); opacity: .25; }
+
+#bossMap0, #dungeon0 { left: 46.8%; top: 38.8%; }
+#bossMap1, #dungeon1 { left: 3.8%;  top: 78.4%; }
+#bossMap2, #dungeon2 { left: 31.0%; top: 5.5%; }
+#bossMap3, #dungeon3 { left: 97.0%; top: 40.0%; }
+#bossMap4, #dungeon4 { left: 73.5%; top: 91.0%; }
+#bossMap5, #dungeon5 { left: 53.3%; top: 5.4%; }
+#bossMap6, #dungeon6 { left: 56.4%; top: 47.9%; }
+#bossMap7, #dungeon7 { left: 89.8%; top: 85.8%; }
+#bossMap8, #dungeon8 { left: 55.8%; top: 82.9%; }
+#bossMap9, #dungeon9 { left: 96.9%; top: 7.0%; }
+#bossMap10, #dungeon10 { left: 79.0%; top: 5.5%; }
+
+#bossMapAgahnim, #castle { left: 25.0%; top: 52.6%; }
+
+#locationMap0 { left: 22.4%; top: 93.4%; z-index: 2; }
+#locationMap1 { left: 27.4%; top: 67.9%; z-index: 2; }
+#locationMap2 { left: 5%;  top: 46.8%; z-index: 2; }
+#locationMap3 { left: 66%; top: 69.5%; z-index: 2; }
+#locationMap4 { left: 65.2%; top: 52.2%; z-index: 2; }
+#locationMap5 { left: 35.2%; top: 70.3%; z-index: 2; }
+#locationMap6 { left: 21.0%; top: 3.0%; z-index: 2; }
+#locationMap7 { left: 11.0%; top: 92.2%; z-index: 2; }
+#locationMap8 { left: 96.0%; top: 17.2%; z-index: 2; }
+#locationMap9 { left: 48.0%; top: 12.1%; z-index: 2; }
+#locationMap10 { left: 21.8%; top: 22.4%; z-index: 2; }
+#locationMap11 { left: 6.2%;  top: 8.6%; z-index: 2; }
+#locationMap12 { left: 25.4%; top: 8.5%; z-index: 2; }
+#locationMap13 { left: 40.8%; top: 3.0%; z-index: 2; }
+#locationMap14 { left: 1.8%;  top: 69.8%; z-index: 2; }
+#locationMap15 { left: 1.5%;  top: 91.0%; z-index: 2; }
+#locationMap16 { left: 36.5%; top: 83.9%; z-index: 2; }
+#locationMap17 { left: 67.1%; top: 15.2%; z-index: 2; }
+#locationMap18 { left: 79.0%; top: 43.5%; z-index: 2; }
+#locationMap19 { left: 52.9%; top: 69.2%; z-index: 2; }
+#locationMap20 { left: 47.7%; top: 17.3%; z-index: 2; }
+#locationMap21 { left: 14.4%; top: 66.2%; z-index: 2; }
+#locationMap22 { left: 2.5%;  top: 3.2%; z-index: 2; }
+
+#entranceMap0 { left: 28%; top: 72%; z-index: 2; }
+#entranceMap1 { left: 24.5%; top: 67%; z-index: 2; }
+#entranceMap2 { left: 24%; top: 96%; z-index: 2; }
+#entranceMap3 { left: 14%; top: 84%; z-index: 2; }
+#entranceMap4 { left: 40.7%; top: 35%; z-index: 2; }
+#entranceMap5 { left: 45.7%; top: 17%; z-index: 2; }
+#entranceMap6 { left: 31%; top: 80%; z-index: 2; }
+#entranceMap7 { left: 25.7%; top: 46%; z-index: 2; }
+#entranceMap8 { left: 23.2%; top: 41%; z-index: 2; }
+#entranceMap9 { left: 28.2%; top: 41%; z-index: 2; }
+#entranceMap10 { left: 25.7%; top: 42%; z-index: 2; }
+#entranceMap11 { left: 28.2%; top: 44%; z-index: 2; }
+#entranceMap12 { left: 30.5%; top: 42.5%; z-index: 2; }
+#entranceMap13 { left: 23.7%; top: 28%; z-index: 2; }
+#entranceMap14 { left: 20%; top: 30%; z-index: 2; }
+#entranceMap15 { left: 26.7%; top: 30%; z-index: 2; }
+#entranceMap16 { left: 29.3%; top: 28.4%; z-index: 2; }
+#entranceMap17 { left: 31%; top: 30%; z-index: 2; }
+#entranceMap18 { left: 34%; top: 29%; z-index: 2; }
+#entranceMap19 { left: 33%; top: 32%; z-index: 2; }
+#entranceMap20 { left: 10.1%; top: 3.1%; z-index: 2; }
+#entranceMap21 { left: 10.3%; top: 13.2%; z-index: 2; }
+#entranceMap22 { left: 10%; top: 16%; z-index: 2; }
+#entranceMap23 { left: 17.6%; top: 7.4%; z-index: 2; }
+#entranceMap24 { left: 17%; top: 4.5%; z-index: 2; }
+#entranceMap25 { left: 15.7%; top: 9%; z-index: 2; }
+#entranceMap26 { left: 18%; top: 19.7%; z-index: 2; }
+#entranceMap27 { left: 10.3%; top: 33%; z-index: 2; }
+#entranceMap28 { left: 2%; top: 43%; z-index: 2; }
+#entranceMap29 { left: 3.5%; top: 44%; z-index: 2; }
+#entranceMap30 { left: 7%; top: 43%; z-index: 2; }
+#entranceMap31 { left: 8.2%; top: 43%; z-index: 2; }
+#entranceMap32 { left: 9.3%; top: 43%; z-index: 2; }
+#entranceMap33 { left: 3.3%; top: 48%; z-index: 2; }
+#entranceMap34 { left: 11%; top: 49%; z-index: 2; }
+#entranceMap35 { left: 5.6%; top: 55%; z-index: 2; }
+#entranceMap36 { left: 8.4%; top: 55%; z-index: 2; }
+#entranceMap37 { left: 10.9%; top: 55%; z-index: 2; }
+#entranceMap38 { left: 2.3%; top: 61%; z-index: 2; }
+#entranceMap39 { left: 6.3%; top: 59%; z-index: 2; }
+#entranceMap40 { left: 8.7%; top: 58%; z-index: 2; }
+#entranceMap41 { left: 8.7%; top: 61%; z-index: 2; }
+#entranceMap42 { left: 15.6%; top: 54%; z-index: 2; }
+#entranceMap43 { left: 16.6%; top: 57%; z-index: 2; }
+#entranceMap44 { left: 17.3%; top: 55%; z-index: 2; }
+#entranceMap45 { left: 8.4%; top: 67%; z-index: 2; }
+#entranceMap46 { left: 6%; top: 72%; z-index: 2; }
+#entranceMap47 { left: 8%; top: 72%; z-index: 2; }
+#entranceMap48 { left: 11.4%; top: 70.3%; z-index: 2; }
+#entranceMap49 { left: 48.6%; top: 40%; z-index: 2; }
+#entranceMap50 { left: 41.4%; top: 46%; z-index: 2; }
+#entranceMap51 { left: 42%; top: 65.4%; z-index: 2; }
+#entranceMap52 { left: 49.6%; top: 71%; z-index: 2; }
+#entranceMap53 { left: 4.4%; top: 82%; z-index: 2; }
+#entranceMap54 { left: 2.5%; top: 81%; z-index: 2; }
+#entranceMap55 { left: 6.3%; top: 81%; z-index: 2; }
+#entranceMap56 { left: 4.4%; top: 78%; z-index: 2; }
+#entranceMap57 { left: 9.5%; top: 79%; z-index: 2; }
+#entranceMap58 { left: 10.8%; top: 83%; z-index: 2; }
+#entranceMap59 { left: 14.7%; top: 90%; z-index: 2; }
+#entranceMap60 { left: 16.3%; top: 96%; z-index: 2; }
+#entranceMap61 { left: 37.2%; top: 78%; z-index: 2; }
+#entranceMap62 { left: 33.2%; top: 81%; z-index: 2; }
+#entranceMap63 { left: 33.4%; top: 95%; z-index: 2; }
+#entranceMap64 { left: 40.4%; top: 86%; z-index: 2; }
+#entranceMap65 { left: 45.3%; top: 78%; z-index: 2; }
+#entranceMap66 { left: 46.7%; top: 78%; z-index: 2; }
+#entranceMap67 { left: 45.9%; top: 80%; z-index: 2; }
+#entranceMap68 { left: 28.7%; top: 5%; z-index: 2; }
+#entranceMap69 { left: 25.1%; top: 11%; z-index: 2; }
+#entranceMap70 { left: 23.5%; top: 15%; z-index: 2; }
+#entranceMap71 { left: 25%; top: 16%; z-index: 2; }
+#entranceMap72 { left: 20.8%; top: 20%; z-index: 2; }
+#entranceMap73 { left: 20.4%; top: 14%; z-index: 2; }
+#entranceMap74 { left: 18.7%; top: 16%; z-index: 2; }
+#entranceMap75 { left: 23.3%; top: 25%; z-index: 2; }
+#entranceMap76 { left: 27.5%; top: 17.4%; z-index: 2; }
+#entranceMap77 { left: 43.3%; top: 7.4%; z-index: 2; }
+#entranceMap78 { left: 43.8%; top: 23%; z-index: 2; }
+#entranceMap79 { left: 43.8%; top: 16%; z-index: 2; }
+#entranceMap80 { left: 40.5%; top: 10%; z-index: 2; }
+#entranceMap81 { left: 40.5%; top: 14%; z-index: 2; }
+#entranceMap82 { left: 42.5%; top: 16%; z-index: 2; }
+#entranceMap83 { left: 41.6%; top: 12.4%; z-index: 2; }
+#entranceMap84 { left: 41.6%; top: 14.9%; z-index: 2; }
+#entranceMap85 { left: 42.9%; top: 10%; z-index: 2; }
+#entranceMap86 { left: 78.0%; top: 72%; z-index: 2; }
+#entranceMap87 { left: 74.5%; top: 67%; z-index: 2; }
+#entranceMap88 { left: 81.0%; top: 80%; z-index: 2; }
+#entranceMap89 { left: 74.2%; top: 96%; z-index: 2; }
+#entranceMap90 { left: 73.7%; top: 28%; z-index: 2; }
+#entranceMap91 { left: 67.4%; top: 46.6%; z-index: 2; }
+#entranceMap92 { left: 90.7%; top: 35%; z-index: 2; }
+#entranceMap93 { left: 75.7%; top: 42%; z-index: 2; }
+#entranceMap94 { left: 74.0%; top: 50%; z-index: 2; }
+#entranceMap95 { left: 72.4%; top: 50%; z-index: 2; }
+#entranceMap96 { left: 52.7%; top: 6.5%; z-index: 2; }
+#entranceMap97 { left: 53.7%; top: 14%; z-index: 2; }
+#entranceMap98 { left: 56.7%; top: 10%; z-index: 2; }
+#entranceMap99 { left: 57.8%; top: 16%; z-index: 2; }
+#entranceMap100 { left: 58.5%; top: 19%; z-index: 2; }
+#entranceMap101 { left: 60.2%; top: 13.5%; z-index: 2; }
+#entranceMap102 { left: 59.7%; top: 16%; z-index: 2; }
+#entranceMap103 { left: 60.8%; top: 18%; z-index: 2; }
+#entranceMap104 { left: 67.5%; top: 6.7%; z-index: 2; }
+#entranceMap105 { left: 68.5%; top: 19%; z-index: 2; }
+#entranceMap106 { left: 60.1%; top: 33%; z-index: 2; }
+#entranceMap107 { left: 53.0%; top: 47%; z-index: 2; }
+#entranceMap108 { left: 57.0%; top: 49%; z-index: 2; }
+#entranceMap109 { left: 61.0%; top: 49%; z-index: 2; }
+#entranceMap110 { left: 61.0%; top: 54%; z-index: 2; }
+#entranceMap111 { left: 56.3%; top: 59%; z-index: 2; }
+#entranceMap112 { left: 66.5%; top: 62%; z-index: 2; }
+#entranceMap113 { left: 61.5%; top: 71%; z-index: 2; }
+#entranceMap114 { left: 98.6%; top: 41%; z-index: 2; }
+#entranceMap115 { left: 93.3%; top: 52%; z-index: 2; }
+#entranceMap116 { left: 92.0%; top: 65.7%; z-index: 2; }
+#entranceMap117 { left: 99.6%; top: 71%; z-index: 2; }
+#entranceMap118 { left: 90.5%; top: 87%; z-index: 2; }
+#entranceMap119 { left: 83.3%; top: 81%; z-index: 2; }
+#entranceMap120 { left: 95.3%; top: 78%; z-index: 2; }
+#entranceMap121 { left: 96.7%; top: 78%; z-index: 2; }
+#entranceMap122 { left: 95.9%; top: 80%; z-index: 2; }
+#entranceMap123 { left: 54.4%; top: 84%; z-index: 2; }
+#entranceMap124 { left: 52.7%; top: 81%; z-index: 2; }
+#entranceMap125 { left: 56.3%; top: 81%; z-index: 2; }
+#entranceMap126 { left: 60.6%; top: 83%; z-index: 2; }
+#entranceMap127 { left: 78.8%; top: 5%; z-index: 2; }
+#entranceMap128 { left: 79.4%; top: 16%; z-index: 2; }
+#entranceMap129 { left: 68.8%; top: 16%; z-index: 2; }
+#entranceMap130 { left: 70.8%; top: 20%; z-index: 2; }
+#entranceMap131 { left: 90.8%; top: 3%; z-index: 2; }
+#entranceMap132 { left: 92.2%; top: 7.5%; z-index: 2; }
+#entranceMap133 { left: 93.8%; top: 7.2%; z-index: 2; }
+#entranceMap134 { left: 92.5%; top: 16%; z-index: 2; }
+#entranceMap135 { left: 93.8%; top: 16%; z-index: 2; }
+#entranceMap136 { left: 97.7%; top: 9%; z-index: 2; }
+#entranceMap137 { left: 91.7%; top: 13%; z-index: 2; }
+#entranceMap138 { left: 90.6%; top: 10%; z-index: 2; }
+#entranceMap139 { left: 92.9%; top: 10%; z-index: 2; }
