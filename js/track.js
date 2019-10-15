@@ -289,12 +289,16 @@
 		if (entrances[n].connected_to === -1) {
 			document.getElementById('entranceModalDisconnect').style.visibility = 'collapse';
 			document.getElementById('entranceModalDisconnect').style.height = '0px';
-			document.getElementById('entranceModalMain').style.height = '280px';
+			document.getElementById('entranceModalConnect').style.visibility = 'visible';
+			document.getElementById('entranceModalConnect').style.height = '20px';
+			document.getElementById('entranceModalMain').style.height = '300px';
 			document.getElementById('entranceModalConnector').innerHTML = '';
 		} else {
 			document.getElementById('entranceModalConnector').innerHTML = entrances[entrances[n].connected_to].caption;
 			document.getElementById('entranceModalDisconnect').style.visibility = 'visible';
 			document.getElementById('entranceModalDisconnect').style.height = '60px';
+			document.getElementById('entranceModalConnect').style.visibility = 'collapse';
+			document.getElementById('entranceModalConnect').style.height = '0px';
 			document.getElementById('entranceModalMain').style.height = '150px';
 		}
 		if (entrances[n].type === 1) {
@@ -325,6 +329,7 @@
 		document.getElementById('tr_e').style.backgroundColor = '#000';
 		document.getElementById('tr_b').style.backgroundColor = '#000';
 		document.getElementById('gt').style.backgroundColor = '#000';
+		document.getElementById('ganon').style.backgroundColor = '#000';
 		document.getElementById('magic').style.backgroundColor = '#000';
 		document.getElementById('kid').style.backgroundColor = '#000';
 		document.getElementById('smith').style.backgroundColor = '#000';
@@ -342,6 +347,10 @@
 		
 		if (entrances[n].known_location != '') {
 			document.getElementById(entrances[n].known_location).style.backgroundColor = '#00F';
+			document.getElementById('entranceModalConnect').style.visibility = 'collapse';
+			document.getElementById('entranceModalConnect').style.height = '0px';
+			document.getElementById('entranceModalDisconnect').style.visibility = 'collapse';
+			document.getElementById('entranceModalDisconnect').style.height = '0px';		
 		}
 	}
 	
@@ -398,6 +407,13 @@
 			connectFinish = false;
 		}
 	}
+
+	window.StartAConnectorModal = function(n) {
+		document.getElementById('connectorStartImg').src = './images/items/cancel.png';
+		connectStart = true;
+		connectFinish = true;
+		$('#entranceModal').hide();
+	}
 	
 	window.HideConnectors = function(n) {
 		if (document.getElementById('connectorLineDiv').style.visibility === 'collapse') {
@@ -431,6 +447,7 @@
 		document.getElementById('tr_e').style.backgroundColor = '#000';
 		document.getElementById('tr_b').style.backgroundColor = '#000';
 		document.getElementById('gt').style.backgroundColor = '#000';
+		document.getElementById('ganon').style.backgroundColor = '#000';
 		document.getElementById('magic').style.backgroundColor = '#000';
 		document.getElementById('kid').style.backgroundColor = '#000';
 		document.getElementById('smith').style.backgroundColor = '#000';
@@ -716,6 +733,9 @@
 				break;
 			case 'gt':
 				friendly = 'Ganon\'s Tower';
+				break;
+			case 'ganon':
+				friendly = 'Ganon';
 				break;
 			case 'magic':
 				friendly = 'Magic Shop';

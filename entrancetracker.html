@@ -2,17 +2,17 @@
 	<head>
 		<title>ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=14001"></script>
-		<script src="js/bootstrap.min.js?v=14001"></script>
-		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=14001">
+		<script src="js/jquery-3.3.1.js?v=14002"></script>
+		<script src="js/bootstrap.min.js?v=14002"></script>
+		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=14002">
 		<link href="css/fonts.css" rel="stylesheet">		
 
-		<script src="js/util.js?v=14001"></script>
-		<script src="js/items.js?v=14001"></script>
-		<script src="js/entrancechests.js?v=14001"></script>
-		<script src="js/track.js?v=14001"></script>
-		<script src="js/dungeons.js?v=14001"></script>
-		<script src="js/spoiler.js?v=14001"></script>
+		<script src="js/util.js?v=14002"></script>
+		<script src="js/items.js?v=14002"></script>
+		<script src="js/entrancechests.js?v=14002"></script>
+		<script src="js/track.js?v=14002"></script>
+		<script src="js/dungeons.js?v=14002"></script>
+		<script src="js/spoiler.js?v=14002"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -535,6 +535,10 @@
 			<div style="margin: 0px 10px 0px 10px;">
 				<input id="entranceID" type="text" style="visibility: collapse; height: 0px;"/><br>
 				<span id="entranceModalTitle">Title</span>
+				<div id="entranceModalConnect"><span>
+					<span>Connect:&nbsp;&nbsp;&nbsp;</span><img onclick="StartAConnectorModal();" style="cursor: pointer; height: 15px;" src="./images/items/connect.png" />
+					</span>
+				</div>
 				<div id="entranceModalDisconnect"><span>Connected To --> 
 					<span id="entranceModalConnector"></span><br><br>
 					<span>Disconnect:&nbsp;&nbsp;&nbsp;</span><img onclick="entranceDisconnect();" style="cursor: pointer; height: 15px;" src="./images/items/disconnect.png" />
@@ -630,7 +634,10 @@
 							<td>
 								<img src="./images/items/gt.png" style="cursor: pointer;" onclick="tagEntrance('gt', true)" id="gt" />
 							</td>
-						</tr>							
+							<td>
+								<img src="./images/items/ganon.png" style="cursor: pointer;" onclick="tagEntrance('ganon', true)" id="ganon" />
+							</td>
+						</tr>
 						<tr>
 							<td>
 								<img src="./images/items/magic.png" style="cursor: pointer;" onclick="tagEntrance('magic', false)" id="magic" />

@@ -156,7 +156,7 @@ body {
 .information { background-color: orange; }
 .darkavailable { background-color: blue; }
 .darkpossible { background-color: purple; } 
-.opened { background-color: #7f7f7f; }
+.opened { background-color: #7f7f7f; opacity: 0.5; }
 
 #caption {
   width: 100%;
