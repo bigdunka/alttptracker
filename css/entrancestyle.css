@@ -183,6 +183,8 @@ body {
            rgba(0,255,255,1) 50%,
            rgba(0,0,0,0) calc(50% + 2px),
            rgba(0,0,0,0) 100%);
+   min-height: 2px;
+   min-width: 2px;
 }
 
 .crossedright {
@@ -193,6 +195,8 @@ body {
            rgba(0,255,255,1) 50%,
            rgba(0,0,0,0) calc(50% + 2px),
            rgba(0,0,0,0) 100%);
+   min-height: 2px;
+   min-width: 2px;
 }
 .spheresword.active-1 { background-image: url(../images/items/sword1.png); }
 .spheresword.active-2 { background-image: url(../images/items/sword2.png); }

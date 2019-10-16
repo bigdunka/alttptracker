@@ -227,6 +227,12 @@
 			return "Gloves";
 		case "SilverArrowUpgrade":
 			return "Silver Arrows";
+        case "ProgressiveBow":
+        case "Bow":
+        case "BowAndArrows":
+            return "Bow";
+        case "BowAndSilverArrows":
+            return "Bow And Silver Arrows";
 		case "Bottle":
 			return "Bottle";
 		case "BottleWithRedPotion":

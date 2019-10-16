@@ -170,7 +170,7 @@
 				return 'lime';
 				break;
 			case 'unavailable':
-				return 'red';
+				return '#900';
 				break;
 			case 'possible':
 				return 'yellow';

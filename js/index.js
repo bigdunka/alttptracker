@@ -103,7 +103,7 @@ function importflags() {
 	
 	//Entrance flag
 	if (d.meta.shuffle != null) {
-		document.getElementById("entrance" + d.meta.shuffle).checked = true;
+		document.getElementById("entrancesimple").checked = true;
 	} else {
 		document.getElementById("entrancenone").checked = true;
 	}
