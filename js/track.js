@@ -48,6 +48,7 @@
 						(value ? dungeons[x].can_get_chest() : 'opened');
 				}
             }
+			updateMapTracker();
             return;
         }
 		
@@ -149,13 +150,42 @@
 							document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
 				}
 			}
+			
             // Clicking a boss on the tracker will check it off on the map!
             if (is_boss) {
                 toggle_boss(label.substring(4));
             }
 			toggle_agahnim();
         }
+		
+		//Update the backgrounds of the chests in entrance
+		for (var k = 0; k < dungeons.length; k++) {
+			document.getElementById('chest'+k).style.backgroundColor = (flags.entrancemode != 'N' ? getDungeonBackground(dungeons[k].can_get_chest()) : 'white');
+		}
     };
+
+	window.getDungeonBackground = function(x) {
+		switch (x) {
+			case 'available':
+				return 'lime';
+				break;
+			case 'unavailable':
+				return 'red';
+				break;
+			case 'possible':
+				return 'yellow';
+				break;
+			case 'information':
+				return 'orange';
+				break;
+			case 'darkavailable':
+				return 'blue';
+				break;
+			case 'darkpossible':
+				return 'purple';
+				break;
+		}
+	}
 	
     // event of clicking on a boss's pendant/crystal subsquare
     window.toggle_dungeon = function(n) {
@@ -236,6 +266,7 @@
 			if (document.getElementById('dungeon'+x) != null) 
 				document.getElementById('dungeon'+x).className = 'dungeon ' + (value ? dungeons[x].can_get_chest() : 'opened');
 		}
+		updateMapTracker();
 	};
 	
 	window.rightClickKey = function(label) {
@@ -368,8 +399,7 @@
 			overrideEntranceCloseFlag = false;
 		}
 		
-		toggle('moonpearl');
-		toggle('moonpearl');
+		updateMapTracker();
 	}
 	
 	window.overrideEntranceClose = function(n) {
@@ -391,8 +421,7 @@
 		//document.getElementById('entranceModalConnect').style.visibility = 'visible';		
 		var divtoremove = document.getElementById('connectordiv' + entrances[document.getElementById('entranceID').value].connector_id);
 		divtoremove.remove();
-		toggle('moonpearl');
-		toggle('moonpearl');
+		updateMapTracker();
 		
 		hideEntranceModal();
 	}
@@ -498,7 +527,6 @@
         }
     };
 
-
     // event of clicking on each dungeon's bigkey
     window.toggle_bigkey = function(n) {
 		items['bigkey'+n] = !items['bigkey'+n];
@@ -551,10 +579,7 @@
 					entrances[parseInt(document.getElementById('entranceID').value)].connected_to = x;
 					entrances[parseInt(document.getElementById('entranceID').value)].type = 1;
 					entrances[parseInt(document.getElementById('entranceID').value)].connector_id = connectorid;
-					toggle('moonpearl');
-					toggle('moonpearl');
-					//Need to replace this with better update logic
-					
+
 					var divtoadd = document.createElement('div');
 					divtoadd.id = 'connectordiv' + connectorid;
 					var connector1 = document.getElementById('entranceMap' + x);
@@ -602,8 +627,7 @@
 				connectFinish = true;
 			}
 			
-			toggle('moonpearl');
-			toggle('moonpearl');
+			updateMapTracker();
         };
 		
         // Event of clicking a dungeon location (not really)
@@ -848,15 +872,18 @@
             document.getElementById('caption').innerHTML = '&nbsp;';
 		}
 	};
-
+	
 	window.showNiceItems = function(x) {
-		if(spoilerLoaded && flags.mapmode != "N")
-            document.getElementById('caption').innerHTML = caption_to_html(dungeons[x].niceContent);
+		if (flags.mapmode != "N") {
+			if(spoilerLoaded) {
+				document.getElementById('caption').innerHTML = caption_to_html(dungeons[x].niceContent);
+			}
+		}
 	};
 
 	window.clearCaption = function() {
-		if(spoilerLoaded)
-            document.getElementById('caption').innerHTML = '&nbsp;';
+		//if(spoilerLoaded)
+		document.getElementById('caption').innerHTML = '&nbsp;';
 	};
 
 	window.setSphereItem = function(label) {
@@ -909,8 +936,7 @@
 		document.getElementById('crystalsdiv').classList.add('crystals' + x);
 		document.getElementById('crystalsselectdiv').style.visibility = 'collapse';
 		flags.opentowercount = (x === '' ? 8 : x);
-		toggle('moonpearl');
-		toggle('moonpearl');		
+		updateMapTracker();	
 	}
 
 	window.setGanonGoal = function(x) {
@@ -926,6 +952,10 @@
 		document.getElementById('ganondiv').classList.add('ganon' + x);
 		document.getElementById('ganonselectdiv').style.visibility = 'collapse';
 		flags.ganonvulncount = (x === '' ? 8 : x);
+		updateMapTracker();
+	}
+	
+	window.updateMapTracker = function() {
 		toggle('moonpearl');
 		toggle('moonpearl');
 	}
@@ -1157,9 +1187,7 @@
 			toggle('sword');
 		}
 		
-		//This is to reset the map after initialization flags have been set, the bad way
-		toggle('moonpearl');
-		toggle('moonpearl');
+		updateMapTracker();
 		
     };
 }(window));
