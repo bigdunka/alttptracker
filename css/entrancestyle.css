@@ -198,6 +198,17 @@ body {
    min-height: 2px;
    min-width: 2px;
 }
+
+.informationdiv {
+	background: #000;
+	border-style: solid;
+	border-color: #FFF;
+	border-width: 1px;
+	color: #FFF;
+	font-size: 8px;
+	text-align: center;
+}
+
 .spheresword.active-1 { background-image: url(../images/items/sword1.png); }
 .spheresword.active-2 { background-image: url(../images/items/sword2.png); }
 .spheresword.active-3 { background-image: url(../images/items/sword3.png); }

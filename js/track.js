@@ -296,8 +296,22 @@
             }
             if (flags.entrancemode != 'N') {
 				for (var k = 0; k < entrances.length; k++) {
-                if (!entrances[k].is_opened)
-                    document.getElementById('entranceMap'+k).className = 'entrance ' + entrances[k].is_available();
+					if (!entrances[k].is_opened) {
+						var entrancetype = '';
+						if (entrances[k].is_available()) {
+							if (entrances[k].type === 1) {
+							//Connector
+								entrancetype = 'connector';
+							} else if (entrances[k].type === 2) {
+							//Dungeon
+								entrancetype = 'dungeon';
+							} else if (entrances[k].type === 3) {
+							//Location
+								entrancetype = 'keylocation';
+							}
+						}
+						document.getElementById('entranceMap'+k).className = 'entrance ' + entrances[k].is_available() + entrancetype;
+					}
 				}
 			} else {
 	            for (var k = 0; k < dungeons.length; k++) {
@@ -371,6 +385,7 @@
 		document.getElementById('rupee').style.backgroundColor = '#000';
 		document.getElementById('shop').style.backgroundColor = '#000';
 		document.getElementById('dark').style.backgroundColor = '#000';
+		document.getElementById('connector').style.backgroundColor = '#000';		
 		document.getElementById('bomb').style.backgroundColor = '#000';
 		document.getElementById('bumper').style.backgroundColor = '#000';
 		document.getElementById('spike').style.backgroundColor = '#000';
@@ -428,17 +443,17 @@
 	
 	window.StartAConnector = function(n) {
 		if (connectStart === false) {
-			document.getElementById('connectorStartImg').src = './images/items/cancel.png';
+			document.getElementById('connectorStartImg').src = './images/interface/cancel.png';
 			connectStart = true;
 		} else {
-			document.getElementById('connectorStartImg').src = './images/items/connect.png';
+			document.getElementById('connectorStartImg').src = './images/interface/connect.png';
 			connectStart = false;
 			connectFinish = false;
 		}
 	}
 
 	window.StartAConnectorModal = function(n) {
-		document.getElementById('connectorStartImg').src = './images/items/cancel.png';
+		document.getElementById('connectorStartImg').src = './images/interface/cancel.png';
 		connectStart = true;
 		connectFinish = true;
 		$('#entranceModal').hide();
@@ -447,10 +462,10 @@
 	window.HideConnectors = function(n) {
 		if (document.getElementById('connectorLineDiv').style.visibility === 'collapse') {
 			document.getElementById('connectorLineDiv').style.visibility = 'visible';
-			document.getElementById('hideConnectorLinesImg').src = './images/items/hide.png';
+			document.getElementById('hideConnectorLinesImg').src = './images/interface/hide.png';
 		} else {
 			document.getElementById('connectorLineDiv').style.visibility = 'collapse';
-			document.getElementById('hideConnectorLinesImg').src = './images/items/show.png';
+			document.getElementById('hideConnectorLinesImg').src = './images/interface/show.png';
 		}
 	}
 	
@@ -487,6 +502,7 @@
 		document.getElementById('rupee').style.backgroundColor = '#000';
 		document.getElementById('shop').style.backgroundColor = '#000';
 		document.getElementById('dark').style.backgroundColor = '#000';
+		document.getElementById('connector').style.backgroundColor = '#000';
 		document.getElementById('bomb').style.backgroundColor = '#000';
 		document.getElementById('bumper').style.backgroundColor = '#000';
 		document.getElementById('spike').style.backgroundColor = '#000';
@@ -500,6 +516,22 @@
 			entrances[document.getElementById('entranceID').value].type = (t === true ? 2 : 3);
 			document.getElementById(n).style.backgroundColor = '#00F';
 		}
+		
+		var divtoadd = document.createElement('div');
+		divtoadd.id = 'informationdiv' + document.getElementById('entranceID').value;
+		var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
+		
+		divtoadd.style.top = loc.offsetTop - 15;
+		divtoadd.style.left = loc.offsetLeft - 14;
+		divtoadd.className = 'informationdiv';
+
+		divtoadd.style.width = 40;
+		divtoadd.style.height = 12;
+		divtoadd.style.position = 'absolute';
+		
+		divtoadd.innerHTML = n.replace('_','-').toUpperCase();
+		
+		document.getElementById('informationDiv').appendChild(divtoadd);
 		
 		hideEntranceModal();
 	}
@@ -515,7 +547,7 @@
             // Update availability of dungeon boss AND chests
             dungeons[8+n].is_beaten = !dungeons[8+n].is_beaten;
             toggle_boss(8+n);
-            if (items['chest'+(8+n)] > 0)
+            if (items['chest'+(8+n)] > 0 && document.getElementById('dungeon'+(8+n)) != null)
                 document.getElementById('dungeon'+(8+n)).className = 'dungeon ' + dungeons[8+n].can_get_chest();
             // TRock medallion affects Mimic Cave
             if (n === 1) {
@@ -570,6 +602,10 @@
 				document.getElementById('entranceMap'+x).className = 'entrance ' +
 					(entrances[x].is_opened ? 'opened' : entrances[x].is_available()) +
 					(highlight ? ' highlight' : '');
+				var information = document.getElementById('informationdiv'+x);
+				if (information != null) {
+					information.style.visibility = (entrances[x].is_opened ? 'collapse' : 'visible');
+				}
 			} else if (connectFinish === true) {
 				if (x != parseInt(document.getElementById('entranceID').value)) {
 					entrances[x].connected_to = parseInt(document.getElementById('entranceID').value);
@@ -618,7 +654,7 @@
 					connectorid++;
 				}
 				
-				document.getElementById('connectorStartImg').src = './images/items/connect.png';
+				document.getElementById('connectorStartImg').src = './images/interface/connect.png';
 				connectStart = false;
 				connectFinish = false;
 				
@@ -802,6 +838,9 @@
 				break;
 			case 'hook':
 				friendly = 'Hookshot Cave';
+				break;			
+			case 'connector':
+				friendly = 'Unknown Connector';
 				break;			
 		}
 		
