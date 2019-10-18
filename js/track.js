@@ -511,28 +511,39 @@
 		if (entrances[document.getElementById('entranceID').value].known_location === n) {
 			entrances[document.getElementById('entranceID').value].known_location = '';
 			entrances[document.getElementById('entranceID').value].type = 0;
+			var information = document.getElementById('informationdiv'+document.getElementById('entranceID').value);
+			if (information != null) {
+				information.remove();
+			}
 		} else {
 			entrances[document.getElementById('entranceID').value].known_location = n;
 			entrances[document.getElementById('entranceID').value].type = (t === true ? 2 : 3);
 			document.getElementById(n).style.backgroundColor = '#00F';
+			
+			if (document.getElementById('informationdiv'+document.getElementById('entranceID').value) != null) {
+				document.getElementById('informationdiv'+document.getElementById('entranceID').value).innerHTML = n.replace('_','-').toUpperCase();
+			} else {
+				var divtoadd = document.createElement('div');
+				divtoadd.id = 'informationdiv' + document.getElementById('entranceID').value;
+				var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
+				
+				divtoadd.style.top = loc.offsetTop - 15;
+				divtoadd.style.left = loc.offsetLeft - 14;
+				divtoadd.className = 'informationdiv';
+
+				divtoadd.style.width = 40;
+				divtoadd.style.height = 12;
+				divtoadd.style.position = 'absolute';
+				
+				divtoadd.innerHTML = n.replace('_','-').toUpperCase();
+				
+				document.getElementById('informationDiv').appendChild(divtoadd);
+			}
+			
+						
 		}
 		
-		var divtoadd = document.createElement('div');
-		divtoadd.id = 'informationdiv' + document.getElementById('entranceID').value;
-		var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
-		
-		divtoadd.style.top = loc.offsetTop - 15;
-		divtoadd.style.left = loc.offsetLeft - 14;
-		divtoadd.className = 'informationdiv';
 
-		divtoadd.style.width = 40;
-		divtoadd.style.height = 12;
-		divtoadd.style.position = 'absolute';
-		
-		divtoadd.innerHTML = n.replace('_','-').toUpperCase();
-		
-		document.getElementById('informationDiv').appendChild(divtoadd);
-		
 		hideEntranceModal();
 	}
 
