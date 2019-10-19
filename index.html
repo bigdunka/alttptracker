@@ -1,11 +1,12 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=14006"></script>
+		<script src="js/index.js?v=14007"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
+		<link href="css/sprites.css" rel="stylesheet">
 		<style type="text/css">
 			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; }
 			label { width: 5em; display: inline-block; }
@@ -33,7 +34,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.4.006 101919 - Compatible for v31</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.4.007 101919a - Compatible for v31</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
 			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
@@ -330,11 +331,12 @@
 								</tr>
 								<tr>
 									<td>
-										Sprite: <span class="south" title="We would to add the ability to change the sprite, but will need the proper sprite images to load, may or may not happen" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Sprite: <span class="south" title="This will slowly be rolled out over time, so keep checking back to see if your sprite gets added!" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
 									</td>
 									<td>
-										<select disabled id="spriteselect" style="width: 100%">
+										<select id="spriteselect" style="width: 100%">
 										  <option value="link">Link</option>
+										  <option value="ultros">Ultros</option>
 										</select>									
 									</td>
 								</tr>

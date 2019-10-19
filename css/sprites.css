@@ -1,0 +1,13 @@
+.tunic.link.active-1 { background-image: url(../images/sprites/link_tunic1.png); background-size:100%; float:left; }
+.tunic.link.active-2 { background-image: url(../images/sprites/link_tunic2.png); background-size:100%; float:left; }
+.tunic.link.active-3 { background-image: url(../images/sprites/link_tunic3.png); background-size:100%; float:left; }
+.tunic.link.active-1.bunny { background-image: url(../images/sprites/link_tunicbunny1.png); }
+.tunic.link.active-2.bunny { background-image: url(../images/sprites/link_tunicbunny2.png); }
+.tunic.link.active-3.bunny { background-image: url(../images/sprites/link_tunicbunny3.png); }
+.tunic.ultros.active-1 { background-image: url(../images/sprites/ultros_tunic1.png); background-size:100%; float:left; }
+.tunic.ultros.active-2 { background-image: url(../images/sprites/ultros_tunic2.png); background-size:100%; float:left; }
+.tunic.ultros.active-3 { background-image: url(../images/sprites/ultros_tunic3.png); background-size:100%; float:left; }
+.tunic.ultros.active-1.bunny { background-image: url(../images/sprites/ultros_tunicbunny1.png); }
+.tunic.ultros.active-2.bunny { background-image: url(../images/sprites/ultros_tunicbunny2.png); }
+.tunic.ultros.active-3.bunny { background-image: url(../images/sprites/ultros_tunicbunny3.png); }
+

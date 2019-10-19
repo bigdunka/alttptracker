@@ -942,8 +942,7 @@
 		} else {
 			if (lastItem.substring(0, 5) === "sword" || lastItem.substring(0, 5) === "shiel" || lastItem.substring(0, 5) === "moonp") {
 				document.getElementById(label).className = "sphere sphere" + lastItem;
-			} else if (lastItem.substring(0, 5) === "tunic")
-			{}
+			}
 			else
 				document.getElementById(label).className = "sphere " + lastItem;
 			
@@ -1236,6 +1235,8 @@
 		if (flags.swordmode === 'A') {
 			toggle('sword');
 		}
+		
+		document.getElementsByClassName('tunic')[0].classList.add(flags.sprite);
 		
 		updateMapTracker();
 		

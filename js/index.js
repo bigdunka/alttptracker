@@ -12,6 +12,11 @@ function load_cookie() {
 		if (c.indexOf('s-Y') > -1) {
 			document.getElementById("sphereyes").checked = true;
 		}
+		if (c.indexOf('p-') > -1) {
+			var sprite = c.substr(c.indexOf('p-') + 2);
+			sprite = sprite.substr(0, sprite.indexOf(';'));
+			document.getElementById("spriteselect").value = sprite;
+		}	
 	}
 }
 
@@ -41,7 +46,7 @@ function launch_tracker() {
 	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
 	
 	if (document.getElementById("remembersettings").checked == true) {
-		var settings = "m-" + map + "|s-" + sphere;
+		var settings = "m-" + map + "|s-" + sphere + "|p-" + sprite;
 		document.cookie = "settings=" + settings + "; expires=Sat, 1 Jan 2023 12:00:00 UTC";
 	} else {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
