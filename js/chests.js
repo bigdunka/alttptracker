@@ -226,7 +226,7 @@
 						break;
 					case 'K':
 					case 'F':
-						return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+						return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) && (items.smallkeyhalf1 === 2 || flags.gametype == 'R') && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 						break;
 				}
 			}
@@ -675,7 +675,7 @@
 				if (is_retro) {
 					return (activeFlute() || items.glove) ? (items.lantern || items.flute) ? 'available' : 'darkavailable' : 'unavailable';
 				} else {
-					return (activeFlute() || items.glove) && items.smallkeyhalf1 > 0 ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+					return (activeFlute() || items.glove) && (items.smallkeyhalf1 > 0 || flags.gametype == 'R') ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 				}
 			}
 		}];
@@ -840,7 +840,7 @@
 						break;
 					case 'K':
 					case 'F':
-						return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+						return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && (items.smallkeyhalf1 === 2 || flags.gametype == 'R') && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 						break;
 				}
 			}
@@ -879,8 +879,8 @@
 				var state = medallion_check(1);
 				if (state) return state;
 
-				if (flags.dungeonitems === 'F') {
-					return items.smallkey9 <= 1 ? 'unavailable' : 'available';
+				if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K') {
+					return (items.smallkey9 <= 1 && flags.gametype != 'R') ? 'unavailable' : 'available';
 				}
 
 				return items.firerod ?
@@ -1211,7 +1211,7 @@
 				if (is_standard) return 'available';
 				if (flags.dungeonitems === 'F') {
 					if (items.glove) return 'available';
-					if (items.smallkeyhalf0 === 1) return items.lantern ? 'available' : 'darkavailable';
+					if (items.smallkeyhalf0 === 1 || flags.gametype == 'R') return items.lantern ? 'available' : 'darkavailable';
 					return 'unavailable';
 				}
 				
@@ -1293,7 +1293,7 @@
 				if (is_retro) {
 					return (items.sword >= 2 || (is_swordless && items.hammer) || items.cape) ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 				} else {
-					return (items.sword >= 2 || (is_swordless && items.hammer) || items.cape) && items.smallkeyhalf1 > 0 ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+					return (items.sword >= 2 || (is_swordless && items.hammer) || items.cape) && (items.smallkeyhalf1 > 0 || flags.gametype == 'R') ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 				}
 			}
 		}];
