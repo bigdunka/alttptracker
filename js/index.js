@@ -14,7 +14,9 @@ function load_cookie() {
 		}
 		if (c.indexOf('p-') > -1) {
 			var sprite = c.substr(c.indexOf('p-') + 2);
-			sprite = sprite.substr(0, sprite.indexOf(';'));
+			if (sprite.indexOf(';') > -1) {
+				sprite = sprite.substr(0, sprite.indexOf(';'));
+			}
 			document.getElementById("spriteselect").value = sprite;
 		}	
 	}

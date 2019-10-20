@@ -13,6 +13,16 @@
     function cane() { return items.somaria || items.byrna; }
     function rod() { return items.firerod || items.icerod; }
 
+    function medallion_check(i) {
+        if ((!items.sword && !is_swordless) || !items.bombos && !items.ether && !items.quake) return 'unavailable';
+        if (medallions[i] === 1 && !items.bombos ||
+            medallions[i] === 2 && !items.ether ||
+            medallions[i] === 3 && !items.quake) return 'unavailable';
+		if (items.bombos && items.ether && items.quake) return 'available';
+        if (medallions[i] === 0 && !(items.bombos && items.ether && items.quake)) return 'possible';
+		return 'available';
+    }
+
 	//Check which boss is at the end of the dungeon
 	function enemizer_check(i) {
 		//All possible required items to kill a boss
@@ -233,7 +243,7 @@
     window.MMBoss = function() {
 		var dungeoncheck = enemizer_check(8);
 		if (!items.bigkey8 || !items.somaria || dungeoncheck === 'unavailable') return 'unavailable';
-		return (dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
+		return (dungeoncheck === 'available' && medallion_check(0) === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
     };
 
     window.TRFrontBoss = function() {
@@ -242,7 +252,7 @@
 		if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K') {
 			if (items.smallkey9 < 4 && flags.gametype != 'R') return 'unavailable';
 		}
-		return (dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
+		return (dungeoncheck === 'available' && medallion_check(1) === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
     };
 
     window.TRBackBoss = function() {
@@ -250,11 +260,11 @@
 		if (!items.bigkey9 || !items.somaria || dungeoncheck === 'unavailable') return 'unavailable';
 		if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K') {
 			if (items.smallkey9 === 0 && flags.gametype != 'R') return 'unavailable';
-			if (items.smallkey9 < 4 && flags.gametype != 'R') return 'possible';
+			if ((items.smallkey9 < 4 && flags.gametype != 'R') || medallion_check(1) === 'possible') return 'possible';
 			return dungeoncheck;
 		} else {
 			if (!items.firerod) return 'possible';
-			return (dungeoncheck === 'available' ? (items.lantern ? 'avaialble' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
+			return (dungeoncheck === 'available' && medallion_check(1) === 'available' ? (items.lantern ? 'avaialble' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
 		}
     };
 
@@ -828,6 +838,8 @@
     window.MMChests = function() {
 		var dungeoncheck = enemizer_check(8);
 
+		if (medallion_check(0) === 'possible') return 'possible';
+
 		var chests = ['U','U','U','U','U','U','U','U'];
 		
 		//Bridge Chest
@@ -883,6 +895,8 @@
 		var dungeoncheck = enemizer_check(9);
 		var isDark = (!items.flute && !items.lantern);
 		
+		if (medallion_check(1) === 'possible') return (isDark ? 'darkpossible' : 'possible');
+
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U'];
 		
         //Compass Chest

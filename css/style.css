@@ -33,7 +33,7 @@ body {
 #tracker .sword { position: absolute; top: 0; right: 0; height: 48px; width: 48px; }
 #tracker .crystalgoal { position: absolute; top: 0; left: 0; height: 24px; width: 24px; }
 #tracker .ganongoal { position: absolute; top: 24; left: 0; height: 24px; width: 24px; }
-#tracker .shield { position: absolute; bottom: 0; left: 0; height: 48px; width: 48px; }
+#tracker .shield { position: absolute; bottom: 0; left: 0; height: 40px; width: 40px; }
 #tracker .moonpearl {
   width: 48px;
   height: 48px;
@@ -287,6 +287,14 @@ body {
 .pendant-2 { background-image: url(../images/overlay/pendant2.png); }
 
 .noitem { background-image: url(../images/dungeons/prize0.png); opacity: .25; }
+
+.dropdown-toggle, .dropdown-menu { width: 300px }
+.btn-group img { margin-right: 10px }
+.dropdown-toggle { padding-right: 50px }
+.dropdown-toggle .glyphicon { margin-left: 20px; margin-right: -40px }
+.dropdown-menu>li>a:hover { background: #f1f9fd } /* $search-blue */
+.dropdown-header { background: #ccc; font-size: 14px; font-weight: 700; padding-top: 5px; padding-bottom: 5px; margin-top: 10px; margin-bottom: 5px }
+
 
 #bossMap0, #dungeon0 { left: 46.8%; top: 38.8%; }
 #bossMap1, #dungeon1 { left: 3.8%;  top: 78.4%; }

@@ -238,7 +238,9 @@
         document.getElementById('dungeonEnemy'+n).className = 'enemizer-' + enemizer[n];
 		dungeons[n].is_beatable();
 		if (!dungeons[n].is_beaten)
-			document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
+			if (document.getElementById('bossMap'+n) != null) {
+				document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
+			}
     };
 	
 	window.rightClickChest = function(label) {
