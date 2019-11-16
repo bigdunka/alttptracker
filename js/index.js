@@ -61,6 +61,10 @@ function launch_tracker() {
 		return;
 	}
 	
+	if (entrance != 'N' && type === "I") {
+		alert('NOTICE: There is currently no logic implemented in Inverted Entrance, all locatiosn will be flagged as available.');
+	}
+	
 	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}&sprite={sprite}'
 			.replace('{tracker}', trackerName)
 			.replace('{type}', type)

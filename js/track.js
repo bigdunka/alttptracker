@@ -1,7 +1,6 @@
 (function(window) {
     'use strict';
 
-	var spoilerLoaded = false;
 	var spoiler;
 	var overrideEntranceCloseFlag = false;
 	var connectStart = false;
@@ -160,7 +159,7 @@
 		
 		//Update the backgrounds of the chests in entrance
 		for (var k = 0; k < dungeons.length; k++) {
-			document.getElementById('chest'+k).style.backgroundColor = (flags.entrancemode != 'N' ? getDungeonBackground(dungeons[k].can_get_chest()) : 'white');
+			document.getElementById('chest'+k).style.backgroundColor = 'white';// (flags.entrancemode != 'N' ? getDungeonBackground(dungeons[k].can_get_chest()) : 'white');
 		}
     };
 
@@ -194,7 +193,7 @@
 
         document.getElementById('dungeonPrize'+n).className = 'prize-' + prizes[n];
 
-        if (flags.mapmode != 'N' && flags.entrance === 'N') {
+        if (flags.mapmode != 'N' && flags.entrancemode === 'N') {
             // Update Sahasralah, Fat Fairy, and Master Sword Pedestal
             var pendant_chests = [25, 61, 62];
             for (var k = 0; k < pendant_chests.length; k++) {
@@ -210,7 +209,7 @@
 
         document.getElementById('dungeonPrize'+n).className = 'prize-' + prizes[n];
 
-        if (flags.mapmode != 'N' && flags.entrance === 'N') {
+        if (flags.mapmode != 'N' && flags.entrancemode === 'N') {
             // Update Sahasralah, Fat Fairy, and Master Sword Pedestal
             var pendant_chests = [25, 61, 62];
             for (var k = 0; k < pendant_chests.length; k++) {
@@ -228,7 +227,9 @@
         document.getElementById('dungeonEnemy'+n).className = 'enemizer-' + enemizer[n];
 		dungeons[n].is_beatable();
 		if (!dungeons[n].is_beaten)
-			document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
+			if (document.getElementById('bossMap'+n) != null) {
+				document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
+			}
     };
 
     // event of clicking on a boss's enemizer portrait
@@ -392,6 +393,7 @@
 		document.getElementById('bumper').style.backgroundColor = '#000';
 		document.getElementById('spike').style.backgroundColor = '#000';
 		document.getElementById('hook').style.backgroundColor = '#000';		
+		document.getElementById('dam').style.backgroundColor = '#000';		
 		
 		if (entrances[n].known_location != '') {
 			document.getElementById(entrances[n].known_location).style.backgroundColor = '#00F';
@@ -509,6 +511,7 @@
 		document.getElementById('bumper').style.backgroundColor = '#000';
 		document.getElementById('spike').style.backgroundColor = '#000';
 		document.getElementById('hook').style.backgroundColor = '#000';
+		document.getElementById('dam').style.backgroundColor = '#000';
 		
 		if (entrances[document.getElementById('entranceID').value].known_location === n) {
 			entrances[document.getElementById('entranceID').value].known_location = '';
@@ -569,6 +572,7 @@
             }
             // Change the mouseover text on the map
             dungeons[8+n].caption = dungeons[8+n].caption.replace(/\{medallion\d+\}/, '{medallion'+medallions[n]+'}');
+			updateMapTracker();
         }
     };
 
@@ -851,10 +855,13 @@
 				break;
 			case 'hook':
 				friendly = 'Hookshot Cave';
-				break;			
+				break;
 			case 'connector':
 				friendly = 'Unknown Connector';
 				break;			
+			case 'dam':
+				friendly = 'Dam';
+				break;
 		}
 		
 		return friendly;
@@ -916,8 +923,10 @@
 			{
 				for(var i = 0; i < chests.length; i++)
 					document.getElementById('locationMap'+i).classList.remove('highlight');
-				for(var i = 0; i < entrances.length; i++)
-					document.getElementById('entranceMap'+i).classList.remove('highlight');
+				if (flags.entrancemode != 'N') {
+					for(var i = 0; i < entrances.length; i++)
+						document.getElementById('entranceMap'+i).classList.remove('highlight');
+				}
 				for(var i = 0; i < dungeonContents.length; i++)
 						document.getElementById('dungeon'+i).classList.remove('highlight');
 			}
@@ -1108,9 +1117,8 @@
         }
 		
 		//Switch overworld locations if inverted
-		if (flags.gametype === 'I') {
+		if (flags.gametype === 'I' && flags.entrancemode === 'N') {
 			document.getElementById('locationMap2').style.left = "77.4%";
-
 			document.getElementById('locationMap65').style.left = "74.5%";
 			document.getElementById('locationMap65').style.top = "5%";
 			
@@ -1234,11 +1242,24 @@
 			document.getElementById('spheres').style.visibility = 'visible';
 		}
 		
+		/* if (flags.entrance == 'N') {
+			if (flags.goals != 'F') {
+				document.getElementById('aga1splitdiv').remove();
+			} else {
+				document.getElementById('aga1div').remove();
+			}
+		} else {
+			document.getElementById('aga1div').remove();
+		} */
+		
+		
 		if (flags.swordmode === 'A') {
 			toggle('sword');
 		}
 		
 		document.getElementsByClassName('tunic')[0].classList.add(flags.sprite);
+		
+		toggle('bomb');
 		
 		updateMapTracker();
 		

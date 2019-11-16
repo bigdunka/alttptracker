@@ -14,6 +14,7 @@ body {
 .row:after { content: " "; display: table; }
 .row:after { clear: both; }
 .cell { position: relative; float: left; }
+.cell.split { height: 64px; width: 64px; position: relative; float: left; background-image: url(../images/items/splitbackground.png); }
 .normalopen {  }
 
 #app { width: 1340px; height: 744px; overflow: hidden; }
@@ -29,11 +30,12 @@ body {
 #tracker [id^="smallkeyhalf"] { width: 32px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 6px; padding-left: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 #tracker [id^="smallhalfheader"] { width: 32px; height: 16px; color: #FFF; font-size: 9px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 2px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 
+#tracker .item.half { width: 32px; height: 32px; position: absolute; }
 #tracker .tunic { width: 128px; height: 128px; }
 #tracker .sword { position: absolute; top: 0; right: 0; height: 48px; width: 48px; }
 #tracker .crystalgoal { position: absolute; top: 0; left: 0; height: 24px; width: 24px; }
 #tracker .ganongoal { position: absolute; top: 24; left: 0; height: 24px; width: 24px; }
-#tracker .shield { position: absolute; bottom: 0; left: 0; height: 48px; width: 48px; }
+#tracker .shield { position: absolute; bottom: 0; left: 0; height: 40px; width: 40px; }
 #tracker .moonpearl {
   width: 48px;
   height: 48px;
@@ -169,12 +171,13 @@ body {
 }
 
 .icon {
-  width: 16px;
-  height: 16px;
+  width: 16px !important;
+  height: 16px !important;
   display: inline-block;
-  background-size: 100% 100%;
+  background-size: 100% 100% !important;
   vertical-align: text-bottom;
 }
+
 .crossedleft {
     background: 
        linear-gradient(to top left,
@@ -218,12 +221,6 @@ body {
 .sphereshield.active-3 { background-image: url(../images/items/shield3.png); }
 .spheremoonpearl { background-image: url(../images/items/moonpearl.png); }
 
-.tunic.active-1 { background-image: url(../images/items/tunic1.png); background-size:100%; float:left; }
-.tunic.active-2 { background-image: url(../images/items/tunic2.png); background-size:100%; float:left; }
-.tunic.active-3 { background-image: url(../images/items/tunic3.png); background-size:100%; float:left; }
-.tunic.active-1.bunny { background-image: url(../images/items/tunicbunny1.png); }
-.tunic.active-2.bunny { background-image: url(../images/items/tunicbunny2.png); }
-.tunic.active-3.bunny { background-image: url(../images/items/tunicbunny3.png); }
 .sword.active-0 { background-image: url(../images/items/sword1.png); opacity: .25; background-size:100%; float:left; }
 .sword.active-1 { background-image: url(../images/items/sword1.png); background-size:100%; }
 .sword.active-2 { background-image: url(../images/items/sword2.png); background-size:100%; }
@@ -261,6 +258,7 @@ body {
 .ganongoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 24; left: 0; }
 .goalselect { height: 24px; width: 24px; } 
 
+.bomb { background-image: url(../images/items/bomb.png); }
 .bow { background-image: url(../images/items/bow0.png); }
 .bow.active-1 { background-image: url(../images/items/bow1.png); }
 .bow.active-2 { background-image: url(../images/items/bow2.png); }
@@ -269,8 +267,8 @@ body {
 .boomerang.active-2 { background-image: url(../images/items/boomerang2.png); }
 .boomerang.active-3 { background-image: url(../images/items/boomerang3.png); }
 .hookshot { background-image: url(../images/items/hookshot.png); }
-.mushroom { background-image: url(../images/items/mushroom.png); }
-.powder { background-image: url(../images/items/powder.png); }
+.mushroom { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image: url(../images/items/mushroom.png); }
+.powder { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image: url(../images/items/powder.png); }
 .firerod { background-image: url(../images/items/firerod.png); }
 .icerod { background-image: url(../images/items/icerod.png); }
 .bombos { background-image: url(../images/items/bombos.png); }
@@ -278,7 +276,7 @@ body {
 .quake { background-image: url(../images/items/quake.png); }
 .lantern { background-image: url(../images/items/lantern.png); }
 .hammer { background-image: url(../images/items/hammer.png); }
-.shovel { background-image: url(../images/items/shovel.png); }
+.shovel { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image: url(../images/items/shovel.png); }
 .net { background-image: url(../images/items/net.png); }
 .book { background-image: url(../images/items/book.png); }
 .bottle { background-image: url(../images/items/bottle0.png); }
@@ -294,13 +292,12 @@ body {
 .glove { background-image: url(../images/items/glove1.png); }
 .glove.active-2 { background-image: url(../images/items/glove2.png); }
 .flippers { background-image: url(../images/items/flippers.png); }
-.flute { background-image: url(../images/items/flute.png); }
-/*.agahnim, #bossMapAgahnim { width: 32 !important; height: 32 !important; background-size: 100%; background-image:url(../images/dungeons/agahnim0.png); }
-.agahnim.active { width: 32 !important; height: 32 !important; background-size: 100%; background-image:url(../images/dungeons/agahnim1.png); } */
-.agahnim, #bossMapAgahnim { background-image:url(../images/dungeons/agahnim0.png); }
-.agahnim.active { background-image:url(../images/dungeons/agahnim1.png); }
-.agahnim2 { margin-left: 32; width: 32 !important; height: 32 !important; background-size: 100%; background-image:url(../images/dungeons/agahnim20.png); }
-.agahnim2.active { margin-left: 32; width: 32 !important; height: 32 !important; background-size: 100%; background-image:url(../images/dungeons/agahnim1.png); }
+.flute { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image: url(../images/items/flute.png); }
+.magic { background-image: url(../images/items/magic.png); }
+.agahnim, #bossMapAgahnim { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image:url(../images/dungeons/agahnim0.png); }
+.agahnim.active { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image:url(../images/dungeons/agahnim1.png); }
+.agahnim2 { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image:url(../images/dungeons/agahnim20.png); }
+.agahnim2.active { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image:url(../images/dungeons/agahnim1.png); }
 .boss0, #bossMap0 { background-image: url(../images/dungeons/boss0.png); }
 .boss1, #bossMap1 { background-image: url(../images/dungeons/boss1.png); }
 .boss2, #bossMap2 { background-image: url(../images/dungeons/boss2.png); }
@@ -338,7 +335,7 @@ body {
 .smallkeyfull { background-image: url(../images/dungeons/smallkeyfull.png); }
 .smallkeyhalf { background-image: url(../images/dungeons/smallkeyhalf.png); }
 
-.bomb { background-image: url(../images/overlay/bomb.png); }
+.bombsmall { background-image: url(../images/overlay/bomb.png); }
 .crystal { background-image: url(../images/dungeons/prize4.png); }
 .pendant-0 { background-image: url(../images/overlay/pendant0.png); }
 .pendant-1 { background-image: url(../images/overlay/pendant1.png); }

@@ -8,7 +8,7 @@
 	var is_retro = flags.gametype === 'R';
 	var is_advanced = flags.itemplacement === 'A';
 	
-    function medallion_check(i) {
+    function medallionCheck(i) {
         if ((!items.sword && !is_swordless) || !items.bombos && !items.ether && !items.quake) return 'unavailable';
         if (medallions[i] === 1 && !items.bombos ||
             medallions[i] === 2 && !items.ether ||
@@ -16,7 +16,7 @@
         if (medallions[i] === 0 && !(items.bombos && items.ether && items.quake)) return 'possible';
     }
 	
-	function crystal_check() {
+	function crystalCheck() {
 		var crystal_count = 0;
 		for (var k = 0; k < 10; k++) {
 			if ((prizes[k] === 3 || prizes[k] === 4) && items['boss'+k]) {
@@ -26,6 +26,15 @@
 		return crystal_count;
 	}
 
+	function allDungeonCheck() {
+		for (var k = 0; k < 10; k++) {
+			if (!items['boss'+k]) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
     function melee() { return items.sword || items.hammer; }
     function melee_bow() { return melee() || items.bow > 0; }
     function cane() { return items.somaria || items.byrna; }
@@ -159,13 +168,13 @@
 			caption: 'Misery Mire {medallion0} [{boots}/{hookshot}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!(activeFlute() || medallion_check(0) === 'unavailable' || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
+				if (!(activeFlute() || medallionCheck(0) === 'unavailable' || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
 				if (!items.boots && !items.hookshot) return 'unavailable';
 				if (!items.bigkey8) return 'unavailable';
 				return window.MMBoss();
 			},
 			can_get_chest: function() {
-				if (!(activeFlute() || medallion_check(0) === 'unavailable' || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
+				if (!(activeFlute() || medallionCheck(0) === 'unavailable' || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
 				if (!items.boots && !items.hookshot) return 'unavailable';
 				return window.MMChests();
 			}
@@ -179,7 +188,7 @@
 					return window.TRBackBoss();
 				//If not, go through normal front door access
 				} else {
-					if (!items.bigkey9 || medallion_check(1) === 'unavailable') return 'unavailable';
+					if (!items.bigkey9 || medallionCheck(1) === 'unavailable') return 'unavailable';
 					return window.TRFrontBoss();
 				}
 			},
@@ -190,8 +199,8 @@
 					return window.TRBackChests();
 				//If not, go through normal front door access
 				} else {
-					if (!items.somaria || medallion_check(1) === 'unavailable') return 'unavailable';
-					//var state = medallion_check(1);
+					if (!items.somaria || medallionCheck(1) === 'unavailable') return 'unavailable';
+					//var state = medallionCheck(1);
 					//if (state) return state;
 					return window.TRFrontChests();
 				}
@@ -200,12 +209,12 @@
 			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
-				if (crystal_check() < flags.ganonvulncount || (crystal_check() < flags.opentowercount && flags.goals != 'F') || !canReachLightWorld()) return 'unavailable';
+				if (crystalCheck() < flags.ganonvulncount || ((crystalCheck() < flags.opentowercount || !items.agahnim2) && flags.goals != 'F') || !canReachLightWorld() || (flags.goals === 'A' && !allDungeonCheck())) return 'unavailable';
 				if (flags.goals === 'F' && (items.sword > 1 || is_swordless && items.hammer) && (items.lantern || items.firerod)) return 'available';
 				return window.GTBoss();			
 			},
 			can_get_chest: function() {
-				if (crystal_check() < flags.opentowercount || !canReachLightWorld()) return 'unavailable';
+				if (crystalCheck() < flags.opentowercount || !canReachLightWorld()) return 'unavailable';
 				return window.GTChests();
 			}
 		}];
@@ -584,7 +593,7 @@
 				return items.shovel && canReachLightWorld() ? 'available' : 'unavailable';
 			}
 		}, { // [55]
-			caption: 'Escape Sewer Side Room (3) {bomb}/{boots} (yellow = might need small key)',
+			caption: 'Escape Sewer Side Room (3) {bomb}/{boots} (may need small key)',
 			is_opened: false,
 			is_available: function() {
 				return canReachLightWorldBunny() ? (items.glove && items.moonpearl ? 'available' :
@@ -778,15 +787,15 @@
 			is_beatable: function() {
 				if (!items.moonpearl || !items.flute || items.glove !== 2 || !items.somaria || !canReachDarkWorld()) return 'unavailable';
 				if (!items.boots && !items.hookshot) return 'unavailable';
-				if (!items.bigkey8 || medallion_check(0) === 'unavailable') return 'unavailable';
-				//var state = medallion_check(0);
+				if (!items.bigkey8 || medallionCheck(0) === 'unavailable') return 'unavailable';
+				//var state = medallionCheck(0);
 				//if (state) return state;
 				return window.MMBoss();
 			},
 			can_get_chest: function() {
-				if (!items.moonpearl || !items.flute || items.glove !== 2 || !canReachDarkWorld() || medallion_check(0) === 'unavailable') return 'unavailable';
+				if (!items.moonpearl || !items.flute || items.glove !== 2 || !canReachDarkWorld() || medallionCheck(0) === 'unavailable') return 'unavailable';
 				if (!items.boots && !items.hookshot) return 'unavailable';
-				//var state = medallion_check(0);
+				//var state = medallionCheck(0);
 				//if (state) return state;
 				return window.MMChests();
 			}
@@ -796,16 +805,16 @@
 			is_beatable: function() {
 				if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria || !canReachDarkWorld()) return 'unavailable';
 				if (!items.hookshot && !items.mirror) return 'unavailable';
-				if (!items.bigkey9 || medallion_check(1) === 'unavailable') return 'unavailable';
-				//var state = medallion_check(1);
+				if (!items.bigkey9 || medallionCheck(1) === 'unavailable') return 'unavailable';
+				//var state = medallionCheck(1);
 				//if (state) return state;
 				return window.TRFrontBoss();
 			},
 			can_get_chest: function() {
 				if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria || !canReachDarkWorld()) return 'unavailable';
 				if (!items.hookshot && !items.mirror) return 'unavailable';
-				if (!items.somaria || medallion_check(1) === 'unavailable') return 'unavailable';
-				//var state = medallion_check(1);
+				if (!items.somaria || medallionCheck(1) === 'unavailable') return 'unavailable';
+				//var state = medallionCheck(1);
 				//if (state) return state;				
 				return window.TRFrontChests();
 			}
@@ -813,13 +822,13 @@
 			caption: 'Ganon\'s Castle (Crystals)',
 			is_beaten: false,
 			is_beatable: function() {
-				if (crystal_check() < flags.ganonvulncount || (crystal_check() < flags.opentowercount && flags.goals != 'F') || !canReachDarkWorld()) return 'unavailable';
+				if (crystalCheck() < flags.ganonvulncount || ((crystalCheck() < flags.opentowercount || !items.agahnim2) && flags.goals != 'F') || !canReachDarkWorld() || (flags.goals === 'A' && !allDungeonCheck())) return 'unavailable';
 				//Fast Ganon
 				if (flags.goals === 'F' && (items.sword > 1 || is_swordless && (items.hammer || items.net)) && (items.lantern || items.firerod)) return 'available';
 				return window.GTBoss();
 			},
 			can_get_chest: function() {
-				if (crystal_check() < flags.opentowercount || items.glove < 2 || !items.hammer || !canReachDarkWorld()) return 'unavailable';
+				if (crystalCheck() < flags.opentowercount || items.glove < 2 || !items.hammer || !canReachDarkWorld()) return 'unavailable';
 				return window.GTChests();
 			}
 		}];
@@ -870,7 +879,7 @@
 			is_opened: false,
 			is_available: function() {
 				if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria || !items.mirror) return 'unavailable';
-				var state = medallion_check(1);
+				var state = medallionCheck(1);
 				if (state) return state;
 
 				if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K') {
@@ -1199,7 +1208,7 @@
 				return items.shovel ? 'available' : 'unavailable';
 			}
 		}, { // [55]
-			caption: 'Escape Sewer Side Room (3) {bomb}/{boots}' + (is_standard ? '' : ' (yellow = need small key)'),
+			caption: 'Escape Sewer Side Room (3) {bomb}/{boots}' + (is_standard ? '' : ' (may need small key)'),
 			is_opened: false,
 			is_available: function() {
 				if (is_standard) return 'available';
@@ -1209,7 +1218,7 @@
 					return 'unavailable';
 				}
 				
-				return items.glove ? 'available' : items.lantern ? 'possible' : 'darkavailable';
+				return items.glove ? 'available' : items.lantern ? 'possible' : 'darkpossible';
 			}
 		}, { // [56]
 			caption: "Castle Secret Entrance (Uncle + 1)",

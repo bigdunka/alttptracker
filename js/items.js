@@ -34,16 +34,16 @@
 	}
 	
 	var chests0 = 3 + chestmod;
-	var chests1 = 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? 1 : 0);
-	var chests2 = 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? 1 : 0);
-	var chests3 = 5 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? 6 : 0);
-	var chests4 = 6 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? 1 : 0);
-	var chests5 = 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? 3 : 0);
-	var chests6 = 4 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? 1 : 0);
-	var chests7 = 3 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? 2 : 0);
-	var chests8 = 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? 3 : 0);
-	var chests9 = 5 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? 4 : 0);
-	var chests10 = 20 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K') ? 4 : 0);
+	var chests1 = 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 1 : 0);
+	var chests2 = 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 1 : 0);
+	var chests3 = 5 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 6 : 0);
+	var chests4 = 6 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 1 : 0);
+	var chests5 = 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 3 : 0);
+	var chests6 = 4 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 1 : 0);
+	var chests7 = 3 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 2 : 0);
+	var chests8 = 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 3 : 0);
+	var chests9 = 5 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 4 : 0);
+	var chests10 = 20 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 4 : 0);
 	
     window.items = {
         tunic: 1,
@@ -81,6 +81,8 @@
         flute: false,
         agahnim: false,
         agahnim2: false,
+		bomb: false,
+		magic: false,
 
         boss0: false,
         boss1: false,

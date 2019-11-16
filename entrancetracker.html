@@ -2,18 +2,18 @@
 	<head>
 		<title>ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=14008"></script>
-		<script src="js/bootstrap.min.js?v=14008"></script>
-		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=14008">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=14008">
+		<script src="js/jquery-3.3.1.js?v=15001"></script>
+		<script src="js/bootstrap.min.js?v=15001"></script>
+		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=15001">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=15001">
 		<link href="css/fonts.css" rel="stylesheet">		
 
-		<script src="js/util.js?v=14008"></script>
-		<script src="js/items.js?v=14008"></script>
-		<script src="js/entrancechests.js?v=14008"></script>
-		<script src="js/track.js?v=14008"></script>
-		<script src="js/dungeons.js?v=14008"></script>
-		<script src="js/spoiler.js?v=14008"></script>
+		<script src="js/util.js?v=15001"></script>
+		<script src="js/items.js?v=15001"></script>
+		<script src="js/entrancechests.js?v=15001"></script>
+		<script src="js/track.js?v=15001"></script>
+		<script src="js/dungeons.js?v=15001"></script>
+		<script src="js/spoiler.js?v=15001"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -128,8 +128,8 @@
 				<div class="cell"><div class="item bow" onClick="toggle('bow')" onMouseover="findItems(['Bow','Bow And Silver Arrows','Silver Arrows'])" onMouseout="unhighlightAll()"></div></div>
 				<div class="cell"><div class="item boomerang" onClick="toggle('boomerang')" onMouseover="findItems(['Blue Boomerang','Red Boomerang'])" onMouseout="unhighlightAll()"></div></div>
 				<div class="cell"><div class="item hookshot" onClick="toggle('hookshot')" onMouseover="findItems(['Hookshot'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div class="item mushroom" onClick="toggle('mushroom')" onMouseover="findItems(['Mushroom'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div class="item powder" onClick="toggle('powder')" onMouseover="findItems(['Powder'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item bomb" onClick="toggle('bomb')" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell split"><div class="item half mushroom" onClick="toggle('mushroom')" onMouseover="findItems(['Mushroom'])" onMouseout="unhighlightAll()"></div><div class="item half powder" onClick="toggle('powder')" onMouseover="findItems(['Powder'])" onMouseout="unhighlightAll()"></div></div>
 			  </div>
 			  <div class="row">
 				<div class="cell"><div class="item firerod" onClick="toggle('firerod')" onMouseover="findItems(['Fire Rod'])" onMouseout="unhighlightAll()"></div></div>
@@ -141,7 +141,7 @@
 			  <div class="row">
 				<div class="cell"><div class="item lantern" onClick="toggle('lantern')" onMouseover="findItems(['Lamp'])" onMouseout="unhighlightAll()"></div></div>
 				<div class="cell"><div class="item hammer" onClick="toggle('hammer')" onMouseover="findItems(['Hammer'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div class="item shovel" onClick="toggle('shovel')" onMouseover="findItems(['Shovel'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell split"><div class="item half shovel" onClick="toggle('shovel')" onMouseover="findItems(['Shovel'])" onMouseout="unhighlightAll()"></div><div class="item half flute" onClick="toggle('flute')" onMouseover="findItems(['Flute','Flute (active)'])" onMouseout="unhighlightAll()"></div></div>
 				<div class="cell"><div class="item net" onClick="toggle('net')" onMouseover="findItems(['Bug Net'])" onMouseout="unhighlightAll()"></div></div>
 				<div class="cell"><div class="item book" onClick="toggle('book')" onMouseover="findItems(['Book of Mudora'])" onMouseout="unhighlightAll()"></div></div>
 			  </div>
@@ -156,8 +156,8 @@
 				<div class="cell"><div class="item boots" onClick="toggle('boots')" onMouseover="findItems(['Pegasus Boots'])" onMouseout="unhighlightAll()"></div></div>
 				<div class="cell"><div class="item glove" onClick="toggle('glove')" onMouseover="findItems(['Gloves'])" onMouseout="unhighlightAll()"></div></div>
 				<div class="cell"><div class="item flippers" onClick="toggle('flippers')" onMouseover="findItems(['Flippers'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div class="item flute" onClick="toggle('flute')" onMouseover="findItems(['Flute','Flute (active)'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div class="item agahnim" onClick="toggle('agahnim')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()"></div><!--<div class="item agahnim2" onClick="toggle('agahnim2')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()"></div>-->
+				<div class="cell"><div class="item magic" onClick="toggle('magic')" onMouseover="findItems(['HalfMagic'])" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell split"><div class="item half agahnim" onClick="toggle('agahnim')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()"></div><div class="item half agahnim2" onClick="toggle('agahnim2')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()"></div>
 				</div>
 			  </div>
 			</div>
@@ -682,6 +682,7 @@
 								<img src="./images/interface/mimic.png" style="cursor: pointer;" onclick="tagEntrance('mimic', false)" id="mimic" />
 							</td>
 							<td>
+								<img src="./images/interface/dam.png" style="cursor: pointer;" onclick="tagEntrance('dam', false)" id="dam" />
 							</td>
 							<td>
 							</td>
