@@ -6,6 +6,9 @@
 	var connectStart = false;
 	var connectFinish = false;
 	var connectorid = 0;
+	window.connectorIndex = [];
+	window.connectorOne = [];
+	window.connectorTwo = [];
 	
     window.prizes = [];
     window.enemizer = [];
@@ -127,15 +130,10 @@
 					if (!entrances[k].is_opened) {
 						var entrancetype = '';
 						if (entrances[k].is_available()) {
-							if (entrances[k].type === 1) {
-							//Connector
+							if (entrances[k].known_location != '') {
+								entrancetype = isDungeon(entrances[k].known_location) ? 'dungeon' : 'keylocation';
+							} else if (entrances[k].is_connector) {
 								entrancetype = 'connector';
-							} else if (entrances[k].type === 2) {
-							//Dungeon
-								entrancetype = 'dungeon';
-							} else if (entrances[k].type === 3) {
-							//Location
-								entrancetype = 'keylocation';
 							}
 						}
 						document.getElementById('entranceMap'+k).className = 'entrance ' + entrances[k].is_available() + entrancetype;
@@ -302,15 +300,10 @@
 					if (!entrances[k].is_opened) {
 						var entrancetype = '';
 						if (entrances[k].is_available()) {
-							if (entrances[k].type === 1) {
-							//Connector
+							if (entrances[k].known_location != '') {
+								entrancetype = isDungeon(entrances[k].known_location) ? 'dungeon' : 'keylocation';
+							} else if (entrances[k].is_connector) {
 								entrancetype = 'connector';
-							} else if (entrances[k].type === 2) {
-							//Dungeon
-								entrancetype = 'dungeon';
-							} else if (entrances[k].type === 3) {
-							//Location
-								entrancetype = 'keylocation';
 							}
 						}
 						document.getElementById('entranceMap'+k).className = 'entrance ' + entrances[k].is_available() + entrancetype;
@@ -334,26 +327,35 @@
 		document.getElementById('entranceID').value = n;
 		document.getElementById('entranceModalTitle').innerHTML = entrances[n].caption;
 		document.getElementById('entranceModalNote').value = entrances[n].note;
-		if (entrances[n].connected_to === -1) {
-			document.getElementById('entranceModalDisconnect').style.visibility = 'collapse';
-			document.getElementById('entranceModalDisconnect').style.height = '0px';
-			document.getElementById('entranceModalConnect').style.visibility = 'visible';
-			document.getElementById('entranceModalConnect').style.height = '20px';
-			document.getElementById('entranceModalMain').style.height = '300px';
-			document.getElementById('entranceModalConnector').innerHTML = '';
-		} else {
-			document.getElementById('entranceModalConnector').innerHTML = entrances[entrances[n].connected_to].caption;
-			document.getElementById('entranceModalDisconnect').style.visibility = 'visible';
-			document.getElementById('entranceModalDisconnect').style.height = '60px';
-			document.getElementById('entranceModalConnect').style.visibility = 'collapse';
-			document.getElementById('entranceModalConnect').style.height = '0px';
-			document.getElementById('entranceModalMain').style.height = '150px';
+		document.getElementById('ConnectorListSpan').innerHTML = '';
+		var entrancecount = 0;
+		if (entrances[n].is_connector) {
+			for (var i = 0; i < connectorIndex.length; i++) {
+				if ((connectorOne[i] === n || connectorTwo[i] === n) && entrancecount < 3) {
+					var spantemplate = document.getElementById('connectTemplateSpan');
+					var spanclone = spantemplate.cloneNode(true);
+					spanclone.id = "disconnectEntrance" + connectorIndex[i];
+					spanclone.setAttribute('onClick','entranceDisconnect(' + connectorIndex[i] + ',' + n + ');');
+					spanclone.style.visibility = 'visible';
+					if (connectorOne[i] === n) {
+						spanclone.innerHTML = entrances[connectorTwo[i]].caption + '&nbsp;&nbsp;&nbsp;<img style="height: 15px;"src="./images/interface/cancel.png" />&nbsp;&nbsp;&nbsp;';
+					} else {
+						spanclone.innerHTML = entrances[connectorOne[i]].caption + '&nbsp;&nbsp;&nbsp;<img style="height: 15px;"src="./images/interface/cancel.png" />&nbsp;&nbsp;&nbsp;';
+					}
+					
+					var spanlist = document.getElementById('ConnectorListSpan');
+					spanlist.appendChild(spanclone);
+					entrancecount++;
+				}
+			}
 		}
-		if (entrances[n].type === 1) {
-			document.getElementById('modalTags').style.visibility = 'collapse';
+		
+		if (entrancecount > 2) {
+			document.getElementById('addConnectorSpan').style.visibility = 'collapse';			
 		} else {
-			document.getElementById('modalTags').style.visibility = 'visible';
+			document.getElementById('addConnectorSpan').style.visibility = 'visible';
 		}
+		
 		document.getElementById('entranceModalNote').focus();
 		
 		document.getElementById('hc_m').style.backgroundColor = '#000';
@@ -397,10 +399,6 @@
 		
 		if (entrances[n].known_location != '') {
 			document.getElementById(entrances[n].known_location).style.backgroundColor = '#00F';
-			document.getElementById('entranceModalConnect').style.visibility = 'collapse';
-			document.getElementById('entranceModalConnect').style.height = '0px';
-			document.getElementById('entranceModalDisconnect').style.visibility = 'collapse';
-			document.getElementById('entranceModalDisconnect').style.height = '0px';		
 		}
 	}
 	
@@ -413,6 +411,31 @@
 	window.hideEntranceModal = function(n) {
 		if (overrideEntranceCloseFlag === false) {
 			entrances[document.getElementById('entranceID').value].note = document.getElementById('entranceModalNote').value;
+			if (document.getElementById('entranceModalNote').value != '') {
+				//Add the note icon
+				var divtoadd = document.createElement('div');
+				divtoadd.id = 'notediv' + document.getElementById('entranceID').value;
+				var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
+				
+				divtoadd.style.top = loc.offsetTop - 10;
+				divtoadd.style.left = loc.offsetLeft + 10;
+				divtoadd.className = 'notediv';
+
+				divtoadd.style.width = 10;
+				divtoadd.style.height = 10;
+				divtoadd.style.position = 'absolute';
+				
+				divtoadd.innerHTML = '!';
+				
+				document.getElementById('informationDiv').appendChild(divtoadd);				
+				
+			} else {
+				//Remove the note icon if it exists
+				var divtoremove = document.getElementById('notediv' + document.getElementById('entranceID').value);
+				if (divtoremove != null) {
+					divtoremove.remove();
+				}
+			}
 			$('#entranceModal').hide();
 		} else {
 			overrideEntranceCloseFlag = false;
@@ -430,40 +453,61 @@
 		$('#entranceModal').hide();
 	}
 	
-	window.entranceDisconnect = function(n) {
-		entrances[entrances[document.getElementById('entranceID').value].connected_to].type = 0;
-		entrances[document.getElementById('entranceID').value].type = 0;
-		entrances[entrances[document.getElementById('entranceID').value].connected_to].connected_to = -1;
-		entrances[document.getElementById('entranceID').value].connected_to = -1;
+	window.entranceDisconnect = function(n, l) {
+		for (var i = 0; i < connectorIndex.length; i++) {
+			var c1 = connectorOne[i];
+			var c2 = connectorTwo[i];
+			var c1count = 0;
+			var c2count = 0;
+			if (connectorIndex[i] === n) {
+				connectorIndex.splice(i,1);
+				connectorOne.splice(i,1);
+				connectorTwo.splice(i,1);
+				for (var j = 0; j < connectorOne.length; j++) {
+					if (connectorOne[j] === c1 || connectorTwo[j] === c1) {
+						c1count++;
+					}
+					if (connectorOne[j] === c2 || connectorTwo[j] === c2) {
+						c2count++;
+					}
+					
+					if (c1count > 0 && c2count > 0) {
+						j = 999;
+					}
+				}
+				
+				if (c1count === 0) {
+					entrances[c1].is_connector = false;
+				}
+				if (c2count === 0) {
+					entrances[c2].is_connector = false;
+				}
+
+				i = 999;
+			}
+		}
 		
-		document.getElementById('entranceModalDisconnect').style.visibility = 'collapse';
-		//document.getElementById('entranceModalConnect').style.visibility = 'visible';		
-		var divtoremove = document.getElementById('connectordiv' + entrances[document.getElementById('entranceID').value].connector_id);
+		var divtoremove = document.getElementById('connectordiv' + n);
 		divtoremove.remove();
 		updateMapTracker();
 		
 		hideEntranceModal();
 	}
 	
-	window.StartAConnector = function(n) {
-		if (connectStart === false) {
-			document.getElementById('connectorStartImg').src = './images/interface/cancel.png';
-			connectStart = true;
-		} else {
-			document.getElementById('connectorStartImg').src = './images/interface/connect.png';
-			connectStart = false;
-			connectFinish = false;
-		}
+	window.StopAConnector = function() {
+		document.getElementById('connectorStop').style.visibility = 'hidden';
+		connectStart = false;
+		connectFinish = false;
 	}
 
-	window.StartAConnectorModal = function(n) {
-		document.getElementById('connectorStartImg').src = './images/interface/cancel.png';
+	window.StartAConnectorModal = function() {
+		document.getElementById('connectorStop').style.visibility = 'visible';
 		connectStart = true;
 		connectFinish = true;
 		$('#entranceModal').hide();
 	}
 	
-	window.HideConnectors = function(n) {
+	window.HideConnectors = function() {
 		if (document.getElementById('connectorLineDiv').style.visibility === 'collapse') {
 			document.getElementById('connectorLineDiv').style.visibility = 'visible';
 			document.getElementById('hideConnectorLinesImg').src = './images/interface/hide.png';
@@ -543,12 +587,8 @@
 				divtoadd.innerHTML = n.replace('_','-').toUpperCase();
 				
 				document.getElementById('informationDiv').appendChild(divtoadd);
-			}
-			
-						
+			}		
 		}
-		
-
 		hideEntranceModal();
 	}
 
@@ -625,14 +665,13 @@
 				}
 			} else if (connectFinish === true) {
 				if (x != parseInt(document.getElementById('entranceID').value)) {
-					entrances[x].connected_to = parseInt(document.getElementById('entranceID').value);
-					entrances[x].type = 1;
-					entrances[x].known_location = '';
-					entrances[x].connector_id = connectorid;
-					entrances[parseInt(document.getElementById('entranceID').value)].connected_to = x;
-					entrances[parseInt(document.getElementById('entranceID').value)].type = 1;
-					entrances[parseInt(document.getElementById('entranceID').value)].connector_id = connectorid;
-
+					entrances[x].is_connector = true;
+					entrances[document.getElementById('entranceID').value].is_connector = true;
+					
+					connectorIndex.push(connectorid);
+					connectorOne.push(parseInt(document.getElementById('entranceID').value));
+					connectorTwo.push(x);
+					
 					var divtoadd = document.createElement('div');
 					divtoadd.id = 'connectordiv' + connectorid;
 					var connector1 = document.getElementById('entranceMap' + x);
@@ -671,7 +710,7 @@
 					connectorid++;
 				}
 				
-				document.getElementById('connectorStartImg').src = './images/interface/connect.png';
+				document.getElementById('connectorStop').style.visibility = 'hidden';
 				connectStart = false;
 				connectFinish = false;
 				
@@ -709,11 +748,17 @@
         window.highlight_entrance = function(x) {
             document.getElementById('entranceMap'+x).classList.add('highlight');
 			var displayCaption = entrances[x].caption;
-			if (entrances[x].type != 0) {
-				if (entrances[x].type === 1) {
-					displayCaption = displayCaption + ' > Connected To: '+ entrances[entrances[x].connected_to].caption;
-				} else {
-					displayCaption = displayCaption + ' -- '+ getFriendlyName(entrances[x].known_location);
+			if (entrances[x].known_location != '') {
+				displayCaption = displayCaption + ' -- ' + getFriendlyName(entrances[x].known_location);
+			}
+			if (entrances[x].is_connector) {
+				for (var i = 0; i < connectorIndex.length; i++) {
+					if (connectorOne[i] === x) {
+						displayCaption = displayCaption + ' ==> ' + (entrances[connectorTwo[i]].caption);
+					}
+					if (connectorTwo[i] === x) {
+						displayCaption = displayCaption + ' ==> ' + (entrances[connectorTwo[i]].caption);
+					}
 				}
 			}
 			if (entrances[x].note != '') {
@@ -867,6 +912,37 @@
 		return friendly;
 	}
 
+	window.isDungeon = function(x) {
+		switch (x) {
+			case 'hc_m':
+			case 'hc_w':
+			case 'hc_e':
+			case 'ct':
+			case 'ep':
+			case 'dp_m':
+			case 'dp_w':
+			case 'dp_e':
+			case 'dp_n':
+			case 'toh':
+			case 'pod':
+			case 'sp':
+			case 'sw':
+			case 'tt':
+			case 'ip':
+			case 'mm':
+			case 'tr_m':
+			case 'tr_w':
+			case 'tr_e':
+			case 'tr_b':
+			case 'gt':
+			case 'ganon':
+				return true;
+				break;
+		}
+		
+		return false;
+	}
+	
 	window.findItems = function(items) {
 		if(spoilerLoaded && flags.mapmode != "N")
 		{
@@ -1241,17 +1317,6 @@
 		} else {
 			document.getElementById('spheres').style.visibility = 'visible';
 		}
-		
-		/* if (flags.entrance == 'N') {
-			if (flags.goals != 'F') {
-				document.getElementById('aga1splitdiv').remove();
-			} else {
-				document.getElementById('aga1div').remove();
-			}
-		} else {
-			document.getElementById('aga1div').remove();
-		} */
-		
 		
 		if (flags.swordmode === 'A') {
 			toggle('sword');

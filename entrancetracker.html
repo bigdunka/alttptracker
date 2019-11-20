@@ -2,18 +2,18 @@
 	<head>
 		<title>ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=15001"></script>
-		<script src="js/bootstrap.min.js?v=15001"></script>
-		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=15001">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=15001">
+		<script src="js/jquery-3.3.1.js?v=15002"></script>
+		<script src="js/bootstrap.min.js?v=15002"></script>
+		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=15002">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=15002">
 		<link href="css/fonts.css" rel="stylesheet">		
 
-		<script src="js/util.js?v=15001"></script>
-		<script src="js/items.js?v=15001"></script>
-		<script src="js/entrancechests.js?v=15001"></script>
-		<script src="js/track.js?v=15001"></script>
-		<script src="js/dungeons.js?v=15001"></script>
-		<script src="js/spoiler.js?v=15001"></script>
+		<script src="js/util.js?v=15002"></script>
+		<script src="js/items.js?v=15002"></script>
+		<script src="js/entrancechests.js?v=15002"></script>
+		<script src="js/track.js?v=15002"></script>
+		<script src="js/dungeons.js?v=15002"></script>
+		<script src="js/spoiler.js?v=15002"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -128,7 +128,7 @@
 				<div class="cell"><div class="item bow" onClick="toggle('bow')" onMouseover="findItems(['Bow','Bow And Silver Arrows','Silver Arrows'])" onMouseout="unhighlightAll()"></div></div>
 				<div class="cell"><div class="item boomerang" onClick="toggle('boomerang')" onMouseover="findItems(['Blue Boomerang','Red Boomerang'])" onMouseout="unhighlightAll()"></div></div>
 				<div class="cell"><div class="item hookshot" onClick="toggle('hookshot')" onMouseover="findItems(['Hookshot'])" onMouseout="unhighlightAll()"></div></div>
-				<div class="cell"><div class="item bomb" onClick="toggle('bomb')" onMouseout="unhighlightAll()"></div></div>
+				<div class="cell"><div class="item bomb"></div></div>
 				<div class="cell split"><div class="item half mushroom" onClick="toggle('mushroom')" onMouseover="findItems(['Mushroom'])" onMouseout="unhighlightAll()"></div><div class="item half powder" onClick="toggle('powder')" onMouseover="findItems(['Powder'])" onMouseout="unhighlightAll()"></div></div>
 			  </div>
 			  <div class="row">
@@ -522,13 +522,12 @@
 		  <div id="entranceMap137" onClick="toggle_location(137)" onMouseover="highlight_entrance(137)" onMouseout="unhighlight_entrance(137)" oncontextmenu="javascript:rightClickEntrance(137);return false;"></div>
 		  <div id="entranceMap138" onClick="toggle_location(138)" onMouseover="highlight_entrance(138)" onMouseout="unhighlight_entrance(138)" oncontextmenu="javascript:rightClickEntrance(138);return false;"></div>
 		  <div id="entranceMap139" onClick="toggle_location(139)" onMouseover="highlight_entrance(139)" onMouseout="unhighlight_entrance(139)" oncontextmenu="javascript:rightClickEntrance(139);return false;"></div>
-		  <div id="connectorStart" onClick="StartAConnector()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2;"><img src="./images/interface/connect.png" id="connectorStartImg" /></div>
+		   <div id="connectorStop" onClick="StopAConnector()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2; visibility: hidden;"><img src="./images/interface/cancel.png" /></div>
 		  <div id="hideConnectorLines" onClick="HideConnectors()" style="cursor: pointer; position: absolute; top: 89.6%; left: 50.6%; z-index: 2;"><img src="./images/interface/show.png" id="hideConnectorLinesImg" /></div>
 		  <div id="connectorLineDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 0; visibility: collapse;">
 		  </div>
 		  <div id="informationDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 0;">
 		  </div>
-		  
 		  <div id="caption">&nbsp;</div>
 		</div>
 	</div>
@@ -537,17 +536,12 @@
 		<div id="entranceModalMain" style="width: 800px; height: 300px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 50px; left: 40px; border-style: solid; border-color: white; color: #FFF; " onclick="overrideEntranceClose();">
 			<div style="margin: 0px 10px 0px 10px;">
 				<input id="entranceID" type="text" style="visibility: collapse; height: 0px;"/><br>
-				<span id="entranceModalTitle">Title</span>
-				<div id="entranceModalConnect"><span>
-					<span>Connect:&nbsp;&nbsp;&nbsp;</span><img onclick="StartAConnectorModal();" style="cursor: pointer; height: 15px;" src="./images/interface/connect.png" />
-					</span>
+				<span id="entranceModalTitle"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="addConnectorSpan" style="cursor: pointer;" onclick="StartAConnectorModal();">Add Connector:&nbsp;&nbsp;&nbsp;<img style="height: 15px;" src="./images/interface/connect.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Note: <input id="entranceModalNote" type="text" style="width: 236px;" onkeypress="return checkReturn(event);" /></span><span id="connectTemplateSpan" style="cursor: pointer; visibility: hidden;" onclick="dosomething(1,2);" >Title&nbsp;&nbsp;&nbsp;<img id="connectTemplateImg" style="height: 15px;"src="./images/interface/cancel.png" />&nbsp;&nbsp;&nbsp;</span>
+				<hr>
+				<div>
+					Connected To: <span id="ConnectorListSpan"></span>
 				</div>
-				<div id="entranceModalDisconnect"><span>Connected To --> 
-					<span id="entranceModalConnector"></span><br><br>
-					<span>Disconnect:&nbsp;&nbsp;&nbsp;</span><img onclick="entranceDisconnect();" style="cursor: pointer; height: 15px;" src="./images/interface/disconnect.png" />
-					</span>
-				</div>
-				
+				<hr>
 				<div id="modalTags">
 					<table style="color: white;">
 						<tr>
@@ -706,7 +700,7 @@
 					</table>
 				</div>
 				<br>
-				<span>Note: <input id="entranceModalNote" type="text" style="width: 236px;" onkeypress="return checkReturn(event);" /></span><br>			
+						
 			</div>
 			</div>
 		</div>

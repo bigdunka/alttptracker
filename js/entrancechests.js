@@ -229,23 +229,16 @@
 				return true;
 			}
 		}
-		
-		return false;
-	}
-	
-	function hasFoundConnector(x)
-	{
-		for (var i = 0; i < entrances.length; i++) {
-			if (entrances[i].connected_to === x || entrances[i].connected_to2 === x) {
-				return true;
-			}
-		}
-		
 		return false;
 	}
 	
 	function hasFoundEntrance(x) {
-		return (entrances[x].connected_to > -1 || entrances[x].connected_to2 > -1) ? true : false;
+		for (var i = 0; i < connectorIndex.length; i++) {
+			if (connectorOne[i] === x || connectorTwo[i] === x) {
+				return true;
+			}
+		}
+		return false;
 	}
 	
 	//Region Connectors
@@ -340,11 +333,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -354,11 +343,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -368,11 +353,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -382,11 +363,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -396,11 +373,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -410,11 +383,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -424,11 +393,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -438,11 +403,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -452,11 +413,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -466,11 +423,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -480,11 +433,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -494,11 +443,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -508,11 +453,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -522,11 +463,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -536,11 +473,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -550,11 +483,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -564,11 +493,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -578,11 +503,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -592,11 +513,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -606,11 +523,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -620,11 +533,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -634,11 +543,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -648,11 +553,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -662,11 +563,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -676,11 +573,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -690,11 +583,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -704,11 +593,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -718,11 +603,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -732,11 +613,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -746,11 +623,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -760,11 +633,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -774,11 +643,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -788,11 +653,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -802,11 +663,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -816,11 +673,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -830,11 +683,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -844,11 +693,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -858,11 +703,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -872,11 +713,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -886,11 +723,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -900,11 +733,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -914,11 +743,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -928,11 +753,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -942,11 +763,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -956,11 +773,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -970,11 +783,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -984,11 +793,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -998,11 +803,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1012,11 +813,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1026,11 +823,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1040,11 +833,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1054,11 +843,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1068,11 +853,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1082,11 +863,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1096,11 +873,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1110,11 +883,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1124,11 +893,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1138,11 +903,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1152,11 +913,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1166,11 +923,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1180,11 +933,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1194,11 +943,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1208,11 +953,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1222,11 +963,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1236,11 +973,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1250,11 +983,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1264,11 +993,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1278,11 +1003,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1292,11 +1013,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1306,11 +1023,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1320,11 +1033,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1334,11 +1043,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1348,11 +1053,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1362,11 +1063,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1376,11 +1073,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1390,11 +1083,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1404,11 +1093,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1418,11 +1103,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1432,11 +1113,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1446,11 +1123,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1460,11 +1133,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1474,11 +1143,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1488,11 +1153,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1502,11 +1163,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1516,11 +1173,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1530,11 +1183,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1544,11 +1193,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1558,11 +1203,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1572,11 +1213,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1586,11 +1223,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1600,11 +1233,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1614,11 +1243,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1628,11 +1253,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1642,11 +1263,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1656,11 +1273,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1670,11 +1283,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1684,11 +1293,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1698,11 +1303,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1712,11 +1313,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1726,11 +1323,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1740,11 +1333,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1754,11 +1343,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1768,11 +1353,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1782,11 +1363,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1796,11 +1373,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1810,11 +1383,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1824,11 +1393,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1838,11 +1403,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1852,11 +1413,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1866,11 +1423,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1880,11 +1433,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1894,11 +1443,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1908,11 +1453,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1922,11 +1463,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1936,11 +1473,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1950,11 +1483,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1964,11 +1493,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1978,11 +1503,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -1992,11 +1513,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2006,11 +1523,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2020,11 +1533,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2034,11 +1543,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2048,11 +1553,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2062,11 +1563,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2076,11 +1573,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2090,11 +1583,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2104,11 +1593,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2118,11 +1603,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2132,11 +1613,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2146,11 +1623,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2160,11 +1633,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2174,11 +1643,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2188,11 +1653,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2202,11 +1663,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2216,11 +1673,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2230,11 +1683,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2244,11 +1693,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2258,11 +1703,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2272,11 +1713,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2286,11 +1723,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				//Logic
 				return 'available';
@@ -2649,11 +2082,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2662,11 +2091,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(1)) return 'available';
 				return (items.boots ? 'available' : 'unavailable');
@@ -2676,11 +2101,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2689,11 +2110,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(3)) return 'available';
 				return (items.mirror ? 'available' : 'unavailable');
@@ -2703,11 +2120,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2716,11 +2129,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(5)) return 'available';
 				return (items.flippers ? 'available' : 'unavailable');
@@ -2730,11 +2139,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2743,11 +2148,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2756,11 +2157,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(8)) return 'available';
 				return canReachHCNorth() ? 'available' : 'unavailable';
@@ -2770,11 +2167,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(9)) return 'available';
 				return canReachHCNorth() ? 'available' : 'unavailable';
@@ -2784,11 +2177,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(10)) return 'available';
 				return canReachHCNorth() && (items.sword > 1 || items.cape || (is_swordless && items.hammer)) ? 'available' : 'unavailable';
@@ -2798,11 +2187,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2811,11 +2196,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2824,11 +2205,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2837,11 +2214,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(14)) return 'available';
 				return (items.boots ? 'available' : 'unavailable');
@@ -2851,11 +2224,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (items.glove > 0 ? 'available' : 'unavailable');
 			}
@@ -2864,11 +2233,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(16)) return 'available';
 				return (items.mirror && canReachOutcast() ? 'available' : 'unavailable');
@@ -2878,11 +2243,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(17)) return 'available';
 				if (!items.boots) return 'unavailable';
@@ -2894,11 +2255,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2907,11 +2264,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2920,11 +2273,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2933,11 +2282,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2946,11 +2291,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2959,11 +2300,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2972,11 +2309,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -2985,11 +2318,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return items.agahnim && items.boots ? 'available' : 'unavailable';
 			}
@@ -2998,11 +2327,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(26)) return 'available';				
 				return items.glove > 0 ? 'available' : 'unavailable';
@@ -3012,11 +2337,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3025,11 +2346,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3038,11 +2355,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3051,11 +2364,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3064,11 +2373,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3077,11 +2382,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3090,11 +2391,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3103,11 +2400,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3116,11 +2409,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3129,11 +2418,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3142,11 +2427,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3155,11 +2436,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3168,11 +2445,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3181,11 +2454,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3194,11 +2463,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3207,11 +2472,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3220,11 +2481,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3233,11 +2490,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (items.hammer || items.glove === 2 && items.mirror && items.moonpearl) ? 'available' : 'unavailable';
 			}
@@ -3246,11 +2499,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3259,11 +2508,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(46)) return 'available';				
 				return ((canReachDarkWorld() && items.mirror) ? 'available' : 'unavailable');
@@ -3273,11 +2518,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3286,11 +2527,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3299,11 +2536,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3312,11 +2545,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3325,11 +2554,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3338,11 +2563,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3351,11 +2572,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(53)) return 'available';				
 				if (items.book || (items.flute && items.glove === 2 && items.mirror) || ((hasFoundEntrance(123)) && items.mirror)) return 'available';
@@ -3366,11 +2583,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(54)) return 'available';
 				return ((items.flute && items.glove === 2 && items.mirror) || (hasFoundEntrance(56) && items.glove > 0)) ? 'available' : 'unavailable';
@@ -3380,11 +2593,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (hasFoundEntrance(55)) ? 'available' : 'unavailable';
 			}
@@ -3393,11 +2602,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(56)) return 'available';
 				return ((hasFoundEntrance(54) && items.glove > 0) || (items.flute && items.glove === 2 && items.mirror)) ? 'available' : 'unavailable';
@@ -3407,11 +2612,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(57)) return 'available';
 				return (items.flute && items.glove === 2 && items.mirror) ? 'available' : 'unavailable';
@@ -3421,11 +2622,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3434,11 +2631,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3447,11 +2640,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(60)) return 'available';
 				return (items.glove > 0) ? 'available' : 'unavailable';
@@ -3461,11 +2650,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3474,11 +2659,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3487,11 +2668,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3500,11 +2677,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(64)) return 'available';
 				return (items.flippers) ? 'available' : 'unavailable';
@@ -3514,11 +2687,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3527,11 +2696,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return 'available';
 			}
@@ -3540,11 +2705,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(67)) return 'available';
 				return (items.glove > 0) ? 'available' : 'unavailable';
@@ -3554,11 +2715,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(68)) return 'available';
 				return (canReachWDMNorth()) ? 'available' : 'unavailable';
@@ -3568,11 +2725,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(69)) return 'available';
 				return canReachWDM() ? 'available' : 'unavailable';
@@ -3582,11 +2735,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(70)) return 'available';
 				return canReachWDM() ? 'available' : 'unavailable';
@@ -3596,11 +2745,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(71)) return 'available';
 				return canReachWDM() ? 'available' : 'unavailable';
@@ -3610,11 +2755,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(72)) return 'available';
 				return canReachWDM() ? 'available' : 'unavailable';
@@ -3624,11 +2765,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(73)) return 'available';
 				return canReachWDM() ? 'available' : 'unavailable';
@@ -3638,11 +2775,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(74)) return 'available';
 				if (hasFoundEntrance(129) && items.mirror) return 'available';
@@ -3653,11 +2786,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(75)) return 'available';
 				return canReachWDM() ? 'available' : 'unavailable';
@@ -3667,11 +2796,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(76)) return 'available';
 				return canReachWDM() ? 'available' : 'unavailable';
@@ -3681,11 +2806,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(77)) return 'available';
 				return canReachEDMNorth() ? 'available' : 'unavailable';
@@ -3695,11 +2816,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(78)) return 'available';
 				return canReachEDM() ? 'available' : 'unavailable';
@@ -3709,11 +2826,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(79)) return 'available';
 				return canReachEDM() ? 'available' : 'unavailable';
@@ -3723,11 +2836,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(80)) return 'available';
 				return (canReachEDMNorth() || hasFoundEntrance(80) || ((hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror)) ? 'available' : 'unavailable';
@@ -3737,11 +2846,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(81)) return 'available';
 				return canReachEDM() ? 'available' : 'unavailable';
@@ -3751,11 +2856,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(82)) return 'available';
 				return canReachEDM() ? 'available' : 'unavailable';
@@ -3765,11 +2866,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(83)) return 'available';
 				return (canReachEDMNorth() || (hasFoundEntrance(137) && items.mirror)) ? 'available' : 'unavailable';
@@ -3779,11 +2876,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(84)) return 'available';
 				return (hasFoundEntrance(83) || canReachEDMNorth() || (canReachEDM() && items.glove === 2)) ? 'available' : 'unavailable';
@@ -3793,11 +2886,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(85)) return 'available';
 				return (canReachEDMNorth() || (items.mirror && (hasFoundEntrance(138) || hasFoundEntrance(139)))) ? 'available' : 'unavailable';
@@ -3807,11 +2896,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return canReachDarkWorldSouth() ? 'available' : 'unavailable';
 			}
@@ -3820,11 +2905,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(87)) return 'available';
 				return (canReachDarkWorldSouth() && items.boots && items.moonpearl) ? 'available' : 'unavailable';
@@ -3834,11 +2915,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(88)) return 'available';
 				return (canReachDarkWorldSouth() && items.moonpearl) ? 'available' : 'unavailable';
@@ -3848,11 +2925,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return canReachDarkWorldSouth() ? 'available' : 'unavailable';
 			}
@@ -3861,11 +2934,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return canReachOutcast() ? 'available' : 'unavailable';
 			}
@@ -3874,11 +2943,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return canReachOutcast() ? 'available' : 'unavailable';
 			}
@@ -3887,11 +2952,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(92)) return 'available';
 				if (items.moonpearl && items.glove && (items.agahnim || items.hammer || items.glove === 2 && items.flippers)) return 'available';
@@ -3904,14 +2965,10 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(93)) return 'available';
-				if (!items.agahnim2 || !items.moonpearl) return 'unavailable';
+				if (!items.agahnim2) return 'unavailable';
 				return (canReachPyramid() || canReachDarkWorldEast()) ? 'available' : 'unavailable';
 			}
 		}, { // [94]
@@ -3919,11 +2976,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(94)) return 'available';
 				var crystal_count = 0;
@@ -3940,11 +2993,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(95)) return 'available';
 				if (!items.agahnim2 || !items.moonpearl) return 'unavailable';
@@ -3955,11 +3004,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(96)) return 'available';
 				return (canReachOutcast() && items.moonpearl && items.firerod) ? 'available' : 'unavailable';
@@ -3969,11 +3014,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast() && items.moonpearl) ? 'available' : 'unavailable';
 			}
@@ -3982,11 +3023,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast() && items.moonpearl) ? 'available' : 'unavailable';
 			}
@@ -3995,11 +3032,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast() && items.moonpearl) ? 'available' : 'unavailable';
 			}
@@ -4008,11 +3041,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast() && items.moonpearl) ? 'available' : 'unavailable';
 			}
@@ -4021,11 +3050,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast() && items.moonpearl) ? 'available' : 'unavailable';
 			}
@@ -4034,11 +3059,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast() && items.moonpearl) ? 'available' : 'unavailable';
 			}
@@ -4047,11 +3068,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast() && items.moonpearl) ? 'available' : 'unavailable';
 			}
@@ -4060,11 +3077,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast()) ? 'available' : 'unavailable';
 			}
@@ -4073,11 +3086,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(105)) return 'available';
 				return (canReachOutcast() && items.glove > 0 && items.moonpearl) ? 'available' : 'unavailable';
@@ -4087,11 +3096,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast()) ? 'available' : 'unavailable';
 			}
@@ -4100,11 +3105,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast()) ? 'available' : 'unavailable';
 			}
@@ -4113,11 +3114,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(108)) return 'available';
 				return (canReachOutcast() && items.moonpearl) ? 'available' : 'unavailable';
@@ -4127,11 +3124,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return (canReachOutcast()) ? 'available' : 'unavailable';
 			}
@@ -4140,11 +3133,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(110)) return 'available';
 				return (canReachOutcast() && items.moonpearl && items.hammer) ? 'available' : 'unavailable';
@@ -4154,11 +3143,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(111)) return 'available';
 				return (canReachOutcast() && items.moonpearl) ? 'available' : 'unavailable';
@@ -4168,11 +3153,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(112)) return 'available';
 				return (canReachOutcast() && items.moonpearl && items.hammer && items.glove === 2) ? 'available' : 'unavailable';
@@ -4182,11 +3163,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(113)) return 'available';
 				return (canReachOutcast() || canReachDarkWorldSouth()) ? 'available' : 'unavailable';
@@ -4196,11 +3173,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return canReachDarkWorldEast() ? 'available' : 'unavailable';
 			}
@@ -4209,11 +3182,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return canReachDarkWorldEast() ? 'available' : 'unavailable';
 			}
@@ -4222,11 +3191,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return canReachDarkWorldEast() ? 'available' : 'unavailable';
 			}
@@ -4235,11 +3200,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				return canReachDarkWorldEast() ? 'available' : 'unavailable';
 			}
@@ -4248,11 +3209,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(118)) return 'available';
 				if (!canReachDarkWorld() || !items.flippers) return 'unavailable';
@@ -4263,11 +3220,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(119)) return 'available';
 				return (canReachDarkWorldSouth()) ? 'available' : 'unavailable';
@@ -4277,11 +3230,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(120)) return 'available';
 				return (canReachDarkWorldSouthEast()) ? 'available' : 'unavailable';
@@ -4291,11 +3240,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(121)) return 'available';
 				return (canReachDarkWorldSouthEast() && items.moonpearl) ? 'available' : 'unavailable';
@@ -4305,11 +3250,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(122)) return 'available';
 				return (canReachDarkWorldSouthEast() && items.moonpearl && items.glove > 0) ? 'available' : 'unavailable';
@@ -4319,11 +3260,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(123)) return 'available';
 				if (!canReachMiseryMire() || !items.moonpearl || medallionCheck(0) === 'unavailable') return 'unavailable';
@@ -4334,11 +3271,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(124)) return 'available';
 				return (canReachMiseryMire()) ? 'available' : 'unavailable';
@@ -4348,11 +3281,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(125)) return 'available';
 				return (canReachMiseryMire()) ? 'available' : 'unavailable';
@@ -4362,11 +3291,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(126)) return 'available';
 				return (canReachMiseryMire()) ? 'available' : 'unavailable';
@@ -4376,11 +3301,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(127)) return 'available';
 				return (canReachDWDMNorth() && (crystalCheck() >= flags.opentowercount)) ? 'available' : 'unavailable';
@@ -4390,11 +3311,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(128)) return 'available';
 				return (canReachDWWDM()) ? 'available' : 'unavailable';
@@ -4404,11 +3321,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(129)) return 'available';
 				return 'unavailable';
@@ -4418,11 +3331,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(130)) return 'available';
 				return (canReachDWWDM()) ? 'available' : 'unavailable';
@@ -4432,11 +3341,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(131)) return 'available';
 				return 'unavailable';
@@ -4446,11 +3351,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(132)) return 'available';
 				return (canReachDWDMNorth() && items.moonpearl && items.glove === 2) ? 'available' : 'unavailable';
@@ -4460,11 +3361,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(133)) return 'available';
 				return (canReachDWDMNorth()) ? 'available' : 'unavailable';
@@ -4474,11 +3371,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(134)) return 'available';
 				return (canReachDWEDM()) ? 'available' : 'unavailable';
@@ -4488,11 +3381,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(135)) return 'available';
 				return (canReachDWEDM()) ? 'available' : 'unavailable';
@@ -4502,11 +3391,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(136)) return 'available';
 				if (!canReachEDMNorth() || !items.moonpearl || !items.hammer || items.glove < 2 || medallionCheck(1) === 'unavailable') return 'unavailable';
@@ -4518,11 +3403,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(137)) return 'available';
 				return 'unavailable';
@@ -4532,11 +3413,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(138)) return 'available';
 				if (hasFoundEntrance(139)) return 'available';
@@ -4547,11 +3424,7 @@
 			is_opened: false,
 			note: '',
 			known_location: '',
-			type: 0,
-			connected_to: -1,
-			connected_to2: -1,
-			connector_id: -1,
-			connector_id2: -1,
+			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(139)) return 'available';
 				if (hasFoundEntrance(138)) return 'available';
@@ -4817,7 +3690,7 @@
 			caption: 'Race Minigame',
 			is_opened: false,
 			is_available: function() {
-				return (hasFoundConnector(46) || (canReachDarkWorld() && items.mirror) ? 'available' : 'information');
+				return (hasFoundEntrance(46) || (canReachDarkWorld() && items.mirror) ? 'available' : 'information');
 			}
 		}, { // [15]
 			caption: 'Desert West Ledge',
