@@ -233,12 +233,7 @@
 	}
 	
 	function hasFoundEntrance(x) {
-		for (var i = 0; i < connectorIndex.length; i++) {
-			if (connectorOne[i] === x || connectorTwo[i] === x) {
-				return true;
-			}
-		}
-		return false;
+		return (entrances[x].is_connector || entrances[x].known_location != '') ? true : false;
 	}
 	
 	//Region Connectors
@@ -266,7 +261,7 @@
 
 	function canReachEDM()
 	{
-		if (canReachEDMNorth() || (items.flute && items.hookshot) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
+		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
 		return false;
 	}
 	
@@ -2320,6 +2315,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
+				if (hasFoundEntrance(25)) return 'available';
 				return items.agahnim && items.boots ? 'available' : 'unavailable';
 			}
 		}, { // [26]
@@ -3598,9 +3594,11 @@
 
 		//define overworld chests
 		window.chests = [{ // [0]
-			caption: 'Light World Swamp (2)',
+			caption: 'Dam (Underwater)',
 			is_opened: false,
-			is_available: always
+			is_available: function () {
+				return hasFoundLocation('dam') ? 'available' : 'unavailable';
+			}
 		}, { // [1]
 			caption: 'Stoops Lonk\'s Hoose',
 			is_opened: (is_standard),
