@@ -66,7 +66,7 @@ function launch_tracker() {
 		alert('NOTICE: There is currently no logic implemented in Inverted Entrance, all locations will be flagged as available.');
 	}
 	
-	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}&sprite={sprite}'
+	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}&sprite={sprite}{compact}'
 			.replace('{tracker}', trackerName)
 			.replace('{type}', type)
 			.replace('{entrance}', entrance)
@@ -85,7 +85,8 @@ function launch_tracker() {
 			.replace('{spoiler}', spoiler)
 			.replace('{sphere}', sphere)
 			.replace('{sprite}', sprite)
-			.replace('{mystery}', mystery),
+			.replace('{mystery}', mystery)
+			.replace('{compact}', (map === "C" ? '&map=C' : '')),
 		'',
 		'width={width},height={height},titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0'
 			.replace('{width}', width).replace('{height}', height));
@@ -124,7 +125,7 @@ function loadmysterypreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryyes").checked = true;
-	launch_tracker();	
+	launch_tracker();
 	document.getElementById("mysteryno").checked = true;
 }
 

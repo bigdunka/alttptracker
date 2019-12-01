@@ -1106,6 +1106,10 @@
 		document.getElementById("goalselect").value = flags.goals;
 		document.getElementById("swordselect").value = flags.swordmode;
 		
+		if (maptype === 'C') {
+			document.getElementById('entranceselect').disabled = true;
+		}
+	
 		$('#flagsModal').show();
 	}
 	

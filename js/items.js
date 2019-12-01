@@ -24,6 +24,8 @@
         sprite: query.sprite
     };
 	
+	window.maptype = query.map;
+	
 	var chestmod = 0;
 	
 	if (flags.dungeonitems === 'S') {
