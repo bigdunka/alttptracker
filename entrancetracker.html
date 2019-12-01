@@ -2,18 +2,18 @@
 	<head>
 		<title>ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=15003"></script>
-		<script src="js/bootstrap.min.js?v=15003"></script>
-		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=15003">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=15003">
+		<script src="js/jquery-3.3.1.js?v=15004"></script>
+		<script src="js/bootstrap.min.js?v=15004"></script>
+		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=15004">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=15004">
 		<link href="css/fonts.css" rel="stylesheet">		
 
-		<script src="js/util.js?v=15003"></script>
-		<script src="js/items.js?v=15003"></script>
-		<script src="js/entrancechests.js?v=15003"></script>
-		<script src="js/track.js?v=15003"></script>
-		<script src="js/dungeons.js?v=15003"></script>
-		<script src="js/spoiler.js?v=15003"></script>
+		<script src="js/util.js?v=15004"></script>
+		<script src="js/items.js?v=15004"></script>
+		<script src="js/entrancechests.js?v=15004"></script>
+		<script src="js/track.js?v=15004"></script>
+		<script src="js/dungeons.js?v=15004"></script>
+		<script src="js/spoiler.js?v=15004"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -65,6 +65,9 @@
 						  <img class="goalselect" src="./images/dungeons/ganon5.png" onClick="setGanonGoal(5)"/>
 						  <img class="goalselect" src="./images/dungeons/ganon6.png" onClick="setGanonGoal(6)"/>
 						  <img class="goalselect" src="./images/dungeons/ganon7.png" onClick="setGanonGoal(7)"/>
+					  </div>
+					  <div id="changeflagsdiv" class="changeflags" style="visibility: visible;">
+						  <img class="goalselect" src="./images/dungeons/flagicon.png" onClick="changeFlags()"/>
 					  </div>
 					  <div id="ganondiv" class="item active ganongoal" onClick="ganonGoal()"></div>
 					  <div class="item sword" onClick="toggle('sword')" onMouseover="findItems(['Sword'])" onMouseout="unhighlightAll()"></div>
@@ -775,6 +778,104 @@
 			<center><input type="button" onclick="closeSpoilerModal();" value="Cancel and Close" /></center>
 		</div>
 	</div>
+
+		<div class="modal fade" id="flagsModal" aria-hidden="true" style="width: 400px; height: 440px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 6px; left: 20px; display: none;">
+			<div>
+				<center><h3>Change Flags</h3></center>
+				<table width="380px" height="72px" style="margin: auto;">
+					<tr>
+						<td width="140px">
+							World State:
+						</td>
+						<td>
+							<select id="stateselect" style="width: 140px">
+								<option value="S">Standard</option>
+								<option value="O">Open</option>
+								<option value="I">Inverted</option>
+								<option value="R">Retro</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="140px">
+							Entrance Shuffle:
+						</td>
+						<td>
+							<select id="entranceselect" style="width: 140px">
+								<option value="N">None</option>
+								<option value="S">Simple/Restricted/Full/Crossed</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="100px">
+							Boss Shuffle:
+						</td>
+						<td>
+							<select id="bossselect" style="width: 140px">
+								<option value="N">None</option>
+								<option value="S">Simple/Full/Random</option>
+							</select>
+						</td>
+					</tr>
+					<tr>
+						<td width="100px">
+							Enemy Shuffle:
+						</td>
+						<td>
+							<select id="enemyselect" style="width: 140px">
+								<option value="N">None</option>
+								<option value="S">Shuffled/Random</option>
+							</select>
+						</td>
+					</tr>					
+					<tr>
+						<td width="120px">
+							Dungeon Items:
+						</td>
+						<td>
+							<select id="dungeonselect" style="width: 140px">
+								<option value="S">Standard</option>
+								<option value="M">MC Shuffle</option>
+								<option value="K">MCS Shuffle</option>
+								<option value="F">Keysanity</option>
+							</select>
+						</td>
+					</tr>					
+					<tr>
+						<td width="100px">
+							Goal:
+						</td>
+						<td>
+							<select id="goalselect" style="width: 140px">
+								<option value="G">Ganon</option>
+								<option value="F">Fast Ganon</option>
+								<option value="A">All Dungeons</option>
+								<option value="P">Pedestal</option>
+								<option value="O">Other</option>
+							</select>
+						</td>
+					</tr>				
+					<tr>
+						<td>
+							Swords:
+						</td>
+						<td>
+							<select id="swordselect" style="width: 140px">
+								<option value="R">Randomized</option>
+								<option value="A">Assured</option>
+								<option value="V">Vanilla</option>
+								<option value="S">Swordless</option>
+							</select>
+						</td>
+					</tr>
+				</table>
+				<br><br>
+				<center>NOTE: If you change from Entrance to Non-Entrance (or vise-versa), you will lose all items and map locations tracked. If you switch from Inverted to Non-Inverted (or vise-versa), you will lose any map tracking locations<br><br>
+					<center><input type="button" onclick="closeFlagsModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="adjustFlags();" value="Submit" /></center>
+				</center>
+			</div>
+		</div>	
 	  
 	  <script>start()</script>
 

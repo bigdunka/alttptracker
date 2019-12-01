@@ -161,7 +161,7 @@
 
 	function canReachPyramid()
 	{
-		return items.flippers || canReachPyramidWithoutFlippers();
+		return canReachDarkWorld() && (items.flippers || canReachPyramidWithoutFlippers());
 	}
 
 	function canReachPyramidWithoutFlippers()
@@ -248,8 +248,7 @@
 
 	function canReachWDM()
 	{
-		if (canReachWDMNorth() || items.flute ||
-		hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(74) || hasFoundEntrance(76)) return true;
+		if (canReachWDMNorth() || items.flute || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84))) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(74) || hasFoundEntrance(76)) return true;
 		return false;
 	}
 	
@@ -261,13 +260,13 @@
 
 	function canReachEDM()
 	{
-		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
+		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || (hasFoundEntrance(137) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
 		return false;
 	}
 	
 	function canReachHCNorth()
 	{
-		if (hasFoundEntrance(8) ||  hasFoundEntrance(9) || hasFoundEntrance(10) || ((items.agahnim || items.glove && items.hammer && items.moonpearl || items.glove === 2 && items.moonpearl && items.flippers) && items.mirror)) return true;
+		if (hasFoundEntrance(8) ||  hasFoundEntrance(9) || hasFoundEntrance(10) || ((items.agahnim || items.glove && items.hammer && items.moonpearl || items.glove === 2 && items.moonpearl && items.flippers) && items.mirror) || (canReachDarkWorldEast() && items.mirror)) return true;
 		return false;
 	}
 	
@@ -284,6 +283,7 @@
 	function canReachDarkWorldSouth() {
 		if (canReachDarkWorld() || canReachOutcast()) return true;
 		if (hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) return true;
+		if (canReachDarkWorldEast() && items.moonpearl && items.hammer) return true;
 		return false;
 	}
 	
@@ -320,8 +320,8 @@
 	}
 	
 	
-	//Is Inverted Mode
-	if (flags.gametype === "I")
+	//Is Inverted Mode (And temporarily glitched)
+	if (flags.gametype === "I" || flags.glitches != "N")
 	{		
 		window.entrances = [{ // [0]
 			caption: 'Link\'s House',
@@ -2108,7 +2108,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(3)) return 'available';
-				return (items.mirror ? 'available' : 'unavailable');
+				return (items.mirror && canReachDarkWorldSouth() ? 'available' : 'unavailable');
 			}
 		}, { // [4]
 			caption: 'Magic Shop',
@@ -2507,7 +2507,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(46)) return 'available';				
-				return ((canReachDarkWorld() && items.mirror) ? 'available' : 'unavailable');
+				return ((canReachDarkWorldSouth() && items.mirror) ? 'available' : 'unavailable');
 			}
 		}, { // [47]
 			caption: 'Two Brothers (East)',
@@ -2571,7 +2571,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(53)) return 'available';				
-				if (items.book || (items.flute && items.glove === 2 && items.mirror) || ((hasFoundEntrance(123)) && items.mirror)) return 'available';
+				if (items.book || (items.flute && items.glove === 2 && items.mirror) || (items.mirror && canReachMiseryMire()) || ((hasFoundEntrance(123)) && items.mirror)) return 'available';
 				return 'unavailable';
 			}
 		}, { // [54]
@@ -2582,7 +2582,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(54)) return 'available';
-				return ((items.flute && items.glove === 2 && items.mirror) || (hasFoundEntrance(56) && items.glove > 0)) ? 'available' : 'unavailable';
+				return ((items.flute && items.glove === 2 && items.mirror) || (items.mirror && canReachMiseryMire()) || (hasFoundEntrance(56) && items.glove > 0)) ? 'available' : 'unavailable';
 			}
 		}, { // [55]
 			caption: 'Desert Palace - East Entrance',
@@ -2601,7 +2601,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(56)) return 'available';
-				return ((hasFoundEntrance(54) && items.glove > 0) || (items.flute && items.glove === 2 && items.mirror)) ? 'available' : 'unavailable';
+				return ((hasFoundEntrance(54) && items.glove > 0) || (items.mirror && canReachMiseryMire()) || (items.flute && items.glove === 2 && items.mirror)) ? 'available' : 'unavailable';
 			}
 		}, { // [57]
 			caption: 'Checkerboard Cave',
@@ -2611,7 +2611,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(57)) return 'available';
-				return (items.flute && items.glove === 2 && items.mirror) ? 'available' : 'unavailable';
+				return (canReachMiseryMire() && items.mirror) ? 'available' : 'unavailable';
 			}
 		}, { // [58]
 			caption: 'Aginah\'s Cave',
@@ -2875,7 +2875,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(84)) return 'available';
-				return (hasFoundEntrance(83) || canReachEDMNorth() || (canReachEDM() && items.glove === 2)) ? 'available' : 'unavailable';
+				return (hasFoundEntrance(83) || canReachEDMNorth() || (canReachEDM() && items.glove === 2) || (hasFoundEntrance(137) && items.mirror)) ? 'available' : 'unavailable';
 			}
 		}, { // [85]
 			caption: 'Mimic Cave',
@@ -2885,7 +2885,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(85)) return 'available';
-				return (canReachEDMNorth() || (items.mirror && (hasFoundEntrance(138) || hasFoundEntrance(139)))) ? 'available' : 'unavailable';
+				return ((items.mirror && (hasFoundEntrance(138) || hasFoundEntrance(139)))) ? 'available' : 'unavailable';
 			}
 		}, { // [86]
 			caption: 'Bomb Shop',
@@ -2951,10 +2951,11 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(92)) return 'available';
-				if (items.moonpearl && items.glove && (items.agahnim || items.hammer || items.glove === 2 && items.flippers)) return 'available';
-				if (canReachDarkWorldSouth() && items.moonpearl && (items.flippers || items.hammer)) return 'available';
-				if (canReachDarkWorldEast() && items.moonpearl && (items.flippers || items.hammer || items.glove > 0)) return 'available';
-				return (!canReachDarkWorld() ) ? 'unavailable' : 'available';
+				//if (items.moonpearl && items.glove && (items.agahnim || items.hammer || items.glove === 2 && items.flippers)) return 'available';
+				return (canReachDarkWorldEast() && items.moonpearl && (items.flippers || items.glove > 0 || items.hammer)) ? 'available' : 'unavailable';
+				//if (canReachDarkWorldSouth() && items.moonpearl && (items.flippers || items.hammer)) return 'available';
+				//if (canReachDarkWorldEast() && items.moonpearl && (items.flippers || items.hammer || items.glove > 0)) return 'available';
+				//return (!canReachDarkWorld() ) ? 'unavailable' : 'available';
 			}
 		}, { // [93]
 			caption: 'Pyramid Hole',
@@ -3171,7 +3172,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				return canReachDarkWorldEast() ? 'available' : 'unavailable';
+				return (items.moonpearl && canReachDarkWorldEast()) ? 'available' : 'unavailable';
 			}
 		}, { // [115]
 			caption: 'Hint (North)',
@@ -3208,7 +3209,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(118)) return 'available';
-				if (!canReachDarkWorld() || !items.flippers) return 'unavailable';
+				if (!canReachDarkWorld() || !items.flippers || items.glove < 2) return 'unavailable';
 				return 'available';
 			}
 		}, { // [119]
@@ -3229,7 +3230,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(120)) return 'available';
-				return (canReachDarkWorldSouthEast()) ? 'available' : 'unavailable';
+				return (canReachDarkWorldSouthEast() && items.moonpearl) ? 'available' : 'unavailable';
 			}
 		}, { // [121]
 			caption: 'Ledge Hint',
@@ -3239,7 +3240,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(121)) return 'available';
-				return (canReachDarkWorldSouthEast() && items.moonpearl) ? 'available' : 'unavailable';
+				return (canReachDarkWorldSouthEast()) ? 'available' : 'unavailable';
 			}
 		}, { // [122]
 			caption: 'Ledge Spike Cave',
@@ -3310,7 +3311,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(128)) return 'available';
-				return (canReachDWWDM()) ? 'available' : 'unavailable';
+				return (canReachWDM() || canReachWDMNorth() || canReachDWWDM()) ? 'available' : 'unavailable';
 			}
 		}, { // [129]
 			caption: 'Bumper Cave (Top)',
@@ -3330,7 +3331,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(130)) return 'available';
-				return (canReachDWWDM()) ? 'available' : 'unavailable';
+				return (canReachWDM() || canReachWDMNorth() || canReachDWWDM()) ? 'available' : 'unavailable';
 			}
 		}, { // [131]
 			caption: 'Hookshot Cave (Exit)',
@@ -3350,7 +3351,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(132)) return 'available';
-				return (canReachDWDMNorth() && items.moonpearl && items.glove === 2) ? 'available' : 'unavailable';
+				return (canReachDWDMNorth() && items.moonpearl && items.glove > 0) ? 'available' : 'unavailable';
 			}
 		}, { // [133]
 			caption: 'Superbunny Cave (Top)',
@@ -3611,7 +3612,7 @@
 			caption: 'Ol\' Stumpy',
 			is_opened: false,
 			is_available: function() {
-				return canReachOutcast() || canReachDarkWorldSouth() || items.agahnim && items.moonpearl && items.hammer ? 'available' : 'unavailable';
+				return items.moonpearl && (canReachOutcast() || canReachDarkWorldSouth() || items.agahnim && items.hammer) ? 'available' : 'unavailable';
 			}
 		}, { // [4]
 			caption: 'Gary\'s Lunchbox (save the frog first)',
@@ -3688,7 +3689,7 @@
 			caption: 'Race Minigame',
 			is_opened: false,
 			is_available: function() {
-				return (hasFoundEntrance(46) || (canReachDarkWorld() && items.mirror) ? 'available' : 'information');
+				return (hasFoundEntrance(46) || (canReachDarkWorldSouth() && items.mirror) ? 'available' : 'information');
 			}
 		}, { // [15]
 			caption: 'Desert West Ledge',

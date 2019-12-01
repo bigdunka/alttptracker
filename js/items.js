@@ -20,6 +20,7 @@
         mapmode: query.f.charAt(13),
         spoilermode: query.f.charAt(14),
         spheresmode: query.f.charAt(15),
+		mystery: query.f.charAt(16),
         sprite: query.sprite
     };
 	

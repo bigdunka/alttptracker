@@ -1,20 +1,13 @@
 (function(window) {
     'use strict';
 
-	var is_swordless = flags.swordmode === 'S';
-	var is_standard = flags.gametype === 'S';
-	var is_bossshuffle = flags.bossshuffle != 'N';
-	var is_enemyshuffle = flags.enemyshuffle != 'N';
-	var is_retro = flags.gametype === 'R';
-	var is_advanced = flags.itemplacement === 'A';
-
 	function melee() { return items.sword || items.hammer; }
     function melee_bow() { return melee() || items.bow > 0; }
     function cane() { return items.somaria || items.byrna; }
     function rod() { return items.firerod || items.icerod; }
 
     function medallion_check(i) {
-        if ((!items.sword && !is_swordless) || !items.bombos && !items.ether && !items.quake) return 'unavailable';
+        if ((!items.sword && !flags.swordmode === 'S') || !items.bombos && !items.ether && !items.quake) return 'unavailable';
         if (medallions[i] === 1 && !items.bombos ||
             medallions[i] === 2 && !items.ether ||
             medallions[i] === 3 && !items.quake) return 'unavailable';
@@ -29,7 +22,7 @@
 		if (melee() && items.hookshot && items.icerod && items.firerod) return 'available'
 		switch (enemizer[i]) {
 			case 0:
-				return (is_bossshuffle ? 'possible' : 'available');
+				return (flags.bossshuffle != 'N' ? 'possible' : 'available');
 				break;
 			case 1:
 				if (items.sword > 0 || items.hammer || items.bow > 0 || items.boomerang > 0 || items.byrna || items.somaria || items.icerod || items.firerod) return 'available';
@@ -165,14 +158,14 @@
 		var dungeoncheck = enemizer_check(0);
 		//Standard check
 		if (!items.bigkey0 || dungeoncheck === 'unavailable') return 'unavailable';
-		if (items.bow === 0 && !is_enemyshuffle) return 'unavailable';
+		if (items.bow === 0 && flags.enemyshuffle === 'N') return 'unavailable';
 		//Dark Room check
 		if (!items.lantern) {
 			if (flags.dungeonitems == 'F') {
-				if (items.firerod && is_advanced) return dungeoncheck;
+				if (items.firerod && flags.itemplacement === 'A') return dungeoncheck;
 				return dungeoncheck === 'possible' ? 'darkpossible' : 'darkavailable';
 			} else {
-				if (items.firerod && is_advanced) return 'possible';
+				if (items.firerod && flags.itemplacement === 'A') return 'possible';
 				return dungeoncheck === 'possible' ? 'darkpossible' : 'darkavailable';
 			}
 		}
@@ -213,13 +206,13 @@
 
     window.SPBoss = function() {
 		var dungeoncheck = enemizer_check(4);
-		if (!items.hammer || !items.hookshot) return 'unavailable';
+		if (!items.hammer || !items.hookshot || items.smallkey4 === 0) return 'unavailable';
 		return dungeoncheck;
     };
 
     window.SWBoss = function() {
 		var dungeoncheck = enemizer_check(5);
-		if (!items.firerod || (items.sword === 0 && !is_swordless)) return 'unavailable';
+		if (!items.firerod || (items.sword === 0 && !flags.swordmode === 'S')) return 'unavailable';
 		return dungeoncheck;
 	};
 
@@ -273,7 +266,7 @@
     window.GTBoss = function() {
 		var dungeoncheck = enemizer_check(0);
 		
-		if (!items.bigkey10 || (items.bow === 0 && !is_enemyshuffle) || (!items.lantern && !items.firerod) || !items.hookshot || ((items.sword < 2 && !is_swordless) || (is_swordless && !items.hammer)) || dungeoncheck === 'unavailable') return 'unavailable';
+		if (!items.bigkey10 || (items.bow === 0 && !flags.enemyshuffle != 'N') || (!items.lantern && !items.firerod) || !items.hookshot || ((items.sword < 2 && !flags.swordmode === 'S') || (flags.swordmode === 'S' && !items.hammer)) || dungeoncheck === 'unavailable') return 'unavailable';
 		if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K') {
 			if (items.smallkey10 === 0 && flags.gametype != 'R') return 'unavailable';
 			if (items.smallkey10 < 3 && flags.gametype != 'R') return 'possible';
@@ -317,10 +310,10 @@
 					chests[5] = 'A';
 				}
 			} else {
-				if (!is_enemyshuffle && items.bow === 0) {
+				if (!flags.enemyshuffle != 'N' && items.bow === 0) {
 					chests[5] = 'U';
 				} else {
-					if (items.lantern || (items.firerod && is_advanced)) {
+					if (items.lantern || (items.firerod && flags.itemplacement === 'A')) {
 						chests[5] = (dungeoncheck === 'available' ? 'A' : 'P');
 					} else {
 						chests[5] = (dungeoncheck === 'available' ? 'DA' : 'DP');
@@ -523,9 +516,9 @@
 				//Compass Chest
 				chests[6] = 'A';
 				//Dark Basement - Left
-				chests[8] = (items.lantern || (items.firerod && is_advanced)) ? 'A' : 'DA';
+				chests[8] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'A' : 'DA';
 				//Dark Basement - Right
-				chests[9] = (items.lantern || (items.firerod && is_advanced)) ? 'A' : 'DA';
+				chests[9] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'A' : 'DA';
 			}
 
 			if ((items.hammer && (items.smallkey3 > 3 || flags.gametype == 'R')) || (items.smallkey3 > 4 || flags.gametype == 'R')) {
@@ -570,9 +563,9 @@
 				//Harmless Hellway
 				chests[7] = 'P';
 				//Dark Basement - Left
-				chests[8] = (items.lantern || (items.firerod && is_advanced)) ? 'P' : 'DP';
+				chests[8] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'P' : 'DP';
 				//Dark Basement - Right
-				chests[9] = (items.lantern || (items.firerod && is_advanced)) ? 'P' : 'DP';
+				chests[9] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'P' : 'DP';
 				//Dark Maze - Top
 				chests[10] = (items.lantern ? 'P' : 'DP');
 				//Dark Maze - Bottom
@@ -603,9 +596,9 @@
 				//Harmless Hellway
 				chests[7] = 'K'; //Reserved key 6
 				//Dark Basement - Left
-				chests[8] = (items.lantern || (items.firerod && is_advanced)) ? 'A' : 'DA';
+				chests[8] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'A' : 'DA';
 				//Dark Basement - Right
-				chests[9] = (items.lantern || (items.firerod && is_advanced)) ? 'A' : 'DA';
+				chests[9] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'A' : 'DA';
 				//Dark Maze - Top
 				chests[10] = (items.lantern ? 'A' : 'DA');
 				//Dark Maze - Bottom
@@ -711,7 +704,7 @@
 		if (flags.dungeonitems === 'F') {
 			chests[4] = (items.bigkey5) ? 'A' : 'U';
 		} else {
-			if (items.firerod && (items.sword > 0 || is_swordless) && dungeoncheck === 'available') {
+			if (items.firerod && (items.sword > 0 || flags.swordmode === 'S') && dungeoncheck === 'available') {
 				chests[4] = 'K'; //If is full clearable, set to a key, else possible
 			} else {
 				chests[4] = 'P';
@@ -727,7 +720,7 @@
 			chests[6] = 'A';
 
 			//Boss
-			if ((items.sword > 0 || is_swordless)) {
+			if ((items.sword > 0 || flags.swordmode === 'S')) {
 				chests[7] = SWBoss().substring(0, 1).toUpperCase();
 			}
 		}
@@ -947,7 +940,7 @@
 				chests[6] = 'K'; //Reserved as fourth small key
 			}
 			
-			if (is_advanced || items.magicape || items.byrna || items.shield === 3) {
+			if (flags.itemplacement === 'A' || items.magicape || items.byrna || items.shield === 3) {
 				if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') {
 					if (items.smallkey9 > 2 || flags.gametype == 'R') {
 						//Eye Bridge - Bottom Left
@@ -1054,7 +1047,7 @@
 		//Eye Bridge - Bottom Right
 		//Eye Bridge - Top Left
 		//Eye Bridge - Top Right
-		if (is_advanced || items.magicape || items.byrna || items.shield === 3) {
+		if (flags.itemplacement === 'A' || items.magicape || items.byrna || items.shield === 3) {
 			if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') {
 				chests[7] = 'A';
 				chests[8] = 'A';
@@ -1190,7 +1183,7 @@
 				}
 			}
 			
-			if ((items.bow > 0 || is_enemyshuffle) && (items.lantern || items.firerod) && (items.smallkey10 > 0 || flags.gametype == 'R') && items.bigkey10) {
+			if ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod) && (items.smallkey10 > 0 || flags.gametype == 'R') && items.bigkey10) {
 				//Mini Helmasaur Room - Left - 3
 				chests[23] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
 				//Mini Helmasaur Room - Right - 3
@@ -1272,7 +1265,7 @@
 				}
 			}
 			
-			if ((items.bow > 0 || is_enemyshuffle) && (items.lantern || items.firerod)) {
+			if ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
 				//Mini Helmasaur Room - Left - 3
 				chests[23] = 'A';
 				//Mini Helmasaur Room - Right - 3

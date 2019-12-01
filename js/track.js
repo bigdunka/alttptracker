@@ -1096,6 +1096,619 @@
 		toggle('moonpearl');
 	}
 
+	window.changeFlags = function() {
+		//Set flags
+		document.getElementById("stateselect").value = flags.gametype;
+		document.getElementById("entranceselect").value = flags.entrancemode;
+		document.getElementById("bossselect").value = flags.bossshuffle;
+		document.getElementById("enemyselect").value = flags.enemyshuffle;
+		document.getElementById("dungeonselect").value = flags.dungeonitems;
+		document.getElementById("goalselect").value = flags.goals;
+		document.getElementById("swordselect").value = flags.swordmode;
+		
+		$('#flagsModal').show();
+	}
+	
+	window.closeFlagsModal = function() {
+		$('#flagsModal').hide();
+	}
+	window.adjustFlags = function() {
+		var adjustForRetro = false;
+		
+		//World State
+		if (document.getElementById('stateselect').value != flags.gametype)
+		{
+			if (document.getElementById('stateselect').value === "R" || flags.gametype === "R") {
+				adjustForRetro = true;
+			}
+			
+			if (flags.entrancemode === "N") {
+				if (document.getElementById('stateselect').value === "I") {
+					document.getElementById('locationMap2').style.left = "77.4%";
+					document.getElementById('locationMap65').style.left = "74.5%";
+					document.getElementById('locationMap65').style.top = "5%";
+					
+					document.getElementById('locationMap66').style.left = "81.6%";
+					document.getElementById('locationMap66').style.top = "5%";
+					
+					document.getElementById('bossMapAgahnim').style.left = "78%";
+					document.getElementById('bossMapAgahnim').style.top = "4.5%";
+					document.getElementById('castle').style.left = "78%";
+					document.getElementById('castle').style.top = "4.5%";
+					
+					document.getElementById('bossMap10').style.left = "25%";
+					document.getElementById('bossMap10').style.top = "52.5%";
+					document.getElementById('dungeon10').style.left = "25%";
+					document.getElementById('dungeon10').style.top = "52.5%";
+				} else {
+					document.getElementById('locationMap2').style.left = "27.4%";
+					document.getElementById('locationMap65').style.left = "21.0%";
+					document.getElementById('locationMap65').style.top = "52.6%";
+					
+					document.getElementById('locationMap66').style.left = "29.0%";
+					document.getElementById('locationMap66').style.top = "52.6%";
+					
+					document.getElementById('bossMapAgahnim').style.left = "25.0%";
+					document.getElementById('bossMapAgahnim').style.top = "52.6%";
+					document.getElementById('castle').style.left = "25.0%";
+					document.getElementById('castle').style.top = "52.6%";
+					
+					document.getElementById('bossMap10').style.left = "79.0%";
+					document.getElementById('bossMap10').style.top = "5.5%";
+					document.getElementById('dungeon10').style.left = "79.0%";
+					document.getElementById('dungeon10').style.top = "5.5%";
+				}
+				
+				if (document.getElementById('stateselect').value === "I" || flags.gametype === "I") {
+					flags.gametype = document.getElementById('stateselect').value;
+					loadChestFlags();
+				}
+			}
+			flags.gametype = document.getElementById('stateselect').value;	
+		}
+		
+		//Boss Shuffle
+		if (document.getElementById('bossselect').value != flags.bossshuffle)
+		{
+			flags.bossshuffle = document.getElementById('bossselect').value;
+			if (flags.bossshuffle === 'N') {
+				document.getElementById('dungeonEnemy0').style.visibility = 'hidden';
+				document.getElementById('dungeonEnemy1').style.visibility = 'hidden';
+				document.getElementById('dungeonEnemy2').style.visibility = 'hidden';
+				document.getElementById('dungeonEnemy3').style.visibility = 'hidden';
+				document.getElementById('dungeonEnemy4').style.visibility = 'hidden';
+				document.getElementById('dungeonEnemy5').style.visibility = 'hidden';
+				document.getElementById('dungeonEnemy6').style.visibility = 'hidden';
+				document.getElementById('dungeonEnemy7').style.visibility = 'hidden';
+				document.getElementById('dungeonEnemy8').style.visibility = 'hidden';
+				document.getElementById('dungeonEnemy9').style.visibility = 'hidden';
+				for (var k = 0; k < dungeons.length; k++) {
+					enemizer[k] = k + 1;
+				}
+			} else {
+				document.getElementById('dungeonEnemy0').style.visibility = 'inherit';
+				document.getElementById('dungeonEnemy1').style.visibility = 'inherit';
+				document.getElementById('dungeonEnemy2').style.visibility = 'inherit';
+				document.getElementById('dungeonEnemy3').style.visibility = 'inherit';
+				document.getElementById('dungeonEnemy4').style.visibility = 'inherit';
+				document.getElementById('dungeonEnemy5').style.visibility = 'inherit';
+				document.getElementById('dungeonEnemy6').style.visibility = 'inherit';
+				document.getElementById('dungeonEnemy7').style.visibility = 'inherit';
+				document.getElementById('dungeonEnemy8').style.visibility = 'inherit';
+				document.getElementById('dungeonEnemy9').style.visibility = 'inherit';				
+				for (var k = 0; k < dungeons.length; k++) {
+					enemizer[k] = 0;
+				}
+			}
+		}
+		
+		//Enemy Shuffle
+		if (document.getElementById('enemyselect').value != flags.enemyshuffle) {
+			flags.enemyshuffle = document.getElementById('enemyselect').value;
+		}
+		
+		//Dungeon Items
+		if (document.getElementById('dungeonselect').value != flags.dungeonitems || adjustForRetro) {
+			
+			var chestschecked0 = items.maxchest0 - items.chest0;
+			var chestschecked1 = items.maxchest1 - items.chest1;
+			var chestschecked2 = items.maxchest2 - items.chest2;
+			var chestschecked3 = items.maxchest3 - items.chest3;
+			var chestschecked4 = items.maxchest4 - items.chest4;
+			var chestschecked5 = items.maxchest5 - items.chest5;
+			var chestschecked6 = items.maxchest6 - items.chest6;
+			var chestschecked7 = items.maxchest7 - items.chest7;
+			var chestschecked8 = items.maxchest8 - items.chest8;
+			var chestschecked9 = items.maxchest9 - items.chest9;
+			var chestschecked10 = items.maxchest10 - items.chest10;
+			
+			var chestmod = 0;
+			
+			if (document.getElementById('dungeonselect').value === 'S') {
+				chestmod = 0;
+			} else if (document.getElementById('dungeonselect').value === 'M' || document.getElementById('dungeonselect').value === 'K') {
+				chestmod = 2;
+			} else if (document.getElementById('dungeonselect').value === 'F') {
+				chestmod = 3;
+			}
+			
+			var chests0 = 3 + chestmod;
+			var chests1 = 2 + chestmod + ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K' || flags.gametype === 'R') ? 1 : 0);
+			var chests2 = 2 + chestmod + ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K' || flags.gametype === 'R') ? 1 : 0);
+			var chests3 = 5 + chestmod + ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K' || flags.gametype === 'R') ? 6 : 0);
+			var chests4 = 6 + chestmod + ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K' || flags.gametype === 'R') ? 1 : 0);
+			var chests5 = 2 + chestmod + ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K' || flags.gametype === 'R') ? 3 : 0);
+			var chests6 = 4 + chestmod + ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K' || flags.gametype === 'R') ? 1 : 0);
+			var chests7 = 3 + chestmod + ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K' || flags.gametype === 'R') ? 2 : 0);
+			var chests8 = 2 + chestmod + ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K' || flags.gametype === 'R') ? 3 : 0);
+			var chests9 = 5 + chestmod + ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K' || flags.gametype === 'R') ? 4 : 0);
+			var chests10 = 20 + chestmod + ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K' || flags.gametype === 'R') ? 4 : 0);			
+			
+			items.chest0 = chests0 - chestschecked0;
+			items.chest1 = chests1 - chestschecked1;
+			items.chest2 = chests2 - chestschecked2;
+			items.chest3 = chests3 - chestschecked3;
+			items.chest4 = chests4 - chestschecked4;
+			items.chest5 = chests5 - chestschecked5;
+			items.chest6 = chests6 - chestschecked6;
+			items.chest7 = chests7 - chestschecked7;
+			items.chest8 = chests8 - chestschecked8;
+			items.chest9 = chests9 - chestschecked9;
+			items.chest10 = chests10 - chestschecked10;
+			
+			if (items.chest0 < 0) {
+				items.chest0 = 0;
+			}
+
+			if (items.chest1 < 0) {
+				items.chest1 = 0;
+			}
+
+			if (items.chest2 < 0) {
+				items.chest2 = 0;
+			}
+
+			if (items.chest3 < 0) {
+				items.chest3 = 0;
+			}
+
+			if (items.chest4 < 0) {
+				items.chest4 = 0;
+			}
+
+			if (items.chest5 < 0) {
+				items.chest5 = 0;
+			}
+
+			if (items.chest6 < 0) {
+				items.chest6 = 0;
+			}
+
+			if (items.chest7 < 0) {
+				items.chest7 = 0;
+			}
+
+			if (items.chest8 < 0) {
+				items.chest8 = 0;
+			}
+
+			if (items.chest9 < 0) {
+				items.chest9 = 0;
+			}
+
+			if (items.chest10 < 0) {
+				items.chest10 = 0;
+			}
+
+			items.chest1 = (items.chest1 < 0 ? 0 : items.chest1);
+			items.chest2 = (items.chest2 < 0 ? 0 : items.chest2);
+			items.chest3 = (items.chest3 < 0 ? 0 : items.chest3);
+			items.chest4 = (items.chest4 < 0 ? 0 : items.chest4);
+			items.chest5 = (items.chest5 < 0 ? 0 : items.chest5);
+			items.chest6 = (items.chest6 < 0 ? 0 : items.chest6);
+			items.chest7 = (items.chest7 < 0 ? 0 : items.chest7);
+			items.chest8 = (items.chest8 < 0 ? 0 : items.chest8);
+			items.chest9 = (items.chest9 < 0 ? 0 : items.chest9);
+			items.chest10 = (items.chest10 < 0 ? 0 : items.chest10);
+
+			items.maxchest0 = chests0;
+			items.maxchest1 = chests1;
+			items.maxchest2 = chests2;
+			items.maxchest3 = chests3;
+			items.maxchest4 = chests4;
+			items.maxchest5 = chests5;
+			items.maxchest6 = chests6;
+			items.maxchest7 = chests7;
+			items.maxchest8 = chests8;
+			items.maxchest9 = chests9;
+			items.maxchest10 = chests10;
+			
+			items.inc = limit(1, {
+				tunic: { min: 1, max: 3 },
+				sword: { max: 4 },
+				shield: { max: 3 },
+				bottle: { max: 4 },
+				bow: { max: 2 },
+				boomerang: { max: 3 },
+				glove: { max: 2 },
+				smallkey0: { min: 0, max: 0 },
+				smallkey1: { min: 0, max: 1 },
+				smallkey2: { min: 0, max: 1 },
+				smallkey3: { min: 0, max: 6 },
+				smallkey4: { min: 0, max: 1 },
+				smallkey5: { min: 0, max: 3 },
+				smallkey6: { min: 0, max: 1 },
+				smallkey7: { min: 0, max: 2 },
+				smallkey8: { min: 0, max: 3 },
+				smallkey9: { min: 0, max: 4 },
+				smallkey10: { min: 0, max: 4 },
+				smallkeyhalf0: { min: 0, max: 1 },
+				smallkeyhalf1: { min: 0, max: 2 },
+				chest0: { min: 0, max: chests0 },
+				chest1: { min: 0, max: chests1 },
+				chest2: { min: 0, max: chests2 },
+				chest3: { min: 0, max: chests3 },
+				chest4: { min: 0, max: chests4 },
+				chest5: { min: 0, max: chests5 },
+				chest6: { min: 0, max: chests6 },
+				chest7: { min: 0, max: chests7 },
+				chest8: { min: 0, max: chests8 },
+				chest9: { min: 0, max: chests9 },
+				chest10: { min: 0, max: chests10 }
+			}); 
+			
+			items.dec = limit(-1, {
+				chest0: { max: chests0 },
+				chest1: { max: chests1 },
+				chest2: { max: chests2 },
+				chest3: { max: chests3 },
+				chest4: { max: chests4 },
+				chest5: { max: chests5 },
+				chest6: { max: chests6 },
+				chest7: { max: chests7 },
+				chest8: { max: chests8 },
+				chest9: { max: chests9 },
+				chest10: { max: chests10 },
+				smallkey0: { max: 0 },
+				smallkey1: { max: 1 },
+				smallkey2: { max: 1 },
+				smallkey3: { max: 6 },
+				smallkey4: { max: 1 },
+				smallkey5: { max: 3 },
+				smallkey6: { max: 1 },
+				smallkey7: { max: 2 },
+				smallkey8: { max: 3 },
+				smallkey9: { max: 4 },
+				smallkey10: { max: 4 },
+				smallkeyhalf0: { max: 1 },
+				smallkeyhalf1: { max: 2 }
+			});
+			
+			rightClickChest('chest0');
+			toggle('chest0');
+			rightClickChest('chest1');
+			toggle('chest1');
+			rightClickChest('chest2');
+			toggle('chest2');
+			rightClickChest('chest3');
+			toggle('chest3');
+			rightClickChest('chest4');
+			toggle('chest4');
+			rightClickChest('chest5');
+			toggle('chest5');
+			rightClickChest('chest6');
+			toggle('chest6');
+			rightClickChest('chest7');
+			toggle('chest7');
+			rightClickChest('chest8');
+			toggle('chest8');
+			rightClickChest('chest9');
+			toggle('chest9');
+			rightClickChest('chest10');
+			toggle('chest10');			
+			
+			
+			/* document.getElementById('chest0').innerHTML = (items.chest0 > 0 ? items.chest0 : '');
+			document.getElementById('chest1').innerHTML = (items.chest1 > 0 ? items.chest1 : '');
+			document.getElementById('chest2').innerHTML = (items.chest2 > 0 ? items.chest2 : '');
+			document.getElementById('chest3').innerHTML = (items.chest3 > 0 ? items.chest3 : '');
+			document.getElementById('chest4').innerHTML = (items.chest4 > 0 ? items.chest4 : '');
+			document.getElementById('chest5').innerHTML = (items.chest5 > 0 ? items.chest5 : '');
+			document.getElementById('chest6').innerHTML = (items.chest6 > 0 ? items.chest6 : '');
+			document.getElementById('chest7').innerHTML = (items.chest7 > 0 ? items.chest7 : '');
+			document.getElementById('chest8').innerHTML = (items.chest8 > 0 ? items.chest8 : '');
+			document.getElementById('chest9').innerHTML = (items.chest9 > 0 ? items.chest9 : '');
+			document.getElementById('chest10').innerHTML = (items.chest10 > 0 ? items.chest10 : ''); */
+			
+			if (document.getElementById('dungeonselect').value != 'F') {
+				if (!items.bigkey0) toggle('bigkey0');
+				if (!items.bigkey1) toggle('bigkey1');
+				if (!items.bigkey2) toggle('bigkey2');
+				if (!items.bigkey3) toggle('bigkey3');
+				if (!items.bigkey4) toggle('bigkey4');
+				if (!items.bigkey5) toggle('bigkey5');
+				if (!items.bigkey6) toggle('bigkey6');
+				if (!items.bigkey7) toggle('bigkey7');
+				if (!items.bigkey8) toggle('bigkey8');
+				if (!items.bigkey9) toggle('bigkey9');
+				if (!items.bigkey10) toggle('bigkey10');
+				document.getElementById('bigkey0').style.visibility = 'hidden';
+				document.getElementById('bigkey1').style.visibility = 'hidden';
+				document.getElementById('bigkey2').style.visibility = 'hidden';
+				document.getElementById('bigkey3').style.visibility = 'hidden';
+				document.getElementById('bigkey4').style.visibility = 'hidden';
+				document.getElementById('bigkey5').style.visibility = 'hidden';
+				document.getElementById('bigkey6').style.visibility = 'hidden';
+				document.getElementById('bigkey7').style.visibility = 'hidden';
+				document.getElementById('bigkey8').style.visibility = 'hidden';
+				document.getElementById('bigkey9').style.visibility = 'hidden';
+				document.getElementById('bigkey10').style.visibility = 'hidden';
+			} else {
+				if (items.bigkey0) toggle('bigkey0');
+				if (items.bigkey1) toggle('bigkey1');
+				if (items.bigkey2) toggle('bigkey2');
+				if (items.bigkey3) toggle('bigkey3');
+				if (items.bigkey4) toggle('bigkey4');
+				if (items.bigkey5) toggle('bigkey5');
+				if (items.bigkey6) toggle('bigkey6');
+				if (items.bigkey7) toggle('bigkey7');
+				if (items.bigkey8) toggle('bigkey8');
+				if (items.bigkey9) toggle('bigkey9');
+				if (items.bigkey10) toggle('bigkey10');
+				document.getElementById('bigkey0').style.visibility = 'visible';
+				document.getElementById('bigkey1').style.visibility = 'visible';
+				document.getElementById('bigkey2').style.visibility = 'visible';
+				document.getElementById('bigkey3').style.visibility = 'visible';
+				document.getElementById('bigkey4').style.visibility = 'visible';
+				document.getElementById('bigkey5').style.visibility = 'visible';
+				document.getElementById('bigkey6').style.visibility = 'visible';
+				document.getElementById('bigkey7').style.visibility = 'visible';
+				document.getElementById('bigkey8').style.visibility = 'visible';
+				document.getElementById('bigkey9').style.visibility = 'visible';
+				document.getElementById('bigkey10').style.visibility = 'visible';
+			}
+			
+			if ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K') && flags.gametype != 'R') {
+				if (flags.gametype != 'R') {
+					items.smallkey0 = 0;
+					items.smallkey1 = 0;
+					items.smallkey2 = 0;
+					items.smallkey3 = 0;
+					items.smallkey4 = 0;
+					items.smallkey5 = 0;
+					items.smallkey6 = 0;
+					items.smallkey7 = 0;
+					items.smallkey8 = 0;
+					items.smallkey9 = 0;
+					items.smallkey10 = 0;
+					items.smallkeyhalf0 = 0;
+					items.smallkeyhalf1 = 0;
+				}
+			} else {// if (flags.gametype != 'R') {
+				items.smallkey0 = 0;
+				items.smallkey1 = 1;
+				items.smallkey2 = 1;
+				items.smallkey3 = 6;
+				items.smallkey4 = 1;
+				items.smallkey5 = 3;
+				items.smallkey6 = 1;
+				items.smallkey7 = 2;
+				items.smallkey8 = 3;
+				items.smallkey9 = 4;
+				items.smallkey10 = 4;
+				items.smallkeyhalf0 = 1;
+				items.smallkeyhalf1 = 2;
+			}
+			
+			document.getElementById('smallkey0').innerHTML = items.smallkey0;
+			document.getElementById('smallkey1').innerHTML = items.smallkey1;
+			document.getElementById('smallkey2').innerHTML = items.smallkey2;
+			document.getElementById('smallkey3').innerHTML = items.smallkey3;
+			document.getElementById('smallkey4').innerHTML = items.smallkey4;
+			document.getElementById('smallkey5').innerHTML = items.smallkey5;
+			document.getElementById('smallkey6').innerHTML = items.smallkey6;
+			document.getElementById('smallkey7').innerHTML = items.smallkey7;
+			document.getElementById('smallkey8').innerHTML = items.smallkey8;
+			document.getElementById('smallkey9').innerHTML = items.smallkey9;
+			document.getElementById('smallkey10').innerHTML = items.smallkey10;
+			document.getElementById('smallkeyhalf0').innerHTML = items.smallkeyhalf0;
+			document.getElementById('smallkeyhalf1').innerHTML = items.smallkeyhalf1;
+			
+			//If small keys are not shuffled, hide the icons
+			if (document.getElementById('dungeonselect').value != 'F' && document.getElementById('dungeonselect').value != 'K' && flags.gametype != 'R') {
+				if (document.getElementById('locationMap65') != null) {
+					document.getElementById('locationMap65').style.visibility = 'hidden';
+					document.getElementById('locationMap66').style.visibility = 'hidden';
+				}
+				document.getElementById('smallkey0').style.visibility = 'hidden';
+				document.getElementById('smallkey1').style.visibility = 'hidden';
+				document.getElementById('smallkey2').style.visibility = 'hidden';
+				document.getElementById('smallkey3').style.visibility = 'hidden';
+				document.getElementById('smallkey4').style.visibility = 'hidden';
+				document.getElementById('smallkey5').style.visibility = 'hidden';
+				document.getElementById('smallkey6').style.visibility = 'hidden';
+				document.getElementById('smallkey7').style.visibility = 'hidden';
+				document.getElementById('smallkey8').style.visibility = 'hidden';
+				document.getElementById('smallkey9').style.visibility = 'hidden';
+				document.getElementById('smallkey10').style.visibility = 'hidden';
+				document.getElementById('smallhalfheader0').style.visibility = 'hidden';
+				document.getElementById('smallkeyhalf0').style.visibility = 'hidden';
+				document.getElementById('smallhalfheader1').style.visibility = 'hidden';
+				document.getElementById('smallkeyhalf1').style.visibility = 'hidden';	
+				document.getElementById('chest0').classList.add('large');
+				document.getElementById("c0bkdiv").classList.add('hidden');
+				document.getElementById("c0skdiv").classList.add('hidden');
+				document.getElementById('chest1').classList.add('large');
+				document.getElementById("c1bkdiv").classList.add('hidden');
+				document.getElementById("c1skdiv").classList.add('hidden');
+				document.getElementById('chest2').classList.add('large');
+				document.getElementById("c2bkdiv").classList.add('hidden');
+				document.getElementById("c2skdiv").classList.add('hidden');
+				document.getElementById('chest3').classList.add('large');
+				document.getElementById("c3bkdiv").classList.add('hidden');
+				document.getElementById("c3skdiv").classList.add('hidden');
+				document.getElementById('chest4').classList.add('large');
+				document.getElementById("c4bkdiv").classList.add('hidden');
+				document.getElementById("c4skdiv").classList.add('hidden');
+				document.getElementById('chest5').classList.add('large');
+				document.getElementById("c5bkdiv").classList.add('hidden');
+				document.getElementById("c5skdiv").classList.add('hidden');
+				document.getElementById('chest6').classList.add('large');
+				document.getElementById("c6bkdiv").classList.add('hidden');
+				document.getElementById("c6skdiv").classList.add('hidden');
+				document.getElementById('chest7').classList.add('large');
+				document.getElementById("c7bkdiv").classList.add('hidden');
+				document.getElementById("c7skdiv").classList.add('hidden');
+				document.getElementById('chest8').classList.add('large');
+				document.getElementById("c8bkdiv").classList.add('hidden');
+				document.getElementById("c8skdiv").classList.add('hidden');
+				document.getElementById('chest9').classList.add('large');
+				document.getElementById("c9bkdiv").classList.add('hidden');
+				document.getElementById("c9skdiv").classList.add('hidden');			
+			} else {
+				if (document.getElementById('locationMap65') != null) {
+					document.getElementById('locationMap65').style.visibility = 'visible';
+					document.getElementById('locationMap66').style.visibility = 'visible';
+				}
+				document.getElementById('smallkey0').style.visibility = 'visible';
+				document.getElementById('smallkey1').style.visibility = 'visible';
+				document.getElementById('smallkey2').style.visibility = 'visible';
+				document.getElementById('smallkey3').style.visibility = 'visible';
+				document.getElementById('smallkey4').style.visibility = 'visible';
+				document.getElementById('smallkey5').style.visibility = 'visible';
+				document.getElementById('smallkey6').style.visibility = 'visible';
+				document.getElementById('smallkey7').style.visibility = 'visible';
+				document.getElementById('smallkey8').style.visibility = 'visible';
+				document.getElementById('smallkey9').style.visibility = 'visible';
+				document.getElementById('smallkey10').style.visibility = 'visible';
+				document.getElementById('smallhalfheader0').style.visibility = 'visible';
+				document.getElementById('smallkeyhalf0').style.visibility = 'visible';
+				document.getElementById('smallhalfheader1').style.visibility = 'visible';
+				document.getElementById('smallkeyhalf1').style.visibility = 'visible';	
+				document.getElementById('chest0').classList.remove('large');
+				document.getElementById("c0bkdiv").classList.remove('hidden');
+				document.getElementById("c0skdiv").classList.remove('hidden');
+				document.getElementById('chest1').classList.remove('large');
+				document.getElementById("c1bkdiv").classList.remove('hidden');
+				document.getElementById("c1skdiv").classList.remove('hidden');
+				document.getElementById('chest2').classList.remove('large');
+				document.getElementById("c2bkdiv").classList.remove('hidden');
+				document.getElementById("c2skdiv").classList.remove('hidden');
+				document.getElementById('chest3').classList.remove('large');
+				document.getElementById("c3bkdiv").classList.remove('hidden');
+				document.getElementById("c3skdiv").classList.remove('hidden');
+				document.getElementById('chest4').classList.remove('large');
+				document.getElementById("c4bkdiv").classList.remove('hidden');
+				document.getElementById("c4skdiv").classList.remove('hidden');
+				document.getElementById('chest5').classList.remove('large');
+				document.getElementById("c5bkdiv").classList.remove('hidden');
+				document.getElementById("c5skdiv").classList.remove('hidden');
+				document.getElementById('chest6').classList.remove('large');
+				document.getElementById("c6bkdiv").classList.remove('hidden');
+				document.getElementById("c6skdiv").classList.remove('hidden');
+				document.getElementById('chest7').classList.remove('large');
+				document.getElementById("c7bkdiv").classList.remove('hidden');
+				document.getElementById("c7skdiv").classList.remove('hidden');
+				document.getElementById('chest8').classList.remove('large');
+				document.getElementById("c8bkdiv").classList.remove('hidden');
+				document.getElementById("c8skdiv").classList.remove('hidden');
+				document.getElementById('chest9').classList.remove('large');
+				document.getElementById("c9bkdiv").classList.remove('hidden');
+				document.getElementById("c9skdiv").classList.remove('hidden');
+			}
+			
+			flags.dungeonitems = document.getElementById('dungeonselect').value;
+		}
+		
+		//Goal
+		if (document.getElementById('goalselect').value != flags.goals) {
+			flags.goals = document.getElementById('goalselect').value;
+			
+			document.getElementById('ganondiv').classList.remove('ganon');
+			document.getElementById('ganondiv').classList.remove('pendants');
+			document.getElementById('ganondiv').classList.remove('other');
+			document.getElementById('ganondiv').classList.remove('alldungeons');
+			
+			switch (flags.goals) {
+				case 'G':
+				case 'F':
+					if (flags.ganonvulncount === 8) {
+						document.getElementById('ganondiv').classList.add('ganon');
+					}
+					break;
+				case 'A':
+					document.getElementById('ganondiv').classList.add('alldungeons');
+					flags.ganonvulncount = 7;
+					break;
+				case 'P':
+					document.getElementById('ganondiv').classList.add('pendants');
+					flags.ganonvulncount = 8;
+					break;
+				case 'O':
+					document.getElementById('ganondiv').classList.add('other');
+					break;
+			}
+		}
+		
+		//Swords
+		if (document.getElementById('swordselect').value != flags.swordmode) {
+			if (document.getElementById('swordselect').value === "S") {
+				while (items.sword != 0) {
+					toggle('sword');
+				}
+			}
+			flags.swordmode = document.getElementById('swordselect').value;
+		}
+		
+		//Entrance
+		if (document.getElementById('entranceselect').value != flags.entrancemode) {
+			var currentURL = window.location.href;
+			
+			if (document.getElementById('entranceselect').value === "N") {
+				currentURL = currentURL.replace("entrancetracker.html", "tracker.html");
+			} else {
+				currentURL = currentURL.replace("tracker.html", "entrancetracker.html");
+			}
+			
+			var fParam = currentURL.substr(currentURL.indexOf("f=") + 2, 17);
+			
+			var replaceParam = flags.gametype + document.getElementById('entranceselect').value + flags.bossshuffle + flags.enemyshuffle + flags.glitches + flags.dungeonitems + flags.itemplacement + flags.goals + flags.opentower + flags.opentowercount + flags.ganonvuln + flags.ganonvulncount + flags.swordmode + flags.mapmode + flags.spoilermode + flags.spheresmode + 'Y';
+					
+			currentURL = currentURL.replace(fParam, replaceParam);
+			
+			window.location.href = currentURL;
+		}
+		
+		updateMapTracker();
+		
+		if (flags.gametype === "S") {
+			document.getElementById('locationMap2').classList.remove('unavailable');
+			document.getElementById('locationMap56').classList.remove('unavailable');
+			document.getElementById('locationMap57').classList.remove('unavailable');
+			document.getElementById('locationMap58').classList.remove('unavailable');
+			document.getElementById('locationMap63').classList.remove('unavailable');
+			document.getElementById('locationMap2').classList.add('opened');
+			document.getElementById('locationMap56').classList.add('opened');
+			document.getElementById('locationMap57').classList.add('opened');
+			document.getElementById('locationMap58').classList.add('opened');
+			document.getElementById('locationMap63').classList.add('opened');
+		}
+		
+		$('#flagsModal').hide();
+	}
+	
+	function limit(delta, limits) {
+        return function(item) {
+            var value = items[item],
+                max = limits[item].max,
+                min = limits[item].min || 0;
+            value += delta;
+            if (value > max) value = min;
+            if (value < min) value = max;
+            return items[item] = value;
+        };
+    }
+
     window.start = function() {
 		//If spoiler mode, first show the modal to load the spoiler log
 		if (flags.spoilermode === 'Y') {
@@ -1249,35 +1862,35 @@
 			document.getElementById('smallhalfheader1').style.visibility = 'hidden';
 			document.getElementById('smallkeyhalf1').style.visibility = 'hidden';	
 			document.getElementById('chest0').classList.add('large');
-			document.getElementById("c0bkdiv").remove();
-			document.getElementById("c0skdiv").remove();
+			document.getElementById("c0bkdiv").classList.add('hidden');
+			document.getElementById("c0skdiv").classList.add('hidden');
 			document.getElementById('chest1').classList.add('large');
-			document.getElementById("c1bkdiv").remove();
-			document.getElementById("c1skdiv").remove();
+			document.getElementById("c1bkdiv").classList.add('hidden');
+			document.getElementById("c1skdiv").classList.add('hidden');
 			document.getElementById('chest2').classList.add('large');
-			document.getElementById("c2bkdiv").remove();
-			document.getElementById("c2skdiv").remove();
+			document.getElementById("c2bkdiv").classList.add('hidden');
+			document.getElementById("c2skdiv").classList.add('hidden');
 			document.getElementById('chest3').classList.add('large');
-			document.getElementById("c3bkdiv").remove();
-			document.getElementById("c3skdiv").remove();
+			document.getElementById("c3bkdiv").classList.add('hidden');
+			document.getElementById("c3skdiv").classList.add('hidden');
 			document.getElementById('chest4').classList.add('large');
-			document.getElementById("c4bkdiv").remove();
-			document.getElementById("c4skdiv").remove();
+			document.getElementById("c4bkdiv").classList.add('hidden');
+			document.getElementById("c4skdiv").classList.add('hidden');
 			document.getElementById('chest5').classList.add('large');
-			document.getElementById("c5bkdiv").remove();
-			document.getElementById("c5skdiv").remove();
+			document.getElementById("c5bkdiv").classList.add('hidden');
+			document.getElementById("c5skdiv").classList.add('hidden');
 			document.getElementById('chest6').classList.add('large');
-			document.getElementById("c6bkdiv").remove();
-			document.getElementById("c6skdiv").remove();
+			document.getElementById("c6bkdiv").classList.add('hidden');
+			document.getElementById("c6skdiv").classList.add('hidden');
 			document.getElementById('chest7').classList.add('large');
-			document.getElementById("c7bkdiv").remove();
-			document.getElementById("c7skdiv").remove();
+			document.getElementById("c7bkdiv").classList.add('hidden');
+			document.getElementById("c7skdiv").classList.add('hidden');
 			document.getElementById('chest8').classList.add('large');
-			document.getElementById("c8bkdiv").remove();
-			document.getElementById("c8skdiv").remove();
+			document.getElementById("c8bkdiv").classList.add('hidden');
+			document.getElementById("c8skdiv").classList.add('hidden');
 			document.getElementById('chest9').classList.add('large');
-			document.getElementById("c9bkdiv").remove();
-			document.getElementById("c9skdiv").remove();			
+			document.getElementById("c9bkdiv").classList.add('hidden');
+			document.getElementById("c9skdiv").classList.add('hidden');			
 		}
 		
 		//If game type is Retro, default the keys to max and decrement
@@ -1323,6 +1936,10 @@
 		}
 		
 		document.getElementsByClassName('tunic')[0].classList.add(flags.sprite);
+		
+		if (flags.mystery === 'N') {
+			document.getElementById('changeflagsdiv').style.visibility = 'hidden';
+		}
 		
 		toggle('bomb');
 		

@@ -1,9 +1,9 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=15003"></script>
+		<script src="js/index.js?v=15004"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=15003"></script>
+		<script src="js/bootstrap.min.js?v=15004"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.5.003 112119 - Compatible for v31.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.5.004 120119 - Compatible for v31.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
 			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
@@ -47,7 +47,7 @@
 				<table width="1000px" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
 					<tr>
 						<td>
-							<center>More entrance mode and interface modifications! Please see the Release Notes for full information!</center>
+							<center>New Mystery Mode settings are live! Also no-logic glitched tracker is also up. See the Release Notes for details!</center>
 						</td>
 					</tr>
 					<tr>
@@ -62,7 +62,9 @@
 										<input type="button" value="ALTTPR 2019 Tourney Qualifiers" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB;" onclick="load2019preset()" />
 									</td>
 									<td width="100px">
-										<input type="button" value="Mystery Seed (Soon!)" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB;" disabled />
+										<input type="button" value="Mystery Seed" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB;" onclick="loadmysterypreset()" />
+										<input id="mysteryno" value="N" type="radio" name="mysterygroup" checked style=position:fixed;opacity:0;visibility: hidden" />
+										<input id="mysteryyes" value="Y" type="radio" name="mysterygroup" style=position:fixed;opacity:0;visibility: hidden" />
 									</td>
 									<td width="62px">
 									</td>
@@ -157,24 +159,24 @@
 								</tr>
 								<tr>
 									<td width="100px">
-										Glitches: <span class="south" title="Glitches should be released 'soon' (tm)" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Glitches: <span class="south" title="For now, there is no logic for glitched modes, but all items are listed as available on the map tracker and the modes are currently condensed. Logic will come 'soon'(tm)" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
 									</td>
 									<td>
-										<input disabled id="glitchesnone" value="N" type="radio" name="glitchesgroup" checked />
+										<input id="glitchesnone" value="N" type="radio" name="glitchesgroup" checked />
 										<label for="glitchesnone" style="width:100px">None</label>
 									</td>
-									<td>
-										<input disabled id="glitchesoverworld" value="O" type="radio" name="glitchesgroup" />
-										<label for="glitchesoverworld" style="width:100px">Overworld</label>
+									<td colspan="2">
+										<input id="glitchesoverworld" value="O" type="radio" name="glitchesgroup" />
+										<label for="glitchesoverworld" style="width:200px">Overworld/Major/No Logic</label>
 									</td>
-									<td>
+									<!--<td>
 										<input disabled id="glitchesoverworld" value="M" type="radio" name="glitchesgroup" />
 										<label for="glitchesoverworld" style="width:100px">Major</label>
 									</td>
 									<td>
 										<input disabled id="glitchesoverworld" value="L" type="radio" name="glitchesgroup" />
 										<label for="glitchesoverworld" style="width:100px">No Logic</label>
-									</td>
+									</td>-->
 								</tr>
 								<tr>
 									<td width="120px">

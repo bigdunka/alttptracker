@@ -144,6 +144,7 @@ body {
 .darkavailable { background-color: blue; }
 .darkpossible { background-color: purple; } 
 .opened { background-color: #7f7f7f; }
+.hidden { width: 0px; height: 0px; }
 
 #caption {
   width: 100%;
@@ -207,6 +208,7 @@ body {
 .ganongoal.other { visibility: collapse; }
 .crystalgoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 0; left: 0; }
 .ganongoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 24; left: 0; }
+.changeflags { width: 24px; height: 24px; z-index: 99; position: absolute; top: 48; left: 0; }
 .goalselect { height: 24px; width: 24px; } 
 
 .bomb { background-image: url(../images/items/bomb.png); }

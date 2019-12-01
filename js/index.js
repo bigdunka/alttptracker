@@ -43,6 +43,7 @@ function launch_tracker() {
 	var map = document.querySelector('input[name="mapgroup"]:checked').value;
 	var spoiler = document.querySelector('input[name="spoilergroup"]:checked').value;
 	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
+	var mystery = document.querySelector('input[name="mysterygroup"]:checked').value;
 	
 	var width = map === "M" ? 1340 : 448;
 	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
@@ -65,7 +66,7 @@ function launch_tracker() {
 		alert('NOTICE: There is currently no logic implemented in Inverted Entrance, all locations will be flagged as available.');
 	}
 	
-	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}&sprite={sprite}'
+	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}&sprite={sprite}'
 			.replace('{tracker}', trackerName)
 			.replace('{type}', type)
 			.replace('{entrance}', entrance)
@@ -83,7 +84,8 @@ function launch_tracker() {
 			.replace('{map}', map)
 			.replace('{spoiler}', spoiler)
 			.replace('{sphere}', sphere)
-			.replace('{sprite}', sprite),
+			.replace('{sprite}', sprite)
+			.replace('{mystery}', mystery),
 		'',
 		'width={width},height={height},titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0'
 			.replace('{width}', width).replace('{height}', height));
@@ -103,7 +105,27 @@ function load2019preset() {
 	document.getElementById("ganoncrystal").checked = true;
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
 	launch_tracker();
+}
+
+function loadmysterypreset() {
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("bossshuffled").checked = true;
+	document.getElementById("enemyshuffled").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonfullshuffle").checked = true;
+	document.getElementById("placementadvanced").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalrandom").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganonrandom").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryyes").checked = true;
+	launch_tracker();	
+	document.getElementById("mysteryno").checked = true;
 }
 
 function importflags() {
