@@ -161,7 +161,7 @@
 
 	function canReachPyramid()
 	{
-		return canReachDarkWorld() && (items.flippers || canReachPyramidWithoutFlippers());
+		return (canReachDarkWorld() && (items.flippers || canReachPyramidWithoutFlippers()));
 	}
 
 	function canReachPyramidWithoutFlippers()
@@ -241,7 +241,7 @@
 	function canReachWDMNorth()
 	{
 		if (hasFoundEntrance(68) || ((hasFoundEntrance(77)) && items.hammer) || 
-		(items.mirror && (hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute && items.mirror)
+		(items.mirror && (hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76) || hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute && items.mirror)
 		) return true;
 		return false;
 	}
@@ -290,6 +290,7 @@
 	function canReachDarkWorldEast() {
 		if (canReachDarkWorld() && (items.hammer || items.flippers)) return true;
 		if (items.agahnim || hasFoundEntrance(94) || hasFoundEntrance(114) || hasFoundEntrance(115) || hasFoundEntrance(116) || hasFoundEntrance(117) || ((hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) && (items.hammer || items.flippers) && items.moonpearl) || (hasFoundEntrance(92) && items.moonpearl && (items.glove > 0 || items.hammer))) return true;
+		if ((hasFoundEntrance(90) || hasFoundEntrance(91) || hasFoundEntrance(96) || hasFoundEntrance(104) || hasFoundEntrance(105) || hasFoundEntrance(106) || hasFoundEntrance(107) || hasFoundEntrance(108) || hasFoundEntrance(109) || (hasFoundEntrance(110) && items.hammer) || hasFoundEntrance(111) || hasFoundEntrance(129)) && items.moonpearl && items.flippers && (items.hammer || items.glove > 0)) return true;
 		return false;
 	}
 	
@@ -2952,6 +2953,7 @@
 			is_available: function() {
 				if (hasFoundEntrance(92)) return 'available';
 				//if (items.moonpearl && items.glove && (items.agahnim || items.hammer || items.glove === 2 && items.flippers)) return 'available';
+				if (canReachOutcast() && items.moonpearl && items.flippers) return 'available';
 				return (canReachDarkWorldEast() && items.moonpearl && (items.flippers || items.glove > 0 || items.hammer)) ? 'available' : 'unavailable';
 				//if (canReachDarkWorldSouth() && items.moonpearl && (items.flippers || items.hammer)) return 'available';
 				//if (canReachDarkWorldEast() && items.moonpearl && (items.flippers || items.hammer || items.glove > 0)) return 'available';
