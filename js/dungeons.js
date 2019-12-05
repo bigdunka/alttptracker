@@ -223,11 +223,12 @@
 
     window.IPBoss = function() {
 		var dungeoncheck = enemizer_check(7);
+		if (!items.hammer || dungeoncheck == 'unavailable') return 'unavailable';
 		if (flags.dungeonitems === 'F') {
-			if (!items.hammer) return 'unavailable';
-			if (!items.hookshot && (!items.somaria || !items.bigkey7)) return 'unavailable';
+			if (!items.bigkey7 && !items.somaria && !items.hookshot) return 'unavailable';
+			if (!items.hookshot && !items.somaria) return 'possible';
 		} else {
-			if (!items.hammer || (!items.somaria && !items.hookshot)) return 'unavailable';
+			if (!items.hookshot && !items.somaria) return 'possible';
 		}
 		
 		return dungeoncheck;

@@ -1,9 +1,9 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=15005"></script>
+		<script src="js/index.js?v=15006"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=15005"></script>
+		<script src="js/bootstrap.min.js?v=15006"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.5.005 120219 - Compatible for v31.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.5.006 120419 - Compatible for v31.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
 			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
@@ -63,8 +63,6 @@
 									</td>
 									<td width="100px">
 										<input type="button" value="Mystery Seed" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB;" onclick="loadmysterypreset()" />
-										<input id="mysteryno" value="N" type="radio" name="mysterygroup" checked style=position:fixed;opacity:0;visibility: hidden" />
-										<input id="mysteryyes" value="Y" type="radio" name="mysterygroup" style=position:fixed;opacity:0;visibility: hidden" />
 									</td>
 									<td width="62px">
 									</td>
@@ -82,7 +80,7 @@
 					
 					<tr>
 						<td>
-							<table width="1000px" height="220px" background="./images/overlay/gameplay.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+							<table width="1000px" height="260px" background="./images/overlay/gameplay.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
 								<tr height="40px">
 									<td>
 									</td>
@@ -145,6 +143,19 @@
 									<td>
 										<input id="enemyshuffled" value="S" type="radio" name="enemygroup" />
 										<label for="enemyshuffled" style="width:100px" >Shuffled/Random</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Mystery Settings: <span class="south" title="Allows for hot swapping modes during play, for easy adjusting for Mystery seeds!" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input id="mysteryno" value="N" type="radio" name="mysterygroup" checked />
+										<label for="mysteryno" style="width:100px" >No</label>
+									</td>
+									<td>
+										<input id="mysteryyes" value="S" type="radio" name="mysterygroup" />
+										<label for="mysteryyes" style="width:100px" >Yes</label>
 									</td>
 								</tr>
 							</table>

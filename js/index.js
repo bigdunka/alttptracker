@@ -107,7 +107,7 @@ function load2019preset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryno").checked = true;
-	launch_tracker();
+	window.scrollTo(0,document.body.scrollHeight);
 }
 
 function loadmysterypreset() {
@@ -125,8 +125,7 @@ function loadmysterypreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryyes").checked = true;
-	launch_tracker();
-	document.getElementById("mysteryno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
 }
 
 function importflags() {

@@ -199,6 +199,8 @@
                     document.getElementById('locationMap'+pendant_chests[k]).className = 'location ' + chests[pendant_chests[k]].is_available();
             }
         }
+		
+		updateMapTracker();
     };
 	
     window.rightClickPrize = function(n) {
@@ -215,6 +217,7 @@
                     document.getElementById('locationMap'+pendant_chests[k]).className = 'location ' + chests[pendant_chests[k]].is_available();
             }
         }
+		updateMapTracker();
     };	
 	
 	

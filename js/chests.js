@@ -1164,7 +1164,7 @@
 					return window.GTBoss();
 				},
 				can_get_chest: function() {
-					if ((crystalCheck() < 7 && crystalCheck() < flags.opentowercount) || items.glove < 2 || !items.hammer || !canReachDarkWorld()) return 'unavailable';
+					if ((crystalCheck() < 7 && crystalCheck() < flags.opentowercount) || items.glove < 2 || !canReachDarkWorld()) return 'unavailable';
 					return window.GTChests();
 				}
 			}];
