@@ -7,7 +7,7 @@
     function rod() { return items.firerod || items.icerod; }
 
     function medallion_check(i) {
-        if ((!items.sword && !flags.swordmode === 'S') || !items.bombos && !items.ether && !items.quake) return 'unavailable';
+        if ((items.sword === 0 && flags.swordmode != 'S') || !items.bombos && !items.ether && !items.quake) return 'unavailable';
         if (medallions[i] === 1 && !items.bombos ||
             medallions[i] === 2 && !items.ether ||
             medallions[i] === 3 && !items.quake) return 'unavailable';
@@ -226,7 +226,7 @@
 		if (!items.hammer || dungeoncheck == 'unavailable') return 'unavailable';
 		if (flags.dungeonitems === 'F') {
 			if (!items.bigkey7 && !items.somaria && !items.hookshot) return 'unavailable';
-			if (!items.hookshot && !items.somaria) return 'possible';
+			if (!items.hookshot && items.somaria && !items.bigkey7) return 'possible';
 		} else {
 			if (!items.hookshot && !items.somaria) return 'possible';
 		}

@@ -142,7 +142,7 @@
 			} else {
 				for (var k = 0; k < dungeons.length; k++) {
 					if (!dungeons[k].is_beaten)
-						document.getElementById('bossMap'+k).className = 'boss ' + dungeons[k].is_beatable();
+						document.getElementById('bossMap'+k).className = 'bossprize-' + prizes[k] + ' boss ' + dungeons[k].is_beatable();
 						if (items['chest'+k])
 							document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
 				}
@@ -315,7 +315,7 @@
 			} else {
 	            for (var k = 0; k < dungeons.length; k++) {
 	                if (!dungeons[k].is_beaten)
-	                    document.getElementById('bossMap'+k).className = 'boss ' + dungeons[k].is_beatable();
+	                    document.getElementById('bossMap'+k).className = 'bossprize-' + prizes[k] + ' boss ' + dungeons[k].is_beatable();
 						if (items['chest'+k])
 							document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
 				}
@@ -729,7 +729,7 @@
         window.toggle_boss = function(x) {
             dungeons[x].is_beaten = !dungeons[x].is_beaten;
 			if (document.getElementById('bossMap'+x) != null) {
-				document.getElementById('bossMap'+x).className = 'boss ' + (dungeons[x].is_beaten ? 'opened' : dungeons[x].is_beatable());
+				document.getElementById('bossMap'+x).className = 'bossprize-' + prizes[x] + ' boss ' + (dungeons[x].is_beaten ? 'opened' : dungeons[x].is_beatable());
 			}
         };
         window.toggle_agahnim = function() {
@@ -1950,7 +1950,16 @@
 		
 		toggle('bomb');
 		
+		if (flags.entrancemode === 'N') {			
+			for (var i = 0; i < 10; i++) {
+				document.getElementById('bossMap' + i).classList.add('bossprize-0');
+			}
+		}
+		
+		
 		updateMapTracker();
+		
+		
 		
     };
 }(window));

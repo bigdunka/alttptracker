@@ -2,7 +2,7 @@
     'use strict';
 	
     function medallionCheck(i) {
-        if ((!items.sword && !flags.swordmode === 'S') || !items.bombos && !items.ether && !items.quake) return 'unavailable';
+        if ((items.sword === 0 && flags.swordmode != 'S') || !items.bombos && !items.ether && !items.quake) return 'unavailable';
         if (medallions[i] === 1 && !items.bombos ||
             medallions[i] === 2 && !items.ether ||
             medallions[i] === 3 && !items.quake) return 'unavailable';
@@ -490,11 +490,11 @@
 				caption: 'Ice Palace {flippers} [{firerod}/{bombos}]',
 				is_beaten: false,
 				is_beatable: function() {
-					if (!items.flippers || (!items.firerod && !items.bombos) || (!items.firerod && items.bombos && (items.sword == 0 && !flags.swordmode === 'S'))) return 'unavailable';
+					if (!items.flippers || (!items.firerod && !items.bombos) || (!items.firerod && items.bombos && (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
 					return window.IPBoss();
 				},
 				can_get_chest: function() {
-					if (!items.flippers || (!items.firerod && !items.bombos) || (!items.firerod && items.bombos && (items.sword == 0 && !flags.swordmode === 'S'))) return 'unavailable';
+					if (!items.flippers || (!items.firerod && !items.bombos) || (!items.firerod && items.bombos && (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
 					return window.IPChests();
 				}
 			}, { // [8]
@@ -1108,12 +1108,12 @@
 				is_beaten: false,
 				is_beatable: function() {
 					if (!items.moonpearl || !items.flippers || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
-					if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && !flags.swordmode === 'S'))) return 'unavailable';
+					if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
 					return window.IPBoss();
 				},
 				can_get_chest: function() {
 					if (!items.moonpearl || !items.flippers || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
-					if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && !flags.swordmode === 'S'))) return 'unavailable';
+					if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
 					return window.IPChests();
 				}
 			}, { // [8]

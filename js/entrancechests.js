@@ -1,22 +1,14 @@
 (function(window) {
     'use strict';
 
-	var is_swordless = flags.swordmode === 'S';
-	var is_standard = flags.gametype === 'S';
-	var is_bossshuffle = flags.bossshuffle != 'N';
-	var is_enemyshuffle = flags.enemyshuffle != 'N';
-	var is_retro = flags.gametype === 'R';
-	var is_advanced = flags.itemplacement === 'A';
-	
-    function medallionCheck(i) {
-        if ((!items.sword && !is_swordless) || !items.bombos && !items.ether && !items.quake) return 'unavailable';
-        if ((medallions[i] === 1 && !items.bombos) ||
-            (medallions[i] === 2 && !items.ether) ||
-            (medallions[i] === 3 && !items.quake)) return 'unavailable';
-        if ((medallions[i] === 1 && items.bombos) ||
-            (medallions[i] === 2 && items.ether) ||
-            (medallions[i] === 3 && items.quake)) return 'available';
+    function medallion_check(i) {
+        if ((items.sword === 0 && flags.swordmode != 'S') || !items.bombos && !items.ether && !items.quake) return 'unavailable';
+        if (medallions[i] === 1 && !items.bombos ||
+            medallions[i] === 2 && !items.ether ||
+            medallions[i] === 3 && !items.quake) return 'unavailable';
+		if (items.bombos && items.ether && items.quake) return 'available';
         if (medallions[i] === 0 && !(items.bombos && items.ether && items.quake)) return 'possible';
+		return 'available';
     }
 	
 	function crystalCheck() {
@@ -1803,11 +1795,11 @@
 			caption: 'Ice Palace {flippers} [{firerod}/{bombos}]',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!items.flippers || (!items.firerod && !items.bombos) || (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless))) return 'unavailable';
+				if (!items.flippers || (!items.firerod && !items.bombos) || (!items.firerod && items.bombos && (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
 				return window.IPBoss();
 			},
 			can_get_chest: function() {
-				if (!items.flippers || (!items.firerod && !items.bombos) || (!items.firerod && items.bombos && (items.sword == 0 && !is_swordless))) return 'unavailable';
+				if (!items.flippers || (!items.firerod && !items.bombos) || (!items.firerod && items.bombos && (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
 				return window.IPChests();
 			}
 		}, { // [8]
@@ -1862,7 +1854,7 @@
 			is_beaten: false,
 			is_beatable: function() {
 				if (crystalCheck() < flags.ganonvulncount || !canReachLightWorld()) return 'unavailable';
-				if (flags.goals === 'F' && (items.sword > 1 || is_swordless && items.hammer) && (items.lantern || items.firerod)) return 'available';
+				if (flags.goals === 'F' && (items.sword > 1 || flags.swordmode === 'S' && items.hammer) && (items.lantern || items.firerod)) return 'available';
 				return window.GTBoss();			
 			},
 			can_get_chest: function() {
@@ -1877,11 +1869,11 @@
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
-						return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) ? items.lantern && agatowerweapon() ? 'available' : 'darkavailable' : 'unavailable';					
+						return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (flags.swordmode === 'S' && (items.hammer || items.net))) && (activeFlute() || items.glove) ? items.lantern && agatowerweapon() ? 'available' : 'darkavailable' : 'unavailable';					
 						break;
 					case 'K':
 					case 'F':
-						return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (is_swordless && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+						return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (flags.swordmode === 'S' && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 						break;
 				}
 			}
@@ -1930,7 +1922,7 @@
 			is_available: function() {
 				return 'available';
 				return items.moonpearl && items.hammer && items.book && (activeFlute() || items.glove) && (items.hookshot || items.glove === 2) ?
-					(items.sword >= 2 || (is_swordless && items.hammer) ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'information') :
+					(items.sword >= 2 || (flags.swordmode === 'S' && items.hammer) ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'information') :
 					'unavailable';
 			}
 		}, { // [7]
@@ -1939,7 +1931,7 @@
 			is_available: function() {
 				return 'available';
 				return canReachLightWorldBunny() && items.book ?
-					(items.sword >= 2 || (is_swordless && items.hammer)) ? 'available' : 'information' :
+					(items.sword >= 2 || (flags.swordmode === 'S' && items.hammer)) ? 'available' : 'information' :
 					'unavailable';
 			}
 		}, { // [8]
@@ -2176,7 +2168,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(10)) return 'available';
-				return canReachHCNorth() && (items.sword > 1 || items.cape || (is_swordless && items.hammer)) ? 'available' : 'unavailable';
+				return canReachHCNorth() && (items.sword > 1 || items.cape || (flags.swordmode === 'S' && items.hammer)) ? 'available' : 'unavailable';
 			}
 		}, { // [11]
 			caption: 'Hyrule Castle - Secret Entrance Stairs',
@@ -2612,7 +2604,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(57)) return 'available';
-				return (canReachMiseryMire() && items.mirror) ? 'available' : 'unavailable';
+				return (canReachMiseryMire() && items.mirror && items.glove > 0) ? 'available' : 'unavailable';
 			}
 		}, { // [58]
 			caption: 'Aginah\'s Cave',
@@ -3519,12 +3511,12 @@
 			is_beaten: false,
 			is_beatable: function() {
 				if (!items.moonpearl || !items.flippers || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
-				if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && !is_swordless))) return 'unavailable';
+				if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
 				return window.IPBoss();
 			},
 			can_get_chest: function() {
 				if (!items.moonpearl || !items.flippers || items.glove !== 2 || !canReachDarkWorld()) return 'unavailable';
-				if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && !is_swordless))) return 'unavailable';
+				if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
 				return window.IPChests();
 			}
 		}, { // [8]
@@ -3570,7 +3562,7 @@
 			is_beatable: function() {
 				if (crystalCheck() < flags.ganonvulncount || !canReachDarkWorld()) return 'unavailable';
 				//Fast Ganon
-				if (flags.goals === 'F' && (items.sword > 1 || is_swordless && (items.hammer || items.net)) && (items.lantern || items.firerod)) return 'available';
+				if (flags.goals === 'F' && (items.sword > 1 || flags.swordmode === 'S' && (items.hammer || items.net)) && (items.lantern || items.firerod)) return 'available';
 				return window.GTBoss();
 			},
 			can_get_chest: function() {
@@ -3585,11 +3577,11 @@
 				switch (flags.dungeonitems) {
 					case 'S':
 					case 'M':
-						return ((items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && agatowerweapon()) ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+						return ((items.sword >= 2 || (items.cape && items.sword) || (flags.swordmode === 'S' && (items.hammer || (items.cape && items.net)))) && agatowerweapon()) ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 						break;
 					case 'K':
 					case 'F':
-						return (items.sword >= 2 || (items.cape && items.sword) || (is_swordless && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+						return (items.sword >= 2 || (items.cape && items.sword) || (flags.swordmode === 'S' && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 						break;
 				}
 			}
@@ -3604,7 +3596,7 @@
 			}
 		}, { // [1]
 			caption: 'Stoops Lonk\'s Hoose',
-			is_opened: (is_standard),
+			is_opened: (flags.gametype === 'S'),
 			is_available: always
 		}, { // [2]
 			caption: 'Bottle Vendor: Pay 100 rupees',
@@ -3633,7 +3625,7 @@
 			is_opened: false,
 			is_available: function() {
 				if (canReachWDMNorth() && items.book) {
-					return (items.sword >= 2 || is_swordless) ? 'available' : 'information';
+					return (items.sword >= 2 || flags.swordmode === 'S') ? 'available' : 'information';
 				}
 				return 'unavailable'
 			}
@@ -3642,7 +3634,7 @@
 			is_opened: false,
 			is_available: function() {
 				return items.book && items.mirror && (canReachOutcast() || items.agahnim && items.moonpearl && items.hammer) ?
-					(items.sword >= 2 || is_swordless)? 'available' : 'information' :
+					(items.sword >= 2 || flags.swordmode === 'S')? 'available' : 'information' :
 					'unavailable';
 			}
 		}, { // [8]
