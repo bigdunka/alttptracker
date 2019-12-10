@@ -1,7 +1,7 @@
 (function(window) {
     'use strict';
 
-    function medallion_check(i) {
+    function medallionCheck(i) {
         if ((items.sword === 0 && flags.swordmode != 'S') || !items.bombos && !items.ether && !items.quake) return 'unavailable';
         if (medallions[i] === 1 && !items.bombos ||
             medallions[i] === 2 && !items.ether ||

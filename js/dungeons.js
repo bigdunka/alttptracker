@@ -212,7 +212,7 @@
 
     window.SWBoss = function() {
 		var dungeoncheck = enemizer_check(5);
-		if (!items.firerod || (items.sword === 0 && !flags.swordmode === 'S')) return 'unavailable';
+		if (!items.firerod || (items.sword === 0 && flags.swordmode != 'S')) return 'unavailable';
 		return dungeoncheck;
 	};
 
@@ -267,7 +267,7 @@
     window.GTBoss = function() {
 		var dungeoncheck = enemizer_check(0);
 		
-		if (!items.bigkey10 || (items.bow === 0 && !flags.enemyshuffle != 'N') || (!items.lantern && !items.firerod) || !items.hookshot || ((items.sword < 2 && !flags.swordmode === 'S') || (flags.swordmode === 'S' && !items.hammer)) || dungeoncheck === 'unavailable') return 'unavailable';
+		if (!items.bigkey10 || (items.bow === 0 && flags.enemyshuffle === 'N') || (!items.lantern && !items.firerod) || !items.hookshot || ((items.sword < 2 && flags.swordmode != 'S') || (flags.swordmode === 'S' && !items.hammer)) || dungeoncheck === 'unavailable') return 'unavailable';
 		if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K') {
 			if (items.smallkey10 === 0 && flags.gametype != 'R') return 'unavailable';
 			if (items.smallkey10 < 3 && flags.gametype != 'R') return 'possible';
@@ -311,7 +311,7 @@
 					chests[5] = 'A';
 				}
 			} else {
-				if (!flags.enemyshuffle != 'N' && items.bow === 0) {
+				if (flags.enemyshuffle === 'N' && items.bow === 0) {
 					chests[5] = 'U';
 				} else {
 					if (items.lantern || (items.firerod && flags.itemplacement === 'A')) {

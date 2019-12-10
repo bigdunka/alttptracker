@@ -381,6 +381,9 @@
 		document.getElementById('tr_w').style.backgroundColor = '#000';
 		document.getElementById('tr_e').style.backgroundColor = '#000';
 		document.getElementById('tr_b').style.backgroundColor = '#000';
+		document.getElementById('link').style.backgroundColor = '#000';
+		document.getElementById('sanc').style.backgroundColor = '#000';
+		document.getElementById('mount').style.backgroundColor = '#000';
 		document.getElementById('gt').style.backgroundColor = '#000';
 		document.getElementById('ganon').style.backgroundColor = '#000';
 		document.getElementById('magic').style.backgroundColor = '#000';
@@ -541,6 +544,9 @@
 		document.getElementById('tr_w').style.backgroundColor = '#000';
 		document.getElementById('tr_e').style.backgroundColor = '#000';
 		document.getElementById('tr_b').style.backgroundColor = '#000';
+		document.getElementById('link').style.backgroundColor = '#000';
+		document.getElementById('sanc').style.backgroundColor = '#000';
+		document.getElementById('mount').style.backgroundColor = '#000';
 		document.getElementById('gt').style.backgroundColor = '#000';
 		document.getElementById('ganon').style.backgroundColor = '#000';
 		document.getElementById('magic').style.backgroundColor = '#000';
@@ -579,7 +585,13 @@
 				divtoadd.id = 'informationdiv' + document.getElementById('entranceID').value;
 				var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
 				
-				divtoadd.style.top = loc.offsetTop - 15;
+				if (loc.offsetTop < 20) {
+					divtoadd.style.top = loc.offsetTop + 15;
+				} else {
+					divtoadd.style.top = loc.offsetTop - 15;
+				}
+				
+				
 				divtoadd.style.left = loc.offsetLeft - 14;
 				divtoadd.className = 'informationdiv';
 
@@ -760,7 +772,7 @@
 						displayCaption = displayCaption + ' ==> ' + (entrances[connectorTwo[i]].caption);
 					}
 					if (connectorTwo[i] === x) {
-						displayCaption = displayCaption + ' ==> ' + (entrances[connectorTwo[i]].caption);
+						displayCaption = displayCaption + ' ==> ' + (entrances[connectorOne[i]].caption);
 					}
 				}
 			}
@@ -855,6 +867,15 @@
 				break;
 			case 'tr_b':
 				friendly = 'Turtle Rock (Back)';
+				break;
+			case 'link':
+				friendly = 'Link\'s House';
+				break;
+			case 'sanc':
+				friendly = 'Sanctuary';
+				break;
+			case 'mount':
+				friendly = 'Death Mountain (Start)';
 				break;
 			case 'gt':
 				friendly = 'Ganon\'s Tower';
