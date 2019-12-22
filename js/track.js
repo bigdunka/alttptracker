@@ -229,7 +229,8 @@
 		dungeons[n].is_beatable();
 		if (!dungeons[n].is_beaten)
 			if (document.getElementById('bossMap'+n) != null) {
-				document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
+				//document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
+				document.getElementById('bossMap'+n).className = 'bossprize-' + prizes[n] + ' boss ' + dungeons[n].is_beatable();
 			}
     };
 
@@ -241,7 +242,8 @@
 		dungeons[n].is_beatable();
 		if (!dungeons[n].is_beaten)
 			if (document.getElementById('bossMap'+n) != null) {
-				document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
+				//document.getElementById('bossMap'+n).className = 'boss ' + dungeons[n].is_beatable();
+				document.getElementById('bossMap'+n).className = 'bossprize-' + prizes[n] + ' boss ' + dungeons[n].is_beatable();
 			}
     };
 	

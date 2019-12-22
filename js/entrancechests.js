@@ -3166,6 +3166,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
+				if (hasFoundEntrance(114)) return 'available';
 				return (items.moonpearl && canReachDarkWorldEast()) ? 'available' : 'unavailable';
 			}
 		}, { // [115]
@@ -3175,6 +3176,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
+				if (hasFoundEntrance(115)) return 'available';
 				return canReachDarkWorldEast() ? 'available' : 'unavailable';
 			}
 		}, { // [116]
@@ -3184,6 +3186,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
+				if (hasFoundEntrance(116)) return 'available';
 				return canReachDarkWorldEast() ? 'available' : 'unavailable';
 			}
 		}, { // [117]
@@ -3193,6 +3196,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
+				if (hasFoundEntrance(117)) return 'available';
 				return canReachDarkWorldEast() ? 'available' : 'unavailable';
 			}
 		}, { // [118]

@@ -150,6 +150,9 @@ body {
 .chest.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; background-image: url(../images/dungeons/keychestlarge.png); }
 .chest-0.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; background-image: url(../images/dungeons/keychestlarge0.png); }
 .unavailable { background-color: red; }
+.unavailabledungeon { background-color: red; }
+.unavailableconnector { background-color: red; }
+.unavailablekeylocation { background-color: red; }
 .available { background-color: lime; }
 .availableconnector { background-color: turquoise; }
 .availabledungeon { background-color: violet; }
