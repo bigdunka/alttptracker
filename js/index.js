@@ -57,10 +57,6 @@ function launch_tracker() {
 	
 	var trackerName = entrance === 'N' ? 'tracker' : 'entrancetracker';
 	
-	if (entrance != 'N' && map === "C") {
-		alert('Entrance mode and Compact map are currenly not compatible.');
-		return;
-	}
 	
 	if (entrance != 'N' && type === "I") {
 		alert('NOTICE: There is currently no logic implemented in Inverted Entrance, all locations will be flagged as available.');

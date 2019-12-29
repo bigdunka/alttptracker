@@ -1,0 +1,242 @@
+
+#app { width: 448px; height: 988px; }
+#app.sphereless { height: 692px; }
+
+#map {
+  width: 442px;
+  height: 221px;
+  margin-left: 3px;
+}
+
+#caption {
+  bottom: -20px;
+}
+
+.location {
+  width: 12px;
+  height: 12px;
+  margin-left: -6px;
+  margin-top: -6px;
+}
+
+.entrance {
+  width: 8px;
+  height: 8px;
+  margin-left: -7px;
+  margin-top: -7px;
+}
+
+#map .boss {
+  width: 16px;
+  height: 16px;
+  margin-left: -8px;
+  margin-top: -8px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 75% 75%;
+  z-index: 2;
+}
+
+#bossMapAgahnim { background-color: transparent; }
+.castle {
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  margin-top: -12px;
+  position: absolute;
+  background-size: 100% 100%;
+}
+
+.dungeon {
+  width: 32px;
+  height: 32px;
+  margin-left: -16px;
+  margin-top: -16px;
+  position: absolute;
+  background-size: 100% 100%;
+}
+
+#bossMap0, #dungeon0 { left: 46.0%; top: 38.8%; }
+#bossMap1, #dungeon1 { left: 3.8%;  top: 78.4%; }
+#bossMap2, #dungeon2 { left: 31.0%; top: 7.2%; }
+#bossMap3, #dungeon3 { left: 96.4%; top: 40.0%; }
+#bossMap4, #dungeon4 { left: 73.5%; top: 91.0%; }
+#bossMap5, #dungeon5 { left: 54.0%; top: 7.2%; }
+#bossMap6, #dungeon6 { left: 56.4%; top: 47.9%; }
+#bossMap7, #dungeon7 { left: 89.8%; top: 85.8%; }
+#bossMap8, #dungeon8 { left: 55.8%; top: 82.9%; }
+#bossMap9, #dungeon9 { left: 96.4%; top: 7.2%; }
+#bossMap10, #dungeon10 { left: 79.0%; top: 7.2%; }
+
+#bossMapAgahnim, #castle { left: 25.0%; top: 52.6%; }
+
+#locationMap0 { left: 22.4%; top: 93.4%; z-index: 2; }
+#locationMap1 { left: 27.4%; top: 67.9%; z-index: 2; }
+#locationMap2 { left: 5%;  top: 46.8%; z-index: 2; }
+#locationMap3 { left: 66%; top: 69.5%; z-index: 2; }
+#locationMap4 { left: 65.2%; top: 52.2%; z-index: 2; }
+#locationMap5 { left: 35.2%; top: 70.3%; z-index: 2; }
+#locationMap6 { left: 21.0%; top: 3.0%; z-index: 2; }
+#locationMap7 { left: 11.0%; top: 92.2%; z-index: 2; }
+#locationMap8 { left: 96.0%; top: 17.2%; z-index: 2; }
+#locationMap9 { left: 48.0%; top: 12.1%; z-index: 2; }
+#locationMap10 { left: 21.8%; top: 22.4%; z-index: 2; }
+#locationMap11 { left: 6.2%;  top: 8.6%; z-index: 2; }
+#locationMap12 { left: 25.4%; top: 8.5%; z-index: 2; }
+#locationMap13 { left: 40.8%; top: 3.0%; z-index: 2; }
+#locationMap14 { left: 1.8%;  top: 69.8%; z-index: 2; }
+#locationMap15 { left: 1.5%;  top: 91.0%; z-index: 2; }
+#locationMap16 { left: 36.5%; top: 83.9%; z-index: 2; }
+#locationMap17 { left: 67.1%; top: 15.2%; z-index: 2; }
+#locationMap18 { left: 79.0%; top: 43.5%; z-index: 2; }
+#locationMap19 { left: 52.9%; top: 69.2%; z-index: 2; }
+#locationMap20 { left: 47.7%; top: 17.3%; z-index: 2; }
+#locationMap21 { left: 14.4%; top: 66.2%; z-index: 2; }
+#locationMap22 { left: 2.5%;  top: 3.2%; z-index: 2; }
+
+#connectorStop { left: 41%!important; width: 37.5px; }
+#connectorStop img { width: 100%; }
+#hideConnectorLines { left: 50.5%!important; width: 37.5px; }
+#hideConnectorLinesImg { width: 100%; }
+
+#entranceMap0 { left: 28%; top: 72%; z-index: 2; }
+#entranceMap1 { left: 24.5%; top: 67%; z-index: 2; }
+#entranceMap2 { left: 24%; top: 96%; z-index: 2; }
+#entranceMap3 { left: 14%; top: 84%; z-index: 2; }
+#entranceMap4 { left: 40.7%; top: 35%; z-index: 2; }
+#entranceMap5 { left: 45.7%; top: 17%; z-index: 2; }
+#entranceMap6 { left: 31%; top: 80%; z-index: 2; }
+#entranceMap7 { left: 25.7%; top: 46%; z-index: 2; }
+#entranceMap8 { left: 23.2%; top: 41%; z-index: 2; }
+#entranceMap9 { left: 28.2%; top: 41%; z-index: 2; }
+#entranceMap10 { left: 25.7%; top: 42%; z-index: 2; }
+#entranceMap11 { left: 28.2%; top: 45%; z-index: 2; }
+#entranceMap12 { left: 30.5%; top: 42.5%; z-index: 2; }
+#entranceMap13 { left: 23.7%; top: 28.5%; z-index: 2; }
+#entranceMap14 { left: 20%; top: 30%; z-index: 2; }
+#entranceMap15 { left: 26.7%; top: 30%; z-index: 2; }
+#entranceMap16 { left: 29.3%; top: 28.4%; z-index: 2; }
+#entranceMap17 { left: 31%; top: 30%; z-index: 2; }
+#entranceMap18 { left: 34%; top: 29%; z-index: 2; }
+#entranceMap19 { left: 33%; top: 32%; z-index: 2; }
+#entranceMap20 { left: 10.1%; top: 4%; z-index: 2; }
+#entranceMap21 { left: 10.3%; top: 13.2%; z-index: 2; }
+#entranceMap22 { left: 10%; top: 16.8%; z-index: 2; }
+#entranceMap23 { left: 17.8%; top: 7.6%; z-index: 2; }
+#entranceMap24 { left: 17%; top: 4.5%; z-index: 2; }
+#entranceMap25 { left: 15.7%; top: 9%; z-index: 2; }
+#entranceMap26 { left: 18%; top: 19.7%; z-index: 2; }
+#entranceMap27 { left: 10.3%; top: 33%; z-index: 2; }
+#entranceMap28 { left: 2%; top: 43%; z-index: 2; }
+#entranceMap29 { left: 3.8%; top: 44%; z-index: 2; }
+#entranceMap30 { left: 6.4%; top: 43%; z-index: 2; }
+#entranceMap31 { left: 8.2%; top: 43%; z-index: 2; }
+#entranceMap32 { left: 10%; top: 43%; z-index: 2; }
+#entranceMap33 { left: 3.3%; top: 48%; z-index: 2; }
+#entranceMap34 { left: 11%; top: 49%; z-index: 2; }
+#entranceMap35 { left: 5.6%; top: 55%; z-index: 2; }
+#entranceMap36 { left: 8.4%; top: 54.5%; z-index: 2; }
+#entranceMap37 { left: 10.9%; top: 55%; z-index: 2; }
+#entranceMap38 { left: 2.3%; top: 61%; z-index: 2; }
+#entranceMap39 { left: 6.3%; top: 59%; z-index: 2; }
+#entranceMap40 { left: 8.7%; top: 58%; z-index: 2; }
+#entranceMap41 { left: 8.7%; top: 61.5%; z-index: 2; }
+#entranceMap42 { left: 15.6%; top: 54%; z-index: 2; }
+#entranceMap43 { left: 16.6%; top: 57%; z-index: 2; }
+#entranceMap44 { left: 18%; top: 55%; z-index: 2; }
+#entranceMap45 { left: 8.4%; top: 67%; z-index: 2; }
+#entranceMap46 { left: 6%; top: 72%; z-index: 2; }
+#entranceMap47 { left: 8%; top: 72%; z-index: 2; }
+#entranceMap48 { left: 11.4%; top: 70.3%; z-index: 2; }
+#entranceMap49 { left: 48.3%; top: 40%; z-index: 2; }
+#entranceMap50 { left: 41.4%; top: 46%; z-index: 2; }
+#entranceMap51 { left: 42%; top: 65.4%; z-index: 2; }
+#entranceMap52 { left: 48.3%; top: 71%; z-index: 2; }
+#entranceMap53 { left: 4.4%; top: 82%; z-index: 2; }
+#entranceMap54 { left: 2.5%; top: 81%; z-index: 2; }
+#entranceMap55 { left: 6.3%; top: 81%; z-index: 2; }
+#entranceMap56 { left: 4.4%; top: 78%; z-index: 2; }
+#entranceMap57 { left: 9.5%; top: 79%; z-index: 2; }
+#entranceMap58 { left: 10.8%; top: 83%; z-index: 2; }
+#entranceMap59 { left: 14.7%; top: 90%; z-index: 2; }
+#entranceMap60 { left: 16.3%; top: 96%; z-index: 2; }
+#entranceMap61 { left: 37.2%; top: 78%; z-index: 2; }
+#entranceMap62 { left: 33.2%; top: 81%; z-index: 2; }
+#entranceMap63 { left: 33.4%; top: 95%; z-index: 2; }
+#entranceMap64 { left: 40.4%; top: 86%; z-index: 2; }
+#entranceMap65 { left: 45%; top: 78%; z-index: 2; }
+#entranceMap66 { left: 47%; top: 78%; z-index: 2; }
+#entranceMap67 { left: 46%; top: 81%; z-index: 2; }
+#entranceMap68 { left: 28.7%; top: 5%; z-index: 2; }
+#entranceMap69 { left: 24.6%; top: 11.5%; z-index: 2; }
+#entranceMap70 { left: 23.5%; top: 15%; z-index: 2; }
+#entranceMap71 { left: 25.3%; top: 16%; z-index: 2; }
+#entranceMap72 { left: 20.8%; top: 20%; z-index: 2; }
+#entranceMap73 { left: 20.4%; top: 14%; z-index: 2; }
+#entranceMap74 { left: 18.7%; top: 16%; z-index: 2; }
+#entranceMap75 { left: 23.3%; top: 25%; z-index: 2; }
+#entranceMap76 { left: 27.5%; top: 17.4%; z-index: 2; }
+#entranceMap77 { left: 43.3%; top: 6.4%; z-index: 2; }
+#entranceMap78 { left: 43.8%; top: 23%; z-index: 2; }
+#entranceMap79 { left: 43.8%; top: 16%; z-index: 2; }
+#entranceMap80 { left: 40.5%; top: 10%; z-index: 2; }
+#entranceMap81 { left: 39%; top: 14%; z-index: 2; }
+#entranceMap82 { left: 42%; top: 16%; z-index: 2; }
+#entranceMap83 { left: 41.6%; top: 12.4%; z-index: 2; }
+#entranceMap84 { left: 40.6%; top: 14.9%; z-index: 2; }
+#entranceMap85 { left: 42.9%; top: 10%; z-index: 2; }
+#entranceMap86 { left: 78.0%; top: 72%; z-index: 2; }
+#entranceMap87 { left: 74.5%; top: 67%; z-index: 2; }
+#entranceMap88 { left: 81.0%; top: 80%; z-index: 2; }
+#entranceMap89 { left: 74.2%; top: 96%; z-index: 2; }
+#entranceMap90 { left: 73.7%; top: 28%; z-index: 2; }
+#entranceMap91 { left: 67.4%; top: 46.6%; z-index: 2; }
+#entranceMap92 { left: 90.7%; top: 35%; z-index: 2; }
+#entranceMap93 { left: 75.7%; top: 42%; z-index: 2; }
+#entranceMap94 { left: 74.0%; top: 50%; z-index: 2; }
+#entranceMap95 { left: 72%; top: 50%; z-index: 2; }
+#entranceMap96 { left: 52.7%; top: 6.5%; z-index: 2; }
+#entranceMap97 { left: 53.7%; top: 14%; z-index: 2; }
+#entranceMap98 { left: 56.7%; top: 10%; z-index: 2; }
+#entranceMap99 { left: 57.8%; top: 16%; z-index: 2; }
+#entranceMap100 { left: 58.5%; top: 19%; z-index: 2; }
+#entranceMap101 { left: 60.7%; top: 13%; z-index: 2; }
+#entranceMap102 { left: 59.7%; top: 16%; z-index: 2; }
+#entranceMap103 { left: 60.8%; top: 18%; z-index: 2; }
+#entranceMap104 { left: 67.5%; top: 6.7%; z-index: 2; }
+#entranceMap105 { left: 68.5%; top: 19%; z-index: 2; }
+#entranceMap106 { left: 60.1%; top: 33%; z-index: 2; }
+#entranceMap107 { left: 53.0%; top: 47%; z-index: 2; }
+#entranceMap108 { left: 57.0%; top: 49%; z-index: 2; }
+#entranceMap109 { left: 61.0%; top: 49%; z-index: 2; }
+#entranceMap110 { left: 61.0%; top: 54%; z-index: 2; }
+#entranceMap111 { left: 56.3%; top: 59%; z-index: 2; }
+#entranceMap112 { left: 66.5%; top: 62%; z-index: 2; }
+#entranceMap113 { left: 61.5%; top: 71%; z-index: 2; }
+#entranceMap114 { left: 98.6%; top: 41%; z-index: 2; }
+#entranceMap115 { left: 93.3%; top: 52%; z-index: 2; }
+#entranceMap116 { left: 92.0%; top: 65.7%; z-index: 2; }
+#entranceMap117 { left: 98.8%; top: 71%; z-index: 2; }
+#entranceMap118 { left: 90.5%; top: 87%; z-index: 2; }
+#entranceMap119 { left: 83.3%; top: 81%; z-index: 2; }
+#entranceMap120 { left: 95%; top: 78%; z-index: 2; }
+#entranceMap121 { left: 97%; top: 78%; z-index: 2; }
+#entranceMap122 { left: 96%; top: 81%; z-index: 2; }
+#entranceMap123 { left: 54.4%; top: 84%; z-index: 2; }
+#entranceMap124 { left: 52.7%; top: 81%; z-index: 2; }
+#entranceMap125 { left: 56.3%; top: 81%; z-index: 2; }
+#entranceMap126 { left: 60.6%; top: 83%; z-index: 2; }
+#entranceMap127 { left: 78.8%; top: 5%; z-index: 2; }
+#entranceMap128 { left: 79.4%; top: 16%; z-index: 2; }
+#entranceMap129 { left: 69.5%; top: 16%; z-index: 2; }
+#entranceMap130 { left: 70.8%; top: 20%; z-index: 2; }
+#entranceMap131 { left: 90.8%; top: 4%; z-index: 2; }
+#entranceMap132 { left: 92%; top: 7.3%; z-index: 2; }
+#entranceMap133 { left: 93.8%; top: 7.2%; z-index: 2; }
+#entranceMap134 { left: 92.5%; top: 16%; z-index: 2; }
+#entranceMap135 { left: 94.5%; top: 16%; z-index: 2; }
+#entranceMap136 { left: 97.7%; top: 9%; z-index: 2; }
+#entranceMap137 { left: 91.7%; top: 13%; z-index: 2; }
+#entranceMap138 { left: 90.6%; top: 10%; z-index: 2; }
+#entranceMap139 { left: 92.9%; top: 10%; z-index: 2; }

@@ -1132,10 +1132,6 @@
 		document.getElementById("goalselect").value = flags.goals;
 		document.getElementById("swordselect").value = flags.swordmode;
 		
-		if (maptype === 'C') {
-			document.getElementById('entranceselect').disabled = true;
-		}
-	
 		$('#flagsModal').show();
 	}
 	
@@ -1711,7 +1707,7 @@
 		
 		updateMapTracker();
 		
-		if (flags.gametype === "S") {
+		if (flags.gametype === "S" && flags.entrancemode === 'N') {
 			document.getElementById('locationMap2').classList.remove('unavailable');
 			document.getElementById('locationMap56').classList.remove('unavailable');
 			document.getElementById('locationMap57').classList.remove('unavailable');
@@ -1738,6 +1734,188 @@
             return items[item] = value;
         };
     }
+	
+	function compactMapMenu()
+	{
+		return '<table style="color: white;">'+
+'	<tr>'+
+'		<td colspan="7">'+
+'			Light World Dungeons'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td>'+
+'			<img src="./images/interface/hc_m.png" style="cursor: pointer;" onclick="tagEntrance(\'hc_m\', true)" id="hc_m" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/hc_w.png" style="cursor: pointer;" onclick="tagEntrance(\'hc_w\', true)" id="hc_w" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/hc_e.png" style="cursor: pointer;" onclick="tagEntrance(\'hc_e\', true)" id="hc_e" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/ct.png" style="cursor: pointer;" onclick="tagEntrance(\'ct\', true)" id="ct" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/ep.png" style="cursor: pointer;" onclick="tagEntrance(\'ep\', true)" id="ep" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/dp_m.png" style="cursor: pointer;" onclick="tagEntrance(\'dp_m\', true)" id="dp_m" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/dp_w.png" style="cursor: pointer;" onclick="tagEntrance(\'dp_w\', true)" id="dp_w" />'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td>'+
+'			<img src="./images/interface/dp_e.png" style="cursor: pointer;" onclick="tagEntrance(\'dp_e\', true)" id="dp_e" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/dp_n.png" style="cursor: pointer;" onclick="tagEntrance(\'dp_n\', true)" id="dp_n" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/toh.png" style="cursor: pointer;" onclick="tagEntrance(\'toh\', true)" id="toh" />'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td colspan="7">'+
+'			Light World Key Locations'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td>'+
+'			<img src="./images/interface/magic.png" style="cursor: pointer;" onclick="tagEntrance(\'magic\', false)" id="magic" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/kid.png" style="cursor: pointer;" onclick="tagEntrance(\'kid\', false)" id="kid" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/smith.png" style="cursor: pointer;" onclick="tagEntrance(\'smith\', false)" id="smith" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/bat.png" style="cursor: pointer;" onclick="tagEntrance(\'bat\', false)" id="bat" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/library.png" style="cursor: pointer;" onclick="tagEntrance(\'library\', false)" id="library" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/sahas.png" style="cursor: pointer;" onclick="tagEntrance(\'sahas\', false)" id="sahas" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/mimic.png" style="cursor: pointer;" onclick="tagEntrance(\'mimic\', false)" id="mimic" />'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td>'+
+'			<img src="./images/interface/dam.png" style="cursor: pointer;" onclick="tagEntrance(\'dam\', false)" id="dam" />'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td colspan="7">'+
+'			General Key Locations'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td>'+
+'			<img src="./images/interface/rupee.png" style="cursor: pointer;" onclick="tagEntrance(\'rupee\', false)" id="rupee" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/shop.png" style="cursor: pointer;" onclick="tagEntrance(\'shop\', false)" id="shop" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/dark.png" style="cursor: pointer;" onclick="tagEntrance(\'dark\', false)" id="dark" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/connector.png" style="cursor: pointer;" onclick="tagEntrance(\'connector\', false)" id="connector" />'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td colspan="7">'+
+'			Starting Locations'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td>'+
+'			<img src="./images/interface/link.png" style="cursor: pointer;" onclick="tagEntrance(\'link\', true)" id="link" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/sanc.png" style="cursor: pointer;" onclick="tagEntrance(\'sanc\', true)" id="sanc" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/mount.png" style="cursor: pointer;" onclick="tagEntrance(\'mount\', true)" id="mount" />'+
+'		</td>							'+
+'		'+
+'		<td>'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td colspan="7">'+
+'			Dark World Dungeons'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td>'+
+'			<img src="./images/interface/pod.png" style="cursor: pointer;" onclick="tagEntrance(\'pod\', true)" id="pod" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/sp.png" style="cursor: pointer;" onclick="tagEntrance(\'sp\', true)" id="sp" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/sw.png" style="cursor: pointer;" onclick="tagEntrance(\'sw\', true)" id="sw" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/tt.png" style="cursor: pointer;" onclick="tagEntrance(\'tt\', true)" id="tt" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/ip.png" style="cursor: pointer;" onclick="tagEntrance(\'ip\', true)" id="ip" />'+
+'		</td>		'+
+'		<td>'+
+'			<img src="./images/interface/mm.png" style="cursor: pointer;" onclick="tagEntrance(\'mm\', true)" id="mm" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/tr_m.png" style="cursor: pointer;" onclick="tagEntrance(\'tr_m\', true)" id="tr_m" />'+
+'		</td>					'+
+'	</tr>'+
+'	<tr>'+
+'		<td>'+
+'			<img src="./images/interface/tr_w.png" style="cursor: pointer;" onclick="tagEntrance(\'tr_w\', true)" id="tr_w" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/tr_e.png" style="cursor: pointer;" onclick="tagEntrance(\'tr_e\', true)" id="tr_e" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/tr_b.png" style="cursor: pointer;" onclick="tagEntrance(\'tr_b\', true)" id="tr_b" />'+
+'		</td>							'+
+'		<td>'+
+'			<img src="./images/interface/gt.png" style="cursor: pointer;" onclick="tagEntrance(\'gt\', true)" id="gt" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/ganon.png" style="cursor: pointer;" onclick="tagEntrance(\'ganon\', true)" id="ganon" />'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td colspan="7">'+
+'			Dark World Key Locations'+
+'		</td>'+
+'	</tr>'+
+'	<tr>'+
+'		<td>'+
+'			<img src="./images/interface/bomb.png" style="cursor: pointer;" onclick="tagEntrance(\'bomb\', false)" id="bomb" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/bumper.png" style="cursor: pointer;" onclick="tagEntrance(\'bumper\', false)" id="bumper" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/spike.png" style="cursor: pointer;" onclick="tagEntrance(\'spike\', false)" id="spike" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/hook.png" style="cursor: pointer;" onclick="tagEntrance(\'hook\', false)" id="hook" />'+
+'		</td>'+
+'	</tr>'+
+'</table>';
+	}
+	
+	
 
     window.start = function() {
 		//If spoiler mode, first show the modal to load the spoiler log
@@ -1826,9 +2004,21 @@
 				var link = document.createElement("link");
 				link.rel = 'stylesheet';
 				link.type = 'text/css';
-				link.href = 'css/smallmap.css';
+				link.href = flags.entrancemode === 'N' ? 'css/smallmap.css' : 'css/entrancesmallmap.css'; //Not changeable in mystery mode!
 				document.head.appendChild(link);
 				//document.getElementById('spheres').style.display = 'none';
+				
+				if (flags.entrancemode != 'N') {
+					var modal = document.getElementById("entranceModal"),modalMain = document.getElementById("entranceModalMain");
+					modal.style.width = "448px";
+					modal.style.left = "0px";
+					modalMain.style.width = "408px";
+					modalMain.style.height = "600px";
+					modalMain.style.left = "20px";
+					modalMain.style.top = "36px";
+					var modalTags = document.getElementById("modalTags");
+					modalTags.innerHTML = compactMapMenu();
+				}				
 			}
         } else {
             document.getElementById('app').classList.add('mapless');
