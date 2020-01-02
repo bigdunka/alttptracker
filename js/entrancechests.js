@@ -240,7 +240,7 @@
 
 	function canReachWDM()
 	{
-		if (canReachWDMNorth() || items.flute || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84))) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(74) || hasFoundEntrance(76)) return true;
+		if (canReachWDMNorth() || items.flute || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84))) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76)) return true;
 		return false;
 	}
 	
@@ -252,7 +252,7 @@
 
 	function canReachEDM()
 	{
-		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || (hasFoundEntrance(137) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
+		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
 		return false;
 	}
 	
@@ -287,7 +287,7 @@
 	}
 	
 	function canReachDarkWorldSouthEast() {
-		if (hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122) || ((canReachDarkWorld() || canReachDarkWorldEast() || canReachDarkWorldSouth()) && items.flippers)) return true;
+		if (hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122) || ((canReachDarkWorld() || canReachDarkWorldEast() || canReachDarkWorldSouth()) && items.flippers && items.moonpearl)) return true;
 	}
 	
 	function canReachMiseryMire() {
