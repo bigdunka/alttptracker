@@ -19,7 +19,8 @@
 	//Check which boss is at the end of the dungeon
 	function enemizer_check(i) {
 		//All possible required items to kill a boss
-		if (melee() && items.hookshot && items.icerod && items.firerod) return 'available'
+		if (melee() && items.hookshot && items.icerod && items.firerod) return 'available';
+		if (!melee_bow() && !rod() && !cane() && items.boomerang === 0) return 'unavailable';
 		switch (enemizer[i]) {
 			case 0:
 				return (flags.bossshuffle != 'N' ? 'possible' : 'available');
@@ -46,7 +47,7 @@
 				if (items.sword > 0 || items.hammer || items.somaria || items.byrna) return 'available';
 				break;
 			case 8:
-				if (items.firerod || (items.bombos && (items.sword > 0 || items.hammer))) return 'available';
+				if (items.firerod || (items.bombos && (items.sword > 0 || (flags.swordmode === 'S' && items.hammer)))) return 'available';
 				break;
 			case 9:
 				if (melee_bow() || items.hammer) return 'available';
@@ -153,6 +154,162 @@
 		if (dpchests > 0) return 'darkpossible';
 		return 'unavailable';
 	}
+
+	function maxKeys(dungeon)
+	{
+		return flags.doorshuffle === 'C' ? 29 : [0,1,1,6,1,3,1,2,3,4,4,1,2][dungeon];
+	}
+
+	function freeDungeonItems(dungeon)
+	{
+		if(flags.doorshuffle === 'C')
+			return 0;//Might be improved in the future?
+		switch(dungeon)
+		{
+			case 2:
+			case 6:
+				return flags.dungeonitems === 'F' ? 1 : 0;
+			case 4:
+				return flags.dungeonitems === 'F' && items.flippers ? 1 : 0;
+			case 5:
+				return flags.dungeonitems === 'F' && flags.entrancemode === 'N' ? 1 : 0;
+			case 9:
+				var count = 0;
+				switch(flags.dungeonitems)
+				{
+					case 'K':
+						count--;
+						break;
+					case 'S':
+						count -= flags.gametype === 'R' ? 3 : 7;
+						break;
+					case 'M':
+						count -= flags.gametype === 'R' ? 1 : 5;
+				}
+				if(flags.gametype === 'I' && (items.glove || activeFlute()) && items.mirror && ((items.hookshot && items.moonpearl) || items.glove === 2) && (items.cape || items.byrna || items.shield === 3/* || flags.itemplacement === 'A'*/))
+					count += 4;//Has access to laser bridge
+				if(flags.gametype === 'I' && (items.glove || activeFlute()) && items.mirror && ((items.hookshot && items.moonpearl) || items.glove === 2) && (items.hookshot || items.somaria) && flags.dungeonitems === 'F' && items.bigkey9)
+					count++;//Has access to big chest
+				return Math.max(0,count);
+		}
+		return 0;
+	}
+
+	function door_enemizer_check(dungeon) {
+		return dungeon === 6 && flags.doorshuffle === 'C' && !items.bombfloor ? 'unavailable' : enemizer_check(dungeon);
+	}
+
+	window.doorCheck = function(dungeon,onlyDarkPossible,darkRoom,torchDarkRoom,posRequired,goal) {
+		if(flags.doorshuffle === 'N')
+			return null;
+		var doorcheck = goal === 'boss' && dungeon < 10 ? door_enemizer_check(dungeon) : 'available';
+		if(doorcheck === 'unavailable')
+			return 'unavailable';//Can't beat boss
+		//if(goal === 'boss' && dungeon == 6 && flags.doorshuffle === 'C' && !items.bombfloor)
+		//	return 'unavailable';
+		//if(doorcheck === 'available' && goal === 'item' && dungeon == 6 && flags.doorshuffle === 'C' && !items.bombfloor)
+		//	doorcheck = 'possible';
+		if(goal === 'item' && dungeon <= 10 && flags.doorshuffle === 'B' && items['maxchest'+dungeon]-items['chest'+dungeon] < freeDungeonItems(dungeon))
+			return onlyDarkPossible ? 'darkavailable' : 'available';//At least one item available no matter how the dungeon is shuffled
+		if(goal === 'item' && dungeon < 10 && flags.doorshuffle === 'B' && !items['boss'+dungeon] && door_enemizer_check(dungeon) != 'available' && items['chest'+dungeon] == 1)
+		{
+			if(door_enemizer_check(dungeon) === 'unavailable' && flags.dungeonitems === 'F')
+				return 'unavailable';//Boss has last item
+			doorcheck = 'possible';//Boss could have last item
+		}
+		if(goal === 'item' && dungeon < 10 && flags.doorshuffle === 'C' && !items['boss'+dungeon] && door_enemizer_check(dungeon) != 'available' && items['chest'+dungeon] <= 2)
+			doorcheck = 'possible';//Boss could have last item
+		if(goal === 'item' && dungeon <= 10 && flags.doorshuffle === 'C' && items['chest'+dungeon] === 1)
+			doorcheck = 'possible';//Unknown if even one item is still in there
+		var dungeonAlt = dungeon > 10 ? 'half'+(dungeon-11) : ''+dungeon;
+		if(doorcheck === 'available' && (flags.dungeonitems === 'K' || flags.dungeonitems === 'F') && flags.gametype != 'R' && items['smallkey'+dungeonAlt] < maxKeys(dungeon))
+			doorcheck = 'possible';//Could need more small keys
+		if(doorcheck === 'available' && flags.dungeonitems === 'F' && (dungeon <= 10 || flags.doorshuffle === 'C') && !items['bigkey'+dungeonAlt])
+			doorcheck = 'possible';//Could need big key
+		if(flags.doorshuffle === 'C')
+		{
+			posRequired = ['firerod','somaria','flippers','hookshot','boots','bow','hammer','swordorswordless','glove',goal === 'item' || flags.dungeonitems != 'F' ? 'laserbridge' : '',flags.gametype != 'I' && flags.entrancemode === 'N' && dungeon === 1 ? 'mirrordesert' : '',flags.gametype === 'I' && flags.entrancemode === 'N' && dungeon === 5 ? 'mirrorskull' : '',flags.bossshuffle === 'N' ? '' : 'icerod'];
+			darkRoom = torchDarkRoom = true;
+		}
+		if(doorcheck === 'available')
+		{
+			label:
+			for(var i = 0; i < posRequired.length; i++) {
+				switch(posRequired[i])
+				{
+					case '':
+						break;
+					case 'firesource':
+						if(!items.lantern && !items.firerod)
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					case 'hookboots':
+						if(!items.hookshot && !items.boots)
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					case 'wizzrobe':
+						if(!melee_bow() && !rod() && !cane())
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					case 'freezor':
+						if(!items.firerod && (!items.bombos || (items.sword === 0 && flags.swordmode != 'S')))
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					case 'swordorswordless':
+						if(items.sword === 0 && flags.swordmode != 'S')
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					case 'laserbridge':
+						if(!items.cape && !items.byrna && items.shield < 3/* && flags.itemplacement === 'B'*/)//DR doesn't distinguish between basic and advanced yet. Might change in the future?
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					case 'mirrordesert':
+						if(!items.mirror || !items.flute || items.glove < 2)
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					case 'mirrorskull':
+						if(!items.mirror || !canReachLightWorldBunny())
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					default:
+						if(!items[posRequired[i]])
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+				}
+			}
+		}
+		if(onlyDarkPossible)
+			doorcheck = 'dark'+doorcheck;
+		if(doorcheck === 'available' && !onlyDarkPossible && !items.lantern && (darkRoom || (torchDarkRoom/* && (!items.firerod || flags.itemplacement === 'B')*/)))//Advanced placement in the future?
+			doorcheck = 'possible';//Could require light source
+		return doorcheck;
+	};
 	
     window.EPBoss = function() {
 		var dungeoncheck = enemizer_check(0);

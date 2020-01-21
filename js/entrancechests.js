@@ -252,7 +252,7 @@
 
 	function canReachEDM()
 	{
-		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
+		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || (items.hammer && canReachHCNorth()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
 		return false;
 	}
 	
@@ -3207,7 +3207,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(118)) return 'available';
-				if (!canReachDarkWorld() || !items.flippers || items.glove < 2) return 'unavailable';
+				if (!items.flippers || items.glove < 2) return 'unavailable';
 				return 'available';
 			}
 		}, { // [119]

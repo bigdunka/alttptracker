@@ -49,10 +49,13 @@ body {
 #tracker .item[class*="active"],
 #tracker .boss.defeated { opacity: 1; }
 #tracker .bigkey { opacity: .25; }
+#tracker .bigkeyhalf { opacity: .25; position: absolute; right: 0; height: 16px; width: 16px; background-image: url(../images/dungeons/bigkey.png); background-size:100%; }
 #tracker .collected { opacity: 1; }
 #tracker .tunic { height: 96px; width: 96px; background-size:100%; }
 #tracker .moonpearl { height: 40px; width: 40px; background-size:100%; }
 #tracker .sphere { height: 37px; width: 37px; background-size:100%; }
+#bigkeyhalf0 { top: 11px; }
+#bigkeyhalf1 { top: 59px; }
 
 [class*="prize-"] {
   width: 32px;
@@ -73,6 +76,14 @@ body {
   height: 32px;
   position: absolute;
   bottom: 0;
+}
+
+#tracker [class*="bombfloor-"] {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  bottom: 0;
+  background-size: 100% 100%;
 }
 
 #map {
@@ -272,6 +283,8 @@ body {
 .ganongoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 24; left: 0; }
 .changeflags { width: 24px; height: 24px; z-index: 99; position: absolute; top: 48; left: 0; }
 .goalselect { height: 24px; width: 24px; } 
+.bombfloor-0 { background-image: url(../images/dungeons/bombablefloor0.png); }
+.bombfloor-1 { background-image: url(../images/dungeons/bombablefloor1.png); }
 
 .bomb { background-image: url(../images/items/bomb.png); }
 .bow { background-image: url(../images/items/bow0.png); }

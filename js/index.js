@@ -26,6 +26,7 @@ function launch_tracker() {
 	var type = document.querySelector('input[name="gametypegroup"]:checked').value;
 	var entrance = document.querySelector('input[name="entrancegroup"]:checked').value;
 	var boss = document.querySelector('input[name="bossgroup"]:checked').value;
+	var door = document.querySelector('input[name="doorgroup"]:checked').value;	
 	var enemy = document.querySelector('input[name="enemygroup"]:checked').value;
 	var glitches = document.querySelector('input[name="glitchesgroup"]:checked').value;
 	var dungeon = document.querySelector('input[name="dungeongroup"]:checked').value;
@@ -61,8 +62,8 @@ function launch_tracker() {
 	if (entrance != 'N' && type === "I") {
 		alert('NOTICE: There is currently no logic implemented in Inverted Entrance, all locations will be flagged as available.');
 	}
-	
-	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}&sprite={sprite}{compact}'
+
+	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}{door}&sprite={sprite}{compact}'
 			.replace('{tracker}', trackerName)
 			.replace('{type}', type)
 			.replace('{entrance}', entrance)
@@ -82,6 +83,7 @@ function launch_tracker() {
 			.replace('{sphere}', sphere)
 			.replace('{sprite}', sprite)
 			.replace('{mystery}', mystery)
+			.replace('{door}', door)
 			.replace('{compact}', (map === "C" ? '&map=C' : '')),
 		'',
 		'width={width},height={height},titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0'
@@ -91,6 +93,7 @@ function launch_tracker() {
 function load2019preset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -109,6 +112,7 @@ function load2019preset() {
 function loadmysterypreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
 	document.getElementById("bossshuffled").checked = true;
 	document.getElementById("enemyshuffled").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -136,6 +140,8 @@ function importflags() {
 	} else {
 		document.getElementById("entrancenone").checked = true;
 	}
+	
+	document.getElementById("doornone").checked = true;
 	
 	if (data.spoiler.meta["enemizer.enemy_shuffle"] === "none") {
 		document.getElementById("enemynone").checked = true;

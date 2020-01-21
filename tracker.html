@@ -2,18 +2,18 @@
 	<head>
 		<title>ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=15011"></script>
-		<script src="js/bootstrap.min.js?v=15011"></script>
-		<link rel="stylesheet" type="text/css" href="css/style.css?v=15011">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=15011">
+		<script src="js/jquery-3.3.1.js?v=15012"></script>
+		<script src="js/bootstrap.min.js?v=15012"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css?v=15012">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=15012">
 		<link href="css/fonts.css" rel="stylesheet">		
 
-		<script src="js/util.js?v=15011"></script>
-		<script src="js/items.js?v=15011"></script>
-		<script src="js/chests.js?v=15011"></script>
-		<script src="js/track.js?v=15011"></script>
-		<script src="js/dungeons.js?v=15011"></script>
-		<script src="js/spoiler.js?v=15011"></script>
+		<script src="js/util.js?v=15012"></script>
+		<script src="js/items.js?v=15012"></script>
+		<script src="js/chests.js?v=15012"></script>
+		<script src="js/track.js?v=15012"></script>
+		<script src="js/dungeons.js?v=15012"></script>
+		<script src="js/spoiler.js?v=15012"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -75,11 +75,13 @@
 					  <div class="item moonpearl" onClick="toggle('moonpearl')" onMouseover="findItems(['Moon Pearl'])" onMouseout="unhighlightAll()"></div>
 					  </div>
 					</div>
-					<div>
-					<div class="cell"><div id="smallhalfheader0" class="smallhalfheader">HC</div></div>
-					<div class="cell"><div id="smallkeyhalf0" class="smallkeyhalf" onClick="toggle('smallkeyhalf0')" onMouseover="findItems(['HC Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkeyhalf0');return false;">0</div></div>	
-					<div class="cell"><div id="smallhalfheader1" class="smallhalfheader">CT</div></div>
-					<div class="cell"><div id="smallkeyhalf1" class="smallkeyhalf" onClick="toggle('smallkeyhalf1')" onMouseover="findItems(['CT Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkeyhalf1');return false;">0</div></div>
+ 					<div>
+						<div class="cell"><div id="smallhalfheader0" class="smallhalfheader">HC</div></div>
+						<div class="cell"><div id="smallkeyhalf0" class="smallkeyhalf" onClick="toggle('smallkeyhalf0')" onMouseover="findItems(['HC Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkeyhalf0');return false;">0</div></div>	
+						<div id="bigkeyhalf0" class="bigkeyhalf" onClick="toggle('bigkeyhalf0')" onMouseover="findItems(['HC Big Key'])" onMouseout="unhighlightAll()"></div>
+						<div class="cell"><div id="smallhalfheader1" class="smallhalfheader">CT</div></div>
+						<div class="cell"><div id="smallkeyhalf1" class="smallkeyhalf" onClick="toggle('smallkeyhalf1')" onMouseover="findItems(['CT Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkeyhalf1');return false;">0</div></div>	
+						<div id="bigkeyhalf1" class="bigkeyhalf" onClick="toggle('bigkeyhalf1')" onMouseover="findItems(['CT Big Key'])" onMouseout="unhighlightAll()"></div>
 					</div>
 					<div class="row">
 						<div class="cell"><div id="chest10" class="chest" onClick="toggle('chest10')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest10');return false;">27</div></div>
@@ -98,7 +100,7 @@
 				<div>
 					<div class="cell"><div id="chest0" class="chest" onClick="toggle('chest0')" onMouseover="showNiceItems(0)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest0');return false;">6</div></div>
 					<div class="cell" id="c0bkdiv"><div id="bigkey0" class="bigkey" onClick="toggle('bigkey0')" onMouseover="findItems(['EP Big Key'])" onMouseout="unhighlightAll()"></div></div>
-					<div class="cell" id="c0skdiv"><div id="smallkey0" class="smallkeyfull" onClick="toggle('smallkey0')" onMouseover="findItems(['EP Key'])" onMouseout="unhighlightAll()">0</div></div>
+					<div class="cell" id="c0skdiv"><div id="smallkey0" class="smallkeyfull" onClick="toggle('smallkey0')" onMouseover="findItems(['EP Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey0');return false;">0</div></div>
 				</div>
 			  </div>
 			  <div class="row">
@@ -185,6 +187,7 @@
 			<div class="cell">
 			  <div class="boss boss6" onClick="toggle('boss6')"></div>
 			  <div id="dungeonEnemy6" class="enemizer-0" onClick="toggle_enemy(6)" oncontextmenu="javascript:rightClickEnemy(6);return false;"></div>
+			  <div id="bombfloor" class="bombfloor-0" onClick="toggle_bomb_floor()"></div>
 			  <div id="dungeonPrize6" class="prize-0" onClick="toggle_dungeon(6)" oncontextmenu="javascript:rightClickPrize(6);return false;"></div>
 			</div>
 			<div class="cell">

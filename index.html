@@ -1,9 +1,9 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=15011"></script>
+		<script src="js/index.js?v=15012"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=15011"></script>
+		<script src="js/bootstrap.min.js?v=15012"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.5.011 010220 - Compatible for v31.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.5.012 011820 - Compatible for v31.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
 			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
@@ -47,7 +47,7 @@
 				<table width="1000px" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
 					<tr>
 						<td>
-							<center>Compact map now has functionality for entrance and full mystery mode! I hope you can see small things...  See the Release Notes for details!</center>
+							<center>New Door Rando mode added! Check the release notes for details!</center>
 						</td>
 					</tr>
 					<tr>
@@ -80,7 +80,7 @@
 					
 					<tr>
 						<td>
-							<table width="1000px" height="260px" background="./images/overlay/gameplay.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+							<table width="1000px" height="300px" background="./images/overlay/gameplay.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
 								<tr height="40px">
 									<td>
 									</td>
@@ -117,6 +117,23 @@
 									<td>
 										<input id="entrancesimple" value="S" type="radio" name="entrancegroup" />
 										<label for="entrancesimple" style="width:100px" >Simple/Restricted/Full/Crossed</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Door Shuffle: <span class="south" title="Currently partially implemented, no way to track dungeon paths" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input id="doornone" value="N" type="radio" name="doorgroup" checked />
+										<label for="doornone" style="width:100px" >None</label>
+									</td>
+									<td>
+										<input id="doorbasic" value="B" type="radio" name="doorgroup" />
+										<label for="doorbasic" style="width:100px" >Basic</label>
+									</td>
+									<td>
+										<input id="doorcrossed" value="C" type="radio" name="doorgroup" />
+										<label for="doorcrossed" style="width:100px" >Crossed</label>
 									</td>
 								</tr>
 								<tr>
@@ -170,7 +187,7 @@
 								</tr>
 								<tr>
 									<td width="100px">
-										Glitches: <span class="south" title="For now, there is no logic for glitched modes, but all items are listed as available on the map tracker and the modes are currently condensed. Logic will come 'soon'(tm)" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Glitches: <span class="south" title="For now, there is no logic for glitched modes, but all items are listed as available on the<br>map tracker and the modes are currently condensed. Logic will come 'soon'(tm)" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
 									</td>
 									<td>
 										<input id="glitchesnone" value="N" type="radio" name="glitchesgroup" checked />
