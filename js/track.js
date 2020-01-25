@@ -20,6 +20,8 @@
 	window.dungeonContents = [];
 
 	window.dungeonNames = ["EP", "DP", "ToH", "PoD", "SP", "SW", "TT", "IP", "MM", "TR", "GT"];
+	
+	var standardbombs = false;
 
     // Event of clicking on the item tracker
     window.toggle = function(label) {
@@ -100,8 +102,14 @@
 					lastItem = label;
 				else
 					lastItem = null;
-
-				node.classList[items[label] ? 'add' : 'remove'](is_boss ? 'defeated' : 'active');
+				if (label != 'bomb') {
+					node.classList[items[label] ? 'add' : 'remove'](is_boss ? 'defeated' : 'active');
+				} else {
+					if (standardbombs) {
+						//Because you always have bombs...except in Standard
+						node.classList[items[label] ? 'add' : 'remove'](is_boss ? 'defeated' : 'active');
+					}
+				}
 			} else {
 				if (label === 'sword' && flags.swordmode === 'S') {
 				} else {
@@ -2192,14 +2200,17 @@
 			document.getElementById('changeflagsdiv').style.visibility = 'hidden';
 		}
 		
-		toggle('bomb');
+		standardbombs = true;
+		if (flags.gametype != 'S') {
+			toggle('bomb');
+			standardbombs = false;
+		}
 		
 		if (flags.entrancemode === 'N') {			
 			for (var i = 0; i < 10; i++) {
 				document.getElementById('bossMap' + i).classList.add('bossprize-0');
 			}
 		}
-		
 		
 		updateMapTracker();
 		
