@@ -283,6 +283,7 @@
 		if (canReachDarkWorld() && (items.hammer || items.flippers)) return true;
 		if (items.agahnim || hasFoundEntrance(94) || hasFoundEntrance(114) || hasFoundEntrance(115) || hasFoundEntrance(116) || hasFoundEntrance(117) || ((hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) && (items.hammer || items.flippers) && items.moonpearl) || (hasFoundEntrance(92) && items.moonpearl && (items.glove > 0 || items.hammer))) return true;
 		if ((hasFoundEntrance(90) || hasFoundEntrance(91) || hasFoundEntrance(96) || hasFoundEntrance(104) || hasFoundEntrance(105) || hasFoundEntrance(106) || hasFoundEntrance(107) || hasFoundEntrance(108) || hasFoundEntrance(109) || (hasFoundEntrance(110) && items.hammer) || hasFoundEntrance(111) || hasFoundEntrance(129)) && items.moonpearl && items.flippers && (items.hammer || items.glove > 0)) return true;
+		if (canReachAndLeaveShoppingMall()) return true;
 		return false;
 	}
 	
@@ -312,6 +313,11 @@
 		return false;
 	}
 	
+	function canReachAndLeaveShoppingMall()
+	{
+		if ((hasFoundEntrance(119) || hasFoundEntrance(120) || hasFoundEntrance(121)) && items.moonpearl && items.flippers) return true;
+		return false;
+	}
 	
 	//Is Inverted Mode (And temporarily glitched)
 	if (flags.gametype === "I" || flags.glitches != "N")
@@ -2224,7 +2230,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(16)) return 'available';
-				return (items.mirror && canReachOutcast() ? 'available' : 'unavailable');
+				return (items.mirror && items.moonpearl && canReachOutcast() ? 'available' : 'unavailable');
 			}
 		}, { // [17]
 			caption: 'King\'s Grave',
@@ -2235,7 +2241,7 @@
 			is_available: function() {
 				if (hasFoundEntrance(17)) return 'available';
 				if (!items.boots) return 'unavailable';
-				if (canReachOutcast() && items.mirror || items.glove === 2) return 'available';
+				if ((canReachOutcast() && items.mirror && items.moonpearl) || items.glove === 2) return 'available';
 				return 'unavailable';
 			}
 		}, { // [18]
