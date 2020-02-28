@@ -160,6 +160,8 @@ body {
 .dungeon.highlight { background-image: url(../images/overlay/highlighted.png); }
 .chest.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; background-image: url(../images/dungeons/keychestlarge.png); }
 .chest-0.large { width: 64px !important; height: 64px !important; background-size: 100%; font-size: 34px !important; padding-top: 8px !important; background-image: url(../images/dungeons/keychestlarge0.png); }
+.location.rightclick,
+.dungeon.rightclick { background-image: url(../images/overlay/highlighted2.png); }
 .unavailable { background-color: red; }
 .unavailabledungeon { background-color: red; }
 .unavailableconnector { background-color: red; }

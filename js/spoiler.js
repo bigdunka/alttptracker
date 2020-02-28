@@ -189,6 +189,28 @@
 	{
 		switch(name)
 		{
+		case "hammer":
+			return "Hammer";
+		case "hookshot":
+			return "Hookshot";
+		case "mushroom":
+			return "Mushroom";
+		case "powder":
+			return "Powder";
+		case "bombos":
+			return "Bombos";
+		case "ether":
+			return "Ether";
+		case "quake":
+			return "Quake";
+		case "lantern":
+			return "Lamp";
+		case "shovel":
+			return "Shovel";
+		case "cape":
+			return "Cape";
+		case "flippers":
+			return "Flippers";
 		case "OneRupee":
 			return "Rupee";
 		case "FiveRupees":
@@ -202,6 +224,7 @@
 			return "100 Rupees";
 		case "ThreeHundredRupees":
 			return "300 Rupees";
+		case "bomb":
 		case "ThreeBombs":
 			return "3 Bombs";
 		case "TenBombs":
@@ -216,23 +239,29 @@
 			return "Heart Container";
 		case "HeartContainer":
 			return "Sanctuary Heart";
+		case "sword":
 		case "UncleSword":
 		case "ProgressiveSword":
 			return "Sword";
+		case "shield":
 		case "ProgressiveShield":
 			return "Shield";
+		case "tunic":
 		case "ProgressiveArmor":
 			return "Armor";
+		case "glove":
 		case "ProgressiveGlove":
 			return "Gloves";
 		case "SilverArrowUpgrade":
 			return "Silver Arrows";
+        case "bow":
         case "ProgressiveBow":
         case "Bow":
         case "BowAndArrows":
             return "Bow";
         case "BowAndSilverArrows":
             return "Bow And Silver Arrows";
+		case "bottle":
 		case "Bottle":
 			return "Bottle";
 		case "BottleWithRedPotion":
@@ -249,93 +278,131 @@
 			return "Bottle (Gold Bee)";
 		case "OcarinaActive":
 			return "Flute (active)";
+		case "flute":
 		case "OcarinaInactive":
 			return "Flute";
+		case "firerod":
 		case "FireRod":
 			return "Fire Rod";
+		case "icerod":
 		case "IceRod":
 			return "Ice Rod";
+		case "somaria":
 		case "CaneOfSomaria":
 			return "Cane of Somaria";
+		case "byrna":
 		case "CaneOfByrna":
 			return "Cane of Byrna";
+		case "mirror":
 		case "MagicMirror":
 			return "Mirror";
+		case "book":
 		case "BookOfMudora":
 			return "Book of Mudora";
+		case "moonpearl":
 		case "MoonPearl":
 			return "Moon Pearl";
+		case "net":
 		case "BugCatchingNet":
 			return "Bug Net";
+		case "boomerang":
 		case "Boomerang":
 			return "Blue Boomerang";
 		case "RedBoomerang":
 			return "Red Boomerang";
+		case "boots":
 		case "PegasusBoots":
 			return "Pegasus Boots";
+		case "magic":
 		case "HalfMagic":
 			return "Half Magic";
 		case "QuarterMagic":
 			return "Quarter Magic";
-		case "TriforcePieces":
+		case "TriforcePiece":
 			return "Triforce Piece";
 		case "Rupoor":
 			return "Rupoor";
+		case "smallkeyhalf0":
 		case "KeyH1":
 		case "KeyH2":
 			return "HC Key";
+		case "smallkey0":
 		case "KeyP1":
 			return "EP Key";
+		case "smallkey1":
 		case "KeyP2":
 			return "DP Key";
+		case "smallkey2":
 		case "KeyP3":
 			return "ToH Key";
+		case "smallkey3":
 		case "KeyD1":
 			return "PoD Key";
+		case "smallkey4":
 		case "KeyD2":
 			return "SP Key";
+		case "smallkey5":
 		case "KeyD3":
 			return "SW Key";
+		case "smallkey6":
 		case "KeyD4":
 			return "TT Key";
+		case "smallkey7":
 		case "KeyD5":
 			return "IP Key";
+		case "smallkey8":
 		case "KeyD6":
 			return "MM Key";
+		case "smallkey9":
 		case "KeyD7":
 			return "TR Key";
+		case "smallkeyhalf1":
 		case "KeyA1":
 			return "CT Key";
+		case "smallkey10":
 		case "KeyA2":
 			return "GT Key";
 		case "Key":
 		case "KeyGK":
 			return "Key";
+		case "bigkeyhalf0":
 		case "BigKeyH1":
 		case "BigKeyH2":
 			return "HC Big Key";
+		case "bigkey0":
 		case "BigKeyP1":
 			return "EP Big Key";
+		case "bigkey1":
 		case "BigKeyP2":
 			return "DP Big Key";
+		case "bigkey2":
 		case "BigKeyP3":
 			return "ToH Big Key";
+		case "bigkey3":
 		case "BigKeyD1":
 			return "PoD Big Key";
+		case "bigkey4":
 		case "BigKeyD2":
 			return "SP Big Key";
+		case "bigkey5":
 		case "BigKeyD3":
 			return "SW Big Key";
+		case "bigkey6":
 		case "BigKeyD4":
 			return "TT Big Key";
+		case "bigkey7":
 		case "BigKeyD5":
 			return "IP Big Key";
+		case "bigkey8":
 		case "BigKeyD6":
 			return "MM Big Key";
+		case "bigkey9":
 		case "BigKeyD7":
 			return "TR Big Key";
+		case "bigkeyhalf1":
 		case "BigKeyA1":
 			return "CT Big Key";
+		case "bigkey10":
 		case "BigKeyA2":
 			return "GT Big Key";
 		case "BigKey":

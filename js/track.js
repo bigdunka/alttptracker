@@ -18,6 +18,8 @@
 	window.mapsAreTrash = false;
 	window.compassesAreTrash = false;
 	window.dungeonContents = [];
+	window.rightClickedLocation = -1;
+	window.rightClickedType = null;
 
 	window.dungeonNames = ["EP", "DP", "ToH", "PoD", "SP", "SW", "TT", "IP", "MM", "TR", "GT"];
 	
@@ -25,6 +27,37 @@
 
     // Event of clicking on the item tracker
     window.toggle = function(label) {
+		if(rightClickedLocation != -1)
+		{
+			name = getNiceName(label);
+			if(rightClickedType === "chest")
+			{
+				if(name.charAt(0) < 'a' || name.charAt(0) > 'z')
+				{
+					if(!chests[rightClickedLocation].content)
+						chests[rightClickedLocation].content = name;
+					else
+						chests[rightClickedLocation].content += ", "+name;
+					document.getElementById('caption').innerHTML = caption_to_html(name+' placed at '+chests[rightClickedLocation].caption);
+				}
+				document.getElementById('locationMap'+rightClickedLocation).classList.remove('rightclick');
+			}
+			if(rightClickedType === "dungeon")
+			{
+				if(name.charAt(0) < 'a' || name.charAt(0) > 'z')
+				{
+					if(!dungeons[rightClickedLocation].content)
+						dungeons[rightClickedLocation].content = name;
+					else
+						dungeons[rightClickedLocation].content += ", "+name;
+					document.getElementById('caption').innerHTML = caption_to_html(name+' placed in '+dungeons[rightClickedLocation].caption);
+				}
+				document.getElementById('dungeon'+rightClickedLocation).classList.remove('rightclick');
+			}
+			rightClickedLocation = -1;
+			return;
+		}
+		
 		if (label.substring(0,5) === 'chest') {
             var value = items.dec(label);
 			if (value === 0) {
@@ -336,12 +369,106 @@
 	};
 
     window.toggle_bomb_floor = function() {
+		if(rightClickedLocation != -1)
+		{
+			name = "TT Bomb Floor";
+			if(rightClickedType === "chest")
+			{
+				if(!chests[rightClickedLocation].content)
+					chests[rightClickedLocation].content = name;
+				else
+					chests[rightClickedLocation].content += ", "+name;
+					document.getElementById('caption').innerHTML = caption_to_html(name+' placed at '+chests[rightClickedLocation].caption);
+				document.getElementById('locationMap'+rightClickedLocation).classList.remove('rightclick');
+			}
+			if(rightClickedType === "dungeon")
+			{
+				if(!dungeons[rightClickedLocation].content)
+					dungeons[rightClickedLocation].content = name;
+				else
+					dungeons[rightClickedLocation].content += ", "+name;
+					document.getElementById('caption').innerHTML = caption_to_html(name+' placed in '+dungeons[rightClickedLocation].caption);
+				document.getElementById('dungeon'+rightClickedLocation).classList.remove('rightclick');
+			}
+			rightClickedLocation = -1;
+			return;
+		}
+		
         items.bombfloor = !items.bombfloor;
 
         document.getElementById('bombfloor').className = 'bombfloor-' + (items.bombfloor ? 1 : 0);
 
 		updateMapTracker();
     };
+
+	window.click_map = function() {
+		if(rightClickedLocation != -1)
+		{
+			if(rightClickedType === "chest")
+				document.getElementById('locationMap'+rightClickedLocation).classList.remove('rightclick');
+			if(rightClickedType === "dungeon")
+				document.getElementById('dungeon'+rightClickedLocation).classList.remove('rightclick');
+			rightClickedLocation = -1;
+		}
+	};
+
+	window.rightClickLocation = function(n) {
+		if(rightClickedLocation === -1)
+		{
+			rightClickedLocation = n;
+			rightClickedType = "chest";
+            document.getElementById('locationMap'+n).classList.add('rightclick');
+			document.getElementById('caption').innerHTML = caption_to_html('Select an item to place at '+chests[rightClickedLocation].caption);
+		}
+		else
+			if(rightClickedType === "chest" && rightClickedLocation === n)
+			{
+				chests[n].content = "";
+				document.getElementById('caption').innerHTML = caption_to_html('Content of '+chests[rightClickedLocation].caption+' cleared');
+				document.getElementById('locationMap'+n).classList.remove('rightclick');
+				rightClickedLocation = -1;
+			}
+			else
+			{
+				if(rightClickedType === "chest")
+					document.getElementById('locationMap'+rightClickedLocation).classList.remove('rightclick');
+				if(rightClickedType === "dungeon")
+					document.getElementById('dungeon'+rightClickedLocation).classList.remove('rightclick');
+				document.getElementById('locationMap'+n).classList.add('rightclick');
+				rightClickedLocation = n;
+				rightClickedType = "chest";
+				document.getElementById('caption').innerHTML = caption_to_html('Select an item to place at '+chests[rightClickedLocation].caption);
+			}
+	};
+
+	window.rightClickDungeon = function(n) {
+		if(rightClickedLocation === -1)
+		{
+			rightClickedLocation = n;
+			rightClickedType = "dungeon";
+            document.getElementById('dungeon'+n).classList.add('rightclick');
+			document.getElementById('caption').innerHTML = caption_to_html('Select an item to place in '+dungeons[rightClickedLocation].caption);
+		}
+		else
+			if(rightClickedType === "dungeon" && rightClickedLocation === n)
+			{
+				dungeons[n].content = "";
+				document.getElementById('caption').innerHTML = caption_to_html('Content of '+dungeons[rightClickedLocation].caption+' cleared');
+				document.getElementById('dungeon'+n).classList.remove('rightclick');
+				rightClickedLocation = -1;
+			}
+			else
+			{
+				if(rightClickedType === "chest")
+					document.getElementById('locationMap'+rightClickedLocation).classList.remove('rightclick');
+				if(rightClickedType === "dungeon")
+					document.getElementById('dungeon'+rightClickedLocation).classList.remove('rightclick');
+				document.getElementById('dungeon'+n).classList.add('rightclick');
+				rightClickedLocation = n;
+				rightClickedType = "dungeon";
+				document.getElementById('caption').innerHTML = caption_to_html('Select an item to place in '+dungeons[rightClickedLocation].caption);
+			}
+	};
 	
 	window.rightClickEntrance = function(n) {
 		$('#entranceModal').show();
@@ -806,7 +933,7 @@
         // Highlights a chest location and shows the caption (but for dungeons)
         window.highlight_dungeon = function(x) {
             document.getElementById('dungeon'+x).classList.add('highlight');
-            document.getElementById('caption').innerHTML = caption_to_html(dungeons[x].trashContent ?(dungeons[x].trashContent+" | "+dungeons[x].caption) :dungeons[x].caption);
+            document.getElementById('caption').innerHTML = caption_to_html((dungeons[x].content ? (dungeons[x].content+" | ") : "")+(dungeons[x].trashContent ? (dungeons[x].trashContent+" | ") : "")+dungeons[x].caption);
         };
         window.unhighlight_dungeon = function(x) {
             document.getElementById('dungeon'+x).classList.remove('highlight');
@@ -986,24 +1113,47 @@
 	}
 	
 	window.findItems = function(items) {
-		if(spoilerLoaded && flags.mapmode != "N")
+		if(/*spoilerLoaded && */flags.mapmode != "N")
 		{
 			var results = "";
 			for(var i = 0; i < chests.length; i++)
 			{
-				var hasItem = false,itemsInLocation = chests[i].content.split(", ");
-				for(var j = 0; j < items.length; j++)
-					if(itemsInLocation.includes(items[j]))
-					{
-						hasItem = true;
-						break;
-					}
-				if(hasItem)
+				if(chests[i].content)
 				{
-					if(flags.mapmode != 'N')
-						document.getElementById('locationMap'+i).classList.add('highlight');
-					var locationName = chests[i].caption;
-					results = results === "" ?locationName :results+", "+locationName;
+					var hasItem = false,itemsInLocation = chests[i].content.split(", ");
+					for(var j = 0; j < items.length; j++)
+						if(itemsInLocation.includes(items[j]))
+						{
+							hasItem = true;
+							break;
+						}
+					if(hasItem)
+					{
+						if(flags.mapmode != 'N')
+							document.getElementById('locationMap'+i).classList.add('highlight');
+						var locationName = chests[i].caption;
+						results = results === "" ?locationName :results+", "+locationName;
+					}
+				}
+			}
+			for(var i = 0; i < dungeons.length; i++)
+			{
+				if(dungeons[i].content)
+				{
+					var hasItem = false,itemsInLocation = dungeons[i].content.split(", ");
+					for(var j = 0; j < items.length; j++)
+						if(itemsInLocation.includes(items[j]))
+						{
+							hasItem = true;
+							break;
+						}
+					if(hasItem)
+					{
+						if(flags.mapmode != 'N')
+							document.getElementById('dungeon'+i).classList.add('highlight');
+						var locationName = dungeons[i].caption;
+						results = results === "" ?locationName :results+", "+locationName;
+					}
 				}
 			}
 			for(var i = 0; i < dungeonContents.length; i++)
@@ -1035,7 +1185,7 @@
 	};
 
 	window.unhighlightAll = function() {
-		if(spoilerLoaded)
+		//if(spoilerLoaded)
 		{
 			if(flags.mapmode != 'N')
 			{
@@ -1045,7 +1195,8 @@
 					for(var i = 0; i < entrances.length; i++)
 						document.getElementById('entranceMap'+i).classList.remove('highlight');
 				}
-				for(var i = 0; i < dungeonContents.length; i++)
+				else
+					for(var i = 0; i < dungeons.length; i++)
 						document.getElementById('dungeon'+i).classList.remove('highlight');
 			}
             document.getElementById('caption').innerHTML = '&nbsp;';
@@ -1134,6 +1285,7 @@
 	}
 	
 	window.updateMapTracker = function() {
+		click_map();
 		toggle('moonpearl');
 		toggle('moonpearl');
 	}

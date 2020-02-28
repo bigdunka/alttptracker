@@ -2675,6 +2675,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(64)) return 'available';
+				if (hasFoundEntrance(118) && items.mirror) return 'available';
 				return (items.flippers) ? 'available' : 'unavailable';
 			}
 		}, { // [65]
@@ -3213,6 +3214,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(118)) return 'available';
+				if (hasFoundEntrance(64) && items.glove === 2) return 'available';
 				if (!items.flippers || items.glove < 2) return 'unavailable';
 				return 'available';
 			}
