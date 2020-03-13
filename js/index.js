@@ -129,7 +129,13 @@ function loadmysterypreset() {
 }
 
 function importflags() {
-	$.getJSON("https://s3.us-east-2.amazonaws.com/alttpr-patches/" + document.getElementById("importflag").value + ".json", function(data) {
+	var i = document.getElementById("importflag").value;
+	
+	if (i.indexOf('/') > 1) {
+		i = i.substr(i.lastIndexOf('/') + 1);
+	}
+	
+	$.getJSON("https://s3.us-east-2.amazonaws.com/alttpr-patches/" + i + ".json", function(data) {
 	var d = data.spoiler;
 	
 	document.getElementById("gametype" + d.meta.mode).checked = true;
@@ -154,7 +160,6 @@ function importflags() {
 		document.getElementById("bossshuffled").checked = true;
 	}
 	
-	document.getElementById("enemynone").checked = true;
 	//Glitches flag
 	switch (d.meta.dungeon_items) {
 		case "standard":

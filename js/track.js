@@ -1671,7 +1671,7 @@
 			}
 			
 			if ((document.getElementById('dungeonselect').value === 'F' || document.getElementById('dungeonselect').value === 'K') && flags.gametype != 'R') {
-				if (flags.gametype != 'R') {
+				if (flags.dungeonitems != 'F' && flags.dungeonitems != 'K') {
 					items.smallkey0 = 0;
 					items.smallkey1 = 0;
 					items.smallkey2 = 0;
@@ -1892,14 +1892,21 @@
 		if (flags.gametype === "S" && flags.entrancemode === 'N') {
 			document.getElementById('locationMap2').classList.remove('unavailable');
 			document.getElementById('locationMap56').classList.remove('unavailable');
-			if (flags.doorshuffle === 'N') document.getElementById('locationMap57').classList.remove('unavailable');
 			document.getElementById('locationMap58').classList.remove('unavailable');
-			if (flags.doorshuffle === 'N') document.getElementById('locationMap63').classList.remove('unavailable');
 			document.getElementById('locationMap2').classList.add('opened');
 			document.getElementById('locationMap56').classList.add('opened');
-			if (flags.doorshuffle === 'N') document.getElementById('locationMap57').classList.add('opened');
 			document.getElementById('locationMap58').classList.add('opened');
-			if (flags.doorshuffle === 'N') document.getElementById('locationMap63').classList.add('opened');
+			chests[2].is_opened = true;
+			chests[56].is_opened = true;
+			chests[58].is_opened = true;
+			if (flags.doorshuffle === 'N') {
+				document.getElementById('locationMap57').classList.remove('unavailable');
+				document.getElementById('locationMap63').classList.remove('unavailable');
+				document.getElementById('locationMap57').classList.add('opened');
+				document.getElementById('locationMap63').classList.add('opened');
+				chests[57].is_opened = true;
+				chests[63].is_opened = true;
+			}
 		}
 		
 		$('#flagsModal').hide();
