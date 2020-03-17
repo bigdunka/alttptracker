@@ -2325,7 +2325,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(26)) return 'available';				
-				return items.glove > 0 ? 'available' : 'unavailable';
+				return (items.glove > 0 || (hasFoundEntrance(105) && items.mirror)) ? 'available' : 'unavailable';
 			}
 		}, { // [27]
 			caption: 'Fortune Teller',
@@ -2487,7 +2487,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				return (items.hammer || items.glove === 2 && items.mirror && items.moonpearl) ? 'available' : 'unavailable';
+				return ((hasFoundEntrance(112) && items.mirror) || (items.hammer || items.glove === 2 && items.mirror && items.moonpearl)) ? 'available' : 'unavailable';
 			}
 		}, { // [45]
 			caption: 'Library',
@@ -3701,14 +3701,13 @@
 			caption: 'Desert West Ledge',
 			is_opened: false,
 			is_available: function() {
-				return (hasFoundEntrance(54) || (items.flute && items.glove === 2 && items.mirror) || ((hasFoundEntrance(56)) && items.glove > 0)) ? 'available' : 'information';
+				return (hasFoundEntrance(54) || (items.mirror && canReachMiseryMire()) || (items.flute && items.glove === 2 && items.mirror) || ((hasFoundEntrance(56)) && items.glove > 0)) ? 'available' : 'information';
 			}
 		}, { // [16]
 			caption: 'Lake Hylia Island {mirror}',
 			is_opened: false,
 			is_available: function() {
-				return items.flippers ?
-					items.moonpearl && items.mirror && (items.agahnim || items.glove === 2 || items.glove && items.hammer) ? 'available' : 'possible' : 'information';
+				return items.flippers && items.mirror && items.moonpearl && (canReachDarkWorldEast() || canReachDarkWorldSouth()) ? 'available' : 'information';
 			}
 		}, { // [17]
 			caption: 'Bumper Cave {cape}',

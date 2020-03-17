@@ -529,6 +529,7 @@
 		document.getElementById('link').style.backgroundColor = '#000';
 		document.getElementById('sanc').style.backgroundColor = '#000';
 		document.getElementById('mount').style.backgroundColor = '#000';
+		document.getElementById('chest').style.backgroundColor = '#000';
 		document.getElementById('gt').style.backgroundColor = '#000';
 		document.getElementById('ganon').style.backgroundColor = '#000';
 		document.getElementById('magic').style.backgroundColor = '#000';
@@ -692,6 +693,7 @@
 		document.getElementById('link').style.backgroundColor = '#000';
 		document.getElementById('sanc').style.backgroundColor = '#000';
 		document.getElementById('mount').style.backgroundColor = '#000';
+		document.getElementById('chest').style.backgroundColor = '#000';
 		document.getElementById('gt').style.backgroundColor = '#000';
 		document.getElementById('ganon').style.backgroundColor = '#000';
 		document.getElementById('magic').style.backgroundColor = '#000';
@@ -1021,6 +1023,9 @@
 				break;
 			case 'mount':
 				friendly = 'Death Mountain (Start)';
+				break;
+			case 'chest':
+				friendly = 'Room/Cave w/ Chest';
 				break;
 			case 'gt':
 				friendly = 'Ganon\'s Tower';
@@ -1830,18 +1835,20 @@
 		
 		//Goal
 		if (document.getElementById('goalselect').value != flags.goals) {
-			flags.goals = document.getElementById('goalselect').value;
+			
 			
 			document.getElementById('ganondiv').classList.remove('ganon');
 			document.getElementById('ganondiv').classList.remove('pendants');
 			document.getElementById('ganondiv').classList.remove('other');
 			document.getElementById('ganondiv').classList.remove('alldungeons');
 			
-			switch (flags.goals) {
+			switch (document.getElementById('goalselect').value) {
 				case 'G':
 				case 'F':
-					if (flags.ganonvulncount === 8) {
+					if (flags.ganonvulncount === 8 || flags.goals === 'A') {
 						document.getElementById('ganondiv').classList.add('ganon');
+					} else {
+						document.getElementById('ganondiv').classList.add('ganon' + flags.ganonvulncount);
 					}
 					break;
 				case 'A':
@@ -1856,6 +1863,8 @@
 					document.getElementById('ganondiv').classList.add('other');
 					break;
 			}
+			
+			flags.goals = document.getElementById('goalselect').value;
 		}
 		
 		//Swords
@@ -2016,6 +2025,9 @@
 '		</td>'+
 '		<td>'+
 '			<img src="./images/interface/connector.png" style="cursor: pointer;" onclick="tagEntrance(\'connector\', false)" id="connector" />'+
+'		</td>'+
+'		<td>'+
+'			<img src="./images/interface/chest.png" style="cursor: pointer;" onclick="tagEntrance(\'chest\', false)" id="chest" />'+
 '		</td>'+
 '	</tr>'+
 '	<tr>'+
