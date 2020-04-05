@@ -663,7 +663,7 @@
 			}
 
 			//Stalfos Basement
-			if (items.hammer || (items.smallkey3 > 0 || flags.gametype == 'R')) {
+			if (items.hammer && (items.smallkey3 > 0 || flags.gametype == 'R')) {
 				chests[3] = 'A';
 				
 				//The Arena - Bridge

@@ -246,13 +246,13 @@
 	
 	function canReachEDMNorth()
 	{
-		if (hasFoundEntrance(77) || ((hasFoundEntrance(68)) && items.hammer) || (items.mirror && (hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute && items.mirror && items.hammer)) return true;
+		if ((canReachWDMNorth() && items.hammer) || hasFoundEntrance(77) || ((hasFoundEntrance(68)) && items.hammer) || (items.mirror && (hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute && items.mirror && items.hammer)) return true;
 		return false;
 	}
 
 	function canReachEDM()
 	{
-		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || (items.hammer && canReachHCNorth()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
+		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || (items.hammer && canReachHCNorth()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
 		return false;
 	}
 	
@@ -297,7 +297,7 @@
 	
 	function canReachDWDMNorth()
 	{
-		if (hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136) || (canReachEDMNorth() && items.hammer && items.glove === 2 && items.moonpearl)) return true;
+		if (hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136) || (canReachEDMNorth() && items.hammer && items.glove === 2)) return true;
 		return false;
 	}
 
@@ -3377,7 +3377,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(134)) return 'available';
-				return (canReachDWEDM()) ? 'available' : 'unavailable';
+				return (canReachDWEDM()|| (canReachEDM() && items.glove === 2)) ? 'available' : 'unavailable';
 			}
 		}, { // [135]
 			caption: 'Shop',
@@ -3387,7 +3387,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(135)) return 'available';
-				return (canReachDWEDM()) ? 'available' : 'unavailable';
+				return (canReachDWEDM()|| (canReachEDM() && items.glove === 2)) ? 'available' : 'unavailable';
 			}
 		}, { // [136]
 			caption: 'Turtle Rock - Main Entrance',
