@@ -470,7 +470,15 @@
 		} else {
 			if (flags.dungeonitems === 'F') {
 				if (items.bigkey0) {
-					chests[5] = 'A';
+					if (flags.enemyshuffle === 'N' && items.bow === 0) {
+						chests[5] = 'U';
+					} else {
+						if (items.lantern || (items.firerod && flags.itemplacement === 'A')) {
+							chests[5] = (dungeoncheck === 'available' ? 'A' : 'P');
+						} else {
+							chests[5] = (dungeoncheck === 'available' ? 'DA' : 'DP');
+						}
+					}
 				}
 			} else {
 				if (flags.enemyshuffle === 'N' && items.bow === 0) {
