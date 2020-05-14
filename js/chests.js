@@ -1659,7 +1659,7 @@
 				is_opened: false,
 				is_available: function() {
 					return items.book && (items.glove || items.flute) && (items.mirror || items.hookshot && items.hammer) ?
-						(items.sword >= 2 || flags.swordmode === 'S') ?
+						(items.sword >= 2 || (flags.swordmode === 'S' && items.hammer)) ?
 							items.lantern || items.flute ? 'available' : 'darkavailable' :
 							'information' :
 						'unavailable';
@@ -1669,7 +1669,7 @@
 				is_opened: false,
 				is_available: function() {
 					return items.book && items.mirror && (can_reach_outcast() || items.agahnim && items.moonpearl && items.hammer) ?
-						(items.sword >= 2 || flags.swordmode === 'S')? 'available' : 'information' :
+						(items.sword >= 2 || (flags.swordmode === 'S' && items.hammer))? 'available' : 'information' :
 						'unavailable';
 				}
 			}, { // [32]

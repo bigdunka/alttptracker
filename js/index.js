@@ -90,7 +90,7 @@ function launch_tracker() {
 			.replace('{width}', width).replace('{height}', height));
 }
 
-function load2019preset() {
+function loadopenpreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
@@ -105,6 +105,25 @@ function load2019preset() {
 	document.getElementById("ganoncrystal").checked = true;
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+function loadambrosiapreset() {
+	document.getElementById("gametypestandard").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonstandard").checked = true;
+	document.getElementById("placementadvanced").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsassured").checked = true;
 	document.getElementById("mysteryno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
@@ -125,6 +144,44 @@ function loadmysterypreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryyes").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+function loadcrosskeyspreset() {
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancesimple").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonfullshuffle").checked = true;
+	document.getElementById("placementadvanced").checked = true;
+	document.getElementById("goalfast").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+function loadinvertedkeyspreset() {
+	document.getElementById("gametypeinverted").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonfullshuffle").checked = true;
+	document.getElementById("placementadvanced").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 

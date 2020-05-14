@@ -240,7 +240,7 @@
 
 	function canReachWDM()
 	{
-		if (canReachWDMNorth() || items.flute || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84))) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76)) return true;
+		if (canReachWDMNorth() || (items.mirror && canReachDWWDM()) || items.flute || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84))) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76)) return true;
 		return false;
 	}
 	
@@ -262,13 +262,13 @@
 		return false;
 	}
 	
-	
 	//Dark World
 	function canReachOutcast() {
 		if (items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim && items.hookshot && (items.hammer || items.glove || items.flippers))) return true;
 		if (hasFoundEntrance(90) || hasFoundEntrance(91) || hasFoundEntrance(104) || hasFoundEntrance(105) || hasFoundEntrance(106) || hasFoundEntrance(107) || hasFoundEntrance(108) || hasFoundEntrance(109) || (hasFoundEntrance(110) && items.moonpearl && items.hammer) || hasFoundEntrance(111) || (hasFoundEntrance(112) && items.moonpearl && items.glove === 2) || hasFoundEntrance(129)) return true;
 		if ((hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) && items.moonpearl && (items.glove === 2 || (items.flippers && items.hookshot) || ((items.glove > 0 || items.hammer) && items.hookshot))) return true;
 		if (canReachDarkWorldEast() && items.moonpearl && ((items.flippers || items.hammer || items.glove > 0) && items.hookshot)) return true;
+		if (hasFoundEntrance(92) && items.moonpearl && items.hookshot) return true;
 		return false;
 	}
 	
