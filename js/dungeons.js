@@ -669,45 +669,61 @@
 				//The Arena - Ledge
 				chests[2] = 'A';
 			}
-
-			//Stalfos Basement
-			if (items.hammer && (items.smallkey3 > 0 || flags.gametype == 'R')) {
+			
+			//Beyond this, we need to figure out logic for hammer + bow to be possible minus one key, but not guaranteed, and retro will always allow, with the exception of the big chest and boss			
+			if (flags.gametype == 'R') {
 				chests[3] = 'A';
-				
-				//The Arena - Bridge
 				chests[4] = 'A';
-			}
-
-			//Big Key Chest
-			if ((items.hammer && (items.smallkey3 > 2 || flags.gametype == 'R')) || (items.smallkey3 > 3 || flags.gametype == 'R')) {
 				chests[5] = 'A';
-			}
-
-			if ((items.hammer && (items.smallkey3 > 0 || flags.gametype == 'R')) || (items.smallkey3 > 1 || flags.gametype == 'R')) {
-				//Compass Chest
 				chests[6] = 'A';
-				//Dark Basement - Left
-				chests[8] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'A' : 'DA';
-				//Dark Basement - Right
-				chests[9] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'A' : 'DA';
-			}
-
-			if ((items.hammer && (items.smallkey3 > 3 || flags.gametype == 'R')) || (items.smallkey3 > 4 || flags.gametype == 'R')) {
-				//Harmless Hellway
 				chests[7] = 'A';
-			}
-
-			if ((items.hammer && (items.smallkey3 > 1 || flags.gametype == 'R')) || (items.smallkey3 > 2 || flags.gametype == 'R')) {
-				//Dark Maze - Top
+				chests[8] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'A' : 'DA';
+				chests[9] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'A' : 'DA';
 				chests[10] = (items.lantern ? 'A' : 'DA');
-				//Dark Maze - Bottom
 				chests[11] = (items.lantern ? 'A' : 'DA');
 				//Big Chest
 				if (items.bigkey3) {
 					chests[12] = (flags.dungeonitems === 'K' ? 'K' : 'A');
 				}
+			} else {
+				if ((items.hammer && items.bow > 0) || items.smallkey3 > 0) {
+					//Stalfos Basement
+					chests[3] = 'A';
+					//The Arena - Bridge
+					chests[4] = 'A';
+				}
+				
+				//Big Key Chest
+				if (((items.hammer && items.bow > 0) && items.smallkey3 > 2) || items.smallkey3 > 3) {
+					chests[5] = 'A';
+				}
+				
+				if (((items.hammer && items.bow > 0) && items.smallkey3 > 0) || items.smallkey3 > 1) {
+					//Compass Chest
+					chests[6] = 'A';
+					//Dark Basement - Left
+					chests[8] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'A' : 'DA';
+					//Dark Basement - Right
+					chests[9] = (items.lantern || (items.firerod && flags.itemplacement === 'A')) ? 'A' : 'DA';
+				}
+				
+				if (((items.hammer && items.bow > 0) && items.smallkey3 > 3) || items.smallkey3 > 4) {
+					//Harmless Hellway
+					chests[7] = 'A';
+				}
+				
+				if (((items.hammer && items.bow > 0) && items.smallkey3 > 1) || items.smallkey3 > 2) {
+					//Dark Maze - Top
+					chests[10] = (items.lantern ? 'A' : 'DA');
+					//Dark Maze - Bottom
+					chests[11] = (items.lantern ? 'A' : 'DA');
+					//Big Chest
+					if (items.bigkey3) {
+						chests[12] = (flags.dungeonitems === 'K' ? 'K' : 'A');
+					}
+				}
 			}
-
+			
 			//Boss
 			if (items.bigkey3 && items.hammer && (items.smallkey3 > 4 || flags.gametype == 'R')) {
 				chests[13] = ((items.smallkey3 === 6 || flags.gametype == 'R') ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
@@ -1089,7 +1105,7 @@
 		
         //Big Key Chest
 		if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') {
-			chests[4] = ((items.smallkey9 > 0 || flags.gametype == 'R') ? 'A' : 'U');
+			chests[4] = ((items.smallkey9 > 1 || flags.gametype == 'R') ? 'A' : 'U');
 		} else {
 			chests[4] = 'K'; //(items.firerod ? 'K' : 'P'); //Reserved as third small key, regardless if the fire rod is accessable or not
 		}
