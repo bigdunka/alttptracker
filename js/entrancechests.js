@@ -240,19 +240,19 @@
 
 	function canReachWDM()
 	{
-		if (canReachWDMNorth() || (items.mirror && canReachDWWDM()) || items.flute || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84))) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76)) return true;
+		if (canReachWDMNorth() || (items.mirror && canReachDWWDM()) || items.flute || (items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84) || (hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror)) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76)) return true;
 		return false;
 	}
 	
 	function canReachEDMNorth()
 	{
-		if ((canReachWDMNorth() && items.hammer) || hasFoundEntrance(77) || ((hasFoundEntrance(68)) && items.hammer) || (items.mirror && (hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute && items.mirror && items.hammer)) return true;
+		if ((canReachWDMNorth() && items.hammer) || hasFoundEntrance(77) || (hasFoundEntrance(68) && items.hammer) || (items.mirror && (hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute && items.mirror && items.hammer)) return true;
 		return false;
 	}
 
 	function canReachEDM()
 	{
-		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || (items.hammer && canReachHCNorth()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
+		if (canReachEDMNorth() || (items.flute && items.hookshot) || (items.hookshot && canReachWDM()) || (items.hammer && canReachWDMNorth()) || ((hasFoundEntrance(134) || hasFoundEntrance(135) || hasFoundEntrance(137) || hasFoundEntrance(138) || hasFoundEntrance(139)) && items.mirror) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84)) return true;
 		return false;
 	}
 	
@@ -282,7 +282,7 @@
 	function canReachDarkWorldEast() {
 		if (canReachDarkWorld() && (items.hammer || items.flippers)) return true;
 		if (items.agahnim || hasFoundEntrance(94) || hasFoundEntrance(114) || hasFoundEntrance(115) || hasFoundEntrance(116) || hasFoundEntrance(117) || ((hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) && (items.hammer || items.flippers) && items.moonpearl) || (hasFoundEntrance(92) && items.moonpearl && (items.glove > 0 || items.hammer))) return true;
-		if ((hasFoundEntrance(90) || hasFoundEntrance(91) || hasFoundEntrance(96) || hasFoundEntrance(104) || hasFoundEntrance(105) || hasFoundEntrance(106) || hasFoundEntrance(107) || hasFoundEntrance(108) || hasFoundEntrance(109) || (hasFoundEntrance(110) && items.hammer) || hasFoundEntrance(111) || hasFoundEntrance(129)) && items.moonpearl && items.flippers && (items.hammer || items.glove > 0)) return true;
+		if ((hasFoundEntrance(90) || hasFoundEntrance(91) || hasFoundEntrance(96) || hasFoundEntrance(104) || hasFoundEntrance(105) || hasFoundEntrance(106) || hasFoundEntrance(107) || hasFoundEntrance(108) || hasFoundEntrance(109) || (hasFoundEntrance(110) && items.hammer) || hasFoundEntrance(111) || hasFoundEntrance(129)) && items.moonpearl && (items.flippers || items.hammer)) return true;
 		if (canReachAndLeaveShoppingMall()) return true;
 		return false;
 	}

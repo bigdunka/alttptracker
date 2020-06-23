@@ -1,9 +1,9 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=15021"></script>
+		<script src="js/index.js?v=15022"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=15021"></script>
+		<script src="js/bootstrap.min.js?v=15022"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.5.021 052120 - Compatible for v31.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.5.022 062320 - Compatible for v31.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
 			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
@@ -65,15 +65,18 @@
 										<input type="button" value="Ambrosia" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadambrosiapreset()" />
 									</td>
 									<td width="90px">
+										<input type="button" value="Casual Boots" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadbootspreset()" />
+									</td>
+									<td width="90px">
 										<input type="button" value="Mystery" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadmysterypreset()" />
 									</td>
 									<td width="90px">
 										<input type="button" value="Crosskeys" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadcrosskeyspreset()" />
 									</td>
 									<td width="90px">
-										<input type="button" value="Inverted Keys" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadinvertedkeyspreset()" />
+										<input type="button" value="Enemizer" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadenemizerpreset()" />
 									</td>
-									<td width="60px">
+									<td width="20px">
 									</td>
 									<td width="140px">
 										Enter Seed Hash: <span class="south" title="This will import the flags from the ALTTPR generator and import automatically (Does not work when offline)" style="font-size: 12px; color: red; height: 25px; cursor: pointer;">[?]</span>
@@ -379,10 +382,19 @@
 									<td>
 										<select id="spriteselect" style="width: 100%">
 											<option value="abigail">Abigail</option>
+											<option value="adol">Adol</option>
+											<option value="aggretsuko">Aggretsuko</option>
 											<option value="alice">Alice</option>
+											<option value="angry_video_game_nerd">Angry Video Game Nerd</option>
+											<option value="arcane">Arcane</option>
+											<option value="ark">Ark</option>
 											<option value="arrghus">Arrghus</option>
+											<option value="astronaut">Astronaut</option>
 											<option value="b_s_boy">B.S. Boy</option>
 											<option value="b_s_girl">B.S. Girl</option>
+											<option value="baby_metroid">Baby Metroid</option>
+											<option value="badeline">Badeline</option>
+											<option value="bananas_in_pyjamas">Bananas In Pyjamas</option>
 											<option value="bandit">Bandit</option>
 											<option value="batman">Batman</option>
 											<option value="beau">Beau</option>
@@ -399,6 +411,7 @@
 											<option value="bottle_o_goo">Bottle o' Goo</option>
 											<option value="bowser">Bowser</option>
 											<option value="branch">Branch</option>
+											<option value="brian">Brian</option>
 											<option value="broccoli">Broccoli</option>
 											<option value="bronzor">Bronzor</option>
 											<option value="bubbles">Bubbles</option>
@@ -407,16 +420,19 @@
 											<option value="cactuar">Cactuar</option>
 											<option value="cadence">Cadence</option>
 											<option value="captain_toadette">Captain Toadette</option>
+											<option value="carlsagan42">CarlSagan42</option>
 											<option value="casual_zelda">Casual Zelda</option>
 											<option value="cat_boo">Cat Boo</option>
 											<option value="cd_i_link">CD-i Link</option>
 											<option value="celes">Celes</option>
+											<option value="charizard">Charizard</option>
 											<option value="cheep_cheep">Cheep Cheep</option>
 											<option value="chibity">Chibity</option>
 											<option value="cirno">Cirno</option>
 											<option value="clifford">Clifford</option>
 											<option value="clyde">Clyde</option>
 											<option value="conker">Conker</option>
+											<option value="cornelius">Cornelius</option>
 											<option value="corona">Corona</option>
 											<option value="cucco">Cucco</option>
 											<option value="cursor">Cursor</option>
@@ -424,10 +440,12 @@
 											<option value="dark_boy">Dark Boy</option>
 											<option value="dark_girl">Dark Girl</option>
 											<option value="dark_link">Dark Link</option>
-											<option value="dark_link_tunic_">Dark Link (Tunic)</option>
+											<option value="dark_panda">Dark Panda</option>
 											<option value="dark_swatchy">Dark Swatchy</option>
 											<option value="dark_zelda">Dark Zelda</option>
 											<option value="dark_zora">Dark Zora</option>
+											<option value="deadpool_mythic_">Deadpool (Mythic)</option>
+											<option value="deadpool_sirczah_">Deadpool (SirCzah)</option>
 											<option value="deadrock">Deadrock</option>
 											<option value="decidueye">Decidueye</option>
 											<option value="demon_link">Demon Link</option>
@@ -436,6 +454,7 @@
 											<option value="eggplant">Eggplant</option>
 											<option value="emosaru">EmoSaru</option>
 											<option value="ezlo">Ezlo</option>
+											<option value="fierce_deity_link">Fierce Deity Link</option>
 											<option value="figaro_merchant">Figaro Merchant</option>
 											<option value="finn_merten">Finn Merten</option>
 											<option value="finny_bear">Finny Bear</option>
@@ -452,15 +471,21 @@
 											<option value="garfield">Garfield</option>
 											<option value="garnet">Garnet</option>
 											<option value="garo_master">Garo Master</option>
+											<option value="gbc_link">GBC Link</option>
+											<option value="geno">Geno</option>
 											<option value="gobli">Gobli</option>
 											<option value="goomba">Goomba</option>
+											<option value="goose">Goose</option>
 											<option value="grandpoobear">GrandPOOBear</option>
 											<option value="gruncle_stan">Gruncle Stan</option>
 											<option value="hardhat_beetle">Hardhat Beetle</option>
 											<option value="hat_color_link">Hat Color Link</option>
+											<option value="hat_kid">Hat Kid</option>
 											<option value="headless_link">Headless Link</option>
 											<option value="hello_kitty">Hello Kitty</option>
+											<option value="hidari">Hidari</option>
 											<option value="hint_tile">Hint Tile</option>
+											<option value="hitsuyan1337">Hitsuyan1337</option>
 											<option value="hoarder_bush_">Hoarder (Bush)</option>
 											<option value="hoarder_pot_">Hoarder (Pot)</option>
 											<option value="hoarder_rock_">Hoarder (Rock)</option>
@@ -472,23 +497,30 @@
 											<option value="informant_woman">Informant Woman</option>
 											<option value="inkling">Inkling</option>
 											<option value="invisible_link">Invisible Link</option>
+											<option value="jack_frost">Jack Frost</option>
 											<option value="jason_frudnick">Jason Frudnick</option>
+											<option value="jasp">Jasp</option>
 											<option value="jogurt">Jogurt</option>
+											<option value="katsura">Katsura</option>
 											<option value="kecleon">Kecleon</option>
 											<option value="kenny_mccormick">Kenny McCormick</option>
 											<option value="kholdstare">Kholdstare</option>
 											<option value="king_gothalion">King Gothalion</option>
-											<option value="king_graham_v1_1">King Graham</option>
+											<option value="king_graham_v1_1">King Graham v1.1</option>
 											<option value="kirby">Kirby</option>
 											<option value="kore8">Kore8</option>
 											<option value="lakitu">Lakitu</option>
+											<option value="lapras">Lapras</option>
 											<option value="lest">Lest</option>
 											<option value="lily">Lily</option>
+											<option value="linja">Linja</option>
 											<option selected value="link">Link</option>
 											<option value="lucario">Lucario</option>
 											<option value="luigi">Luigi</option>
+											<option value="madeline">Madeline</option>
 											<option value="magus">Magus</option>
 											<option value="maiden">Maiden</option>
+											<option value="mallow_cat_">Mallow (Cat)</option>
 											<option value="manga_link">Manga Link</option>
 											<option value="maple_queen">Maple Queen</option>
 											<option value="marin">Marin</option>
@@ -503,19 +535,24 @@
 											<option value="megaman_x">Megaman X</option>
 											<option value="mewlp">MewLp</option>
 											<option value="mike_jones">Mike Jones</option>
+											<option value="mini_ganon">Mini Ganon</option>
 											<option value="minish_cap_link">Minish Cap Link</option>
 											<option value="minish_link">Minish Link</option>
 											<option value="missingno">missingno</option>
 											<option value="modern_link">Modern Link</option>
 											<option value="mog">Mog</option>
+											<option value="momiji_inubashiri">Momiji Inubashiri</option>
 											<option value="moosh">Moosh</option>
 											<option value="mouse">Mouse</option>
+											<option value="ms_paint_dog">Ms. Paint Dog</option>
 											<option value="nature_link">Nature Link</option>
 											<option value="navi">Navi</option>
 											<option value="negative_link">Negative Link</option>
+											<option value="neosad">Neosad</option>
 											<option value="nes_link">NES Link</option>
 											<option value="ness_earthbound_">Ness (Earthbound)</option>
 											<option value="nia">Nia</option>
+											<option value="niko">Niko</option>
 											<option value="old_man">Old Man</option>
 											<option value="ori">Ori</option>
 											<option value="outline_link">Outline Link</option>
@@ -532,14 +569,18 @@
 											<option value="pony">Pony</option>
 											<option value="popoi">Popoi</option>
 											<option value="poppy">Poppy</option>
+											<option value="porg_knight">Porg Knight</option>
 											<option value="power_up_with_pride_mushroom">Power Up with Pride Mushroom</option>
 											<option value="powerpuff_girl">Powerpuff Girl</option>
 											<option value="pride_link">Pride Link</option>
 											<option value="primm">Primm</option>
+											<option value="princess_bubblegum">Princess Bubblegum</option>
 											<option value="princess_peach">Princess Peach</option>
 											<option value="psyduck">Psyduck</option>
 											<option value="purple_chest">Purple Chest</option>
+											<option value="pyro">Pyro</option>
 											<option value="rainbow_link">Rainbow Link</option>
+											<option value="remeer">Remeer</option>
 											<option value="rick_redacted_">Rick (Redacted)</option>
 											<option value="robo_link_9000">Robo-Link 9000</option>
 											<option value="rocko">Rocko</option>
@@ -549,10 +590,13 @@
 											<option value="rydia">Rydia</option>
 											<option value="ryu">Ryu</option>
 											<option value="sailor_moon">Sailor Moon</option>
+											<option value="saitama">Saitama</option>
 											<option value="samus">Samus</option>
 											<option value="samus_classic_">Samus (Classic)</option>
+											<option value="samus_super_metroid_">Samus (Super Metroid)</option>
 											<option value="santa_link">Santa Link</option>
 											<option value="scholar">Scholar</option>
+											<option value="selan">Selan</option>
 											<option value="sevens1ns">SevenS1ns</option>
 											<option value="shadow">Shadow</option>
 											<option value="shadow_sakura">Shadow Sakura</option>
@@ -566,8 +610,11 @@
 											<option value="sonic_the_hedgehog">Sonic the Hedgehog</option>
 											<option value="sora">Sora</option>
 											<option value="sora_kh1_">Sora (KH1)</option>
+											<option value="squall">Squall</option>
+											<option value="squirrel">Squirrel</option>
 											<option value="squirtle">Squirtle</option>
 											<option value="stalfos">Stalfos</option>
+											<option value="stan">Stan</option>
 											<option value="static_link">Static Link</option>
 											<option value="stick_man">Stick Man</option>
 											<option value="super_bomb">Super Bomb</option>
@@ -575,12 +622,14 @@
 											<option value="super_meat_boy">Super Meat Boy</option>
 											<option value="swatchy">Swatchy</option>
 											<option value="tanooki_mario">Tanooki Mario</option>
+											<option value="tasbot">TASBot</option>
 											<option value="tea_time">Tea Time</option>
 											<option value="terra_esper_">Terra (Esper)</option>
-											<option value="tetra_sheet">Tetra</option>
+											<option value="tetra_sheet">Tetra Sheet</option>
 											<option value="tgh">TGH</option>
 											<option value="the_pug">The Pug</option>
 											<option value="thief">Thief</option>
+											<option value="thomcrow">Thomcrow</option>
 											<option value="tile">Tile</option>
 											<option value="tingle">Tingle</option>
 											<option value="tmnt">TMNT</option>
@@ -597,6 +646,7 @@
 											<option value="vanillalink">VanillaLink</option>
 											<option value="vaporeon">Vaporeon</option>
 											<option value="vegeta">Vegeta</option>
+											<option value="vera">Vera</option>
 											<option value="vitreous">Vitreous</option>
 											<option value="vivi">Vivi</option>
 											<option value="vivian">Vivian</option>
@@ -610,6 +660,7 @@
 											<option value="yunica_tovah">Yunica Tovah</option>
 											<option value="zandra">Zandra</option>
 											<option value="zebra_unicorn">Zebra Unicorn</option>
+											<option value="zeckemyro">Zeckemyro</option>
 											<option value="zelda">Zelda</option>
 											<option value="zero_suit_samus">Zero Suit Samus</option>
 											<option value="zora">Zora</option>
