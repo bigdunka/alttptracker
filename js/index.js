@@ -223,6 +223,44 @@ function loadbootspreset() {
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
+function loadopenkeyspreset() {
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonfullshuffle").checked = true;
+	document.getElementById("placementadvanced").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);	
+}
+
+function loadadkeyspreset() {
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonfullshuffle").checked = true;
+	document.getElementById("placementadvanced").checked = true;
+	document.getElementById("goaldungeons").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);	
+}
+
 function importflags() {
 	var i = document.getElementById("importflag").value;
 	

@@ -1845,11 +1845,11 @@
 					if (flags.gametype === 'S') return 'available';
 					if (flags.dungeonitems === 'F' || flags.gametype == 'R') {
 						if (items.glove) return 'available';
-						if (items.smallkeyhalf0 === 1 || flags.gametype == 'R') return items.lantern ? 'available' : 'darkavailable';
+						if (items.smallkeyhalf0 === 1 || flags.gametype == 'R') return (items.lantern || (flags.itemplacement === 'A' && items.firerod)) ? 'available' : 'darkavailable';
 						return 'unavailable';
 					}
 					
-					return items.glove ? 'available' : items.lantern ? 'possible' : 'darkpossible';
+					return items.glove ? 'available' : (items.lantern || (flags.itemplacement === 'A' && items.firerod)) ? 'possible' : 'darkpossible';
 				}
 			}, { // [56]
 				caption: "Castle Secret Entrance (Uncle + 1)",
