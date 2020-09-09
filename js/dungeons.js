@@ -196,7 +196,7 @@
 	}
 
 	function door_enemizer_check(dungeon) {
-		return dungeon === 6 && flags.doorshuffle === 'C' && !items.bombfloor ? 'unavailable' : enemizer_check(dungeon);
+		return (dungeon === 6 && flags.doorshuffle === 'C' && !items.bombfloor) || (dungeon === 7 && (!items.hammer || items.glove == 0)) ? 'unavailable' : enemizer_check(dungeon);
 	}
 
 	window.doorCheck = function(dungeon,onlyDarkPossible,darkRoom,torchDarkRoom,posRequired,goal) {
@@ -661,7 +661,7 @@
 			//Boss
 		
 			//Shooter Room
-			chests[0] = 'A';
+			chests[0] = (flags.dungeonitems !== 'F' ? 'K' : 'A');
 
 			if (items.bow > 0) {
 				//Map Chest
@@ -683,7 +683,7 @@
 				chests[11] = (items.lantern ? 'A' : 'DA');
 				//Big Chest
 				if (items.bigkey3) {
-					chests[12] = (flags.dungeonitems === 'K' ? 'K' : 'A');
+					chests[12] = (items.lantern ? 'A' : 'DA');
 				}
 			} else {
 				if ((items.hammer && items.bow > 0) || items.smallkey3 > 0) {
@@ -719,14 +719,14 @@
 					chests[11] = (items.lantern ? 'A' : 'DA');
 					//Big Chest
 					if (items.bigkey3) {
-						chests[12] = (flags.dungeonitems === 'K' ? 'K' : 'A');
+						chests[12] = (items.lantern ? 'A' : 'DA');
 					}
 				}
 			}
 			
 			//Boss
-			if (items.bigkey3 && items.hammer && (items.smallkey3 > 4 || flags.gametype == 'R')) {
-				chests[13] = ((items.smallkey3 === 6 || flags.gametype == 'R') ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+			if (items.bigkey3 && items.hammer && (items.smallkey3 > 4 || flags.gametype == 'R') && dungeoncheck !== 'unavailable') {
+				chests[13] = ((items.smallkey3 === 6 || flags.gametype == 'R') && dungeoncheck === 'available' ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
 			}
 		} else {
 			//Because the bow locked side could contain the map and compass, PoD is possibly completable without the bow with the exception of the boss
@@ -775,7 +775,7 @@
 				//Stalfos Basement
 				chests[3] = 'K'; //Reserved key 3
 				//The Arena - Bridge
-				chests[4] = 'A';
+				chests[4] = 'K'; //Reserved big key
 				//Big Key Chest
 				chests[5] = 'K'; //Reserved key 4
 				//Compass Chest
@@ -791,10 +791,10 @@
 				//Dark Maze - Bottom
 				chests[11] = (items.lantern ? 'A' : 'DA');
 				//Big Chest
-				chests[12] = 'K'; // Reserved big key
+				chests[12] = (items.lantern ? 'A' : 'DA');
 				//Boss
-				if (items.hammer) {
-					chests[13] = (items.lantern ? 'A' : 'DA');
+				if (items.hammer && dungeoncheck !== 'unavailable') {
+					chests[13] = dungeoncheck === 'available' ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP');
 				}
 			}
 		}
@@ -1127,7 +1127,7 @@
 				chests[6] = 'K'; //Reserved as fourth small key
 			}
 			
-			if (flags.itemplacement === 'A' || items.magicape || items.byrna || items.shield === 3) {
+			if (flags.itemplacement === 'A' || items.cape || items.byrna || items.shield === 3) {
 				if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') {
 					if (items.smallkey9 > 2 || flags.gametype == 'R') {
 						//Eye Bridge - Bottom Left
@@ -1164,7 +1164,7 @@
 				}
 			} else {
 				if (dungeoncheck != 'unavailable') {
-					chests[10] = (items.firerod ? (items.lantern ? 'P' : 'DP') : 'P');
+					chests[11] = (items.firerod ? (items.lantern ? 'P' : 'DP') : 'P');
 				}
 			}
 		}
@@ -1234,7 +1234,7 @@
 		//Eye Bridge - Bottom Right
 		//Eye Bridge - Top Left
 		//Eye Bridge - Top Right
-		if (flags.itemplacement === 'A' || items.magicape || items.byrna || items.shield === 3) {
+		if (flags.itemplacement === 'A' || items.cape || items.byrna || items.shield === 3) {
 			if (flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') {
 				chests[7] = 'A';
 				chests[8] = 'A';

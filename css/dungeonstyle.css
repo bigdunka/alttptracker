@@ -1,0 +1,71 @@
+body {
+  margin: 0px;
+  background-color: black;
+  font-family: roboto_condensedregular, Arial, Helvetica, sans-serif;
+  font-size: 14px;
+  color: white;
+  overflow-x: hidden;
+}
+
+* { box-sizing: border-box; }
+
+.pointer { cursor: pointer; }
+
+.row:before,
+.row:after { content: " "; display: table; }
+.row:after { clear: both; }
+.row { width: 100%; }
+.cell { position: relative; float: left; }
+
+.textrow { margin: 4px 0px; }
+.hint { margin: 8px 0px; }
+
+.fixedtop { position: fixed; top: 0; background-color: black; z-index: 2; overflow: hidden; }
+
+#app { width: 100%; height: 100%; overflow: hidden; }
+
+.dungeon { border: 1px solid white; margin: 1px; }
+.boss { width: 64px; height: 64px; }
+.boss.completed { opacity: .25; }
+.summary { position: relative; height: 32px; }
+
+.roomnode { float: left; margin: 2px; cursor: default; overflow: hidden; width: 64px; height: 64px; position: relative; }
+.roomnodeimg { transform-origin: 0 0; z-index: -1; position: absolute; }
+.roomnode .roomtt { width: 64px; height: 64px; z-index: 1; cursor: inherit; position: absolute; top: 0; left: 0; font-size: 10pt; background-color: black; display: inline-block; color: #fff; text-align: center; visibility: hidden; opacity: 0; transition: opacity .25s; }
+.roomnode:hover .roomtt { visibility: visible; opacity: .75; }
+.ttlabel { cursor: inherit; }
+
+.path { position: relative; height: 64px; }
+.path .roomnode { margin: 0px; position: absolute; }
+.path.editing { background-color: rgba(255,192,128,.2); border: 2px dotted rgb(255,192,128); height: 68px; }
+.roompointer .roomnode { cursor: pointer; }
+.pathlist .path:hover { background-color: rgba(255,255,255,.125); }
+
+.symbolnode { margin: 0px; width: 32px; height: 32px; background-size: 32px 32px; position: absolute; z-index: -1; }
+.symbolnode.small { width: 16px; height: 16px; background-size: 16px 16px; }
+.pathsymbol { float: left; margin: 0px; width: 32px; height: 32px; background-size: 32px 32px; position: relative; }
+.hint .pathsymbol { margin-right: 4px; }
+.hint span { height: 32px; line-height: 16px; display: grid; align-items: center; top: -1px; position: relative; }
+
+.buttonbox { border: 1px solid white; height: 24px; line-height: 24px; text-align: center; padding: 0px 4px 24px 4px; margin: 4px; user-select: none; }
+.buttonbox.disabled { cursor: default; border-color: darkgray!important; color: darkgray; }
+
+.rightalign { float: right; }
+
+.newpath { animation: newpath 2s forwards 1; }
+
+@keyframes newpath { from { background-color: rgba(192,255,192,.25); } to { background-color: none; } }
+
+.boss0 { background-image: url(../images/dungeons/boss0.png); }
+.boss1 { background-image: url(../images/dungeons/boss1.png); }
+.boss2 { background-image: url(../images/dungeons/boss2.png); }
+.boss3 { background-image: url(../images/dungeons/boss3.png); }
+.boss4 { background-image: url(../images/dungeons/boss4.png); }
+.boss5 { background-image: url(../images/dungeons/boss5.png); }
+.boss6 { background-image: url(../images/dungeons/boss6.png); }
+.boss7 { background-image: url(../images/dungeons/boss7.png); }
+.boss8 { background-image: url(../images/dungeons/boss8.png); }
+.boss9 { background-image: url(../images/dungeons/boss9.png); }
+.boss10 { background-image: url(../images/dungeons/boss10.png); }
+.boss11 { background-image: url(../images/dungeons/ballnchain.png); }
+.boss12 { background-image: url(../images/dungeons/agahnim0.png); }

@@ -22,7 +22,10 @@
 	window.rightClickedType = null;
 
 	window.dungeonNames = ["EP", "DP", "ToH", "PoD", "SP", "SW", "TT", "IP", "MM", "TR", "GT"];
-	
+
+	window.doorWindow = null;
+	window.dungeonPaths = null;
+
 	var standardbombs = false;
 
     // Event of clicking on the item tracker
@@ -57,7 +60,12 @@
 			rightClickedLocation = -1;
 			return;
 		}
-		
+
+		if(label === 'mirror' && flags.doorshuffle != 'N')
+		{
+			document.getElementById('mirrorscroll').style.display = items.mirror ?'block' :'none';
+		}
+
 		if (label.substring(0,5) === 'chest') {
             var value = items.dec(label);
 			if (value === 0) {
@@ -182,10 +190,9 @@
 				}
 			} else {
 				for (var k = 0; k < dungeons.length; k++) {
-					if (!dungeons[k].is_beaten)
-						document.getElementById('bossMap'+k).className = 'bossprize-' + prizes[k] + ' boss ' + dungeons[k].is_beatable();
-						if (items['chest'+k])
-							document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
+					document.getElementById('bossMap'+k).className = 'bossprize-' + prizes[k] + ' boss ' + (dungeons[k].is_beaten ? 'opened' : dungeons[k].is_beatable());
+					if (items['chest'+k])
+						document.getElementById('dungeon'+k).className = 'dungeon ' + dungeons[k].can_get_chest();
 				}
 			}
 			
@@ -201,6 +208,23 @@
 			document.getElementById('chest'+k).style.backgroundColor = 'white';// (flags.entrancemode != 'N' ? getDungeonBackground(dungeons[k].can_get_chest()) : 'white');
 		}
     };
+
+	window.receiveMessage = function(event)
+	{
+		if(window.origin === event.origin)
+		{
+			if(event.data.length === 13)
+				dungeonPaths = event.data;
+		}
+	}
+
+	window.showDoorWindow = function()
+	{
+		if(doorWindow && !doorWindow.closed)
+			doorWindow.focus();
+		else
+			doorWindow = window.open('dungeontracker.html?door_shuffle='+flags.doorshuffle+'&dungeon_items='+flags.dungeonitems+'&world_state='+flags.gametype+(dungeonPaths ?'&paths='+encodeURIComponent(JSON.stringify(dungeonPaths)) :''),'','width=372,height=650,titlebar=0,menubar=0,toolbar=0,scrollbars=1,resizable=1');
+	}
 
 	window.getDungeonBackground = function(x) {
 		switch (x) {
@@ -2370,6 +2394,13 @@
 		if (flags.mystery === 'N') {
 			document.getElementById('changeflagsdiv').style.visibility = 'hidden';
 		}
+		
+		if (flags.doorshuffle === 'N') {
+			document.getElementById('showpathsdiv').style.visibility = 'hidden';
+			document.getElementById('mirrorscroll').style.visibility = 'hidden';
+		}
+		else
+			window.addEventListener("message", receiveMessage, false);
 		
 		standardbombs = true;
 		if (flags.gametype != 'S') {

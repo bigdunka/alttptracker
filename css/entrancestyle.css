@@ -5,7 +5,6 @@ body {
   font-family: roboto_condensedregular, Arial, Helvetica, sans-serif;
   font-size: 14px;
   overflow: hidden;
-  style: opacity: 0.85;
 }
 
 * { box-sizing: border-box; }
@@ -15,7 +14,6 @@ body {
 .row:after { clear: both; }
 .cell { position: relative; float: left; }
 .cell.split { height: 64px; width: 64px; position: relative; float: left; background-image: url(../images/items/splitbackground.png); }
-.normalopen {  }
 
 #app { width: 1340px; height: 744px; overflow: hidden; }
 #app.mapless { width: 448px; }
@@ -83,6 +81,15 @@ body {
   height: 32px;
   position: absolute;
   bottom: 0;
+  background-size: 100% 100%;
+}
+
+.mirrorscroll {
+  width: 32px;
+  height: 32px;
+  position: absolute;
+  right: 16px;
+  bottom: 16px;
   background-size: 100% 100%;
 }
 
@@ -283,10 +290,9 @@ body {
 .ganongoal.other { visibility: collapse; }
 .crystalgoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 0; left: 0; }
 .ganongoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 24; left: 0; }
-.changeflags { width: 24px; height: 24px; z-index: 99; position: absolute; top: 48; left: 0; }
+.changeflags { width: 24px; height: 24px; z-index: 2; position: absolute; top: 48; left: 0; }
 .goalselect { height: 24px; width: 24px; } 
-.bombfloor-0 { background-image: url(../images/dungeons/bombablefloor0.png); }
-.bombfloor-1 { background-image: url(../images/dungeons/bombablefloor1.png); }
+.showpaths { width: 24px; height: 24px; z-index: 2; position: absolute; top: 72; left: 0; }
 
 .bomb { background-image: url(../images/items/bomb.png); }
 .bow { background-image: url(../images/items/bow0.png); }
@@ -318,6 +324,7 @@ body {
 .byrna { background-image: url(../images/items/byrna.png); }
 .cape { background-image: url(../images/items/cape.png); }
 .mirror { background-image: url(../images/items/mirror.png); }
+.mirrorscroll { background-image: url(../images/dungeons/map.png); }
 .boots { background-image: url(../images/items/boots.png); }
 .glove { background-image: url(../images/items/glove1.png); }
 .glove.active-2 { background-image: url(../images/items/glove2.png); }
@@ -364,6 +371,8 @@ body {
 .bigkey { background-image: url(../images/dungeons/bigkey.png); }
 .smallkeyfull { background-image: url(../images/dungeons/smallkeyfull.png); }
 .smallkeyhalf { background-image: url(../images/dungeons/smallkeyhalf.png); }
+.bombfloor-0 { background-image: url(../images/dungeons/bombablefloor0.png); }
+.bombfloor-1 { background-image: url(../images/dungeons/bombablefloor1.png); }
 
 .bombsmall { background-image: url(../images/overlay/bomb.png); }
 .crystal { background-image: url(../images/dungeons/prize4.png); }
