@@ -23,7 +23,7 @@ function autotrackSetStatus(text) {
     //document.getElementById("autoTrackStatus").textContent=text;
 }
 
-function autotrackConnect(host="ws://localhost:8080") {
+function autotrackConnect(host="ws://localhost:" + flags.trackingport) {
     if (autotrackSocket !== null || autotrackReconnectTimer !== null) {
         autotrackDisconnect();
         return;

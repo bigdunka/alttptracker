@@ -1,9 +1,9 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=16001"></script>
+		<script src="js/index.js?v=16001a"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=16001"></script>
+		<script src="js/bootstrap.min.js?v=16001a"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.6.001 101820 - Compatible for v31.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.6.001a 101820a - Compatible for v31.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="instructions.html"><img src='./images/overlay/instructions.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
@@ -48,7 +48,7 @@
 				<table width="1000px" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
 					<tr>
 						<td>
-							<center>MASSIVE updates to the interface and logic! Please read the release notes and/or read the new instructions page for full details!<br><br>If you believe you have found a logic issue (We expect a few) with the latest release, please contact Dunka with a screenshot of your tracker and your logic scenario, thank you!</center><br>
+							<center>MASSIVE updates to the interface and logic! Please read the release notes and/or read the new instructions page for full details!<br><br>If you believe you have found a logic issue (We expect a few) with the latest release, please contact Dunka with a screenshot of your tracker and your logic scenario, thank you!<br><br>If you are having issues loading the tracker, please clear your cache by pressing Ctrl + R and relaunch</center><br>
 						</td>
 					</tr>
 					<tr>
@@ -768,6 +768,10 @@
 									<td>
 										<input id="autotrackingyes" value="Y" type="radio" name="autotrackinggroup" />
 										<label for="autotrackingyes">Yes</label>
+									</td>
+									<td>
+										<label for="autotrackingport">Port:</label>
+										<input style="width: 50px" id="autotrackingport" value="8080" type="text" />
 									</td>
 								</tr>
 								<tr>

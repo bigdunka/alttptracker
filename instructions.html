@@ -8,6 +8,7 @@
 			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; overflow: auto; }
 			label { width: 5em; display: inline-block; }
 			div { margin: 5px 0; }
+			a { color: lightblue; }
 		</style>
 		<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
@@ -16,10 +17,11 @@
 		<script>
 			function showsection(x) {
 				document.getElementById('launchersection').style.display = 'none';
-				document.getElementById('itemection').style.display = 'none';
-				document.getElementById('mapection').style.display = 'none';
-				document.getElementById('entranceection').style.display = 'none';
-				document.getElementById('doorection').style.display = 'none';
+				document.getElementById('itemsection').style.display = 'none';
+				document.getElementById('mapesction').style.display = 'none';
+				document.getElementById('entrancesection').style.display = 'none';
+				document.getElementById('doorsection').style.display = 'none';
+				document.getElementById('autosection').style.display = 'none';
 
 				document.getElementById(x).style.display = 'block';
 			}
@@ -31,10 +33,11 @@
 			<div style="width:300px; color: white; font-size: 24px; float: left;">
 				View Section<br><br>
 				<a href="#" onclick="showsection('launchersection');" style="color: white">Using the Launcher</a><br>
-				<a href="#" onclick="showsection('itemection');" style="color: white">Using the Item Tracker</a><br>
-				<a href="#" onclick="showsection('mapection');" style="color: white">Using the Map Tracker</a><br>
-				<a href="#" onclick="showsection('entranceection');" style="color: white">Using the Entrance Tracker</a><br>
-				<a href="#" onclick="showsection('doorection');" style="color: white">Using the Door Tracker</a><br>
+				<a href="#" onclick="showsection('itemsection');" style="color: white">Using the Item Tracker</a><br>
+				<a href="#" onclick="showsection('mapesction');" style="color: white">Using the Map Tracker</a><br>
+				<a href="#" onclick="showsection('entrancesection');" style="color: white">Using the Entrance Tracker</a><br>
+				<a href="#" onclick="showsection('doorsection');" style="color: white">Using the Door Tracker</a><br>
+				<a href="#" onclick="showsection('autosection');" style="color: white">Using the Autotracker</a><br>
 			</div>
 		</div>
 		<div id="launchersection" class="instructionsDiv">
@@ -66,7 +69,7 @@
 			Use Autotracking will enable the listener for autotracking, which defaults on port 8080. Once you have all of your options selected, you can click on Launch Tracker and it will pop up the tracker. Note, if you have popups blocked, it may require you to make an exception for it.<br>
 		</div>
 
-		<div id="itemection" style="display: none;" class="instructionsDiv">
+		<div id="itemsection" style="display: none;" class="instructionsDiv">
 			<center><h2>Using the Item Tracker</h2></center>
 			Using the item tracker is fairly simple, as they are point and click, regardless if you use the map tracker or any additional options. All of the items are in order to match the item menu in the game for easy of menuing. Items that take up multiple spots and are important use split areas, like the Mushroom/Powder and Shovel/Flute. Those icons can be clicked independently. A couple items have multiple modes, which when you click on them multiple times, they cycle through options. These include the Bow, Gloves, Bottles, etc... There are also a couple of other locations where the icons are not always visible, like Swords and Shields. They have icons in the blank spaces above the sprite's raised arm and below the sprite's lowered arm. Clicking on the sprite itself will cycle through Green => Blue => Red mails. Clicking on the Moon Pearl will also cycle between the normal and bunny forms of your selected sprite. Above and to the left of the sprite shows the GT entry cost (shown by the top crystal icon and number) and the Ganon vulnerability count (shown by the bottom Ganon icon and number). If the count is static, these cannot be changed. If the Mystery flag is active, these can be changed. See more below about Mystery mode changes. Alternate goals, like All Dungeons and Pedestal, show different icons to designate the goal.<br>
 			<br>
@@ -86,7 +89,7 @@
 			<br>
 		</div>
 
-		<div id="mapection" style="display: none;" class="instructionsDiv">
+		<div id="mapesction" style="display: none;" class="instructionsDiv">
 			<center><h2>Using the Map Tracker</h2></center>
 			If you have chosen to use the map tracker, it will appear to the left of the item tracker in normal mode, and below the item tracker in compact mode. For these examples, we will be using the normal map tracker, but the functionality is the same. Locations in the normal map tracker are split between overworld locations and dungeons. Overworld locations are shown with normal squares, where dungeons are shown by larger squares with adjustable icons in the middle. Each of these are also color coded and change depending on your item tracker, to show you what locations are available to be cleared. They go as follows:<br><br>
 			Green: Can be obtained<br>
@@ -107,7 +110,7 @@
 			If you have a location where you want to put in a reminder for an item, you can right click on the location on the map, and then left click on the item that you want to assign. In doing so, by hovering over the mark on the map, it will give you the item reminder text below the map.
 		</div>
 
-		<div id="entranceection" style="display: none;" class="instructionsDiv">
+		<div id="entrancesection" style="display: none;" class="instructionsDiv">
 			<center><h2>Using the Entrance Tracker</h2></center>
 			If you have chosen to use the map tracker in an entrance mode, it will show a different map tracker with all possible entrance locations, along with overworld locations. Each entrance is shown as a diamond and color coded similar to how the normal map tracker works, with green showing available entrances and red showing entrances that are not reachable. Squares on the map show overworld locations that are available. The blue eye icon at the bottom left of the Dark World portion of the map can be clicked to toggle if you want entrance lines visible, to show the connected entrances.<br>
 			<br>
@@ -128,7 +131,7 @@
 			As a recommendation, when a dungeon is completed, or when a key location has been used and is no longer important, remove the information from the map. It can get quite busy and it will make it easier to read. There is currently no feature in the entrance tracker to show dungeon items and what are available, but that feature is coming "Soon".<br>
 		</div>
 
-		<div id="doorection" style="display: none;" class="instructionsDiv">
+		<div id="doorsection" style="display: none;" class="instructionsDiv">
 			<center><h2>Using the Door Tracker</h2></center>
 			The Dungeon Tracker is a helpful tool when playing with Door Shuffle. It can help you remember paths in a dungeon for later, solve switch or key puzzles or remember which item is needed for a path. When Door Shuffle is enabled, click on the map icon next to the player sprite to open a new window with the Dungeon Tracker. If you have more space, we recommend enlarging this window so that more and longer paths can fit in there without needing to scroll.<br><br>
 			<br>
@@ -179,6 +182,28 @@
 			<br>
 			
 			These are just recommendations. For every situation, it's up to you how you want to mark it. It will take some practice to get used to tracking while playing without losing time. At the beginning, don't hesitate to pause the game whenever you need more time to track properly.
+		</div>
+
+		<div id="autosection" style="display: none;" class="instructionsDiv">
+			<center><h2>Using the Autotracker</h2></center>
+			NOTE: The below setup is one way to configure auto tracking, it is not the ONLY way to do it. Please refer to your hardware/software packages to determine the best way to run it for your setup<br>
+			<br>
+			If you have chosen to use the auto tracker, you will need to be sure to have your setup configured so that the tracker can communicate with your rom. The Community Tracker requries the use of qusb2snes, which can be downloaded here: <a href="https://skarsnik.github.io/QUsb2snes/" target="_blank">https://skarsnik.github.io/QUsb2snes/</a> and follow the instructions on how to download and install for your operating system.<br>
+			<br>
+			To activate the auto tracker from the Launcher, be sure that Yes is selected in the Use Autotracking option under Display Settings, and you can manually type in a listening port. It defaults to 8080. If you have Remember Display Settings set, it will auto load your settings when you launch the tracker.<br>
+			<br>
+			<center><img src="./images/overlay/instructions19.png" style="width: 1100px;"></center>
+			<br>
+			Start up qusb2snes by clicking on your startup executable. For example, in Windows, it is QUsb2Snes.exe.<br>
+			<br>
+			<center><img src="./images/overlay/instructions20.png" style="width: 1100px;"></center>
+			<br>
+			Launch the Community Tracker with the Autotracking selection live and on the correct listening port. You will get a message from qusb2snes to allow for the tracker to communicate. You will need to click on Yes to allow.<br>
+			<br>
+			<center><img src="./images/overlay/instructions21.png" style="width: 1100px;"></center>
+			<br>
+			You will need a device that is able to sent Lua Scripting, be it via your hardware or emulator. For emulator, we can recommend using snes9x-rr, located here: <a href="https://github.com/gocha/snes9x-rr/releases" target="_blank">https://github.com/gocha/snes9x-rr/releases</a>, but please refer to your hardware and software setup on how to enable Lua scripting. Please refer to the current <a href="https://link.alttpr.com/autotracking" target="_blank">ALTTPR Race Legal Rules</a> for more information on what can and cannot be tracked.
+			<br>
 		</div>
 
 	</body>

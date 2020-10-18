@@ -14,6 +14,11 @@ function load_cookie() {
 		}
 		if (c.indexOf('a-Y') > -1) {
 			document.getElementById("autotrackingyes").checked = true;
+			var p = c.substr(c.indexOf('a-Y') + 3);
+			if (p.indexOf('|') > 0) {
+				p = p.substr(0, p.indexOf('|'));
+				document.getElementById("autotrackingport").value = p;
+			}
 		}
 		if (c.indexOf('p-') > -1) {
 			var sprite = c.substr(c.indexOf('p-') + 2);
@@ -55,12 +60,13 @@ function launch_tracker() {
 	var shuffledbigkeys = (document.getElementById("shuffledbigkeys").checked === true ? "1" : "0");
 	var ambrosia = document.querySelector('input[name="ambrosiagroup"]:checked').value;
 	var startingboots = document.querySelector('input[name="startingbootsgroup"]:checked').value;
+	var trackingport = document.getElementById('autotrackingport').value;
 	
 	var width = map === "M" ? 1340 : 448;
 	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
 	
 	if (document.getElementById("remembersettings").checked == true) {
-		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + "|p-" + sprite;
+		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + "|p-" + sprite;
 		document.cookie = "settings=" + settings + "; expires=Sat, 1 Jan 2023 12:00:00 UTC";
 	} else {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -77,7 +83,7 @@ function launch_tracker() {
 		alert('NOTICE: There is currently no logic implemented in Inverted Entrance, all locations will be flagged as available.');
 	}
 
-	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}{door}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{ambrosia}{autotracking}&sprite={sprite}{compact}&starting={startingboots}'
+	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}{door}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{ambrosia}{autotracking}{trackingport}&sprite={sprite}{compact}&starting={startingboots}'
 			.replace('{tracker}', trackerName)
 			.replace('{type}', type)
 			.replace('{entrance}', entrance)
@@ -104,6 +110,7 @@ function launch_tracker() {
 			.replace('{shuffledbigkeys}', shuffledbigkeys)
 			.replace('{ambrosia}', ambrosia)
 			.replace('{autotracking}', autotracking)
+			.replace('{trackingport}', trackingport)
 			.replace('{startingboots}', startingboots)
 			.replace('{compact}', (map === "C" ? '&map=C' : '')),
 		'',
