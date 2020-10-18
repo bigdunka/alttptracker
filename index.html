@@ -1,9 +1,9 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=15025"></script>
+		<script src="js/index.js?v=16001"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=15025"></script>
+		<script src="js/bootstrap.min.js?v=16001"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
@@ -35,8 +35,9 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.5.025 090920 - Compatible for v31.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.6.001 101820 - Compatible for v31.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
+			<a href="instructions.html"><img src='./images/overlay/instructions.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
 			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
 			<a href="downloads.html"><img src='./images/overlay/downloads.png' style="width: 380px"/></a><br><br>
@@ -45,11 +46,11 @@
 		<div style="float: left">
 			<div>
 				<table width="1000px" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
-					<!-- <tr>
+					<tr>
 						<td>
-							<center>Need a reminder for what items are where? New item placement note feature has been added! Check the release notes for details!</center>
+							<center>MASSIVE updates to the interface and logic! Please read the release notes and/or read the new instructions page for full details!<br><br>If you believe you have found a logic issue (We expect a few) with the latest release, please contact Dunka with a screenshot of your tracker and your logic scenario, thank you!</center><br>
 						</td>
-					</tr> -->
+					</tr>
 					<tr>
 						<td>
 							<table width="1000px" height="100px" background="./images/overlay/presets.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
@@ -59,13 +60,13 @@
 								</tr>
 								<tr>
 									<td width="90px">
-										<input type="button" value="Open" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadopenpreset()" />
-									</td>
-									<td width="90px">
-										<input type="button" value="Open Keys" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadopenkeyspreset()" />
+										<input type="button" value="Open Boots" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadopenbootspreset()" />
 									</td>
 									<td width="90px">
 										<input type="button" value="Casual Boots" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadbootspreset()" />
+									</td>
+									<td width="90px">
+										<input type="button" value="Reduced 6/6" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadreducedpreset()" />
 									</td>
 									<td width="90px">
 										<input type="button" value="Mystery" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadmysterypreset()" />
@@ -74,12 +75,12 @@
 										<input type="button" value="Crosskeys" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadcrosskeyspreset()" />
 									</td>
 									<td width="90px">
-										<input type="button" value="AD Keys" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadadkeyspreset()" />
+										<input type="button" value="Invrosia" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadinvrosiapreset()" />
 									</td>
 									<td width="20px">
 									</td>
 									<td width="140px">
-										Enter Seed Hash: <span class="south" title="This will import the flags from the ALTTPR generator and import automatically (Does not work when offline)" style="font-size: 12px; color: red; height: 25px; cursor: pointer;">[?]</span>
+										Enter Seed Hash: <span class="south" title="This will import the flags from the ALTTPR generator and import automatically. Does NOT work properly with customizer settings. (Does not work when offline)" style="font-size: 12px; color: red; height: 25px; cursor: pointer;">[?]</span>
 									</td>
 									<td>
 										<input type="text" id="importflag" style="width:140px; height: 27px;" />
@@ -176,7 +177,7 @@
 								</tr>
 								<tr>
 									<td width="100px">
-										Mystery Settings: <span class="south" title="Allows for hot swapping modes during play, for easy adjusting for Mystery seeds!" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Mystery Settings:
 									</td>
 									<td>
 										<input id="mysteryno" value="N" type="radio" name="mysterygroup" checked />
@@ -192,6 +193,88 @@
 					</tr>
 					<tr>
 						<td>
+							<table width="1000px" height="220px" background="./images/overlay/logic.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+								<tr height="40px">
+									<td>
+									</td>
+								</tr>
+								<tr>
+									<td width="140px">
+										Glitches: <span class="south" title="OWG glitches are currently implemented, need to be validated. Inverted/OWG is not currently implemented. Major/No Logic will show all locations available." style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input id="glitchesnone" value="N" type="radio" name="glitchesgroup" checked />
+										<label for="glitchesnone" style="width:100px">None</label>
+									</td>
+									<td >
+										<input id="glitchesoverworld" value="O" type="radio" name="glitchesgroup" />
+										<label for="glitchesoverworld" style="width:100px">Overworld</label>
+									</td>
+									<td colspan="2">
+										<input id="glitchesmajor" value="M" type="radio" name="glitchesgroup" />
+										<label for="glitchesmajor" style="width:200px">Major/No Logic</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="120px">
+										Dungeon Items:
+									</td>
+									<td>
+										<input id="dungeonstandard" value="S" type="radio" name="dungeongroup" onclick="setdungeonitems('S')" checked />
+										<label for="dungeonstandard" style="width:100px">Standard</label>
+									</td>
+									<td>
+										<input id="dungeonmcshuffle" value="M" type="radio" name="dungeongroup" onclick="setdungeonitems('M')" />
+										<label for="dungeonmcshuffle" style="width:100px">MC Shuffle</label>
+									</td>
+									<td>
+										<input id="dungeonmcsshuffle" value="K" type="radio" name="dungeongroup" onclick="setdungeonitems('K')" />
+										<label for="dungeonmcsshuffle" style="width:100px">MCS Shuffle</label>
+									</td>
+									<td colspan="2">
+										<input id="dungeonfullshuffle" value="F" type="radio" name="dungeongroup" onclick="setdungeonitems('F')" />
+										<label for="dungeonfullshuffle" style="width:100px" >Keysanity</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="120px">
+										Shuffled Items:
+									</td>
+									<td>
+										<input id="shuffledmaps" type="checkbox" />
+										<label for="shuffledmaps" style="width:100px">Maps</label>
+									</td>
+									<td>
+										<input id="shuffledcompasses" type="checkbox" />
+										<label for="shuffledcompasses" style="width:100px">Compasses</label>
+									</td>
+									<td>
+										<input id="shuffledsmallkeys" type="checkbox" />
+										<label for="shuffledsmallkeys" style="width:100px">Small Keys</label>
+									</td>
+									<td colspan="2">
+										<input id="shuffledbigkeys" type="checkbox" />
+										<label for="shuffledbigkeys" style="width:100px" >Big Keys</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="120px">
+										'Ambrosia': <span class="south" title="This ensures there are no dungeon items (keys, maps, compasses) on bosses" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input id="ambrosiano" value="N" type="radio" name="ambrosiagroup" checked />
+										<label for="ambrosiano" style="width:100px">No</label>
+									</td>
+									<td colspan="3">
+										<input id="ambrosiayes" value="Y" type="radio" name="ambrosiagroup" />
+										<label for="ambrosiayes" style="width:300px">Yes</label>
+									</td>
+								</tr>
+							</table>
+						</td>
+					</tr>
+					<tr style="display: none">
+						<td>
 							<table width="1000px" height="180px" background="./images/overlay/logic.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
 								<tr height="40px">
 									<td>
@@ -199,57 +282,15 @@
 								</tr>
 								<tr>
 									<td width="100px">
-										Glitches: <span class="south" title="For now, there is no logic for glitched modes, but all items are listed as available on the<br>map tracker and the modes are currently condensed. Logic will come 'soon'(tm)" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Starting Boots:
 									</td>
 									<td>
-										<input id="glitchesnone" value="N" type="radio" name="glitchesgroup" checked />
-										<label for="glitchesnone" style="width:100px">None</label>
-									</td>
-									<td colspan="2">
-										<input id="glitchesoverworld" value="O" type="radio" name="glitchesgroup" />
-										<label for="glitchesoverworld" style="width:200px">Overworld/Major/No Logic</label>
-									</td>
-									<!--<td>
-										<input disabled id="glitchesoverworld" value="M" type="radio" name="glitchesgroup" />
-										<label for="glitchesoverworld" style="width:100px">Major</label>
+										<input id="startingbootsno" value="N" type="radio" name="startingbootsgroup" checked />
+										<label for="startingbootsno" style="width:100px">No</label>
 									</td>
 									<td>
-										<input disabled id="glitchesoverworld" value="L" type="radio" name="glitchesgroup" />
-										<label for="glitchesoverworld" style="width:100px">No Logic</label>
-									</td>-->
-								</tr>
-								<tr>
-									<td width="120px">
-										Dungeon Items:
-									</td>
-									<td>
-										<input id="dungeonstandard" value="S" type="radio" name="dungeongroup" checked />
-										<label for="dungeonstandard" style="width:100px">Standard</label>
-									</td>
-									<td>
-										<input id="dungeonmcshuffle" value="M" type="radio" name="dungeongroup" />
-										<label for="dungeonmcshuffle" style="width:100px">MC Shuffle</label>
-									</td>
-									<td>
-										<input id="dungeonmcsshuffle" value="K" type="radio" name="dungeongroup" />
-										<label for="dungeonmcsshuffle" style="width:100px">MCS Shuffle</label>
-									</td>
-									<td>
-										<input id="dungeonfullshuffle" value="F" type="radio" name="dungeongroup" />
-										<label for="dungeonfullshuffle" style="width:100px" >Keysanity</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="120px">
-										Item Placement:
-									</td>
-									<td>
-										<input checked id="placementadvanced" value="A" type="radio" name="placementgroup" />
-										<label for="placementadvanced" style="width:100px">Advanced</label>
-									</td>
-									<td>
-										<input id="placementbasic" value="B" type="radio" name="placementgroup" />
-										<label for="placementbasic" style="width:100px">Basic</label>
+										<input id="startingbootsyes" value="Y" type="radio" name="startingbootsgroup" />
+										<label for="startingbootsyes" style="width:100px">Yes</label>
 									</td>
 								</tr>
 							</table>
@@ -370,7 +411,7 @@
 					</tr>
 					<tr>
 						<td>
-							<table width="1000px" height="230px" background="./images/overlay/display.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+							<table width="1000px" height="270px" background="./images/overlay/display.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
 								<tr height="40px">
 									<td>
 									</td>
@@ -714,6 +755,19 @@
 									<td>
 										<input id="sphereyes" value="Y" type="radio" name="spheregroup" />
 										<label for="sphereyes">Yes</label>
+									</td>
+								</tr>
+								<tr>
+									<td>
+										Use Autotracking: <span class="south" title="This will enable the autotracking listener, default on port 8080" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input id="autotrackingno" value="N" type="radio" name="autotrackinggroup" checked />
+										<label for="autotrackingno">No</label>
+									</td>
+									<td>
+										<input id="autotrackingyes" value="Y" type="radio" name="autotrackinggroup" />
+										<label for="autotrackingyes">Yes</label>
 									</td>
 								</tr>
 								<tr>

@@ -3,8 +3,9 @@
 		<title>ALTTP Randomizer Community Tracker - Known Issues</title>
 		<script src="js/index.js"></script>
 		<link href="css/fonts.css" rel="stylesheet">
+		<link href="css/style.css" rel="stylesheet">
 		<style>
-			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; }
+			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; overflow: auto; }
 			label { width: 5em; display: inline-block; }
 			div { margin: 5px 0; }
 		</style>
@@ -14,21 +15,21 @@
 	</head>
 	<body background="./images/overlay/background.png">
 		<button type="button" onclick="window.location.href = 'index.html';" style="width: 200px; text-align: center; font-family: 'roboto_condensedregular', Arial, Helvetica, sans-serif;"><== RETURN TO MAIN</button><br><br>
-		<div style="width:1000px; color: white; font-size: 20px;">
-			<ul>
-				<b>Build 1.5.025 090920</b><br><br>
-				<li>We are currently reviewing logic for keysanity for dungeons, there may be minor problems</li><br>
-				<li>Inverted entrance currently has no logic (All entrances and items are marked as available); this will be added in a future release</li><br>
-				<li>We are aware that scaling the tracker in your browser can cause unexpected results. This will be eventually addressed, but it may require some style rewriting so it may take some time.</li><br>
-				<li>We are still tracking various small entrance issues. Please report those if you find them! Entrance logic is incredibly complex and we appreciate your feedback!</li><br>
-				<b>Items Still To Be Added</b><br><br>
-				<li>Entrance: Adding a summary option for quick reference to known locations</li><br>
-				<li>Inverted Entrance: Adding logic</li><br>
-				<li>Adding Half Magic logic</li><br>
-				<li>Adding Glitched Logic modes</li><br>
-				<li>Adding an instructions page and updating the global landing page</li><br>
-			</ul>
-			Found an issue?  Please report it to Dunka (Discord: BigDunka#8354) to be added to the issues list<br>
+		<div style="width:1200px; color: white; font-size: 20px;">
+			<div class="releaseDiv">
+				<ul>
+					<b>Build 1.6.001 101820</b><br><br>
+					<li>This build has a lot of logic changes for big and small key shuffle separation. If you believe you have found a logic issue, please contact Dunka with your situation and include a screenshot of your tracker as well, thank you!</li><br>
+					<li>There is a known issue with both MM and TR Inverted big key shuffle logic, it will be fixed at a later date.</li><br>
+					<li>We are aware that scaling the tracker in your browser can cause unexpected results. This will be eventually addressed, but it may require some style rewriting so it may take some time.</li><br>
+					<li>We are still tracking various small entrance issues. Please report those if you find them! Entrance logic is incredibly complex and we appreciate your feedback!</li><br>
+					<li>Import Flags on Customizer flagsets does not always import all of the settings (We have no solution to this currently, it is a ALTTPR driven dataset)</li><br><br>
+					<b>Items Still To Be Added</b><br><br>
+					<li>Entrance: Adding a summary option for quick reference to known locations</li><br>
+					<li>Inverted Entrance: Adding logic</li><br>
+				</ul>
+				Found an issue?  Please report it to Dunka (Discord: BigDunka#8354) to be added to the issues list<br>
+			</div>
 		</div>
 
 	</body>

@@ -575,6 +575,18 @@
 			event.preventDefault();
 	};
 
+	window.receiveMessage = function(event)
+	{
+		if(window.origin === event.origin)
+		{
+			if(event.data.length === 13)
+			{
+				dungeonPaths = event.data;
+				loadOverview();
+			}
+		}
+	}
+
 	window.initializeSymbols = function(list,key)
 	{
 		let s = "";
@@ -603,14 +615,19 @@
 		if(initPathData)
 			for(let k = 0; k < 13; k++)
 				dungeonPaths[k] = {"paths":[],"notes":"","completed":false};
+		if(query.request_update && window.opener)
+		{
+			window.addEventListener("message",receiveMessage,false);
+			window.opener.postMessage("UPDATE","*");
+		}
 		if(query.door_shuffle)
 			doorshuffle = query.door_shuffle[0];
 		if(doorshuffle !== 'N' && doorshuffle !== 'B' && doorshuffle !== 'C')
 			doorshuffle = 'C';
-		if(query.dungeon_items === "K" || query.dungeon_items === "F" || query.world_state === "R")
-			excludesmallkeys = false;
-		if(query.dungeon_items === "F")
-			excludebigkeys = false;
+        if(query.wild_keys)
+            excludesmallkeys = false;
+        if(query.wild_big_keys)
+            excludebigkeys = false;
 		document.getElementById("selectdoorshuffle").value = ""+doorshuffle;
 		document.getElementById("excludesmallkeys").checked = excludesmallkeys;
 		document.getElementById("excludebigkeys").checked = excludebigkeys;
@@ -711,7 +728,7 @@
 		items.push({"folder":"dungeons","file":"torch","basic":[1,2,8,10]});
 		items.push({"folder":"items","file":"flippers","basic":[4]});
 		items.push({"folder":"items","file":"hookshot","basic":[0,2,4,5,7,8,9,10]});
-		items.push({"folder":"items","file":"boots","basic":[1,3,8,9,10]});
+		items.push({"folder":"items","file":"boots","basic":[1,3,5,8,9,10]});
 		items.push({"folder":"items","file":"bow1","basic":[0,3,10]});
 		items.push({"folder":"items","file":"hammer","basic":[3,4,6,7,10]});
 		items.push({"folder":"items","file":"sword1","basic":[5,12]});

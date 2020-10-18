@@ -69,7 +69,7 @@
 		return 'unavailable';
 	}
 	
-	function availableChests(allchests, keys, maxchest, chestcount) {
+	/* function availableChests(allchests, keys, maxchest, chestcount) {
 		var achests = 0;
 		var pchests = 0;
 		var dachests = 0;
@@ -134,7 +134,7 @@
 		if (dachests > 0) return 'darkavailable';
 		if (dpchests > 0) return 'darkpossible';
 		return 'unavailable';
-	}
+	} */
 	
 	function canReachDarkWorld()
 	{
@@ -281,7 +281,7 @@
 	
 	function canReachDarkWorldEast() {
 		if (canReachDarkWorld() && (items.hammer || items.flippers)) return true;
-		if (items.agahnim || hasFoundEntrance(94) || hasFoundEntrance(114) || hasFoundEntrance(115) || hasFoundEntrance(116) || hasFoundEntrance(117) || ((hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) && (items.hammer || items.flippers) && items.moonpearl) || (hasFoundEntrance(92) && items.moonpearl && (items.glove > 0 || items.hammer))) return true;
+		if (items.agahnim || hasFoundEntrance(94) || hasFoundEntrance(95) || hasFoundEntrance(114) || hasFoundEntrance(115) || hasFoundEntrance(116) || hasFoundEntrance(117) || ((hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) && (items.hammer || items.flippers) && items.moonpearl) || (hasFoundEntrance(92) && items.moonpearl && (items.glove > 0 || items.hammer))) return true;
 		if ((hasFoundEntrance(90) || hasFoundEntrance(91) || hasFoundEntrance(96) || hasFoundEntrance(104) || hasFoundEntrance(105) || hasFoundEntrance(106) || hasFoundEntrance(107) || hasFoundEntrance(108) || hasFoundEntrance(109) || (hasFoundEntrance(110) && items.hammer) || hasFoundEntrance(111) || hasFoundEntrance(129)) && items.moonpearl && (items.flippers || items.hammer)) return true;
 		if (canReachAndLeaveShoppingMall()) return true;
 		return false;
@@ -1872,15 +1872,10 @@
 		window.agahnim = {
 			caption: 'Agahnim',
 			is_available: function() {
-				switch (flags.dungeonitems) {
-					case 'S':
-					case 'M':
-						return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (flags.swordmode === 'S' && (items.hammer || items.net))) && (activeFlute() || items.glove) ? items.lantern && agatowerweapon() ? 'available' : 'darkavailable' : 'unavailable';					
-						break;
-					case 'K':
-					case 'F':
-						return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (flags.swordmode === 'S' && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
-						break;
+				if (flags.wildkeys) {
+					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (flags.swordmode === 'S' && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+				} else {
+					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (flags.swordmode === 'S' && (items.hammer || items.net))) && (activeFlute() || items.glove) ? items.lantern && agatowerweapon() ? 'available' : 'darkavailable' : 'unavailable';					
 				}
 			}
 		};
@@ -3586,15 +3581,10 @@
 		window.agahnim = {
 			caption: 'Agahnim {sword2}/ ({cape}{sword1}){lantern}',
 			is_available: function() {
-				switch (flags.dungeonitems) {
-					case 'S':
-					case 'M':
-						return ((items.sword >= 2 || (items.cape && items.sword) || (flags.swordmode === 'S' && (items.hammer || (items.cape && items.net)))) && agatowerweapon()) ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
-						break;
-					case 'K':
-					case 'F':
-						return (items.sword >= 2 || (items.cape && items.sword) || (flags.swordmode === 'S' && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
-						break;
+				if (flags.wildkeys) {
+					return (items.sword >= 2 || (items.cape && items.sword) || (flags.swordmode === 'S' && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+				} else {
+					return ((items.sword >= 2 || (items.cape && items.sword) || (flags.swordmode === 'S' && (items.hammer || (items.cape && items.net)))) && agatowerweapon()) ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 				}
 			}
 		};

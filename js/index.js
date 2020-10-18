@@ -12,6 +12,9 @@ function load_cookie() {
 		if (c.indexOf('s-Y') > -1) {
 			document.getElementById("sphereyes").checked = true;
 		}
+		if (c.indexOf('a-Y') > -1) {
+			document.getElementById("autotrackingyes").checked = true;
+		}
 		if (c.indexOf('p-') > -1) {
 			var sprite = c.substr(c.indexOf('p-') + 2);
 			if (sprite.indexOf(';') > -1) {
@@ -29,8 +32,8 @@ function launch_tracker() {
 	var door = document.querySelector('input[name="doorgroup"]:checked').value;	
 	var enemy = document.querySelector('input[name="enemygroup"]:checked').value;
 	var glitches = document.querySelector('input[name="glitchesgroup"]:checked').value;
-	var dungeon = document.querySelector('input[name="dungeongroup"]:checked').value;
-	var item = document.querySelector('input[name="placementgroup"]:checked').value;
+	//var dungeon = document.querySelector('input[name="dungeongroup"]:checked').value;
+	var item = "A";
 	var goal = document.querySelector('input[name="goalgroup"]:checked').value;
 	var tower = document.querySelector('input[name="towergroup"]:checked').value;
 	var ganon = document.querySelector('input[name="ganongroup"]:checked').value;
@@ -44,13 +47,20 @@ function launch_tracker() {
 	var map = document.querySelector('input[name="mapgroup"]:checked').value;
 	var spoiler = document.querySelector('input[name="spoilergroup"]:checked').value;
 	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
+	var autotracking = document.querySelector('input[name="autotrackinggroup"]:checked').value;
 	var mystery = document.querySelector('input[name="mysterygroup"]:checked').value;
+	var shuffledmaps = (document.getElementById("shuffledmaps").checked === true ? "1" : "0");
+	var shuffledcompasses = (document.getElementById("shuffledcompasses").checked === true ? "1" : "0");
+	var shuffledsmallkeys = (document.getElementById("shuffledsmallkeys").checked === true ? "1" : "0");
+	var shuffledbigkeys = (document.getElementById("shuffledbigkeys").checked === true ? "1" : "0");
+	var ambrosia = document.querySelector('input[name="ambrosiagroup"]:checked').value;
+	var startingboots = document.querySelector('input[name="startingbootsgroup"]:checked').value;
 	
 	var width = map === "M" ? 1340 : 448;
 	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
 	
 	if (document.getElementById("remembersettings").checked == true) {
-		var settings = "m-" + map + "|s-" + sphere + "|p-" + sprite;
+		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + "|p-" + sprite;
 		document.cookie = "settings=" + settings + "; expires=Sat, 1 Jan 2023 12:00:00 UTC";
 	} else {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -58,19 +68,23 @@ function launch_tracker() {
 	
 	var trackerName = entrance === 'N' ? 'tracker' : 'entrancetracker';
 	
+	if (glitches === 'O' && type === "I") {
+		alert('NOTICE: Inverted OWG is currently not supported for logic, all locations will be flagged as available.');
+		glitches = 'M';
+	}
 	
 	if (entrance != 'N' && type === "I") {
 		alert('NOTICE: There is currently no logic implemented in Inverted Entrance, all locations will be flagged as available.');
 	}
 
-	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{dungeon}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}{door}&sprite={sprite}{compact}'
+	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}{door}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{ambrosia}{autotracking}&sprite={sprite}{compact}&starting={startingboots}'
 			.replace('{tracker}', trackerName)
 			.replace('{type}', type)
 			.replace('{entrance}', entrance)
 			.replace('{boss}', boss)
 			.replace('{enemy}', enemy)
 			.replace('{glitches}', glitches)
-			.replace('{dungeon}', dungeon)
+			//.replace('{dungeon}', dungeon)
 			.replace('{item}', item)
 			.replace('{goal}', goal)
 			.replace('{tower}', tower)
@@ -84,6 +98,13 @@ function launch_tracker() {
 			.replace('{sprite}', sprite)
 			.replace('{mystery}', mystery)
 			.replace('{door}', door)
+			.replace('{shuffledmaps}', shuffledmaps)
+			.replace('{shuffledcompasses}', shuffledcompasses)
+			.replace('{shuffledsmallkeys}', shuffledsmallkeys)
+			.replace('{shuffledbigkeys}', shuffledbigkeys)
+			.replace('{ambrosia}', ambrosia)
+			.replace('{autotracking}', autotracking)
+			.replace('{startingboots}', startingboots)
 			.replace('{compact}', (map === "C" ? '&map=C' : '')),
 		'',
 		'width={width},height={height},titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0'
@@ -98,7 +119,6 @@ function loadopenpreset() {
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("dungeonstandard").checked = true;
-	document.getElementById("placementadvanced").checked = true;
 	document.getElementById("goalganon").checked = true;
 	document.getElementById("goalcrystal").checked = true;
 	document.getElementById("towerselect").value = 7;
@@ -106,6 +126,36 @@ function loadopenpreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("startingbootsno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+function loadopenbootspreset() {
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonstandard").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("startingbootsyes").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -117,7 +167,6 @@ function loadambrosiapreset() {
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("dungeonstandard").checked = true;
-	document.getElementById("placementadvanced").checked = true;
 	document.getElementById("goalganon").checked = true;
 	document.getElementById("goalcrystal").checked = true;
 	document.getElementById("towerselect").value = 7;
@@ -125,6 +174,12 @@ function loadambrosiapreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsassured").checked = true;
 	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiayes").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("startingbootsno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -136,7 +191,6 @@ function loadmysterypreset() {
 	document.getElementById("enemyshuffled").checked = true;
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("dungeonfullshuffle").checked = true;
-	document.getElementById("placementadvanced").checked = true;
 	document.getElementById("goalganon").checked = true;
 	document.getElementById("goalrandom").checked = true;
 	document.getElementById("towerselect").value = 7;
@@ -144,6 +198,12 @@ function loadmysterypreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryyes").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("startingbootsno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -155,7 +215,6 @@ function loadcrosskeyspreset() {
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("dungeonfullshuffle").checked = true;
-	document.getElementById("placementadvanced").checked = true;
 	document.getElementById("goalfast").checked = true;
 	document.getElementById("goalcrystal").checked = true;
 	document.getElementById("towerselect").value = 7;
@@ -163,6 +222,12 @@ function loadcrosskeyspreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("startingbootsno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -174,7 +239,6 @@ function loadinvertedkeyspreset() {
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("dungeonfullshuffle").checked = true;
-	document.getElementById("placementadvanced").checked = true;
 	document.getElementById("goalganon").checked = true;
 	document.getElementById("goalcrystal").checked = true;
 	document.getElementById("towerselect").value = 7;
@@ -182,6 +246,12 @@ function loadinvertedkeyspreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("startingbootsno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -193,7 +263,6 @@ function loadenemizerpreset() {
 	document.getElementById("enemyshuffled").checked = true;
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("dungeonstandard").checked = true;
-	document.getElementById("placementadvanced").checked = true;
 	document.getElementById("goalganon").checked = true;
 	document.getElementById("goalcrystal").checked = true;
 	document.getElementById("towerselect").value = 7;
@@ -201,6 +270,12 @@ function loadenemizerpreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("startingbootsno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -212,7 +287,6 @@ function loadbootspreset() {
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("dungeonstandard").checked = true;
-	document.getElementById("placementadvanced").checked = true;
 	document.getElementById("goalganon").checked = true;
 	document.getElementById("goalcrystal").checked = true;
 	document.getElementById("towerselect").value = 7;
@@ -220,6 +294,12 @@ function loadbootspreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsassured").checked = true;
 	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("startingbootsyes").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -231,7 +311,6 @@ function loadopenkeyspreset() {
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("dungeonfullshuffle").checked = true;
-	document.getElementById("placementadvanced").checked = true;
 	document.getElementById("goalganon").checked = true;
 	document.getElementById("goalcrystal").checked = true;
 	document.getElementById("towerselect").value = 7;
@@ -239,6 +318,12 @@ function loadopenkeyspreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("startingbootsno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);	
 }
 
@@ -250,7 +335,6 @@ function loadadkeyspreset() {
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
 	document.getElementById("dungeonfullshuffle").checked = true;
-	document.getElementById("placementadvanced").checked = true;
 	document.getElementById("goaldungeons").checked = true;
 	document.getElementById("goalcrystal").checked = true;
 	document.getElementById("towerselect").value = 7;
@@ -258,7 +342,62 @@ function loadadkeyspreset() {
 	document.getElementById("ganonselect").value = 7;
 	document.getElementById("swordsrandomized").checked = true;
 	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("startingbootsno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);	
+}
+
+function loadreducedpreset() {
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonstandard").checked = true;
+	document.getElementById("goalfast").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 6;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 6;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("startingbootsno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+function loadinvrosiapreset() {
+	document.getElementById("gametypeinverted").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonfullshuffle").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsassured").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiayes").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("startingbootsno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);		
+	
 }
 
 function importflags() {
@@ -347,4 +486,24 @@ function importflags() {
 	
 	document.getElementById("swords" + d.meta.weapons).checked = true;
 	});
+}
+
+function setdungeonitems(x) {
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+
+	if (x != "S") {
+		document.getElementById("shuffledmaps").checked = true;
+		document.getElementById("shuffledcompasses").checked = true;
+		if (x === "K" || x === "F") {
+			document.getElementById("shuffledsmallkeys").checked = true;
+		}
+		if (x === "F") {
+			document.getElementById("shuffledbigkeys").checked = true;
+		}
+	}
+	
+	
 }

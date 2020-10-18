@@ -2,18 +2,19 @@
 	<head>
 		<title>ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=15025"></script>
-		<script src="js/bootstrap.min.js?v=15025"></script>
-		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=15025">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=15025">
+		<script src="js/jquery-3.3.1.js?v=16001"></script>
+		<script src="js/bootstrap.min.js?v=16001"></script>
+		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=16001">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=16001">
 		<link href="css/fonts.css" rel="stylesheet">		
 
-		<script src="js/util.js?v=15025"></script>
-		<script src="js/items.js?v=15025"></script>
-		<script src="js/entrancechests.js?v=15025"></script>
-		<script src="js/track.js?v=15025"></script>
-		<script src="js/dungeons.js?v=15025"></script>
-		<script src="js/spoiler.js?v=15025"></script>
+		<script src="js/util.js?v=16001"></script>
+		<script src="js/items.js?v=16001"></script>
+		<script src="js/entrancechests.js?v=16001"></script>
+		<script src="js/track.js?v=16001"></script>
+		<script src="js/dungeons.js?v=16001"></script>
+		<script src="js/spoiler.js?v=16001"></script>
+		<script src="js/autot.js?v=16001"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -532,6 +533,7 @@
 		  <div id="entranceMap137" onClick="toggle_location(137)" onMouseover="highlight_entrance(137)" onMouseout="unhighlight_entrance(137)" oncontextmenu="javascript:rightClickEntrance(137);return false;"></div>
 		  <div id="entranceMap138" onClick="toggle_location(138)" onMouseover="highlight_entrance(138)" onMouseout="unhighlight_entrance(138)" oncontextmenu="javascript:rightClickEntrance(138);return false;"></div>
 		  <div id="entranceMap139" onClick="toggle_location(139)" onMouseover="highlight_entrance(139)" onMouseout="unhighlight_entrance(139)" oncontextmenu="javascript:rightClickEntrance(139);return false;"></div>
+		  <div id="entranceMap140" onClick="toggle_location(140)" onMouseover="highlight_entrance(140)" onMouseout="unhighlight_entrance(140)" oncontextmenu="javascript:rightClickEntrance(140);return false;"></div>
 		   <div id="connectorStop" onClick="StopAConnector()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2; visibility: hidden;"><img src="./images/interface/cancel.png" /></div>
 		  <div id="hideConnectorLines" onClick="HideConnectors()" style="cursor: pointer; position: absolute; top: 89.6%; left: 50.6%; z-index: 2;"><img src="./images/interface/show.png" id="hideConnectorLinesImg" /></div>
 		  <div id="connectorLineDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 0; visibility: collapse;">
@@ -805,7 +807,7 @@
 		</div>
 	</div>
 
-		<div class="modal fade" id="flagsModal" aria-hidden="true" style="width: 400px; height: 440px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 6px; left: 20px; display: none;">
+<div class="modal fade" id="flagsModal" aria-hidden="true" style="width: 400px; height: 440px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 6px; left: 20px; display: none;">
 			<div>
 				<center><h3>Change Flags</h3></center>
 				<table width="380px" height="72px" style="margin: auto;">
@@ -860,12 +862,20 @@
 							Dungeon Items:
 						</td>
 						<td>
-							<select id="dungeonselect" style="width: 140px">
+							<input id="shuffledmaps" type="checkbox" />
+							<label for="shuffledmaps" style="width:100px">Maps</label>
+							<input id="shuffledcompasses" type="checkbox" />
+							<label for="shuffledcompasses" style="width:100px">Compasses</label><br>
+							<input id="shuffledkeys" type="checkbox" />
+							<label for="shuffledkeys" style="width:100px">Small Keys</label>
+							<input id="shuffledbigkeys" type="checkbox" />
+							<label for="shuffledbigkeys" style="width:100px" >Big Keys</label>
+							<!--<select id="dungeonselect" style="width: 140px">
 								<option value="S">Standard</option>
 								<option value="M">MC Shuffle</option>
 								<option value="K">MCS Shuffle</option>
 								<option value="F">Keysanity</option>
-							</select>
+							</select> -->
 						</td>
 					</tr>					
 					<tr>
@@ -898,11 +908,10 @@
 				</table>
 				<br><br>
 				<center>NOTE: If you change from Entrance to Non-Entrance (or vise-versa), you will lose all items and map locations tracked. If you switch from Inverted to Non-Inverted (or vise-versa), you will lose any map tracking locations<br><br>
-					<center><input type="button" onclick="closeFlagsModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="adjustFlags();" value="Submit" /></center>
-				</center>
+				<center><input type="button" onclick="closeFlagsModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="adjustFlags();" value="Submit" /></center>
 			</div>
-		</div>	
-	  
+		</div>	  
+		
 	  <script>start()</script>
 
 	</body>

@@ -9,45 +9,62 @@
         bossshuffle: query.f.charAt(2),
         enemyshuffle: query.f.charAt(3),
         glitches: query.f.charAt(4),
-        dungeonitems: query.f.charAt(5),
-        itemplacement: query.f.charAt(6),
-        goals: query.f.charAt(7),
-        opentower: query.f.charAt(8),
-        opentowercount: query.f.charAt(9),
-        ganonvuln: query.f.charAt(10),
-        ganonvulncount: query.f.charAt(11),
-        swordmode: query.f.charAt(12),
-        mapmode: query.f.charAt(13),
-        spoilermode: query.f.charAt(14),
-        spheresmode: query.f.charAt(15),
-		mystery: query.f.charAt(16),
-		doorshuffle: query.f.charAt(17),
+        //dungeonitems: query.f.charAt(5),
+        itemplacement: query.f.charAt(5),
+        goals: query.f.charAt(6),
+        opentower: query.f.charAt(7),
+        opentowercount: query.f.charAt(8),
+        ganonvuln: query.f.charAt(9),
+        ganonvulncount: query.f.charAt(10),
+        swordmode: query.f.charAt(11),
+        mapmode: query.f.charAt(12),
+        spoilermode: query.f.charAt(13),
+        spheresmode: query.f.charAt(14),
+		mystery: query.f.charAt(15),
+		doorshuffle: query.f.charAt(16),
+		wildmaps: (query.f.charAt(17) === '1' ? true : false),
+		wildcompasses: (query.f.charAt(18) === '1' ? true : false),
+		wildkeys: (query.f.charAt(19) === '1' ? true : false),
+		wildbigkeys: (query.f.charAt(20) === '1' ? true : false),
+		ambrosia: query.f.charAt(21),
+		autotracking: query.f.charAt(22),
         sprite: query.sprite
     };
 	
 	window.maptype = query.map;
 	
+	window.startingitems = query.starting;
+	
 	var chestmod = 0;
 	
-	if (flags.dungeonitems === 'S') {
-		chestmod = 0;
-	} else if (flags.dungeonitems === 'M' || flags.dungeonitems === 'K' || (flags.dungeonitems === 'F' && flags.doorshuffle === 'C')) {
-		chestmod = 2;
-	} else if (flags.dungeonitems === 'F') {
-		chestmod = 3;
+	if (flags.wildmaps) {
+		chestmod++;
 	}
 	
-	var chests0 = flags.doorshuffle === 'C' ? 3 + chestmod : 3 + chestmod;
-	var chests1 = flags.doorshuffle === 'C' ? 3 + chestmod : 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 1 : 0);
-	var chests2 = flags.doorshuffle === 'C' ? 3 + chestmod : 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 1 : 0);
-	var chests3 = flags.doorshuffle === 'C' ? 3 + chestmod : 5 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 6 : 0);
-	var chests4 = flags.doorshuffle === 'C' ? 3 + chestmod : 6 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 1 : 0);
-	var chests5 = flags.doorshuffle === 'C' ? 3 + chestmod : 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 3 : 0);
-	var chests6 = flags.doorshuffle === 'C' ? 3 + chestmod : 4 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 1 : 0);
-	var chests7 = flags.doorshuffle === 'C' ? 3 + chestmod : 3 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 2 : 0);
-	var chests8 = flags.doorshuffle === 'C' ? 3 + chestmod : 2 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 3 : 0);
-	var chests9 = flags.doorshuffle === 'C' ? 3 + chestmod : 5 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 4 : 0);
-	var chests10 = flags.doorshuffle === 'C' ? 3 + chestmod : 20 + chestmod + ((flags.dungeonitems === 'F' || flags.dungeonitems === 'K' || flags.gametype === 'R') ? 4 : 0);
+	if (flags.wildcompasses) {
+		chestmod++;
+	}
+	
+	var chestmodcrossed = chestmod;
+	
+	if (flags.wildbigkeys) {
+		chestmod++;
+		if (flags.wildkeys || flags.gametype === 'R') {
+			chestmodcrossed++;
+		}		
+	}
+	
+	var chests0 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 3 + chestmod;
+	var chests1 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+	var chests2 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+	var chests3 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 6 : 0);
+	var chests4 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 6 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+	var chests5 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
+	var chests6 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 4 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+	var chests7 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 3 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 2 : 0);
+	var chests8 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
+	var chests9 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
+	var chests10 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 20 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
 	
     window.items = {
         tunic: 1,
@@ -124,33 +141,33 @@
         maxchest9: chests9,
 		maxchest10: chests10,
 
-		bigkey0: (flags.dungeonitems === 'F' ? false : true),
-		bigkey1: (flags.dungeonitems === 'F' ? false : true),
-		bigkey2: (flags.dungeonitems === 'F' ? false : true),
-		bigkey3: (flags.dungeonitems === 'F' ? false : true),
-		bigkey4: (flags.dungeonitems === 'F' ? false : true),
-		bigkey5: (flags.dungeonitems === 'F' ? false : true),
-		bigkey6: (flags.dungeonitems === 'F' ? false : true),
-		bigkey7: (flags.dungeonitems === 'F' ? false : true),
-		bigkey8: (flags.dungeonitems === 'F' ? false : true),
-		bigkey9: (flags.dungeonitems === 'F' ? false : true),
-		bigkey10: (flags.dungeonitems === 'F' ? false : true),
-		bigkeyhalf0: (flags.dungeonitems === 'F' ? false : true),
-		bigkeyhalf1: (flags.dungeonitems === 'F' ? false : true),
+		bigkey0: !flags.wildbigkeys,
+		bigkey1: !flags.wildbigkeys,
+		bigkey2: !flags.wildbigkeys,
+		bigkey3: !flags.wildbigkeys,
+		bigkey4: !flags.wildbigkeys,
+		bigkey5: !flags.wildbigkeys,
+		bigkey6: !flags.wildbigkeys,
+		bigkey7: !flags.wildbigkeys,
+		bigkey8: !flags.wildbigkeys,
+		bigkey9: !flags.wildbigkeys,
+		bigkey10: !flags.wildbigkeys,
+		bigkeyhalf0: !flags.wildbigkeys,
+		bigkeyhalf1: !flags.wildbigkeys,
 		
-        smallkey0: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 0),
-        smallkey1: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 1),
-        smallkey2: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 1),
-        smallkey3: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 6),
-        smallkey4: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 1),
-        smallkey5: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 3),
-        smallkey6: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 1),
-        smallkey7: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 2),
-        smallkey8: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 3),
-        smallkey9: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 4),
-		smallkey10: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 4),
-		smallkeyhalf0: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 1),
-		smallkeyhalf1: (flags.dungeonitems === 'K' || flags.dungeonitems === 'F' ? 0 : 2),
+        smallkey0: (flags.wildkeys ? 0 : 0),
+        smallkey1: (flags.wildkeys ? 0 : 1),
+        smallkey2: (flags.wildkeys ? 0 : 1),
+        smallkey3: (flags.wildkeys ? 0 : 6),
+        smallkey4: (flags.wildkeys ? 0 : 1),
+        smallkey5: (flags.wildkeys ? 0 : 3),
+        smallkey6: (flags.wildkeys ? 0 : 1),
+        smallkey7: (flags.wildkeys ? 0 : 2),
+        smallkey8: (flags.wildkeys ? 0 : 3),
+        smallkey9: (flags.wildkeys ? 0 : 4),
+		smallkey10: (flags.wildkeys ? 0 : 4),
+		smallkeyhalf0: (flags.wildkeys ? 0 : 1),
+		smallkeyhalf1: (flags.wildkeys ? 0 : 2),
 		
         inc: limit(1, {
             tunic: { min: 1, max: 3 },
@@ -212,7 +229,7 @@
 			smallkeyhalf1: { max: flags.doorshuffle === 'C' ? 29 : 2 }
         })
     };
-
+	
     function limit(delta, limits) {
         return function(item) {
             var value = items[item],

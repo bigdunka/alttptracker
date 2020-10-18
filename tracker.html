@@ -2,18 +2,19 @@
 	<head>
 		<title>ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=15024"></script>
-		<script src="js/bootstrap.min.js?v=15024"></script>
-		<link rel="stylesheet" type="text/css" href="css/style.css?v=15024">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=15024">
+		<script src="js/jquery-3.3.1.js?v=16001"></script>
+		<script src="js/bootstrap.min.js?v=16001"></script>
+		<link rel="stylesheet" type="text/css" href="css/style.css?v=16001">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=16001">
 		<link href="css/fonts.css" rel="stylesheet">		
 
-		<script src="js/util.js?v=15024"></script>
-		<script src="js/items.js?v=15024"></script>
-		<script src="js/chests.js?v=15024"></script>
-		<script src="js/track.js?v=15024"></script>
-		<script src="js/dungeons.js?v=15024"></script>
-		<script src="js/spoiler.js?v=15024"></script>
+		<script src="js/util.js?v=16001"></script>
+		<script src="js/items.js?v=16001"></script>
+		<script src="js/chests.js?v=16001"></script>
+		<script src="js/track.js?v=16001"></script>
+		<script src="js/dungeons.js?v=16001"></script>
+		<script src="js/spoiler.js?v=16001"></script>
+		<script src="js/autot.js?v=16001"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -202,13 +203,13 @@
 			<div class="cell">
 			  <div class="boss boss8" onClick="toggle('boss8')"></div>
 			  <div id="dungeonEnemy8" class="enemizer-0" onClick="toggle_enemy(8)" oncontextmenu="javascript:rightClickEnemy(8);return false;"></div>
-			  <div id="medallion0" class="medallion-0" onClick="toggle_medallion(0)"></div>
+			  <div id="medallion0" class="medallion-0" onClick="toggle_medallion(0)" oncontextmenu="javascript:rightClickMedallion(0);return false;"></div>
 			  <div id="dungeonPrize8" class="prize-0" onClick="toggle_dungeon(8)" oncontextmenu="javascript:rightClickPrize(8);return false;"></div>
 			</div>
 			<div class="cell">
 			  <div class="boss boss9" onClick="toggle('boss9')"></div>
 			  <div id="dungeonEnemy9" class="enemizer-0" onClick="toggle_enemy(9)" oncontextmenu="javascript:rightClickEnemy(9);return false;"></div>
-			  <div id="medallion1" class="medallion-0" onClick="toggle_medallion(1)"></div>
+			  <div id="medallion1" class="medallion-0" onClick="toggle_medallion(1)" oncontextmenu="javascript:rightClickMedallion(1);return false;"></div>
 			  <div id="dungeonPrize9" class="prize-0" onClick="toggle_dungeon(9)" oncontextmenu="javascript:rightClickPrize(9);return false;"></div>
 			</div>
 		  </div>
@@ -588,12 +589,20 @@
 							Dungeon Items:
 						</td>
 						<td>
-							<select id="dungeonselect" style="width: 140px">
+							<input id="shuffledmaps" type="checkbox" />
+							<label for="shuffledmaps" style="width:100px">Maps</label>
+							<input id="shuffledcompasses" type="checkbox" />
+							<label for="shuffledcompasses" style="width:100px">Compasses</label><br>
+							<input id="shuffledkeys" type="checkbox" />
+							<label for="shuffledkeys" style="width:100px">Small Keys</label>
+							<input id="shuffledbigkeys" type="checkbox" />
+							<label for="shuffledbigkeys" style="width:100px" >Big Keys</label>
+							<!--<select id="dungeonselect" style="width: 140px">
 								<option value="S">Standard</option>
 								<option value="M">MC Shuffle</option>
 								<option value="K">MCS Shuffle</option>
 								<option value="F">Keysanity</option>
-							</select>
+							</select> -->
 						</td>
 					</tr>					
 					<tr>

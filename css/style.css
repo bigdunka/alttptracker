@@ -289,6 +289,7 @@ body {
 .bossprize-2 { background-image: url(../images/dungeons/bossicon2.png); }
 .bossprize-3 { background-image: url(../images/dungeons/bossicon3.png); }
 .bossprize-4 { background-image: url(../images/dungeons/bossicon4.png); }
+.bossprize-5 { background-image: url(../images/dungeons/bossicon5.png); }
 
 .enemizer-0 { background-image: url(../images/dungeons/prize0.png); background-size: 32px; }
 .enemizer-1 { background-image: url(../images/dungeons/boss0.png); background-size: 32px; }
@@ -306,6 +307,7 @@ body {
 .prize-2 { background-image: url(../images/dungeons/prize2.png); }
 .prize-3 { background-image: url(../images/dungeons/prize3.png); }
 .prize-4 { background-image: url(../images/dungeons/prize4.png); }
+.prize-5 { background-image: url(../images/dungeons/prize5.png); }
 .medallion-0 { background-image: url(../images/dungeons/medallion0.png); }
 .medallion-1 { background-image: url(../images/dungeons/medallion1.png); }
 .medallion-2 { background-image: url(../images/dungeons/medallion2.png); }
@@ -415,3 +417,30 @@ body {
 #locationMap64 { left: 44.9%; top: 14.7%; }
 #locationMap65 { left: 21.0%; top: 52.6%; }
 #locationMap66 { left: 29.0%; top: 52.6%; }
+
+.instructionsDiv {
+    width: 1200px;
+    color: white;
+    font-size: 20px;
+    float: left;
+    display: block;
+    background: #55555561;
+    padding: 30px;
+    border: #0f0;
+    border-width: 2px;
+    border-style: solid;	
+}
+
+.releaseDiv {
+    width: 1200px;
+    color: white;
+    font-size: 20px;
+    float: left;
+    display: block;
+    background: #55555561;
+    padding: 30px;
+    border: #0f0;
+    border-width: 2px;
+    border-style: solid;
+	margin-bottom: 30px;
+}
