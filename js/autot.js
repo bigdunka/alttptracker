@@ -241,8 +241,8 @@ function autotrackDoTracking(data) {
     updatechest(62, 0x300, 0x40); // Pedestal
     //updatechest(63, 0x064, 0x10); // Hyrule Castle - Dark Cross
     updatechest_group(64, [[0x228, 0x10], [0x228, 0x20]]); // Waterfall Fairy Left + Right
-    updatechest(65, 0x1C0, 0x10); // Castle Tower - Room 03
-    updatechest(66, 0x1A0, 0x10); // Castle Tower - Dark Maze
+    //updatechest(65, 0x1C0, 0x10); // Castle Tower - Room 03
+    //updatechest(66, 0x1A0, 0x10); // Castle Tower - Dark Maze
 
     function update_boss(boss, offset) {
         if (newbit(offset, 0x08) && !items[boss])
@@ -390,7 +390,7 @@ function autotrackDoTracking(data) {
         setitem("glove", data[0x354]);
 
     if (changed(0x359))
-        setitem("sword", data[0x359]);
+        setitem("sword", (flags['swordmode'] == 'S' || data[0x359] == 0xFF) ? 0 : data[0x359]);
 
     if (changed(0x35A))
         setitem("shield", data[0x35A]);
@@ -399,8 +399,8 @@ function autotrackDoTracking(data) {
         setitem("tunic", data[0x35B] + 1);
 
     if (changed(0x37B))
-        seetitem("magic", data[0x37B] > 0);
-
+        setitem("magic", data[0x37B] > 0);
+	
     var prevbottles = -1;
     if (autotrackPrevData !== null)
         prevbottles = (autotrackPrevData[0x35C] == 0 ? 0 : 1) + (autotrackPrevData[0x35D] == 0 ? 0 : 1) + (autotrackPrevData[0x35E] == 0 ? 0 : 1) + (autotrackPrevData[0x35F] == 0 ? 0 : 1);
