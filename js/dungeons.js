@@ -155,7 +155,7 @@
 			}
 		}
 		
-		if (flags.ambrosia === 'Y' && chestcount === 1) {
+		if (flags.ambrosia === 'Y' && chestcount === 1 && !dungeons[dungeonid].is_beaten) {
 			switch (dungeonid) {
 				case 0:
 					return EPBoss();
@@ -379,7 +379,8 @@
     window.DPBoss = function() {
 		var dungeoncheck = enemizer_check(1);
 		if (!items.bigkey1 || dungeoncheck === 'unavailable' || items.glove === 0 || (!items.firerod && !items.lantern)) return 'unavailable';
-		if ((flags.wildkeys && !flags.wildbigkeys && (items.smallkey1 === 0 && flags.gametype != 'R')) || !items.boots) return 'possible';
+		if (flags.wildkeys && !flags.wildbigkeys && (items.smallkey1 === 0 && flags.gametype != 'R') && !items.boots) return 'possible';
+		if (!flags.wildkeys && !flags.wildbigkeys && !items.boots) return 'possible';
 		return dungeoncheck;
     };
 
