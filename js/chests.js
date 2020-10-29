@@ -1530,7 +1530,7 @@
 				caption: 'South of Grove',
 				is_opened: false,
 				is_available: function() {
-					return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : (items.mirror ? 'unavailable' : 'possible')) : 'unavailable';
+					return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'information') : 'unavailable';
 				}
 			}, { // [40]
 				caption: 'Graveyard Cliff Cave',
