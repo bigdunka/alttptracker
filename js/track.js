@@ -942,7 +942,6 @@
             dungeons[x].is_beaten = !dungeons[x].is_beaten;
 			if (document.getElementById('bossMap'+x) != null) {
 				document.getElementById('bossMap'+x).className = 'bossprize-' + prizes[x] + ' boss ' + (dungeons[x].is_beaten ? 'opened' : dungeons[x].is_beatable());
-				updateMapTracker();
 			}
         };
         window.toggle_agahnim = function() {
