@@ -426,7 +426,7 @@
 
     window.IPBoss = function() {
 		var dungeoncheck = enemizer_check(7);
-		if (!items.hammer || dungeoncheck == 'unavailable') return 'unavailable';
+		if (!items.hammer || items.glove === 0 || dungeoncheck == 'unavailable') return 'unavailable';
 		if (flags.wildbigkeys) {
 			if (!items.bigkey7 && !items.somaria && !items.hookshot) return 'unavailable';
 			if (!items.hookshot && items.somaria && !items.bigkey7) return 'possible';
@@ -1130,17 +1130,19 @@
 		
 		if (items.hammer) {
 			//Map Chest
-			if (flags.wildkeys) {
-				chests[2] = (items.hookshot || (items.smallkey7 > 0 || flags.gametype == 'R')) ? 'A' : 'U';			
-			} else {
-				chests[2] = (items.hookshot || items.somaria) ? (!flags.wildkeys ? 'K' : 'A') : 'P'; //Reserving as small key 2
-			}
+			if (items.glove > 0) {
+				if (flags.wildkeys) {
+					chests[2] = (items.hookshot || (items.smallkey7 > 0 || flags.gametype == 'R')) ? 'A' : 'U';			
+				} else {
+					chests[2] = (items.hookshot || items.somaria) ? (!flags.wildkeys ? 'K' : 'A') : 'P'; //Reserving as small key 2
+				}
 		
-			//Big Key Chest
-			if (flags.wildkeys) {
-				chests[3] = (items.hookshot || (items.smallkey7 > 0 || flags.gametype == 'R')) ? 'A' : 'U';
-			} else {
-				chests[3] = (items.hookshot || items.somaria) ? 'A' : 'P';
+				//Big Key Chest
+				if (flags.wildkeys) {
+					chests[3] = (items.hookshot || (items.smallkey7 > 0 || flags.gametype == 'R')) ? 'A' : 'U';
+				} else {
+					chests[3] = (items.hookshot || items.somaria) ? 'A' : 'P';
+				}
 			}
 
 			//Boss
