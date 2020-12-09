@@ -443,15 +443,31 @@ function importflags() {
 	switch (d.meta.dungeon_items) {
 		case "standard":
 			document.getElementById("dungeonstandard").checked = true;
+			document.getElementById("shuffledmaps").checked = false;
+			document.getElementById("shuffledcompasses").checked = false;
+			document.getElementById("shuffledsmallkeys").checked = false;
+			document.getElementById("shuffledbigkeys").checked = false;
 			break;
 		case "mc":
 			document.getElementById("dungeonmcshuffle").checked = true;
+			document.getElementById("shuffledmaps").checked = true;
+			document.getElementById("shuffledcompasses").checked = true;
+			document.getElementById("shuffledsmallkeys").checked = false;
+			document.getElementById("shuffledbigkeys").checked = false;
 			break;
 		case "mcs":
 			document.getElementById("dungeonmcsshuffle").checked = true;
+			document.getElementById("shuffledmaps").checked = true;
+			document.getElementById("shuffledcompasses").checked = true;
+			document.getElementById("shuffledsmallkeys").checked = true;
+			document.getElementById("shuffledbigkeys").checked = false;
 			break;
 		case "full":
 			document.getElementById("dungeonfullshuffle").checked = true;
+			document.getElementById("shuffledmaps").checked = true;
+			document.getElementById("shuffledcompasses").checked = true;
+			document.getElementById("shuffledsmallkeys").checked = true;
+			document.getElementById("shuffledbigkeys").checked = true;
 			break;
 	}
 	document.getElementById("placement" + d.meta.item_placement).checked = true;

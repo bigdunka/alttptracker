@@ -2169,7 +2169,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(10)) return 'available';
-				return canReachHCNorth() && (items.sword > 1 || items.cape || (flags.swordmode === 'S' && items.hammer)) ? 'available' : 'unavailable';
+				return canReachHCNorth() && (items.sword > 1 || items.cape || items.agahnim || (flags.swordmode === 'S' && items.hammer)) ? 'available' : 'unavailable';
 			}
 		}, { // [11]
 			caption: 'Hyrule Castle - Secret Entrance Stairs',
