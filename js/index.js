@@ -78,10 +78,6 @@ function launch_tracker() {
 		alert('NOTICE: Inverted OWG is currently not supported for logic, all locations will be flagged as available.');
 		glitches = 'M';
 	}
-	
-	if (entrance != 'N' && type === "I") {
-		alert('NOTICE: There is currently no logic implemented in Inverted Entrance, all locations will be flagged as available.');
-	}
 
 	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}{door}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{ambrosia}{autotracking}{trackingport}&sprite={sprite}{compact}&starting={startingboots}'
 			.replace('{tracker}', trackerName)

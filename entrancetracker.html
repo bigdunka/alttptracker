@@ -912,7 +912,19 @@
 			</div>
 		</div>	  
 		
-	  <script>start()</script>
+		<script>
+			if (flags.gametype === "I")	{
+				// hide Link's house chest
+				window.document.getElementById('locationMap1').style.visibility = 'hidden';
+				// move pyramid hole to top of Hyrule Castle, shift Hyrule Castle top entrance, and Hyrule Castle hole exit
+				window.document.getElementById('entranceMap10').style.top = "40.0%";
+				window.document.getElementById('entranceMap93').style.left = "25.7%";
+				window.document.getElementById('entranceMap93').style.top = "43.0%";
+				window.document.getElementById('entranceMap95').style.left = "23.2%";
+				window.document.getElementById('entranceMap95').style.top = "44.0%";
+			}
+			start();
+		</script>
 
 	</body>
 </html>
