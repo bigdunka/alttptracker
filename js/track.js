@@ -1370,6 +1370,7 @@
 	}
 	window.adjustFlags = function() {
 		var adjustForRetro = false;
+		var adjustForEntrance = false;
 		
 		//World State
 		if (document.getElementById('stateselect').value != flags.gametype)
@@ -1420,6 +1421,29 @@
 					loadChestFlags();
 				}
 			}
+			else
+			{
+				if (document.getElementById('stateselect').value === "I") {
+					window.document.getElementById('locationMap1').style.visibility = 'hidden';
+					window.document.getElementById('entranceMap10').style.top = "40.0%";
+					window.document.getElementById('entranceMap93').style.left = "25.7%";
+					window.document.getElementById('entranceMap93').style.top = "43.0%";
+					window.document.getElementById('entranceMap95').style.left = "23.2%";
+					window.document.getElementById('entranceMap95').style.top = "44.0%";
+				} else {
+					window.document.getElementById('locationMap1').style.visibility = 'inherit';
+					window.document.getElementById('entranceMap10').style.top = "42%";
+					window.document.getElementById('entranceMap93').style.left = "25.7%";
+					window.document.getElementById('entranceMap93').style.top = "42%";
+					window.document.getElementById('entranceMap95').style.left = "72.4%";
+					window.document.getElementById('entranceMap95').style.top = "50%";
+				}
+			}
+			
+			if (document.getElementById('entranceselect').value === "S") {
+				adjustForEntrance = true;
+			}
+			
 			flags.gametype = document.getElementById('stateselect').value;	
 		}
 		
@@ -1938,13 +1962,15 @@
 		}
 		
 		//Entrance
-		if (document.getElementById('entranceselect').value != flags.entrancemode) {
+		if (document.getElementById('entranceselect').value != flags.entrancemode || adjustForEntrance) {
 			var currentURL = window.location.href;
 			
 			if (document.getElementById('entranceselect').value === "N") {
 				currentURL = currentURL.replace("entrancetracker.html", "tracker.html");
 			} else {
-				currentURL = currentURL.replace("tracker.html", "entrancetracker.html");
+				if (currentURL.indexOf("entrancetracker.html") === -1) {
+					currentURL = currentURL.replace("tracker.html", "entrancetracker.html");
+				}
 			}
 			
 			var fParam = currentURL.substr(currentURL.indexOf("f=") + 2, 27);
@@ -2292,23 +2318,32 @@
 		}
 		
 		//Switch overworld locations if inverted
-		if (flags.gametype === 'I' && flags.entrancemode === 'N') {
-			document.getElementById('locationMap2').style.left = "77.4%";
-			document.getElementById('locationMap65').style.left = "74.5%";
-			document.getElementById('locationMap65').style.top = "5%";
-			
-			document.getElementById('locationMap66').style.left = "81.6%";
-			document.getElementById('locationMap66').style.top = "5%";
-			
-			document.getElementById('bossMapAgahnim').style.left = "78%";
-			document.getElementById('bossMapAgahnim').style.top = "4.5%";
-			document.getElementById('castle').style.left = "78%";
-			document.getElementById('castle').style.top = "4.5%";
-			
-			document.getElementById('bossMap10').style.left = "25%";
-			document.getElementById('bossMap10').style.top = "52.5%";
-			document.getElementById('dungeon10').style.left = "25%";
-			document.getElementById('dungeon10').style.top = "52.5%";
+		if (flags.gametype === 'I') {
+			if (flags.entrancemode === 'N') {
+				document.getElementById('locationMap2').style.left = "77.4%";
+				document.getElementById('locationMap65').style.left = "74.5%";
+				document.getElementById('locationMap65').style.top = "5%";
+				
+				document.getElementById('locationMap66').style.left = "81.6%";
+				document.getElementById('locationMap66').style.top = "5%";
+				
+				document.getElementById('bossMapAgahnim').style.left = "78%";
+				document.getElementById('bossMapAgahnim').style.top = "4.5%";
+				document.getElementById('castle').style.left = "78%";
+				document.getElementById('castle').style.top = "4.5%";
+				
+				document.getElementById('bossMap10').style.left = "25%";
+				document.getElementById('bossMap10').style.top = "52.5%";
+				document.getElementById('dungeon10').style.left = "25%";
+				document.getElementById('dungeon10').style.top = "52.5%";
+			} else {
+				window.document.getElementById('locationMap1').style.visibility = 'hidden';
+				window.document.getElementById('entranceMap10').style.top = "40.0%";
+				window.document.getElementById('entranceMap93').style.left = "25.7%";
+				window.document.getElementById('entranceMap93').style.top = "43.0%";
+				window.document.getElementById('entranceMap95').style.left = "23.2%";
+				window.document.getElementById('entranceMap95').style.top = "44.0%";
+			}
 		}
 
 		//If big keys are not shuffled, hide the icons

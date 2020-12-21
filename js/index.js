@@ -79,10 +79,6 @@ function launch_tracker() {
 		glitches = 'M';
 	}
 	
-	if (entrance != 'N' && type === "I") {
-		alert('NOTICE: There is currently no logic implemented in Inverted Entrance, all locations will be flagged as available.');
-	}
-
 	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}{door}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{ambrosia}{autotracking}{trackingport}&sprite={sprite}{compact}&starting={startingboots}'
 			.replace('{tracker}', trackerName)
 			.replace('{type}', type)
@@ -406,6 +402,32 @@ function loadinvrosiapreset() {
 	window.scrollTo(0,document.body.scrollHeight);		
 	
 }
+
+function loadstandardpreset() {
+	document.getElementById("gametypestandard").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonstandard").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("startingbootsno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+
 
 function importflags() {
 	var i = document.getElementById("importflag").value;
