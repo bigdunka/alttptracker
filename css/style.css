@@ -27,6 +27,10 @@ body {
 #tracker [id^="smallkey"] { width: 64px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 0px; padding-left: 32px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 #tracker [id^="smallkeyhalf"] { width: 32px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 6px; padding-left: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 #tracker [id^="smallhalfheader"] { width: 32px; height: 16px; color: #FFF; font-size: 9px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 2px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
+#tracker .compass { width: 32px; height: 32px; display: none; }
+#tracker [id$="skdiv"] { width: 64px; height: 32px; }
+#tracker .withcompass .compass { display: block; }
+#tracker .withcompass [id^="smallkey"] { width: 32px; text-align: right; padding-top: 8px; padding-left: 4px; padding-right: 2px; float: left; background-image: url(../images/dungeons/smallkeyhalf.png); }
 
 #tracker .item.half { width: 32px; height: 32px; position: absolute; }
 #tracker .tunic { width: 128px; height: 128px; }
@@ -112,6 +116,7 @@ body {
 
 .lowerchest {
   width: 64px;
+  height: 64px;
   float: left;
 }
 
@@ -164,7 +169,7 @@ body {
 .darkavailable { background-color: blue; }
 .darkpossible { background-color: purple; } 
 .opened { background-color: #7f7f7f; }
-.hidden { width: 0px; height: 0px; }
+.hidden { width: 0px!important; height: 0px!important; }
 
 #caption {
   width: 100%;
@@ -269,6 +274,7 @@ body {
 .flippers { background-image: url(../images/items/flippers.png); }
 .flute { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image: url(../images/items/flute.png); }
 .magic { background-image: url(../images/items/magic.png); }
+.half.magic { width: 32px; height: 32px; background-size: 32px; top: 32px; left: 0; background-image: url(../images/items/magic.png); }
 .agahnim, #bossMapAgahnim { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image:url(../images/dungeons/agahnim0.png); }
 .agahnim.active { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image:url(../images/dungeons/agahnim1.png); }
 .agahnim2 { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image:url(../images/dungeons/agahnim20.png); }
@@ -284,6 +290,8 @@ body {
 .boss8 { background-image: url(../images/dungeons/boss8.png); }
 .boss9 { background-image: url(../images/dungeons/boss9.png); }
 .boss10, #bossmap10 { background-image: url(../images/dungeons/boss10.png); }
+#bossmap11 { background-image: url(../images/dungeons/ballnchain.png); }
+#bossmap12 { background-image: url(../images/dungeons/agahnim0.png); }
 .bossprize-0 { background-image: url(../images/dungeons/bossicon0.png); }
 .bossprize-1 { background-image: url(../images/dungeons/bossicon1.png); }
 .bossprize-2 { background-image: url(../images/dungeons/bossicon2.png); }
@@ -317,6 +325,7 @@ body {
 .bigkey { background-image: url(../images/dungeons/bigkey.png); }
 .smallkeyfull { background-image: url(../images/dungeons/smallkeyfull.png); }
 .smallkeyhalf { background-image: url(../images/dungeons/smallkeyhalf.png); }
+.compass { background-image: url(../images/dungeons/compass.png); }
 .bombfloor-0 { background-image: url(../images/dungeons/bombablefloor0.png); }
 .bombfloor-1 { background-image: url(../images/dungeons/bombablefloor1.png); }
 
@@ -347,8 +356,8 @@ body {
 #bossMap8, #dungeon8 { left: 55.8%; top: 82.9%; }
 #bossMap9, #dungeon9 { left: 96.9%; top: 7.0%; }
 #bossMap10, #dungeon10 { left: 79.0%; top: 5.5%; }
-
-#bossMapAgahnim, #castle { left: 25.0%; top: 52.6%; }
+#bossMap11, #dungeon11 { left: 25.0%; top: 37.5%; }
+#bossMapAgahnim, #castle, #bossMap12, #dungeon12 { left: 25.0%; top: 52.6%; }
 
 #locationMap0 { left: 30.8%; top: 29.6%; }
 #locationMap1 { left: 23.4%; top: 93.4%; }

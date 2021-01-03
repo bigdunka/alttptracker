@@ -492,7 +492,7 @@ function importflags() {
 			document.getElementById("shuffledbigkeys").checked = true;
 			break;
 	}
-	document.getElementById("placement" + d.meta.item_placement).checked = true;
+	//document.getElementById("placement" + d.meta.item_placement).checked = true;
 	
 	switch (d.meta.goal) {
 		case "ganon":

@@ -9,35 +9,53 @@
 			label { width: 5em; display: inline-block; }
 			div { margin: 5px 0; }
 			a { color: lightblue; }
+			b { font-size: 22px; }
+			h2 { font-size: 36px; }
+			h3 { font-size: 30px; }
 		</style>
 		<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
 		
 		<script>
+			const sectionnames = ['launcher','item','map','entrance','dungeon','auto'];
+
 			function showsection(x) {
 				document.getElementById('launchersection').style.display = 'none';
 				document.getElementById('itemsection').style.display = 'none';
-				document.getElementById('mapesction').style.display = 'none';
+				document.getElementById('mapsection').style.display = 'none';
 				document.getElementById('entrancesection').style.display = 'none';
-				document.getElementById('doorsection').style.display = 'none';
+				document.getElementById('dungeonsection').style.display = 'none';
 				document.getElementById('autosection').style.display = 'none';
 
 				document.getElementById(x).style.display = 'block';
 			}
+
+			function loadFromAnchor() {
+				let split = document.URL.toLowerCase().split('#');
+				if(split.length == 2 && sectionnames.includes(split[1]))
+				{
+					showsection(split[1]+'section');
+				}
+			}
+
+			function start() {
+				window.addEventListener('hashchange',function(){loadFromAnchor();});
+				loadFromAnchor();
+			}
 		</script>
 	</head>
-	<body background="./images/overlay/background.png">
+	<body background="./images/overlay/background.png" onload="start()">
 		<div style="padding: 20px;">
 			<button type="button" onclick="window.location.href = 'index.html';" style="width: 200px; text-align: center; font-family: 'roboto_condensedregular', Arial, Helvetica, sans-serif;"><== RETURN TO MAIN</button><br><br>
 			<div style="width:300px; color: white; font-size: 24px; float: left;">
 				View Section<br><br>
-				<a href="#" onclick="showsection('launchersection');" style="color: white">Using the Launcher</a><br>
-				<a href="#" onclick="showsection('itemsection');" style="color: white">Using the Item Tracker</a><br>
-				<a href="#" onclick="showsection('mapesction');" style="color: white">Using the Map Tracker</a><br>
-				<a href="#" onclick="showsection('entrancesection');" style="color: white">Using the Entrance Tracker</a><br>
-				<a href="#" onclick="showsection('doorsection');" style="color: white">Using the Door Tracker</a><br>
-				<a href="#" onclick="showsection('autosection');" style="color: white">Using the Autotracker</a><br>
+				<a href="#launcher" style="color: white">Using the Launcher</a><br>
+				<a href="#item" style="color: white">Using the Item Tracker</a><br>
+				<a href="#map" style="color: white">Using the Map Tracker</a><br>
+				<a href="#entrance" style="color: white">Using the Entrance Tracker</a><br>
+				<a href="#dungeon" style="color: white">Using the Dungeon Tracker</a><br>
+				<a href="#auto" style="color: white">Using the Autotracker</a><br>
 			</div>
 		</div>
 		<div id="launchersection" class="instructionsDiv">
@@ -89,7 +107,7 @@
 			<br>
 		</div>
 
-		<div id="mapesction" style="display: none;" class="instructionsDiv">
+		<div id="mapsection" style="display: none;" class="instructionsDiv">
 			<center><h2>Using the Map Tracker</h2></center>
 			If you have chosen to use the map tracker, it will appear to the left of the item tracker in normal mode, and below the item tracker in compact mode. For these examples, we will be using the normal map tracker, but the functionality is the same. Locations in the normal map tracker are split between overworld locations and dungeons. Overworld locations are shown with normal squares, where dungeons are shown by larger squares with adjustable icons in the middle. Each of these are also color coded and change depending on your item tracker, to show you what locations are available to be cleared. They go as follows:<br><br>
 			Green: Can be obtained<br>
@@ -131,21 +149,23 @@
 			As a recommendation, when a dungeon is completed, or when a key location has been used and is no longer important, remove the information from the map. It can get quite busy and it will make it easier to read. There is currently no feature in the entrance tracker to show dungeon items and what are available, but that feature is coming "Soon".<br>
 		</div>
 
-		<div id="doorsection" style="display: none;" class="instructionsDiv">
-			<center><h2>Using the Door Tracker</h2></center>
-			The Dungeon Tracker is a helpful tool when playing with Door Shuffle. It can help you remember paths in a dungeon for later, solve switch or key puzzles or remember which item is needed for a path. When Door Shuffle is enabled, click on the map icon next to the player sprite to open a new window with the Dungeon Tracker. If you have more space, we recommend enlarging this window so that more and longer paths can fit in there without needing to scroll.<br><br>
+		<div id="dungeonsection" style="display: none;" class="instructionsDiv">
+			<center><h2>Using the Dungeon Tracker</h2></center>
+			The Dungeon Tracker is a helpful tool when playing with Door Shuffle. It can help you remember paths in a dungeon for later, solve switch or key puzzles or remember which item is needed for a path.<br>
+			When <b>Door Shuffle</b> is enabled, click on the map icon next to the player sprite to open a new window with the Dungeon Tracker. If you have more space, we recommend enlarging this window so that more and longer paths can fit in there without needing to scroll.<br><br>
 			<br>
 			<center><img src="./images/overlay/instructions16.png" style="width: 1100px;"></center>
 			<br>
+			<h3>Dungeon path tracking</h3>
 			<table style="color: #fff; font-size: 20px;">
 				<tr><td style="width: 100px"><b>Game:</b></td><td>You enter a dungeon.</td></tr>
-				<tr><td><b>Tracker:</b></td><td>If on the overview screen, click on the respective dungeon, usually represented by its vanilla boss. Then, under "Start a new path", click on the entrance you're taking.</td></tr>
+				<tr><td><b>Tracker:</b></td><td>If on the overview screen, click on the respective dungeon, usually represented by its vanilla boss. Then, under <b>Start a new path</b>, click on the entrance you're taking (if there are multiple). If Lobby Shuffle is enabled, we recommend that you associate every entrance with a number, depending on the order in which you first came across them.</td></tr>
 				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You come across a branching point and pick one of the available directions that you'll be following next.</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/arrowright.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on an arrow or quadrant marker that depicts the choice you made in the game. It doesn't matter which symbol you choose as long as you understand what it means when you revisit this room later.</td></tr>
+				<tr><td><b>Game:</b></td><td>You come across a branching point and pick one of the available directions that you'll be following next.</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/arrowright.png"><img class="dtsymbol" src="images/dungeons/quadranttopleft.png"></tr>
+				<tr><td><b>Tracker:</b></td><td>Click on an arrow or quadrant marker that depicts the choice you made in the game. The symbols in the middle of the arrows can be used to depict a hole or warp tile in a specific quadrant of the room. It doesn't matter which symbol you choose as long as you understand what it means when you revisit this room later.</td></tr>
 				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You find a big branching point (hub-like room). In addition to marking the next direction, you want to remember the room itself for later.</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/arrowright.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on "Insert room node" and then on the room you just found. By default, this will append this room to the current path, save it, and start a new path at this node. If you just want to insert the node and keep working on the current path, uncheck "Split path at this node" before clicking on the room.</td></tr>
+				<tr><td><b>Game:</b></td><td>You find a big branching point (hub-like room). In addition to marking the next direction, you want to remember the room itself for later.</td><td rowspan="2"><img class="dtsymbol" style="transform: rotate(180deg);" src="images/dungeons/arrowright.png"></tr>
+				<tr><td><b>Tracker:</b></td><td>Click on <b>Insert room node</b> and then on the room you just found. By default, this will append this room to the current path, save it, and start a new path at this node. If you just want to insert the node and keep working on the current path, uncheck <b>Split path at this node</b> before clicking on the room.</td></tr>
 				<tr><td><br></td></tr>
 				<tr><td><b>Game:</b></td><td>You come across a crystal switch.</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/crystalswitch.png"></tr>
 				<tr><td><b>Tracker:</b></td><td>Click on the crystal switch symbol. If a specific switch state is needed elsewhere, you might be able to use this switch for that.</td></tr>
@@ -159,29 +179,53 @@
 				<tr><td><b>Game:</b></td><td>You died on the way or for some other reason didn't continue this path and might need to repeat it later.</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/prize0.png"></tr>
 				<tr><td><b>Tracker:</b></td><td>Click on the question mark symbol. This will mark this path as unfinished.</td></tr>
 				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>An item you don't currently have is needed.</td><td rowspan="2"><img class="dtsymbol" style="width: 32px; height: 32px;" src="images/items/bow2.png"><img class="dtsymbol" src="images/dungeons/torch.png"></tr>
+				<tr><td><b>Game:</b></td><td>An item you don't currently have is needed.</td><td rowspan="2"><img class="dtsymbol" style="width: 32px; height: 32px;" src="images/items/bow1.png"><img class="dtsymbol" src="images/dungeons/torch.png"></tr>
 				<tr><td><b>Tracker:</b></td><td>Click on the symbol representing that item. Some symbols, like the torch, indicate that one of multiple items is needed.</td></tr>
 				<tr><td><br></td></tr>
 				<tr><td><b>Game:</b></td><td>You are (for now) done with the current path (and marked it appropriately) and want to head back to the last branching point and take a different path from there. This usually happens after a dead end, looping back to a previous point or getting blocked by an item requirement.</td></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on "Fork at last direction". This will save the path you just finished traversing for later, and copy everything before the last branch to this new path you're creating now. The next click should be for the direction of the new path you're trying.</td></tr>
+				<tr><td><b>Tracker:</b></td><td>Click on <b>Fork at last direction</b>. This will save the path you just finished traversing for later, and copy everything before the last branch to this new path you're creating now. The next click should be for the direction of the new path you're trying.</td></tr>
 				<tr><td><br></td></tr>
 				<tr><td><b>Game:</b></td><td>You are (for now) done with the current path (and marked it appropriately) and want to either leave the dungeon or try a completely different path.</td></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on "Save and close path". This will save the path you just finished traversing for later, and return you to the path list of the current dungeon. If you want to leave the dungeon, click on its name or symbol at the top.</td></tr>
+				<tr><td><b>Tracker:</b></td><td>Click on <b>Save and close path</b>. This will save the path you just finished traversing for later, and return you to the path list of the current dungeon. If you want to leave the dungeon, click on its name or symbol at the top.</td></tr>
 				<tr><td><br></td></tr>
 				<tr><td><b>Game:</b></td><td>You want to continue a previously unfinished path or create a new path based in some way on an existing path.</td></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on the path and then on "Edit path", "Duplicate" or "Fork", depending on what best fits your need. Note that if you do this while editing another path, your changes won't get saved.</td></tr>
+				<tr><td><b>Tracker:</b></td><td>Click on the path and then on <b>Edit path</b>, <b>Duplicate</b> or <b>Fork</b>, depending on what best fits your need. Note that if you do this while editing another path, your changes won't get saved.</td></tr>
 				<tr><td><br></td></tr>
 				<tr><td><b>Game:</b></td><td>You have fully cleared the current dungeon and know that you won't ever have to come back to it for an item, the boss, the Thieves' Town attic bombable floor or a new connection to a different dungeon exit.</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/keychest0.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Next to "Your paths", click on "Mark dungeon completed". This will send you back to the overview and there hide any item requirements that were added for this dungeon.</td></tr>
+				<tr><td><b>Tracker:</b></td><td>Next to <b>Your paths</b>, click on <b>Mark dungeon completed</b>. This will send you back to the dungeon overview and there hide any item requirements that were added for this dungeon.</td></tr>
 			</table>
 			<br>
-			<center><img src="./images/overlay/instructions17.png" ></center>
+			<center><img src="./images/overlay/instructions17.png"><img style="margin: 0px 8px;" src="./images/overlay/instructions18.png"><img src="./images/overlay/instructions25.png"></center>
 			<br>
-			<br>
-			<center><img src="./images/overlay/instructions18.png" ></center>
-			<br>
-			
-			These are just recommendations. For every situation, it's up to you how you want to mark it. It will take some practice to get used to tracking while playing without losing time. At the beginning, don't hesitate to pause the game whenever you need more time to track properly.
+			Some additional ideas can be found by clicking on <b>Hints</b>.<br>
+			All of these are just recommendations. For every situation, it's up to you how you want to mark it. It will take some practice to get used to tracking while playing without losing time. At the beginning, don't hesitate to pause the game whenever you need more time to track properly.
+			<br><br>
+			<h3>Settings and saving</h3>
+			These should depend on the settings of the seed, but can be changed independently of the main tracker window based on preference.<br>
+			In <b>Crossed</b> Door Shuffle, the tracker allows you to place every symbol and almost every available rooms in any dungeon. In <b>Basic</b>, you can use the Flippers symbol and SP Hub node only in Swamp Palace, for example.<br>
+			If <b>Lobby Shuffle</b> is enabled, there are nodes for generic dungeon entrances and the Sanctuary can be used as an entrance point in any dungeon. Otherwise, the entrance rooms for every dungeon are fixed and the Sanctuary is always part of Hyrule Castle.<br>
+			You can decide whether <b>Small Keys</b> or <b>Big Keys</b> should be included in the dungeon overview. The main intention is that, if all keys are in their respective dungeons in your seed, information about where keys are needed is only important while in that dungeon.<br><br>
+			If your browser supports and permits Local Storage, you can save your entire tracking progress in this window by clicking on <b>Save data</b> to the right of <b>Manual save:</b>. If you continue playing the seed at some later point, just click on <b>Load data</b> to the left.<br>
+			Even if you forgot to save manually, there's a chance your progress is still automatically saved. Click on <b>Load data</b> next to <b>Auto-save:</b> to try.<br>
+			Your currently loaded tracked paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.
+			<br><br>
+			<h3>Example: Vanilla Palace of Darkness</h3>
+			Let us demonstrate the techniques described above with a specific example: Palace of Darkness like it would be without Door Shuffle. Lobby Shuffle will be off for this example.<br><br>
+			When you enter this dungeon in the game, in the dungeon tracker at the dungeon overview click on Helmasaur King to load Palace of Darkness.<br>
+			Under <b>Start a new path</b>, click on the entrance room. (If Lobby Shuffle was enabled, there would instead be a generic dungeon entrance to click on.)<br>
+			In the game, you start off with 3 choices: left staircase, door straight up or right staircase. First, take the left path. Click on a fitting arrow, like <img class="dtsymbol" style="width: 32px; height: 32px; transform: rotate(270deg);" src="images/dungeons/arrowrightup.png">, to append this symbol to the current path.<br>
+			The next room is a dead end that you don't ever have to return to. Open the chest and go back to the beginning. In the tracker, you can mark this dead end with <img class="dtsymbol" src="images/dungeons/keychest0.png">.<br>
+			<center><img src="./images/overlay/instructions22.png"></center>
+			Now you want to try a different path. To save the path you have just finished up and return to the last branching point, click on <b>Fork at last direction</b>.<br>
+			Next, click on <img class="dtsymbol" style="transform: rotate(270deg);" src="images/dungeons/arrowright.png"> to try the middle path.<br>
+			This path is blocked by a key door. Let us assume that you have a key, but want to try the other remaining path before spending it. Click on <img class="dtsymbol" src="images/dungeons/smallkey.png"> to mark what is blocking the path.<br>
+			<center><img src="./images/overlay/instructions23.png"></center>
+			Click on <b>Fork at last direction</b> and then try the right staircase by clicking on <img class="dtsymbol" style="transform: rotate(270deg);" src="images/dungeons/arrowrightdown.png">.<br>
+			The next couple rooms follow a linear path so you don't have to add any markers for them...until you get to the Mimics. You don't have a bow, so click on <img class="dtsymbol" style="width: 32px; height: 32px;" src="images/items/bow1.png"> and then either <b>Fork at last direction</b> or <b>Save and close path</b>. In the game, go back to the dungeon entrance.<br>
+			<center><img src="./images/overlay/instructions24.png"></center>
+			You decide to spend your key to follow the middle path. Either click on the up arrow again on a new path, or click on the path you have previously saved, then <b>Edit</b>, and continue from there. It's up to you if you want to keep the small key symbol or delete it with <b>Delete last step</b>.<br>
+			In the game, following this path, you get to what the tracker calls the Pit Room. There are a lot of branching paths from here, so if you want, you can insert a node specifically for this room into the path. Click on <b>Insert room node</b> and on the Pit Room.<br>
+			From here on, decide on the next path you want to try and mark every decision with an arrow or quadrant marker. Most rooms with branching paths don't have a unique node in the tracker as the intention for tracking is to require few clicks and not much searching for the right room.
 		</div>
 
 		<div id="autosection" style="display: none;" class="instructionsDiv">

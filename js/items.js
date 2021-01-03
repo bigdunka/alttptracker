@@ -66,6 +66,22 @@
 	var chests8 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
 	var chests9 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
 	var chests10 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 20 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
+	var chests11 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 6 + (flags.wildmaps ? 1 : 0) + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+	var chests12 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : ((flags.wildkeys || flags.gametype === 'R') ? 2 : 0);
+		
+    var maxchests0 = flags.doorshuffle === 'C' ? 32 : chests0;
+    var maxchests1 = flags.doorshuffle === 'C' ? 32 : chests1;
+    var maxchests2 = flags.doorshuffle === 'C' ? 32 : chests2;
+    var maxchests3 = flags.doorshuffle === 'C' ? 32 : chests3;
+    var maxchests4 = flags.doorshuffle === 'C' ? 32 : chests4;
+    var maxchests5 = flags.doorshuffle === 'C' ? 32 : chests5;
+    var maxchests6 = flags.doorshuffle === 'C' ? 32 : chests6;
+    var maxchests7 = flags.doorshuffle === 'C' ? 32 : chests7;
+    var maxchests8 = flags.doorshuffle === 'C' ? 32 : chests8;
+    var maxchests9 = flags.doorshuffle === 'C' ? 32 : chests9;
+    var maxchests10 = flags.doorshuffle === 'C' ? 32 : chests10;
+    var maxchests11 = flags.doorshuffle === 'C' ? 32 : chests11;
+    var maxchests12 = flags.doorshuffle === 'C' ? 32 : chests12;
 	
     window.items = {
         tunic: 1,
@@ -129,18 +145,36 @@
         chest8: chests8,
         chest9: chests9,
 		chest10: chests10,
+		chest11: chests11,
+		chest12: chests12,
 		
-        maxchest0: chests0,
-        maxchest1: chests1,
-        maxchest2: chests2,
-        maxchest3: chests3,
-        maxchest4: chests4,
-        maxchest5: chests5,
-        maxchest6: chests6,
-        maxchest7: chests7,
-        maxchest8: chests8,
-        maxchest9: chests9,
-		maxchest10: chests10,
+        maxchest0: maxchests0,
+        maxchest1: maxchests1,
+        maxchest2: maxchests2,
+        maxchest3: maxchests3,
+        maxchest4: maxchests4,
+        maxchest5: maxchests5,
+        maxchest6: maxchests6,
+        maxchest7: maxchests7,
+        maxchest8: maxchests8,
+        maxchest9: maxchests9,
+		maxchest10: maxchests10,
+		maxchest11: maxchests11,
+		maxchest12: maxchests12,
+
+        chestknown0: false,
+        chestknown1: false,
+        chestknown2: false,
+        chestknown3: false,
+        chestknown4: false,
+        chestknown5: false,
+        chestknown6: false,
+        chestknown7: false,
+        chestknown8: false,
+        chestknown9: false,
+        chestknown10: false,
+        chestknown11: false,
+        chestknown12: false,
 
 		bigkey0: !flags.wildbigkeys,
 		bigkey1: !flags.wildbigkeys,
@@ -191,30 +225,34 @@
 			smallkey10: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 4 },
 			smallkeyhalf0: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
 			smallkeyhalf1: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 2 },
-			chest0: { min: 0, max: chests0 },
-			chest1: { min: 0, max: chests1 },
-			chest2: { min: 0, max: chests2 },
-			chest3: { min: 0, max: chests3 },
-			chest4: { min: 0, max: chests4 },
-			chest5: { min: 0, max: chests5 },
-			chest6: { min: 0, max: chests6 },
-			chest7: { min: 0, max: chests7 },
-			chest8: { min: 0, max: chests8 },
-			chest9: { min: 0, max: chests9 },
-			chest10: { min: 0, max: chests10 }
+			chest0: { min: 0, max: maxchests0 },
+			chest1: { min: 0, max: maxchests1 },
+			chest2: { min: 0, max: maxchests2 },
+			chest3: { min: 0, max: maxchests3 },
+			chest4: { min: 0, max: maxchests4 },
+			chest5: { min: 0, max: maxchests5 },
+			chest6: { min: 0, max: maxchests6 },
+			chest7: { min: 0, max: maxchests7 },
+			chest8: { min: 0, max: maxchests8 },
+			chest9: { min: 0, max: maxchests9 },
+			chest10: { min: 0, max: maxchests10 },
+			chest11: { min: 0, max: maxchests11 },
+			chest12: { min: 0, max: maxchests12 }
         }),
         dec: limit(-1, {
-			chest0: { max: chests0 },
-            chest1: { max: chests1 },
-            chest2: { max: chests2 },
-            chest3: { max: chests3 },
-            chest4: { max: chests4 },
-            chest5: { max: chests5 },
-            chest6: { max: chests6 },
-            chest7: { max: chests7 },
-            chest8: { max: chests8 },
-            chest9: { max: chests9 },
-			chest10: { max: chests10 },
+			chest0: { max: maxchests0 },
+            chest1: { max: maxchests1 },
+            chest2: { max: maxchests2 },
+            chest3: { max: maxchests3 },
+            chest4: { max: maxchests4 },
+            chest5: { max: maxchests5 },
+            chest6: { max: maxchests6 },
+            chest7: { max: maxchests7 },
+            chest8: { max: maxchests8 },
+            chest9: { max: maxchests9 },
+			chest10: { max: maxchests10 },
+            chest11: { max: maxchests11 },
+			chest12: { max: maxchests12 },
 			smallkey0: { max: flags.doorshuffle === 'C' ? 29 : 0 },
             smallkey1: { max: flags.doorshuffle === 'C' ? 29 : 1 },
             smallkey2: { max: flags.doorshuffle === 'C' ? 29 : 1 },

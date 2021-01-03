@@ -2,6 +2,7 @@
 	'use strict';
 	let query = uri_query();
 	window.doorshuffle = 'C';
+	window.lobbyshuffle = true;
 	window.excludesmallkeys = true;
 	window.excludebigkeys = true;
 
@@ -12,10 +13,16 @@
 	const dungeonNamesShort = ["EP", "DP", "ToH", "PoD", "SP", "SW", "TT", "IP", "MM", "TR", "GT", "HC", "CT"];
 
 	window.dungeonEntrances = [];
+	window.lobbyEntrances = [];
+	window.lobbySanctuary = null;
+	window.lobbySW = [];
+	window.lobbyTT = [];
+	window.lobbyHC = [];
 	window.dungeonImportant = [];
 	window.roomMap = [];
 	window.directions = [];
 	window.objects = [];
+	window.switchobjects = [];
 	window.items = [];
 	window.bosses = [];
 	window.symbolMap = [];
@@ -24,7 +31,8 @@
 	{
 		loadDungeonSummaries();
 		updateStatistics();
-		switchScene('overview');
+		if(document.getElementById("pathlist").style.display != "none" || document.getElementById("pathedit").style.display != "none")
+			switchScene('overview');
 	};
 
 	window.loadDungeonSummaries = function()
@@ -98,10 +106,7 @@
 
 	window.updateStartRooms = function()
 	{
-		let starts = "";
-		for(let k = 0; k < dungeonEntrances.length; k++)
-			if(dungeonEntrances[k].dungeon === currentDungeon)
-				starts += createRoomNode(dungeonEntrances[k],false,"startPath");
+		let starts = createEntranceNodes(false,"startPath");
 		document.getElementById("dungeonentrances").innerHTML = starts;
 		starts = "";
 		if(document.getElementById("showmorerooms").checked)
@@ -166,31 +171,44 @@
 
 	window.createRoomNode = function(room,showDungeonName = false,clickAction = "startPath",left = null)
 	{
-		let x = room.supertile%16*128.5+.5;
-		let y = Math.floor(room.supertile/16)*128.5+.5;
-		let scale = .5;
-		let name = showDungeonName ?dungeonNamesShort[room.dungeon]+" "+room.name :room.name;
-		let onClick = clickAction === "startPath" ?"startPath(\""+room.id+"\")" :(clickAction === "append" ?"appendToPath(\""+room.id+"\"); hideRoomModal()" :"");
-		switch(room.part)
+		let file,x,y,scale,classes = "roomnode",name;
+		if(room.file)
 		{
-			case "topleft":
-				scale = 1;
-				break;
-			case "topright":
-				scale = 1;
-				x += 64;
-				break;
-			case "bottomleft":
-				scale = 1;
-				y += 64;
-				break;
-			case "bottomright":
-				scale = 1;
-				x += 64;
-				y += 64;
-				break;
+			file = room.file;
+			x = y = 0;
+			scale = 1;
+			classes += " slim";
+			name = room.name;
 		}
-		return "<div class='roomnode' onClick='"+onClick+"'"+(left ?" style='left: "+left+"px;'" :"")+"><img class='roomnodeimg' src='./images/dungeons/eg1.png' style='transform: scale("+scale+") translateX(-"+x+"px) translateY(-"+y+"px);'><span class='roomtt'><label class='ttlabel'>"+name+"</label></span></div>";
+		else
+		{
+			file = "eg1";
+			x = room.supertile%16*128.5+.5;
+			y = Math.floor(room.supertile/16)*128.5+.5;
+			scale = .5;
+			name = showDungeonName ?dungeonNamesShort[room.dungeon]+" "+room.name :room.name;
+			switch(room.part)
+			{
+				case "topleft":
+					scale = 1;
+					break;
+				case "topright":
+					scale = 1;
+					x += 64;
+					break;
+				case "bottomleft":
+					scale = 1;
+					y += 64;
+					break;
+				case "bottomright":
+					scale = 1;
+					x += 64;
+					y += 64;
+					break;
+			}
+		}
+		let onClick = clickAction === "startPath" ?"startPath(\""+room.id+"\")" :(clickAction === "append" ?"appendToPath(\""+room.id+"\"); hideRoomModal()" :"");
+		return "<div class='"+classes+"' onClick='"+onClick+"'"+(left ?" style='left: "+left+"px;'" :"")+"><img class='roomnodeimg' src='./images/dungeons/"+file+".png' style='transform: scale("+scale+") translateX(-"+x+"px) translateY(-"+y+"px);'><span class='roomtt'><label class='ttlabel'>"+name+"</label></span></div>";
 	};
 
 	window.createSymbolNode = function(symbol,left,top,small = false)
@@ -209,11 +227,12 @@
 				let id = path.substring(k,k+2);
 				switch(id[0])
 				{
-				case '0'://Entrance room
+				case '0'://Entrance room (no Lobby Shuffle)
 				case '1'://Important room
+				case '2'://Entrance (Lobby Shuffle)
 					left = Math.max(topEdge,bottomEdge);
 					s += createRoomNode(roomMap[id],doorshuffle === 'C',"nothing",left);
-					topEdge = bottomEdge = left+64;
+					topEdge = bottomEdge = left+(roomMap[id].file ?32 :64);
 					break;
 				case 'd'://Direction
 					left = topEdge < bottomEdge ?bottomEdge-16 :topEdge;
@@ -221,7 +240,8 @@
 					lastBranch = left;
 					topEdge = left+32;
 					break;
-				case 'o'://Object or marker that affects routing 
+				case 'o'://Object or marker that affects routing
+				case 's'://Switches and levers
 				case 'i'://Item requirement
 				case 'b'://Boss
 					left = bottomEdge < topEdge ?topEdge-16 :bottomEdge;
@@ -357,7 +377,7 @@
 	window.appendToPath = function(id)
 	{
 		currentPath += id;
-		if((id[0] == '0' || id[0] == '1') && document.getElementById("splitpath").checked)
+		if((id[0] == '0' || id[0] == '1' || id[0] == '2') && document.getElementById("splitpath").checked)
 		{
 			let indexNew = currentlyEditing ?editingIndex :0;
 			savePath();
@@ -476,6 +496,7 @@
 	{
 		drawSymbols(directions,"directionicons",'d');
 		drawSymbols(objects,"objecticons",'o');
+		drawSymbols(switchobjects,"switchicons",'s');
 		drawSymbols(items,"itemicons",'i');
 		drawSymbols(bosses,"bossicons",'b');
 	};
@@ -508,8 +529,15 @@
 
 	window.sendUpdate = function()
 	{
+		try
+		{
+			saveAuto();
+		}
+		catch(error)
+		{
+		}
 		if(window.opener && !window.opener.closed)
-			window.opener.postMessage(dungeonPaths,"*");
+			window.opener.postMessage(allData(),"*");
 	};
 
 	window.showClickPathModal = function(index)
@@ -537,12 +565,52 @@
 		document.getElementById("hintModal").style.display = "none";
 	};
 
-	window.showRoomModal = function()
+	window.createEntranceNodes = function(showDungeonName,clickAction)
 	{
 		let starts = "";
-		for(let k = 0; k < dungeonEntrances.length; k++)
-			if(dungeonEntrances[k].dungeon === currentDungeon)
-				starts += createRoomNode(dungeonEntrances[k],doorshuffle === 'C',"append");
+		if(lobbyshuffle)
+		{
+			switch(currentDungeon)
+			{
+				case 5:
+					for(let k = 1; k < lobbyEntrances.length; k++)
+						starts += createRoomNode(lobbyEntrances[k],showDungeonName,clickAction);
+					for(let k = 0; k < lobbySW.length; k++)
+						starts += createRoomNode(lobbySW[k],showDungeonName,clickAction);
+					break;
+				case 6:
+					starts += createRoomNode(lobbyEntrances[0],showDungeonName,clickAction);
+					for(let k = 0; k < lobbyTT.length; k++)
+						starts += createRoomNode(lobbyTT[k],showDungeonName,clickAction);
+					break;
+				case 11:
+					for(let k = 1; k < lobbyEntrances.length; k++)
+						starts += createRoomNode(lobbyEntrances[k],showDungeonName,clickAction);
+					for(let k = 0; k < lobbyHC.length; k++)
+						starts += createRoomNode(lobbyHC[k],showDungeonName,clickAction);
+					break;
+				case 1:
+				case 9:
+					for(let k = 1; k < lobbyEntrances.length; k++)
+						starts += createRoomNode(lobbyEntrances[k],showDungeonName,clickAction);
+					break;
+				default:
+					starts += createRoomNode(lobbyEntrances[0],showDungeonName,clickAction);
+			}
+			starts += createRoomNode(lobbySanctuary,showDungeonName,clickAction);
+		}
+		else
+		{
+			for(let k = 0; k < dungeonEntrances.length; k++)
+				if(dungeonEntrances[k].dungeon === currentDungeon)
+					starts += createRoomNode(dungeonEntrances[k],showDungeonName,clickAction);
+		}
+		return starts;
+	};
+
+	window.showRoomModal = function()
+	{
+		let starts = createEntranceNodes(doorshuffle === 'C',"append");
 		document.getElementById("dungeonentrancesmodal").innerHTML = starts;
 		starts = "";
 		for(let k = 0; k < dungeonImportant.length; k++)
@@ -560,6 +628,7 @@
 	window.updateDoorShuffle = function()
 	{
 		doorshuffle = document.getElementById("selectdoorshuffle").value[0];
+		lobbyshuffle = document.getElementById("lobbyshuffle").checked;
 	};
 
 	window.updateKeys = function()
@@ -579,17 +648,109 @@
 	{
 		if(window.origin === event.origin)
 		{
-			if(event.data.length === 13)
+			if(event.data.dungeonPaths && event.data.dungeonPaths.length === 13)
 			{
-				dungeonPaths = event.data;
-				loadOverview();
+				if(loadAll(event.data))
+					loadOverview();
+				else
+					console.log("Error while loading data from main tracker");
 			}
 		}
-	}
+	};
+
+	window.allData = function()
+	{
+		let all = {};
+		all.dungeonPaths = dungeonPaths;
+		all.doorshuffle = doorshuffle;
+		all.lobbyshuffle = lobbyshuffle;
+		all.excludesmallkeys = excludesmallkeys;
+		all.excludebigkeys = excludebigkeys;
+		all.showmorerooms = document.getElementById("showmorerooms").checked;
+		all.splitpath = document.getElementById("splitpath").checked;
+		all.timeString = new Date().toLocaleString();
+		return all;
+	};
+
+	window.loadAll = function(newData)
+	{
+		if(!newData)
+			return false;
+		let newDungeonPaths = newData.dungeonPaths;
+		for(let k = 0; k < 13; k++)
+			if(!(k in newDungeonPaths) || !Array.isArray(newDungeonPaths[k].paths) || !(typeof newDungeonPaths[k].notes === "string" || newDungeonPaths[k].notes instanceof String))
+				return false;
+		dungeonPaths = newDungeonPaths;
+		doorshuffle = newData.doorshuffle;
+		if(doorshuffle !== 'N' && doorshuffle !== 'B' && doorshuffle !== 'C')
+			doorshuffle = 'C';
+		lobbyshuffle = newData.lobbyshuffle;
+		excludesmallkeys = newData.excludesmallkeys;
+		excludebigkeys = newData.excludebigkeys;
+		document.getElementById("selectdoorshuffle").value = ""+doorshuffle;
+		document.getElementById("lobbyshuffle").checked = lobbyshuffle;
+		document.getElementById("excludesmallkeys").checked = excludesmallkeys;
+		document.getElementById("excludebigkeys").checked = excludebigkeys;
+		document.getElementById("showmorerooms").checked = newData.showmorerooms;
+		document.getElementById("splitpath").checked = newData.splitpath;
+		return true;
+	};
+
+	window.loadManual = function()
+	{
+		let data = JSON.parse(localStorage.getItem("dungeonData"));
+		if(data && confirm("Load saved data from local storage?\nThis will replace all currently set dungeon paths and notes.\n\nSaved at: "+data.timeString))
+			if(loadAll(data))
+				loadOverview();
+			else
+				console.log("Error while loading data from manual save");
+	};
+
+	window.saveManual = function()
+	{
+		localStorage.setItem("dungeonData",JSON.stringify(allData()));
+		document.getElementById("loadmanual").classList.remove("disabled");
+	};
+
+	window.loadAuto = function()
+	{
+		let data = JSON.parse(localStorage.getItem("dungeonDataAutoSave"));
+		if(data && confirm("Load auto-save data from local storage?\nThis will replace all currently set dungeon paths and notes.\n\nSaved at: "+data.timeString))
+			if(loadAll(data))
+				loadOverview();
+			else
+				console.log("Error while loading data from auto-save");
+	};
+
+	window.saveAuto = function()
+	{
+		localStorage.setItem("dungeonDataAutoSave",JSON.stringify(allData()));
+		document.getElementById("loadauto").classList.remove("disabled");
+	};
+
+	window.clearData = function()
+	{
+		if(confirm("Delete all currently loaded paths and notes for every dungeon?"))
+		{
+			dungeonPaths = [];
+			for(let k = 0; k < 13; k++)
+				dungeonPaths[k] = {"paths":[],"notes":"","completed":false};
+			loadOverview();
+		}
+	};
+
+	window.clearLocalStorage = function()
+	{
+		if(confirm("Delete everything saved in local storage, both manual and auto-save?"))
+		{
+			localStorage.clear();
+			document.getElementById("loadmanual").classList.add("disabled");
+			document.getElementById("loadauto").classList.add("disabled");
+		}
+	};
 
 	window.initializeSymbols = function(list,key)
 	{
-		let s = "";
 		for(let k = 0; k < list.length; k++)
 		{
 			let id = key+k.toString(36);
@@ -600,52 +761,55 @@
 
 	window.start = function()
 	{
-		let initPathData = true;
-		if(query.paths)
-		{
-			dungeonPaths = JSON.parse(query.paths);
-			initPathData = false;
-			for(let k = 0; k < 13; k++)
-				if(!(k in dungeonPaths) || !Array.isArray(dungeonPaths[k].paths) || !(typeof dungeonPaths[k].notes === "string" || dungeonPaths[k].notes instanceof String))
-				{
-					initPathData = true;
-					break;
-				}
-		}
-		if(initPathData)
-			for(let k = 0; k < 13; k++)
-				dungeonPaths[k] = {"paths":[],"notes":"","completed":false};
-		if(query.request_update && window.opener)
-		{
-			window.addEventListener("message",receiveMessage,false);
-			window.opener.postMessage("UPDATE","*");
-		}
+		dungeonPaths = [];
+		for(let k = 0; k < 13; k++)
+			dungeonPaths[k] = {"paths":[],"notes":"","completed":false};
 		if(query.door_shuffle)
 			doorshuffle = query.door_shuffle[0];
 		if(doorshuffle !== 'N' && doorshuffle !== 'B' && doorshuffle !== 'C')
 			doorshuffle = 'C';
-        if(query.wild_keys)
+        if((query.wild_keys+'').toLowerCase() === 'true' || query.world_state === 'R' || query.world_state === 'r')
             excludesmallkeys = false;
-        if(query.wild_big_keys)
+        if((query.wild_big_keys+'').toLowerCase() === 'true')
             excludebigkeys = false;
 		document.getElementById("selectdoorshuffle").value = ""+doorshuffle;
+		document.getElementById("lobbyshuffle").checked = lobbyshuffle;
 		document.getElementById("excludesmallkeys").checked = excludesmallkeys;
 		document.getElementById("excludebigkeys").checked = excludebigkeys;
 		document.getElementById("showmorerooms").checked = false;
 		document.getElementById("splitpath").checked = true;
+		try
+		{
+			if(localStorage.getItem("dungeonData"))
+				document.getElementById("loadmanual").classList.remove("disabled");
+			if(localStorage.getItem("dungeonDataAutoSave"))
+				document.getElementById("loadauto").classList.remove("disabled");
+		}
+		catch(error)
+		{
+		}
 		initializeRoomsAndSymbols();
 		loadOverview();
-		window.addEventListener("keydown", keyDown, false);
+		window.addEventListener("keydown",keyDown,false);
+		if(query.request_update && window.opener && !window.opener.closed)
+		{
+			window.addEventListener("message",receiveMessage,false);
+			window.opener.postMessage("UPDATE","*");
+		}
 	};
 
 	window.initializeRoomsAndSymbols = function()
 	{
+		dungeonImportant.push({"dungeon":11,"name":"Lobby","supertile":0x61,"part":"full"});
 		dungeonEntrances.push({"dungeon":0,"name":"Entrance","supertile":0xC9,"part":"full"});
 		dungeonEntrances.push({"dungeon":1,"name":"Main","supertile":0x84,"part":"full"});
 		dungeonEntrances.push({"dungeon":1,"name":"West","supertile":0x83,"part":"bottomleft"});
 		dungeonEntrances.push({"dungeon":1,"name":"East","supertile":0x85,"part":"bottomright"});
 		dungeonEntrances.push({"dungeon":1,"name":"Back","supertile":0x63,"part":"bottomleft"});
+		dungeonImportant.push({"dungeon":1,"name":"Lobby","supertile":0x84,"part":"full"});
 		dungeonEntrances.push({"dungeon":2,"name":"Entrance","supertile":0x77,"part":"full"});
+		dungeonImportant.push({"dungeon":2,"name":"Lobby","supertile":0x77,"part":"full"});
+		dungeonImportant.push({"dungeon":2,"name":"Big Key Door","supertile":0x31,"part":"full"});
 		dungeonImportant.push({"dungeon":2,"name":"Big Chest Room","supertile":0x27,"part":"full"});
 		dungeonImportant.push({"dungeon":2,"name":"Bumper Room","supertile":0x17,"part":"full"});
 		dungeonEntrances.push({"dungeon":3,"name":"Entrance","supertile":0x4A,"part":"full"});
@@ -653,7 +817,8 @@
 		dungeonImportant.push({"dungeon":3,"name":"Arena","supertile":0x2A,"part":"full"});
 		dungeonImportant.push({"dungeon":3,"name":"Falling Bridge","supertile":0x1A,"part":"full"});
 		dungeonEntrances.push({"dungeon":4,"name":"Entrance","supertile":0x28,"part":"full"});
-		dungeonImportant.push({"dungeon":4,"name":"Lobby","supertile":0x36,"part":"full"});
+		dungeonImportant.push({"dungeon":4,"name":"Drained Dam","supertile":0x28,"part":"full"});
+		dungeonImportant.push({"dungeon":4,"name":"Hub","supertile":0x36,"part":"full"});
 		dungeonEntrances.push({"dungeon":5,"name":"Front Main","supertile":0x58,"part":"bottomleft"});
 		dungeonEntrances.push({"dungeon":5,"name":"Front West","supertile":0x67,"part":"topleft"});
 		dungeonEntrances.push({"dungeon":5,"name":"Front Pinball","supertile":0x68,"part":"full"});
@@ -663,21 +828,22 @@
 		dungeonEntrances.push({"dungeon":5,"name":"Middle North","supertile":0x56,"part":"topright"});
 		dungeonEntrances.push({"dungeon":5,"name":"Back","supertile":0x59,"part":"bottomleft"});
 		dungeonEntrances.push({"dungeon":6,"name":"Entrance","supertile":0xDB,"part":"full"});
+		dungeonEntrances.push({"dungeon":6,"name":"Blind's Cell","supertile":0x45,"part":"topright"});
+		dungeonEntrances.push({"dungeon":6,"name":"Boss Room","supertile":0xAC,"part":"bottomright"});
+		dungeonImportant.push({"dungeon":6,"name":"Lobby SW","supertile":0xDB,"part":"full"});
 		dungeonImportant.push({"dungeon":6,"name":"Lobby NW","supertile":0xCB,"part":"full"});
 		dungeonImportant.push({"dungeon":6,"name":"Lobby NE","supertile":0xCC,"part":"full"});
 		dungeonImportant.push({"dungeon":6,"name":"Lobby SE","supertile":0xDC,"part":"full"});
 		dungeonImportant.push({"dungeon":6,"name":"Attic","supertile":0x65,"part":"bottomright"});
-		dungeonEntrances.push({"dungeon":6,"name":"Maiden","supertile":0x45,"part":"topright"});
-		dungeonEntrances.push({"dungeon":6,"name":"Boss Room","supertile":0xAC,"part":"bottomright"});
 		dungeonEntrances.push({"dungeon":7,"name":"Entrance","supertile":0x0E,"part":"bottomright"});
 		dungeonImportant.push({"dungeon":7,"name":"Pushable Block","supertile":0x9E,"part":"bottomright"});
 		dungeonEntrances.push({"dungeon":8,"name":"Entrance","supertile":0x98,"part":"bottomleft"});
-		dungeonImportant.push({"dungeon":8,"name":"Lobby","supertile":0xC2,"part":"full"});
+		dungeonImportant.push({"dungeon":8,"name":"Hub","supertile":0xC2,"part":"full"});
 		dungeonEntrances.push({"dungeon":9,"name":"Main","supertile":0xD6,"part":"bottomright"});
 		dungeonEntrances.push({"dungeon":9,"name":"West","supertile":0x23,"part":"bottomright"});
 		dungeonEntrances.push({"dungeon":9,"name":"East","supertile":0x24,"part":"bottomright"});
 		dungeonEntrances.push({"dungeon":9,"name":"Back","supertile":0xD5,"part":"bottomleft"});
-		dungeonImportant.push({"dungeon":9,"name":"Lobby","supertile":0xC6,"part":"full"});
+		dungeonImportant.push({"dungeon":9,"name":"Hub","supertile":0xC6,"part":"full"});
 		dungeonEntrances.push({"dungeon":10,"name":"Entrance","supertile":0x0C,"part":"full"});
 		dungeonImportant.push({"dungeon":10,"name":"Torch Area","supertile":0x8C,"part":"full"});
 		dungeonEntrances.push({"dungeon":11,"name":"Main","supertile":0x61,"part":"full"});
@@ -685,7 +851,22 @@
 		dungeonEntrances.push({"dungeon":11,"name":"East","supertile":0x62,"part":"full"});
 		dungeonEntrances.push({"dungeon":11,"name":"Back","supertile":0x11,"part":"full"});
 		dungeonEntrances.push({"dungeon":11,"name":"Sanctuary","supertile":0x12,"part":"full"});
+		dungeonEntrances.push({"dungeon":11,"name":"Zelda's Cell","supertile":0x80,"part":"topright"});
 		dungeonEntrances.push({"dungeon":12,"name":"Entrance","supertile":0x30,"part":"bottomleft"});
+		lobbyEntrances.push({"name":"Entr- ance",file:"dungeonentrance0"});
+		lobbyEntrances.push({"name":"Entr- ance 1",file:"dungeonentrance1"});
+		lobbyEntrances.push({"name":"Entr- ance 2",file:"dungeonentrance2"});
+		lobbyEntrances.push({"name":"Entr- ance 3",file:"dungeonentrance3"});
+		lobbyEntrances.push({"name":"Entr- ance 4",file:"dungeonentrance4"});
+		lobbySanctuary = {"dungeon":11,"name":"Sanctuary","supertile":0x12,"part":"full"};
+		lobbySW.push({"dungeon":5,"name":"Front West Drop","supertile":0x67,"part":"topleft"});
+		lobbySW.push({"dungeon":5,"name":"Front Pinball Drop","supertile":0x68,"part":"full"});
+		lobbySW.push({"dungeon":5,"name":"Front North Drop","supertile":0x58,"part":"topright"});
+		lobbySW.push({"dungeon":5,"name":"Middle North Drop","supertile":0x56,"part":"topright"});
+		lobbyTT.push({"dungeon":6,"name":"Blind's Cell","supertile":0x45,"part":"topright"});
+		lobbyTT.push({"dungeon":6,"name":"Boss Room","supertile":0xAC,"part":"bottomright"});
+		lobbyHC.push({"dungeon":11,"name":"Back of Escape Drop","supertile":0x11,"part":"full"});
+		lobbyHC.push({"dungeon":11,"name":"Zelda's Cell","supertile":0x80,"part":"topright"});
 		for(let k = 0; k < dungeonEntrances.length; k++)
 		{
 			let id = "0"+k.toString(36);
@@ -697,6 +878,13 @@
 			let id = "1"+k.toString(36);
 			dungeonImportant[k].id = id;
 			roomMap[id] = dungeonImportant[k];
+		}
+		let lobbyAll = lobbyEntrances.concat(lobbySanctuary,lobbySW,lobbyTT,lobbyHC)
+		for(let k = 0; k < lobbyAll.length; k++)
+		{
+			let id = "2"+k.toString(36);
+			lobbyAll[k].id = id;
+			roomMap[id] = lobbyAll[k];
 		}
 		directions.push({"folder":"dungeons","file":"arrowright","x":128,"y":64});
 		directions.push({"folder":"dungeons","file":"arrowrightup","x":128,"y":32});
@@ -714,11 +902,14 @@
 		directions.push({"folder":"dungeons","file":"quadranttopleft","rotate":90,"x":80,"y":48});
 		directions.push({"folder":"dungeons","file":"quadranttopleft","rotate":270,"x":48,"y":80});
 		directions.push({"folder":"dungeons","file":"quadranttopleft","rotate":180,"x":80,"y":80});
-		objects.push({"folder":"dungeons","file":"crystalswitch","basic":[2,3,4,6,7,8,9,10]});
-		objects.push({"folder":"dungeons","file":"orangedown","basic":[2,3,4,6,7,8,9,10]});
-		objects.push({"folder":"dungeons","file":"bluedown","basic":[2,3,4,6,7,8,9,10]});
+		objects.push({"folder":"dungeons","file":"trapdoor"});
 		objects.push({"folder":"dungeons","file":"keychest0"});
 		objects.push({"folder":"dungeons","file":"prize0"});
+		switchobjects.push({"folder":"dungeons","file":"crystalswitch","basic":[2,3,4,6,7,8,9,10]});
+		switchobjects.push({"folder":"dungeons","file":"orangedown","basic":[2,3,4,6,7,8,9,10]});
+		switchobjects.push({"folder":"dungeons","file":"bluedown","basic":[2,3,4,6,7,8,9,10]});
+		switchobjects.push({"folder":"dungeons","file":"lever","basic":[4]});
+		switchobjects.push({"folder":"dungeons","file":"drain","basic":[4]});
 		items.push({"folder":"dungeons","file":"smallkey"});
 		items.push({"folder":"dungeons","file":"bigkey"});
 		items.push({"folder":"items","file":"bomb"});
@@ -737,10 +928,18 @@
 		items.push({"folder":"dungeons","file":"freezor","basic":[7]});
 		items.push({"folder":"dungeons","file":"wizzrobe","basic":[8,10]});
 		items.push({"folder":"items","file":"boomerang2"});
-		items.push({"folder":"items","file":"mirror","basic":[1,5,6,11]});
+		items.push({"folder":"items","file":"mirror","basic":[1,4,5,6,11]});
 		items.push({"folder":"items","file":"moonpearl"});
 		items.push({"folder":"dungeons","file":"spikefloor","basic":[7,8]});
 		items.push({"folder":"items","file":"magic"});
+		items.push({"folder":"dungeons","file":"smallchest"});
+		items.push({"folder":"dungeons","file":"bigchest","basic":[0,1,2,3,4,5,6,7,8,9,10]});
+		items.push({"folder":"dungeons","file":"talltorch","basic":[1,10]});
+		items.push({"folder":"dungeons","file":"keysteal"});
+		items.push({"folder":"dungeons","file":"map"});
+		items.push({"folder":"dungeons","file":"compass"});
+		items.push({"folder":"dungeons","file":"hinttile"});
+		items.push({"folder":"items","file":"heartcontainer"});
 		bosses.push({"folder":"dungeons","file":"boss0"});
 		bosses.push({"folder":"dungeons","file":"boss1"});
 		bosses.push({"folder":"dungeons","file":"boss2"});
@@ -754,6 +953,7 @@
 		bosses.push({"folder":"dungeons","file":"agahnim0"});
 		initializeSymbols(directions,'d');
 		initializeSymbols(objects,'o');
+		initializeSymbols(switchobjects,'s');
 		initializeSymbols(items,'i');
 		initializeSymbols(bosses,'b');
 	};

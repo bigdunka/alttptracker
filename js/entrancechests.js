@@ -273,7 +273,7 @@
 	}
 	
 	function canReachDarkWorldSouth() {
-		if (canReachDarkWorld() || canReachOutcast()) return true;
+		if (canReachOutcast()) return true;
 		if (hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) return true;
 		if (canReachDarkWorldEast() && items.moonpearl && items.hammer) return true;
 		return false;
@@ -1975,16 +1975,30 @@
 				if (crystalCheck() < flags.opentowercount) return 'unavailable';
 				return window.GTChests();
 			}
+		}, { // [11]
+			caption: 'Hyrule Castle',//Only used with Entrance or Door Shuffle
+			is_beaten: false,
+			is_beatable: function() {
+				return items.chest11 ?window.dungeons[11].can_get_chest() :'opened';
+			},
+			can_get_chest: function() {
+				return window.HCChests();
+			}
+		}, { // [12]
+			caption: 'Castle Tower',//Only used with Entrance or Door Shuffle
+			is_beaten: false,
+			is_beatable: function() {
+				return window.agahnim.is_available();
+			},
+			can_get_chest: function() {
+				return window.CTChests();
+			}
 		}];
 
 		window.agahnim = {
 			caption: 'Agahnim',
 			is_available: function() {
-				if (flags.wildkeys) {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (flags.swordmode === 'S' && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
-				} else {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (flags.swordmode === 'S' && (items.hammer || items.net))) && (activeFlute() || items.glove) ? items.lantern && agatowerweapon() ? 'available' : 'darkavailable' : 'unavailable';					
-				}
+				return window.CTBoss();
 			}
 		};
 
@@ -3714,16 +3728,30 @@
 				if (crystalCheck() < flags.opentowercount) return 'unavailable';
 				return window.GTChests();
 			}
+		}, { // [11]
+			caption: 'Hyrule Castle',//Only used with Entrance or Door Shuffle
+			is_beaten: false,
+			is_beatable: function() {
+				return items.chest11 ?window.dungeons[11].can_get_chest() :'opened';
+			},
+			can_get_chest: function() {
+				return window.HCChests();
+			}
+		}, { // [12]
+			caption: 'Castle Tower',//Only used with Entrance or Door Shuffle
+			is_beaten: false,
+			is_beatable: function() {
+				return window.agahnim.is_available();
+			},
+			can_get_chest: function() {
+				return window.CTChests();
+			}
 		}];
 
 		window.agahnim = {
 			caption: 'Agahnim',
 			is_available: function() {
-				if (flags.wildkeys) {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (flags.swordmode === 'S' && (items.hammer || items.net))) && (activeFlute() || items.glove) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
-				} else {
-					return (items.sword || items.hammer || (items.net && (items.somaria || items.byrna || items.firerod || items.bow > 0))) && (items.sword || (flags.swordmode === 'S' && (items.hammer || items.net))) && (activeFlute() || items.glove) ? items.lantern && agatowerweapon() ? 'available' : 'darkavailable' : 'unavailable';					
-				}
+				return window.CTBoss();
 			}
 		};
 
@@ -5423,16 +5451,30 @@
 				if (crystalCheck() < flags.opentowercount || items.glove < 2 || !items.hammer || !canReachDarkWorld()) return 'unavailable';
 				return window.GTChests();
 			}
+		}, { // [11]
+			caption: 'Hyrule Castle',//Only used with Entrance or Door Shuffle
+			is_beaten: false,
+			is_beatable: function() {
+				return items.chest11 ?window.dungeons[11].can_get_chest() :'opened';
+			},
+			can_get_chest: function() {
+				return window.HCChests();
+			}
+		}, { // [12]
+			caption: 'Castle Tower',//Only used with Entrance or Door Shuffle
+			is_beaten: false,
+			is_beatable: function() {
+				return window.agahnim.is_available();
+			},
+			can_get_chest: function() {
+				return window.CTChests();
+			}
 		}];
 
 		window.agahnim = {
 			caption: 'Agahnim {sword2}/ ({cape}{sword1}){lantern}',
 			is_available: function() {
-				if (flags.wildkeys) {
-					return (items.sword >= 2 || (items.cape && items.sword) || (flags.swordmode === 'S' && (items.hammer || (items.cape && items.net)))) && items.smallkeyhalf1 === 2 && agatowerweapon() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
-				} else {
-					return ((items.sword >= 2 || (items.cape && items.sword) || (flags.swordmode === 'S' && (items.hammer || (items.cape && items.net)))) && agatowerweapon()) ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
-				}
+				return window.CTBoss();
 			}
 		};
 

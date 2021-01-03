@@ -3,13 +3,13 @@
 	<head>
 		<title>Dungeon Tracker - ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=16007"></script>
-		<script src="js/bootstrap.min.js?v=16007"></script>
-		<link rel="stylesheet" type="text/css" href="css/dungeonstyle.css?v=16007">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=16007">
+		<script src="js/jquery-3.3.1.js?v=16008"></script>
+		<script src="js/bootstrap.min.js?v=16008"></script>
+		<link rel="stylesheet" type="text/css" href="css/dungeonstyle.css?v=16008">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=16008">
 		<link href="css/fonts.css" rel="stylesheet">
-		<script src="js/util.js?v=16007"></script>
-		<script src="js/dungeontracker.js?v=16007"></script>
+		<script src="js/util.js?v=16008"></script>
+		<script src="js/dungeontracker.js?v=16008"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -29,291 +29,336 @@
 		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
 	</head>
 	<body>
-	<div id="app" class="row">
-		<div id="overview" class="cell">
-			<div class="row">
-				<div>
-					<h2 class="textrow">Dungeon overview</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div class="cell pointer dungeon" onClick="loadDungeon(11)">
-					<div id="boss11" class="boss boss11" onClick="loadDungeon(11)"></div>
-					<div id="summary11" class="summary"></div>
-				</div>
-				<div class="cell pointer dungeon" onClick="loadDungeon(0)">
-					<div id="boss0" class="boss boss0" onClick="loadDungeon(0)"></div>
-					<div id="summary0" class="summary"></div>
-				</div>
-				<div class="cell pointer dungeon" onClick="loadDungeon(1)">
-					<div id="boss1" class="boss boss1" onClick="loadDungeon(1)"></div>
-					<div id="summary1" class="summary"></div>
-				</div>
-				<div class="cell pointer dungeon" onClick="loadDungeon(2)">
-					<div id="boss2" class="boss boss2" onClick="loadDungeon(2)"></div>
-					<div id="summary2" class="summary"></div>
-				</div>
-				<div class="cell pointer dungeon" onClick="loadDungeon(12)">
-					<div id="boss12" class="boss boss12" style="height: 64px; width: 64px; background-size: 64px;" onClick="loadDungeon(12)"></div>
-					<div id="summary12" class="summary"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="cell pointer dungeon" onClick="loadDungeon(3)">
-					<div id="boss3" class="boss boss3" onClick="loadDungeon(3)"></div>
-					<div id="summary3" class="summary"></div>
-				</div>
-				<div class="cell pointer dungeon" onClick="loadDungeon(4)">
-					<div id="boss4" class="boss boss4" onClick="loadDungeon(4)"></div>
-					<div id="summary4" class="summary"></div>
-				</div>
-				<div class="cell pointer dungeon" onClick="loadDungeon(5)">
-					<div id="boss5" class="boss boss5"></div>
-					<div id="summary5" class="summary"></div>
-				</div>
-				<div class="cell pointer dungeon" onClick="loadDungeon(6)">
-					<div id="boss6" class="boss boss6" onClick="loadDungeon(6)"></div>
-					<div id="summary6" class="summary"></div>
-				</div>
-			</div>
-			<div class="row">
-				<div class="cell pointer dungeon" onClick="loadDungeon(7)">
-					<div id="boss7" class="boss boss7" onClick="loadDungeon(7)"></div>
-					<div id="summary7" class="summary"></div>
-				</div>
-				<div class="cell pointer dungeon" onClick="loadDungeon(8)">
-					<div id="boss8" class="boss boss8" onClick="loadDungeon(8)"></div>
-					<div id="summary8" class="summary"></div>
-				</div>
-				<div class="cell pointer dungeon" onClick="loadDungeon(9)">
-					<div id="boss9" class="boss boss9" onClick="loadDungeon(9)"></div>
-					<div id="summary9" class="summary"></div>
-				</div>
-				<div class="cell pointer dungeon" onClick="loadDungeon(10)">
-					<div id="boss10" class="boss boss10" style="height: 64px; width: 64px; background-size: 64px;" onClick="loadDungeon(10)"></div>
-					<div id="summary10" class="summary"></div>
-				</div>
-			</div>
-			<div class="row" style="margin-top: 10px;">
-				<div>
-					<h2 class="textrow">Settings</h2>
-				</div>
-			</div>
-			<div class="row">
-				<div style="display: inline-block;">
-					<h3 class="textrow">Door Shuffle:</h3>
-				</div>
-				<select class="rightalign" id="selectdoorshuffle" style="height: 22px; top: 4px; position: relative;" onchange="updateDoorShuffle()">
-					<option value="N">None</option>
-					<option value="B">Basic</option>
-					<option value="C">Crossed</option>
-				</select>
-			</div>
-			<div class="row">
-				<div style="display: inline-block;">
-					<h3 class="textrow">Exclude from overview:</h3>
-				</div>
-				<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
-					<label><input type="checkbox" id="excludesmallkeys" onchange="updateKeys()" />Small Keys</label>
-					<label><input type="checkbox" id="excludebigkeys" onchange="updateKeys()" />Big Keys</label>
-				</div>
-			</div>
-			<div class="row" style="margin-top: 10px;">
-				<div>
-					<h2 class="textrow">Statistics</h2>
-				</div>
-			</div>
-			<div>
-				<h3 id="totalpathdungeons" class="textrow"></h3>
-			</div>
-			<div>
-				<h3 id="totalpaths" class="textrow"></h3>
-			</div>
-			<div>
-				<h3 id="totalnodes" class="textrow"></h3>
-			</div>
-			<div>
-				<h3 id="totalnotes" class="textrow"></h3>
-			</div>
-		</div>
-		<div id="pathlist" class="cell" style="width: 100%;">
-			<div class="row fixedtop pointer" onClick="closeDungeon()">
-				<div class="cell">
-					<div id="dungeonicon"></div>
-				</div>
-				<div class="cell">
-					<h1 id="dungeonname" style="margin: 14px 12px 10px 12px;"></h1>
-				</div>
-			</div>
-			<div class="row" style="margin-top: 64px;">
-				<div style="display: inline-block;">
-					<h3 class="textrow">Start a new path</h3>
-				</div>
-				<div class="rightalign">
-					<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 12px;">
-						<label><input type="checkbox" id="showmorerooms" onchange="updateStartRooms()" />Show more</label>
-					</div>
-					<div class="cell">
-						<div class="buttonbox pointer" style="margin: 2px;" onClick="startPath('')">Empty start</div>
-					</div>
-				</div>
-			</div>
-			<div id="dungeonentrances" class="row roompointer">
-			</div>
-			<div id="dungeonimportant" class="row roompointer">
-			</div>
-			<div class="row">
-				<div style="display: inline-block;">
-					<h3 id="dungeonpathsheader" class="textrow"></h3>
-				</div>
-				<div class="rightalign">
-					<div class="cell">
-						<div id="completedbutton" class="buttonbox" style="margin: 2px;" onClick="markCompleted()"></div>
-					</div>
-				</div>
-			</div>
-			<div id="dungeonpaths" class="pathlist">
-			</div>
-			<div class="row">
-				<input id="dungeonpathsnote" type="text" style="width: 97.5%; margin: 0px 4px;" placeholder="Notes" />
-			</div>
-		</div>
-		<div id="pathedit" class="cell" style="width: 100%;">
-			<div class="row fixedtop">
-				<div class="row">
-					<div class="cell">
-						<div class='buttonbox pointer' style='border-color: rgb(255,128,128);' onClick="closePath()">Close without saving</div>
-					</div>
-					<div class="cell rightalign">
-						<div class='buttonbox pointer' style='border-color: rgb(128,255,128);' onClick="savePath()">Save and close path</div>
-					</div>
-				</div>
+		<div id="app" class="row">
+			<div id="overview" class="cell">
 				<div class="row">
 					<div>
-						<h3 id="currentpathheader" class="textrow"></h3>
+						<h2 class="textrow">Dungeon overview</h2>
 					</div>
 				</div>
-				<div id="currentpath" class="row path">
+				<div class="row">
+					<div class="cell pointer dungeon" onClick="loadDungeon(11)">
+						<div id="boss11" class="boss boss11"></div>
+						<div id="summary11" class="summary"></div>
+					</div>
+					<div class="cell pointer dungeon" onClick="loadDungeon(0)">
+						<div id="boss0" class="boss boss0"></div>
+						<div id="summary0" class="summary"></div>
+					</div>
+					<div class="cell pointer dungeon" onClick="loadDungeon(1)">
+						<div id="boss1" class="boss boss1"></div>
+						<div id="summary1" class="summary"></div>
+					</div>
+					<div class="cell pointer dungeon" onClick="loadDungeon(2)">
+						<div id="boss2" class="boss boss2"></div>
+						<div id="summary2" class="summary"></div>
+					</div>
+					<div class="cell pointer dungeon" onClick="loadDungeon(12)">
+						<div id="boss12" class="boss boss12" style="height: 64px; width: 64px; background-size: 64px;"></div>
+						<div id="summary12" class="summary"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="cell pointer dungeon" onClick="loadDungeon(3)">
+						<div id="boss3" class="boss boss3"></div>
+						<div id="summary3" class="summary"></div>
+					</div>
+					<div class="cell pointer dungeon" onClick="loadDungeon(4)">
+						<div id="boss4" class="boss boss4"></div>
+						<div id="summary4" class="summary"></div>
+					</div>
+					<div class="cell pointer dungeon" onClick="loadDungeon(5)">
+						<div id="boss5" class="boss boss5"></div>
+						<div id="summary5" class="summary"></div>
+					</div>
+					<div class="cell pointer dungeon" onClick="loadDungeon(6)">
+						<div id="boss6" class="boss boss6"></div>
+						<div id="summary6" class="summary"></div>
+					</div>
+				</div>
+				<div class="row">
+					<div class="cell pointer dungeon" onClick="loadDungeon(7)">
+						<div id="boss7" class="boss boss7"></div>
+						<div id="summary7" class="summary"></div>
+					</div>
+					<div class="cell pointer dungeon" onClick="loadDungeon(8)">
+						<div id="boss8" class="boss boss8"></div>
+						<div id="summary8" class="summary"></div>
+					</div>
+					<div class="cell pointer dungeon" onClick="loadDungeon(9)">
+						<div id="boss9" class="boss boss9"></div>
+						<div id="summary9" class="summary"></div>
+					</div>
+					<div class="cell pointer dungeon" onClick="loadDungeon(10)">
+						<div id="boss10" class="boss boss10" style="height: 64px; width: 64px; background-size: 64px;"></div>
+						<div id="summary10" class="summary"></div>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px;">
+					<div>
+						<h2 class="textrow">Settings</h2>
+					</div>
+				</div>
+				<div class="row">
+					<div style="display: inline-block;">
+						<h3 class="textrow">Door Shuffle:</h3>
+					</div>
+					<div class="rightalign">
+						<select id="selectdoorshuffle" style="height: 22px; top: 4px; position: relative;" onchange="updateDoorShuffle()">
+							<option value="N">None</option>
+							<option value="B">Basic</option>
+							<option value="C">Crossed</option>
+						</select>
+						<label style="height: 20px; top: 5px; position: relative;"><input type="checkbox" id="lobbyshuffle" onchange="updateDoorShuffle()" />Lobby Shuffle</label>
+					</div>
+				</div>
+				<div class="row">
+					<div style="display: inline-block;">
+						<h3 class="textrow">Exclude from overview:</h3>
+					</div>
+					<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
+						<label><input type="checkbox" id="excludesmallkeys" onchange="updateKeys()" />Small Keys</label>
+						<label><input type="checkbox" id="excludebigkeys" onchange="updateKeys()" />Big Keys</label>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px;">
+					<div>
+						<h2 class="textrow">Save and restore</h2>
+					</div>
+				</div>
+				<div class="row" style="height: 34px;">
+					<div style="display: inline-block;">
+						<h3 class="textrow">Manual save:</h3>
+					</div>
+					<div class="cell rightalign">
+						<div id="loadmanual" class="cell buttonbox disabled" style="margin: 2px;" onClick="loadManual()">Load data</div>
+						<div id="savemanual" class="cell buttonbox" style="margin: 2px;" onClick="saveManual()">Save data</div>
+					</div>
+				</div>
+				<div class="row" style="height: 34px;">
+					<div style="display: inline-block;">
+						<h3 class="textrow">Auto-save:</h3>
+					</div>
+					<div class="cell rightalign">
+						<div id="loadauto" class="cell buttonbox disabled" style="margin: 2px;" onClick="loadAuto()">Load data</div>
+					</div>
+				</div>
+				<div class="row" style="height: 34px;">
+					<div style="display: inline-block;">
+						<h3 class="textrow">Reset:</h3>
+					</div>
+					<div class="cell rightalign">
+						<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onClick="clearData()">Clear current data</div>
+						<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onClick="clearLocalStorage()">Clear local storage</div>
+					</div>
+				</div>
+				<div class="row" style="margin-top: 10px;">
+					<div>
+						<h2 class="textrow">Statistics</h2>
+					</div>
+				</div>
+				<div>
+					<h3 id="totalpathdungeons" class="textrow"></h3>
+				</div>
+				<div>
+					<h3 id="totalpaths" class="textrow"></h3>
+				</div>
+				<div>
+					<h3 id="totalnodes" class="textrow"></h3>
+				</div>
+				<div>
+					<h3 id="totalnotes" class="textrow"></h3>
+				</div>
+				<div class="row" style="margin-top: 20px; margin-bottom: 4px;">
+					<span>Check out the <a href="instructions.html#dungeon" target="_blank">Instructions</a> for help with this tracker.</span>
 				</div>
 			</div>
-			<div class="row" style="margin-top: 128px;">
-				<div id="directionicons" class="cell" style="position: relative; width: 160px; height: 160px; margin: 8px;">
+			<div id="pathlist" class="cell" style="width: 100%;">
+				<div class="row fixedtop pointer" onClick="closeDungeon()">
+					<div class="cell">
+						<div id="dungeonicon"></div>
+					</div>
+					<div class="cell">
+						<h1 id="dungeonname" style="margin: 14px 12px 10px 12px;"></h1>
+					</div>
 				</div>
-				<div style="display: flex; flex-flow: column; width: 160px; height: 176px; float: right;">
-					<div class="row" style="height: 32px;">
-						<div id="deletebutton" class='cell buttonbox rightalign' style='border-color: rgb(255,128,128);' onClick="removeLast()">Delete last step</div>
+				<div class="row" style="margin-top: 64px;">
+					<div style="display: inline-block;">
+						<h3 class="textrow">Start a new path</h3>
 					</div>
-					<div class="row" style="height: 32px;">
-						<div id="forkbutton" class='cell buttonbox rightalign' style='border-color: rgb(255,255,128);' onClick="forkPath()">Fork at last direction</div>
-					</div>
-					<div class="row" style="height: 32px;">
-						<div class='cell buttonbox rightalign' onClick="showHintModal()">Hints</div>
-					</div>
-					<div style="flex-grow: 1;"></div>
-					<div class="row" style="height: 32px; margin-bottom: 4px;">
-						<div class='cell buttonbox rightalign' onClick="showRoomModal()">Insert room node</div>
-					</div>
-					<div class="row" style="margin-left: auto; margin-right: 0; width: auto;">
-						<div id="objecticons" class="row">
+					<div class="rightalign">
+						<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 12px;">
+							<label><input type="checkbox" id="showmorerooms" onchange="updateStartRooms()" />Show more</label>
+						</div>
+						<div class="cell">
+							<div class="buttonbox pointer" style="margin: 2px;" onClick="startPath('')">Empty start</div>
 						</div>
 					</div>
 				</div>
-			</div>
-			<div id="itemicons" class="row">
-			</div>
-			<div id="bossicons" class="row">
-			</div>
-			<div class="row">
-				<div>
-					<h3 id="dungeonpaths2header" class="textrow"></h3>
+				<div id="dungeonentrances" class="row roompointer"></div>
+				<div id="dungeonimportant" class="row roompointer"></div>
+				<div class="row">
+					<div style="display: inline-block;">
+						<h3 id="dungeonpathsheader" class="textrow"></h3>
+					</div>
+					<div class="rightalign">
+						<div class="cell">
+							<div id="completedbutton" class="buttonbox" style="margin: 2px;" onClick="markCompleted()"></div>
+						</div>
+					</div>
+				</div>
+				<div id="dungeonpaths" class="pathlist"></div>
+				<div class="row">
+					<input id="dungeonpathsnote" type="text" style="width: 97.5%; margin: 0px 4px;" placeholder="Notes" />
 				</div>
 			</div>
-			<div id="dungeonpaths2" class="pathlist">
+			<div id="pathedit" class="cell" style="width: 100%;">
+				<div class="row fixedtop">
+					<div class="row">
+						<div class="cell">
+							<div class='buttonbox pointer' style='border-color: rgb(255,128,128);' onClick="closePath()">Close without saving</div>
+						</div>
+						<div class="cell rightalign">
+							<div class='buttonbox pointer' style='border-color: rgb(128,255,128);' onClick="savePath()">Save and close path</div>
+						</div>
+					</div>
+					<div class="row">
+						<div>
+							<h3 id="currentpathheader" class="textrow"></h3>
+						</div>
+					</div>
+					<div id="currentpath" class="row path"></div>
+				</div>
+				<div class="row" style="margin-top: 128px; max-width: 384px;">
+					<div id="directionicons" class="cell" style="position: relative; width: 160px; height: 160px; margin: 8px;"></div>
+					<div style="display: flex; flex-flow: column; width: 160px; height: 176px; float: right;">
+						<div class="row" style="height: 34px;">
+							<div id="deletebutton" class='cell buttonbox rightalign' style='border-color: rgb(255,128,128);' onClick="removeLast()">Delete last step</div>
+						</div>
+						<div class="row" style="height: 34px;">
+							<div id="forkbutton" class='cell buttonbox rightalign' style='border-color: rgb(255,255,128);' onClick="forkPath()">Fork at last direction</div>
+						</div>
+						<div style="flex-grow: 1;"></div>
+						<div class="row" style="height: 34px; margin-bottom: 4px;">
+							<div class="cell rightalign">
+								<div class='cell buttonbox' onClick="showRoomModal()">Insert room node</div>
+								<div class='cell buttonbox' style='border-color: rgb(128,128,255);' onClick="showHintModal()">Hints</div>
+							</div>
+						</div>
+						<div class="row" style="margin-left: auto; margin-right: 0; width: auto;">
+							<div id="objecticons" class="row"></div>
+						</div>
+						<div class="row" style="margin-left: auto; margin-right: 0; width: auto;">
+							<div id="switchicons" class="row"></div>
+						</div>
+					</div>
+				</div>
+				<div id="itemicons" class="row"></div>
+				<div id="bossicons" class="row"></div>
+				<div class="row">
+					<div>
+						<h3 id="dungeonpaths2header" class="textrow"></h3>
+					</div>
+				</div>
+				<div id="dungeonpaths2" class="pathlist"></div>
 			</div>
 		</div>
-	</div>
-	<div id="clickPathModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideClickPathModal()">
-		<div id="clickPathModalMain" style="width: 348px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 300px; left: 8px; border-style: solid; border-color: white; color: white; overflow: hidden;" onclick="event.stopPropagation()">
-			<div id="currentclickedpath" class="row path">
-			</div>
-			<div class="row">
-				<div class="cell">
-					<div class='buttonbox pointer' style='border-color: rgb(255,192,128);' onClick="editPath()">Edit path</div>
-				</div>
-				<div class="cell">
-					<div class='buttonbox pointer' onClick="duplicatePath()">Duplicate</div>
-				</div>
-				<div class="cell">
-					<div id="forkbutton2" class='buttonbox pointer' style='border-color: rgb(255,255,128);' onClick="forkExistingPath()">Fork</div>
-				</div>
-				<div class="cell">
-					<div class='buttonbox' onClick="moveToTop()">Top</div>
-				</div>
-				<div class="cell">
-					<div class='buttonbox' onClick="moveToBottom()">Bottom</div>
-				</div>
-				<div class="cell">
-					<div class='buttonbox pointer' style='border-color: rgb(255,128,128);' onClick="deletePath()">Delete</div>
+		<div id="clickPathModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideClickPathModal()">
+			<div id="clickPathModalMain" style="width: 348px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 300px; left: 8px; border-style: solid; border-color: white; color: white; overflow: hidden;" onclick="event.stopPropagation()">
+				<div id="currentclickedpath" class="row path"></div>
+				<div class="row">
+					<div class="cell">
+						<div class='buttonbox pointer' style='border-color: rgb(255,192,128);' onClick="editPath()">Edit path</div>
+					</div>
+					<div class="cell">
+						<div class='buttonbox pointer' onClick="duplicatePath()">Duplicate</div>
+					</div>
+					<div class="cell">
+						<div id="forkbutton2" class='buttonbox pointer' style='border-color: rgb(255,255,128);' onClick="forkExistingPath()">Fork</div>
+					</div>
+					<div class="cell">
+						<div class='buttonbox' onClick="moveToTop()">Top</div>
+					</div>
+					<div class="cell">
+						<div class='buttonbox' onClick="moveToBottom()">Bottom</div>
+					</div>
+					<div class="cell">
+						<div class='buttonbox pointer' style='border-color: rgb(255,128,128);' onClick="deletePath()">Delete</div>
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
-	<div id="hintModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideHintModal()">
-		<div id="hintModalMain" style="width: 340px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 130px; left: 8px; border-style: solid; padding: 0px 8px; border-color: white; color: white;" onclick="event.stopPropagation()">
-			<div class="row">
-				<div>
-					<h3 class="textrow">When to use which symbol?</h3>
+		<div id="hintModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideHintModal()">
+			<div id="hintModalMain" style="width: 340px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 50px; left: 8px; border-style: solid; padding: 0px 8px; border-color: white; color: white;" onclick="event.stopPropagation()">
+				<div class="row">
+					<div>
+						<h3 class="textrow">When to use which symbol?</h3>
+					</div>
+				</div>
+				<div class="row hint">
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/arrowright.png);"></div>
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/arrowrightdown.png);"></div>
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/quadranttopleft.png);"></div>
+					<span>Indicate which path you took at a branching point.</span>
+				</div>
+				<div class="row hint">
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/keychest0.png);"></div>
+					<span>This path is done! Ends in a dead end or useless loop.</span>
+				</div>
+				<div class="row hint">
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/prize0.png);"></div>
+					<span>Remember this path for later, it can be explored further.</span>
+				</div>
+				<div class="row hint">
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/crystalswitch.png);"></div>
+					<span>A crystal switch can be hit from here.</span>
+				</div>
+				<div class="row hint">
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/orangedown.png);"></div>
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/bluedown.png);"></div>
+					<span>A specific switch state is needed.</span>
+				</div>
+				<div class="row hint">
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/trapdoor.png);"></div>
+					<span>One-way path, no going back from here.</span>
+				</div>
+				<div class="row hint">
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/smallkey.png);"></div>
+					<div class="pathsymbol" style="background-image: url(./images/items/somaria.png);"></div>
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/torch.png);"></div>
+					<div class="pathsymbol" style="background-image: url(./images/items/bow1.png);"></div>
+					<span>An item you're missing is needed to proceed.</span>
+				</div>
+				<div class="row hint">
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/boss0.png);"></div>
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/agahnim0.png);"></div>
+					<span>A boss is in the way.</span>
+				</div>
+				<div class="row hint">
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/keysteal.png);"></div>
+					<span>Useless key door, you can save a key here.</span>
+				</div>
+				<div class="row hint">
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/map.png);"></div>
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/compass.png);"></div>
+					<div class="pathsymbol" style="background-image: url(./images/dungeons/hinttile.png);"></div>
+					<div class="pathsymbol" style="background-image: url(./images/items/heartcontainer.png);"></div>
+					<span>Give symbols any meaning!</span>
+				</div>
+				<div class="row" style="margin-bottom: 4px;">
+					<span>A detailed explanation can be found in the <a href="instructions.html#dungeon" target="_blank">Instructions</a>.</span>
 				</div>
 			</div>
-			<div class="row hint">
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/arrowright.png);"></div>
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/arrowrightdown.png);"></div>
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/quadranttopleft.png);"></div>
-				<span>Indicate which path you took at a branching point.</span>
-			</div>
-			<div class="row hint">
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/keychest0.png);"></div>
-				<span>This path is done! Ends in a dead end or useless loop.</span>
-			</div>
-			<div class="row hint">
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/prize0.png);"></div>
-				<span>Remember this path for later, it can be explored further.</span>
-			</div>
-			<div class="row hint">
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/crystalswitch.png);"></div>
-				<span>A crystal switch can be hit from here.</span>
-			</div>
-			<div class="row hint">
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/orangedown.png);"></div>
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/bluedown.png);"></div>
-				<span>A specific switch state is needed.</span>
-			</div>
-			<div class="row hint">
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/smallkey.png);"></div>
-				<div class="pathsymbol" style="background-image: url(./images/items/somaria.png);"></div>
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/torch.png);"></div>
-				<div class="pathsymbol" style="background-image: url(./images/items/bow1.png);"></div>
-				<span>Some item is needed.</span>
-			</div>
-			<div class="row hint">
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/boss0.png);"></div>
-				<div class="pathsymbol" style="background-image: url(./images/dungeons/agahnim0.png);"></div>
-				<span>A boss is in the way.</span>
+		</div>
+		<div id="roomModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideRoomModal()">
+			<div id="roomModalMain" style="width: 348px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 110px; left: 8px; border-style: solid; border-color: white; color: white;" onclick="event.stopPropagation()">
+				<div class="row" style="margin: 4px 0px;">
+					<label><input type="checkbox" id="splitpath" />Split path at this node (save and start new path)</label>
+				</div>
+				<div id="dungeonentrancesmodal" class="row"></div>
+				<div id="dungeonimportantmodal" class="row"></div>
 			</div>
 		</div>
-		</div>
-	</div>
-	<div id="roomModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideRoomModal()">
-		<div id="roomModalMain" style="width: 348px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 130px; left: 8px; border-style: solid; border-color: white; color: white;" onclick="event.stopPropagation()">
-			<div class="row" style="margin: 4px 0px;">
-				<label><input type="checkbox" id="splitpath" />Split path at this node (save and start new path)</label>
-			</div>
-			<div id="dungeonentrancesmodal" class="row">
-			</div>
-			<div id="dungeonimportantmodal" class="row">
-			</div>
-		</div>
-	</div>
-	<script>start()</script>
+		<script>start()</script>
 	</body>
 </html>

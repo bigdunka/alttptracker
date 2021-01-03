@@ -27,6 +27,10 @@ body {
 #tracker [id^="smallkey"] { width: 64px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 0px; padding-left: 32px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 #tracker [id^="smallkeyhalf"] { width: 32px; height: 32px; color: #FFF; font-size: 20px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 6px; padding-left: 6px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
 #tracker [id^="smallhalfheader"] { width: 32px; height: 16px; color: #FFF; font-size: 9px; text-align: center; font-family: "Arial Black", Gadget, sans-serif; padding-top: 2px; -moz-user-select: -moz-none; -khtml-user-select: none; -webkit-user-select: none; -o-user-select: none; user-select: none;  }
+#tracker .compass { width: 32px; height: 32px; display: none; }
+#tracker [id$="skdiv"] { width: 64px; height: 32px; }
+#tracker .withcompass .compass { display: block; }
+#tracker .withcompass [id^="smallkey"] { width: 32px; text-align: right; padding-top: 8px; padding-left: 4px; padding-right: 2px; float: left; background-image: url(../images/dungeons/smallkeyhalf.png); }
 
 #tracker .item.half { width: 32px; height: 32px; position: absolute; }
 #tracker .tunic { width: 128px; height: 128px; }
@@ -122,6 +126,7 @@ body {
 
 .lowerchest {
   width: 64px;
+  height: 64px;
   float: left;
 }
 
@@ -182,7 +187,7 @@ body {
 .darkavailable { background-color: blue; }
 .darkpossible { background-color: purple; } 
 .opened { background-color: #7f7f7f; opacity: 0.5; }
-.hidden { width: 0px; height: 0px; }
+.hidden { width: 0px!important; height: 0px!important; }
 
 #caption {
   width: 100%;
@@ -331,6 +336,7 @@ body {
 .flippers { background-image: url(../images/items/flippers.png); }
 .flute { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image: url(../images/items/flute.png); }
 .magic { background-image: url(../images/items/magic.png); }
+.half.magic { width: 32px; height: 32px; background-size: 32px; top: 32px; left: 0; background-image: url(../images/items/magic.png); }
 .agahnim, #bossMapAgahnim { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image:url(../images/dungeons/agahnim0.png); }
 .agahnim.active { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image:url(../images/dungeons/agahnim1.png); }
 .agahnim2 { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image:url(../images/dungeons/agahnim20.png); }
@@ -373,6 +379,7 @@ body {
 .bigkey { background-image: url(../images/dungeons/bigkey.png); }
 .smallkeyfull { background-image: url(../images/dungeons/smallkeyfull.png); }
 .smallkeyhalf { background-image: url(../images/dungeons/smallkeyhalf.png); }
+.compass { background-image: url(../images/dungeons/compass.png); }
 .bombfloor-0 { background-image: url(../images/dungeons/bombablefloor0.png); }
 .bombfloor-1 { background-image: url(../images/dungeons/bombablefloor1.png); }
 

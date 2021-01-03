@@ -61,8 +61,8 @@
 #bossMap8, #dungeon8 { left: 55.8%; top: 82.9%; }
 #bossMap9, #dungeon9 { left: 96.4%; top: 7.2%; }
 #bossMap10, #dungeon10 { left: 79.0%; top: 7.2%; }
-
-#bossMapAgahnim, #castle { left: 25.0%; top: 52.6%; }
+#bossMap11, #dungeon11 { left: 25.0%; top: 37.5%; }
+#bossMapAgahnim, #castle, #bossMap12, #dungeon12 { left: 25.0%; top: 52.6%; }
 
 #locationMap0 { left: 30.8%; top: 29.6%; }
 #locationMap1 { left: 23.4%; top: 93.4%; }

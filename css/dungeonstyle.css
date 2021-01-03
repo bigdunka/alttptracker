@@ -9,6 +9,8 @@ body {
 
 * { box-sizing: border-box; }
 
+a, a:visited{ color: #80C0FF; }
+
 .pointer { cursor: pointer; }
 
 .row:before,
@@ -30,8 +32,10 @@ body {
 .summary { position: relative; height: 32px; }
 
 .roomnode { float: left; margin: 2px; cursor: default; overflow: hidden; width: 64px; height: 64px; position: relative; }
+.roomnode.slim { width: 32px; }
 .roomnodeimg { transform-origin: 0 0; z-index: -1; position: absolute; }
 .roomnode .roomtt { width: 64px; height: 64px; z-index: 1; cursor: inherit; position: absolute; top: 0; left: 0; font-size: 10pt; background-color: black; display: inline-block; color: #fff; text-align: center; visibility: hidden; opacity: 0; transition: opacity .25s; }
+.roomnode.slim .roomtt { width: 32px; }
 .roomnode:hover .roomtt { visibility: visible; opacity: .75; }
 .ttlabel { cursor: inherit; }
 
