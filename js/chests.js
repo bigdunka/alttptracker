@@ -2074,7 +2074,7 @@
 					return window.GTBoss();
 				},
 				can_get_chest: function() {
-					if ((crystalCheck() < 7 && crystalCheck() < flags.opentowercount) || items.glove < 2 || !canReachDarkWorld()) return 'unavailable';
+					if ((crystalCheck() < 7 && crystalCheck() < flags.opentowercount) || items.glove < 2 || !items.hammer || !canReachDarkWorld()) return 'unavailable';
 					var doorcheck = window.doorCheck(10,!items.flute && !items.lantern,false,false,['hammer','firerod','hookshot','boomerang','somaria','wizzrobe','boots','bow',flags.bossshuffle === 'N' ? '' : 'icerod'],'item');
 					if(doorcheck)
 						return doorcheck;
