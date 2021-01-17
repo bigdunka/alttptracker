@@ -68,74 +68,7 @@
 		}
 		return 'unavailable';
 	}
-	
-	/* function availableChests(allchests, keys, maxchest, chestcount) {
-		var achests = 0;
-		var pchests = 0;
-		var dachests = 0;
-		var dpchests = 0;
-		var uchests = 0;
-
-		for (var i = 0; i < allchests.length; i++) {
-			switch (allchests[i]) {
-				case 'A':
-					achests++;
-					break;
-				case 'P':
-					pchests++;
-					break;
-				case 'DA':
-					dachests++;
-					break;
-				case 'DP':
-					dpchests++;
-					break;
-				case 'U':
-					uchests++;
-					break;
-			}
-		}
 		
-		//Move dungeon item and key chests from available to possible (Don't count big key, is a 1 for 1)
-		switch (flags.dungeonitems) {
-			case 'S':
-				pchests = pchests + (achests > 1 ? 2 : achests);
-				achests = achests - (achests > 1 ? 2 : achests) - keys;
-				break;
-			case 'M':
-				achests = achests - keys;
-				pchests = pchests + keys;
-				break;
-			case 'K':
-			case 'F':
-				achests = achests - keys;
-				pchests = pchests + keys;
-				break;
-		}		
-		
-		var itemscollected = (maxchest - chestcount);
-		
-		for (var i = 0; i < itemscollected; i++) {
-			if (achests > 0) {
-				achests--;
-			} else if (dachests > 0) {
-				dachests--;
-			} else if (pchests > 0) {
-				pchests--;
-			} else if (dpchests > 0) {
-				dpchests--;
-			}
-		}
-		
-		//if (uchests >= chestcount && (achests > 0 || pchests > 0 || dachests > 0 || dpchests > 0)) return 'possible';
-//		if (uchests >= chestcount) return 'unavailable';
-		if (achests > 0) return 'available';
-		if (pchests > 0) return 'possible';
-		if (dachests > 0) return 'darkavailable';
-		if (dpchests > 0) return 'darkpossible';
-		return 'unavailable';
-	} */
-	
 	function canReachDarkWorld()
 	{
 		return items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim);
@@ -148,7 +81,7 @@
 
 	function canReachLightWorldBunny()//Can walk around in Light World as bunny or Link
 	{
-		return items.agahnim || canReachLightWorld() || (items.glove === 2 && activeFlute());
+		return items.agahnim || canReachLightWorld() || (items.glove === 2 && activeFluteInvertedEntrance());
 	}
 
 	function canReachPyramid()
@@ -158,12 +91,17 @@
 
 	function canReachPyramidWithoutFlippers()
 	{
-		return items.hammer || activeFlute() || (items.mirror && canReachLightWorldBunny());
+		return items.hammer || activeFluteInvertedEntrance() || (items.mirror && canReachLightWorldBunny());
 	}
 
 	function activeFlute()
 	{
 		return items.flute && canReachLightWorld();
+	}
+	
+	function activeFluteInvertedEntrance()
+	{
+		return items.flute && canReachInvertedLightWorld();
 	}
 	
 	function hasFoundDungeon(x)
@@ -265,7 +203,7 @@
 	//Dark World
 	function canReachOutcast() {
 		if (items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim && items.hookshot && (items.hammer || items.glove || items.flippers))) return true;
-		if (hasFoundEntrance(90) || hasFoundEntrance(91) || hasFoundEntrance(104) || hasFoundEntrance(105) || hasFoundEntrance(106) || hasFoundEntrance(107) || hasFoundEntrance(108) || hasFoundEntrance(109) || (hasFoundEntrance(110) && items.moonpearl && items.hammer) || hasFoundEntrance(111) || (hasFoundEntrance(112) && items.moonpearl && items.glove === 2) || hasFoundEntrance(129)) return true;
+		if (hasFoundEntrance(90) || hasFoundEntrance(91) || hasFoundEntrance(96) || hasFoundEntrance(104) || hasFoundEntrance(105) || hasFoundEntrance(106) || hasFoundEntrance(107) || hasFoundEntrance(108) || hasFoundEntrance(109) || (hasFoundEntrance(110) && items.moonpearl && items.hammer) || hasFoundEntrance(111) || (hasFoundEntrance(112) && items.moonpearl && items.glove === 2) || hasFoundEntrance(129)) return true;
 		if ((hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) && items.moonpearl && (items.glove === 2 || (items.flippers && items.hookshot) || ((items.glove > 0 || items.hammer) && items.hookshot))) return true;
 		if (canReachDarkWorldEast() && items.moonpearl && ((items.flippers || items.hammer || items.glove > 0) && items.hookshot)) return true;
 		if (hasFoundEntrance(92) && items.moonpearl && items.hookshot) return true;
@@ -328,7 +266,7 @@
 	function canReachInvertedLightWorldBunny() // for inverted, can walk around in Light World as bunny or Link
 	{
 		// LW entrances that are bunny accessible, plus aga and flute 6 portal
-		if (items.agahnim || (items.glove === 2 && activeFlute()) || hasFoundEntrance(0) || hasFoundEntrance(1) || hasFoundEntrance(2) || hasFoundEntrance(3) || hasFoundEntrance(6) || hasFoundEntrance(7) || hasFoundEntrance(8) || hasFoundEntrance(9) || hasFoundEntrance(10) || hasFoundEntrance(13) || hasFoundEntrance(14) || hasFoundEntrance(18) || hasFoundEntrance(20) || hasFoundEntrance(22) || hasFoundEntrance(23) || hasFoundEntrance(24) || hasFoundEntrance(26) || hasFoundEntrance(27) || hasFoundEntrance(29) || hasFoundEntrance(30) || hasFoundEntrance(31) || hasFoundEntrance(32) || hasFoundEntrance(33) || hasFoundEntrance(34) || hasFoundEntrance(35) || hasFoundEntrance(36) || hasFoundEntrance(39) || hasFoundEntrance(41) || hasFoundEntrance(42) || hasFoundEntrance(43) || hasFoundEntrance(45) || hasFoundEntrance(46) || hasFoundEntrance(47) || hasFoundEntrance(48) || hasFoundEntrance(49) || hasFoundEntrance(50) || hasFoundEntrance(51) || hasFoundEntrance(52) || hasFoundEntrance(54) || hasFoundEntrance(55) || hasFoundEntrance(57) || hasFoundEntrance(58) || hasFoundEntrance(59) || hasFoundEntrance(60) || hasFoundEntrance(61) || hasFoundEntrance(62) || hasFoundEntrance(63) || hasFoundEntrance(65) || hasFoundEntrance(66) || hasFoundEntrance(67) || hasFoundEntrance(74) || hasFoundEntrance(95)) return true;
+		if (items.agahnim /* || (items.glove === 2 && activeFlute()) */ || hasFoundEntrance(0) || hasFoundEntrance(1) || hasFoundEntrance(2) || hasFoundEntrance(3) || hasFoundEntrance(6) || hasFoundEntrance(7) || hasFoundEntrance(8) || hasFoundEntrance(9) || hasFoundEntrance(10) || hasFoundEntrance(13) || hasFoundEntrance(14) || hasFoundEntrance(18) || hasFoundEntrance(20) || hasFoundEntrance(22) || hasFoundEntrance(23) || hasFoundEntrance(24) || hasFoundEntrance(26) || hasFoundEntrance(27) || hasFoundEntrance(29) || hasFoundEntrance(30) || hasFoundEntrance(31) || hasFoundEntrance(32) || hasFoundEntrance(33) || hasFoundEntrance(34) || hasFoundEntrance(35) || hasFoundEntrance(36) || hasFoundEntrance(39) || hasFoundEntrance(41) || hasFoundEntrance(42) || hasFoundEntrance(43) || hasFoundEntrance(45) || hasFoundEntrance(46) || hasFoundEntrance(47) || hasFoundEntrance(48) || hasFoundEntrance(49) || hasFoundEntrance(50) || hasFoundEntrance(51) || hasFoundEntrance(52) || hasFoundEntrance(54) || hasFoundEntrance(55) || hasFoundEntrance(57) || hasFoundEntrance(58) || hasFoundEntrance(59) || hasFoundEntrance(60) || hasFoundEntrance(61) || hasFoundEntrance(62) || hasFoundEntrance(63) || hasFoundEntrance(65) || hasFoundEntrance(66) || hasFoundEntrance(67) || hasFoundEntrance(74) || hasFoundEntrance(95)) return true;
 		// LW entrances that are accessible with moon pearl
 		if (items.moonpearl && (hasFoundEntrance(4) || (hasFoundEntrance(5) && items.flippers) || hasFoundEntrance(11) || hasFoundEntrance(16) || (hasFoundEntrance(17) && items.glove === 2) || hasFoundEntrance(37) || hasFoundEntrance(38) || (hasFoundEntrance(56) && items.glove) || (hasFoundEntrance(64) && items.flippers))) return true;
 		// DW entrances accessible with moon pearl + mitts
@@ -357,7 +295,7 @@
 		// southeast DW locations
 		if (items.flippers && (items.glove === 2 || items.hookshot) && (hasFoundEntrance(118) || hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122))) return true;
 		// flute 4
-		if (activeFlute()) return true;
+		if (activeFluteInvertedEntrance()) return true;
 		// LW + mirror
 		if (items.mirror && (canReachInvertedLightWorldBunny() || hasFoundEntrance(16) || hasFoundEntrance(17) || (hasFoundEntrance(37) && items.hammer) || hasFoundEntrance(38))) return true;		
 		return false;
@@ -374,7 +312,7 @@
 		// southeast DW locations
 		if (items.flippers && items.hammer && (hasFoundEntrance(118) || hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122))) return true;
 		// flute 4/7
-		if (activeFlute()) return true;	
+		if (activeFluteInvertedEntrance()) return true;	
 		return false;
 	}
 	
@@ -389,7 +327,7 @@
 		// south DW + flippers or hammer
 		if (canReachInvertedSouthDW() && (items.flippers || items.hammer)) return true;
 		// flute 5
-		if (activeFlute()) return true;
+		if (activeFluteInvertedEntrance()) return true;
 		// LW + mirror
 		if (items.mirror && (canReachInvertedLightWorldBunny() || ((items.hammer || items.glove) && hasFoundEntrance(4)) || hasFoundEntrance(11))) return true;
 		return false;
@@ -400,7 +338,7 @@
 		// mire area locations
 		if (hasFoundEntrance(123) || hasFoundEntrance(124) || hasFoundEntrance(125) || hasFoundEntrance(126)) return true;		
 		// flute 6
-		if (activeFlute()) return true;
+		if (activeFluteInvertedEntrance()) return true;
 		// LW + mirror
 		if (items.mirror && (canReachInvertedLightWorldBunny() || hasFoundEntrance(53) || hasFoundEntrance(56))) return true;		
 		return false;
@@ -410,7 +348,7 @@
 	{
 		// dark DM locations
 		if (hasFoundEntrance(127) || hasFoundEntrance(128) || hasFoundEntrance(130) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136)) return true;
-		if (activeFlute()) return true;
+		if (activeFluteInvertedEntrance()) return true;
 		// mirror from LW west DM + paradox top
 		if (items.mirror && (hasFoundEntrance(68) || hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76) || hasFoundEntrance(77))) return true;
 		// hookshot + mirror from LW east DM
@@ -624,7 +562,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(17)) return 'available';
-				return items.glove === 2 && canReachInvertedLightWorld() ? 'available' : 'unavailable';
+				return items.glove === 2 && items.boots && canReachInvertedLightWorld() ? 'available' : 'unavailable';
 			}
 		}, { // [18]
 			caption: 'North Fairy Cave',
@@ -1342,7 +1280,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(92)) return 'available';
-				if (activeFlute()) return 'available';
+				if (activeFluteInvertedEntrance()) return 'available';
 				if (items.flippers && (canReachInvertedNorthDW() || canReachInvertedSouthDW() || canReachInvertedEastDW())) return 'available';
 				if ((items.hammer || items.glove) && canReachInvertedEastDW()) return 'available';
 				return 'unavailable';
@@ -1615,7 +1553,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				if (hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122) || activeFlute()) return 'available';
+				if (hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122) || activeFluteInvertedEntrance()) return 'available';
 				if (items.mirror && canReachInvertedLightWorldBunny()) return 'available';
 				return (items.flippers && (canReachInvertedEastDW() || canReachInvertedSouthDW())) ? 'available' : 'unavailable';
 			}
@@ -1626,7 +1564,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				if (hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122) || activeFlute()) return 'available';
+				if (hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122) || activeFluteInvertedEntrance()) return 'available';
 				if (items.mirror && canReachInvertedLightWorldBunny()) return 'available';
 				return (items.flippers && (canReachInvertedEastDW() || canReachInvertedSouthDW())) ? 'available' : 'unavailable';
 			}
@@ -1639,7 +1577,7 @@
 			is_available: function() {
 				if (hasFoundEntrance(122)) return 'available';
 				if (!items.glove) return 'unavailable';
-				if (hasFoundEntrance(120) || hasFoundEntrance(121) || activeFlute()) return 'available';
+				if (hasFoundEntrance(120) || hasFoundEntrance(121) || activeFluteInvertedEntrance()) return 'available';
 				if (items.mirror && canReachInvertedLightWorldBunny()) return 'available';
 				return (items.flippers && (canReachInvertedEastDW() || canReachInvertedSouthDW())) ? 'available' : 'unavailable';
 			}
@@ -1858,11 +1796,11 @@
 			caption: 'Tower of Hera {hammer} [{hookshot}/{glove2}]',
 			is_beaten: false,
 			is_beatable: function() {
-				if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2)) return 'unavailable';
+				if(!(items.glove || activeFluteInvertedEntrance()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2)) return 'unavailable';
 				return window.HeraBoss();
 			},
 			can_get_chest: function() {
-				if(!(items.glove || activeFlute()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2)) return 'unavailable';
+				if(!(items.glove || activeFluteInvertedEntrance()) || !items.moonpearl || !items.hammer || !(items.hookshot || items.glove === 2)) return 'unavailable';
 				return window.HeraChests();
 			}
 		}, { // [3]
@@ -1920,7 +1858,7 @@
 			caption: 'Misery Mire {medallion0} [{boots}/{hookshot}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!(activeFlute() || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
+				if (!(activeFluteInvertedEntrance() || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
 				if (!items.boots && !items.hookshot) return 'unavailable';
 				if (!items.bigkey8) return 'unavailable';
 				var state = medallionCheck(0);
@@ -1928,7 +1866,7 @@
 				return window.MMBoss();
 			},
 			can_get_chest: function() {
-				if (!(activeFlute() || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
+				if (!(activeFluteInvertedEntrance() || (items.mirror && canReachLightWorldBunny()))) return 'unavailable';
 				if (!items.boots && !items.hookshot) return 'unavailable';
 				var state = medallionCheck(0);
 				if (state) return state;
@@ -1938,7 +1876,7 @@
 			caption: 'Turtle Rock {medallion0}/{mirror}',
 			is_beaten: false,
 			is_beatable: function() {
-				if (!(items.glove || activeFlute()) || !items.somaria) return 'unavailable';
+				if (!(items.glove || activeFluteInvertedEntrance()) || !items.somaria) return 'unavailable';
 				//First, check for back door access through mirror, it has logic priority
 				if (items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2))) {
 					return window.TRBackBoss();
@@ -1951,7 +1889,7 @@
 				}
 			},
 			can_get_chest: function() {
-				if (!(items.glove || activeFlute())) return 'unavailable';
+				if (!(items.glove || activeFluteInvertedEntrance())) return 'unavailable';
 				//First, check for back door access through mirror, it has logic priority
 				if (items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2))) {
 					return window.TRBackChests();
