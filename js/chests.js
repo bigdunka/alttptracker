@@ -32,7 +32,7 @@
     function melee_bow() { return melee() || items.bow > 0; }
     function cane() { return items.somaria || items.byrna; }
     function rod() { return items.firerod || items.icerod; }
-	function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 0 || items.hammer || items.firerod; }
+	function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 0 || items.hammer || items.firerod || (items.byrna && (items.bottle > 0 || items.magic)); }
 	function isdarkdm() { return !items.flute && !items.lantern; }
     function always() { return 'available'; }
 
@@ -2074,7 +2074,7 @@
 					return window.GTBoss();
 				},
 				can_get_chest: function() {
-					if ((crystalCheck() < 7 && crystalCheck() < flags.opentowercount) || items.glove < 2 || !items.hammer || !canReachDarkWorld()) return 'unavailable';
+					if ((crystalCheck() < 7 && crystalCheck() < flags.opentowercount) || items.glove < 2 || (!items.hammer && !items.hookshot) || !canReachDarkWorld()) return 'unavailable';
 					var doorcheck = window.doorCheck(10,!items.flute && !items.lantern,false,false,['hammer','firerod','hookshot','boomerang','somaria','wizzrobe','boots','bow',flags.bossshuffle === 'N' ? '' : 'icerod'],'item');
 					if(doorcheck)
 						return doorcheck;
