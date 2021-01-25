@@ -191,11 +191,11 @@
 				is_beaten: false,
 				is_beatable: function() {
 					if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
-					return (items.moonpearl && items.glove === 2) || (canReachSDW() && items.moonpearl && items.boots && items.flippers) ? window.IPBoss() : 'unavailable';
+					return (items.glove === 2) || (canReachSDW() && items.moonpearl && items.boots && items.flippers) ? window.IPBoss() : 'unavailable';
 				},
 				can_get_chest: function() {
 					if (!items.firerod && (!items.bombos || items.bombos && (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
-					return (items.moonpearl && items.glove === 2) || (canReachSDW() && items.moonpearl && items.boots && items.flippers) ? window.IPChests() : 'unavailable';
+					return (items.glove === 2) || (canReachSDW() && items.moonpearl && items.boots && items.flippers) ? window.IPChests() : 'unavailable';
 				}
 			}, { // [8]
 				caption: 'Misery Mire {medallion0} [{boots}/{hookshot}]',

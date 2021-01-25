@@ -358,7 +358,7 @@
 
     window.DPBoss = function() {
 		var dungeoncheck = enemizer_check(1);
-		if (!items.bigkey1 || dungeoncheck === 'unavailable' || items.glove === 0 || (!items.firerod && !items.lantern)) return 'unavailable';
+		if (!items.bigkey1 || dungeoncheck === 'unavailable' || (items.glove === 0 && flags.glitches === 'N') || (!items.firerod && !items.lantern)) return 'unavailable';
 		if (flags.wildkeys && !flags.wildbigkeys && (items.smallkey1 === 0 && flags.gametype != 'R') && !items.boots) return 'possible';
 		if (!flags.wildkeys && !flags.wildbigkeys && !items.boots) return 'possible';
 		return dungeoncheck;
@@ -367,9 +367,9 @@
     window.HeraBoss = function() {
 		var dungeoncheck = enemizer_check(2);
 		if (!items.bigkey2 || dungeoncheck === 'unavailable') return 'unavailable';
-		if (flags.wildbigkeys) return (dungeoncheck === 'available' ? ((!items.flute && !items.lantern) ? 'darkavailable' : 'available') : ((!items.flute && !items.lantern) ? 'darkpossible' : 'possible')); 
-		if ((flags.wildkeys && (items.smallkey2 === 0 && flags.gametype != 'R')) || (!items.lantern && !items.firerod)) return (!items.flute && !items.lantern) ? 'darkpossible' : 'possible';
-		return (dungeoncheck === 'available' ? ((!items.flute && !items.lantern) ? 'darkavailable' : 'available') : ((!items.flute && !items.lantern) ? 'darkpossible' : 'possible'));
+		if (flags.wildbigkeys) return (dungeoncheck === 'available' ? ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available') : ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible')); 
+		if ((flags.wildkeys && (items.smallkey2 === 0 && flags.gametype != 'R')) || (!items.lantern && !items.firerod)) return (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible';
+		return (dungeoncheck === 'available' ? ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available') : ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible'));
     };
 
     window.PoDBoss = function() {
@@ -612,7 +612,7 @@
     };
 
     window.HeraChests = function() {
-		var isDark = (!items.flute && !items.lantern);
+		var isDark = (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots));
 		
 		var chests = ['U','U','U','U','U','U'];
 
@@ -631,8 +631,12 @@
 			if ((items.smallkey2 === 0 && flags.gametype != 'R') || (!items.lantern && !items.firerod)) {
 				chests[2] = 'U';
 			} else {
-				//This needs to be only possible, because the small key could be locked upstairs in wild big keys
-				chests[2] = (isDark ? 'DP' : 'P');
+				if (flags.wildkeys) {
+					chests[2] = (items.smallkey2 === 0 ? 'U' : (isDark ? 'DA' : 'A'));
+				} else {
+					//This needs to be only possible, because the small key could be locked upstairs in wild big keys
+					chests[2] = (isDark ? 'DP' : 'P');
+				}
 			}
 		} else {
 			if (items.lantern || items.firerod) {
