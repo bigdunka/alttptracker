@@ -424,14 +424,18 @@
 		if (medallion_check(0) === 'unavailable') return 'unavailable';
 		var dungeoncheck = enemizer_check(8);
 		if (!items.bigkey8 || !items.somaria || dungeoncheck === 'unavailable') return 'unavailable';
-		if (dungeoncheck === 'available' && medallion_check(0) === 'available') {
-			if (!flags.wildbigkeys) {
-				if (!items.lantern && !items.firerod) return 'darkpossible';
+		if (dungeoncheck === 'possible' || medallion_check(0) === 'possible') {
+			return (items.lantern ? 'possible' : 'darkpossible');
+		}
+		if (!flags.wildbigkeys) {
+			if (!items.lantern && !items.firerod) {
+				return 'darkpossible';
 			} else {
 				return (items.lantern ? 'available' : 'darkavailable');
 			}
+		} else {
+			return (items.lantern ? 'available' : 'darkavailable');
 		}
-		if (dungeoncheck === 'available') return 'available';
 		return (dungeoncheck === 'possible' ? (items.lantern ? 'possible' : 'darkpossible') : 'unavailable');
     };
 
