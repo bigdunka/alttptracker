@@ -431,6 +431,7 @@
 				return (items.lantern ? 'available' : 'darkavailable');
 			}
 		}
+		if (dungeoncheck === 'available') return 'available';
 		return (dungeoncheck === 'possible' ? (items.lantern ? 'possible' : 'darkpossible') : 'unavailable');
     };
 
