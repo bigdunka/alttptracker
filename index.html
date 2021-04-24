@@ -1,9 +1,9 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=16014"></script>
+		<script src="js/index.js?v=16015"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=16014"></script>
+		<script src="js/bootstrap.min.js?v=16015"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.6.014 032821 - Compatible for v31.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.6.015 042421 - Compatible for v31.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="instructions.html"><img src='./images/overlay/instructions.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
@@ -59,25 +59,26 @@
 									</td>
 								</tr>
 								<tr>
-									<td width="90px">
-										<input type="button" value="Open" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadopenpreset()" />
+									<td width="80px">
+										<input type="button" value="Open" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 13px; background-color: #BBB; width: 80px;" onclick="loadopenpreset()" />
 									</td>
-									<td width="90px">
-										<input type="button" value="Casual Boots" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadbootspreset()" />
+									<td width="80px">
+										<input type="button" value="Casual Boots" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 13px; background-color: #BBB; width: 80px;" onclick="loadbootspreset()" />
 									</td>
-									<td width="90px">
-										<input type="button" value="Standard" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadstandardpreset()" />
+									<td width="80px">
+										<input type="button" value="Standard" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 13px; background-color: #BBB; width: 80px;" onclick="loadstandardpreset()" />
 									</td>
-									<td width="90px">
-										<input type="button" value="Mystery" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadmysterypreset()" />
+									<td width="80px">
+										<input type="button" value="S7 Potpourri" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 13px; background-color: #BBB; width: 80px;" onclick="loadpotpourripreset()" />
 									</td>
-									<td width="90px">
-										<input type="button" value="Crosskeys" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadcrosskeyspreset()" />
+									<td width="80px">
+										<input type="button" value="Mystery" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 13px; background-color: #BBB; width: 80px;" onclick="loadmysterypreset()" />
 									</td>
-									<td width="90px">
-										<input type="button" value="MC Shuffle" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadmcshufflepreset()" />
+									<td width="80px">
+										<input type="button" value="Crosskeys" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 13px; background-color: #BBB; width: 80px;" onclick="loadcrosskeyspreset()" />
 									</td>
-									<td width="20px">
+									<td width="80px">
+										<input type="button" value="Retrance" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 13px; background-color: #BBB; width: 80px;" onclick="loadretrancepreset()" />
 									</td>
 									<td width="140px">
 										Enter Seed Hash: <span class="south" title="This will import the flags from the ALTTPR generator and import automatically. Does NOT work properly with customizer settings. (Does not work when offline)" style="font-size: 12px; color: red; height: 25px; cursor: pointer;">[?]</span>
@@ -291,6 +292,45 @@
 									<td>
 										<input id="startingbootsyes" value="Y" type="radio" name="startingbootsgroup" />
 										<label for="startingbootsyes" style="width:100px">Yes</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Starting Flute:
+									</td>
+									<td>
+										<input id="startingfluteno" value="N" type="radio" name="startingflutegroup" checked />
+										<label for="startingfluteno" style="width:100px">No</label>
+									</td>
+									<td>
+										<input id="startingfluteyes" value="Y" type="radio" name="startingflutegroup" />
+										<label for="startingfluteyes" style="width:100px">Yes</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Starting Hookshot:
+									</td>
+									<td>
+										<input id="startinghookshotno" value="N" type="radio" name="startinghookshotgroup" checked />
+										<label for="startinghookshotno" style="width:100px">No</label>
+									</td>
+									<td>
+										<input id="startinghookshotyes" value="Y" type="radio" name="startinghookshotgroup" />
+										<label for="startinghookshotyes" style="width:100px">Yes</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Starting Ice Rod:
+									</td>
+									<td>
+										<input id="startingicerodno" value="N" type="radio" name="startingicerodgroup" checked />
+										<label for="startingicerodno" style="width:100px">No</label>
+									</td>
+									<td>
+										<input id="startingicerodyes" value="Y" type="radio" name="startingicerodgroup" />
+										<label for="startingicerodyes" style="width:100px">Yes</label>
 									</td>
 								</tr>
 							</table>

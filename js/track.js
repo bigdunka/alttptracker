@@ -2602,6 +2602,18 @@
 			toggle('boots');
 		}
 		
+		if (window.startingitems.charAt(1) === 'Y') {
+			toggle('flute');
+		}
+		
+		if (window.startingitems.charAt(2) === 'Y') {
+			toggle('hookshot');
+		}
+		
+		if (window.startingitems.charAt(3) === 'Y') {
+			toggle('icerod');
+		}
+		
 		if (flags.autotracking === 'Y') {
             autotrackConnect();
 		}

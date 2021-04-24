@@ -60,6 +60,9 @@ function launch_tracker() {
 	var shuffledbigkeys = (document.getElementById("shuffledbigkeys").checked === true ? "1" : "0");
 	var ambrosia = document.querySelector('input[name="ambrosiagroup"]:checked').value;
 	var startingboots = document.querySelector('input[name="startingbootsgroup"]:checked').value;
+	var startingflute = document.querySelector('input[name="startingflutegroup"]:checked').value;
+	var startinghookshot = document.querySelector('input[name="startinghookshotgroup"]:checked').value;
+	var startingicerod = document.querySelector('input[name="startingicerodgroup"]:checked').value;
 	var trackingport = document.getElementById('autotrackingport').value;
 	
 	var width = map === "M" ? 1340 : 448;
@@ -79,7 +82,7 @@ function launch_tracker() {
 		glitches = 'M';
 	}
 	
-	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}{door}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{ambrosia}{autotracking}{trackingport}&sprite={sprite}{compact}&starting={startingboots}'
+	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}{map}{spoiler}{sphere}{mystery}{door}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{ambrosia}{autotracking}{trackingport}&sprite={sprite}{compact}&starting={startingboots}{startingflute}{startinghookshot}{startingicerod}'
 			.replace('{tracker}', trackerName)
 			.replace('{type}', type)
 			.replace('{entrance}', entrance)
@@ -108,6 +111,9 @@ function launch_tracker() {
 			.replace('{autotracking}', autotracking)
 			.replace('{trackingport}', trackingport)
 			.replace('{startingboots}', startingboots)
+			.replace('{startingflute}', startingflute)
+			.replace('{startinghookshot}', startinghookshot)
+			.replace('{startingicerod}', startingicerod)
 			.replace('{compact}', (map === "C" ? '&map=C' : '')),
 		'',
 		'width={width},height={height},titlebar=0,menubar=0,toolbar=0,scrollbars=0,resizable=0'
@@ -135,6 +141,9 @@ function loadopenpreset() {
 	document.getElementById("shuffledsmallkeys").checked = false;
 	document.getElementById("shuffledbigkeys").checked = false;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -159,6 +168,9 @@ function loadopenbootspreset() {
 	document.getElementById("shuffledsmallkeys").checked = false;
 	document.getElementById("shuffledbigkeys").checked = false;
 	document.getElementById("startingbootsyes").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -183,6 +195,9 @@ function loadambrosiapreset() {
 	document.getElementById("shuffledsmallkeys").checked = false;
 	document.getElementById("shuffledbigkeys").checked = false;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -207,6 +222,9 @@ function loadmysterypreset() {
 	document.getElementById("shuffledsmallkeys").checked = true;
 	document.getElementById("shuffledbigkeys").checked = true;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -231,6 +249,9 @@ function loadcrosskeyspreset() {
 	document.getElementById("shuffledsmallkeys").checked = true;
 	document.getElementById("shuffledbigkeys").checked = true;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -255,6 +276,9 @@ function loadinvertedkeyspreset() {
 	document.getElementById("shuffledsmallkeys").checked = true;
 	document.getElementById("shuffledbigkeys").checked = true;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -279,6 +303,9 @@ function loadenemizerpreset() {
 	document.getElementById("shuffledsmallkeys").checked = false;
 	document.getElementById("shuffledbigkeys").checked = false;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -303,6 +330,9 @@ function loadbootspreset() {
 	document.getElementById("shuffledsmallkeys").checked = false;
 	document.getElementById("shuffledbigkeys").checked = false;
 	document.getElementById("startingbootsyes").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -327,6 +357,9 @@ function loadopenkeyspreset() {
 	document.getElementById("shuffledsmallkeys").checked = true;
 	document.getElementById("shuffledbigkeys").checked = true;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);	
 }
 
@@ -351,6 +384,9 @@ function loadadkeyspreset() {
 	document.getElementById("shuffledsmallkeys").checked = true;
 	document.getElementById("shuffledbigkeys").checked = true;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);	
 }
 
@@ -375,6 +411,9 @@ function loadreducedpreset() {
 	document.getElementById("shuffledsmallkeys").checked = false;
 	document.getElementById("shuffledbigkeys").checked = false;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -399,6 +438,9 @@ function loadinvrosiapreset() {
 	document.getElementById("shuffledsmallkeys").checked = false;
 	document.getElementById("shuffledbigkeys").checked = true;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);		
 	
 }
@@ -424,6 +466,9 @@ function loadstandardpreset() {
 	document.getElementById("shuffledsmallkeys").checked = false;
 	document.getElementById("shuffledbigkeys").checked = false;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
@@ -448,6 +493,63 @@ function loadmcshufflepreset() {
 	document.getElementById("shuffledsmallkeys").checked = false;
 	document.getElementById("shuffledbigkeys").checked = false;
 	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+function loadpotpourripreset() {
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossshuffled").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonstandard").checked = true;
+	document.getElementById("goaldungeons").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteyes").checked = true;
+	document.getElementById("startinghookshotyes").checked = true;
+	document.getElementById("startingicerodyes").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+function loadretrancepreset() {
+	document.getElementById("gametyperetro").checked = true;
+	document.getElementById("entrancesimple").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonfullshuffle").checked = true;
+	document.getElementById("goalfast").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsassured").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
