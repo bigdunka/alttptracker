@@ -1655,11 +1655,11 @@
 					//return canReachLightWorldBunny() ? (items.book ? (items.moonpearl ? 'available' : 'information') : 'information') : 'unavailable';
 					if(!canReachLightWorldBunny())
 						return 'unavailable';
-					if(!items.book || !items.moonpearl)
+					if(!items.book || (!items.moonpearl && flags.doorshuffle === 'N'))
 						return 'information';
 					var doorcheck = window.doorCheck(1,false,false,false,['glove',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'boots' : '','firesource'],'connector');
 					if(doorcheck)
-						return doorcheck;
+						return doorcheck === 'available' && !items.moonpearl ? 'possible' : doorcheck;
 					return 'available';
 				}
 			}, { // [49]
@@ -2167,11 +2167,11 @@
 				caption: 'Mimic Cave ({mirror} outside of Turtle Rock)(Yellow = {medallion0} unkown OR possible w/out {firerod})',
 				is_opened: false,
 				is_available: function() {
-					if (!items.moonpearl || !items.hammer || items.glove !== 2 || !items.somaria || !items.mirror) return 'unavailable';
+					if (!items.moonpearl || !items.hammer || items.glove !== 2 || (!items.somaria && flags.doorshuffle === 'N') || !items.mirror) return 'unavailable';
 					var state = medallionCheck(1);	
 					if (state) return state === 'possible' && !items.flute && !items.lantern ? 'darkpossible' : state;
-					
-					var doorcheck = window.doorCheck(9,!items.flute && !items.lantern,true,false,['firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : ''],'connector');
+
+					var doorcheck = window.doorCheck(9,!items.flute && !items.lantern,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : ''],'connector');
 					if(doorcheck)
 						return doorcheck;
 

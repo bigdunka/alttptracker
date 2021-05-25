@@ -3,13 +3,14 @@
 	<head>
 		<title>Dungeon Tracker - ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=16015"></script>
-		<script src="js/bootstrap.min.js?v=16015"></script>
-		<link rel="stylesheet" type="text/css" href="css/dungeonstyle.css?v=16015">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=16015">
+		<script src="js/jquery-3.3.1.js?v=16016"></script>
+		<script src="js/bootstrap.min.js?v=16016"></script>
+		<link rel="stylesheet" type="text/css" href="css/dungeonstyle.css?v=16016">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=16016">
 		<link href="css/fonts.css" rel="stylesheet">
-		<script src="js/util.js?v=16015"></script>
-		<script src="js/dungeontracker.js?v=16015"></script>
+		<script src="js/util.js?v=16016"></script>
+		<script src="js/owdungeondata.js?v=16016"></script>
+		<script src="js/dungeontracker.js?v=16016"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -29,238 +30,587 @@
 		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
 	</head>
 	<body>
-		<div id="app" class="row">
-			<div id="overview" class="cell">
+		<div id="app" class="row showsidebar">
+			<div id="sidebar">
 				<div class="row">
-					<div>
-						<h2 class="textrow">Dungeon overview</h2>
-					</div>
+					<div id="homebutton" class="buttonsquare home" style="float: left; margin: 4px 0 0 4px;" onclick="home()"></div>
+					<div class="buttonsquare collapse" style="float: left; margin: 4px 0 0 7px;" onclick="hideSidebar()"></div>
 				</div>
-				<div class="row">
-					<div class="cell pointer dungeon" onClick="loadDungeon(11)">
-						<div id="boss11" class="boss boss11"></div>
-						<div id="summary11" class="summary"></div>
+				<div id="sidebaroverworld">
+					<div class="row pointer" style="margin-top: 16px;" onclick="sideLoadOverworld()">
+						<div id="sidebossow" class="sidetab sideboss overworldicon"></div>
+						<div id="sidesummaryow" class="sidetab sidesummary" style="text-align: center; line-height: 30px; font-size: 14pt; color: lime;"></div>
 					</div>
-					<div class="cell pointer dungeon" onClick="loadDungeon(0)">
-						<div id="boss0" class="boss boss0"></div>
-						<div id="summary0" class="summary"></div>
-					</div>
-					<div class="cell pointer dungeon" onClick="loadDungeon(1)">
-						<div id="boss1" class="boss boss1"></div>
-						<div id="summary1" class="summary"></div>
-					</div>
-					<div class="cell pointer dungeon" onClick="loadDungeon(2)">
-						<div id="boss2" class="boss boss2"></div>
-						<div id="summary2" class="summary"></div>
-					</div>
-					<div class="cell pointer dungeon" onClick="loadDungeon(12)">
-						<div id="boss12" class="boss boss12" style="height: 64px; width: 64px; background-size: 64px;"></div>
-						<div id="summary12" class="summary"></div>
-					</div>
+					<div id="sidebaredit" class="sidebutton" style="margin-top: 4px;" onclick="showFullOverworldModal('editedges')">Full map</div>
+					<div id="sidebarnew" class="sidebutton" style="margin-top: 4px;" onclick="showFullOverworldModal('newpath')">New path</div>
+					<div id="sidebarsearch" class="sidebutton" style="margin-top: 4px;" onclick="showFullOverworldModal('searchpath')">Search</div>
 				</div>
-				<div class="row">
-					<div class="cell pointer dungeon" onClick="loadDungeon(3)">
-						<div id="boss3" class="boss boss3"></div>
-						<div id="summary3" class="summary"></div>
+				<div id="sidebardungeons">
+					<div class="row pointer" style="margin-top: 16px;" onclick="sideLoadDungeon(11)">
+						<div id="sideboss11" class="sidetab sideboss boss11"></div>
+						<div id="sidesummary11" class="sidetab sidesummary"></div>
 					</div>
-					<div class="cell pointer dungeon" onClick="loadDungeon(4)">
-						<div id="boss4" class="boss boss4"></div>
-						<div id="summary4" class="summary"></div>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(0)">
+						<div id="sideboss0" class="sidetab sideboss boss0"></div>
+						<div id="sidesummary0" class="sidetab sidesummary"></div>
 					</div>
-					<div class="cell pointer dungeon" onClick="loadDungeon(5)">
-						<div id="boss5" class="boss boss5"></div>
-						<div id="summary5" class="summary"></div>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(1)">
+						<div id="sideboss1" class="sidetab sideboss boss1"></div>
+						<div id="sidesummary1" class="sidetab sidesummary"></div>
 					</div>
-					<div class="cell pointer dungeon" onClick="loadDungeon(6)">
-						<div id="boss6" class="boss boss6"></div>
-						<div id="summary6" class="summary"></div>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(2)">
+						<div id="sideboss2" class="sidetab sideboss boss2"></div>
+						<div id="sidesummary2" class="sidetab sidesummary"></div>
 					</div>
-				</div>
-				<div class="row">
-					<div class="cell pointer dungeon" onClick="loadDungeon(7)">
-						<div id="boss7" class="boss boss7"></div>
-						<div id="summary7" class="summary"></div>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(12)">
+						<div id="sideboss12" class="sidetab sideboss boss12"></div>
+						<div id="sidesummary12" class="sidetab sidesummary"></div>
 					</div>
-					<div class="cell pointer dungeon" onClick="loadDungeon(8)">
-						<div id="boss8" class="boss boss8"></div>
-						<div id="summary8" class="summary"></div>
+					<div class="row pointer" style="margin-top: 16px;" onclick="sideLoadDungeon(3)">
+						<div id="sideboss3" class="sidetab sideboss boss3"></div>
+						<div id="sidesummary3" class="sidetab sidesummary"></div>
 					</div>
-					<div class="cell pointer dungeon" onClick="loadDungeon(9)">
-						<div id="boss9" class="boss boss9"></div>
-						<div id="summary9" class="summary"></div>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(4)">
+						<div id="sideboss4" class="sidetab sideboss boss4"></div>
+						<div id="sidesummary4" class="sidetab sidesummary"></div>
 					</div>
-					<div class="cell pointer dungeon" onClick="loadDungeon(10)">
-						<div id="boss10" class="boss boss10" style="height: 64px; width: 64px; background-size: 64px;"></div>
-						<div id="summary10" class="summary"></div>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(5)">
+						<div id="sideboss5" class="sidetab sideboss boss5"></div>
+						<div id="sidesummary5" class="sidetab sidesummary"></div>
 					</div>
-				</div>
-				<div class="row" style="margin-top: 10px;">
-					<div>
-						<h2 class="textrow">Settings</h2>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(6)">
+						<div id="sideboss6" class="sidetab sideboss boss6"></div>
+						<div id="sidesummary6" class="sidetab sidesummary"></div>
 					</div>
-				</div>
-				<div class="row">
-					<div style="display: inline-block;">
-						<h3 class="textrow">Door Shuffle:</h3>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(7)">
+						<div id="sideboss7" class="sidetab sideboss boss7"></div>
+						<div id="sidesummary7" class="sidetab sidesummary"></div>
 					</div>
-					<div class="rightalign">
-						<select id="selectdoorshuffle" style="height: 22px; top: 4px; position: relative;" onchange="updateDoorShuffle()">
-							<option value="N">None</option>
-							<option value="B">Basic</option>
-							<option value="C">Crossed</option>
-						</select>
-						<label style="height: 20px; top: 5px; position: relative;"><input type="checkbox" id="lobbyshuffle" onchange="updateDoorShuffle()" />Lobby Shuffle</label>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(8)">
+						<div id="sideboss8" class="sidetab sideboss boss8"></div>
+						<div id="sidesummary8" class="sidetab sidesummary"></div>
 					</div>
-				</div>
-				<div class="row">
-					<div style="display: inline-block;">
-						<h3 class="textrow">Exclude from overview:</h3>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(9)">
+						<div id="sideboss9" class="sidetab sideboss boss9"></div>
+						<div id="sidesummary9" class="sidetab sidesummary"></div>
 					</div>
-					<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
-						<label><input type="checkbox" id="excludesmallkeys" onchange="updateKeys()" />Small Keys</label>
-						<label><input type="checkbox" id="excludebigkeys" onchange="updateKeys()" />Big Keys</label>
+					<div class="row pointer" style="margin-top: 4px;" onclick="sideLoadDungeon(10)">
+						<div id="sideboss10" class="sidetab sideboss boss10"></div>
+						<div id="sidesummary10" class="sidetab sidesummary"></div>
 					</div>
-				</div>
-				<div class="row" style="margin-top: 10px;">
-					<div>
-						<h2 class="textrow">Save and restore</h2>
-					</div>
-				</div>
-				<div class="row" style="height: 34px;">
-					<div style="display: inline-block;">
-						<h3 class="textrow">Manual save:</h3>
-					</div>
-					<div class="cell rightalign">
-						<div id="loadmanual" class="cell buttonbox disabled" style="margin: 2px;" onClick="loadManual()">Load data</div>
-						<div id="savemanual" class="cell buttonbox" style="margin: 2px;" onClick="saveManual()">Save data</div>
-					</div>
-				</div>
-				<div class="row" style="height: 34px;">
-					<div style="display: inline-block;">
-						<h3 class="textrow">Auto-save:</h3>
-					</div>
-					<div class="cell rightalign">
-						<div id="loadauto" class="cell buttonbox disabled" style="margin: 2px;" onClick="loadAuto()">Load data</div>
-					</div>
-				</div>
-				<div class="row" style="height: 34px;">
-					<div style="display: inline-block;">
-						<h3 class="textrow">Reset:</h3>
-					</div>
-					<div class="cell rightalign">
-						<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onClick="clearData()">Clear current data</div>
-						<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onClick="clearLocalStorage()">Clear local storage</div>
-					</div>
-				</div>
-				<div class="row" style="margin-top: 10px;">
-					<div>
-						<h2 class="textrow">Statistics</h2>
-					</div>
-				</div>
-				<div>
-					<h3 id="totalpathdungeons" class="textrow"></h3>
-				</div>
-				<div>
-					<h3 id="totalpaths" class="textrow"></h3>
-				</div>
-				<div>
-					<h3 id="totalnodes" class="textrow"></h3>
-				</div>
-				<div>
-					<h3 id="totalnotes" class="textrow"></h3>
-				</div>
-				<div class="row" style="margin-top: 20px; margin-bottom: 4px;">
-					<span>Check out the <a href="instructions.html#dungeon" target="_blank">Instructions</a> for help with this tracker.</span>
 				</div>
 			</div>
-			<div id="pathlist" class="cell" style="width: 100%;">
-				<div class="row fixedtop pointer" onClick="closeDungeon()">
-					<div class="cell">
-						<div id="dungeonicon"></div>
-					</div>
-					<div class="cell">
-						<h1 id="dungeonname" style="margin: 14px 12px 10px 12px;"></h1>
-					</div>
-				</div>
-				<div class="row" style="margin-top: 64px;">
-					<div style="display: inline-block;">
-						<h3 class="textrow">Start a new path</h3>
-					</div>
-					<div class="rightalign">
-						<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 12px;">
-							<label><input type="checkbox" id="showmorerooms" onchange="updateStartRooms()" />Show more</label>
-						</div>
-						<div class="cell">
-							<div class="buttonbox pointer" style="margin: 2px;" onClick="startPath('')">Empty start</div>
-						</div>
-					</div>
-				</div>
-				<div id="dungeonentrances" class="row roompointer"></div>
-				<div id="dungeonimportant" class="row roompointer"></div>
-				<div class="row">
-					<div style="display: inline-block;">
-						<h3 id="dungeonpathsheader" class="textrow"></h3>
-					</div>
-					<div class="rightalign">
-						<div class="cell">
-							<div id="completedbutton" class="buttonbox" style="margin: 2px;" onClick="markCompleted()"></div>
-						</div>
-					</div>
-				</div>
-				<div id="dungeonpaths" class="pathlist"></div>
-				<div class="row">
-					<input id="dungeonpathsnote" type="text" style="width: 97.5%; margin: 0px 4px;" placeholder="Notes" />
-				</div>
-			</div>
-			<div id="pathedit" class="cell" style="width: 100%;">
-				<div class="row fixedtop">
+			<div id="main">
+				<div id="overview" class="cell">
 					<div class="row">
-						<div class="cell">
-							<div class='buttonbox pointer' style='border-color: rgb(255,128,128);' onClick="closePath()">Close without saving</div>
-						</div>
-						<div class="cell rightalign">
-							<div class='buttonbox pointer' style='border-color: rgb(128,255,128);' onClick="savePath()">Save and close path</div>
+						<div class="cell buttonsquare expand nosidebar" style="margin: 4px 8px 0 4px;" onclick="showSidebar()"></div>
+						<div style="display: inline-block;">
+							<h2 id="overviewtitle" class="textrow">Dungeon overview</h2>
 						</div>
 					</div>
-					<div class="row">
-						<div>
-							<h3 id="currentpathheader" class="textrow"></h3>
-						</div>
-					</div>
-					<div id="currentpath" class="row path"></div>
-				</div>
-				<div class="row" style="margin-top: 128px; max-width: 384px;">
-					<div id="directionicons" class="cell" style="position: relative; width: 160px; height: 160px; margin: 8px;"></div>
-					<div style="display: flex; flex-flow: column; width: 160px; height: 176px; float: right;">
-						<div class="row" style="height: 34px;">
-							<div id="deletebutton" class='cell buttonbox rightalign' style='border-color: rgb(255,128,128);' onClick="removeLast()">Delete last step</div>
-						</div>
-						<div class="row" style="height: 34px;">
-							<div id="forkbutton" class='cell buttonbox rightalign' style='border-color: rgb(255,255,128);' onClick="forkPath()">Fork at last direction</div>
-						</div>
-						<div style="flex-grow: 1;"></div>
-						<div class="row" style="height: 34px; margin-bottom: 4px;">
-							<div class="cell rightalign">
-								<div class='cell buttonbox' onClick="showRoomModal()">Insert room node</div>
-								<div class='cell buttonbox' style='border-color: rgb(128,128,255);' onClick="showHintModal()">Hints</div>
+					<div id="overviewoverworld">
+						<div class="row">
+							<div class="cell pointer dungeon" onclick="loadOverworld()">
+								<div class="boss overworldicon"></div>
+								<div id="summaryow" class="summary" style="text-align: center; line-height: 30px; font-size: 14pt; color: lime;"></div>
+							</div>
+							<div class="cell dungeon" style="width: 134px; height: 98px;">
+								<div class="buttonbox" style="margin-bottom: 5px;" onclick="showFullOverworldModal('editedges')">Full map</div>
+								<div class="buttonbox" style="margin-bottom: 5px;" onclick="showFullOverworldModal('newpath')">New path</div>
+								<div class="buttonbox" onclick="showFullOverworldModal('searchpath')">Search path</div>
 							</div>
 						</div>
-						<div class="row" style="margin-left: auto; margin-right: 0; width: auto;">
-							<div id="objecticons" class="row"></div>
+					</div>
+					<div id="overviewdungeons">
+						<div class="row">
+							<div class="cell pointer dungeon" onclick="loadDungeon(11)">
+								<div id="boss11" class="boss boss11"></div>
+								<div id="summary11" class="summary"></div>
+							</div>
+							<div class="cell pointer dungeon" onclick="loadDungeon(0)">
+								<div id="boss0" class="boss boss0"></div>
+								<div id="summary0" class="summary"></div>
+							</div>
+							<div class="cell pointer dungeon" onclick="loadDungeon(1)">
+								<div id="boss1" class="boss boss1"></div>
+								<div id="summary1" class="summary"></div>
+							</div>
+							<div class="cell pointer dungeon" onclick="loadDungeon(2)">
+								<div id="boss2" class="boss boss2"></div>
+								<div id="summary2" class="summary"></div>
+							</div>
+							<div class="cell pointer dungeon" onclick="loadDungeon(12)">
+								<div id="boss12" class="boss boss12" style="background-size: 64px;"></div>
+								<div id="summary12" class="summary"></div>
+							</div>
 						</div>
-						<div class="row" style="margin-left: auto; margin-right: 0; width: auto;">
-							<div id="switchicons" class="row"></div>
+						<div class="row">
+							<div class="cell pointer dungeon" onclick="loadDungeon(3)">
+								<div id="boss3" class="boss boss3"></div>
+								<div id="summary3" class="summary"></div>
+							</div>
+							<div class="cell pointer dungeon" onclick="loadDungeon(4)">
+								<div id="boss4" class="boss boss4"></div>
+								<div id="summary4" class="summary"></div>
+							</div>
+							<div class="cell pointer dungeon" onclick="loadDungeon(5)">
+								<div id="boss5" class="boss boss5"></div>
+								<div id="summary5" class="summary"></div>
+							</div>
+							<div class="cell pointer dungeon" onclick="loadDungeon(6)">
+								<div id="boss6" class="boss boss6"></div>
+								<div id="summary6" class="summary"></div>
+							</div>
+						</div>
+						<div class="row">
+							<div class="cell pointer dungeon" onclick="loadDungeon(7)">
+								<div id="boss7" class="boss boss7"></div>
+								<div id="summary7" class="summary"></div>
+							</div>
+							<div class="cell pointer dungeon" onclick="loadDungeon(8)">
+								<div id="boss8" class="boss boss8"></div>
+								<div id="summary8" class="summary"></div>
+							</div>
+							<div class="cell pointer dungeon" onclick="loadDungeon(9)">
+								<div id="boss9" class="boss boss9"></div>
+								<div id="summary9" class="summary"></div>
+							</div>
+							<div class="cell pointer dungeon" onclick="loadDungeon(10)">
+								<div id="boss10" class="boss boss10" style="background-size: 64px;"></div>
+								<div id="summary10" class="summary"></div>
+							</div>
 						</div>
 					</div>
-				</div>
-				<div id="itemicons" class="row"></div>
-				<div id="bossicons" class="row"></div>
-				<div class="row">
-					<div>
-						<h3 id="dungeonpaths2header" class="textrow"></h3>
+					<div class="row" style="margin-top: 10px;">
+						<div>
+							<h2 class="textrow">Mode and settings</h2>
+						</div>
+					</div>
+					<div class="row">
+						<div style="display: inline-block;">
+							<h3 class="textrow">Door Shuffle:</h3>
+						</div>
+						<div class="rightalign">
+							<select id="selectdoorshuffle" style="height: 22px; top: 4px; position: relative;" onchange="updateDoorShuffle()">
+								<option value="N">None</option>
+								<option value="B">Basic</option>
+								<option value="C">Crossed</option>
+							</select>
+							<label style="height: 20px; top: 5px; position: relative;"><input type="checkbox" id="lobbyshuffle" onchange="updateDoorShuffle()" />Lobby Shuffle</label>
+						</div>
+					</div>
+					<div id="dungeonoptions" class="row">
+						<div style="display: inline-block;">
+							<h3 class="textrow">Exclude from overview:</h3>
+						</div>
+						<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
+							<label><input type="checkbox" id="excludesmallkeys" onchange="updateKeys()" />Small Keys</label>
+							<label><input type="checkbox" id="excludebigkeys" onchange="updateKeys()" />Big Keys</label>
+						</div>
+					</div>
+					<div class="row">
+						<div style="display: inline-block;">
+							<h3 class="textrow">Overworld Shuffle (BETA):</h3>
+						</div>
+						<div class="rightalign">
+							<select id="selectowshuffle" style="height: 22px; top: 4px; position: relative;" onchange="updateOverworldShuffle()">
+								<option value="N">None</option>
+								<option value="P">Parallel</option>
+								<option value="F">Full</option>
+							</select>
+						</div>
+					</div>
+					<div id="overworldoptions" class="row">
+						<div style="display: inline-block;">
+							<h3 class="textrow">OW options:</h3>
+						</div>
+						<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
+							<label><input type="checkbox" id="similarow" onchange="updateOverworldShuffle()" />Keep Similar</label>
+							<label><input type="checkbox" id="crossedow" onchange="updateOverworldShuffle()" />Crossed OW</label>
+							<label><input type="checkbox" id="entranceenabled" onchange="updateOverworldShuffle(); updateReachableEdges()" />Entrance</label>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 10px;">
+						<div>
+							<h2 class="textrow">Save and restore</h2>
+						</div>
+					</div>
+					<div class="row" style="height: 34px;">
+						<div style="display: inline-block;">
+							<h3 class="textrow">Manual save:</h3>
+						</div>
+						<div class="cell rightalign">
+							<div id="loadmanual" class="cell buttonbox disabled" style="margin: 2px;" onclick="loadManual()">Load data</div>
+							<div id="savemanual" class="cell buttonbox" style="margin: 2px;" onclick="saveManual(this)">Save data</div>
+						</div>
+					</div>
+					<div class="row" style="height: 34px;">
+						<div style="display: inline-block;">
+							<h3 class="textrow">Auto-save:</h3>
+						</div>
+						<div class="cell rightalign">
+							<div id="loadauto" class="cell buttonbox disabled" style="margin: 2px;" onclick="loadAuto()">Load data</div>
+						</div>
+					</div>
+					<div class="row" style="height: 34px;">
+						<div style="display: inline-block;">
+							<h3 class="textrow">Reset:</h3>
+						</div>
+						<div class="cell rightalign">
+							<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onclick="clearData()">Clear current data</div>
+							<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onclick="clearLocalStorage()">Clear local storage</div>
+						</div>
+					</div>
+					<div id="dungeonstats">
+						<div class="row" style="margin-top: 10px;">
+							<div>
+								<h2 class="textrow">Dungeon statistics</h2>
+							</div>
+						</div>
+						<div>
+							<h3 id="totalpathdungeons" class="textrow"></h3>
+						</div>
+						<div>
+							<h3 id="totalpaths" class="textrow"></h3>
+						</div>
+						<div>
+							<h3 id="totalnodes" class="textrow"></h3>
+						</div>
+						<div>
+							<h3 id="totalnotes" class="textrow"></h3>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 20px; margin-bottom: 4px;">
+						<span>Check out the <a href="instructions.html#dungeon" target="_blank">Instructions</a> for help with this tracker.</span>
 					</div>
 				</div>
-				<div id="dungeonpaths2" class="pathlist"></div>
+				<div id="pathlist" class="cell" style="width: 100%;">
+					<div class="row fixedtop" style="height: 64px; display: flex;">
+						<div class="cell nosidebar" style="width: 38px;">
+							<div class="cell buttonsquare home" style="margin: 6px 6px 2px 6px;" onclick="closeDungeon()"></div>
+							<div class="cell buttonsquare expand" style="margin: 2px 6px 6px 6px;" onclick="showSidebar()"></div>
+						</div>
+						<div class="cell pointer" onclick="closeDungeon()">
+							<div id="dungeonicon"></div>
+						</div>
+						<div class="cell pointer" style="flex-grow: 1;" onclick="closeDungeon()">
+							<h1 id="dungeonname" style="margin: 14px 12px 10px 12px;"></h1>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 64px; max-width: 384px;">
+						<div style="display: inline-block;">
+							<h3 class="textrow">Start a new path</h3>
+						</div>
+						<div class="rightalign">
+							<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 12px;">
+								<label><input type="checkbox" id="showmorerooms" onchange="updateStartRooms()" />Show more</label>
+							</div>
+							<div class="cell">
+								<div class="buttonbox pointer" style="margin: 2px;" onclick="startPath('')">Empty start</div>
+							</div>
+						</div>
+					</div>
+					<div id="dungeonentrances" class="row roompointer"></div>
+					<div id="dungeonimportant" class="row roompointer"></div>
+					<div class="row" style="max-width: 384px;">
+						<div style="display: inline-block;">
+							<h3 id="dungeonpathsheader" class="textrow"></h3>
+						</div>
+						<div class="rightalign">
+							<div class="cell">
+								<div id="completedbutton" class="buttonbox" style="margin: 2px;" onclick="markCompleted()"></div>
+							</div>
+						</div>
+					</div>
+					<div id="dungeonpaths" class="pathlist"></div>
+					<div class="row">
+						<input id="dungeonpathsnote" type="text" style="width: calc(100% - 8px); margin: 0px 4px;" placeholder="Notes" />
+					</div>
+				</div>
+				<div id="pathedit" class="cell" style="width: 100%;">
+					<div class="row fixedtop">
+						<div class="row" style="max-width: 384px;">
+							<div class="cell buttonsquare expand nosidebar" style="margin: 4px 4px 0 4px;" onclick="showSidebar()"></div>
+							<div class="cell">
+								<div class='buttonbox pointer' style='border-color: rgb(255,128,128);' onclick="closePath()">Close without saving</div>
+							</div>
+							<div class="cell rightalign">
+								<div class='buttonbox pointer' style='border-color: rgb(128,255,128);' onclick="savePath()">Save and close path</div>
+							</div>
+						</div>
+						<div class="row">
+							<div>
+								<h3 id="currentpathheader" class="textrow"></h3>
+							</div>
+						</div>
+						<div id="currentpath" class="row path"></div>
+					</div>
+					<div class="row" style="margin-top: 128px; max-width: 384px;">
+						<div id="directionicons" class="cell" style="position: relative; width: 160px; height: 160px; margin: 8px;"></div>
+						<div style="display: flex; flex-flow: column; width: 160px; height: 176px; float: right;">
+							<div class="row" style="height: 34px;">
+								<div id="deletebutton" class='cell buttonbox rightalign' style='border-color: rgb(255,128,128);' onclick="removeLast()">Delete last step</div>
+							</div>
+							<div class="row" style="height: 34px;">
+								<div id="forkbutton" class='cell buttonbox rightalign' style='border-color: rgb(255,255,128);' onclick="forkPath()">Fork at last direction</div>
+							</div>
+							<div style="flex-grow: 1;"></div>
+							<div class="row" style="height: 34px; margin-bottom: 4px;">
+								<div class="cell rightalign">
+									<div class='cell buttonbox' onclick="showRoomModal()">Insert room node</div>
+									<div class='cell buttonbox' style='border-color: rgb(128,128,255);' onclick="showHintModal()">Hints</div>
+								</div>
+							</div>
+							<div class="row" style="margin-left: auto; margin-right: 0; width: auto;">
+								<div id="objecticons" class="row"></div>
+							</div>
+							<div class="row" style="margin-left: auto; margin-right: 0; width: auto;">
+								<div id="switchicons" class="row"></div>
+							</div>
+						</div>
+					</div>
+					<div id="itemicons" class="row"></div>
+					<div id="bossicons" class="row"></div>
+					<div class="row">
+						<div>
+							<h3 id="dungeonpaths2header" class="textrow"></h3>
+						</div>
+					</div>
+					<div id="dungeonpaths2" class="pathlist"></div>
+				</div>
+				<div id="owmain" class="cell" style="width: 100%;">
+					<div class="row fixedtop" style="height: 64px; display: flex;">
+						<div class="cell nosidebar" style="width: 38px;">
+							<div class="cell buttonsquare home" style="margin: 6px 6px 2px 6px;" onclick="closeOverworld()"></div>
+							<div class="cell buttonsquare expand" style="margin: 2px 6px 6px 6px;" onclick="showSidebar()"></div>
+						</div>
+						<div class="cell pointer" onclick="closeOverworld()">
+							<div id="owicon" class="boss overworldicon"></div>
+						</div>
+						<div class="cell pointer" style="flex-grow: 1;" onclick="closeOverworld()">
+							<h1 id="owname" style="margin: 14px 12px 10px 12px;">Overworld</h1>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 64px;">
+						<h3 class="textrow">Tracking overworld transitions</h3>
+					</div>
+					<table id="owmaintable">
+						<tr>
+							<td style="width: 120px;">
+								<div class="buttonbox big" onclick="showFullOverworldModal('editedges')">Full map</div>
+								<label class="centercheckbox"><input type="checkbox" id="owsidebaredit" onchange="updateSidebarElements()" />In sidebar</label>
+							</td>
+							<td>
+								Opens a full map with all screens and transitions. Connect individual transitions, delete wrong ones, or click on a screen to get more options.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="buttonbox big" onclick="showFullOverworldModal('newpath')">New path</div>
+								<label class="centercheckbox"><input type="checkbox" id="owsidebarnew" onchange="updateSidebarElements()" />In sidebar</label>
+							</td>
+							<td>
+								Select a screen, from that screen select a transition, then the next screen and so on. Alternative for connecting transitions with larger buttons, but more clicking.
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<div class="buttonbox big" onclick="showFullOverworldModal('searchpath')">Search path</div>
+								<label class="centercheckbox"><input type="checkbox" id="owsidebarsearch" onchange="updateSidebarElements()" />In sidebar</label>
+							</td>
+							<td>
+								Finds known paths to a specific screen. Paths start from the default starting locations customizable below or from a selected screen.
+							</td>
+						</tr>
+					</table>
+					<div class="row topmargin" style="max-width: 400px;">
+						<div style="display: inline-block;">
+							<h3 class="textrow">Items</h3>
+						</div>
+						<div class="rightalign">
+							<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 4px;">
+								<label><input type="checkbox" id="itemsync" onchange="updateItemSync()" />Sync with main window</label>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+						<div id="itemmoonpearl" class="cell item" style="background-image: url(./images/items/moonpearl.png);" onclick="toggleItem('moonpearl')"></div>
+						<div id="itemgloves" class="cell item" onclick="toggleItem('gloves')"></div>
+						<div id="itemhammer" class="cell item" style="background-image: url(./images/items/hammer.png);" onclick="toggleItem('hammer')"></div>
+						<div id="itemhookshot" class="cell item" style="background-image: url(./images/items/hookshot.png);" onclick="toggleItem('hookshot')"></div>
+						<div id="itemflippers" class="cell item" style="background-image: url(./images/items/flippers.png);" onclick="toggleItem('flippers')"></div>
+						<div id="itemmirror" class="cell item" style="background-image: url(./images/items/mirror.png);" onclick="toggleItem('mirror')"></div>
+						<div id="itemflute" class="cell item" style="background-image: url(./images/items/flute.png);" onclick="toggleItem('flute')"></div>
+						<div id="itemboots" class="cell item" style="background-image: url(./images/items/boots.png);" onclick="toggleItem('boots')"></div>
+						<div id="itembook" class="cell item" style="background-image: url(./images/items/book.png);" onclick="toggleItem('book')"></div>
+						<div id="itemlantern" class="cell item" style="background-image: url(./images/items/lantern.png);" onclick="toggleItem('lantern')"></div>
+						<div id="itemagahnim" class="cell item" onclick="toggleItem('agahnim')"></div>
+					</div>
+					<div id="dungeonconnectorsdefault">
+						<div class="row">
+							<label><input type="checkbox" id="connectortr" onchange="toggleConnector(this)" />Can get from TR Front to other exit</label>
+						</div>
+						<div class="row">
+							<label><input type="checkbox" id="connectorhccsanc" onchange="toggleConnector(this)" />Can get from HC Courtyard to Sanctuary</label>
+						</div>
+					</div>
+					<div id="dungeonconnectorsdoors">
+						<div class="row">
+							<label><input type="checkbox" id="connectorboesanc" onchange="toggleConnector(this)" />Can get from Back of Escape to Sanctuary</label>
+						</div>
+						<div class="row">
+							<label><input type="checkbox" id="connectorboehcb" onchange="toggleConnector(this)" />Can get from Back of Escape to HC Balcony</label>
+							<label><input type="checkbox" id="connectorboehcc" onchange="toggleConnector(this)" />HC Courtyard</label>
+						</div>
+						<div class="row">
+							<label><input type="checkbox" id="connectorsanchcb" onchange="toggleConnector(this)" />Can get from Sanctuary to HC Balcony</label>
+							<label><input type="checkbox" id="connectorsanchcc" onchange="toggleConnector(this)" />HC Courtyard</label>
+						</div>
+					</div>
+					<div id="owentrancecontainer">
+						<div class="row topmargin" style="max-width: 400px;">
+							<h3 id="owconnectorlisttext" class="cell textrow"></h3>
+							<div class="rightalign">
+								<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 4px;">
+									<label><input type="checkbox" id="connectorsync" onchange="updateConnectorSync()" />Sync with main</label>
+								</div>
+								<div id="owmainaddconnector" class="cell buttonbox rightalign" onclick="if(!document.getElementById('connectorsync').checked) showFullOverworldModal('editedges')">Add connector</div>
+							</div>
+						</div>
+						<div id="owentranceconnectors"></div>
+					</div>
+					<div class="row topmargin">
+						<input id="owpathsnote" type="text" style="width: calc(100% - 8px); margin: 0px 4px;" placeholder="Notes" onchange="updateOverworldNotes()" />
+					</div>
+					<div class="row topmargin" style="max-width: 400px;">
+						<h3 class="cell textrow">Common starting locations</h3>
+						<div class="cell buttonbox rightalign" onclick="showFullOverworldModal('editedges')">Add location</div>
+					</div>
+					<div class="row">
+						Note: This location list is used both by the logic and the search feature. Only put locations here that are both accessible and quick/common to get to (like save & quit starting points)!
+						Flute spots are always included (once flute is obtained).
+					</div>
+					<div class="row">
+						<label><input type="checkbox" id="pinnedlinkshouse" onchange="updateDefaultStartRegions()" />Link's House</label>
+						<label><input type="checkbox" id="pinnedsanctuary" onchange="updateDefaultStartRegions()" />Sanctuary</label>
+						<label><input type="checkbox" id="pinnedoldman" onchange="updateDefaultStartRegions()" />Old Man Cave</label>
+						<label><input type="checkbox" id="pinnedpyramid" onchange="updateDefaultStartRegions()" />Pyramid</label>
+					</div>
+					<div id="owstartregions"></div>
+					<div class="row topmargin" style="max-width: 400px;">
+						<div style="display: inline-block;">
+							<h3 id="owpinnedtext" class="textrow"></h3>
+						</div>
+						<div class="rightalign">
+							<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 12px;">
+								<label><input type="checkbox" id="compactpinned" onchange="updateMainPathLists()" />Compact view</label>
+							</div>
+						</div>
+					</div>
+					<div id="owpinnedpaths" class="pathlist"></div>
+					<div class="row topmargin" style="max-width: 400px;">
+						<div style="display: inline-block;">
+							<h3 id="owprevioustext" class="textrow"></h3>
+						</div>
+						<div class="rightalign">
+							<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 12px;">
+								<label><input type="checkbox" id="compactprevious" onchange="updateMainPathLists()" />Compact view</label>
+							</div>
+						</div>
+					</div>
+					<div id="owpreviouspaths" class="pathlist"></div>
+					<div class="row topmargin" style="max-width: 400px;">
+						<div style="display: inline-block;">
+							<h3 class="textrow">Before you start: Forced vanilla transitions</h3>
+						</div>
+					</div>
+					<div class="row">
+						Note: The below actions can't be undone without deleting each connection individually.
+					</div>
+					<div class="row">
+						<div class="buttonbox" onclick="vanillaTransitionsMode(this)">Make mode-dependent transitions vanilla (confirm mode!)</div>
+					</div>
+					<div class="row">
+						<div class="buttonbox" onclick="vanillaWhirlpools(this)">Make all whirlpool transitions vanilla</div>
+					</div>
+					<div class="row">
+						<div class="buttonbox" onclick="vanillaSpecialScreens(this)">Make Pedestal, Zora and Hobo screens vanilla</div>
+					</div>
+					<div class="row" style="margin-top: 20px; margin-bottom: 4px;">
+						<span>Check out the <a href="instructions.html#overworld" target="_blank">Instructions</a> for help with this tracker.</span>
+					</div>
+				</div>
+				<div id="owpathedit" class="cell" style="width: 100%;">
+					<div class="row fixedtop">
+						<div class="row" style="max-width: 384px;">
+							<div class="cell buttonsquare expand nosidebar" style="margin: 4px 4px 0 4px;" onclick="showSidebar()"></div>
+							<div class="cell">
+								<div class='buttonbox pointer' style='border-color: rgb(255,128,128);' onclick="closeOverworldPath()">Close without saving</div>
+							</div>
+							<div class="cell rightalign">
+								<div class='buttonbox pointer' style='border-color: rgb(128,255,128);' onclick="saveOverworldPath()">Save and close path</div>
+							</div>
+						</div>
+						<div class="row">
+							<div>
+								<h3 id="owcurrentpathheader" class="textrow"></h3>
+							</div>
+						</div>
+						<div class="row" style="height: 64px">
+							<div id="owfadeout" class="leftfadeout"></div>
+							<div id="owcurrentpath" class="path" style="position: absolute;"></div>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 128px; max-width: 384px;">
+						<div id="owdirectionicons" class="cell" style="position: relative; width: 320px; height: 160px; margin: 8px;"></div>
+					</div>
+					<div class="row" style="max-width: 384px;">
+						<div class="rightalign">
+							<div id="owdeletebutton" class="cell buttonbox rightalign" style="border-color: rgb(255,128,128);" onclick="removeLastOverworld()">Delete last step</div>
+							<div id="owforkbutton" class="cell buttonbox rightalign" style="border-color: rgb(255,255,128);" onclick="forkOverworldPath()">Fork at last direction</div>
+						</div>
+					</div>
+					<div class="row" style="max-width: 384px;">
+						<label><input type="checkbox" id="alwaysfollowmarked" />When next transition is already known, follow it</label>
+					</div>
+				</div>
+				<div id="owsearch" class="cell" style="width: 100%;">
+					<div class="row fixedtop" style="display: flex; height: 36px;">
+						<div class="cell buttonsquare expand nosidebar" style="margin: 4px 8px 0 4px;" onclick="showSidebar()"></div>
+						<div class="cell buttonsquare close pointer" style="margin: 4px 8px 0 0;" onclick="loadOverworld()"></div>
+						<div class="pointer" style="display: inline-block; flex-grow: 1;" onclick="loadOverworld()">
+							<h2 id="owsearchtitle" class="textrow" style="pointer-events: none; white-space: nowrap;"></h2>
+						</div>
+					</div>
+					<div class="row" style="margin-top: 36px;">
+						<div>
+							<h3 id="owsearchstarttext" class="textrow"></h3>
+						</div>
+					</div>
+					<div class="row" style="max-width: 400px;">
+						<div class="cell">
+							<div class="buttonbox" onclick="showFullOverworldModal('searchpathtarget')">Change target screen</div>
+						</div>
+						<div class="cell rightalign">
+							<div class="buttonbox" onclick="showFullOverworldModal('searchpathstart')">Change starting location(s)</div>
+						</div>
+					</div>
+					<div id="owsearchregionchoicetext" class="row">
+						The target screen contains multiple regions. Click on a region name below if you wish to filter the search results:
+					</div>
+					<div id="owsearchregionchoice" class="row"></div>
+					<div class="row" style="max-width: 400px;">
+						<div style="display: inline-block;">
+							<h3 id="owsearchresultstext" class="textrow">Search results</h3>
+						</div>
+						<div class="rightalign">
+							<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 12px;">
+								<label><input type="checkbox" id="compactsearchresults" onchange="updateSearchResults()" />Compact view</label>
+							</div>
+						</div>
+					</div>
+					<div id="owsearchresults" class="pathlist"></div>
+				</div>
 			</div>
 		</div>
 		<div id="clickPathModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideClickPathModal()">
@@ -268,28 +618,28 @@
 				<div id="currentclickedpath" class="row path"></div>
 				<div class="row">
 					<div class="cell">
-						<div class='buttonbox pointer' style='border-color: rgb(255,192,128);' onClick="editPath()">Edit path</div>
+						<div class='buttonbox pointer' style='border-color: rgb(255,192,128);' onclick="editPath()">Edit path</div>
 					</div>
 					<div class="cell">
-						<div class='buttonbox pointer' onClick="duplicatePath()">Duplicate</div>
+						<div class='buttonbox pointer' onclick="duplicatePath()">Duplicate</div>
 					</div>
 					<div class="cell">
-						<div id="forkbutton2" class='buttonbox pointer' style='border-color: rgb(255,255,128);' onClick="forkExistingPath()">Fork</div>
+						<div id="forkbutton2" class='buttonbox pointer' style='border-color: rgb(255,255,128);' onclick="forkExistingPath()">Fork</div>
 					</div>
 					<div class="cell">
-						<div class='buttonbox' onClick="moveToTop()">Top</div>
+						<div class='buttonbox' onclick="moveToTop()">Top</div>
 					</div>
 					<div class="cell">
-						<div class='buttonbox' onClick="moveToBottom()">Bottom</div>
+						<div class='buttonbox' onclick="moveToBottom()">Bottom</div>
 					</div>
 					<div class="cell">
-						<div class='buttonbox pointer' style='border-color: rgb(255,128,128);' onClick="deletePath()">Delete</div>
+						<div class='buttonbox pointer' style='border-color: rgb(255,128,128);' onclick="deletePath()">Delete</div>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div id="hintModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideHintModal()">
-			<div id="hintModalMain" style="width: 340px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 50px; left: 8px; border-style: solid; padding: 0px 8px; border-color: white; color: white;" onclick="event.stopPropagation()">
+			<div id="hintModalMain" style="width: 340px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 50px; left: 8px; padding: 0px 8px; border-style: solid; border-color: white; color: white;" onclick="event.stopPropagation()">
 				<div class="row">
 					<div>
 						<h3 class="textrow">When to use which symbol?</h3>
@@ -351,12 +701,197 @@
 			</div>
 		</div>
 		<div id="roomModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideRoomModal()">
-			<div id="roomModalMain" style="width: 348px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 110px; left: 8px; border-style: solid; border-color: white; color: white;" onclick="event.stopPropagation()">
+			<div id="roomModalMain" style="width: calc(100% - 8px); background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 110px; left: 4px; border-style: solid; border-color: white; color: white;" onclick="event.stopPropagation()">
 				<div class="row" style="margin: 4px 0px;">
 					<label><input type="checkbox" id="splitpath" />Split path at this node (save and start new path)</label>
 				</div>
 				<div id="dungeonentrancesmodal" class="row"></div>
 				<div id="dungeonimportantmodal" class="row"></div>
+			</div>
+		</div>
+		<div id="fullowModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideFullOverworldModal()">
+			<div id="fullowModalMain" style="width: calc(100% - 8px); background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 30px; left: 4px; border-style: solid; border-color: white; color: white;" onclick="event.stopPropagation()">
+				<div class="row" style="display: flex;">
+					<div class="cell" style="flex-grow: 1;">
+						<h2 id="fullowtitle" class="textrow" style="margin-left: 4px;"></h2>
+					</div>
+					<div class="cell buttonsquare close" style="margin: 4px 4px 0 0;" onclick="hideFullOverworldModal()"></div>
+				</div>
+				<div class="row" style="max-width: 512px;">
+					<div class="cell">
+						<div id="switchow" class="buttonbox" onclick="switchFullOverworld()">Switch worlds</div>
+					</div>
+					<div class="rightalign">
+						<div class="cell">
+							<label style="top: 7px; margin-right: 4px; position: relative;"><input type="checkbox" id="zoomautoow" onchange="zoomAutoFullOverworld(this)" />Auto zoom</label>
+						</div>
+						<div class="cell">
+							<div id="zoomoutow" class="buttonbox" onclick="zoomOutFullOverworld()">Zoom out</div>
+						</div>
+						<div class="cell">
+							<div id="zoominow" class="buttonbox" onclick="zoomInFullOverworld()">Zoom in</div>
+						</div>
+					</div>
+				</div>
+				<div id="fullowpanelrow" class="row">
+					<div id="fullowpanel">
+						<div id="fullowpanelmain" style="position: absolute;"></div>
+						<div id="fullowpaneloverlay" style="position: absolute; pointer-events: none; z-index: 3;"></div>
+					</div>
+				</div>
+				<div id="fullowscreenactions" style="max-width: 512px; display: none;">
+					<div class="row">
+						<div style="display: inline-block;">
+							<h3 id="fullowscreenname" class="textrow" style="margin-left: 4px;"></h3>
+						</div>
+						<div class="rightalign">
+							<div id="fullownewpath" class="cell buttonbox pointer" onclick="fullOverworldNewPath()">New path</div>
+							<div id="fullowsearch" class="cell buttonbox pointer" onclick="fullOverworldSearch()">Search path</div>
+							<div id="fullownewconnector" class="cell buttonbox" onclick="fullOverworldNewConnector()">New connector</div>
+						</div>
+					</div>
+					<div class="row">
+						<div class="cell textrow" style="margin-left: 4px;">Add to common starts:</div>
+						<div id="fullowregionlist" class="cell rightalign"></div>
+					</div>
+				</div>
+				<div id="fullowedgeactions" class="row" style="max-width: 512px; display: none;">
+					<div style="display: inline-block;">
+						<h3 id="fullowedgetext" class="textrow" style="margin-left: 4px;"></h3>
+					</div>
+					<div class="rightalign">
+						<div id="fullowedgedelete" class="cell buttonbox" style="border-color: rgb(255,128,128);" onclick="fullOverworldDeleteConnection()">Delete connection</div>
+					</div>
+				</div>
+				<div id="fullowconnectoractions" class="row" style="max-width: 512px; display: none;">
+					<div style="display: inline-block;">
+						<h3 class="textrow" style="margin-left: 4px;">Click on the connector end screen</h3>
+					</div>
+					<div class="rightalign">
+						<div class="cell buttonbox" onclick="fullOverworldCancelConnector()">Cancel</div>
+					</div>
+				</div>
+				<div id="fullowunknownconnector" style="max-width: 512px; display: none;">
+					<div class="row">
+						<div style="border-top: 2px solid white; margin: 12px 4px 0 4px; padding-top: 4px;">Recent connector with missing direction detail:</div>
+					</div>
+					<div class="row">
+						<h3 id="fullowunknownconnectortext" style="margin: 0 4px 0 4px;"></h3>
+					</div>
+					<div class="row">
+						<div class="cell buttonbox" onclick="fullConnectorOneWay()">Only one direction</div>
+						<div class="cell buttonbox" onclick="fullConnectorTwoWay()">Both directions</div>
+					</div>
+				</div>
+				<div id="fullowcommonstarts" class="row" style="max-width: 512px; display: none;">
+					<div class="cell" style="height: 20px; top: 7px; position: relative;">
+						<label><input type="checkbox" id="owsearchincludecommon" />Always include common starts</label>
+					</div>
+					<div class="cell buttonbox rightalign" onclick="fullOverworldCommonStarts()">Use common starts only</div>
+				</div>
+			</div>
+		</div>
+		<div id="owconnectorModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideOverworldConnectorModal()">
+			<div id="owconnectorModalMain" style="width: 320px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 80px; left: 68px; padding: 0px 8px; border-style: solid; border-color: white; color: white;" onclick="event.stopPropagation()">
+				<div class="row">
+					<div class="cell" style="width: 128px; margin-right: 32px;">
+						<h3 class="textrow">Connector from:</h3>
+					</div>
+					<div class="cell">
+						<h3 class="textrow">To:</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div id="bigowscreenstartpanel" class="cell bigowscreenpanel" style="margin-right: 32px;"></div>
+					<div id="bigowscreenendpanel" class="cell bigowscreenpanel"></div>
+				</div>
+				<div class="row">
+					<div class="cell" style="width: 128px; margin-right: 32px;">
+						<h3 id="connectorstartscreenname" class="textrow"></h3>
+					</div>
+					<div class="cell">
+						<h3 id="connectorendscreenname" class="textrow"></h3>
+					</div>
+				</div>
+				<div class="row">
+					<div id="connectorstartregions" class="cell" style="width: 128px; margin-right: 32px;"></div>
+					<div id="connectorendregions" class="cell" style="width: 128px;"></div>
+				</div>
+				<div class="row">
+					<label><input type="checkbox" id="connectorbidirectional" style="margin-top: 12px;" />Can use this connector in both directions</label>
+				</div>
+				<div class="row" style="margin-bottom: 8px 0;">
+					<div class="cell">
+						<div class="buttonbox" style="border-color: rgb(255,128,128);" onclick="connectorBackToFullOverworld()">Cancel</div>
+					</div>
+					<div class="rightalign">
+						<div class="cell">
+							<div id="saveconnector" class="buttonbox" style="border-color: rgb(128,255,128);" onclick="saveConnector()">Save connector</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="owextraModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideOverworldExtraModal()">
+			<div id="owextraModalMain" style="width: 184px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 120px; left: 100px; padding: 0px 8px; border-style: solid; border-color: white; color: white;" onclick="event.stopPropagation()">
+				<div class="row">
+					<div>
+						<h3 class="textrow">Which of these edges?</h3>
+					</div>
+				</div>
+				<div class="row">
+					<div class="cell">
+						<div class="buttonbox" onclick="extraBackToFullOverworld()">Choose a different screen</div>
+					</div>
+				</div>
+				<div class="row">
+					<div id="bigowscreenpanel" class="bigowscreenpanel" style="margin-left: 16px;"></div>
+				</div>
+				<div class="row">
+					<div class="cell" style="margin-left: 12px;">
+						<div id="edgebutton0" class="buttonbox" onclick="selectTargetEdge(0)">Left</div>
+					</div>
+					<div class="cell">
+						<div id="edgebutton1" class="buttonbox" onclick="selectTargetEdge(1)">Middle</div>
+					</div>
+					<div class="cell">
+						<div id="edgebutton2" class="buttonbox" onclick="selectTargetEdge(2)">Right</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="clickOWPathModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideClickOverworldPathModal()">
+			<div id="clickOWPathModalMain" style="width: 360px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 300px; left: 8px; border-style: solid; border-color: white; color: white; overflow: hidden;" onclick="event.stopPropagation()">
+				<div id="currentclickedowpath" class="row path"></div>
+				<div class="row">
+					<div id="saveowpath" class="cell">
+						<div class="buttonbox" style="border-color: rgb(128,255,128);" onclick="pinOverworldPath(this)">Pin path for later</div>
+					</div>
+					<div id="deleteowpath" class="cell">
+						<div class="buttonbox" style="border-color: rgb(255,128,128);" onclick="deleteOverworldPath()">Delete from this list</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="clickconnectorModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideClickConnectorModal()">
+			<div id="clickconnectorModalMain" style="width: 360px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 300px; left: 8px; border-style: solid; border-color: white; color: white; overflow: hidden;" onclick="event.stopPropagation()">
+				<h3 id="currentclickedconnectorstart" class="row textrow" style="margin-left: 4px;"></h3>
+				<h3 id="currentclickedconnectorend" class="row textrow" style="margin-left: 4px;"></h3>
+				<h3 id="currentclickedconnectordirections" class="row textrow" style="margin-left: 4px;"></h3>
+				<div class="row">
+					<div class="cell">
+						<div id="clickedconnectorone" class="buttonbox" onclick="clickedConnectorOneWay()">Only one direction</div>
+					</div>
+					<div class="cell">
+						<div id="clickedconnectortwo" class="buttonbox" onclick="clickedConnectorTwoWay()">Both directions</div>
+					</div>
+					<div class="cell">
+						<div id="clickedconnectorunknown" class="buttonbox" onclick="clickedConnectorUnknown()">Unsure</div>
+					</div>
+					<div id="clickedconnectordelete" class="cell">
+						<div class="buttonbox" style="border-color: rgb(255,128,128);" onclick="deleteClickedConnector()">Delete</div>
+					</div>
+				</div>
 			</div>
 		</div>
 		<script>start()</script>

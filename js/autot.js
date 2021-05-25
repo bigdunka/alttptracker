@@ -271,8 +271,10 @@ function autotrackDoTracking(data) {
 	}
 	
     function update_boss(boss, offset) {
-        if (newbit(offset, 0x08) && !items[boss])
+        if (newbit(offset, 0x08) && !items[boss]) {
+            click_map();
             toggle(boss);
+        }
     };
     update_boss("boss0", 0x191); // Eastern Palace
     update_boss("boss1", 0x067); // Desert Palace
@@ -292,10 +294,11 @@ function autotrackDoTracking(data) {
             if (newkeys > items["smallkey" + dungeon]) {
                 document.getElementById("smallkey" + dungeon).innerHTML = newkeys;
                 items["smallkey" + dungeon] = newkeys;
+                updateMapTracker();
             }
         }
     };
-    updatesmallkeys("0", 0x37E);
+    /*updatesmallkeys("0", 0x37E);
     updatesmallkeys("1", 0x37F);
     updatesmallkeys("2", 0x386);
     updatesmallkeys("3", 0x382);
@@ -308,11 +311,26 @@ function autotrackDoTracking(data) {
     updatesmallkeys("10", 0x389); // GT
     updatesmallkeys("half0", 0x37C); // Hyrule Castle
     updatesmallkeys("half0", 0x37D); // Sewers
-    updatesmallkeys("half1", 0x380); // Castle Tower
+    updatesmallkeys("half1", 0x380); // Castle Tower*/
+    updatesmallkeys("0", 0x4E2);
+    updatesmallkeys("1", 0x4E3);
+    updatesmallkeys("2", 0x4EA);
+    updatesmallkeys("3", 0x4E6);
+    updatesmallkeys("4", 0x4E5);
+    updatesmallkeys("5", 0x4E8);
+    updatesmallkeys("6", 0x4EB);
+    updatesmallkeys("7", 0x4E9);
+    updatesmallkeys("8", 0x4E7);
+    updatesmallkeys("9", 0x4EC);
+    updatesmallkeys("10", 0x4ED); // GT
+    updatesmallkeys("half0", 0x4E1); // Sewers and Hyrule Castle
+    updatesmallkeys("half1", 0x4E4); // Castle Tower
 
     function updatebigkey(dungeon, offset, mask) {
-        if (newbit(offset, mask) && !items["bigkey" + dungeon])
+        if (newbit(offset, mask) && !items["bigkey" + dungeon]) {
+            click_map();
             toggle("bigkey" + dungeon);
+        }
     };
     updatebigkey("0", 0x367, 0x20);
     updatebigkey("1", 0x367, 0x10);
@@ -329,6 +347,7 @@ function autotrackDoTracking(data) {
     updatebigkey("half1", 0x367, 0x08);
 
     function setitem(item, value) {
+        click_map();
         while (items[item] != value)
             toggle(item);
     };
@@ -433,6 +452,4 @@ function autotrackDoTracking(data) {
     var bottles = (data[0x35C] == 0 ? 0 : 1) + (data[0x35D] == 0 ? 0 : 1) + (data[0x35E] == 0 ? 0 : 1) + (data[0x35F] == 0 ? 0 : 1);
     if (bottles != prevbottles)
         setitem("bottle", bottles);
-    
-    updateMapTracker();
 }

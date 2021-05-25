@@ -27,8 +27,9 @@
 		wildkeys: (query.f.charAt(19) === '1' ? true : false),
 		wildbigkeys: (query.f.charAt(20) === '1' ? true : false),
 		ambrosia: query.f.charAt(21),
-		autotracking: query.f.charAt(22),
-		trackingport: query.f.charAt(23) + query.f.charAt(24) + query.f.charAt(25) + query.f.charAt(26),
+		overworldshuffle: query.f.charAt(22),
+		autotracking: query.f.charAt(23),
+		trackingport: query.f.charAt(24) + query.f.charAt(25) + query.f.charAt(26) + query.f.charAt(27),
         sprite: query.sprite
     };
 	

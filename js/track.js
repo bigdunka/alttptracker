@@ -32,7 +32,7 @@
     window.toggle = function(label) {
 		if(rightClickedLocation != -1)
 		{
-			name = getNiceName(label);
+			var name = getNiceName(label);
 			if(rightClickedType === "chest")
 			{
 				if(name.charAt(0) < 'a' || name.charAt(0) > 'z')
@@ -212,27 +212,57 @@
 		for (var k = 0; k < dungeons.length; k++) {
 			document.getElementById('chest'+k).style.backgroundColor = 'white';// (flags.entrancemode != 'N' ? getDungeonBackground(dungeons[k].can_get_chest()) : 'white');
 		}
+
+		if(doorWindow && !doorWindow.closed)
+			doorWindow.postMessage(cloneItems(),"*");
     };
 
 	window.receiveMessage = function(event)
 	{
 		if(window.origin === event.origin)
 		{
-			if(event.data == "UPDATE" && doorWindow)
+			if(event.data == "UPDATE" && doorWindow && !doorWindow.closed)
 				doorWindow.postMessage(dungeonData,"*");
 			else
-				if(event.data.dungeonPaths && event.data.dungeonPaths.length === 13)
-					dungeonData = event.data;
+				if(event.data == "ITEMS" && doorWindow && !doorWindow.closed)
+					doorWindow.postMessage(cloneItems(),"*");
+				else
+					if((""+event.data).startsWith("TOGGLE "))
+					{
+						let item = (""+event.data).substring(7);
+						if(items.hasOwnProperty(item))
+						{
+							click_map();
+							toggle(item);
+						}
+					}
+					else
+						if(event.data.dungeonPaths && event.data.dungeonPaths.length === 13)
+							dungeonData = event.data;
 		}
-	}
+	};
 
 	window.showDoorWindow = function()
 	{
 		if(doorWindow && !doorWindow.closed)
 			doorWindow.focus();
 		else
-			doorWindow = window.open('dungeontracker.html?door_shuffle='+flags.doorshuffle+'&wild_keys='+flags.wildkeys+'&wild_big_keys='+flags.wildbigkeys+'&world_state='+flags.gametype+(dungeonData ?'&request_update=true' :''),'','width=372,height=700,titlebar=0,menubar=0,toolbar=0,scrollbars=1,resizable=1');
-	}
+		{
+			var url = 'dungeontracker.html?door_shuffle='+flags.doorshuffle+'&overworld_shuffle='+flags.overworldshuffle;
+			url += '&wild_keys='+flags.wildkeys+'&wild_big_keys='+flags.wildbigkeys+'&world_state='+flags.gametype;
+			url += '&entrance_shuffle='+flags.entrancemode+(dungeonData ?'&request_update=true' :'');
+			doorWindow = window.open(url,'','width=444,height=700,titlebar=0,menubar=0,toolbar=0,scrollbars=1,resizable=1');
+		}
+	};
+
+	window.cloneItems = function()
+	{
+		var newItems = Object.assign({},items);
+		newItems.inc = newItems.dec = null;
+		newItems.connectorOne = connectorOne;
+		newItems.connectorTwo = connectorTwo;
+		return newItems;
+	};
 
 	window.getDungeonBackground = function(x) {
 		switch (x) {
@@ -255,7 +285,7 @@
 				return 'purple';
 				break;
 		}
-	}
+	};
 	
     // event of clicking on a boss's pendant/crystal subsquare
     window.toggle_dungeon = function(n) {
@@ -411,7 +441,7 @@
     window.toggle_bomb_floor = function() {
 		if(rightClickedLocation != -1)
 		{
-			name = "TT Bomb Floor";
+			var name = "TT Bomb Floor";
 			if(rightClickedType === "chest")
 			{
 				if(!chests[rightClickedLocation].content)
@@ -1356,7 +1386,7 @@
 	
 	window.updateMapTracker = function() {
 		click_map();
-		toggle('moonpearl');
+		items.moonpearl = !items.moonpearl;
 		toggle('moonpearl');
 	}
 
@@ -2579,8 +2609,11 @@
 		}
 		
 		if (flags.doorshuffle === 'N') {
-			document.getElementById('showpathsdiv').style.visibility = 'hidden';
 			document.getElementById('mirrorscroll').style.visibility = 'hidden';
+		}
+		
+		if (flags.doorshuffle === 'N' && flags.overworldshuffle === 'N') {
+			document.getElementById('showpathsdiv').style.visibility = 'hidden';
 		}
 		else
 			window.addEventListener("message", receiveMessage, false);

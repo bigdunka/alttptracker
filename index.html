@@ -1,9 +1,9 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=16015"></script>
+		<script src="js/index.js?v=16016"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=16015"></script>
+		<script src="js/bootstrap.min.js?v=16016"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.6.015 042421 - Compatible for v31.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.6.016 052421 - Compatible for v31.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="instructions.html"><img src='./images/overlay/instructions.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
@@ -94,7 +94,7 @@
 					
 					<tr>
 						<td>
-							<table width="1000px" height="300px" background="./images/overlay/gameplay.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+							<table width="1000px" height="340px" background="./images/overlay/gameplay.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
 								<tr height="40px">
 									<td>
 									</td>
@@ -128,9 +128,9 @@
 										<input id="entrancenone" value="N" type="radio" name="entrancegroup" checked />
 										<label for="entrancenone" style="width:100px" >None</label>
 									</td>
-									<td>
+									<td colspan="3">
 										<input id="entrancesimple" value="S" type="radio" name="entrancegroup" />
-										<label for="entrancesimple" style="width:100px" >Simple/Restricted/Full/Crossed</label>
+										<label for="entrancesimple" style="width:300px" >Simple/Restricted/Full/Crossed</label>
 									</td>
 								</tr>
 								<tr>
@@ -152,15 +152,32 @@
 								</tr>
 								<tr>
 									<td width="100px">
+										Overworld Shuffle: <span class="south" title="BETA! Main tracker logic not yet implemented, this setting currently only affects the Overworld/Dungeon Tracker window. Inverted and Glitches not implemented." style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+									</td>
+									<td>
+										<input id="overworldnone" value="N" type="radio" name="overworldgroup" checked />
+										<label for="overworldnone" style="width:100px" >None</label>
+									</td>
+									<td>
+										<input id="overworldparallel" value="P" type="radio" name="overworldgroup" />
+										<label for="overworldparallel" style="width:100px" >Parallel</label>
+									</td>
+									<td>
+										<input id="overworldfull" value="F" type="radio" name="overworldgroup" />
+										<label for="overworldfull" style="width:100px" >Full</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
 										Boss Shuffle:
 									</td>
 									<td>
 										<input id="bossnone" value="N" type="radio" name="bossgroup" checked />
 										<label for="bossnone" style="width:100px" >None</label>
 									</td>
-									<td>
+									<td colspan="3">
 										<input id="bossshuffled" value="S" type="radio" name="bossgroup" />
-										<label for="bossshuffled" style="width:100px" >Simple/Full/Random</label>
+										<label for="bossshuffled" style="width:300px" >Simple/Full/Random</label>
 									</td>
 								</tr>
 								<tr>
@@ -232,7 +249,7 @@
 										<input id="dungeonmcsshuffle" value="K" type="radio" name="dungeongroup" onclick="setdungeonitems('K')" />
 										<label for="dungeonmcsshuffle" style="width:100px">MCS Shuffle</label>
 									</td>
-									<td colspan="2">
+									<td>
 										<input id="dungeonfullshuffle" value="F" type="radio" name="dungeongroup" onclick="setdungeonitems('F')" />
 										<label for="dungeonfullshuffle" style="width:100px" >Keysanity</label>
 									</td>
@@ -253,7 +270,7 @@
 										<input id="shuffledsmallkeys" type="checkbox" />
 										<label for="shuffledsmallkeys" style="width:100px">Small Keys</label>
 									</td>
-									<td colspan="2">
+									<td>
 										<input id="shuffledbigkeys" type="checkbox" />
 										<label for="shuffledbigkeys" style="width:100px" >Big Keys</label>
 									</td>
@@ -460,8 +477,8 @@
 									<td>
 										Sprite: 
 									</td>
-									<td>
-										<select id="spriteselect" style="width: 100%">
+									<td colspan="2">
+										<select id="spriteselect" style="width: 350px">
 											<option value="abigail">Abigail</option>
 											<option value="adol">Adol</option>
 											<option value="aggretsuko">Aggretsuko</option>

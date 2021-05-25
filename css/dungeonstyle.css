@@ -20,20 +20,100 @@ a, a:visited{ color: #80C0FF; }
 .cell { position: relative; float: left; }
 
 .textrow { margin: 4px 0px; }
+.topmargin { margin-top: 12px; }
 .hint { margin: 8px 0px; }
 
-.fixedtop { position: fixed; top: 0; background-color: black; z-index: 2; overflow: hidden; }
+#app { width: 100%; height: 100%; overflow: hidden; display: flex; }
 
-#app { width: 100%; height: 100%; overflow: hidden; }
+#sidebar { display: none; width: 0px; }
+.showsidebar #sidebar { width: 67px; height: 100%; float: left; position: fixed; top: 0; left: 0; display: block; }
+#main { min-width: 256px; min-height: 100vh; float: left; flex-grow: 1; }
+.showsidebar #main { border-left: 1px solid white; padding-left: 4px; margin-left: 67px; }
+.showsidebar .nosidebar { display: none; width: 0px; }
+.activetab { border-color: skyblue!important; }
+
+.sidebutton { width: 66px; height: 22px; margin-left: 1px; border-width: 1px 0 1px 1px; border-style: solid; border-color: white; line-height: 20px; text-align: center; padding: 0px 2px 20px 2px; user-select: none; }
+.sidetab { width: 33px; height: 34px; float: left; border-width: 1px 0 1px 1px; border-style: solid; border-color: white; }
+.sideboss { margin-left: 1px; background-size: 32px 32px; }
+.sideboss.completed { opacity: .25; }
+.sidesummary { position: relative; }
+
+.fixedtop { position: fixed; top: 0; background-color: black; z-index: 2; overflow: hidden; }
+.showsidebar .fixedtop { padding-right: 72px; }
 
 .dungeon { border: 1px solid white; margin: 1px; }
-.boss { width: 64px; height: 64px; }
+.boss { width: 64px; height: 64px; background-size: 64px 64px; }
 .boss.completed { opacity: .25; }
 .summary { position: relative; height: 32px; }
+
+#owmaintable { border-collapse: collapse; border: 1px solid gray; margin-bottom: 4px; }
+#owmaintable tr,td { border: 1px solid gray; }
+
+.item { width: 32px; height: 32px; opacity: .25; background-size: 32px 32px; }
+.collected { opacity: 1; }
+#itemgloves { background-image: url(../images/items/glove1.png); }
+#itemgloves.mitts { background-image: url(../images/items/glove2.png); opacity: 1; }
+#itemagahnim { background-image: url(../images/dungeons/agahnim0.png); }
+#itemagahnim.collected { background-image: url(../images/dungeons/agahnim1.png); }
+
+.connector { cursor: default; }
+.connector:hover { background-color: rgba(255,255,255,.125); }
+
+#fullowpanel { width: 512px; height: 512px; position: relative; transform-origin: 0 0; cursor: default; }
+#fullowpanel.pointer { cursor: pointer; }
+.bigowscreenpanel { width: 128px; height: 128px; position: relative; }
+.owscreen { overflow: hidden; width: 64px; height: 64px; position: absolute; }
+.bigowscreen { overflow: hidden; width: 128px; height: 128px; position: absolute; }
+.owscreen.full { cursor: inherit; box-shadow: inset 0px 0px 0px 1px black; }
+.owscreen.active { box-shadow: inset 0px 0px 4px 4px white; }
+.owscreen.active .specialshadow { box-shadow: inset 0px 0px 4px 4px white; }
+.owscreen.single { cursor: default; }
+.owscreen.bigscreen { width: 128px; height: 128px; }
+.owscreen.gray .roomnodeimg { filter: grayscale(100%); }
+.owscreen .roomtt { width: 64px; height: 64px; z-index: 1; cursor: inherit; position: absolute; top: 0; left: 0; font-size: 10pt; background-color: black; display: inline-block; color: #fff; text-align: center; pointer-events: none; visibility: hidden; opacity: 0; transition: opacity .25s; }
+.owscreen.bigscreen .roomtt { width: 128px; height: 128px; }
+.owscreen:hover .roomtt { visibility: visible; opacity: .5; }
+.specialshadow { box-shadow: inset 0px 0px 0px 2px black; width: 64px; height: 64px; }
+.owedge { cursor: default; overflow: hidden; width: 16px; height: 16px; position: absolute; box-shadow: inset 0px 0px 0px 1px black; pointer-events: none; }
+.owedge.active:not(hover) { box-shadow: inset 0px 0px 3px 3px white; }
+#fullowpanel.clickedges .owedge { pointer-events: all; }
+.owedge:hover { box-shadow: inset 0px 0px 0px 1px white; }
+.owedgedot { overflow: hidden; width: 8px; height: 8px; position: absolute; box-shadow: inset 0px 0px 0px 1px black; background-color: rgb(0,255,255); }
+.bigowedge { cursor: default; overflow: hidden; width: 24px; height: 24px; position: absolute; box-shadow: inset 0px 0px 0px 2px black; }
+.bigowedge:hover { box-shadow: inset 0px 0px 0px 2px white; }
+.red { background-color: red; }
+.green { background-color: lime; }
+.turqoise { background-color: rgb(0,255,255); }
+.blue { background-color: blue; }
+
+.crossedleft {
+    background: 
+       linear-gradient(to top left,
+           rgba(0,0,0,0) 0%,
+           rgba(0,0,0,0) calc(50% - 2px),
+           rgba(0,255,255,1) 50%,
+           rgba(0,0,0,0) calc(50% + 2px),
+           rgba(0,0,0,0) 100%);
+   min-height: 2px;
+   min-width: 2px; position: absolute; pointer-events: none;
+}
+
+.crossedright {
+    background: 
+       linear-gradient(to top right,
+           rgba(0,0,0,0) 0%,
+           rgba(0,0,0,0) calc(50% - 2px),
+           rgba(0,255,255,1) 50%,
+           rgba(0,0,0,0) calc(50% + 2px),
+           rgba(0,0,0,0) 100%);
+   min-height: 2px;
+   min-width: 2px; position: absolute; pointer-events: none;
+}
 
 .roomnode { float: left; margin: 2px; cursor: default; overflow: hidden; width: 64px; height: 64px; position: relative; }
 .roomnode.slim { width: 32px; }
 .roomnodeimg { transform-origin: 0 0; z-index: -1; position: absolute; }
+.bigroomnodeimg { transform-origin: 0 0; z-index: -1; position: absolute; }
 .roomnode .roomtt { width: 64px; height: 64px; z-index: 1; cursor: inherit; position: absolute; top: 0; left: 0; font-size: 10pt; background-color: black; display: inline-block; color: #fff; text-align: center; visibility: hidden; opacity: 0; transition: opacity .25s; }
 .roomnode.slim .roomtt { width: 32px; }
 .roomnode:hover .roomtt { visibility: visible; opacity: .75; }
@@ -44,6 +124,7 @@ a, a:visited{ color: #80C0FF; }
 .path.editing { background-color: rgba(255,192,128,.2); border: 2px dotted rgb(255,192,128); height: 68px; }
 .roompointer .roomnode { cursor: pointer; }
 .pathlist .path:hover { background-color: rgba(255,255,255,.125); }
+.leftfadeout { width: 16px; height: 64px; z-index: 2; background-image: linear-gradient(to right, black, transparent); position: absolute; pointer-events: none; }
 
 .symbolnode { margin: 0px; width: 32px; height: 32px; background-size: 32px 32px; position: absolute; z-index: -1; }
 .symbolnode.small { width: 16px; height: 16px; background-size: 16px 16px; }
@@ -52,14 +133,26 @@ a, a:visited{ color: #80C0FF; }
 .hint span { height: 32px; line-height: 16px; display: grid; align-items: center; top: -1px; position: relative; }
 
 .buttonbox { border: 1px solid white; height: 24px; line-height: 24px; text-align: center; padding: 0px 4px 24px 4px; margin: 4px; user-select: none; }
+.buttonbox.big { height: 36px; line-height: 32px; font-size: 14pt; }
+.buttonbox.small { height: 20px; line-height: 18px; padding: 0px 2px 18px 2px; }
 .buttonbox.disabled { cursor: default; border-color: darkgray!important; color: darkgray; }
 
+.buttonsquare { border: 1px solid white; width: 26px; height: 26px; user-select: none; }
+.buttonsquare.home { background-image: url(../images/interface/home.png); cursor: pointer; }
+.buttonsquare.collapse { background-image: url(../images/interface/collapse.png); }
+.buttonsquare.expand { background-image: url(../images/interface/collapse.png); transform: scaleX(-1); }
+.buttonsquare.close { background-image: url(../images/interface/close.png); }
+
 .rightalign { float: right; }
+.centercheckbox { width: 100%; display: inline-block; text-align: center; }
 
 .newpath { animation: newpath 2s forwards 1; }
-
 @keyframes newpath { from { background-color: rgba(192,255,192,.25); } to { background-color: none; } }
 
+.buttonaction { animation: buttonaction 1s forwards 1; }
+@keyframes buttonaction { from { background-color: rgba(192,255,192,.5); } to { background-color: none; } }
+
+.overworldicon { background-image: url(../images/overlay/overworldicon.png); }
 .boss0 { background-image: url(../images/dungeons/boss0.png); }
 .boss1 { background-image: url(../images/dungeons/boss1.png); }
 .boss2 { background-image: url(../images/dungeons/boss2.png); }
