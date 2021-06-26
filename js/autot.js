@@ -20,7 +20,7 @@ function autotrackStartTimer() {
 }
 
 function autotrackSetStatus(text) {
-    //document.getElementById("autoTrackStatus").textContent=text;
+    document.getElementById("autotrackingstatus").textContent = "Autotracking Status: " + text;
 }
 
 function autotrackConnect(host="ws://localhost:" + flags.trackingport) {
@@ -79,7 +79,7 @@ function autotrackCleanup() {
     }
 
     autotrackPrevData = null;
-    autotrackSetStatus("Disonnected");
+    //autotrackSetStatus("Disconnected");
 }
 
 function autotrackOnConnect(event) {

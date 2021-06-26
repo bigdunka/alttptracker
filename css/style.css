@@ -181,6 +181,15 @@ body {
   text-align: center;
 }
 
+#autotrackingstatus {
+  width: 100%;
+  position: absolute;
+  bottom: 0px;
+  color: white;
+  font-size: 12px;
+  text-align: right;
+}
+
 .icon {
   width: 16px !important;
   height: 16px !important;

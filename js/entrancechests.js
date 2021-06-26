@@ -495,6 +495,12 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(10)) return 'available';
+				if (hasFoundEntrance(8) || hasFoundEntrance(9)) {
+					if (flags.opentowercount == 8) {
+						return 'possible';
+					}
+					if (crystalCheck() >= flags.opentowercount) return 'available';
+				}
 				// NOTE: Killing Aga 1 will provide a one-time transport to top of the castle, but cannot be returned to except with mirror + S&Q.
 				// Killing Aga 2 also transports to the top of the castle, but subsequent climbs of GT will also transport back to the top of the castle.
 				return (items.agahnim || items.agahnim2) ? 'available' : 'unavailable';
@@ -5117,7 +5123,13 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(127)) return 'available';
-				return (canReachDWDMNorth() && (crystalCheck() >= flags.opentowercount)) ? 'available' : 'unavailable';
+				if (canReachDWDMNorth()) {
+					if (flags.opentowercount == 8) {
+						return 'possible';
+					}
+					return ((crystalCheck() >= flags.opentowercount)) ? 'available' : 'unavailable';
+				}
+				return 'unavailable';
 			}
 		}, { // [128]
 			caption: 'Spike Cave',

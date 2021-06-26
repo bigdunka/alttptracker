@@ -1281,7 +1281,9 @@
 					return window.GTBoss();			
 				},
 				can_get_chest: function() {
-					if ((crystalCheck() < 7 && crystalCheck() < flags.opentowercount) || !canReachLightWorld()) return 'unavailable';
+					if (!canReachLightWorld()) return 'unavailable';
+					if (flags.opentowercount == 8) return 'possible';
+					if (crystalCheck() < 7 && crystalCheck() < flags.opentowercount) return 'unavailable';										
 					var doorcheck = window.doorCheck(11,false,false,true,['glove'],'connector');
 					if(doorcheck)
 					{
@@ -2074,7 +2076,11 @@
 					return window.GTBoss();
 				},
 				can_get_chest: function() {
-					if ((crystalCheck() < 7 && crystalCheck() < flags.opentowercount) || items.glove < 2 || (!items.hammer && !items.hookshot) || !canReachDarkWorld()) return 'unavailable';
+					if (items.glove < 2 || !items.hammer || (!items.hookshot && !items.mirror) || !canReachDarkWorld()) return 'unavailable';
+					if (flags.opentowercount == 8) {
+						return (items.lantern || items.flute) ? 'possible' : 'darkpossible';
+					}
+					if (crystalCheck() < 7 && crystalCheck() < flags.opentowercount) return 'unavailable';
 					var doorcheck = window.doorCheck(10,!items.flute && !items.lantern,false,false,['hammer','firerod','hookshot','boomerang','somaria','wizzrobe','boots','bow',flags.bossshuffle === 'N' ? '' : 'icerod'],'item');
 					if(doorcheck)
 						return doorcheck;
