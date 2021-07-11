@@ -12,6 +12,10 @@
   bottom: -20px;
 }
 
+#autotrackingstatus {
+  bottom: -20px;
+}
+
 .location {
   width: 16px;
   height: 16px;
