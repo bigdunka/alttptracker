@@ -996,10 +996,12 @@
         window.highlight = function(x) {
             document.getElementById('locationMap'+x).classList.add('highlight');
             document.getElementById('caption').innerHTML = caption_to_html(chests[x].content ?(chests[x].content+" | "+chests[x].caption) :chests[x].caption);
+			document.getElementById('autotrackingstatus').style.display = 'none';
         };
         window.unhighlight = function(x) {
             document.getElementById('locationMap'+x).classList.remove('highlight');
             document.getElementById('caption').innerHTML = '&nbsp;';
+			document.getElementById('autotrackingstatus').style.display = '';
         };
         // Highlights a entrance location and shows the caption
         window.highlight_entrance = function(x) {
