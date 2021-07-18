@@ -1024,27 +1024,33 @@
 				displayCaption = displayCaption + ' ['+entrances[x].note+']';
 			}
 			document.getElementById('caption').innerHTML = caption_to_html(displayCaption);
+			document.getElementById('autotrackingstatus').style.display = 'none';
         };
         window.unhighlight_entrance = function(x) {
             document.getElementById('entranceMap'+x).classList.remove('highlight');
             document.getElementById('caption').innerHTML = '&nbsp;';
+			document.getElementById('autotrackingstatus').style.display = '';
         };
         // Highlights a chest location and shows the caption (but for dungeons)
         window.highlight_dungeon = function(x) {
             document.getElementById('dungeon'+x).classList.add('highlight');
             document.getElementById('caption').innerHTML = caption_to_html((dungeons[x].content ? (dungeons[x].content+" | ") : "")+(dungeons[x].trashContent ? (dungeons[x].trashContent+" | ") : "")+dungeons[x].caption);
+			document.getElementById('autotrackingstatus').style.display = 'none';
         };
         window.unhighlight_dungeon = function(x) {
             document.getElementById('dungeon'+x).classList.remove('highlight');
             document.getElementById('caption').innerHTML = '&nbsp;';
+			document.getElementById('autotrackingstatus').style.display = '';
         };
         window.highlight_agahnim = function() {
             document.getElementById('castle').classList.add('highlight');
             document.getElementById('caption').innerHTML = caption_to_html(agahnim.caption);
+			document.getElementById('autotrackingstatus').style.display = 'none';
         };
         window.unhighlight_agahnim = function() {
             document.getElementById('castle').classList.remove('highlight');
             document.getElementById('caption').innerHTML = '&nbsp;';
+			document.getElementById('autotrackingstatus').style.display = '';
         };
     //}
 
