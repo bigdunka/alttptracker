@@ -167,6 +167,7 @@ body {
 .possible { background-color: yellow; }
 .information { background-color: orange; }
 .darkavailable { background-color: blue; }
+.partialavailable { background-color: rgb(23, 170, 238); }
 .darkpossible { background-color: purple; } 
 .opened { background-color: #7f7f7f; }
 .hidden { width: 0px!important; height: 0px!important; }

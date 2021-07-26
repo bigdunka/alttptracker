@@ -25,6 +25,7 @@
     function melee_bow() { return melee() || items.bow > 0; }
     function cane() { return items.somaria || items.byrna; }
     function rod() { return items.firerod || items.icerod; }
+	function canHitSwitch() { return (melee_bow() || cane() || rod() || items.boomerang || items.hookshot || items.bomb); }
 	function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 0 || items.hammer || items.firerod; }
 
     function always() { return 'available'; }
@@ -445,14 +446,14 @@
 				return items.flippers && canReachInvertedLightWorld() ? 'available' : 'unavailable';
 			}
 		}, { // [6]
-			caption: 'Fairy Spring',
+			caption: 'Fairy Spring {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(6)) return 'available';
-				return canReachInvertedLightWorld() ? 'available' : 'unavailable';
+				return canReachInvertedLightWorld() && items.bomb ? 'available' : 'unavailable';
 			}
 		}, { // [7]
 			caption: 'Hyrule Castle - Main Entrance',
@@ -761,7 +762,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(38)) return 'available';
-				return canReachInvertedLightWorld() ? 'available' : 'unavailable';
+				return canReachInvertedLightWorld() && items.bomb ? 'available' : 'unavailable';
 			}
 		}, { // [39]
 			caption: 'Shop',
@@ -997,7 +998,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(63)) return 'available';
-				return canReachInvertedLightWorld() ? 'available' : 'unavailable';
+				return canReachInvertedLightWorld() && items.bomb ? 'available' : 'unavailable';
 			}
 		}, { // [64]
 			caption: 'Pond of Happiness',
@@ -1019,7 +1020,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(65)) return 'available';
-				return canReachInvertedLightWorld() ? 'available' : 'unavailable';
+				return canReachInvertedLightWorld() && items.bomb ? 'available' : 'unavailable';
 			}
 		}, { // [66]
 			caption: 'Good Bee Cave',
@@ -1251,7 +1252,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				return canReachInvertedSouthDW() ? 'available' : 'unavailable';
+				return canReachInvertedSouthDW() && items.bomb ? 'available' : 'unavailable';
 			}
 		}, { // [89]
 			caption: 'Swamp Palace',
@@ -1470,13 +1471,14 @@
 				return (items.hammer && canReachInvertedNorthDW()) ? 'available' : 'unavailable';
 			}
 		}, { // [111]
-			caption: 'Bombable Hut',
+			caption: 'Bombable Hut {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				return canReachInvertedNorthDW() ? 'available' : 'unavailable';
+				if (hasFoundEntrance(111)) return 'available';
+				return canReachInvertedNorthDW() && items.bomb ? 'available' : 'unavailable';
 			}
 		}, { // [112]
 			caption: 'Hammer Peg Cave',
@@ -1555,15 +1557,19 @@
 				return canReachInvertedSouthDW() ? 'available' : 'unavailable';
 			}
 		}, { // [120]
-			caption: 'Ledge Fairy',
+			caption: 'Ledge Fairy {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				if (hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122) || activeFluteInvertedEntrance()) return 'available';
-				if (items.mirror && canReachInvertedLightWorldBunny()) return 'available';
-				return (items.flippers && (canReachInvertedEastDW() || canReachInvertedSouthDW())) ? 'available' : 'unavailable';
+				if (hasFoundEntrance(120)) return 'available';
+				if (items.bomb) {
+					if (hasFoundEntrance(121) || hasFoundEntrance(122) || activeFluteInvertedEntrance()) return 'available';
+					if (items.mirror && canReachInvertedLightWorldBunny()) return 'available';
+					if (items.flippers && (canReachInvertedEastDW() || canReachInvertedSouthDW())) return 'available';
+				}
+				return 'unavailable';
 			}
 		}, { // [121]
 			caption: 'Ledge Hint',
@@ -3951,7 +3957,7 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				return 'available';
+				return (items.bomb ? 'available' : 'unavailable');
 			}
 		}, { // [7]
 			caption: 'Hyrule Castle - Main Entrance',
@@ -4249,7 +4255,8 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				return 'available';
+				if (hasFoundEntrance(46)) return 'available';				
+				return (items.bomb ? 'available' : 'unavailable');
 			}
 		}, { // [39]
 			caption: 'Shop',
@@ -4481,7 +4488,8 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				return 'available';
+				if (hasFoundEntrance(63)) return 'available';				
+				return (items.bomb ? 'available' : 'unavailable');
 			}
 		}, { // [64]
 			caption: 'Pond of Happiness',
@@ -4501,7 +4509,8 @@
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
-				return 'available';
+				if (hasFoundEntrance(65)) return 'available';
+				return (items.bomb ? 'available' : 'unavailable');
 			}
 		}, { // [66]
 			caption: 'Good Bee Cave',
@@ -4730,7 +4739,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(88)) return 'available';
-				return (canReachDarkWorldSouth() && items.moonpearl) ? 'available' : 'unavailable';
+				return (canReachDarkWorldSouth() && items.moonpearl && items.bomb) ? 'available' : 'unavailable';
 			}
 		}, { // [89]
 			caption: 'Swamp Palace',
@@ -4960,7 +4969,7 @@
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(111)) return 'available';
-				return (canReachOutcast() && items.moonpearl) ? 'available' : 'unavailable';
+				return (canReachOutcast() && items.moonpearl && items.bomb) ? 'available' : 'unavailable';
 			}
 		}, { // [112]
 			caption: 'Hammer Peg Cave',
@@ -5045,14 +5054,14 @@
 				return (canReachDarkWorldSouth()) ? 'available' : 'unavailable';
 			}
 		}, { // [120]
-			caption: 'Ledge Fairy',
+			caption: 'Ledge Fairy {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
 			is_connector: false,
 			is_available: function() {
 				if (hasFoundEntrance(120)) return 'available';
-				return (canReachDarkWorldSouthEast() && items.moonpearl) ? 'available' : 'unavailable';
+				return (canReachDarkWorldSouthEast() && items.moonpearl && items.bomb) ? 'available' : 'unavailable';
 			}
 		}, { // [121]
 			caption: 'Ledge Hint',

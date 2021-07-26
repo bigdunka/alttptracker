@@ -934,14 +934,14 @@
 					var connector2 = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
 					
 					if (connector1.offsetTop > connector2.offsetTop) {
-						divtoadd.style.top = connector2.offsetTop + 6;
+						divtoadd.style.top = connector2.offsetTop + 5;
 					} else {
-						divtoadd.style.top = connector1.offsetTop + 6;
+						divtoadd.style.top = connector1.offsetTop + 5;
 					}
 					if (connector1.offsetLeft > connector2.offsetLeft) {
-						divtoadd.style.left = connector2.offsetLeft + 6;
+						divtoadd.style.left = connector2.offsetLeft + 5;
 					} else {
-						divtoadd.style.left = connector1.offsetLeft + 6;
+						divtoadd.style.left = connector1.offsetLeft + 5;
 					}
 					
 					if (connector1.offsetLeft > connector2.offsetLeft) {
@@ -2627,10 +2627,10 @@
 			window.addEventListener("message", receiveMessage, false);
 		
 		standardbombs = true;
-		if (flags.gametype != 'S') {
-			toggle('bomb');
-			standardbombs = false;
-		}
+//		if (flags.gametype != 'S') {
+//			toggle('bomb');
+//			standardbombs = false;
+//		}
 		
 		if (flags.entrancemode === 'N') {			
 			for (var i = 0; i < 10; i++) {
