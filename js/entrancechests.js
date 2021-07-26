@@ -755,7 +755,7 @@
 				return canReachInvertedLightWorld() ? 'available' : 'unavailable';
 			}
 		}, { // [38]
-			caption: 'Bomb Hut',
+			caption: 'Bomb Hut {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
@@ -991,7 +991,7 @@
 				return canReachInvertedLightWorldBunny() ? 'available' : 'unavailable';
 			}
 		}, { // [63]
-			caption: 'Mini Moldorm Cave',
+			caption: 'Mini Moldorm Cave {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
@@ -1013,7 +1013,7 @@
 				return items.flippers && canReachInvertedLightWorld() ? 'available' : 'unavailable';
 			}
 		}, { // [65]
-			caption: 'Ice Rod Cave',
+			caption: 'Ice Rod Cave {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
@@ -1246,7 +1246,7 @@
 				return canReachInvertedSouthDW() ? 'available' : 'unavailable';
 			}
 		}, { // [88]
-			caption: 'Hype Cave',
+			caption: 'Hype Cave {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
@@ -3951,7 +3951,7 @@
 				return (items.flippers ? 'available' : 'unavailable');
 			}
 		}, { // [6]
-			caption: 'Fairy Spring',
+			caption: 'Fairy Spring {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
@@ -4249,7 +4249,7 @@
 				return 'available';
 			}
 		}, { // [38]
-			caption: 'Bomb Hut',
+			caption: 'Bomb Hut {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
@@ -4482,7 +4482,7 @@
 				return 'available';
 			}
 		}, { // [63]
-			caption: 'Mini Moldorm Cave',
+			caption: 'Mini Moldorm Cave {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
@@ -4503,7 +4503,7 @@
 				return (items.flippers) ? 'available' : 'unavailable';
 			}
 		}, { // [65]
-			caption: 'Ice Rod Cave',
+			caption: 'Ice Rod Cave {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
@@ -4732,7 +4732,7 @@
 				return (canReachDarkWorldSouth() && items.boots && items.moonpearl) ? 'available' : 'unavailable';
 			}
 		}, { // [88]
-			caption: 'Hype Cave',
+			caption: 'Hype Cave {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
@@ -4962,7 +4962,7 @@
 				return (canReachOutcast() && items.moonpearl && items.hammer) ? 'available' : 'unavailable';
 			}
 		}, { // [111]
-			caption: 'Bombable Hut',
+			caption: 'Bombable Hut {bomb}',
 			is_opened: false,
 			note: '',
 			known_location: '',
