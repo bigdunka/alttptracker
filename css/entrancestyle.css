@@ -217,27 +217,23 @@ body {
 }
 
 .crossedleft {
-    background: 
-       linear-gradient(to top left,
-           rgba(0,0,0,0) 0%,
-           rgba(0,0,0,0) calc(50% - 2px),
-           rgba(0,255,255,1) 50%,
-           rgba(0,0,0,0) calc(50% + 2px),
-           rgba(0,0,0,0) 100%);
-   min-height: 2px;
-   min-width: 2px;
+  background: 
+     linear-gradient(to top left,
+         rgba(0,0,0,0) calc(50% - 1px),
+         rgba(0,255,255,1) calc(50% - 0.5px) calc(50% + 0.5px),
+         rgba(0,0,0,0) calc(50% + 1px));
+ min-height: 2px;
+ min-width: 2px;
 }
 
 .crossedright {
-    background: 
-       linear-gradient(to top right,
-           rgba(0,0,0,0) 0%,
-           rgba(0,0,0,0) calc(50% - 2px),
-           rgba(0,255,255,1) 50%,
-           rgba(0,0,0,0) calc(50% + 2px),
-           rgba(0,0,0,0) 100%);
-   min-height: 2px;
-   min-width: 2px;
+  background: 
+     linear-gradient(to top right,
+         rgba(0,0,0,0) calc(50% - 1px),
+         rgba(0,255,255,1) calc(50% - 0.5px) calc(50% + 0.5px),
+         rgba(0,0,0,0) calc(50% + 1px));
+ min-height: 2px;
+ min-width: 2px;
 }
 
 .informationdiv {
