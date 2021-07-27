@@ -2202,7 +2202,9 @@
 			}, { // [6]
 				caption: 'Chicken House {bomb}',
 				is_opened: false,
-				is_available: always
+				is_available: function() {
+					return items.bomb ? 'available' : 'unavailable';
+				}
 			}, { // [7]
 				caption: 'Bombable Hut {bomb}',
 				is_opened: false,
