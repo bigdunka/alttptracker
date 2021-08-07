@@ -249,12 +249,12 @@
 			<br>
 			<h3>First steps</h3>
 			Before you start playing, make sure the <b>Mode and settings</b> on the main page of the new window are properly set for your seed (see <b>Settings and saving</b> below for details).<br>
+			If, after selecting the right settings, a yellow box with a button labelled <b>Make mode-specific transition adjustments</b> appears, click it. This will connect all transitions that are guaranteed to be vanilla with your selected seed settings.<br>
 			Next, access the <b>Overworld</b> page by clicking on the overworld icon below <b>Overworld Tracker</b> or in the sidebar. If Door Shuffle is disabled, you can consider this the hub page (otherwise, you'll be switching between this and the individual dungeons).<br>
-			Scroll down and click on <b>Make mode-dependent transitions vanilla (confirm mode!)</b>. This will connect all transitions that are guaranteed to be vanilla with your selected seed settings.<br>
-			If, when the seed was generated, certain kinds of transitions could not yet be shuffled, also click on the respective button(s) below.<br>
+			If, when the seed was generated, certain kinds of transitions could not yet be shuffled, click on the respective button(s) below <b>Before you start: Forced vanilla transitions</b>.<br>
 			If you know your Sanctuary will be vanilla (no Entrance or Door Shuffle), select <b>Sanctuary</b> under <b>Common starting locations</b>. This is important for both the logic and finding convenient paths throughout the seed.<br>
 			<br><br>
-			<h3>Tracking overworld transitions</h3>
+			<h3>Parallel or Full Layout Shuffle: Tracking overworld transitions</h3>
 			The recommended way of tracking screen transitions is by opening the <b>Full map</b> which can be accessed from the overworld main page, window main page or sidebar. This will open a large overworld map and show you which transitions are currently accessible and which transitions have been tracked so far.<br>
 			To track a transition, simply click on the edge you started from and then on the edge you ended up at. For convenience, for the second part only edges with a matching direction and ground type will light up. Certain overworld options such as <b>Keep Similar</b> can restrict the possible choices even further.<br>
 			As you will notice later, to be able to use the full potential of this tracker, you are expected to track every single overworld transition you take. Don't worry, it will easily be worth it!<br>
@@ -263,23 +263,48 @@
 			<br><br>
 			<center><img src="./images/overlay/instructions28.png"><img style="margin-left: 8px;" src="./images/overlay/instructions29.png"></center>
 			<br>
+			<h3>Crossed Overworld: Tracking overworld transitions</h3>
+			If this is combined with Parallel or Full Layout Shuffle, see the section above. The only difference is that transitions can now go across worlds. Such transitions will be marked with a cross.<br><br>
+			Otherwise: Open the <b>Full map</b> which can be accessed from the overworld main page, window main page or sidebar. This will open a large overworld map and show you which transitions are currently accessible and which transitions have been tracked so far.<br>
+			If you want to track a transition that isn't yet tracked, click on the transition once to mark it as vanilla (same world) or twice to mark it as the crossed variant, indicated by a cross. Click a third time to reset it to the untracked state.<br>
+			When this option is combined with <b>Keep Similar</b>, clicking on one edge will affect all edges that are in the same group of similar edges.
+			<br><br>
+			<center><img src="./images/overlay/instructions30.png"></center>
+			<br>
+			<h3>Mixed Overworld: Tracking which screens are swapped</h3>
+			In Mixed, every overworld screen is in one of two states: normal or swapped. If it's in swapped state, the screen version that normally belongs to the Dark World is now part of the Light World.<br>
+			Open the <b>Full map</b> which can be accessed from the overworld main page, window main page or sidebar. This will open a large overworld map and show you which screen states have been tracked so far and which versions (Light and Dark World) belong to which world.<br>
+			Whenever you visit a screen for the first time, pay attention to its state, move the cursor to the question mark on that screen in the tracker and click on <b>Normal</b> or <b>Swapped</b> respectively.<br>
+			In case of a misclick, click on the screen that has accidentally been tracked and then on <b>Reset state</b> below the map.<br>
+			Tip: If you're unsure if you're currently looking at the Light World or Dark World map in the tracker, pay attention to the tree in the bottom-left corner in the desert/mire area. It will either be a Light World or Dark World tree depending on which world is being displayed behind it.
+			<br><br>
+			<center><img src="./images/overlay/instructions31.png"><img style="margin-left: 8px;" src="./images/overlay/instructions32.png"></center>
+			<br>
+			<h3>Flute Shuffle: Tracking flute spots</h3>
+			When <b>Flute Shuffle</b> is active, you need to tell the tracker where your flute spots are. Each overworld screen only has one possible position for a flute spot, so all you need to determine is which 8 screens contain a flute spot which you can tell just from looking at the flute menu.<br>
+			When you use the flute for the first time and you have marked your flute as activated in the tracker, the Kakariko screen on the <b>Full map</b> should have a <b>Set flute spots</b> button that brings you to the flute spot menu. Alternatively, you can click on <b>Edit flute spots</b> in the overworld main menu to access the flute spot menu.<br>
+			In the flute spot menu, click on a screen to toggle whether it contains a flute spot. The one in the desert/mire area is set by default so there should be 7 more flute spots to place. If all 8 are set, simply close the map or click on <b>Full map</b>.<br>
+			Note: Flute spots are only considered by the logic if the flute is marked as both collected and activated in the tracker. Check the <b>Items and sync</b> section below for more information!
+			<br><br>
 			<h3>Searching and finding paths</h3>
-			If you want to get back to a screen you have previously found, click on a button labelled <b>Search path</b> or <b>Search</b> and select a screen. If you're already on the full map, you can also select a screen first and then click on <b>Search path</b> below the map.<br>
+			If you want to get back to a screen you have previously found, click on a button labelled <b>Search path</b> or <b>Search</b> and select a screen. If you're already on the <b>Full map</b>, you can also select a screen first and then click on <b>Search path</b> below the map.<br>
 			The tracker will then compile a list of paths from all possible common starting locations to the selected screen.<br>
 			If the target screen is divided into multiple logical regions (like Bonk Rocks and the rest on the Sanctuary screen), the tracker attempts to find paths to all of them. If the search result list is long, consider filtering them by fixing a target region with a button press (<b>Rocks</b> in the previous example). It can also be helpful to look at which screen edge each path ends, indicated by a turquoise square.<br>
 			If, instead of (only) starting at the common start locations, you want to see if there's a quick path from your current location in the game, you can click on <b>Change starting location(s)</b> and select a start screen. All logical regions of this screen are considered. If <b>Always include common starts</b> is checked, the new paths will be mixed with the previous results.<br>
-			Click on a path to view it with more details and lines connecting the edges of the screens. You can also click on <b>Pin path for later</b> to permanently display it on the main overworld page.
+			Click on a path to view it with more details and lines connecting the edges of the screens. You can also click on <b>Pin path for later</b> to permanently display it on the main overworld page.<br>
+			Note: For this feature to work properly, it is important that you have the <b>Common starting locations</b> set correctly. Please refer to the next section for more information.
 			<br><br>
 			<h3>Common starting locations</h3>
-			The common starting location list keeps track of locations you can quickly access from almost any point in the game. This should generally only include save & quit spots and flute spots.<br>
-			By default, only <b>Link's House</b> and flute spots (once the flute is obtained) are included, but depending on the game mode and your progress in the seed you might also want to check the boxes for <b>Sanctuary</b> entrance, <b>Old Man Cave</b> entrance or <b>Pyramid</b> screen.<br>
+			The common starting location list keeps track of locations you can quickly access from almost any point in the game. This list should generally only include save & quit spots and flute spots.<br>
+			By default, only <b>Link's House</b> and flute spots (once the flute is obtained and marked as active) are included, but depending on the game mode and your progress in the seed you might also want to check the boxes for <b>Sanctuary</b> entrance, <b>Mountain Cave</b> entrance or <b>Pyramid</b> screen (or the corresponding ones in Inverted or Mixed mode) if these vanilla save & quit spots are available in your seed.<br>
 			This list serves two purposes: It's used by the logic (a location is accessible if it can be reached from at least one starting location), and it's the default start region list when using the <b>Search path</b> feature.<br><br>
 			If you're playing with vanilla Entrances and Doors, you don't need to worry about adding locations to this list other than the ones in the checkboxes. If, for example, you're playing with Entrance Shuffle, you can add the places that the Sanctuary exit and the Old Man Cave exit(s) lead to.<br>
-			To add a region that's not in a checkbox and not a flute spot, open the <b>Full map</b>, click on the respective screen and, if there is a choice, choose a region that you think fits best below the map.
+			To add a region that's neither in a checkbox and nor a flute spot, open the <b>Full map</b>, click on the respective screen and, if there is a choice, choose a region that you think fits best below the map.
 			<br><br>
 			<h3>Items and sync</h3>
 			By default, your current item inventory gets sent from the main tracker window to this window.<br>
-			If you use this tracker in combination with a different item/map tracker, don't forget to also mark certain items here!<br>
+			If you use this tracker in combination with a different item/map tracker, don't forget to also mark certain items here in the overworld main menu!<br>
+			Below the item list is a checkbox that determines if the flute is currently active. This information is important for the logic. This can also be set through the <b>Full map</b> by clicking on the <b>Flute activated</b> button after the flute was obtained.<br>
 			If item (or connector) changes in the main window are somehow no longer being received even though <b>Sync with main window</b> is enabled (this can happen if a window was refreshed or the main window switched between vanilla and shuffled Entrances in Mystery mode), there is a way you can fix this problem:<br>
 			In the overworld window, go back to the start page. Under <b>Save and restore</b> and next to <b>Manual save:</b>, click on <b>Save data</b>. Close this window. In the item tracker window, click on the map icon next to the player sprite to open a new Overworld Tracker window. Finally, click on <b>Load data</b> next to <b>Manual save:</b> to get your tracking progress back.
 			<br><br>
@@ -290,15 +315,21 @@
 			If you are not using the built-in Entrance map tracker to mark connectors, make sure to disable <b>Sync with main</b> above the connector list. This will allow you do add or remove connectors from within this window.<br>
 			To add a connector in this manner, go to the <b>Full map</b>, click on the screen where the connector starts, and click on <b>New connector</b>. Then, click on the screen where the connector ends, maybe fill in region details depending on the screens, and determine whether you are currently able to also use this connector in the other direction, too.
 			<br><br>
+			<center><img src="./images/overlay/instructions33.png"></center>
+			<br>
 			<h3>Settings and saving</h3>
-			These should depend on the settings of the seed, but can be changed independently of the main tracker window based on preference.<br>
-			With <b>Parallel Overworld Shuffle</b>, tracking an overworld transition in one world will automatically also mark the corresponding transition in the other world if a such parallel version exists.<br>
-			Similarly, the <b>Keep Similar</b> option should be checked when the seed was rolled with the <b>Keep Similar Edges Together</b> option to quickly fill in groups of transitions.<br>
-			<b>Crossed</b> allows you to connect edges between the Light World and Dark World.<br>
-			If some kind of <b>Entrance Shuffle</b> is enabled, the <b>Entrance</b> box should be checked to let the tracker know if the connector caves will be vanilla.<br><br>
+			These should depend on the settings of the seed so the logic can work properly. See the sections above for explanations on how tracking the individual Overworld Shuffle modes works.<br>
+			Enabling one of the main <b>Layout Shuffle</b> options allows you to track screen transitions. With <b>Parallel</b>, tracking an overworld transition in one world will automatically also mark the corresponding transition in the other world if a such parallel version exists. <b>Full</b> doesn't have this restriction.<br>
+			The <b>Keep Similar</b> option should be checked when the seed was rolled with the <b>Keep Similar Edges Together</b> option to quickly fill in groups of transitions.<br>
+			<b>Crossed Overworld</b> allows you to connect edges between the Light World and Dark World, even if the layout is otherwise vanilla.<br>
+			In <b>Mixed Overworld</b>, you can mark every overworld screen as normal or swapped.<br>
+			When <b>Flute Shuffle</b> is enabled, the 8 flute spots are assumed to not be vanilla and will have to be marked.<br>
+			The <b>World State</b> option needs to be set correctly to let the tracker now if the Inverted rules apply.<br>
+			If some kind of <b>Entrance Shuffle</b> is enabled, the corresponding box should be checked to let the tracker know if the connector caves will be vanilla.<br>
+			Changing the mode may cause a yellow box with a button labelled <b>Make mode-specific transition adjustments</b> to appear. If all settings are final, we recommend clicking on this button. This will connect all transitions that are guaranteed to be vanilla with your selected seed settings.<br><br>
 			If your browser supports and permits Local Storage, you can save your entire tracking progress in this window by clicking on <b>Save data</b> to the right of <b>Manual save:</b>. If you continue playing the seed at some later point, just click on <b>Load data</b> to the left.<br>
 			Even if you forgot to save manually, there's a chance your progress is still automatically saved. Click on <b>Load data</b> next to <b>Auto-save:</b> to try.<br>
-			Your currently loaded tracked paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.
+			Your currently loaded tracked transitions, states and paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.
 		</div>
 
 		<div id="autosection" style="display: none;" class="instructionsDiv">

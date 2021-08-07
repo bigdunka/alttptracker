@@ -1,61 +1,72 @@
 (function(window) {
 	'use strict';
 	window.opposite = {"N":"S","S":"N","W":"E","E":"W","Z":"Z"};
+	window.className = {"N":"north","S":"south","W":"west","E":"east","Z":"whirlpool"};
 
 	window.initializeOverworldGraph = function()
 	{
-		createDoubleOverworldScreen(0x00,"Lost Woods","Skull Woods",true,["Southwest","South","Northeast","Southeast","Northwest","North","Divider"]);
-		createDoubleOverworldScreen(0x02,"Lumberjacks","Dark Lumberjacks",false,null);
-		createDoubleOverworldScreen(0x03,"West Death Mountain","West Dark Death Mountain",true,["Top","Spectacle Rock","Bottom"]);
-		createDoubleOverworldScreen(0x05,"East Death Mountain","East Dark Death Mountain",true,["Top Main","Bottom Main","Top West","Bottom West","Island","Spiral","Mimic","Laser Bridge","Blocked Cave"]);
-		createDoubleOverworldScreen(0x07,"Turtle Rock Pegs","Turtle Rock",false,["Main","Portal"]);
-		createDoubleOverworldScreen(0x0A,"Death Mountain Entry","Bumper",false,["Main","Ledge","Bottom Cave"]);
-		createDoubleOverworldScreen(0x0F,"Waterfall","Catfish",false,["Main","Waterfall"]);
-		createDoubleOverworldScreen(0x10,"Kakariko Portal","Village Portal",false,["West","North","South","Portal"]);
-		createDoubleOverworldScreen(0x11,"Kakariko Fortune Teller","Village Fortune Teller",false,null);
-		createDoubleOverworldScreen(0x12,"Pond","Dark Pond",false,null);
-		createDoubleOverworldScreen(0x13,"Sanctuary","Dark Chapel",false,["Main","Rocks"]);
-		createDoubleOverworldScreen(0x14,"Graveyard","Dark Graveyard",false,["Main","Ledge","North","King Tomb"]);
-		createDoubleOverworldScreen(0x15,"Houlihan Fairy","Dark Houlihan Fairy",false,["West","East","River"]);
-		createDoubleOverworldScreen(0x16,"Potion Shop","Dark Potion Shop",false,["West","East","River"]);
-		createDoubleOverworldScreen(0x17,"Zora Warning","Cafish Warning",false,["West","East","River"]);
-		createDoubleOverworldScreen(0x18,"Kakariko","Village of Outcasts",true,["Main","Blocked House","Southwest"]);
-		createDoubleOverworldScreen(0x1A,"Forgotten Forest","Curiosity Shop",false,null);
-		createDoubleOverworldScreen(0x1B,"Hyrule Castle","Pyramid",true,["Main","East","South","Southwest","Courtyard","Balcony","Passage Exit"]);
-		createDoubleOverworldScreen(0x1D,"Wooden Bridge","Broken Bridge",false,["West","Northeast","Southeast","River"]);
-		createDoubleOverworldScreen(0x1E,"Eastern Palace","Palace of Darkness",true,null);
-		createDoubleOverworldScreen(0x22,"Blacksmiths","Hammer Pegs",false,["West","Main","Northeast"]);
-		createDoubleOverworldScreen(0x25,"Rock Field","Dark Rock Field",false,null);
-		createDoubleOverworldScreen(0x28,"Maze Race","Digging Game",false,["Top","Bottom","Minigame"]);
-		createDoubleOverworldScreen(0x29,"Library","Archery Game",false,["Top","Bottom"]);
-		createDoubleOverworldScreen(0x2A,"Haunted Grove","Stumpy",false,["Main","Southwest"]);
-		createDoubleOverworldScreen(0x2B,"Central Bonk Rocks","Dark Bonk Rocks",false,null);
-		createDoubleOverworldScreen(0x2C,"Link's House","Bomb Shop",false,null);
-		createDoubleOverworldScreen(0x2D,"Hobo's Bridge","Hammer Bridge",false,["North","South","River"]);
-		createDoubleOverworldScreen(0x2E,"Tree Line","Dark Tree Line",false,["Main","River"]);
-		createDoubleOverworldScreen(0x2F,"Eastern Portal","Darkness Portal",false,["Main","Portal"]);
-		createDoubleOverworldScreen(0x30,"Desert","Misery Mire",true,["Main","Front","Ledge","Back","Tablet","Northeast","Portal"]);
-		createDoubleOverworldScreen(0x32,"Cave 45","Bush Circle 45",false,["Main","North","Ledge"]);
-		createDoubleOverworldScreen(0x33,"C Whirlpool","Dark C",false,["West","East","Portal"]);
-		createDoubleOverworldScreen(0x34,"Hype Fairy","Hype Cave",false,null);
-		createDoubleOverworldScreen(0x35,"Lake Hylia","Dark Lake Hylia",true,["Northwest","Northeast","Southwest","Southeast","Lake","Central Island","Small Island"]);
-		createDoubleOverworldScreen(0x37,"Ice Cave","Dark Ice Cave",false,null);
-		createDoubleOverworldScreen(0x3A,"Desert Thief","Dark Desert Thief",false,["Main","Southeast","Ledge"]);
-		createDoubleOverworldScreen(0x3B,"Dam","Swamp Palace",false,null);
-		createDoubleOverworldScreen(0x3C,"South Pass","Dark South Pass",false,null);
-		createDoubleOverworldScreen(0x3F,"Octoballoon","Dark Octoballoon",false,["Main","Waterfall"]);
-		let specialScreen = createOverworldScreen(0x80,"Pedestal",false,["Main"]);
+		createDoubleOverworldScreen(0x00,"Lost Woods","Skull Woods",true,["Southwest","South","Northeast","Southeast","Northwest","North","Divider"],"Southeast");
+		createDoubleOverworldScreen(0x02,"Lumberjacks","Dark Lumberjacks",false,null,"Main");
+		createDoubleOverworldScreen(0x03,"West Death Mountain","West Dark Death Mountain",true,["Top","Spectacle Rock","Bottom"],"Bottom");
+		createDoubleOverworldScreen(0x05,"East Death Mountain","East Dark Death Mountain",true,["Top Main","Bottom Main","Top West","Bottom West","Island","Spiral","Mimic","Laser Bridge","Blocked Cave"],"Bottom Main");
+		createDoubleOverworldScreen(0x07,"Turtle Rock Pegs","Turtle Rock",false,["Main","Portal"],"Main");
+		createDoubleOverworldScreen(0x0A,"Death Mountain Entry","Bumper",false,["Main","Ledge","Bottom Cave"],"Main");
+		createDoubleOverworldScreen(0x0F,"Waterfall","Catfish",false,["Main","Waterfall"],"Main");
+		createDoubleOverworldScreen(0x10,"Kakariko Portal","Village Portal",false,["West","North","South","Portal"],"West");
+		createDoubleOverworldScreen(0x11,"Kakariko Fortune Teller","Village Fortune Teller",false,null,"Main");
+		createDoubleOverworldScreen(0x12,"Pond","Dark Pond",false,null,"Main");
+		createDoubleOverworldScreen(0x13,"Sanctuary","Dark Chapel",false,["Main","Rocks"],"Main");
+		createDoubleOverworldScreen(0x14,"Graveyard","Dark Graveyard",false,["Main","Ledge","North","King Tomb"],"Main");
+		createDoubleOverworldScreen(0x15,"River Bend","Dark River Bend",false,["West","East","River"],"East");
+		createDoubleOverworldScreen(0x16,"Potion Shop","Dark Potion Shop",false,["West","East","River"],"West");
+		createDoubleOverworldScreen(0x17,"Zora Warning","Cafish Warning",false,["West","East","River"],"East");
+		createDoubleOverworldScreen(0x18,"Kakariko","Village of Outcasts",true,["Main","Blocked House","Southwest"],"Main");
+		createDoubleOverworldScreen(0x1A,"Forgotten Forest","Curiosity Shop",false,null,"Main");
+		createDoubleOverworldScreen(0x1B,"Hyrule Castle","Pyramid",true,["Main","East","South","Southwest","Courtyard","Balcony","Passage Exit"],"Courtyard");
+		createDoubleOverworldScreen(0x1D,"Wooden Bridge","Broken Bridge",false,["West","Northeast","Southeast","River"],"Northeast");
+		createDoubleOverworldScreen(0x1E,"Eastern Palace","Palace of Darkness",true,null,"Main");
+		createDoubleOverworldScreen(0x22,"Blacksmiths","Hammer Pegs",false,["West","Main","Northeast"],"Main");
+		createDoubleOverworldScreen(0x25,"Rock Field","Dark Rock Field",false,null,"Main");
+		createDoubleOverworldScreen(0x28,"Maze Race","Digging Game",false,["Top","Bottom","Minigame"],"Bottom");
+		createDoubleOverworldScreen(0x29,"Library","Archery Game",false,["Top","Bottom"],"Top");
+		createDoubleOverworldScreen(0x2A,"Haunted Grove","Stumpy",false,["Main","Southwest"],"Main");
+		createDoubleOverworldScreen(0x2B,"Central Bonk Rocks","Dark Bonk Rocks",false,null,"Main");
+		createDoubleOverworldScreen(0x2C,"Link's House","Bomb Shop",false,null,"Main");
+		createDoubleOverworldScreen(0x2D,"Hobo's Bridge","Hammer Bridge",false,["North","South","River"],"South");
+		createDoubleOverworldScreen(0x2E,"Tree Line","Dark Tree Line",false,["Main","River"],"Main");
+		createDoubleOverworldScreen(0x2F,"Eastern Portal","Darkness Portal",false,["Main","Portal"],"Main");
+		createDoubleOverworldScreen(0x30,"Desert","Misery Mire",true,["Main","Front","Ledge","Back","Tablet","Northeast","Portal"],"Portal");
+		createDoubleOverworldScreen(0x32,"Cave 45","Bush Circle 45",false,["Main","North","Ledge"],"Main");
+		createDoubleOverworldScreen(0x33,"C Whirlpool","Dark C",false,["West","East","Portal"],"West");
+		createDoubleOverworldScreen(0x34,"Hype Fairy","Hype Cave",false,null,"Main");
+		createDoubleOverworldScreen(0x35,"Lake Hylia","Dark Lake Hylia",true,["Northwest","Northeast","Southwest","Southeast","Lake","Central Island","Small Island"],"Northwest");
+		createDoubleOverworldScreen(0x37,"Ice Cave","Dark Ice Cave",false,null,"Main");
+		createDoubleOverworldScreen(0x3A,"Desert Thief","Dark Desert Thief",false,["Main","Southeast","Ledge"],"Main");
+		createDoubleOverworldScreen(0x3B,"Dam","Swamp Palace",false,null,"Main");
+		createDoubleOverworldScreen(0x3C,"South Pass","Dark South Pass",false,null,"Main");
+		createDoubleOverworldScreen(0x3F,"Octoballoon","Bomber Corner",false,["Main","Waterfall"],"Main");
+		let specialScreen = createOverworldScreen(0x80,"Pedestal",false,["Main"],"Main");
 		specialScreen.x = 32;
 		specialScreen.y = 0;
 		specialScreen.file = "pedestal";
-		specialScreen = createOverworldScreen(0x81,"Zora's Domain",false,["Main","Southeast"]);
+		specialScreen = createOverworldScreen(0x81,"Zora's Domain",false,["Main","Southeast"],"Main");
 		specialScreen.x = 384;
 		specialScreen.y = 32;
 		specialScreen.file = "zora";
-		specialScreen = createOverworldScreen(0x82,"Hobo",false,["Main"]);
+		specialScreen = createOverworldScreen(0x82,"Hobo",false,["Main"],"Main");
 		specialScreen.x = 384;
 		specialScreen.y = 224;
 		specialScreen.file = "hobo";
+		screenLinksLayout.push([0x00,0x2D,0x80,0x82]);
+		screenLinksEntrance.push([0x05,0x07]);
+		screenLinksLayout.push([0x0F,0x35,0x81]);
+		screenLinksLayout.push([0x12,0x15,0x33,0x3F]);
+		screenLinksEntrance.push([0x13,0x14,0x1B]);
+		screenLinksLayout.push([0x1A,0x1B]);
+		screenLinksLayout.push([0x28,0x29]);
+		screenLinksEntrance.push([0x28,0x29]);
+		screenLinksLayout.push([0x30,0x3A]);
+		screenLinksGlobal.push([0x80,0x82]);
 		let specialEdge = createOverworldEdge(0x00,"Northwest","N",1,1,false,.3);
 		specialEdge.y = specialEdge.y2 = .35;
 		createDoubleOverworldEdge(0x00,"Northeast","E",1,1,false,.3);
@@ -223,6 +234,89 @@
 		createOverworldEdge(0x80,"Main","S",1,1,false,.45);
 		createOverworldEdge(0x81,"Main","S",1,1,false,.5);
 		createOverworldEdge(0x82,"Main","E",1,1,true,.6);
+		setVanillaTransition(0x00,"N1",0x80,"S1");
+		setVanillaTransition(0x00,"E1",0x02,"W1");
+		setVanillaTransition(0x00,"S0",0x10,"N0");
+		setVanillaTransition(0x00,"S1",0x10,"N2");
+		setVanillaTransition(0x00,"S2",0x11,"N1");
+		setVanillaTransition(0x02,"S1",0x0A,"N1");
+		setVanillaTransition(0x03,"E0",0x05,"W0");
+		setVanillaTransition(0x03,"E2",0x05,"W2");
+		setVanillaTransition(0x05,"E1",0x07,"W1");
+		setVanillaTransition(0x0A,"S1",0x12,"N1");
+		setVanillaTransition(0x0F,"N1",0x81,"S1");
+		setVanillaTransition(0x0F,"S1",0x17,"N1");
+		setVanillaTransition(0x0F,"ZW",0x35,"ZW");
+		setVanillaTransition(0x10,"S0",0x18,"N0");
+		setVanillaTransition(0x10,"S2",0x18,"N1");
+		setVanillaTransition(0x11,"E0",0x12,"W0");
+		setVanillaTransition(0x11,"E2",0x12,"W2");
+		setVanillaTransition(0x11,"S1",0x18,"N2");
+		setVanillaTransition(0x12,"E0",0x13,"W0");
+		setVanillaTransition(0x12,"E2",0x13,"W2");
+		setVanillaTransition(0x12,"S0",0x1A,"N0");
+		setVanillaTransition(0x12,"S2",0x1A,"N2");
+		setVanillaTransition(0x12,"ZW",0x3F,"ZW");
+		setVanillaTransition(0x13,"E1",0x14,"W1");
+		setVanillaTransition(0x14,"E1",0x15,"W1");
+		setVanillaTransition(0x15,"E0",0x16,"W0");
+		setVanillaTransition(0x15,"E1",0x16,"W1");
+		setVanillaTransition(0x15,"E2",0x16,"W2");
+		setVanillaTransition(0x15,"S0",0x1D,"N0");
+		setVanillaTransition(0x15,"S1",0x1D,"N1");
+		setVanillaTransition(0x15,"S2",0x1D,"N2");
+		setVanillaTransition(0x15,"ZW",0x33,"ZW");
+		setVanillaTransition(0x55,"ZW",0x7F,"ZW");
+		setVanillaTransition(0x16,"E0",0x17,"W0");
+		setVanillaTransition(0x16,"E2",0x17,"W2");
+		setVanillaTransition(0x18,"E1",0x22,"W1");
+		setVanillaTransition(0x18,"S1",0x29,"N1");
+		setVanillaTransition(0x1A,"E1",0x1B,"W1");
+		setVanillaTransition(0x1B,"E1",0x25,"W1");
+		setVanillaTransition(0x1B,"S0",0x2B,"N1");
+		setVanillaTransition(0x1B,"S2",0x2C,"N1");
+		setVanillaTransition(0x1D,"S1",0x25,"N1");
+		setVanillaTransition(0x1E,"S0",0x2E,"N1");
+		setVanillaTransition(0x1E,"S2",0x2F,"N1");
+		setVanillaTransition(0x25,"S1",0x2D,"N1");
+		setVanillaTransition(0x68,"E0",0x69,"W0");
+		setVanillaTransition(0x28,"E1",0x29,"W1");
+		setVanillaTransition(0x29,"E1",0x2A,"W1");
+		setVanillaTransition(0x2A,"S0",0x32,"N0");
+		setVanillaTransition(0x2A,"S2",0x32,"N2");
+		setVanillaTransition(0x2B,"E0",0x2C,"W0");
+		setVanillaTransition(0x2B,"E1",0x2C,"W1");
+		setVanillaTransition(0x2B,"E2",0x2C,"W2");
+		setVanillaTransition(0x2B,"S1",0x33,"N1");
+		setVanillaTransition(0x2C,"E1",0x2D,"W2");
+		setVanillaTransition(0x2C,"S1",0x34,"N1");
+		setVanillaTransition(0x2D,"W0",0x82,"E1");
+		setVanillaTransition(0x2D,"E0",0x2E,"W0");
+		setVanillaTransition(0x2D,"E2",0x2E,"W2");
+		setVanillaTransition(0x2D,"S1",0x35,"N0");
+		setVanillaTransition(0x2E,"S0",0x35,"N1");
+		setVanillaTransition(0x2E,"S2",0x35,"N2");
+		setVanillaTransition(0x30,"E0",0x3A,"W0");
+		setVanillaTransition(0x30,"E2",0x3A,"W2");
+		setVanillaTransition(0x32,"E1",0x33,"W1");
+		setVanillaTransition(0x33,"E0",0x34,"W0");
+		setVanillaTransition(0x33,"E1",0x34,"W1");
+		setVanillaTransition(0x33,"E2",0x34,"W2");
+		setVanillaTransition(0x33,"S1",0x3B,"N1");
+		setVanillaTransition(0x34,"S1",0x3C,"N1");
+		setVanillaTransition(0x35,"W1",0x3C,"E1");
+		setVanillaTransition(0x35,"E0",0x3F,"W0");
+		setVanillaTransition(0x35,"E2",0x3F,"W2");
+		setVanillaTransition(0x37,"S0",0x3F,"N0");
+		setVanillaTransition(0x37,"S2",0x3F,"N2");
+		setVanillaTransition(0x3A,"E0",0x3B,"W0");
+		setVanillaTransition(0x3A,"E2",0x3B,"W2");
+		setVanillaTransition(0x3B,"E1",0x3C,"W1");
+		setEscapeEdges(0x1B,"S0");
+		setEscapeEdges(0x1B,"S2");
+		setEscapeEdges(0x2B,"E0");
+		setEscapeEdges(0x2B,"E1");
+		setEscapeEdges(0x2B,"E2");
 		createSingleLogicEdge(0x00,"Southwest","South",null,true);
 		createSingleLogicEdge(0x00,"Southwest","Northwest",null,true);
 		createDoubleLogicEdge(0x00,"Northwest","North","bushes",true);
@@ -233,15 +327,18 @@
 		createSingleLogicEdge(0x40,"Divider","Northeast",null,true);
 		createSingleLogicEdge(0x40,"South","Southeast","gloves",true);
 		createDoubleLogicEdge(0x03,"Top","Bottom",null,false);
+		createInvertedLogicEdge(0x43,"Top","Bottom",null,true);
 		createSingleLogicEdge(0x03,"Spectacle Rock","Top",null,false);
+		createInvertedLogicEdge(0x03,"Spectacle Rock","Top",null,true);
 		createDoubleLogicEdge(0x03,"Spectacle Rock","Bottom",null,false);
 		createSingleLogicEdge(0x43,"Bottom","Spectacle Rock",null,false);
-		createPortal(0x03,"Bottom",null);
+		createDoublePortal(0x03,"Bottom",null);
 		createDoubleLogicEdge(0x05,"Top Main","Bottom Main",null,false);
 		createSingleLogicEdge(0x05,"Top West","Top Main","hammer",true);
 		createSingleLogicEdge(0x45,"Top West","Top Main",null,true);
 		createSingleLogicEdge(0x05,"Bottom West","Bottom Main","hookshot",true);
 		createSingleLogicEdge(0x45,"Island","Top Main",null,false);
+		createInvertedLogicEdge(0x05,"Island","Top Main",null,true);
 		createSingleLogicEdge(0x05,"Top Main","Spiral",null,false);
 		createSingleLogicEdge(0x05,"Top Main","Laser Bridge",null,false);
 		createSingleLogicEdge(0x05,"Laser Bridge","Blocked Cave",null,false);
@@ -250,16 +347,21 @@
 		createDoubleLogicEdge(0x05,"Blocked Cave","Bottom Main",null,false);
 		createSingleLogicEdge(0x05,"Bottom Main","Blocked Cave","mitts",false);
 		createSingleLogicEdge(0x45,"Bottom Main","Blocked Cave","bushes",false);
-		createPortal(0x05,"Bottom Main","mitts");
+		createInvertedLogicEdge(0x05,"Top Main","Mimic",null,false);
+		createInvertedLogicEdge(0x05,"Mimic","Bottom Main",null,false);
+		createDoublePortal(0x05,"Bottom Main","mitts");
 		createSingleLogicEdge(0x07,"Main","Portal","mitts",false);
-		createDoubleLogicEdge(0x07,"Portal","Main",null,false);
+		createInvertedLogicEdge(0x47,"Main","Portal",null,false);
+		createSingleLogicEdge(0x07,"Portal","Main","hammer",false);
+		createSingleLogicEdge(0x47,"Portal","Main",null,false);
 		createPortal(0x07,"Portal","hammer");
+		createPortal(0x47,"Portal","mitts");
 		createDoubleLogicEdge(0x0A,"Main","Bottom Cave","gloves",false);
 		createDoubleLogicEdge(0x0A,"Ledge","Main",null,false);
 		createDoubleLogicEdge(0x0A,"Bottom Cave","Main",null,false);
 		createDoubleLogicEdge(0x0F,"Main","Waterfall","flippers",true);
 		createSingleLogicEdge(0x10,"North","Portal","hammer",true);
-		createPortal(0x10,"Portal","gloves");
+		createDoublePortal(0x10,"Portal","gloves");
 		createSingleLogicEdge(0x50,"North","Portal","bushes",true);
 		createDoubleLogicEdge(0x10,"South","Portal","mitts",true);
 		createSingleLogicEdge(0x50,"North","West","bushes",true);
@@ -269,12 +371,14 @@
 		createSingleLogicEdge(0x14,"North","King Tomb","mitts",true);
 		createSingleLogicEdge(0x14,"Main","North","bushes",true);
 		createSingleLogicEdge(0x14,"Ledge","North",null,false);
+		createInvertedLogicEdge(0x14,"Ledge","North",null,true);
 		createSingleLogicEdge(0x54,"Main","King Tomb","bushes",true);
 		createSingleLogicEdge(0x54,"North","King Tomb","bushes",true);
 		createSingleLogicEdge(0x54,"Ledge","North",null,true);
 		createSingleLogicEdge(0x15,"West","River","flippers",true);
 		createSingleLogicEdge(0x55,"West","River","flippers",false);
 		createDoubleLogicEdge(0x15,"East","River","flippers",true);
+		setDoubleMirrorBlock(0x15,"River");
 		createDoubleLogicEdge(0x16,"West","River","flippers",false);
 		createDoubleLogicEdge(0x16,"East","River","flippers",false);
 		createDoubleLogicEdge(0x16,"West","East","gloves",true);
@@ -298,6 +402,7 @@
 		createSingleLogicEdge(0x5B,"Courtyard","Passage Exit",null,true);
 		createPortal(0x1B,"Main","agahnim");
 		createPortal(0x1B,"Courtyard","agahnim");
+		createPortal(0x5B,"South","agahnim");
 		createSingleLogicEdge(0x1D,"West","Northeast","hookshot",false);
 		createSingleLogicEdge(0x5D,"Northeast","West","hookshot",false);
 		createSingleLogicEdge(0x1D,"West","Southeast",null,true);
@@ -307,6 +412,7 @@
 		createSingleLogicEdge(0x1D,"Northeast","Southeast","bushes",true);
 		createSingleLogicEdge(0x5D,"Northeast","Southeast","hammer",true);
 		createSingleLogicEdge(0x5D,"Northeast","Southeast","gloves",true);
+		setDoubleMirrorBlock(0x1D,"River");
 		createSingleLogicEdge(0x22,"West","Main",null,true);
 		createSingleLogicEdge(0x62,"West","Main","mitts",true);
 		createSingleLogicEdge(0x22,"Main","Northeast","hammer",true);
@@ -316,6 +422,7 @@
 		createDoubleLogicEdge(0x28,"Top","Bottom",null,false);
 		createSingleLogicEdge(0x68,"Minigame","Top","mitts",false);
 		createSingleLogicEdge(0x68,"Minigame","Bottom",null,true);
+		overworldScreens.get(0x68).regions.get("Minigame").mirrorBlock = true;
 		createSingleLogicEdge(0x29,"Top","Bottom",null,true);
 		createSingleLogicEdge(0x69,"Top","Bottom",null,false);
 		createSingleLogicEdge(0x69,"Bottom","Top","mitts",false);
@@ -324,7 +431,7 @@
 		createSingleLogicEdge(0x6D,"North","River","flippers",true);
 		setDoubleMirrorBlock(0x2E,"River");
 		createDoubleLogicEdge(0x2F,"Main","Portal","hammer",true);
-		createPortal(0x2F,"Portal","gloves");
+		createDoublePortal(0x2F,"Portal","gloves");
 		createSingleLogicEdge(0x30,"Main","Front","book",false);
 		createSingleLogicEdge(0x70,"Main","Front",null,true);
 		createSingleLogicEdge(0x30,"Ledge","Main",null,false);
@@ -335,13 +442,15 @@
 		createDoubleLogicEdge(0x30,"Portal","Main",null,false);
 		createSingleLogicEdge(0x30,"Northeast","Main",null,false);
 		createSingleLogicEdge(0x70,"Northeast","Main",null,true);
-		createPortal(0x30,"Portal","mitts");
+		createInvertedLogicEdge(0x30,"Northeast","Main",null,true);
+		createDoublePortal(0x30,"Portal","mitts");
 		createDoubleLogicEdge(0x32,"North","Main","bushes",true);
 		createSingleLogicEdge(0x32,"Ledge","Main",null,false);
 		createSingleLogicEdge(0x72,"Ledge","Main",null,true);
+		createInvertedLogicEdge(0x32,"Ledge","Main",null,true);
 		createDoubleLogicEdge(0x33,"West","East","gloves",true);
 		createDoubleLogicEdge(0x33,"East","Portal","hammer",true);
-		createPortal(0x33,"Portal","gloves");
+		createDoublePortal(0x33,"Portal","gloves");
 		createSingleLogicEdge(0x35,"Northwest","Lake","flippers",true);
 		createSingleLogicEdge(0x75,"Northwest","Lake","flippers",false);
 		createDoubleLogicEdge(0x35,"Northeast","Lake","flippers",true);
@@ -349,19 +458,30 @@
 		createDoubleLogicEdge(0x35,"Southwest","Lake","flippers",false);
 		createDoubleLogicEdge(0x35,"Southeast","Lake","flippers",false);
 		createSingleLogicEdge(0x35,"Central Island","Lake","flippers",true);
+		createInvertedLogicEdge(0x75,"Central Island","Lake","flippers",true);
 		createSingleLogicEdge(0x35,"Small Island","Lake","flippers",false);
 		createSingleLogicEdge(0x75,"Small Island","Lake","flippers",true);
-		createPortal(0x35,"Central Island","mitts");
+		createInvertedLogicEdge(0x35,"Small Island","Lake","flippers",true);
+		createDoublePortal(0x35,"Central Island","mitts");
 		createSingleLogicEdge(0x3A,"Ledge","Main",null,false);
 		createSingleLogicEdge(0x7A,"Ledge","Main",null,true);
+		createInvertedLogicEdge(0x3A,"Ledge","Main",null,true);
 		createSingleLogicEdge(0x3A,"Southeast","Main","gloves",true);
 		createSingleLogicEdge(0x7A,"Southeast","Main",null,true);
 		createDoubleLogicEdge(0x3F,"Waterfall","Main","flippers",false);
 		setDoubleMirrorBlock(0x3F,"Waterfall");
 		createSingleLogicEdge(0x81,"Main","Southeast","flippers",true);
-		createDefaultConnector(0x4A,"Ledge",0x4A,"Bottom Cave","cape",true);
-		createDefaultConnector(0x0A,"Bottom Cave",0x03,"Bottom","lantern",false);
-		createDefaultConnector(0x03,"Bottom",0x0A,"Ledge","lantern",true);
+		//Bumper Cave
+		createSpecialDefaultConnector(0x4A,"Bottom Cave","Bunny",0x4A,"Ledge","Bunny","cape",true);
+		createSpecialDefaultConnector(0x0A,"Bottom Cave","Bunny",0x0A,"Ledge","Bunny","cape",true);
+		//DM Ascent
+		createSpecialDefaultConnector(0x0A,"Bottom Cave","Link",0x03,"Bottom","Link","lantern",false);
+		createSpecialDefaultConnector(0x4A,"Bottom Cave","Link",0x43,"Bottom","Link","lantern",false);
+		createSpecialDefaultConnector(0x0A,"Bottom Cave","Link",0x43,"Bottom","Link","lantern",false);
+		createSpecialDefaultConnector(0x4A,"Bottom Cave","Link",0x03,"Bottom","Link","lantern",false);
+		//DM Descent
+		createSpecialDefaultConnector(0x03,"Bottom","Link",0x0A,"Ledge","Link","lantern",true);
+		createSpecialDefaultConnector(0x03,"Bottom","Link",0x4A,"Ledge","Link","lantern",true);
 		createDefaultConnector(0x05,"Bottom Main",0x05,"Top Main",null,true);
 		createDefaultConnector(0x45,"Bottom Main",0x45,"Top Main",null,false);
 		createDefaultConnector(0x45,"Top Main",0x45,"Island","gloves",true);
@@ -423,7 +543,7 @@
         setEntranceRegion(0x1B,"Main",[12]);
         setEntranceRegion(0x1B,"Passage Exit",[11]);
         setEntranceRegion(0x1B,"Courtyard",[7]);
-        setEntranceRegion(0x1B,"Balcony",[8,9,10]);
+        setEntranceRegion(0x1B,"Balcony",[8,9,10,293,295]);
         setEntranceRegion(0x5B,"Main",[93,94,95]);
         setEntranceRegion(0x1E,"Main",[49,50]);
         setEntranceRegion(0x5E,"Main",[114,115]);
@@ -466,36 +586,77 @@
 
 	window.vanillaTransitionsMode = function(button)
 	{
-		if(owshuffle === 'P')
+		if(owshuffle !== 'N' || crossedow)
 		{
-			connectEdgesByKeys(0x2D,"W0",0x82,"E1",true);
-			if(similarow)
+			for(let screen of overworldScreens.values())
+				for(let edge of screen.edges.values())
+					if(edge.out && !edgesCompatible(edge,edge.out))
+						deleteSimilarParallel(edge);
+			if(owshuffle === 'N')
 			{
 				connectEdgesByKeys(0x1A,"E1",0x1B,"W1",true);
-				connectEdgesByKeys(0x28,"E1",0x29,"W1",true);
 				connectEdgesByKeys(0x68,"E0",0x69,"W0",true);
-				connectEdgesByKeys(0x68,"E2",0x69,"W2",true);
 				connectEdgesByKeys(0x30,"E0",0x3A,"W0",true);
 				connectEdgesByKeys(0x30,"E2",0x3A,"W2",true);
+				connectEdgesByKeys(0x00,"N1",0x80,"S1",true);
+				connectEdgesByKeys(0x0F,"N1",0x81,"S1",true);
+				connectEdgesByKeys(0x2D,"W0",0x82,"E1",true);
+				connectEdgesByKeys(0x0F,"ZW",0x35,"ZW",true);
+				connectEdgesByKeys(0x12,"ZW",0x3F,"ZW",true);
+				connectEdgesByKeys(0x15,"ZW",0x33,"ZW",true);
+				connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true);
+				if(similarow)
+				{
+					connectEdgesByKeys(0x28,"E1",0x29,"W1",true);
+					connectEdgesByKeys(0x68,"E2",0x69,"W2",true);
+				}
 			}
-			else
-				if(!crossedow)
+			if(owshuffle === 'P')
+			{
+				connectEdgesByKeys(0x2D,"W0",0x82,"E1",true);
+				if(similarow)
+				{
+					connectEdgesByKeys(0x1A,"E1",0x1B,"W1",true);
+					connectEdgesByKeys(0x28,"E1",0x29,"W1",true);
 					connectEdgesByKeys(0x68,"E0",0x69,"W0",true);
+					connectEdgesByKeys(0x68,"E2",0x69,"W2",true);
+					connectEdgesByKeys(0x30,"E0",0x3A,"W0",true);
+					connectEdgesByKeys(0x30,"E2",0x3A,"W2",true);
+				}
+				else
+					if(!crossedow && !mixedow)
+						connectEdgesByKeys(0x68,"E0",0x69,"W0",true);
+			}
+			if(similarow && !crossedow && !mixedow)
+			{
+				connectEdgesByKeys(0x2B,"E0",0x2C,"W0",true);
+				connectEdgesByKeys(0x2B,"E1",0x2C,"W1",true);
+				connectEdgesByKeys(0x2B,"E2",0x2C,"W2",true);
+				connectEdgesByKeys(0x6B,"E0",0x6C,"W0",true);
+				connectEdgesByKeys(0x6B,"E1",0x6C,"W1",true);
+				connectEdgesByKeys(0x6B,"E2",0x6C,"W2",true);
+			}
+			if(!crossedow && !mixedow)
+				connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true);
+			for(let screen of overworldScreens.values())
+				for(let edge of screen.edges.values())
+					if(edge.out && ((owshuffle !== 'F' && edge.parallel) || (similarow && edge.similarGroup !== 1)))
+						connectSimilarParallel(edge,edge.out);
 		}
-		if(similarow && !crossedow)
+		if(mixedow)
 		{
-			connectEdgesByKeys(0x2B,"E0",0x2C,"W0",true);
-			connectEdgesByKeys(0x2B,"E1",0x2C,"W1",true);
-			connectEdgesByKeys(0x2B,"E2",0x2C,"W2",true);
-			connectEdgesByKeys(0x6B,"E0",0x6C,"W0",true);
-			connectEdgesByKeys(0x6B,"E1",0x6C,"W1",true);
-			connectEdgesByKeys(0x6B,"E2",0x6C,"W2",true);
+			for(let [id,screen] of overworldScreens)
+				if((id < 0x40 || id >= 0x80) && screen.mixedState !== "unknown")
+					setMixedScreen(screen,screen.mixedState);
+			if(worldState === 'S')
+				for(let id of [0x1B,0x2B,0x2C])
+					setMixedScreen(overworldScreens.get(id),"normal");
 		}
-		if(!crossedow)
-			connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true);
+		document.getElementById("overworldoptionsfinalbox").style.display = "none";
 		sendUpdate();
 		updateReachableEdges();
-		buttonFlash(button);
+		if(button)
+			buttonFlash(button);
 	};
 
 	window.vanillaWhirlpools = function(button)
@@ -519,35 +680,150 @@
 		buttonFlash(button);
 	};
 
-	window.explore = function(current,items,visitedRegions,visitedScreenEdges)
+	window.isDarkWorld = function(screen)
+	{
+		if(mixedow && screen.mixedState !== "unknown")
+			return screen.darkWorld === (screen.mixedState === "normal");
+		return screen.darkWorld;
+	};
+
+	window.getConnectedEdge = function(edge,source)
+	{
+		if(owshuffle === 'N' && !crossedow)
+		{
+			if(mixedow && edge.parallel)
+			{
+				if(edge.screen.mixedState === "unknown" || edge.vanilla.screen.mixedState === "unknown")
+					return null;
+				return edge.screen.mixedState === edge.vanilla.screen.mixedState ?edge.vanilla :edge.parallel.vanilla;
+			}
+			return edge.vanilla;
+		}
+		return source ?edge.in :edge.out;
+	};
+
+	window.getAssumedMixedState = function(screen,assumptions)
+	{
+		if(screen.mixedState !== "unknown")
+			return screen.mixedState;
+		return assumptions.has(screen.id&0xBF) ?assumptions.get(screen.id&0xBF) :"unknown";
+	};
+
+	window.isAssumedDarkWorld = function(screen,assumptions)
+	{
+		if(mixedow)
+		{
+			let state = getAssumedMixedState(screen,assumptions);
+			if(state !== "unknown")
+				return screen.darkWorld === (state === "normal");
+		}
+		return screen.darkWorld;
+	};
+
+	window.getAssumedConnectedEdge = function(edge,source,assumptions)
+	{
+		if(owshuffle === 'N' && !crossedow)
+		{
+			if(mixedow && edge.parallel)
+			{
+				if(getAssumedMixedState(edge.screen,assumptions) === "unknown" || getAssumedMixedState(edge.vanilla.screen,assumptions) === "unknown")
+					return null;
+				return getAssumedMixedState(edge.screen,assumptions) === getAssumedMixedState(edge.vanilla.screen,assumptions) ?edge.vanilla :edge.parallel.vanilla;
+			}
+			return edge.vanilla;
+		}
+		return source ?edge.in :edge.out;
+	};
+
+	window.addContinueRegion = function(id,state,normalRegion,swappedRegion,checkableScreens,continueRegions)
+	{
+		id &= 0xBF;
+		checkableScreens.add(id);
+		if(state !== "unknown")
+		{
+			let keyNormal = id+" normal",keySwapped = id+" swapped";
+			if(!continueRegions.has(keyNormal))
+				continueRegions.set(keyNormal,new Set());
+			if(!continueRegions.has(keySwapped))
+				continueRegions.set(keySwapped,new Set());
+			let normal = state === "normal";
+			continueRegions.get(keyNormal).add(normal ?normalRegion :swappedRegion);
+			continueRegions.get(keySwapped).add(normal ?swappedRegion :normalRegion);
+		}
+	};
+
+	window.explore = function(current,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions)
 	{
 		visitedRegions.add(current);
-		let edgesOut = current.logicEdgesOut.concat(entranceEnabled ?current.entranceConnectorsOut :current.defaultConnectorsOut);
+		let darkWorld = isAssumedDarkWorld(current.screen,assumptions);
+		let edgesOut = current.logicEdgesOut;
+		if((worldState === 'I') === (darkWorld === current.darkWorld))
+			edgesOut = edgesOut.concat(current.invertedLogicEdgesOut);
+		edgesOut = edgesOut.concat(entranceEnabled ?current.entranceConnectorsOut :current.defaultConnectorsOut);
+		if(!entranceEnabled && current.specialDefaultConnectorsOut && (!mixedow || getAssumedMixedState(current.screen,assumptions) !== "unknown"))
+		{
+			let skip = false;
+			for(let edge of current.specialDefaultConnectorsOut)
+			{
+				if(mixedow)
+				{
+					if(getAssumedMixedState(edge.target.screen,assumptions) === "unknown" && current.name !== "Ledge")
+					{
+						if(!skip && (edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')) && (!edge.rule || checkRule(edge.rule,items,darkWorld)))
+						{
+							addContinueRegion(edge.target.screen.id,getAssumedMixedState(current.screen,assumptions),edge.target,edge.target.parallel,checkableScreens,continueRegions);
+							skip = true;
+						}
+					}
+					else
+						if((edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')))
+							if((edge.targetWorld === "Link") === (isAssumedDarkWorld(edge.target.screen,assumptions) === (worldState === 'I')))
+								edgesOut.push(edge);
+				}
+				else
+				{
+					if((edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')))
+						if((edge.targetWorld === "Link") === (edge.target.darkWorld === (worldState === 'I')))
+							edgesOut.push(edge);
+				}
+			}
+		}
 		for(let edge of edgesOut)
 		{
-			if((!edge.rule || checkRule(edge.rule,items,current.darkWorld)) && !visitedRegions.has(edge.target))
+			if((!edge.rule || checkRule(edge.rule,items,darkWorld)) && !visitedRegions.has(edge.target))
 			{
-				explore(edge.target,items,visitedRegions,visitedScreenEdges);
+				if(mixedow && getAssumedMixedState(edge.target.screen,assumptions) === "unknown")
+					checkableScreens.add(edge.target.screen.id&0xBF);
+				else
+					explore(edge.target,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 			}
 		}
 		for(let edge of current.screenEdges)
 		{
-			if(!edge.water || checkRule("flippers",items,current.darkWorld))
+			if(!edge.water || checkRule("flippers",items,darkWorld))
 			{
 				visitedScreenEdges.add(edge);
-				if(edge.out && !visitedRegions.has(edge.out.region))
+				if(mixedow && owshuffle === 'N' && !crossedow && edge.parallel && getAssumedMixedState(edge.vanilla.screen,assumptions) === "unknown")
 				{
-					explore(edge.out.region,items,visitedRegions,visitedScreenEdges);
+					addContinueRegion(edge.vanilla.screen.id,getAssumedMixedState(current.screen,assumptions),edge.vanilla.region,edge.parallel.vanilla.region,checkableScreens,continueRegions);
+				}
+				else
+				{
+					let targetEdge = getAssumedConnectedEdge(edge,false,assumptions);
+					if(targetEdge && !visitedRegions.has(targetEdge.region))
+					{
+						explore(targetEdge.region,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
+					}
 				}
 			}
 		}
-		if(current.portal && (!current.portal.rule || checkRule(current.portal.rule,items,current.darkWorld)) && !visitedRegions.has(current.parallel))
+		if(current.portal && (darkWorld === (worldState === 'I')) && (!current.portal.rule || checkRule(current.portal.rule,items,darkWorld)) && !visitedRegions.has(current.parallel))
 		{
-			explore(current.parallel,items,visitedRegions,visitedScreenEdges);
+			explore(current.parallel,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 		}
-		if(current.darkWorld && !current.mirrorBlock && items.mirror && !visitedRegions.has(current.parallel))
+		if(current.parallel && (darkWorld === (worldState !== 'I')) && !current.mirrorBlock && items.mirror && !visitedRegions.has(current.parallel))
 		{
-			explore(current.parallel,items,visitedRegions,visitedScreenEdges);
+			explore(current.parallel,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 		}
 	};
 
@@ -572,11 +848,32 @@
 					current = region;
 				}
 			reachable.delete(current);
-			let edgesIn = current.logicEdgesIn.concat(entranceEnabled ?current.entranceConnectorsIn :current.defaultConnectorsIn);
+			let darkWorld = isDarkWorld(current.screen);
+			let edgesIn = current.logicEdgesIn;
+			if((worldState === 'I') === (darkWorld === current.darkWorld))
+				edgesIn = edgesIn.concat(current.invertedLogicEdgesIn);
+			edgesIn = edgesIn.concat(entranceEnabled ?current.entranceConnectorsIn :current.defaultConnectorsIn);
+			if(!entranceEnabled && current.specialDefaultConnectorsIn)
+				for(let edge of current.specialDefaultConnectorsIn)
+				{
+					if(mixedow)
+					{
+						if(edge.source.screen.mixedState !== "unknown")
+							if((edge.targetWorld === "Link") === (darkWorld === (worldState === 'I')))
+								if((edge.sourceWorld === "Link") === (isDarkWorld(edge.source.screen) === (worldState === 'I')))
+									edgesIn.push(edge);
+					}
+					else
+					{
+						if((edge.targetWorld === "Link") === (darkWorld === (worldState === 'I')))
+							if((edge.sourceWorld === "Link") === (edge.source.darkWorld === (worldState === 'I')))
+								edgesIn.push(edge);
+					}
+				}
 			for(let edge of edgesIn)
 			{
 				let distance = current.distance+edge.weight;
-				if((!edge.rule || checkRule(edge.rule,items,current.darkWorld)) && distance < edge.source.distance)
+				if((!mixedow || edge.source.screen.mixedState !== "unknown") && (!edge.rule || checkRule(edge.rule,items,isDarkWorld(edge.source.screen))) && distance < edge.source.distance)
 				{
 					edge.source.distance = distance;
 					edge.source.nextRegion = current;
@@ -588,26 +885,27 @@
 			for(let edge of current.screenEdges)
 			{
 				let distance = current.distance+1;
-				if(edge.in && (!edge.water || checkRule("flippers",items,edge.in.region.darkWorld)) && distance < edge.in.region.distance)
+				let sourceEdge = getConnectedEdge(edge,true);
+				if(sourceEdge && (!edge.water || checkRule("flippers",items,isDarkWorld(sourceEdge.region.screen))) && distance < sourceEdge.region.distance)
 				{
-					edge.in.region.distance = distance;
-					edge.in.region.nextRegion = current;
-					edge.in.region.nextEdgeType = "S";
-					edge.in.region.nextEdge = edge.in;
-					reachable.add(edge.in.region);
+					sourceEdge.region.distance = distance;
+					sourceEdge.region.nextRegion = current;
+					sourceEdge.region.nextEdgeType = "S";
+					sourceEdge.region.nextEdge = sourceEdge;
+					reachable.add(sourceEdge.region);
 				}
 			}
 			if(current.parallel)
 			{
 				let distance = current.distance+1,parallel = current.parallel;
-				if(parallel.portal && (!parallel.portal.rule || checkRule(parallel.portal.rule,items,parallel.darkWorld)) && distance < parallel.distance)
+				if(parallel.portal && (!darkWorld === (worldState === 'I')) && (!parallel.portal.rule || checkRule(parallel.portal.rule,items,!darkWorld)) && distance < parallel.distance)
 				{
 					parallel.distance = distance;
 					parallel.nextRegion = current;
 					parallel.nextEdgeType = "P";
 					reachable.add(parallel);
 				}
-				if(parallel.darkWorld && !parallel.mirrorBlock && items.mirror && distance < parallel.distance)
+				if((!darkWorld === (worldState !== 'I')) && !parallel.mirrorBlock && items.mirror && distance < parallel.distance)
 				{
 					parallel.distance = distance;
 					parallel.nextRegion = current;
@@ -623,14 +921,38 @@
 		switch(rule)
 		{
 			case "bushes":
-				return !darkWorld || items.moonpearl;
+				return items.moonpearl || (darkWorld === (worldState === 'I'));
 			case "mirror":
 				return items.mirror;
 			case "agahnim":
 				return items.agahnim;
 			default:
-				return (!darkWorld || items.moonpearl) && items[rule];
+				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && items[rule];
 		}
+	};
+
+	window.setDifference = function(set1,set2)
+	{
+		return new Set([...set1].filter(r=>!set2.has(r)));
+	};
+
+	window.setIntersection = function(set1,set2)
+	{
+		if(!set1 || !set2)
+			return new Set();
+		return new Set([...set1].filter(r=>set2.has(r)));
+	};
+
+	window.setUnion = function(set1,set2)
+	{
+		if(!set1)
+			return set2 ?set2 :new Set();
+		if(!set2)
+			return set1;
+		let set = new Set(set1);
+		for(let r of set2)
+			set.add(r);
+		return set;
 	};
 
 	window.setEntranceRegion = function(screenID,regionName,entranceIndices)
@@ -641,6 +963,13 @@
 		for(let k of entranceIndices)
 			entranceIndexToRegion[k] = region;
     };
+
+	window.getEntranceRegionFromIndex = function(index)
+	{//This can cause problems in Mixed and Mystery. Change data structure in the future
+		if((index === 93 || index === 95) && (worldState === 'I') !== (mixedow && overworldScreens.get(0x1B).mixedState === "swapped"))
+			index += 200;
+		return entranceIndexToRegion[index];
+	};
 
 	window.createDefaultConnector = function(screenID1,regionName1,screenID2,regionName2,rule,bidirectional)
 	{
@@ -664,11 +993,44 @@
 		}
 	};
 
+	window.createSpecialDefaultConnector = function(screenID1,regionName1,world1,screenID2,regionName2,world2,rule,bidirectional)
+	{
+		let edge = {},screen1 = overworldScreens.get(screenID1),screen2 = overworldScreens.get(screenID2);
+		let region1 = screen1.regions.get(regionName1),region2 = screen2.regions.get(regionName2);
+		edge.source = region1;
+		edge.target = region2;
+		edge.sourceWorld = world1;
+		edge.targetWorld = world2;
+		edge.rule = rule;
+		edge.weight = 3;
+		if(!region1.specialDefaultConnectorsOut)
+			region1.specialDefaultConnectorsOut = [];
+		if(!region2.specialDefaultConnectorsIn)
+			region2.specialDefaultConnectorsIn = [];
+		region1.specialDefaultConnectorsOut.push(edge);
+		region2.specialDefaultConnectorsIn.push(edge);
+		if(bidirectional)
+		{
+			edge = {};
+			edge.target = region1;
+			edge.source = region2;
+			edge.targetWorld = world1;
+			edge.sourceWorld = world2;
+			edge.rule = rule;
+			edge.weight = 3;
+			if(!region1.specialDefaultConnectorsIn)
+				region1.specialDefaultConnectorsIn = [];
+			if(!region2.specialDefaultConnectorsOut)
+				region2.specialDefaultConnectorsOut = [];
+			region1.specialDefaultConnectorsIn.push(edge);
+			region2.specialDefaultConnectorsOut.push(edge);
+		}
+	};
+
 	window.setDoubleMirrorBlock = function(screenID,regionName)
 	{
 		let region = overworldScreens.get(screenID).regions.get(regionName);
-		region.mirrorBlock = true;
-		region.parallel.mirrorBlock = true;
+		region.mirrorBlock = region.parallel.mirrorBlock = true;
 	};
 
 	window.createPortal = function(screenID,regionName,rule)
@@ -676,6 +1038,12 @@
 		let screen = overworldScreens.get(screenID);
 		screen.portal = {"rule":rule};
 		screen.regions.get(regionName).portal = {"rule":rule};
+	};
+
+	window.createDoublePortal = function(screenID,regionName,rule)
+	{
+		createPortal(screenID,regionName,rule);
+		createPortal(screenID+0x40,regionName,rule);
 	};
 
 	window.createSingleLogicEdge = function(screenID,regionName1,regionName2,rule,bidirectional)
@@ -700,10 +1068,38 @@
 		}
 	};
 
+	window.createInvertedLogicEdge = function(screenID,regionName1,regionName2,rule,bidirectional)
+	{
+		let edge = {},screen = overworldScreens.get(screenID);
+		let region1 = screen.regions.get(regionName1),region2 = screen.regions.get(regionName2);
+		edge.source = region1;
+		edge.target = region2;
+		edge.rule = rule;
+		edge.weight = .1;
+		region1.invertedLogicEdgesOut.push(edge);
+		region2.invertedLogicEdgesIn.push(edge);
+		if(bidirectional)
+		{
+			edge = {};
+			edge.target = region1;
+			edge.source = region2;
+			edge.rule = rule;
+			edge.weight = .1;
+			region1.invertedLogicEdgesIn.push(edge);
+			region2.invertedLogicEdgesOut.push(edge);
+		}
+	};
+
 	window.createDoubleLogicEdge = function(screenID,regionName1,regionName2,rule,bidirectional)
 	{
 		createSingleLogicEdge(screenID,regionName1,regionName2,rule,bidirectional);
 		createSingleLogicEdge(screenID+0x40,regionName1,regionName2,rule,bidirectional);
+	};
+
+	window.setEscapeEdges = function(screenID,edgeString)
+	{
+		let edge = overworldScreens.get(screenID).edges.get(edgeString);
+		edge.escapeEdge = edge.vanilla.escapeEdge = true;
 	};
 
 	window.createWhirlpool = function(screenID,regionName,x,y)
@@ -768,7 +1164,19 @@
 		edge2.parallel = edge1;
 	};
 
-	window.createOverworldScreen = function(screenID,name,big,regionNames)
+	window.setVanillaTransition = function(screenID1,edgeID1,screenID2,edgeID2)
+	{
+		let edge1 = overworldScreens.get(screenID1).edges.get(edgeID1),edge2 = overworldScreens.get(screenID2).edges.get(edgeID2);
+		edge1.vanilla = edge2;
+		edge2.vanilla = edge1;
+		if(edge1.parallel)
+		{
+			edge1.parallel.vanilla = edge2.parallel;
+			edge2.parallel.vanilla = edge1.parallel;
+		}
+	};
+
+	window.createOverworldScreen = function(screenID,name,big,regionNames,fluteRegionName)
 	{
 		let screen = {};
 		screen.id = screenID;
@@ -779,6 +1187,7 @@
 		screen.edges = new Map();
 		screen.regions = new Map();
         screen.entranceRegions = [];
+		screen.mixedState = "unknown";
 		for(let regionName of regionNames)
 		{
 			let region = {};
@@ -789,22 +1198,25 @@
 			region.screenEdges = [];
 			region.logicEdgesOut = [];
 			region.logicEdgesIn = [];
+			region.invertedLogicEdgesOut = [];
+			region.invertedLogicEdgesIn = [];
 			region.defaultConnectorsOut = [];
 			region.defaultConnectorsIn = [];
 			region.entranceConnectorsOut = [];
 			region.entranceConnectorsIn = [];
 			screen.regions.set(regionName,region);
 		}
+		screen.fluteRegion = screen.regions.get(fluteRegionName);
 		overworldScreens.set(screenID,screen);
 		return screen;
 	};
 
-	window.createDoubleOverworldScreen = function(screenID,nameLight,nameDark,big,regionNames)
+	window.createDoubleOverworldScreen = function(screenID,nameLight,nameDark,big,regionNames,fluteRegionName)
 	{
 		if(!regionNames)
 			regionNames = ["Main"];
-		let screen1 = createOverworldScreen(screenID,nameLight,big,regionNames);
-		let screen2 = createOverworldScreen(screenID+0x40,nameDark,big,regionNames);
+		let screen1 = createOverworldScreen(screenID,nameLight,big,regionNames,fluteRegionName);
+		let screen2 = createOverworldScreen(screenID+0x40,nameDark,big,regionNames,fluteRegionName);
 		screen1.parallel = screen2;
 		screen2.parallel = screen1;
 		for(let regionName of regionNames)
@@ -841,10 +1253,20 @@
 
 	window.edgesCompatible = function(edge1,edge2)
 	{
-		return edge1.direction === opposite[edge2.direction] && edge1.water === edge2.water && (crossedow || edge1.screen.darkWorld === edge2.screen.darkWorld) && (owshuffle !== 'P' || !edge1.parallel === !edge2.parallel) && checkSimilar(edge1,edge2);
+		return edge1.direction === opposite[edge2.direction] && edge1.water === edge2.water && (worldState !== 'S' || crossedow || mixedow || (edge1.escapeEdge === edge2.escapeEdge)) && compatibleKnownWorlds(edge1.screen,edge2.screen) && compatibleParallel(edge1,edge2) && compatibleSimilar(edge1,edge2);
 	};
 
-	window.checkSimilar = function(edge1,edge2)
+	window.compatibleKnownWorlds = function(screen1,screen2)
+	{
+		return (!mixedow || (screen1.mixedState !== "unknown" && screen2.mixedState !== "unknown")) && (crossedow || isDarkWorld(screen1) === isDarkWorld(screen2));
+	};
+
+	window.compatibleParallel = function(edge1,edge2)
+	{
+		return (owshuffle === 'F' || !edge1.parallel === !edge2.parallel) && (owshuffle !== 'N' || edge1 === edge2.vanilla || edge1.parallel === edge2.vanilla);
+	};
+
+	window.compatibleSimilar = function(edge1,edge2)
 	{
 		if(!similarow)
 			return true;
@@ -900,8 +1322,46 @@
 	window.connectParallel = function(edge1,edge2)
 	{
 		connectEdges(edge1,edge2,true);
-		if(owshuffle === 'P' && edge1.parallel && edge2.parallel)
+		if(owshuffle !== 'F' && edge1.parallel && edge2.parallel)
 			connectEdges(edge1.parallel,edge2.parallel,true);
+	};
+
+	window.deleteConnections = function(edge)
+	{
+		if(edge.out)
+		{
+			edge.out.in = null;
+			edge.out = null;
+		}
+		if(edge.in)
+		{
+			edge.in.out = null;
+			edge.in = null;
+		}
+	};
+
+	window.deleteSimilarParallel = function(edge)
+	{
+		if(similarow && edge.similarGroup !== 1)
+		{
+			let edges = edge.screen.edges;
+			if(edge.similarGroup === 3)
+				for(let k = 0; k < 3; k++)
+					deleteParallel(edges.get(edge.direction+k));
+			else
+				for(let k = 0; k < 3; k++)
+					if(edges.has(edge.direction+k) && edges.get(edge.direction+k).similarGroup === 2)
+						deleteParallel(edges.get(edge.direction+k));
+		}
+		else
+			deleteParallel(edge);
+	};
+
+	window.deleteParallel = function(edge)
+	{
+		deleteConnections(edge);
+		if(owshuffle !== 'F' && edge.parallel)
+			deleteConnections(edge.parallel);
 	};
 
 	window.clearOverworldTransitions = function()
@@ -913,6 +1373,67 @@
 					edge.out.in = null;
 					edge.out = null;
 				}
+	};
+
+	window.isDarkWorld = function(screen)
+	{
+		if(mixedow && screen.mixedState !== "unknown")
+			return screen.darkWorld === (screen.mixedState === "normal");
+		return screen.darkWorld;
+	};
+
+	window.setMixedScreen = function(screen,state)
+	{
+		screen.mixedState = state;
+		if(screen.parallel)
+			screen.parallel.mixedState = state;
+		let screenLinks = screenLinksGlobal;
+		if(owshuffle === 'N' && !crossedow)
+			screenLinks = screenLinks.concat(screenLinksLayout);
+		if(!entranceEnabled)
+			screenLinks = screenLinks.concat(screenLinksEntrance);
+		let id = screen.id&0xBF;
+		if(owshuffle === 'N' && !crossedow && !entranceEnabled && [0x13,0x14,0x1A].includes(id))
+			id = 0x1B;
+		for(let group of screenLinks)
+			if(group.includes(id))
+			{
+				for(let n of group)
+				{
+					let s = overworldScreens.get(n);
+					if(s.mixedState !== state)
+					{
+						s.mixedState = state;
+						if(s.parallel)
+							s.parallel.mixedState = state;
+					}
+				}
+			}
+	};
+
+	window.getScreenLinkGroup = function(id)
+	{
+		let screenLinks = screenLinksGlobal;
+		if(owshuffle === 'N' && !crossedow)
+			screenLinks = screenLinks.concat(screenLinksLayout);
+		if(!entranceEnabled)
+			screenLinks = screenLinks.concat(screenLinksEntrance);
+		id &= 0xBF;
+		if(owshuffle === 'N' && !crossedow && !entranceEnabled && [0x13,0x14,0x1A].includes(id))
+			id = 0x1B;
+		let linkGroup = [id];
+		for(let group of screenLinks)
+			if(group.includes(id))
+				for(let n of group)
+					if(!linkGroup.includes(n))
+						linkGroup.push(n);
+		return linkGroup;
+	};
+
+	window.clearMixedStates = function()
+	{
+		for(let screen of overworldScreens.values())
+			screen.mixedState = "unknown";
 	};
 
 	window.createEntranceConnectorEdge = function(regionStart,regionEnd)

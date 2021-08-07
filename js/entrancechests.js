@@ -101,7 +101,7 @@
 	
 	function activeFluteInvertedEntrance()
 	{
-		return items.flute && canReachInvertedLightWorld();
+		return items.flute && (canReachInvertedLightWorld() || flags.invertedactivatedflute);
 	}
 	
 	function hasFoundDungeon(x)

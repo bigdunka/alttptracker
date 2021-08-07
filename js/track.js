@@ -1410,6 +1410,7 @@
 		document.getElementById("shuffledbigkeys").checked = (flags.wildbigkeys ? true : false);
 		document.getElementById("goalselect").value = flags.goals;
 		document.getElementById("swordselect").value = flags.swordmode;
+		document.getElementById("invertedactivatedflute").checked = (flags.invertedactivatedflute ? true : false);
 		
 		$('#flagsModal').show();
 	}
@@ -2065,6 +2066,11 @@
 			flags.swordmode = document.getElementById('swordselect').value;
 		}
 		
+		//Inverted Activated Flute
+		if (document.getElementById('invertedactivatedflute').checked != flags.invertedactivatedflute) {
+			flags.invertedactivatedflute = document.getElementById('invertedactivatedflute').checked;
+		}		
+		
 		//Entrance
 		if (document.getElementById('entranceselect').value != flags.entrancemode || adjustForEntrance) {
 			var currentURL = window.location.href;
@@ -2077,9 +2083,9 @@
 				}
 			}
 			
-			var fParam = currentURL.substr(currentURL.indexOf("f=") + 2, 27);
+			var fParam = currentURL.substr(currentURL.indexOf("f=") + 2, 29);
 			
-			var replaceParam = flags.gametype + document.getElementById('entranceselect').value + flags.bossshuffle + flags.enemyshuffle + flags.glitches + flags.itemplacement + flags.goals + flags.opentower + flags.opentowercount + flags.ganonvuln + flags.ganonvulncount + flags.swordmode + flags.mapmode + flags.spoilermode + flags.spheresmode + 'Y' + 'N' + (flags.wildmaps ? '1' : '0') + (flags.wildcompasses ? '1' : '0') + (flags.wildkeys ? '1' : '0') + (flags.wildbigkeys ? '1' : '0') + flags.ambrosia + flags.overworldshuffle + flags.autotracking + flags.trackingport;
+			var replaceParam = flags.gametype + document.getElementById('entranceselect').value + flags.bossshuffle + flags.enemyshuffle + flags.glitches + flags.itemplacement + flags.goals + flags.opentower + flags.opentowercount + flags.ganonvuln + flags.ganonvulncount + flags.swordmode + (flags.invertedactivatedflute ? '1' : '0') + flags.mapmode + flags.spoilermode + flags.spheresmode + 'Y' + 'N' + (flags.wildmaps ? '1' : '0') + (flags.wildcompasses ? '1' : '0') + (flags.wildkeys ? '1' : '0') + (flags.wildbigkeys ? '1' : '0') + flags.ambrosia + flags.overworldshuffle + flags.autotracking + flags.trackingport;
 
 			currentURL = currentURL.replace(fParam, replaceParam);
 			

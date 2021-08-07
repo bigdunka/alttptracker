@@ -71,7 +71,7 @@
 
 	function activeFlute()
 	{
-		return items.flute && canReachLightWorld();
+		return items.flute && (canReachLightWorld() || flags.invertedactivatedflute);
 	}
 	
 	function canSpinSpeed()

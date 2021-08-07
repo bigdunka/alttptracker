@@ -1,9 +1,9 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=16019"></script>
+		<script src="js/index.js?v=16020"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=16019"></script>
+		<script src="js/bootstrap.min.js?v=16020"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
@@ -35,7 +35,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.6.019 071821 - Compatible for v31.x.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.6.020 080721 - Compatible for v31.x.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="instructions.html"><img src='./images/overlay/instructions.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
@@ -151,19 +151,23 @@
 								</tr>
 								<tr>
 									<td width="100px">
-										Overworld Shuffle: <span class="south" title="BETA! Main tracker logic not yet implemented, this setting currently only affects the Overworld/Dungeon Tracker window. Inverted and Glitches not implemented." style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Overworld Shuffle: <span class="south" title="BETA! Main Tracker window logic not yet implemented, this setting currently only affects the Overworld/Dungeon Tracker window. Glitches not implemented." style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
 									</td>
 									<td>
 										<input id="overworldnone" value="N" type="radio" name="overworldgroup" checked />
-										<label for="overworldnone" style="width:100px" >None</label>
+										<label for="overworldnone" style="width:160px" >None</label>
+									</td>
+									<td>
+										<input id="overworldother" value="O" type="radio" name="overworldgroup" />
+										<label for="overworldother" style="width:160px" >Mixed/Crossed/Misc. <span class="south" title="Detailed settings to be specified in the Overworld Tracker window. All combinations of Mixed, Crossed, Flute Shuffle and Parallel/Full Layout Shuffle are supported." style="font-size: 12px; color: red; cursor: pointer;">[?]</span></label>
 									</td>
 									<td>
 										<input id="overworldparallel" value="P" type="radio" name="overworldgroup" />
-										<label for="overworldparallel" style="width:100px" >Parallel</label>
+										<label for="overworldparallel" style="width:160px" >Parallel</label>
 									</td>
 									<td>
 										<input id="overworldfull" value="F" type="radio" name="overworldgroup" />
-										<label for="overworldfull" style="width:100px" >Full</label>
+										<label for="overworldfull" style="width:160px" >Full</label>
 									</td>
 								</tr>
 								<tr>
