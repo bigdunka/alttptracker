@@ -996,7 +996,7 @@
             displayCaption = displayCaption + ' [' + entrances[x].note + ']';
         }
         if ($('#entranceMap' + x).hasClass('availablekeylocation') || $('#entranceMap' + x).hasClass('availabledungeon')) {
-            $('#informationdiv' + x).style.zIndex = 10;
+            document.getElementById('informationdiv' + x).style.zIndex = 10;
         }
         document.getElementById('caption').innerHTML = caption_to_html(displayCaption);
         document.getElementById('autotrackingstatus').style.display = 'none';
@@ -1006,7 +1006,7 @@
         document.getElementById('caption').innerHTML = '&nbsp;';
         document.getElementById('autotrackingstatus').style.display = '';
         if ($('#entranceMap' + x).hasClass('availablekeylocation') || $('#entranceMap' + x).hasClass('availabledungeon')) {
-            $('#informationdiv' + x).style.zIndex = null;
+            document.getElementById('informationdiv' + x).style.zIndex = null;
         }
     };
     // Highlights a chest location and shows the caption (but for dungeons)
