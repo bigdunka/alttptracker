@@ -243,7 +243,7 @@
 
 	function canReachDWWDM()
 	{
-		if (canReachDWDMNorth() || hasFoundEntrance(128) || hasFoundEntrance(130)) return true;
+		if (canReachDWDMNorth() || hasFoundEntrance(128) || hasFoundEntrance(130) || (canReachDWEDM() && items.hookshot)) return true;
 		return false;
 	}
 	
@@ -255,7 +255,7 @@
 	
 	function canReachAndLeaveShoppingMall()
 	{
-		if ((hasFoundEntrance(119) || hasFoundEntrance(120) || hasFoundEntrance(121)) && items.moonpearl && items.flippers) return true;
+		if ((hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122)) && items.moonpearl && items.flippers) return true;
 		return false;
 	}
 	

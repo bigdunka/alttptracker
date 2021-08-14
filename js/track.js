@@ -1836,7 +1836,7 @@
 				document.getElementById('bigkey10').style.visibility = 'hidden';
 				document.getElementById('bigkeyhalf0').style.visibility = 'hidden';
 				document.getElementById('bigkeyhalf1').style.visibility = 'hidden';
-			} else {
+			} else if (document.getElementById('shuffledbigkeys').checked != flags.wildbigkeys) {
 				if (items.bigkey0) toggle('bigkey0');
 				if (items.bigkey1) toggle('bigkey1');
 				if (items.bigkey2) toggle('bigkey2');
