@@ -1023,6 +1023,9 @@
 			if (entrances[x].note != '') {
 				displayCaption = displayCaption + ' ['+entrances[x].note+']';
 			}
+			if ($('#entranceMap' + x).hasClass('availablekeylocation') || $('#entranceMap' + x).hasClass('availabledungeon')) {
+				document.getElementById('informationdiv' + x).style.zIndex = 10;
+			}
 			document.getElementById('caption').innerHTML = caption_to_html(displayCaption);
 			document.getElementById('autotrackingstatus').style.display = 'none';
         };
@@ -1030,6 +1033,9 @@
             document.getElementById('entranceMap'+x).classList.remove('highlight');
             document.getElementById('caption').innerHTML = '&nbsp;';
 			document.getElementById('autotrackingstatus').style.display = '';
+			if ($('#entranceMap' + x).hasClass('availablekeylocation') || $('#entranceMap' + x).hasClass('availabledungeon')) {
+				document.getElementById('informationdiv' + x).style.zIndex = null;
+			}
         };
         // Highlights a chest location and shows the caption (but for dungeons)
         window.highlight_dungeon = function(x) {
@@ -2133,7 +2139,7 @@
 	{
 		return '<table style="color: white;">'+
 '	<tr>'+
-'		<td colspan="7">'+
+'		<td colspan="6">'+
 '			Light World Dungeons'+
 '		</td>'+
 '	</tr>'+
@@ -2153,14 +2159,14 @@
 '		<td>'+
 '			<img src="./images/interface/ep.png" style="cursor: pointer;" onclick="tagEntrance(\'ep\', true)" id="ep" />'+
 '		</td>'+
+'	</tr>'+
+'	<tr>'+
 '		<td>'+
 '			<img src="./images/interface/dp_m.png" style="cursor: pointer;" onclick="tagEntrance(\'dp_m\', true)" id="dp_m" />'+
 '		</td>'+
 '		<td>'+
 '			<img src="./images/interface/dp_w.png" style="cursor: pointer;" onclick="tagEntrance(\'dp_w\', true)" id="dp_w" />'+
 '		</td>'+
-'	</tr>'+
-'	<tr>'+
 '		<td>'+
 '			<img src="./images/interface/dp_e.png" style="cursor: pointer;" onclick="tagEntrance(\'dp_e\', true)" id="dp_e" />'+
 '		</td>'+
@@ -2172,7 +2178,7 @@
 '		</td>'+
 '	</tr>'+
 '	<tr>'+
-'		<td colspan="7">'+
+'		<td colspan="6">'+
 '			Light World Key Locations'+
 '		</td>'+
 '	</tr>'+
@@ -2189,6 +2195,8 @@
 '		<td>'+
 '			<img src="./images/interface/bat.png" style="cursor: pointer;" onclick="tagEntrance(\'bat\', false)" id="bat" />'+
 '		</td>'+
+'	</tr>'+
+'	<tr>'+
 '		<td>'+
 '			<img src="./images/interface/library.png" style="cursor: pointer;" onclick="tagEntrance(\'library\', false)" id="library" />'+
 '		</td>'+
@@ -2198,14 +2206,12 @@
 '		<td>'+
 '			<img src="./images/interface/mimic.png" style="cursor: pointer;" onclick="tagEntrance(\'mimic\', false)" id="mimic" />'+
 '		</td>'+
-'	</tr>'+
-'	<tr>'+
 '		<td>'+
 '			<img src="./images/interface/dam.png" style="cursor: pointer;" onclick="tagEntrance(\'dam\', false)" id="dam" />'+
 '		</td>'+
 '	</tr>'+
 '	<tr>'+
-'		<td colspan="7">'+
+'		<td colspan="6">'+
 '			General Key Locations'+
 '		</td>'+
 '	</tr>'+
@@ -2227,7 +2233,7 @@
 '		</td>'+
 '	</tr>'+
 '	<tr>'+
-'		<td colspan="7">'+
+'		<td colspan="6">'+
 '			Starting Locations'+
 '		</td>'+
 '	</tr>'+
@@ -2240,13 +2246,13 @@
 '		</td>'+
 '		<td>'+
 '			<img src="./images/interface/mount.png" style="cursor: pointer;" onclick="tagEntrance(\'mount\', true)" id="mount" />'+
-'		</td>							'+
+'		</td>'+
 '		'+
 '		<td>'+
 '		</td>'+
 '	</tr>'+
 '	<tr>'+
-'		<td colspan="7">'+
+'		<td colspan="6">'+
 '			Dark World Dungeons'+
 '		</td>'+
 '	</tr>'+
@@ -2265,15 +2271,15 @@
 '		</td>'+
 '		<td>'+
 '			<img src="./images/interface/ip.png" style="cursor: pointer;" onclick="tagEntrance(\'ip\', true)" id="ip" />'+
-'		</td>		'+
+'		</td>'+
 '		<td>'+
 '			<img src="./images/interface/mm.png" style="cursor: pointer;" onclick="tagEntrance(\'mm\', true)" id="mm" />'+
 '		</td>'+
-'		<td>'+
-'			<img src="./images/interface/tr_m.png" style="cursor: pointer;" onclick="tagEntrance(\'tr_m\', true)" id="tr_m" />'+
-'		</td>					'+
 '	</tr>'+
 '	<tr>'+
+'		<td>'+
+'			<img src="./images/interface/tr_m.png" style="cursor: pointer;" onclick="tagEntrance(\'tr_m\', true)" id="tr_m" />'+
+'		</td>'+
 '		<td>'+
 '			<img src="./images/interface/tr_w.png" style="cursor: pointer;" onclick="tagEntrance(\'tr_w\', true)" id="tr_w" />'+
 '		</td>'+
@@ -2282,7 +2288,7 @@
 '		</td>'+
 '		<td>'+
 '			<img src="./images/interface/tr_b.png" style="cursor: pointer;" onclick="tagEntrance(\'tr_b\', true)" id="tr_b" />'+
-'		</td>							'+
+'		</td>'+
 '		<td>'+
 '			<img src="./images/interface/gt.png" style="cursor: pointer;" onclick="tagEntrance(\'gt\', true)" id="gt" />'+
 '		</td>'+
@@ -2291,7 +2297,7 @@
 '		</td>'+
 '	</tr>'+
 '	<tr>'+
-'		<td colspan="7">'+
+'		<td colspan="6">'+
 '			Dark World Key Locations'+
 '		</td>'+
 '	</tr>'+
@@ -2411,9 +2417,9 @@
 					var modal = document.getElementById("entranceModal"),modalMain = document.getElementById("entranceModalMain");
 					modal.style.width = "448px";
 					modal.style.left = "0px";
-					modalMain.style.width = "408px";
+					modalMain.style.width = "352px";
 					modalMain.style.height = "600px";
-					modalMain.style.left = "20px";
+					modalMain.style.left = "48px";
 					modalMain.style.top = "36px";
 					var modalTags = document.getElementById("modalTags");
 					modalTags.innerHTML = compactMapMenu();
