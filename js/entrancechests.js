@@ -243,7 +243,7 @@
 
 	function canReachDWWDM()
 	{
-		if (canReachDWDMNorth() || hasFoundEntrance(128) || hasFoundEntrance(130) || (canReachDWEDM() && items.hookshot)) return true;
+		if (canReachDWDMNorth() || hasFoundEntrance(128) || hasFoundEntrance(130)) return true;
 		return false;
 	}
 	

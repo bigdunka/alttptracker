@@ -599,6 +599,34 @@ function loadcswordlesspreset() {
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
+function loadinvertedadkeyspreset() {
+	document.getElementById("gametypeinverted").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldnone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonfullshuffle").checked = true;
+	document.getElementById("goaldungeons").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
 function importflags() {
 	var i = document.getElementById("importflag").value;
 	
@@ -606,7 +634,7 @@ function importflags() {
 		i = i.substr(i.lastIndexOf('/') + 1);
 	}
 	
-	$.getJSON("https://s3.us-east-2.amazonaws.com/alttpr-patches/" + i + ".json", function(data) {
+	$.getJSON("https://alttpr-patch-data.s3.us-east-2.amazonaws.com/" + i + ".json", function(data) {
 	var d = data.spoiler;
 	
 	document.getElementById("gametype" + d.meta.mode).checked = true;
