@@ -1,13 +1,14 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=16022"></script>
+		<script src="js/index.js?v=17001"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=16022"></script>
+		<script src="js/bootstrap.min.js?v=17001"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
 		<link href="css/sprites.css" rel="stylesheet">
+		<link href="css/toast.css" rel="stylesheet">
 		<style type="text/css">
 			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; }
 			label { width: 5em; display: inline-block; }
@@ -35,7 +36,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.6.022 082921 - Compatible for v31.x.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.7.001 101421 - Compatible for v31.x.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="instructions.html"><img src='./images/overlay/instructions.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
@@ -45,12 +46,10 @@
 		</div>
 		<div style="float: left">
 			<div>
+				<div style="width: 1000px; color: white; font-size: 20px; background: #c75d2fa1; border: #0f0; border-width: 2px; border-style: solid; padding: 15px; margin-left: 24px;">
+					<center>We've updated our URL! Please bookmark the new URL: <a href="https://alttprtracker.dunka.net">https://alttprtracker.dunka.net</a> and update your default tracker settings!</center>
+				</div>
 				<table width="1000px" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
-					<!-- <tr>
-						<td>
-							<center>MASSIVE updates to the interface and logic! Please read the release notes and/or read the new instructions page for full details!<br><br>If you believe you have found a logic issue (We expect a few) with the latest release, please contact Dunka with a screenshot of your tracker and your logic scenario, thank you!<br><br>If you are having issues loading the tracker, please clear your cache by pressing Ctrl + R and relaunch</center><br>
-						</td>
-					</tr> -->
 					<tr>
 						<td>
 							<table width="1000px" height="100px" background="./images/overlay/presets.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
@@ -151,7 +150,7 @@
 								</tr>
 								<tr>
 									<td width="100px">
-										Overworld Shuffle: <span class="south" title="BETA! Main Tracker window logic not yet implemented, this setting currently only affects the Overworld/Dungeon Tracker window. Glitches not implemented." style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
+										Overworld Shuffle: <span class="south" title="BETA! Expect improvements in the future. Glitches not implemented." style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
 									</td>
 									<td>
 										<input id="overworldnone" value="N" type="radio" name="overworldgroup" checked />
@@ -214,7 +213,7 @@
 					</tr>
 					<tr>
 						<td>
-							<table width="1000px" height="220px" background="./images/overlay/logic.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
+							<table width="1000px" height="260px" background="./images/overlay/logic.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
 								<tr height="40px">
 									<td>
 									</td>
@@ -276,6 +275,19 @@
 									<td>
 										<input id="shuffledbigkeys" type="checkbox" />
 										<label for="shuffledbigkeys" style="width:100px" >Big Keys</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="120px">
+										Shopsanity:
+									</td>
+									<td>
+										<input id="shopsanityno" value="N" type="radio" name="shopsanitygroup" checked />
+										<label for="shopsanityno" style="width:100px">No</label>
+									</td>
+									<td colspan="3">
+										<input id="shopsanityyes" value="Y" type="radio" name="shopsanitygroup" />
+										<label for="shopsanityyes" style="width:300px">Yes</label>
 									</td>
 								</tr>
 								<tr>
@@ -493,10 +505,13 @@
 											<option value="ark">Ark</option>
 											<option value="ark_cape">Ark (Cape)</option>
 											<option value="arrghus">Arrghus</option>
+											<option value="astor">Astor</option>
 											<option value="astronaut">Astronaut</option>
 											<option value="asuna">Asuna</option>
 											<option value="b_s_boy">B.S. Boy</option>
 											<option value="b_s_girl">B.S. Girl</option>
+											<option value="baba">Baba</option>
+											<option value="baby_fro">Baby Fro</option>
 											<option value="baby_metroid">Baby Metroid</option>
 											<option value="badeline">Badeline</option>
 											<option value="bananas_in_pyjamas">Bananas In Pyjamas</option>
@@ -504,9 +519,11 @@
 											<option value="batman">Batman</option>
 											<option value="beau">Beau</option>
 											<option value="bee">Bee</option>
+											<option value="bel">Bel</option>
 											<option value="bewp">Bewp</option>
 											<option value="big_key">Big Key</option>
 											<option value="birb">Birb</option>
+											<option value="birdfruit">Birdfruit</option>
 											<option value="birdo">Birdo</option>
 											<option value="black_mage">Black Mage</option>
 											<option value="blacksmith_link">Blacksmith Link</option>
@@ -532,6 +549,7 @@
 											<option value="buttercup">Buttercup</option>
 											<option value="cactuar">Cactuar</option>
 											<option value="cadence">Cadence</option>
+											<option value="captain_novolin">Captain Novolin</option>
 											<option value="captain_toadette">Captain Toadette</option>
 											<option value="carlsagan42">CarlSagan42</option>
 											<option value="casual_zelda">Casual Zelda</option>
@@ -542,8 +560,10 @@
 											<option value="centaur_enos">Centaur Enos</option>
 											<option value="charizard">Charizard</option>
 											<option value="cheep_cheep">Cheep Cheep</option>
+											<option value="chef_pepper">Chef Pepper</option>
 											<option value="chibity">Chibity</option>
 											<option value="chrizzz">Chrizzz</option>
+											<option value="chrono">Chrono</option>
 											<option value="cinna">Cinna</option>
 											<option value="cirno">Cirno</option>
 											<option value="clifford">Clifford</option>
@@ -562,6 +582,7 @@
 											<option value="dark_girl">Dark Girl</option>
 											<option value="dark_link">Dark Link</option>
 											<option value="dark_link_tunic">Dark Link (Tunic)</option>
+											<option value="dark_link_zelda_2">Dark Link (Zelda 2)</option>
 											<option value="dark_panda">Dark Panda</option>
 											<option value="dark_swatchy">Dark Swatchy</option>
 											<option value="dark_zelda">Dark Zelda</option>
@@ -573,6 +594,7 @@
 											<option value="dekar">Dekar</option>
 											<option value="demon_link">Demon Link</option>
 											<option value="dennsen86">Dennsen86</option>
+											<option value="diddy_kong">Diddy Kong</option>
 											<option value="dig_dug">Dig Dug</option>
 											<option value="dipper">Dipper</option>
 											<option value="discord">Discord</option>
@@ -604,6 +626,7 @@
 											<option value="gbc_link">GBC Link</option>
 											<option value="geno">Geno</option>
 											<option value="gliitchwiitch">GliitchWiitch</option>
+											<option value="glove_color_link">Glove Color Link</option>
 											<option value="gobli">Gobli</option>
 											<option value="gooey">Gooey</option>
 											<option value="goomba">Goomba</option>
@@ -619,6 +642,7 @@
 											<option value="hat_kid">Hat Kid</option>
 											<option value="head_link">Head Link</option>
 											<option value="headless_link">Headless Link</option>
+											<option value="heem">Heem</option>
 											<option value="hello_kitty">Hello Kitty</option>
 											<option value="hero_of_awakening">Hero of Awakening</option>
 											<option value="hero_of_hyrule">Hero of Hyrule</option>
@@ -628,9 +652,10 @@
 											<option value="hoarder_pot">Hoarder (Pot)</option>
 											<option value="hoarder_rock">Hoarder (Rock)</option>
 											<option value="hollow_knight">Hollow Knight</option>
-											<option value="hollow_knight_malmo_winter">Hollow Knight (Malmo\/Winter)</option>
+											<option value="hollow_knight_malmo\/winter">Hollow Knight (Malmo\/Winter)</option>
 											<option value="homer_simpson">Homer Simpson</option>
 											<option value="hornet">Hornet</option>
+											<option value="horseman">Horseman</option>
 											<option value="hotdog">Hotdog</option>
 											<option value="hyrule_knight">Hyrule Knight</option>
 											<option value="hyrule_soldier">Hyrule Soldier</option>
@@ -643,6 +668,8 @@
 											<option value="jason_frudnick">Jason Frudnick</option>
 											<option value="jasp">Jasp</option>
 											<option value="jogurt">Jogurt</option>
+											<option value="juzcook">Juzcook</option>
+											<option value="kaguya">Kaguya</option>
 											<option value="kain">Kain</option>
 											<option value="katsura">Katsura</option>
 											<option value="kecleon">Kecleon</option>
@@ -653,18 +680,22 @@
 											<option value="king_gothalion">King Gothalion</option>
 											<option value="king_graham">King Graham</option>
 											<option value="kinu">Kinu</option>
+											<option value="kira">Kira</option>
 											<option value="kirby">Kirby</option>
 											<option value="kirby_dreamland_3">Kirby (Dreamland 3)</option>
+											<option value="koragi">Koragi</option>
 											<option value="kore8">Kore8</option>
 											<option value="korok">Korok</option>
 											<option value="kriv">Kriv</option>
 											<option value="lakitu">Lakitu</option>
 											<option value="lapras">Lapras</option>
+											<option value="league_mascot">League Mascot</option>
 											<option value="lest">Lest</option>
 											<option value="lestat">Lestat</option>
 											<option value="lily">Lily</option>
 											<option value="linja">Linja</option>
 											<option value="link" selected>Link</option>
+											<option value="link_zelda_1">Link (Zelda 1)</option>
 											<option value="link_redrawn">Link Redrawn</option>
 											<option value="little_hylian">Little Hylian</option>
 											<option value="locke">Locke</option>
@@ -714,17 +745,21 @@
 											<option value="negative_link">Negative Link</option>
 											<option value="neosad">Neosad</option>
 											<option value="nes_link">NES Link</option>
-											<option value="ness_earthbound">Ness (Earthbound)</option>
+											<option value="ness_earthbound">Ness</option>
 											<option value="nia">Nia</option>
 											<option value="niddraig">Niddraig</option>
 											<option value="niko">Niko</option>
+											<option value="ninten">Ninten</option>
+											<option value="octorok">Octorok</option>
 											<option value="old_man">Old Man</option>
+											<option value="olde_man">Olde Man</option>
 											<option value="ori">Ori</option>
 											<option value="outline_link">Outline Link</option>
+											<option value="paper_mario">Paper Mario</option>
 											<option value="parallel_worlds_link">Parallel Worlds Link</option>
 											<option value="paula">Paula</option>
 											<option value="penguin_link">Penguin Link</option>
-											<option value="pete_harvest_moon">Pete (Harvest Moon)</option>
+											<option value="pete_harvest_moon">Pete</option>
 											<option value="phoenix_wright">Phoenix Wright</option>
 											<option value="pikachu">Pikachu</option>
 											<option value="pink_ribbon_link">Pink Ribbon Link</option>
@@ -754,7 +789,8 @@
 											<option value="red_mage">Red Mage</option>
 											<option value="remeer">Remeer</option>
 											<option value="remus_r_black">Remus R Black</option>
-											<option value="rick_redacted">Rick (Redacted)</option>
+											<option value="reverse_mail_order">Reverse Mail Order</option>
+											<option value="rick_redacted">Rick</option>
 											<option value="robo_link_9000">Robo-Link 9000</option>
 											<option value="rocko">Rocko</option>
 											<option value="rottytops">Rottytops</option>
@@ -763,7 +799,11 @@
 											<option value="rumia">Rumia</option>
 											<option value="rydia">Rydia</option>
 											<option value="ryu">Ryu</option>
+											<option value="sailor_jupiter">Sailor Jupiter</option>
+											<option value="sailor_mars">Sailor Mars</option>
+											<option value="sailor_mercury">Sailor Mercury</option>
 											<option value="sailor_moon">Sailor Moon</option>
+											<option value="sailor_venus">Sailor Venus</option>
 											<option value="saitama">Saitama</option>
 											<option value="samus">Samus</option>
 											<option value="samus_classic">Samus (Classic)</option>
@@ -776,6 +816,7 @@
 											<option value="shadow">Shadow</option>
 											<option value="shadow_sakura">Shadow Sakura</option>
 											<option value="shantae">Shantae</option>
+											<option value="shinmyoumaru_sakuna">Shinmyoumaru Sakuna</option>
 											<option value="shuppet">Shuppet</option>
 											<option value="shy_gal">Shy Gal</option>
 											<option value="shy_guy">Shy Guy</option>
@@ -784,7 +825,9 @@
 											<option value="slime">Slime</option>
 											<option value="slowpoke">Slowpoke</option>
 											<option value="snes_controller">SNES Controller</option>
+											<option value="sobble">Sobble</option>
 											<option value="soda_can">Soda Can</option>
+											<option value="sokka">Sokka</option>
 											<option value="solaire_of_astora">Solaire of Astora</option>
 											<option value="sonic_the_hedgehog">Sonic the Hedgehog</option>
 											<option value="sora">Sora</option>
@@ -851,8 +894,7 @@
 											<option value="zeckemyro">Zeckemyro</option>
 											<option value="zelda">Zelda</option>
 											<option value="zero_suit_samus">Zero Suit Samus</option>
-											<option value="zora">Zora</option>
-										</select>									
+											<option value="zora">Zora</option>										</select>									
 									</td>
 								</tr>
 								<tr>
@@ -925,6 +967,7 @@
 					</tr>
 					<tr>
 						<td colspan="4">
+							<div id="snackbar">Settings Imported Successfully! Click to launch ==></div>						
 							<center><button type="button" class="launch" style="width: 400px; font-family: 'roboto_condensedregular', sans-serif; font-size: 50px; background-color: #BBB;" onclick="launch_tracker()">LAUNCH TRACKER</button></center>
 						</td>
 					</tr>

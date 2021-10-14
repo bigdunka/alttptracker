@@ -103,6 +103,14 @@
 #connectorStop img { width: 100%; }
 #hideConnectorLines { left: 50.5%!important; width: 37.5px; }
 #hideConnectorLinesImg { width: 100%; }
+#entranceSummary { left: 41%!important; width: 37.5px; }
+#entranceSummary img { width: 100%; }
+#summaryModal { width: 442px; left: 0; }
+#summaryModalMain { width: 400px; height: 600px; left: 24px; top: 35px; }
+
+#entranceModalLightWorld { width: 372px; float: left; }
+#entranceModalGeneral { width: 372px; float: left; }
+#entranceModalDarkWorld { width: 372px; float: left; }
 
 #entranceMap0 { left: 28%; top: 72%; z-index: 2; }
 #entranceMap1 { left: 24.5%; top: 67%; z-index: 2; }

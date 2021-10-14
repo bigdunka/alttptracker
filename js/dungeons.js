@@ -1,7 +1,7 @@
 (function(window) {
     'use strict';
 
-	function melee() { return items.sword || items.hammer; }
+    function melee() { return items.sword || items.hammer; }
     function melee_bow() { return melee() || items.bow > 0; }
     function cane() { return items.somaria || items.byrna; }
     function rod() { return items.firerod || items.icerod; }
@@ -16,11 +16,34 @@
 		return 'available';
     }
 
+	function crystalCheck() {
+		var crystal_count = 0;
+		for (var k = 0; k < 10; k++) {
+			if ((prizes[k] === 3 || prizes[k] === 4) && items['boss'+k]) {
+				crystal_count++;
+			}
+		}
+		return crystal_count;
+	}
+
+	function allDungeonCheck() {
+		for (var k = 0; k < 10; k++) {
+			if (!items['boss'+k]) {
+				return false;
+			}
+		}
+		return true;
+	}
+
 	//Check which boss is at the end of the dungeon
 	function enemizer_check(i) {
 		//All possible required items to kill a boss
 		if (melee() && items.hookshot && items.icerod && items.firerod) return 'available';
 		if (!melee_bow() && !rod() && !cane() && items.boomerang === 0) return 'unavailable';
+		if (i === 10) {
+			if (flags.bossshuffle != 'N') return 'possible';//Don't know which bosses are in GT
+			return melee() ? 'available' : 'unavailable';
+		}
 		switch (enemizer[i]) {
 			case 0:
 				return (flags.bossshuffle != 'N' ? 'possible' : 'available');
@@ -155,42 +178,8 @@
 			}
 		}
 		
-		if (flags.ambrosia === 'Y' && chestcount === 1 && !dungeons[dungeonid].is_beaten) {
-			switch (dungeonid) {
-				case 0:
-					return EPBoss();
-					break;
-				case 1:
-					return DPBoss();
-					break;
-				case 2:
-					return HeraBoss();
-					break;
-				case 3:
-					return PoDBoss();
-					break;
-				case 4:
-					return SPBoss();
-					break;
-				case 5:
-					return SWBoss();
-					break;
-				case 6:
-					return TTBoss();
-					break;
-				case 7:
-					return IPBoss();
-					break;
-				case 8:
-					return MMBoss();
-					break;
-				case 9:
-					if (flags.gametype === 'I' && items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2))) {
-						return window.TRBackBoss();
-					}
-					return TRFrontBoss();
-					break;
-			}
+		if (flags.ambrosia === 'Y' && dungeonid < 10 && chestcount === 1 && !dungeons[dungeonid].is_beaten) {
+			return ConvertChestToBoss(allchests[allchests.length-1]);
 		}
 		
 		if (achests > 0) return 'available';
@@ -200,29 +189,33 @@
 		return 'unavailable';
 	}
 
-	function hasFoundLocation(x) {
-		for (var i = 0; i < entrances.length; i++) {
-			if (entrances[i].known_location === x) {
-				return true;
-			}
-		}
-		return false;
-	}
-
 	function maxKeys(dungeon)
 	{
 		return flags.doorshuffle === 'C' ? 29 : [0,1,1,6,1,3,1,2,3,4,4,1,2][dungeon];//Note: This assumes Key Drop Shuffle is off in Basic
 	}
 
 	function door_enemizer_check(dungeon) {
-		return (dungeon === 6 && ((flags.doorshuffle === 'C' && !items.bombfloor) || (flags.wildbigkeys && !items.bigkey6))) || (dungeon === 7 && (!items.hammer || items.glove == 0)) ? 'unavailable' : enemizer_check(dungeon);
+		if(dungeon === 6)
+		{
+			var atticCell = (flags.doorshuffle === 'C' ? items.bombfloor : items.bomb) && (items.bigkey6 || !flags.wildbigkeys);
+			if(!atticCell && (flags.bossshuffle === 'N' || enemizer[6] === 7))
+				return 'unavailable';
+			if(!atticCell && flags.bossshuffle != 'N' && enemizer[6] === 0)
+			{
+				var check = enemizer_check(6);
+				return check === 'available' ? 'possible' : check;
+			}
+		}
+		if(dungeon >= 10)
+			return items.sword || items.hammer || items.net || dungeon === 11 ? 'available' : 'unavailable';
+		return (dungeon === 7 && (!items.hammer || items.glove == 0)) ? 'unavailable' : enemizer_check(dungeon);
 	}
 
-	window.doorCheck = function(dungeon,onlyDarkPossible,darkRoom,torchDarkRoom,posRequired,goal) {
+	window.doorCheck = function(dungeon,onlyDarkPossible,darkRoom,torchDarkRoom,posRequired,goal,onlyBunny = false) {
 		if(flags.doorshuffle === 'N')
 			return null;
-		var doorcheck = 'available',bosscheck = door_enemizer_check(dungeon),wildsmallkeys = flags.wildkeys || flags.gametype === 'R';
-		if(goal === 'boss' && dungeon < 10)
+		var doorcheck = 'available',bosscheck = onlyBunny ? 'unavailable' : door_enemizer_check(dungeon),wildsmallkeys = flags.wildkeys || flags.gametype === 'R';
+		if(goal === 'boss')
 			doorcheck = bosscheck;
 		if(doorcheck === 'unavailable')
 			return 'unavailable';//Can't beat boss
@@ -244,6 +237,8 @@
 				return 'unavailable';//Boss has last item
 			doorcheck = 'possible';//Boss could have last item
 		}
+		if(doorcheck === 'available' && onlyBunny)
+			doorcheck = 'possible';
 		if(doorcheck === 'available' && goal === 'item' && flags.doorshuffle === 'C' && items['chest'+dungeon] === 1 && !items['chestknown'+dungeon])
 			doorcheck = 'possible';//Unknown if even one item is still in there
 		var dungeonAlt = dungeon > 10 ? 'half'+(dungeon-11) : ''+dungeon;
@@ -255,7 +250,15 @@
 			doorcheck = 'possible';//Boss could have required key
 		if(flags.doorshuffle === 'C')
 		{
-			posRequired = ['firerod','somaria','flippers','hookshot','boots','bow','hammer','swordorswordless','glove','laserbridge','boomerang',flags.entrancemode === 'N' && dungeon === 4 ? 'mirror' : '',flags.gametype != 'I' && flags.entrancemode === 'N' && dungeon === 1 ? 'mirrordesert' : '',flags.gametype === 'I' && flags.entrancemode === 'N' && dungeon === 5 ? 'mirrorskull' : '',flags.bossshuffle === 'N' ? '' : 'icerod'];
+			posRequired = ['firerod','somaria','flippers','hookshot','boots','bow','hammer','swordorswordless','glove','bomb',flags.bossshuffle === 'N' ? '' : 'icerod'];
+			if(goal === 'item' || !wildsmallkeys || !flags.wildbigkeys)
+				posRequired.push('laserbridge');
+			if(flags.entrancemode === 'N' && dungeon === 4)
+				posRequired.push('mirror');
+			if(flags.gametype != 'I' && flags.entrancemode === 'N' && flags.overworldshuffle === 'N' && dungeon === 1)
+				posRequired.push('mirrordesert');
+			if(flags.gametype === 'I' && flags.entrancemode === 'N' && flags.overworldshuffle === 'N' && dungeon === 5)
+				posRequired.push('mirrorskull');
 			darkRoom = torchDarkRoom = true;
 		}
 		if(doorcheck === 'available')
@@ -301,6 +304,34 @@
 							break label;
 						}
 						break;
+					case 'boomerang':
+						if(!items.boomerang && !items.bomb)
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					case 'bombdash':
+						if(!items.bomb && !items.boots)
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					case 'kill':
+						if(!melee_bow() && !cane() && !items.firerod)
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
+					case 'killbomb':
+						if(!items.bomb && !melee_bow() && !cane() && !items.firerod)
+						{
+							doorcheck = 'possible';
+							break label;
+						}
+						break;
 					case 'laserbridge':
 						if(!items.cape && !items.byrna && items.shield < 3)
 						{
@@ -337,7 +368,218 @@
 			doorcheck = 'darkavailable';//Could require light source
 		return doorcheck;
 	};
-	
+
+	//dungeonEntrances is an array of length dungeonEntranceCounts[dungeonID] with values 'available', 'possible' or 'unavailable'
+	//dungeonEntrancesBunny is an array of length dungeonEntranceCounts[dungeonID] with values true (can only access as a bunny) or false/null/undefined otherwise
+	window.dungeonBoss = function(dungeonID,dungeonEntrances,dungeonEntrancesBunny) {
+		if(dungeonID === 11)
+			return items.chest11 ?dungeonChests(11,dungeonEntrances,dungeonEntrancesBunny) :"opened";
+		var state = "unavailable",bunny = true,allAccessible = true;
+		for(var k = 0; k < dungeonEntranceCounts[dungeonID]; k++)
+		{
+			if(flags.doorshuffle === 'N' && dungeonEntrancesBunny[k])
+				dungeonEntrances[k] = "unavailable";
+			if(dungeonEntrances[k] !== "unavailable")
+			{
+				state = dungeonEntrances[k];
+				if(!dungeonEntrancesBunny[k])
+					bunny = false;
+			}
+			if(dungeonEntrances[k] !== "available" || dungeonEntrancesBunny[k])
+				allAccessible = false;
+		}
+		if(bunny)
+			return "unavailable";
+		var best = state;
+		switch(dungeonID)
+		{
+			case 0:
+				state = flags.doorshuffle === 'N' ?EPBoss() :doorCheck(0,false,true,true,['hookshot','bow'],'boss');
+				break;
+			case 1:
+				if(flags.doorshuffle === 'N')
+				{
+					var front = "unavailable",back = dungeonEntrances[3];
+					if(dungeonEntrances[0] === "available" || dungeonEntrances[1] === "available" || dungeonEntrances[2] === "available")
+						front = "available";
+					else
+						if(dungeonEntrances[0] === "possible" || dungeonEntrances[1] === "possible" || dungeonEntrances[2] === "possible")
+							front = "possible";
+					state = DPBoss(front,back);
+				}
+				else
+					state = doorCheck(1,false,false,false,[(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'boots' : '','firesource','killbomb'],'boss');
+				break;
+			case 2:
+				state = flags.doorshuffle === 'N' ?HeraBoss() :doorCheck(2,false,false,false,[(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'firesource' : '','kill'],'boss');
+				break;
+			case 3:
+				state = flags.doorshuffle === 'N' ?PoDBoss() :doorCheck(3,false,true,true,['boots','hammer','bow','bomb'],'boss');
+				break;
+			case 4:
+				state = flags.doorshuffle === 'N' ?SPBoss() :doorCheck(4,false,false,false,['flippers',flags.entrancemode === 'N' ?'mirror' :'','hookshot','hammer','bomb'],'boss');
+				break;
+			case 5:
+				if(flags.doorshuffle === 'N')
+				{
+					var front = "unavailable",back = dungeonEntrances[3];
+					if(dungeonEntrances[0] === "available" || dungeonEntrances[1] === "available" || dungeonEntrances[2] === "available")
+						front = "available";
+					else
+						if(dungeonEntrances[0] === "possible" || dungeonEntrances[1] === "possible" || dungeonEntrances[2] === "possible")
+							front = "possible";
+					state = SWBoss(front,back);
+				}
+				else
+					state = doorCheck(5,false,false,false,['firerod','swordorswordless','bomb'],'boss');
+				break;
+			case 6:
+				state = flags.doorshuffle === 'N' ?TTBoss() :doorCheck(6,false,false,false,[(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'hammer' : '','glove','bomb'],'boss');
+				break;
+			case 7:
+				state = flags.doorshuffle === 'N' ?IPBoss() :doorCheck(7,false,false,false,['freezor','hammer','glove','hookshot','somaria','bomb'],'boss');
+				break;
+			case 8:
+				state = flags.doorshuffle === 'N' ?MMBoss("available") :doorCheck(8,false,true,false,['hookshot','firesource','somaria','bomb'],'boss');
+				break;
+			case 9:
+				state = flags.doorshuffle === 'N' ?TRBoss(...dungeonEntrances) :doorCheck(9,false,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : ''],'boss');
+				break;
+			case 10:
+				if((crystalCheck() < flags.ganonvulncount && flags.goals != 'A') || ((crystalCheck() < flags.opentowercount || !items.agahnim2) && flags.goals != 'F') || (flags.goals === 'A' && (!items.agahnim || !allDungeonCheck())))
+					return "unavailable";
+				if((flags.swordmode != 'S' && items.sword < 2) || (flags.swordmode === 'S' && !items.hammer) || (!items.lantern && !items.firerod))
+					return "unavailable";
+				if(flags.goals === 'F' && (items.sword > 1 || (flags.swordmode === 'S' && items.hammer)) && (items.lantern || items.firerod))
+					state = "available";
+				else
+					state = flags.doorshuffle === 'N' ?GTBoss() :doorCheck(10,false,false,false,['hammer','firerod','hookshot','boomerang','somaria',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'boots' : '','bow',flags.bossshuffle === 'N' ? '' : 'icerod','bomb'],'boss');
+				break;
+			case 12:
+				if(!items.sword && !items.hammer && !items.net)
+					return "unavailable";
+				state = flags.doorshuffle === 'C' ?doorCheck(12,false,true,true,[],'boss') :CTBoss();
+		}
+		if(flags.doorshuffle !== 'N' && state === "available" && (best === "possible" || !allAccessible))
+			return "possible";
+		if(flags.doorshuffle !== 'N' && state === "darkavailable" && (best === "possible" || !allAccessible))
+			return "darkpossible";
+		if(flags.doorshuffle === 'N' && state === "available" && best === "possible")
+			return "possible";
+		if(flags.doorshuffle === 'N' && state === "darkavailable" && best === "possible")
+			return "darkpossible";
+		return state;
+	};
+
+	//dungeonEntrances is an array of length dungeonEntranceCounts[dungeonID] with values 'available', 'possible' or 'unavailable'
+	//dungeonEntrancesBunny is an array of length dungeonEntranceCounts[dungeonID] with values true (can only access as a bunny) or false/null/undefined otherwise
+	window.dungeonChests = function(dungeonID,dungeonEntrances,dungeonEntrancesBunny) {
+		var state = "unavailable",bunny = true,allAccessible = true;
+		for(var k = 0; k < dungeonEntranceCounts[dungeonID]; k++)
+		{
+			if(dungeonEntrances[k] !== "unavailable")
+			{
+				if(flags.doorshuffle === 'N' && dungeonEntrancesBunny[k])
+					dungeonEntrances[k] = "unavailable";
+				state = dungeonEntrances[k];
+				if(!dungeonEntrancesBunny[k])
+					bunny = false;
+			}
+			if(dungeonEntrances[k] !== "available" || dungeonEntrancesBunny[k])
+				allAccessible = false;
+		}
+		if(state === "unavailable")
+			return "unavailable";
+		if(bunny && flags.doorshuffle === 'N')
+			return "unavailable";
+		if(bunny && flags.doorshuffle === 'B' && dungeon !== 2)
+			return "unavailable";
+		var best = state;
+		switch(dungeonID)
+		{
+			case 0:
+				state = flags.doorshuffle === 'N' ?EPChests() :doorCheck(0,false,true,true,['hookshot','bow'],'item',bunny);
+				break;
+			case 1:
+				if(flags.doorshuffle === 'N')
+				{
+					var front = "unavailable",back = dungeonEntrances[3];
+					if(dungeonEntrances[0] === "available" || dungeonEntrances[1] === "available" || dungeonEntrances[2] === "available")
+						front = "available";
+					else
+						if(dungeonEntrances[0] === "possible" || dungeonEntrances[1] === "possible" || dungeonEntrances[2] === "possible")
+							front = "possible";
+					state = DPChests(front,back);
+				}
+				else
+					state = doorCheck(1,false,false,false,['boots','firesource','killbomb'],'item',bunny);
+				break;
+			case 2:
+				state = flags.doorshuffle === 'N' ?HeraChests() :doorCheck(2,false,false,false,['firesource','kill'],'item',bunny);
+				break;
+			case 3:
+				state = flags.doorshuffle === 'N' ?PoDChests() :doorCheck(3,false,true,true,['boots','hammer','bow','bomb'],'item',bunny);
+				break;
+			case 4:
+				state = flags.doorshuffle === 'N' ?SPChests() :doorCheck(4,false,false,false,['flippers',flags.entrancemode === 'N' ?'mirror' :'','hookshot','hammer','bomb'],'item',bunny);
+				break;
+			case 5:
+				if(flags.doorshuffle === 'N')
+				{
+					var front = "unavailable",back = dungeonEntrances[3];
+					if(dungeonEntrances[0] === "available" || dungeonEntrances[1] === "available" || dungeonEntrances[2] === "available")
+						front = "available";
+					else
+						if(dungeonEntrances[0] === "possible" || dungeonEntrances[1] === "possible" || dungeonEntrances[2] === "possible")
+							front = "possible";
+					state = SWChests(front,back);
+				}
+				else
+					state = doorCheck(5,false,false,false,['firerod','swordorswordless','bomb'],'item',bunny);
+				break;
+			case 6:
+				state = flags.doorshuffle === 'N' ?TTChests() :doorCheck(6,false,false,false,['hammer','glove','bomb'],'item',bunny);
+				break;
+			case 7:
+				state = flags.doorshuffle === 'N' ?IPChests() :doorCheck(7,false,false,false,['freezor','hammer','glove','hookshot','somaria','bomb'],'item',bunny);
+				break;
+			case 8:
+				state = flags.doorshuffle === 'N' ?MMChests("available") :doorCheck(8,false,true,false,['hookshot','firesource','somaria','bomb'],'item',bunny);
+				break;
+			case 9:
+				state = flags.doorshuffle === 'N' ?TRChests(...dungeonEntrances) :doorCheck(9,false,true,false,['somaria','firerod','laserbridge'],'item',bunny);
+				break;
+			case 10:
+				state = flags.doorshuffle === 'N' ?GTChests() :doorCheck(10,false,false,false,['hammer','firerod','hookshot','boomerang','somaria','boots','bow',flags.bossshuffle === 'N' ? '' : 'icerod','bomb'],'item',bunny);
+				break;
+			case 11:
+				if(flags.doorshuffle === 'N')
+				{
+					var front = "unavailable",back = dungeonEntrances[4],sanc = dungeonEntrances[3];
+					if(dungeonEntrances[0] === "available" || dungeonEntrances[1] === "available" || dungeonEntrances[2] === "available")
+						front = "available";
+					else
+						if(dungeonEntrances[0] === "possible" || dungeonEntrances[1] === "possible" || dungeonEntrances[2] === "possible")
+							front = "possible";
+					state = HCChests(front,back,sanc);
+				}
+				else
+					state = doorCheck(11,false,false,flags.gametype != 'S',['killbomb','bombdash'],'item',bunny);
+				break;
+			case 12:
+				state = flags.doorshuffle === 'N' ?CTChests() :doorCheck(12,false,true,true,['kill','swordorswordless'],'item',bunny);
+		}
+		if(flags.doorshuffle !== 'N' && state === "available" && (best === "possible" || !allAccessible))
+			return "possible";
+		if(flags.doorshuffle !== 'N' && state === "darkavailable" && (best === "possible" || !allAccessible))
+			return "darkpossible";
+		if(flags.doorshuffle === 'N' && state === "available" && best === "possible")
+			return "possible";
+		if(flags.doorshuffle === 'N' && state === "darkavailable" && best === "possible")
+			return "darkpossible";
+		return state;
+	};
+
     window.EPBoss = function() {
 		var dungeoncheck = enemizer_check(0);
 		//Standard check
@@ -356,11 +598,20 @@
 		return dungeoncheck;
     };
 
-    window.DPBoss = function() {
+	//front and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+    window.DPBoss = function(front = 'available',back = 'unavailable') {
+		if (front != back && flags.entrancemode === 'N' && (items.glove || flags.glitches != 'N')) {
+			if (front === 'available' || back === 'available') front = back = 'available';
+			else front = back = 'possible';
+		}
 		var dungeoncheck = enemizer_check(1);
-		if (!items.bigkey1 || dungeoncheck === 'unavailable' || (items.glove === 0 && flags.glitches === 'N') || (!items.firerod && !items.lantern)) return 'unavailable';
-		if (flags.wildkeys && !flags.wildbigkeys && (items.smallkey1 === 0 && flags.gametype != 'R') && !items.boots) return 'possible';
-		if (!flags.wildkeys && !flags.wildbigkeys && !items.boots) return 'possible';
+		if (!items.bigkey1 || dungeoncheck === 'unavailable' || back === 'unavailable' || (!items.firerod && !items.lantern)) return 'unavailable';
+		if (back === 'possible') return 'possible';
+		if (!flags.wildbigkeys) {
+			if (front != 'available') return front;
+			if ((flags.wildkeys && items.smallkey1 === 0 && flags.gametype != 'R') || !items.boots) return 'possible';
+			if (!flags.wildkeys && flags.gametype != 'R' && !items.boots) return 'possible';
+		}
 		return dungeoncheck;
     };
 
@@ -394,37 +645,51 @@
 		return dungeoncheck;
     };
 
-    window.SWBoss = function() {
+	//front and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+    window.SWBoss = function(front = 'available',back = 'unavailable') {
+		if (front != back && flags.entrancemode === 'N' && (items.firerod || front === 'unavailable')) {
+			if (front === 'available' || back === 'available') front = back = 'available';
+			else front = back = 'possible';
+		}
 		var dungeoncheck = enemizer_check(5);
-		if (!items.firerod || (items.sword === 0 && flags.swordmode != 'S')) return 'unavailable';
+		var keycheck = front === 'available' || flags.gametype === 'R' || (flags.wildkeys && items.smallkey5) ? 'available' : front === 'possible' || (!flags.wildkeys && back != 'unavailable') ? 'possible' : 'unavailable';
+		if (back === 'unavailable' || dungeoncheck === 'unavailable' || keycheck === 'unavailable' || (items.sword === 0 && flags.swordmode != 'S')) return 'unavailable';
+		if (back === 'possible' || keycheck === 'possible') return 'possible';
 		return dungeoncheck;
 	};
 
     window.TTBoss = function() {
 		var dungeoncheck = enemizer_check(6);
+		if (!items.bomb && (flags.bossshuffle === 'N' || enemizer[6] === 7)) return 'unavailable';
+		if (!items.bomb && dungeoncheck === 'available' && flags.bossshuffle != 'N' && enemizer[6] === 0) dungeoncheck = 'possible';
 		return (items.bigkey6 ? dungeoncheck : 'unavailable');
     };
 
     window.IPBoss = function() {
 		if (!items.firerod && (!items.bombos || (items.sword == 0 && flags.swordmode != 'S'))) return 'unavailable';
 		var dungeoncheck = enemizer_check(7);
-		if (!items.hammer || items.glove === 0 || dungeoncheck == 'unavailable') return 'unavailable';
+		if (!items.hammer || items.glove === 0 || dungeoncheck === 'unavailable') return 'unavailable';
+		if (!items.bomb) return items.somaria ? 'possible' : 'unavailable';
 		if (flags.wildbigkeys) {
-			if (!items.bigkey7 && !items.somaria && !items.hookshot) return 'unavailable';
-			if (!items.hookshot && items.somaria && !items.bigkey7) return 'possible';
+			if (!items.bigkey7) return 'possible';
 		} else {
-			if (!items.hookshot && !items.somaria) return 'possible';
+			if (!items.hookshot && flags.gametype != 'R') return 'possible';
+		}
+		if (flags.wildkeys || flags.gametype === 'R') {
+			if (flags.gametype != 'R' && (items.smallkey7 === 0 || (items.smallkey7 === 1 && !items.somaria))) return 'possible';
+		} else {
+			if (!items.hookshot || !items.somaria) return 'possible';
 		}
 		
 		return dungeoncheck;
     };
 
-    window.MMBoss = function() {
+    window.MMBoss = function(medcheck) {
 		if (!items.boots && !items.hookshot) return 'unavailable';
-		if (medallion_check(0) === 'unavailable') return 'unavailable';
+		if (medcheck === 'unavailable') return 'unavailable';
 		var dungeoncheck = enemizer_check(8);
-		if (!items.bigkey8 || !items.somaria || dungeoncheck === 'unavailable') return 'unavailable';
-		if (dungeoncheck === 'possible' || medallion_check(0) === 'possible') {
+		if (!items.bigkey8 || !items.somaria || !items.bomb || dungeoncheck === 'unavailable') return 'unavailable';
+		if (dungeoncheck === 'possible' || medcheck === 'possible') {
 			return (items.lantern ? 'possible' : 'darkpossible');
 		}
 		if (!flags.wildbigkeys) {
@@ -439,26 +704,56 @@
 		return (dungeoncheck === 'possible' ? (items.lantern ? 'possible' : 'darkpossible') : 'unavailable');
     };
 
-    window.TRFrontBoss = function() {
-		if (medallion_check(1) === 'unavailable') return 'unavailable';
+	//front, middle, bigchest and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+	//Not properly implemented!
+    window.TRBoss = function(front = 'available',middle = 'unavailable',bigchest = 'unavailable',back = 'unavailable') {
+		if (back != 'unavailable' && middle != 'available' && items.somaria && items.lantern && (items.bomb || items.boots)) {//More complicated with dark room navigation
+			middle = back;
+		}
+		if (bigchest != 'unavailable' && middle != 'available' && (flags.entrancemode === 'N' || ((items.somaria || items.hookshot) && (melee_bow() || items.firerod || cane())))) {
+			middle = bigchest;
+		}
+		if (middle != 'unavailable' && bigchest != 'available' && items.bomb && flags.entrancemode === 'N') {
+			bigchest = middle;
+		}
+		if (middle != 'unavailable' && front != 'available' && items.somaria) {
+			front = middle;
+		}
+		if (front != 'unavailable' && middle != 'available' && items.somaria && items.smallkey9 >= 2) {
+			middle = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 === 4 ? front : 'possible';
+		}
+		if ((middle != 'unavailable' || bigchest != 'unavailable') && back != 'available' && items.somaria && items.lantern && (items.bomb || items.boots) && items.bigkey9) {
+			back = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 === 4 && flags.wildbigkeys ? (middle === 'available' ? middle : bigchest) : 'possible';
+		}
 		var dungeoncheck = enemizer_check(9);
-		if (!items.bigkey9 || !items.somaria || dungeoncheck === 'unavailable') return 'unavailable';
+		if (!items.bigkey9 || !items.smallkey9 || !items.somaria || (back === 'unavailable' && !items.bomb && !items.boots) || dungeoncheck === 'unavailable') return 'unavailable';
+		if (flags.wildkeys) {
+			if (items.smallkey9 < 4 && flags.gametype != 'R') return 'possible';
+		}
+		if (((!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys) && (!items.firerod || front != 'available' || middle != 'available' || (bigchest != 'available' && !flags.wildkeys && flags.gametype != 'R') || back != 'available')) return 'possible';
+		return back === 'available' ? dungeoncheck : ((front === 'available' || middle === 'available' || back === 'available') && (items.bomb || items.boots) ? (items.lantern ? 'available' : 'darkavailable') : 'possible');
+	};
+
+    window.TRFrontBoss = function(medcheck) {
+		if (medcheck === 'unavailable') return 'unavailable';
+		var dungeoncheck = enemizer_check(9);
+		if (!items.bigkey9 || !items.somaria || (!items.bomb && !items.boots) || dungeoncheck === 'unavailable') return 'unavailable';
 		if (flags.wildkeys) {
 			if (items.smallkey9 < 4 && flags.gametype != 'R') return 'unavailable';
 		}
-		return (dungeoncheck === 'available' && medallion_check(1) === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
+		return (dungeoncheck === 'available' && medcheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
     };
 
 	window.TRMidBoss = function() {
 		var dungeoncheck = enemizer_check(9);
-		if (!items.bigkey9 || !items.somaria || dungeoncheck === 'unavailable') return 'unavailable';
+		if (!items.bigkey9 || !items.somaria || (!items.bomb && !items.boots) || dungeoncheck === 'unavailable') return 'unavailable';
 		if (flags.wildbigkeys || flags.wildkeys) {
 			if (items.smallkey9 < 2 && flags.gametype != 'R') return 'unavailable';
-			if ((items.smallkey9 < 4 && flags.gametype != 'R') || medallion_check(1) === 'possible') return 'possible';
+			if (items.smallkey9 < 4 && flags.gametype != 'R') return 'possible';
 			return dungeoncheck;
 		} else {
 			if (!items.firerod) return 'possible';
-			return (dungeoncheck === 'available' && medallion_check(1) === 'available' ? (items.lantern ? 'avaialble' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
+			return (dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
 		}
     };
 	
@@ -467,18 +762,18 @@
 		if (!items.bigkey9 || !items.somaria || dungeoncheck === 'unavailable') return 'unavailable';
 		if (flags.wildkeys) {
 			if (items.smallkey9 === 0 && flags.gametype != 'R') return 'unavailable';
-			if ((items.smallkey9 < 4 && flags.gametype != 'R') || medallion_check(1) === 'possible') return 'possible';
+			if (items.smallkey9 < 4 && flags.gametype != 'R') return 'possible';
 			return dungeoncheck;
 		} else {
 			if (!items.firerod) return 'possible';
-			return (dungeoncheck === 'available' && medallion_check(1) === 'available' ? (items.lantern ? 'avaialble' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
+			return (dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
 		}
     };
 
     window.GTBoss = function() {
-		var dungeoncheck = enemizer_check(0);
-		
-		if (!items.bigkey10 || (items.bow === 0 && flags.enemyshuffle === 'N') || (!items.lantern && !items.firerod) || !items.hookshot || ((items.sword < 2 && flags.swordmode != 'S') || (flags.swordmode === 'S' && !items.hammer)) || dungeoncheck === 'unavailable') return 'unavailable';
+		var dungeoncheck = enemizer_check(10);
+		if (!items.bigkey10 || (items.bow === 0 && flags.enemyshuffle === 'N') || (!items.lantern && !items.firerod) || !items.hookshot || ((items.sword < 2 && flags.swordmode != 'S') || (flags.swordmode === 'S' && !items.hammer)) || !items.bomb || dungeoncheck === 'unavailable') return 'unavailable';
+		if (!items.sword && !items.hammer && !items.net) return 'unavailable';
 		if (flags.wildkeys) {
 			if (items.smallkey10 === 0 && flags.gametype != 'R') return 'unavailable';
 			if (items.smallkey10 < 3 && flags.gametype != 'R') return 'possible';
@@ -488,17 +783,10 @@
     };
 
     window.CTBoss = function() {
-		if(flags.entrancemode != 'N' && !hasFoundLocation('ct')) return 'unavailable';
+		if((!items.bomb || flags.doorshuffle != 'N') && !melee_bow() && !cane() && !items.firerod) return 'unavailable';
 		if(items.sword == 0 && flags.swordmode != 'S') return 'unavailable';
 		if(items.sword == 0 && !items.hammer && !items.net) return 'unavailable';
-
-		if(flags.wildkeys || flags.gametype === 'R')
-		{
-			if(items.smallkeyhalf1 > 1)
-				return items.lantern ? 'available' : 'darkavailable';
-			else
-				return 'unavailable';
-		}
+		if(flags.wildkeys && flags.gametype != 'R' && items.smallkeyhalf1 < 2) return 'unavailable';
 		return items.lantern ? 'available' : 'darkavailable';
 	};
 	
@@ -517,6 +805,21 @@
 		}
 	}
 	
+	function ConvertChestToBoss(x) {
+		switch(x) {
+			case 'A':
+				return 'available';
+			case 'P':
+				return 'possible';
+			case 'DA':
+				return 'darkavailable';
+			case 'DP':
+				return 'darkpossible';
+			case 'U':
+				return 'unavailable';
+		}
+	}
+	
 	window.EPChests = function() {
 		var dungeoncheck = enemizer_check(0);
 		
@@ -527,18 +830,16 @@
 		//Compass Chest
 		chests[1] = 'A';
 		//Map Chest
-		chests[2] = 'A';				
+		chests[2] = 'A';
 		//Big Chest
 		if (flags.wildbigkeys) {
 			chests[3] = (items.bigkey0 ? 'A' : 'U');
-		} else if (!flags.wildmaps && !flags.compasses && !flags.wildkeys && !flags.wildbigkeys) {
-			chests[3] = (items.lantern ? 'K' : 'P'); //Key replaces itself
 		} else {
-			chests[3] = 'K'; //Key replaces itself
+			chests[3] = (items.lantern ? 'K' : 'P'); //Key replaces itself
 		}
 		//Big Key Chest
-		if (!flags.wildmaps && !flags.compasses && !flags.wildkeys && !flags.wildbigkeys) {
-			chests[4] = (items.lantern ? 'A' : ((items.bow > 0 && dungeoncheck === 'available') ? 'DA' : 'P'));
+		if (!flags.wildbigkeys) {
+			chests[4] = (items.lantern ? 'A' : (((items.bow > 0 || flags.enemyshuffle != 'N') && dungeoncheck === 'available') ? 'DA' : 'P'));
 		} else {
 			chests[4] = (items.lantern ? 'A' : 'DA');
 		}
@@ -548,78 +849,91 @@
 		return available_chests(0, chests, items.maxchest0, items.chest0); 		
     };
 
-    window.DPChests = function() {
+	//front and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+    window.DPChests = function(front = 'available',back = 'unavailable') {
+		if (front != back && flags.entrancemode === 'N' && (items.glove || flags.glitches != 'N')) {
+			if (front === 'available' || back === 'available') front = back = 'available';
+			else front = back = 'possible';
+		}
+
 		var chests = ['U','U','U','U','U','U'];
 
-		//Map Chest
-		chests[0] = 'A';
-		
-		//Torch
-		if (items.boots) {
-			// If not wild keys, this will be set as a key
-			if (!flags.wildkeys && flags.gametype != 'R') {
-				chests[1] = 'K';
-			} else {
-				//if it is wild keys or retro, it will simply be an item, even if the big key is wild, as that will be replaced with the big chest
-				chests[1] = 'A';
-			}
-		}
-		
-		//Compass Chest
-		//Big Key Chest
-		if (flags.gametype == 'R') {
-			//If retro, simply available
-			chests[2] = 'A';
-			chests[3] = 'A';
-		} else {
-			//If wild keys simply need a key
-			if (flags.wildkeys) {
-				chests[2] = (items.smallkey1 === 1 ? 'A' : 'U');
-				chests[3] = (items.smallkey1 === 1 ? 'A' : 'U');
-			} else {
-				//If wild keys is off, but wild big keys is on, then it is only available if both boots and big key, otherwise possible
-				if (flags.wildbigkeys) {
-					if (items.boots) {
-						//If Boots, two items at a minimum are avaialble, so flagging compass as available as always with boots,
-						//where the rest are only possible without the big key
-						chests[2] = 'A';
-						chests[3] = (items.bigkey1 && items.boots ? 'A' : 'P');
-					} else {
-						chests[2] = (items.bigkey1 && items.boots ? 'A' : 'P');
-						chests[3] = (items.bigkey1 && items.boots ? 'A' : 'P');
-					}
+		if (front != 'unavailable') {
+			//Map Chest
+			chests[0] = 'A';
+			
+			//Torch
+			if (items.boots) {
+				// If not wild keys, this will be set as a key
+				if (!flags.wildkeys && flags.gametype != 'R') {
+					chests[1] = 'K';
 				} else {
-					//Neither wild keys is on, available with boots, otherwise possible
-					chests[2] = (items.boots ? 'A' : 'P');
-					chests[3] = (items.boots ? 'A' : 'P');
+					//if it is wild keys or retro, it will simply be an item, even if the big key is wild, as that will be replaced with the big chest
+					chests[1] = 'A';
+				}
+			}
+			
+			//Compass Chest
+			//Big Key Chest
+			if (flags.gametype == 'R') {
+				//If retro, simply available
+				chests[2] = 'A';
+				chests[3] = 'A';
+			} else {
+				//If wild keys simply need a key
+				if (flags.wildkeys) {
+					chests[2] = (items.smallkey1 === 1 ? 'A' : 'U');
+					chests[3] = (items.smallkey1 === 1 ? 'A' : 'U');
+				} else {
+					//If wild keys is off, but wild big keys is on, then it is only available if both boots and big key, otherwise possible
+					if (flags.wildbigkeys) {
+						if (items.boots) {
+							//If Boots, two items at a minimum are available, so flagging compass as available as always with boots,
+							//where the rest are only possible without the big key
+							chests[2] = 'A';
+							chests[3] = (items.bigkey1 && items.boots ? 'A' : 'P');
+						} else {
+							chests[2] = (items.bigkey1 && items.boots ? 'A' : 'P');
+							chests[3] = (items.bigkey1 && items.boots ? 'A' : 'P');
+						}
+					} else {
+						//Neither wild keys is on, available with boots, otherwise possible
+						chests[2] = (items.boots ? 'A' : 'P');
+						chests[3] = (items.boots ? 'A' : 'P');
+					}
+				}
+			}
+			
+			//Big Chest
+			if (flags.wildbigkeys) {
+				//If wild big keys, always simply available with the key
+				chests[4] = (items.bigkey1 ? 'A' : 'U');
+			} else {
+				//In all non-wild big keys, it will be replaced by itself
+				if (flags.wildkeys) {
+					//Need both the small key and boots to be available, else it will be possible because it could be in the map chest
+					chests[4] = (items.boots && items.smallkey === 1 ? 'K' : 'P');
+				} else {
+					//If both wild keys and wild big keys are off, available with boots, but still possible without
+					chests[4] = (items.boots ? 'K' : 'P');
+				}
+			}
+
+			if (front === 'possible') {
+				for (var k = 0; k < 5; k++) {
+					if (chests[k] === 'A') chests[k] = 'P';
 				}
 			}
 		}
 		
-		//Big Chest
-		if (flags.wildbigkeys) {
-			//If wild big keys, always simply available with the key
-			chests[4] = (items.bigkey1 ? 'A' : 'U');
-		} else {
-			//In all non-wild big keys, it will be replaced by itself
-			if (flags.wildkeys) {
-				//Need both the small key and boots to be available, else it will be possible because it could be in the map chest
-				chests[4] = (items.boots && items.smallkey === 1 ? 'K' : 'P');
-			} else {
-				//If both wild keys and wild big keys are off, available with boots, but still possible without
-				chests[4] = (items.boots ? 'K' : 'P');
-			}
-				
-		}
-		
 		//Boss
-		chests[5] = ConvertBossToChest(DPBoss());
+		chests[5] = ConvertBossToChest(DPBoss(front,back));
 		
 		return available_chests(1, chests, items.maxchest1, items.chest1);
     };
 
     window.HeraChests = function() {
-		var isDark = (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots));
+		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
 		
 		var chests = ['U','U','U','U','U','U'];
 
@@ -707,38 +1021,8 @@
 		
 		//1) No Key Shuffle
 		if (!flags.wildbigkeys && !flags.wildkeys && flags.gametype != 'R') {
-			if (items.bow === 0 && flags.enemyshuffle === 'N') {
-				//Shooter Room
-				chests[0] = 'P';
-				//Map Chest
-				chests[1] = 'P';
-				//The Arena - Ledge
-				chests[2] = 'P';
-				//Stalfos Basement
-				chests[3] = 'P';
-				//The Arena - Bridge
-				chests[4] = 'P';
-				//Big Key Chest
-				chests[5] = 'P';
-				//Compass Chest
-				chests[6] = 'P';
-				//Harmless Hellway
-				chests[7] = 'P';
-				//Dark Basement - Left
-				chests[8] = (items.lantern || items.firerod) ? 'P' : 'DP';
-				//Dark Basement - Right
-				chests[9] = (items.lantern || items.firerod) ? 'P' : 'DP';
-				//Dark Maze - Top
-				chests[10] = (items.lantern ? 'P' : 'DP');
-				//Dark Maze - Bottom
-				chests[11] = (items.lantern ? 'P' : 'DP');
-				//Big Chest
-				chests[12] = (items.lantern ? 'P' : 'DP');
-				//Boss
-				chests[13] = 'U';
-				
-			} else {
-				//If there is a bow, all chests are available with hammer, with dark logic
+			if ((items.bow > 0 || flags.enemyshuffle != 'N') && items.bomb) {
+				//If there is a bow and bombs, all chests are available with hammer, with dark logic
 				//Reserving four keys up front, two in the back, with the big key
 				
 				//Shooter Room
@@ -769,96 +1053,21 @@
 				chests[12] = (items.lantern ? 'A' : 'DA');
 				//Boss
 				chests[13] = ConvertBossToChest(PoDBoss());
-			}
-		//2) Retro (w/ Big Key shuffle checks)
-		//We ignore the wild keys check, as retro overrides it
-		} else if (flags.gametype === 'R') {
-			chests[0] = 'A';
-			
-			if (items.bow > 0 || flags.enemyshuffle != 'N') {
-				//Map Chest
-				chests[1] = 'A';
-				//The Arena - Ledge
-				chests[2] = 'A';
-			}
-			
-			chests[3] = 'A';
-			chests[4] = 'A';
-			chests[5] = 'A';
-			chests[6] = 'A';
-			chests[7] = 'A';
-			chests[8] = (items.lantern || items.firerod) ? 'A' : 'DA';
-			chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
-			chests[10] = (items.lantern ? 'A' : 'DA');
-			chests[11] = (items.lantern ? 'A' : 'DA');
-			//Big Chest
-			if (items.bigkey3) {
-				chests[12] = (items.lantern ? 'A' : 'DA');
-			}			
-		
-		//3) Small Key shuffle only
-		} else if (!flags.wildbigkeys && flags.wildkeys) {
-			chests[0] = 'A';
-
-			if (items.bow > 0 || flags.enemyshuffle != 'N') {
-				//Map Chest
-				chests[1] = 'A';
-				//The Arena - Ledge
-				chests[2] = 'A';
-			}
-			
-			if ((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) || items.smallkey3 > 0) {
-				//Stalfos Basement
-				chests[3] = 'A';
-				//The Arena - Bridge
-				chests[4] = 'A';
-			}
-			
-			//Big Key Chest
-			if (((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) && items.smallkey3 > 2) || items.smallkey3 > 3) {
-				chests[5] = 'A';
-			}
-			
-			if (((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) && items.smallkey3 > 0) || items.smallkey3 > 1) {
-				//Compass Chest
-				chests[6] = 'A';
-				//Dark Basement - Left
-				chests[8] = (items.lantern || items.firerod) ? 'A' : 'DA';
-				//Dark Basement - Right
-				chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
-			}
-			
-			if (((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) && items.smallkey3 > 3) || items.smallkey3 > 4) {
-				//Harmless Hellway
-				chests[7] = 'A';
-			}
-			
-			if (((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) && items.smallkey3 > 1) || items.smallkey3 > 2) {
-				//Dark Maze - Top
-				chests[10] = (items.lantern ? 'A' : 'DA');
-				//Dark Maze - Bottom
-				chests[11] = (items.lantern ? 'A' : 'DA');
-				//Big Chest
-				chests[12] = (items.lantern ? 'K' : 'DP'); // This is the big key replacement
-			}
-			
-			//Boss
-			chests[13] = ConvertBossToChest(PoDBoss());
-		//4) Big Key shuffle only
-		} else if (flags.wildbigkeys && !flags.wildkeys) {
-			if (items.bow === 0 && flags.enemyshuffle === 'N') {
+			} else {
 				//Shooter Room
 				chests[0] = 'P';
-				//Map Chest
-				chests[1] = 'P';
-				//The Arena - Ledge
-				chests[2] = 'P';
+				if (items.bow > 0 || flags.enemyshuffle != 'N') {
+					//Map Chest
+					chests[1] = (items.bomb || items.boots) ? 'P' : 'U';
+					//The Arena - Ledge
+					chests[2] = (items.bomb ? 'P' : 'U');
+				}
 				//Stalfos Basement
 				chests[3] = 'P';
 				//The Arena - Bridge
 				chests[4] = 'P';
 				//Big Key Chest
-				chests[5] = 'P';
+				chests[5] = (items.bomb ? 'P' : 'U');
 				//Compass Chest
 				chests[6] = 'P';
 				//Harmless Hellway
@@ -872,12 +1081,97 @@
 				//Dark Maze - Bottom
 				chests[11] = (items.lantern ? 'P' : 'DP');
 				//Big Chest
-				chests[12] = (items.bigkey3 ? (items.lantern ? 'P' : 'DP') : 'U');
+				chests[12] = (items.bomb ? items.lantern ? 'P' : 'DP' : 'U');
 				//Boss
-				chests[13] = 'U';
-				
-			} else {
-				//If there is a bow, all chests are available with hammer, with dark logic
+				chests[13] = 'U';				
+			}
+
+		//2) Retro (w/ Big Key shuffle checks)
+		//We ignore the wild keys check, as retro overrides it
+		} else if (flags.gametype === 'R') {
+			chests[0] = 'A';
+			
+			if (items.bow > 0 || flags.enemyshuffle != 'N') {
+				//Map Chest
+				chests[1] = (items.bomb || items.boots) ? 'A' : 'U';
+				//The Arena - Ledge
+				chests[2] = (items.bomb ? 'A' : 'U');
+			}
+			//Stalfos Basement
+			chests[3] = 'A';
+			//The Arena - Bridge
+			chests[4] = 'A';
+			//Big Key Chest
+			chests[5] = (items.bomb ? 'A' : 'U');
+			//Compass Chest
+			chests[6] = 'A';
+			//Harmless Hellway
+			chests[7] = 'A';
+			//Dark Basement - Left
+			chests[8] = (items.lantern || items.firerod) ? 'A' : 'DA';
+			//Dark Basement - Right
+			chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
+			//Dark Maze - Top
+			chests[10] = (items.lantern ? 'A' : 'DA');
+			//Dark Maze - Bottom
+			chests[11] = (items.lantern ? 'A' : 'DA');
+			//Big Chest
+			if (items.bigkey3) {
+				chests[12] = (items.bomb ? items.lantern ? 'A' : 'DA' : 'P');
+			}			
+		
+		//3) Small Key shuffle only
+		} else if (!flags.wildbigkeys && flags.wildkeys) {
+			chests[0] = 'A';
+
+			if (items.bow > 0 || flags.enemyshuffle != 'N') {
+				//Map Chest
+				chests[1] = (items.bomb || items.boots) ? 'A' : 'U';
+				//The Arena - Ledge
+				chests[2] = (items.bomb ? 'A' : 'U');
+			}
+			
+			if ((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) || items.smallkey3 > 0) {
+				//Stalfos Basement
+				chests[3] = 'A';
+				//The Arena - Bridge
+				chests[4] = 'A';
+			}
+			
+			//Big Key Chest
+			if (items.bomb && (((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) && items.smallkey3 > 2) || items.smallkey3 > 3)) {
+				chests[5] = 'A';
+			}
+			
+			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 0) || items.smallkey3 > 1) {
+				//Compass Chest
+				chests[6] = 'A';
+				//Dark Basement - Left
+				chests[8] = (items.lantern || items.firerod) ? 'A' : 'DA';
+				//Dark Basement - Right
+				chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
+			}
+			
+			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 3) || items.smallkey3 > 4) {
+				//Harmless Hellway
+				chests[7] = 'A';
+			}
+			
+			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 1) || items.smallkey3 > 2) {
+				//Dark Maze - Top
+				chests[10] = (items.lantern ? 'A' : 'DA');
+				//Dark Maze - Bottom
+				chests[11] = (items.lantern ? 'A' : 'DA');
+				//Big Chest
+				chests[12] = (items.bomb ? items.lantern ? 'K' : 'DP' : 'P'); // This is the big key replacement
+			}
+			
+			//Boss
+			chests[13] = ConvertBossToChest(PoDBoss());
+		//4) Big Key shuffle only
+		} else if (flags.wildbigkeys && !flags.wildkeys) {
+			if ((items.bow > 0 || flags.enemyshuffle === 'N') && items.bomb) {
+				//If there is a bow and bombs, all chests are available with hammer, with dark logic
 				//Reserving four keys up front, two in the back, with the big key
 				
 				//Shooter Room
@@ -908,6 +1202,37 @@
 				chests[12] = (items.bigkey3 ? (items.lantern ? 'A' : 'DA') : 'U');
 				//Boss
 				chests[13] = ConvertBossToChest(PoDBoss());
+			} else {
+				//Shooter Room
+				chests[0] = 'P';
+				if (items.bow > 0 || flags.enemyshuffle === 'N') {
+					//Map Chest
+					chests[1] = (items.bomb || items.boots) ? 'P' : 'U';
+					//The Arena - Ledge
+					chests[2] = items.bomb ? 'P' : 'U';
+				}
+				//Stalfos Basement
+				chests[3] = 'P';
+				//The Arena - Bridge
+				chests[4] = 'P';
+				//Big Key Chest
+				chests[5] = (items.bomb ? 'P' : 'U');
+				//Compass Chest
+				chests[6] = 'P';
+				//Harmless Hellway
+				chests[7] = 'P';
+				//Dark Basement - Left
+				chests[8] = (items.lantern || items.firerod) ? 'P' : 'DP';
+				//Dark Basement - Right
+				chests[9] = (items.lantern || items.firerod) ? 'P' : 'DP';
+				//Dark Maze - Top
+				chests[10] = (items.lantern ? 'P' : 'DP');
+				//Dark Maze - Bottom
+				chests[11] = (items.lantern ? 'P' : 'DP');
+				//Big Chest
+				chests[12] = (items.bigkey3 && items.bomb ? (items.lantern ? 'P' : 'DP') : 'U');
+				//Boss
+				chests[13] = 'U';
 			}
 		//5) Small Key + Big Key shuffle
 		} else {
@@ -915,12 +1240,12 @@
 			
 			if (items.bow > 0 || flags.enemyshuffle != 'N') {
 				//Map Chest
-				chests[1] = 'A';
+				chests[1] = (items.bomb || items.boots ? 'A' : 'U');
 				//The Arena - Ledge
-				chests[2] = 'A';
+				chests[2] = (items.bomb ? 'A' : 'U');
 			}
 			
-			if ((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) || items.smallkey3 > 0) {
+			if ((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) || items.smallkey3 > 0) {
 				//Stalfos Basement
 				chests[3] = 'A';
 				//The Arena - Bridge
@@ -928,11 +1253,11 @@
 			}
 			
 			//Big Key Chest
-			if (((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) && items.smallkey3 > 2) || items.smallkey3 > 3) {
+			if (items.bomb && (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N'))) && items.smallkey3 > 2) || items.smallkey3 > 3)) {
 				chests[5] = 'A';
 			}
 			
-			if (((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) && items.smallkey3 > 0) || items.smallkey3 > 1) {
+			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 0) || items.smallkey3 > 1) {
 				//Compass Chest
 				chests[6] = 'A';
 				//Dark Basement - Left
@@ -941,18 +1266,18 @@
 				chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
 			}
 			
-			if (((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) && items.smallkey3 > 3) || items.smallkey3 > 4) {
-				//Harmless Hellway
+			//Harmless Hellway
+			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 3) || items.smallkey3 > 4) {
 				chests[7] = 'A';
 			}
 			
-			if (((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) && items.smallkey3 > 1) || items.smallkey3 > 2) {
+			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 1) || items.smallkey3 > 2) {
 				//Dark Maze - Top
 				chests[10] = (items.lantern ? 'A' : 'DA');
 				//Dark Maze - Bottom
 				chests[11] = (items.lantern ? 'A' : 'DA');
 				//Big Chest
-				chests[12] = (items.bigkey3 ? (items.lantern ? 'A' : 'DA') : 'U');
+				chests[12] = (items.bigkey3 && items.bomb ? (items.lantern ? 'A' : 'DA') : 'U');
 			}
 			
 			//Boss
@@ -973,10 +1298,9 @@
 			chests[0] = 'K';
 		}
 		
-		if (items.smallkey4 > 0 || flags.gametype == 'R')
-		{
+		if (!flags.wildkeys || items.smallkey4 > 0 || flags.gametype == 'R') {
 			//Map Chest
-			chests[1] = 'A';
+			chests[1] = (items.bomb ? 'A' : 'U');
 			
 			//Without hammer, cannot go any further
 			if (items.hammer) {
@@ -984,12 +1308,10 @@
 				chests[2] = 'A';
 
 				//Big Chest
-				if (items.bigkey4) {
-					if (flags.wildbigkeys) {
-						chests[3] = 'A';
-					} else {
-						chests[3] = (items.hookshot ? 'K' : 'U');
-					}
+				if (flags.wildbigkeys) {
+					chests[3] = (items.bigkey4 ? 'A' : 'U');
+				} else {
+					chests[3] = (items.hookshot ? 'K' : 'U');
 				}
 
 				//West Chest
@@ -1019,56 +1341,71 @@
 		return available_chests(4, chests, items.maxchest4, items.chest4);
     };
 
-    window.SWChests = function() {
+	//front and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+    window.SWChests = function(front = 'available',back = 'unavailable') {
+		if (front != back && flags.entrancemode === 'N' && (items.firerod || front === 'unavailable')) {
+			if (front === 'available' || back === 'available') front = back = 'available';
+			else front = back = 'possible';
+		}
 		var dungeoncheck = enemizer_check(5);
 		
 		var chests = ['U','U','U','U','U','U','U','U'];
-				
-		//Compass Chest
-		if (flags.wildkeys || flags.gametype === 'R') {
-			chests[0] = 'A';
-		} else {
-			chests[0] = 'K'; //Marking front three chests as keys
-		}
 		
-		//Pot Prison
-		if (flags.wildkeys || flags.gametype === 'R') {
-			chests[1] = 'A';
-		} else {
-			chests[1] = 'K'; //Marking front three chests as keys
-		}
-		
-		//Map Chest
-		if (flags.wildkeys || flags.gametype === 'R') {
-			chests[2] = 'A';
-		} else {
-			chests[2] = 'K'; //Marking front three chests as keys
-		}
-		
-		//Pinball Room
-		chests[3] = 'A';
-		
-		//Big Chest
-		if (flags.wildbigkeys) {
-			chests[4] = (items.bigkey5) ? 'A' : 'U';
-		} else {
-			if (items.firerod && (items.sword > 0 || flags.swordmode === 'S') && dungeoncheck === 'available') {
-				chests[4] = 'K'; //If is full clearable, set to a key, else possible
+		if (front != 'unavailable') {
+			//Compass Chest
+			if (flags.wildkeys || flags.gametype === 'R') {
+				chests[0] = 'A';
 			} else {
-				chests[4] = 'P';
+				chests[0] = 'K'; //Marking front three chests as keys
+			}
+			
+			//Pot Prison
+			if (flags.wildkeys || flags.gametype === 'R') {
+				chests[1] = 'A';
+			} else {
+				chests[1] = 'K'; //Marking front three chests as keys
+			}
+			
+			//Map Chest
+			if (flags.wildkeys || flags.gametype === 'R') {
+				chests[2] = 'A';
+			} else {
+				chests[2] = 'K'; //Marking front three chests as keys
+			}
+			
+			//Pinball Room
+			chests[3] = 'A';
+			
+			//Big Chest
+			if (items.bomb) {
+				if (flags.wildbigkeys) {
+					chests[4] = (items.bigkey5) ? 'A' : 'U';
+				} else {
+					if (back === 'available' && (front === 'available' || flags.gametype === 'R' || (flags.wildkeys && items.smallkey5)) && (items.sword > 0 || flags.swordmode === 'S') && dungeoncheck === 'available') {
+						chests[4] = 'K'; //If is full clearable, set to a key, else possible
+					} else {
+						chests[4] = 'P';
+					}
+				}
+			}
+			
+			//Big Key Chest
+			chests[5] = 'A';
+
+			if (front === 'possible') {
+				for (var k = 0; k < 6; k++) {
+					if (chests[k] === 'A') chests[k] = 'P';
+				}
 			}
 		}
 		
-		//Big Key Chest		
-		chests[5] = 'A';
-		
 		//Cannot proceed without fire rod
-		if (items.firerod) {
+		if (back != 'unavailable') {
 			//Bridge Room
-			chests[6] = 'A';
+			chests[6] = back === 'available' ? (front != 'available' && !flags.wildkeys && flags.gametype != 'R' ? 'P' : 'A') : 'P';
 
 			//Boss
-			chests[7] = ConvertBossToChest(SWBoss());
+			chests[7] = ConvertBossToChest(SWBoss(front,back));
 		}
 		
 		return available_chests(5, chests, items.maxchest5, items.chest5);
@@ -1129,57 +1466,59 @@
 		if (flags.wildkeys || flags.gametype === 'R') {
 			chests[0] = 'A';
 		} else {
-			chests[0] = 'K'; //Reserving as small key 1
+			chests[0] = items.bomb ? 'K' : 'P'; //Reserving as small key 1 but only if we can get further into the dungeon as well
 		}
 		
-        //Spike Room
-		if (flags.wildkeys) {
-			chests[1] = (items.hookshot || (items.smallkey7 > 0 || flags.gametype == 'R')) ? 'A' : 'U';			
-		} else {
-			chests[1] = (items.hookshot || items.somaria) ? 'A' : 'P';
-		}
-		
-		if (items.hammer) {
-			//Map Chest
-			if (items.glove > 0) {
-				if (flags.wildkeys) {
-					chests[2] = (items.hookshot || (items.smallkey7 > 0 || flags.gametype == 'R')) ? 'A' : 'U';			
-				} else {
-					chests[2] = (items.hookshot || items.somaria) ? (!flags.wildkeys ? 'K' : 'A') : 'P'; //Reserving as small key 2
-				}
-		
-				//Big Key Chest
-				if (flags.wildkeys) {
-					chests[3] = (items.hookshot || (items.smallkey7 > 0 || flags.gametype == 'R')) ? 'A' : 'U';
-				} else {
-					chests[3] = (items.hookshot || items.somaria) ? 'A' : 'P';
-				}
+		if (items.bomb) {
+			//Spike Room
+			if (flags.wildkeys) {
+				chests[1] = (items.hookshot || (items.smallkey7 > 0 || flags.gametype == 'R')) ? 'A' : 'U';			
+			} else {
+				chests[1] = items.hookshot ? 'A' : 'P';
 			}
+			
+			if (items.hammer) {
+				//Map Chest
+				if (items.glove > 0) {
+					if (flags.wildkeys) {
+						chests[2] = (items.hookshot || (items.smallkey7 > 0 || flags.gametype == 'R')) ? 'A' : 'U';		
+					} else {
+						chests[2] = (items.hookshot ? (!flags.wildkeys ? 'K' : 'A') : 'P'); //Reserving as small key 2
+					}
 
-			//Boss
-			chests[7] = ConvertBossToChest(IPBoss());
-		}
-		
-        //Freezor Chest
-		chests[4] = 'A';
-		
-        //Iced T Room
-		chests[5] = 'A';
-		
-        //Big Chest
-		if (flags.wildbigkeys) {
-			chests[6] = (items.bigkey7 ? 'A' : 'U');
-		} else {
-			chests[6] = (items.hammer ? 'K' : 'P');
+					//Big Key Chest
+					if (flags.wildkeys) {
+						chests[3] = (items.hookshot || (items.smallkey7 > 0 || flags.gametype == 'R')) ? 'A' : 'U';
+					} else {
+						chests[3] = (items.hookshot || items.somaria) ? 'A' : 'P';
+					}
+				}
+
+				//Boss
+				chests[7] = ConvertBossToChest(IPBoss());
+			}
+			
+			//Freezor Chest
+			chests[4] = 'A';
+			
+			//Iced T Room
+			chests[5] = 'A';
+			
+			//Big Chest
+			if (flags.wildbigkeys) {
+				chests[6] = (items.bigkey7 ? 'A' : 'U');
+			} else {
+				chests[6] = (items.hammer ? 'K' : 'P');
+			}
 		}
 		
 		return available_chests(7, chests, items.maxchest7, items.chest7);
     };
 
-    window.MMChests = function() {
+    window.MMChests = function(medcheck) {
 		if (!items.boots && !items.hookshot) return 'unavailable';
-		if (medallion_check(0) === 'unavailable') return 'unavailable';
-		if (medallion_check(0) === 'possible') return 'possible';
+		if (medcheck === 'unavailable') return 'unavailable';
+		if (medcheck === 'possible') return 'possible';
 
 		var chests = ['U','U','U','U','U','U','U','U'];
 		
@@ -1217,21 +1556,64 @@
 		}		
 		
 		//Boss
-		chests[7] = ConvertBossToChest(MMBoss());
+		chests[7] = (items.bomb ? ConvertBossToChest(MMBoss(medcheck)) : 'U');
 		
 		return available_chests(8, chests, items.maxchest8, items.chest8);
     };
 
-    window.TRFrontChests = function() {
+	//front, middle, bigchest and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+	//Not properly implemented!
+    window.TRChests = function(front = 'available',middle = 'unavailable',bigchest = 'unavailable',back = 'unavailable') {
+		if (back != 'unavailable' && middle != 'available' && items.somaria && items.lantern && (items.bomb || items.boots)) {//More complicated with dark room navigation
+			middle = back;
+		}
+		if (bigchest != 'unavailable' && middle != 'available' && (flags.entrancemode === 'N' || ((items.somaria || items.hookshot) && (melee_bow() || items.firerod || cane())))) {
+			middle = bigchest;
+		}
+		if (middle != 'unavailable' && bigchest != 'available' && items.bomb && flags.entrancemode === 'N') {
+			bigchest = middle;
+		}
+		if (middle != 'unavailable' && front != 'available' && items.somaria) {
+			front = middle;
+		}
+		if (front != 'unavailable' && middle != 'available' && items.somaria && items.smallkey9 >= 2) {
+			middle = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 === 4 ? front : 'possible';
+		}
+		if ((middle != 'unavailable' || bigchest != 'unavailable') && back != 'available' && items.somaria && items.lantern && (items.bomb || items.boots) && items.bigkey9) {
+			back = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 === 4 && flags.wildbigkeys ? (middle === 'available' ? middle : bigchest) : 'possible';
+		}
+		var dungeoncheck = enemizer_check(9);
+		//If we have absolutely everything, available
+		if (dungeoncheck === 'available' && front === 'available' && middle === 'available' && bigchest === 'available' && back === 'available' && items.somaria && (items.bomb || items.boots) && items.firerod && items.smallkey9 === 4 && items.bigkey9) return items.lantern ? 'available' : 'darkavailable';
+		//Else, see if we can use Inverted or OWG logic
+		if (middle === 'available' && bigchest === 'available' && back === 'available') return TRBackChests();
+		if (middle === 'available' && bigchest === 'available' && TRMidChests().endsWith('available')) return TRMidChests();
+		if (middle != 'unavailable' && bigchest != 'unavailable' && back != 'unavailable') {
+			var check = TRBackChests();
+			if (check === 'available') return 'possible';
+			if (check === 'darkavailable') return 'darkpossible';
+			return check;
+		}
+		if (middle != 'unavailable' && bigchest != 'unavailable') {
+			var check = TRMidChests();
+			if (check === 'available') return 'possible';
+			if (check === 'darkavailable') return 'darkpossible';
+			return check;
+		}
+		//Otherwise, no idea
+		return 'possible';
+	};
+
+    window.TRFrontChests = function(medcheck) {
 		if (!items.somaria) return 'unavailable';
-		if (medallion_check(1) === 'unavailable') return 'unavailable';
-		var isDark = (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots));
+		if (medcheck === 'unavailable') return 'unavailable';
+		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
 		
-		if (medallion_check(1) === 'possible') return (isDark ? 'darkpossible' : 'possible');
+		if (medcheck === 'possible') return (isDark ? 'darkpossible' : 'possible');
 
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U'];
 		
-		//Because of the complexity of PoD and key logic, there are going to be five modes here to consider:
+		//Because of the complexity of TR and key logic, there are going to be five modes here to consider:
 		//1) No Key Shuffle
 		//2) Retro (w/ Big Key shuffle checks)
 		//3) Small Key shuffle only
@@ -1260,26 +1642,29 @@
 			chests[4] = 'K'; //Reserved as third small key, regardless if the fire rod is accessable or not
 			
 			//Big Chest
-			chests[5] = (items.firerod ? 'K' : 'P'); //Reserved as big key, if fire rod made it accessable to this point
+			chests[5] = (items.bomb ? items.firerod ? 'K' : 'P' : 'U'); //Reserved as big key, if fire rod made it accessable to this point
 			
-			//Crystaroller Room
-			chests[6] = (items.firerod ? 'K' : 'P'); //Reserved as fourth small key
-			
-			//Laser Bridge
-			chests[7] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-			chests[8] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-			chests[9] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-			chests[10] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-			
-			//Boss
-			chests[11] = ConvertBossToChest(TRFrontBoss());
+			if (items.bomb || items.boots) {
+				//Crystaroller Room
+				chests[6] = (items.firerod ? 'K' : 'P'); //Reserved as fourth small key
+
+				//Laser Bridge
+				chests[7] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+				chests[8] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+				chests[9] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+				chests[10] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+
+				//Boss
+				chests[11] = ConvertBossToChest(TRFrontBoss(medcheck));
+			}
+
 		//2) Retro (w/ Big Key shuffle checks)
 		//We ignore the wild keys check, as retro overrides it
 		} else if (flags.gametype === 'R') {
 			//Compass Chest
 			chests[0] = 'A';
 			
-			//Chain Chmops
+			//Chain Chomps
 			chests[1] = 'A';
 			
 			if (items.firerod) {
@@ -1294,19 +1679,22 @@
 			chests[4] = 'A';
 			
 			//Big Chest
-			chests[5] = (items.firerod ? 'K' : 'P'); //Reserved as big key, if fire rod made it accessable to this point
+			chests[5] = (items.bomb ? items.firerod ? 'K' : 'P' : 'U'); //Reserved as big key, if fire rod made it accessable to this point
 			
-			//Crystaroller Room
-			chests[6] = (items.firerod ? 'A' : 'P');
-			
-			//Laser Bridge
-			chests[7] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-			chests[8] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-			chests[9] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-			chests[10] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-			
-			//Boss
-			chests[11] = ConvertBossToChest(TRFrontBoss());
+			if (items.bomb || items.boots) {
+				//Crystaroller Room
+				chests[6] = (items.firerod ? 'A' : 'P');
+
+				//Laser Bridge
+				chests[7] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+				chests[8] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+				chests[9] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+				chests[10] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+
+				//Boss
+				chests[11] = ConvertBossToChest(TRFrontBoss(medcheck));
+			}
+
 		//3) Small Key shuffle only
 		} else if (!flags.wildbigkeys && flags.wildkeys) {
 			//Compass Chest
@@ -1329,21 +1717,23 @@
 					chests[4] = 'A';
 				
 					//Big Chest
-					chests[5] = (items.firerod ? 'K' : 'P'); //Reserved as big key, if fire rod made it accessable to this point
+					chests[5] = (items.bomb ? (items.firerod ? 'K' : 'P') : 'U'); //Reserved as big key, if fire rod made it accessable to this point
 					
-					//Crystaroller Room
-					chests[6] = (items.firerod ? 'A' : 'P');
-					
-					if (items.smallkey9 > 2) {
-						//Laser Bridge
-						chests[7] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-						chests[8] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-						chests[9] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
-						chests[10] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+					if (items.bomb || items.boots) {
+						//Crystaroller Room
+						chests[6] = (items.firerod ? 'A' : 'P');
 						
-						if (items.smallkey9 > 3) {
-							//Boss
-							chests[11] = ConvertBossToChest(TRFrontBoss());
+						if (items.smallkey9 > 2) {
+							//Laser Bridge
+							chests[7] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+							chests[8] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+							chests[9] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+							chests[10] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
+							
+							if (items.smallkey9 > 3) {
+								//Boss
+								chests[11] = ConvertBossToChest(TRFrontBoss(medcheck));
+							}
 						}
 					}	
 				}
@@ -1367,9 +1757,9 @@
 			//Big Key Chest
 			chests[4] = (items.firerod ? 'K' : 'P'); //Reserved as third small key, regardless if the fire rod is accessable or not
 			
-			if (items.bigkey9) {
+			if (items.bigkey9 && (items.bomb || items.boots)) {
 				//Big Chest
-				chests[5] = (items.firerod ? 'A' : 'P'); //Reserved as big key, if fire rod made it accessable to this point
+				chests[5] = (items.bomb ? items.firerod ? 'A' : 'P' : 'U'); //Reserved as big key, if fire rod made it accessable to this point
 				
 				//Crystaroller Room
 				chests[6] = (items.firerod ? 'K' : 'P'); //Reserved as fourth small key
@@ -1381,7 +1771,7 @@
 				chests[10] = (items.firerod ? (items.lantern ? 'A' : 'DA') : (items.lantern ? 'P' : 'DP'));
 				
 				//Boss
-				chests[11] = ConvertBossToChest(TRFrontBoss());
+				chests[11] = ConvertBossToChest(TRFrontBoss(medcheck));
 			}
 		//5) Small Key + Big Key shuffle
 		} else {
@@ -1404,9 +1794,9 @@
 					//Big Key Chest
 					chests[4] = 'A';
 					
-					if (items.bigkey9) {				
+					if (items.bigkey9 && (items.bomb || items.boots)) {				
 						//Big Chest
-						chests[5] = 'A';
+						chests[5] = (items.bomb ? 'A' : 'U');
 						
 						//Crystaroller Room
 						chests[6] = 'A';
@@ -1420,7 +1810,7 @@
 							
 							if (items.smallkey9 > 3) {
 								//Boss
-								chests[11] = ConvertBossToChest(TRFrontBoss());
+								chests[11] = ConvertBossToChest(TRFrontBoss(medcheck));
 							}
 						}	
 					}
@@ -1439,7 +1829,7 @@
     };
 
 	window.TRMidChests = function() {
-		var isDark = (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots));
+		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
 		
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U'];
 		
@@ -1669,7 +2059,7 @@
     };
 
     window.TRBackChests = function() {
-		var isDark = (!items.flute && !items.lantern);
+		var isDark = !items.flute && !items.lantern && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
 		
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U'];
 		
@@ -1879,8 +2269,7 @@
     };
 
     window.GTChests = function() {
-		var dungeoncheck = enemizer_check(0);
-		var isDark = (!items.flute && !items.lantern && flags.gametype != 'I' && !(flags.glitches != 'N' && items.boots));
+		var isDark = !items.flute && !items.lantern && flags.gametype != 'I' && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
 
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U'];
 		
@@ -1904,14 +2293,16 @@
 					//Firesnake Room - 0
 					chests[6] = 'K';  //Reserving as small key 3
 					
-					//Randomizer Room - Top Left - 1
-					chests[7] = 'A';
-					//Randomizer Room - Top Right - 1
-					chests[8] = 'A';
-					//Randomizer Room - Bottom Left - 1
-					chests[9] = 'A';
-					//Randomizer Room - Bottom Right - 1
-					chests[10] = 'A';
+					if (items.bomb) {
+						//Randomizer Room - Top Left - 1
+						chests[7] = 'A';
+						//Randomizer Room - Top Right - 1
+						chests[8] = 'A';
+						//Randomizer Room - Bottom Left - 1
+						chests[9] = 'A';
+						//Randomizer Room - Bottom Right - 1
+						chests[10] = 'A';
+					}
 				}			
 				
 				if (items.hookshot || items.boots) {
@@ -1925,12 +2316,15 @@
 				chests[11] = 'K'; //Reserving as big key
 				//Bob's Chest - 2
 				chests[12] = 'A';
-				//Big Key Chest - 2
-				chests[13] = 'A';
-				//Big Key Room - Left - 2
-				chests[14] = 'A';
-				//Big Key Room - Right - 2
-				chests[15] = 'A';
+
+				if (items.bomb) {
+					//Big Key Chest - 2
+					chests[13] = 'A';
+					//Big Key Room - Left - 2
+					chests[14] = 'A';
+					//Big Key Room - Right - 2
+					chests[15] = 'A';
+				}
 			}
 			
 			//Hope Room - Left - 0
@@ -1960,12 +2354,14 @@
 				chests[23] = 'A';
 				//Mini Helmasaur Room - Right - 3
 				chests[24] = 'A';
-				//Pre-Moldorm Chest - 3
-				chests[25] = 'A';
-				
-				if (items.hookshot) {
-					//Moldorm Chest
-					chests[26] = 'A';
+				if (items.bomb) {
+					//Pre-Moldorm Chest - 3
+					chests[25] = 'A';
+					
+					if (items.hookshot) {
+						//Moldorm Chest
+						chests[26] = 'A';
+					}
 				}
 			}
 		//2) Retro (w/ Big Key shuffle checks)
@@ -1988,14 +2384,16 @@
 					//Firesnake Room - 0
 					chests[6] = 'A';
 					
-					//Randomizer Room - Top Left - 1
-					chests[7] = 'A';
-					//Randomizer Room - Top Right - 1
-					chests[8] = 'A';
-					//Randomizer Room - Bottom Left - 1
-					chests[9] = 'A';
-					//Randomizer Room - Bottom Right - 1
-					chests[10] = 'A';
+					if (items.bomb) {
+						//Randomizer Room - Top Left - 1
+						chests[7] = 'A';
+						//Randomizer Room - Top Right - 1
+						chests[8] = 'A';
+						//Randomizer Room - Bottom Left - 1
+						chests[9] = 'A';
+						//Randomizer Room - Bottom Right - 1
+						chests[10] = 'A';
+					}
 				}			
 				
 				if (items.hookshot || items.boots) {
@@ -2009,12 +2407,15 @@
 				chests[11] = (flags.wildbigkeys ? (items.bigkey10 ? 'A' : 'U') : 'K'); //Reserving as big key
 				//Bob's Chest - 2
 				chests[12] = 'A';
-				//Big Key Chest - 2
-				chests[13] = 'A';
-				//Big Key Room - Left - 2
-				chests[14] = 'A';
-				//Big Key Room - Right - 2
-				chests[15] = 'A';
+
+				if (items.bomb) {
+					//Big Key Chest - 2
+					chests[13] = 'A';
+					//Big Key Room - Left - 2
+					chests[14] = 'A';
+					//Big Key Room - Right - 2
+					chests[15] = 'A';
+				}
 			}
 			
 			//Hope Room - Left - 0
@@ -2044,12 +2445,14 @@
 				chests[23] = 'A';
 				//Mini Helmasaur Room - Right - 3
 				chests[24] = 'A';
-				//Pre-Moldorm Chest - 3
-				chests[25] = 'A';
-				
-				if (items.hookshot) {
-					//Moldorm Chest
-					chests[26] = 'A';
+				if (items.bomb) {
+					//Pre-Moldorm Chest - 3
+					chests[25] = 'A';
+					
+					if (items.hookshot) {
+						//Moldorm Chest
+						chests[26] = 'A';
+					}
 				}
 			}
 		//3) Small Key shuffle only
@@ -2071,7 +2474,7 @@
 					//Firesnake Room - 0
 					chests[6] = 'A';
 					
-					if (items.smallkey10 > 0) {
+					if (items.smallkey10 > 0 && items.bomb) {
 						//Randomizer Room - Top Left - 1
 						chests[7] = 'A';
 						//Randomizer Room - Top Right - 1
@@ -2094,12 +2497,15 @@
 				chests[11] = 'K';
 				//Bob's Chest - 2
 				chests[12] = 'A';
-				//Big Key Chest - 2
-				chests[13] = 'A';
-				//Big Key Room - Left - 2
-				chests[14] = 'A';
-				//Big Key Room - Right - 2
-				chests[15] = 'A';
+
+				if (items.bomb) {
+					//Big Key Chest - 2
+					chests[13] = 'A';
+					//Big Key Room - Left - 2
+					chests[14] = 'A';
+					//Big Key Room - Right - 2
+					chests[15] = 'A';
+				}
 			}
 			
 			//Hope Room - Left - 0
@@ -2129,12 +2535,15 @@
 				chests[23] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
 				//Mini Helmasaur Room - Right - 3
 				chests[24] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
-				//Pre-Moldorm Chest - 3
-				chests[25] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
-				
-				if (items.hookshot) {
-					//Moldorm Chest - 3
-					chests[26] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+
+				if (items.bomb) {
+					//Pre-Moldorm Chest - 3
+					chests[25] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+					
+					if (items.hookshot) {
+						//Moldorm Chest - 3
+						chests[26] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+					}
 				}
 			}
 		//4) Big Key shuffle only
@@ -2156,14 +2565,16 @@
 					//Firesnake Room - 0
 					chests[6] = 'K';  //Reserving as small key 3
 					
-					//Randomizer Room - Top Left - 1
-					chests[7] = 'A';
-					//Randomizer Room - Top Right - 1
-					chests[8] = 'A';
-					//Randomizer Room - Bottom Left - 1
-					chests[9] = 'A';
-					//Randomizer Room - Bottom Right - 1
-					chests[10] = 'A';
+					if (items.bomb) {
+						//Randomizer Room - Top Left - 1
+						chests[7] = 'A';
+						//Randomizer Room - Top Right - 1
+						chests[8] = 'A';
+						//Randomizer Room - Bottom Left - 1
+						chests[9] = 'A';
+						//Randomizer Room - Bottom Right - 1
+						chests[10] = 'A';
+					}
 				}			
 				
 				if (items.hookshot || items.boots) {
@@ -2177,12 +2588,15 @@
 				chests[11] = (items.bigkey10 ? 'A' : 'U');
 				//Bob's Chest - 2
 				chests[12] = 'A';
-				//Big Key Chest - 2
-				chests[13] = 'A';
-				//Big Key Room - Left - 2
-				chests[14] = 'A';
-				//Big Key Room - Right - 2
-				chests[15] = 'A';
+
+				if (items.bomb) {
+					//Big Key Chest - 2
+					chests[13] = 'A';
+					//Big Key Room - Left - 2
+					chests[14] = 'A';
+					//Big Key Room - Right - 2
+					chests[15] = 'A';
+				}
 			}
 			
 			//Hope Room - Left - 0
@@ -2212,12 +2626,15 @@
 				chests[23] = 'A';
 				//Mini Helmasaur Room - Right - 3
 				chests[24] = 'A';
-				//Pre-Moldorm Chest - 3
-				chests[25] = 'A';
-				
-				if (items.hookshot) {
-					//Moldorm Chest
-					chests[26] = 'A';
+
+				if (items.bomb) {
+					//Pre-Moldorm Chest - 3
+					chests[25] = 'A';
+					
+					if (items.hookshot) {
+						//Moldorm Chest
+						chests[26] = 'A';
+					}
 				}
 			}
 		//5) Small Key + Big Key shuffle
@@ -2239,7 +2656,7 @@
 					//Firesnake Room - 0
 					chests[6] = 'A';
 					
-					if (items.smallkey10 > 0) {
+					if (items.smallkey10 > 0 && items.bomb) {
 						//Randomizer Room - Top Left - 1
 						chests[7] = 'A';
 						//Randomizer Room - Top Right - 1
@@ -2262,12 +2679,15 @@
 				chests[11] = (items.bigkey10 ? 'A' : 'U');
 				//Bob's Chest - 2
 				chests[12] = 'A';
-				//Big Key Chest - 2
-				chests[13] = 'A';
-				//Big Key Room - Left - 2
-				chests[14] = 'A';
-				//Big Key Room - Right - 2
-				chests[15] = 'A';
+
+				if (items.bomb) {
+					//Big Key Chest - 2
+					chests[13] = 'A';
+					//Big Key Room - Left - 2
+					chests[14] = 'A';
+					//Big Key Room - Right - 2
+					chests[15] = 'A';
+				}
 			}
 			
 			//Hope Room - Left - 0
@@ -2297,22 +2717,18 @@
 				chests[23] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
 				//Mini Helmasaur Room - Right - 3
 				chests[24] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
-				//Pre-Moldorm Chest - 3
-				chests[25] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
-				
-				if (items.hookshot) {
-					//Moldorm Chest - 3
-					chests[26] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+
+				if (items.bomb) {
+					//Pre-Moldorm Chest - 3
+					chests[25] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+					
+					if (items.hookshot) {
+						//Moldorm Chest - 3
+						chests[26] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+					}
 				}
 			}
 		}		
-		
-		
-		
-		
-		
-		
-		
 		
 		if (flags.wildbigkeys || flags.wildkeys || flags.gametype === 'R') {
 			
@@ -2335,14 +2751,16 @@
 					//Firesnake Room - 0
 					chests[6] = 'K';  //Reserving as small key 3
 					
-					//Randomizer Room - Top Left - 1
-					chests[7] = 'A';
-					//Randomizer Room - Top Right - 1
-					chests[8] = 'A';
-					//Randomizer Room - Bottom Left - 1
-					chests[9] = 'A';
-					//Randomizer Room - Bottom Right - 1
-					chests[10] = 'A';
+					if (items.bomb) {
+						//Randomizer Room - Top Left - 1
+						chests[7] = 'A';
+						//Randomizer Room - Top Right - 1
+						chests[8] = 'A';
+						//Randomizer Room - Bottom Left - 1
+						chests[9] = 'A';
+						//Randomizer Room - Bottom Right - 1
+						chests[10] = 'A';
+					}
 				}			
 				
 				if (items.hookshot || items.boots) {
@@ -2356,12 +2774,15 @@
 				chests[11] = 'K';				
 				//Bob's Chest - 2
 				chests[12] = 'A';
-				//Big Key Chest - 2
-				chests[13] = 'A';
-				//Big Key Room - Left - 2
-				chests[14] = 'A';
-				//Big Key Room - Right - 2
-				chests[15] = 'A';
+
+				if (items.bomb) {
+					//Big Key Chest - 2
+					chests[13] = 'A';
+					//Big Key Room - Left - 2
+					chests[14] = 'A';
+					//Big Key Room - Right - 2
+					chests[15] = 'A';
+				}
 			}
 			
 			//Hope Room - Left - 0
@@ -2391,12 +2812,14 @@
 				chests[23] = 'A';
 				//Mini Helmasaur Room - Right - 3
 				chests[24] = 'A';
-				//Pre-Moldorm Chest - 3
-				chests[25] = 'A';
-				
-				if (items.hookshot) {
-					//Moldorm Chest
-					chests[26] = 'A';
+				if (items.bomb) {
+					//Pre-Moldorm Chest - 3
+					chests[25] = 'A';
+					
+					if (items.hookshot) {
+						//Moldorm Chest
+						chests[26] = 'A';
+					}
 				}
 			}
 		}
@@ -2411,66 +2834,87 @@
 		return available_chests(10, chests, items.maxchest10, items.chest10);
     };
 
-    window.HCChests = function() {//To be used with Entrance. Needs more testing
-		var frontAccess = flags.entrancemode == 'N' || flags.gametype === 'S' || hasFoundLocation('hc_m') || hasFoundLocation('hc_w') || hasFoundLocation('hc_e');
-		var backAccess = (flags.entrancemode == 'N' && items.glove > 0) || flags.gametype === 'S' || (flags.entrancemode != 'N' && (flags.gametype != 'I' || hasFoundLocation('sanc')));
-		//In Entrance, assume Back of Escape drop is reachable when Sanctuary is. Could make it dependent on map location
-		if(!backAccess && frontAccess && (items.lantern || (flags.itemplacement === 'A' && items.firerod)) && (flags.wildkeys || flags.gametype === 'R') && items.smallkeyhalf0 > 0)
-			backAccess = true;
+	//front, back and sanc can be 'available', 'possible' or 'unavailable', at most two can be 'unavailable'
+    window.HCChests = function(front = 'available',back = 'unavailable',sanc = 'unavailable') {
+		var weapon = items.bomb || melee_bow() || items.firerod || cane();
+		if (flags.gametype === 'S') {
+			front = back = sanc = 'available';
+			weapon = true;
+		}
+		//Walk from front to back
+		if (front != 'unavailable' && back != 'available' && items.lantern && (weapon || items.icerod)) {//Could consider dark room navigation
+			if (flags.gametype === 'R') {
+				back = front;
+			} else {
+				if (!flags.wildkeys) {
+					back = 'possible';
+				} else {
+					if (items.smallkeyhalf0) {
+						back = front;
+					}
+				}
+			}
+		}
+		//Walk from back to sanc
+		if (back != 'unavailable' && sanc != 'available') {
+			sanc = back;
+		}
 
 		var chests = ['U','U','U','U','U','U','U','U'];
 
-		if(frontAccess)
-		{
-			chests[0] = backAccess || flags.wildkeys || flags.gametype === 'R' ? 'A' : 'P';
-			chests[1] = backAccess && !(flags.wildkeys || flags.gametype === 'R') && !(items.lantern || (flags.itemplacement === 'A' && items.firerod)) ? 'K' : 'A';
-			chests[2] = 'A';
+		if (front != 'unavailable') {
+			chests[0] = front === 'available' ? 'A' : 'P';
+			if (weapon) {
+				chests[1] = front === 'available' ? 'A' : 'P';
+				chests[2] = front === 'available' ? 'A' : 'P';
+			}
+			if (items.lantern || flags.gametype === 'S') {
+				chests[3] = front === 'available' ? 'A' : 'P';
+			} else {
+				chests[3] = front === 'available' ? 'DA' : 'DP';
+			}
+		} else {
+			if (back != 'unavailable' && (weapon || items.icerod)) {
+				if (flags.gametype === 'R') {
+					chests[3] = (items.lantern ? '' : 'D')+(back === 'available' ? 'A' : 'P');
+				} else {
+					if (!flags.wildkeys) {
+						chests[3] = items.lantern ? 'P' : 'DP';
+					} else {
+						if (items.smallkeyhalf0) {
+							chests[3] = (items.lantern ? '' : 'D')+(back === 'available' ? 'A' : 'P');
+						}
+					}
+				}
+			}
 		}
 
-		if(frontAccess && backAccess && !(flags.wildkeys || flags.gametype === 'R'))
-			chests[3] = 'P';
-		else
-			if(frontAccess || (backAccess && (flags.wildkeys || flags.gametype === 'R') && items.smallkeyhalf0 > 0))
-				chests[3] = items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'A' : 'DA';
-			else
-			{
-				if(backAccess && !(flags.wildkeys || flags.gametype === 'R'))
-					chests[3] = items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'A' : 'K';
-			}
-
-		if(backAccess)
-		{
-			chests[4] = frontAccess || flags.wildkeys || flags.gametype === 'R' ? 'A' : (items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'K' : 'P');
-			chests[5] = 'A';
-			chests[6] = 'A';
-			chests[7] = 'A';
+		if (back != 'unavailable' && (items.bomb || items.boots)) {
+			chests[4] = back === 'available' ? 'A' : 'P';
+			chests[5] = back === 'available' ? 'A' : 'P';
+			chests[6] = back === 'available' ? 'A' : 'P';
 		}
-		else
-		{
-			if(frontAccess && (flags.wildkeys || flags.gametype === 'R') && items.smallkeyhalf0 > 0)
-			{
-				chests[4] = items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'A' : 'DA';
-				chests[5] = items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'A' : 'DA';
-				chests[6] = items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'A' : 'DA';
-				chests[7] = items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'A' : 'DA';
-			}
-			if(frontAccess && !(flags.wildkeys || flags.gametype === 'R'))
-			{
-				chests[4] = items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'P' : 'DP';
-				chests[5] = items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'P' : 'DP';
-				chests[6] = items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'P' : 'DP';
-				chests[7] = items.lantern || (flags.itemplacement === 'A' && items.firerod) ? 'P' : 'DP';
-			}
-			//if(flags.gametype != 'I')
-			//	chests[7] = frontAccess || backAccess || flags.wildkeys || flags.gametype === 'R' ? 'A' : 'P'; //Could be key
+		if (sanc != 'unavailable') {
+			chests[7] = sanc === 'available' ? 'A' : 'P';
 		}
-		//console.log(chests);
+		if (!flags.wildkeys && flags.gametype != 'R') {
+			if (flags.gametype === 'S') {
+				chests[0] = 'K';
+			} else {
+				for (var k = 0; k < 8; k++) {//Small key could be anywhere. Temporary bad solution
+					if (chests[k] === 'A') {
+						chests[k] = 'P';
+						break;
+					}
+				}
+			}
+		}
 
-		return available_chests(11, chests, items.maxchest11, items.chest11);//TODO
+		return available_chests(11, chests, items.maxchest11, items.chest11);
 	};
 
     window.CTChests = function() {
-		if(flags.entrancemode != 'N' && !hasFoundLocation('ct')) return 'unavailable';
+		if(!items.bomb && !melee_bow() && !cane() && !items.firerod) return 'unavailable';
 		
 		var chests = ['U','U'];
 

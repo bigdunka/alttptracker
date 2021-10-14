@@ -40,13 +40,16 @@ a, a:visited{ color: #80C0FF; }
 
 .fixedtop { position: fixed; top: 0; background-color: black; z-index: 2; overflow: hidden; }
 .showsidebar .fixedtop { padding-right: 72px; }
+.scenetitle { margin: 14px 12px 10px 10px; }
 
 .dungeon { border: 1px solid white; margin: 1px; }
 .boss { width: 64px; height: 64px; background-size: 64px 64px; }
 .boss.completed { opacity: .25; }
 .summary { position: relative; height: 32px; }
 
-#owmaintable { border-collapse: collapse; border: 1px solid gray; margin-bottom: 4px; }
+#selectworldstate:disabled { color: lightgray; }
+
+#owmaintable { border-collapse: collapse; border: 1px solid gray; margin-right: 2px; margin-bottom: 4px; }
 #owmaintable tr,td { border: 1px solid gray; }
 
 .item { width: 32px; height: 32px; opacity: .25; background-size: 32px 32px; }
@@ -80,7 +83,7 @@ a, a:visited{ color: #80C0FF; }
 .owedge.active:not(hover) { box-shadow: inset 0px 0px 3px 3px white; }
 #fullowpanel.clickedges .owedge { pointer-events: all; }
 .owedge:hover { box-shadow: inset 0px 0px 0px 1px white; }
-.owedgedot { width: 8px; height: 8px; position: absolute; box-shadow: inset 0px 0px 0px 1px black; background-color: rgb(0,255,255); }
+.owedgedot { width: 8px; height: 8px; position: absolute; box-shadow: inset 0px 0px 0px 1px black; background-color: rgb(0,255,255); pointer-events: none; }
 .owedgecrossed { background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><path d='M100 0 L0 100' stroke='black' stroke-width='8'/><path d='M0 0 L100 100' stroke='black' stroke-width='8'/></svg>");
   background-repeat: no-repeat; background-position: center center; background-size: 100% 100%,auto; }
 .south { border-radius: 37.5% 37.5% 0 0; }
@@ -92,7 +95,6 @@ a, a:visited{ color: #80C0FF; }
 .activateflute { width: 96px; height: 26px; z-index: 2; cursor: default; position: absolute; box-shadow: inset 0px 0px 0px 1px black; color: black; background-color: lightskyblue; font-size: 14px; display: inline-block; text-align: center; line-height: 25px; border-radius: 6px; user-select: none; }
 .activateflute:hover { box-shadow: inset 0px 0px 0px 1px white; }
 .fullmixed { cursor: default; width: 56px; height: 26px; position: absolute; box-shadow: inset 0px 0px 0px 1px black; color: black; font-size: 14px; line-height: 25px; pointer-events: all; }
-/*.fullmixed:hover { box-shadow: inset 0px 0px 0px 2px white; } border-radius: 6px;*/
 .fullmixed.normal { left: 4px; top: 4px; background-color: lightgoldenrodyellow; }
 .fullmixed.swapped { left: 4px; top: 34px; background-color: lightsteelblue; }
 .owscreen .questionmark { width: 64px; height: 64px; z-index: 1; cursor: inherit; position: absolute; left: 0; top: 0; font-size: 32px; display: inline-block; color: red; text-align: center; pointer-events: none; line-height: 56px; user-select: none; }
@@ -145,6 +147,8 @@ a, a:visited{ color: #80C0FF; }
 .path .roomnode { margin: 0px; position: absolute; }
 .path.editing { background-color: rgba(255,192,128,.2); border: 2px dotted rgb(255,192,128); height: 68px; }
 .roompointer .roomnode { cursor: pointer; }
+.pathlist { transform-origin: 0 0; }
+.pathlist .path.row { width: 200%; }
 .pathlist .path:hover { background-color: rgba(255,255,255,.125); }
 .leftfadeout { width: 16px; height: 64px; z-index: 2; background-image: linear-gradient(to right, black, transparent); position: absolute; pointer-events: none; }
 
@@ -164,6 +168,7 @@ a, a:visited{ color: #80C0FF; }
 .buttonsquare.collapse { background-image: url(../images/interface/collapse.png); }
 .buttonsquare.expand { background-image: url(../images/interface/collapse.png); transform: scaleX(-1); }
 .buttonsquare.close { background-image: url(../images/interface/close.png); }
+.buttonsquare.owicon { background-image: url(../images/overlay/overworldicon.png); background-size: 24px 24px; }
 
 .rightalign { float: right; }
 .centercheckbox { width: 100%; display: inline-block; text-align: center; }

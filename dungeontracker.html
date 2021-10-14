@@ -3,14 +3,14 @@
 	<head>
 		<title>Dungeon Tracker - ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=16022"></script>
-		<script src="js/bootstrap.min.js?v=16022"></script>
-		<link rel="stylesheet" type="text/css" href="css/dungeonstyle.css?v=16022">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=16022">
+		<script src="js/jquery-3.3.1.js?v=17001"></script>
+		<script src="js/bootstrap.min.js?v=17001"></script>
+		<link rel="stylesheet" type="text/css" href="css/dungeonstyle.css?v=17001">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=17001">
 		<link href="css/fonts.css" rel="stylesheet">
-		<script src="js/util.js?v=16022"></script>
-		<script src="js/owdungeondata.js?v=16022"></script>
-		<script src="js/dungeontracker.js?v=16022"></script>
+		<script src="js/util.js?v=17001"></script>
+		<script src="js/owdungeondata.js?v=17001"></script>
+		<script src="js/dungeontracker.js?v=17001"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -101,7 +101,7 @@
 				</div>
 			</div>
 			<div id="main">
-				<div id="overview" class="cell" style="width: calc(100% - 4px); max-width: 340px;">
+				<div id="overview" class="cell" style="width: calc(100% - 4px);">
 					<div class="row">
 						<div class="cell buttonsquare expand nosidebar" style="margin: 4px 8px 0 4px;" onclick="showSidebar()"></div>
 						<div style="display: inline-block;">
@@ -114,6 +114,9 @@
 								<div class="boss overworldicon"></div>
 								<div id="summaryow" class="summary" style="text-align: center; line-height: 30px; font-size: 14pt; color: lime;"></div>
 							</div>
+							<div class="cell pointer dungeon" onclick="loadOverworld()">
+								<div style="width: 64px; height: 96px; text-align: center; padding: 10px 0;">Click here to start Overworld Tracking</div>
+							</div>
 							<div class="cell dungeon" style="width: 134px; height: 98px;">
 								<div class="buttonbox" style="margin-bottom: 5px;" onclick="showFullOverworldModal('editedges')">Full map</div>
 								<div id="overviewownewpath" class="buttonbox" style="margin-bottom: 5px;" onclick="showFullOverworldModal('newpath')">New path</div>
@@ -123,195 +126,216 @@
 					</div>
 					<div id="overviewdungeons">
 						<div class="row">
-							<div class="cell pointer dungeon" onclick="loadDungeon(11)">
-								<div id="boss11" class="boss boss11"></div>
-								<div id="summary11" class="summary"></div>
+							<div style="float: left; margin-right: clamp(0px,100% - 500px,12px);">
+								<div class="cell pointer dungeon" onclick="loadDungeon(11)">
+									<div id="boss11" class="boss boss11"></div>
+									<div id="summary11" class="summary"></div>
+								</div>
+								<div class="cell pointer dungeon" onclick="loadDungeon(0)">
+									<div id="boss0" class="boss boss0"></div>
+									<div id="summary0" class="summary"></div>
+								</div>
+								<div class="cell pointer dungeon" onclick="loadDungeon(1)">
+									<div id="boss1" class="boss boss1"></div>
+									<div id="summary1" class="summary"></div>
+								</div>
+								<div class="cell pointer dungeon" onclick="loadDungeon(2)">
+									<div id="boss2" class="boss boss2"></div>
+									<div id="summary2" class="summary"></div>
+								</div>
+								<div class="cell pointer dungeon" onclick="loadDungeon(12)">
+									<div id="boss12" class="boss boss12" style="background-size: 64px;"></div>
+									<div id="summary12" class="summary"></div>
+								</div>
 							</div>
-							<div class="cell pointer dungeon" onclick="loadDungeon(0)">
-								<div id="boss0" class="boss boss0"></div>
-								<div id="summary0" class="summary"></div>
-							</div>
-							<div class="cell pointer dungeon" onclick="loadDungeon(1)">
-								<div id="boss1" class="boss boss1"></div>
-								<div id="summary1" class="summary"></div>
-							</div>
-							<div class="cell pointer dungeon" onclick="loadDungeon(2)">
-								<div id="boss2" class="boss boss2"></div>
-								<div id="summary2" class="summary"></div>
-							</div>
-							<div class="cell pointer dungeon" onclick="loadDungeon(12)">
-								<div id="boss12" class="boss boss12" style="background-size: 64px;"></div>
-								<div id="summary12" class="summary"></div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="cell pointer dungeon" onclick="loadDungeon(3)">
-								<div id="boss3" class="boss boss3"></div>
-								<div id="summary3" class="summary"></div>
-							</div>
-							<div class="cell pointer dungeon" onclick="loadDungeon(4)">
-								<div id="boss4" class="boss boss4"></div>
-								<div id="summary4" class="summary"></div>
-							</div>
-							<div class="cell pointer dungeon" onclick="loadDungeon(5)">
-								<div id="boss5" class="boss boss5"></div>
-								<div id="summary5" class="summary"></div>
-							</div>
-							<div class="cell pointer dungeon" onclick="loadDungeon(6)">
-								<div id="boss6" class="boss boss6"></div>
-								<div id="summary6" class="summary"></div>
-							</div>
-						</div>
-						<div class="row">
-							<div class="cell pointer dungeon" onclick="loadDungeon(7)">
-								<div id="boss7" class="boss boss7"></div>
-								<div id="summary7" class="summary"></div>
-							</div>
-							<div class="cell pointer dungeon" onclick="loadDungeon(8)">
-								<div id="boss8" class="boss boss8"></div>
-								<div id="summary8" class="summary"></div>
-							</div>
-							<div class="cell pointer dungeon" onclick="loadDungeon(9)">
-								<div id="boss9" class="boss boss9"></div>
-								<div id="summary9" class="summary"></div>
-							</div>
-							<div class="cell pointer dungeon" onclick="loadDungeon(10)">
-								<div id="boss10" class="boss boss10" style="background-size: 64px;"></div>
-								<div id="summary10" class="summary"></div>
+							<div style="float: left;">
+								<div style="float: left;">
+									<div class="cell pointer dungeon" onclick="loadDungeon(3)">
+										<div id="boss3" class="boss boss3"></div>
+										<div id="summary3" class="summary"></div>
+									</div>
+									<div class="cell pointer dungeon" onclick="loadDungeon(4)">
+										<div id="boss4" class="boss boss4"></div>
+										<div id="summary4" class="summary"></div>
+									</div>
+									<div class="cell pointer dungeon" onclick="loadDungeon(5)">
+										<div id="boss5" class="boss boss5"></div>
+										<div id="summary5" class="summary"></div>
+									</div>
+									<div class="cell pointer dungeon" onclick="loadDungeon(6)">
+										<div id="boss6" class="boss boss6"></div>
+										<div id="summary6" class="summary"></div>
+									</div>
+								</div>
+								<div style="float: left;">
+									<div class="cell pointer dungeon" onclick="loadDungeon(7)">
+										<div id="boss7" class="boss boss7"></div>
+										<div id="summary7" class="summary"></div>
+									</div>
+									<div class="cell pointer dungeon" onclick="loadDungeon(8)">
+										<div id="boss8" class="boss boss8"></div>
+										<div id="summary8" class="summary"></div>
+									</div>
+									<div class="cell pointer dungeon" onclick="loadDungeon(9)">
+										<div id="boss9" class="boss boss9"></div>
+										<div id="summary9" class="summary"></div>
+									</div>
+									<div class="cell pointer dungeon" onclick="loadDungeon(10)">
+										<div id="boss10" class="boss boss10" style="background-size: 64px;"></div>
+										<div id="summary10" class="summary"></div>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>
-					<div class="row" style="margin-top: 10px;">
-						<div>
-							<h2 class="textrow">Mode and settings</h2>
-						</div>
-					</div>
-					<div class="row">
-						<div style="display: inline-block;">
-							<h3 class="textrow">Door Shuffle:</h3>
-						</div>
-						<div class="rightalign">
-							<select id="selectdoorshuffle" style="height: 22px; top: 4px; position: relative;" onchange="updateDoorShuffle()">
-								<option value="N">None</option>
-								<option value="B">Basic</option>
-								<option value="C">Crossed</option>
-							</select>
-							<label style="height: 20px; top: 5px; position: relative;"><input type="checkbox" id="lobbyshuffle" onchange="updateDoorShuffle()" />Lobby Shuffle</label>
-						</div>
-					</div>
-					<div id="dungeonoptions" class="row">
-						<div style="display: inline-block;">
-							<h3 class="textrow">Exclude from overview:</h3>
-						</div>
-						<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
-							<label><input type="checkbox" id="excludesmallkeys" onchange="updateKeys()" />Small Keys</label>
-							<label><input type="checkbox" id="excludebigkeys" onchange="updateKeys()" />Big Keys</label>
-						</div>
-					</div>
-					<div class="row" style="margin-top: 12px;">
-						<div style="display: inline-block;">
-							<h3 class="textrow">Overworld Shuffle (BETA): &nbsp; &nbsp; Layout:</h3>
-						</div>
-						<div class="rightalign">
-							<select id="selectowshuffle" style="height: 22px; top: 4px; position: relative;" onchange="updateOverworldShuffle(true)">
-								<option value="N">Vanilla</option>
-								<option value="P">Parallel</option>
-								<option value="F">Full</option>
-							</select>
-						</div>
-					</div>
-					<div id="overworldlayoutoptions" class="row">
-						<div style="display: inline-block;">
-							<h3 class="textrow">Layout options:</h3>
-						</div>
-						<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
-							<label><input type="checkbox" id="similarow" onchange="updateOverworldShuffle(true)" />Keep Similar</label>
-							<label><input type="checkbox" id="crossedow" onchange="updateOverworldShuffle(true)" />Crossed Overworld</label>
-						</div>
-					</div>
-					<div id="overworldoptions" class="row">
-						<div style="display: inline-block;">
-							<h3 class="textrow">More OW options:</h3>
-						</div>
-						<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
-							<label><input type="checkbox" id="mixedow" onchange="updateOverworldShuffle(true)" />Mixed Overworld</label>
-							<label><input type="checkbox" id="fluteshuffle" onchange="updateOverworldShuffle(false)" />Flute Shuffle</label>
-						</div>
-					</div>
-					<div class="row">
-						<div style="display: inline-block;">
-							<h3 class="textrow">World State:</h3>
-						</div>
-						<div class="rightalign">
-							<select id="selectworldstate" style="height: 22px; top: 4px; position: relative;" onchange="updateOverworldShuffle(true)">
-								<option value="S">Standard</option>
-								<option value="O">Open</option>
-								<option value="I">Inverted</option>
-								<option value="R">Retro</option>
-							</select>
-							<label style="height: 20px; top: 5px; position: relative;"><input type="checkbox" id="entranceenabled" onchange="updateOverworldShuffle(true)" />Entrance Shuffle</label>
-						</div>
-					</div>
-					<div id="overworldoptionsfinalbox" class="row" style="border: 1px solid yellow; display: none;">
-						<div class="textrow" style="padding: 0 4px; margin-bottom: 0px;">
-							When all of the above mode-related settings are final, please click on this button to fill in transitions that can be deduced from the mode and previously marked transitions:
-						</div>
-						<div class="row">
-							<div class="buttonbox" onclick="vanillaTransitionsMode(null)">Make mode-specific transition adjustments</div>
-						</div>
-					</div>
-					<div class="row" style="margin-top: 10px;">
-						<div>
-							<h2 class="textrow">Save and restore</h2>
-						</div>
-					</div>
-					<div class="row" style="height: 34px;">
-						<div style="display: inline-block;">
-							<h3 class="textrow">Manual save:</h3>
-						</div>
-						<div class="cell rightalign">
-							<div id="loadmanual" class="cell buttonbox disabled" style="margin: 2px;" onclick="loadManual()">Load data</div>
-							<div id="savemanual" class="cell buttonbox" style="margin: 2px;" onclick="saveManual(this)">Save data</div>
-						</div>
-					</div>
-					<div class="row" style="height: 34px;">
-						<div style="display: inline-block;">
-							<h3 class="textrow">Auto-save:</h3>
-						</div>
-						<div class="cell rightalign">
-							<div id="loadauto" class="cell buttonbox disabled" style="margin: 2px;" onclick="loadAuto()">Load data</div>
-						</div>
-					</div>
-					<div class="row" style="height: 34px;">
-						<div style="display: inline-block;">
-							<h3 class="textrow">Reset:</h3>
-						</div>
-						<div class="cell rightalign">
-							<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onclick="clearData()">Clear current data</div>
-							<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onclick="clearLocalStorage()">Clear local storage</div>
-						</div>
-					</div>
-					<div id="dungeonstats">
+					<div style="width: 340px;">
 						<div class="row" style="margin-top: 10px;">
 							<div>
-								<h2 class="textrow">Dungeon statistics</h2>
+								<h2 class="textrow">Mode and settings</h2>
 							</div>
 						</div>
-						<div>
-							<h3 id="totalpathdungeons" class="textrow"></h3>
+						<div class="row">
+							<div style="display: inline-block;">
+								<h3 class="textrow">Door Shuffle:</h3>
+							</div>
+							<div class="rightalign">
+								<select id="selectdoorshuffle" style="height: 22px; top: 4px; position: relative;" onchange="updateDoorShuffle()">
+									<option value="N">None</option>
+									<option value="B">Basic</option>
+									<option value="C">Crossed</option>
+								</select>
+								<label style="height: 20px; top: 5px; position: relative;"><input type="checkbox" id="lobbyshuffle" onchange="updateDoorShuffle()" />Lobby Shuffle</label>
+							</div>
 						</div>
-						<div>
-							<h3 id="totalpaths" class="textrow"></h3>
+						<div id="dungeonoptions" class="row">
+							<div style="display: inline-block;">
+								<h3 class="textrow">Exclude from overview:</h3>
+							</div>
+							<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
+								<label><input type="checkbox" id="excludesmallkeys" onchange="updateKeys()" />Small Keys</label>
+								<label><input type="checkbox" id="excludebigkeys" onchange="updateKeys()" />Big Keys</label>
+							</div>
 						</div>
-						<div>
-							<h3 id="totalnodes" class="textrow"></h3>
+						<div class="row" style="margin-top: 12px;">
+							<div style="display: inline-block;">
+								<h3 class="textrow">Overworld Shuffle (BETA): &nbsp; &nbsp; Layout:</h3>
+							</div>
+							<div class="rightalign">
+								<select id="selectowshuffle" style="height: 22px; top: 4px; position: relative;" onchange="updateOverworldShuffle(true)">
+									<option value="N">Vanilla</option>
+									<option value="P">Parallel</option>
+									<option value="F">Full</option>
+								</select>
+							</div>
 						</div>
-						<div>
-							<h3 id="totalnotes" class="textrow"></h3>
+						<div id="overworldlayoutoptions" class="row">
+							<div style="display: inline-block;">
+								<h3 class="textrow">Crossed Overworld:</h3>
+							</div>
+							<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
+								<select id="crossedow" onchange="updateOverworldShuffle(true)">
+									<option value="N">None</option>
+									<option value="P">Polar</option>
+									<option value="C">Chaos/other</option>
+								</select>
+								<label><input type="checkbox" id="similarow" onchange="updateOverworldShuffle(true)" />Keep Similar</label>
+							</div>
 						</div>
-					</div>
-					<div class="row" style="margin-top: 20px; margin-bottom: 4px;">
-						<span>Check out the <a href="instructions.html#dungeon" target="_blank">Instructions</a> for help with this tracker.</span>
+						<div id="overworldoptions" class="row">
+							<div style="display: inline-block;">
+								<h3 class="textrow">More OW options:</h3>
+							</div>
+							<div class="rightalign" style="height: 20px; top: 5px; position: relative;">
+								<label><input type="checkbox" id="mixedow" onchange="updateOverworldShuffle(true)" />Mixed Overworld</label>
+								<label><input type="checkbox" id="fluteshuffle" onchange="updateOverworldShuffle(false)" />Flute Shuffle</label>
+							</div>
+						</div>
+						<div class="row">
+							<div style="display: inline-block;">
+								<h3 class="textrow">World State:</h3>
+							</div>
+							<div class="rightalign">
+								<select id="selectworldstate" style="height: 22px; top: 4px; position: relative;" onchange="updateOverworldShuffle(true)">
+									<option value="S">Standard</option>
+									<option value="O">Open</option>
+									<option value="I">Inverted</option>
+									<option value="R">Retro</option>
+								</select>
+								<label style="height: 20px; top: 5px; position: relative;"><input type="checkbox" id="entranceenabled" onchange="updateOverworldShuffle(true)" />Entrance Shuffle</label>
+							</div>
+						</div>
+						<div id="overworldoptionsfinalbox" class="row" style="border: 1px solid yellow; display: none;">
+							<div class="textrow" style="padding: 0 4px; margin-bottom: 0px;">
+								When all of the above mode-related settings are final, click on this button to automatically fill in transitions that can be deduced from the mode and already marked things:
+							</div>
+							<div class="row" style="display: flex;">
+								<div class="buttonbox" style="flex-grow: 1;" onclick="vanillaTransitionsMode(null)">Make mode-specific transition adjustments</div>
+								<div class="rightalign">
+									<div class="buttonbox" style="border-color: rgb(255,128,128); margin-left: 0;" onclick="hideFinalBox()">Skip</div>
+								</div>
+							</div>
+						</div>
+						<div id="overworldglobalsyncbox" class="row" style="border: 1px solid white; margin-top: 4px;">
+							<div class="row">
+								<label><input type="checkbox" id="globalsync" style="margin-top: 10px;" onchange="updateGlobalSync()" />Sync logic and all data with main window</label>
+								<div class="rightalign">
+									<div class="buttonbox" style="border-color: rgb(128,128,255);" onclick="showGlobalSyncInfo()">Info</div>
+								</div>
+							</div>
+						</div>
+						<div class="row" style="margin-top: 10px;">
+							<div>
+								<h2 class="textrow">Save and restore</h2>
+							</div>
+						</div>
+						<div class="row" style="height: 30px;">
+							<div style="display: inline-block;">
+								<h3 class="textrow">Manual save:</h3>
+							</div>
+							<div class="cell rightalign">
+								<div id="loadmanual" class="cell buttonbox disabled" style="margin: 2px;" onclick="loadManual()">Load data</div>
+								<div id="savemanual" class="cell buttonbox" style="margin: 2px;" onclick="saveManual(this)">Save data</div>
+							</div>
+						</div>
+						<div class="row" style="height: 30px;">
+							<div style="display: inline-block;">
+								<h3 class="textrow">Auto-save:</h3>
+							</div>
+							<div class="cell rightalign">
+								<div id="loadauto" class="cell buttonbox disabled" style="margin: 2px;" onclick="loadAuto()">Load data</div>
+							</div>
+						</div>
+						<div class="row" style="height: 30px;">
+							<div style="display: inline-block;">
+								<h3 class="textrow">Reset:</h3>
+							</div>
+							<div class="cell rightalign">
+								<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onclick="clearData()">Clear current data</div>
+								<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onclick="clearLocalStorage()">Clear local storage</div>
+							</div>
+						</div>
+						<div id="dungeonstats">
+							<div class="row" style="margin-top: 10px;">
+								<div>
+									<h2 class="textrow">Dungeon statistics</h2>
+								</div>
+							</div>
+							<div>
+								<h3 id="totalpathdungeons" class="textrow"></h3>
+							</div>
+							<div>
+								<h3 id="totalpaths" class="textrow"></h3>
+							</div>
+							<div>
+								<h3 id="totalnodes" class="textrow"></h3>
+							</div>
+							<div>
+								<h3 id="totalnotes" class="textrow"></h3>
+							</div>
+						</div>
+						<div class="row" style="margin-top: 20px; margin-bottom: 4px;">
+							<span>Check out the <a href="instructions.html#dungeon" target="_blank">Instructions</a> for help with this tracker.</span>
+						</div>
 					</div>
 				</div>
 				<div id="pathlist" class="cell" style="width: 100%;">
@@ -324,7 +348,7 @@
 							<div id="dungeonicon"></div>
 						</div>
 						<div class="cell pointer" style="flex-grow: 1;" onclick="closeDungeon()">
-							<h1 id="dungeonname" style="margin: 14px 12px 10px 12px;"></h1>
+							<h1 id="dungeonname" class="scenetitle"></h1>
 						</div>
 					</div>
 					<div class="row" style="margin-top: 64px; max-width: 384px;">
@@ -418,11 +442,11 @@
 							<div id="owicon" class="boss overworldicon"></div>
 						</div>
 						<div class="cell pointer" style="flex-grow: 1;" onclick="closeOverworld()">
-							<h1 id="owname" style="margin: 14px 12px 10px 12px;">Overworld</h1>
+							<h1 id="owname" class="scenetitle">Overworld Tracking</h1>
 						</div>
 					</div>
 					<div class="row" style="margin-top: 64px;">
-						<h3 class="textrow">Tracking overworld transitions</h3>
+						<h3 class="textrow">Tracking overworld transitions and swaps</h3>
 					</div>
 					<table id="owmaintable">
 						<tr>
@@ -479,7 +503,7 @@
 					<div class="row">
 						<label><input type="checkbox" id="activeflutebox" onchange="toggleActiveFlute()" />Flute is active and usable (once obtained)</label>
 					</div>
-					<div id="dungeonconnectorsdefault">
+					<div id="dungeonconnectorsdefault" style="margin-top: 4px;">
 						<div class="row">
 							<label><input type="checkbox" id="connectortr" onchange="toggleConnector(this)" />Can get from TR Front to other exit</label>
 						</div>
@@ -489,15 +513,16 @@
 					</div>
 					<div id="dungeonconnectorsdoors">
 						<div class="row">
+							<label><input type="checkbox" id="connectorhcchcb" onchange="toggleConnector(this)" />Can get from HC Courtyard to HC Balcony</label>
+						</div>
+						<div class="row">
 							<label><input type="checkbox" id="connectorboesanc" onchange="toggleConnector(this)" />Can get from Back of Escape to Sanctuary</label>
 						</div>
 						<div class="row">
-							<label><input type="checkbox" id="connectorboehcb" onchange="toggleConnector(this)" />Can get from Back of Escape to HC Balcony</label>
-							<label><input type="checkbox" id="connectorboehcc" onchange="toggleConnector(this)" />HC Courtyard</label>
+							<label><input type="checkbox" id="connectorboehcb" onchange="toggleConnector(this)" />Can get from Back of Escape to HC Balcony</label><label><input type="checkbox" id="connectorboehcc" onchange="toggleConnector(this)" />HC Courtyard</label>
 						</div>
 						<div class="row">
-							<label><input type="checkbox" id="connectorsanchcb" onchange="toggleConnector(this)" />Can get from Sanctuary to HC Balcony</label>
-							<label><input type="checkbox" id="connectorsanchcc" onchange="toggleConnector(this)" />HC Courtyard</label>
+							<label><input type="checkbox" id="connectorsanchcb" onchange="toggleConnector(this)" />Can get from Sanctuary to HC Balcony</label><label><input type="checkbox" id="connectorsanchcc" onchange="toggleConnector(this)" />HC Courtyard</label>
 						</div>
 					</div>
 					<div id="owentrancecontainer">
@@ -535,24 +560,36 @@
 						<div class="cell buttonbox rightalign" onclick="editFluteSpots()">Edit flute spots</div>
 					</div>
 					<div class="row topmargin" style="max-width: 400px;">
-						<div style="display: inline-block;">
+						<div style="display: inline-block; top: 2px; position: relative;">
 							<h3 id="owpinnedtext" class="textrow"></h3>
 						</div>
 						<div class="rightalign">
-							<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 12px;">
+							<div class="cell" style="height: 20px; top: 7px; position: relative; margin-right: 8px;">
 								<label><input type="checkbox" id="compactpinned" onchange="updateMainPathLists()" />Compact view</label>
+							</div>
+							<div class="cell">
+								<div id="zoomoutowpathpinned" class="buttonbox" style="width: 24px; margin: 4px 0;" onclick="zoomOutOverworldPath()">-</div>
+							</div>
+							<div class="cell">
+								<div id="zoominowpathpinned" class="buttonbox" style="width: 24px;" onclick="zoomInOverworldPath()">+</div>
 							</div>
 						</div>
 					</div>
 					<div id="owpinnedpaths" class="pathlist"></div>
 					<div id="owpreviouspathscontainer">
 						<div class="row topmargin" style="max-width: 400px;">
-							<div style="display: inline-block;">
+							<div style="display: inline-block; top: 2px; position: relative;">
 								<h3 id="owprevioustext" class="textrow"></h3>
 							</div>
 							<div class="rightalign">
-								<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 12px;">
+								<div class="cell" style="height: 20px; top: 7px; position: relative; margin-right: 8px;">
 									<label><input type="checkbox" id="compactprevious" onchange="updateMainPathLists()" />Compact view</label>
+								</div>
+								<div class="cell">
+									<div id="zoomoutowpathprevious" class="buttonbox" style="width: 24px; margin: 4px 0;" onclick="zoomOutOverworldPath()">-</div>
+								</div>
+								<div class="cell">
+									<div id="zoominowpathprevious" class="buttonbox" style="width: 24px;" onclick="zoomInOverworldPath()">+</div>
 								</div>
 							</div>
 						</div>
@@ -571,10 +608,10 @@
 							<div class="buttonbox" onclick="vanillaTransitionsMode(this)">Make mode-specific transition adjustments</div>
 						</div>
 						<div class="row">
-							<div class="buttonbox" onclick="vanillaWhirlpools(this)">Make all whirlpool transitions vanilla</div>
+							<div class="buttonbox" style="margin-top: 0;" onclick="vanillaWhirlpools(this)">Make all whirlpool transitions vanilla</div>
 						</div>
 						<div class="row">
-							<div class="buttonbox" onclick="vanillaSpecialScreens(this)">Make Pedestal, Zora and Hobo transitions vanilla</div>
+							<div class="buttonbox" style="margin-top: 0;" onclick="vanillaSpecialScreens(this)">Make Pedestal, Zora and Hobo transitions vanilla</div>
 						</div>
 					</div>
 					<div class="row" style="margin-top: 20px; margin-bottom: 4px;">
@@ -618,7 +655,7 @@
 				<div id="owsearch" class="cell" style="width: 100%;">
 					<div class="row fixedtop" style="display: flex; height: 36px;">
 						<div class="cell buttonsquare expand nosidebar" style="margin: 4px 8px 0 4px;" onclick="showSidebar()"></div>
-						<div class="cell buttonsquare close pointer" style="margin: 4px 8px 0 0;" onclick="loadOverworld()"></div>
+						<div class="cell buttonsquare owicon pointer" style="margin: 4px 8px 0 0;" onclick="loadOverworld()"></div>
 						<div class="pointer" style="display: inline-block; flex-grow: 1;" onclick="loadOverworld()">
 							<h2 id="owsearchtitle" class="textrow" style="pointer-events: none; white-space: nowrap;"></h2>
 						</div>
@@ -641,12 +678,18 @@
 					</div>
 					<div id="owsearchregionchoice" class="row"></div>
 					<div class="row" style="max-width: 400px;">
-						<div style="display: inline-block;">
+						<div style="display: inline-block; top: 2px; position: relative;">
 							<h3 id="owsearchresultstext" class="textrow">Search results</h3>
 						</div>
 						<div class="rightalign">
-							<div class="cell" style="height: 20px; top: 5px; position: relative; margin-right: 12px;">
+							<div class="cell" style="height: 20px; top: 7px; position: relative; margin-right: 8px;">
 								<label><input type="checkbox" id="compactsearchresults" onchange="updateSearchResults()" />Compact view</label>
+							</div>
+							<div class="cell">
+								<div id="zoomoutowpathsearch" class="buttonbox" style="width: 24px; margin: 4px 0;" onclick="zoomOutOverworldPath()">-</div>
+							</div>
+							<div class="cell">
+								<div id="zoominowpathsearch" class="buttonbox" style="width: 24px;" onclick="zoomInOverworldPath()">+</div>
 							</div>
 						</div>
 					</div>
@@ -751,14 +794,15 @@
 			</div>
 		</div>
 		<div id="fullowModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideFullOverworldModal()">
-			<div id="fullowModalMain" style="width: calc(100% - 8px); background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 24px; left: 4px; border-style: solid; border-color: white; color: white;" onclick="event.stopPropagation()">
+			<div id="fullowModalMain" style="width: calc(100% - 8px); max-width: 1544px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 24px; left: 4px; border-style: solid; border-color: white; color: white;" onclick="event.stopPropagation()">
 				<div class="row" style="display: flex;">
 					<div class="cell" style="flex-grow: 1;">
-						<h2 id="fullowtitle" class="textrow" style="margin-left: 4px;"></h2>
+						<h2 id="fullowtitle" class="textrow" style="margin: 2px 4px 0 4px;"></h2>
 					</div>
+					<div class="cell buttonsquare owicon pointer" style="margin: 4px 4px 0 0;" onclick="hideFullOverworldModal(); sideLoadOverworld()"></div>
 					<div class="cell buttonsquare close" style="margin: 4px 4px 0 0; border-color: rgb(255,128,128);" onclick="hideFullOverworldModal()"></div>
 				</div>
-				<div class="row" style="max-width: 512px;">
+				<div class="row">
 					<div class="cell">
 						<div id="switchow" class="buttonbox" onclick="switchFullOverworld()">Switch worlds</div>
 					</div>
@@ -770,7 +814,7 @@
 							<span style="top: 7px; margin-right: 4px; position: relative;"><input type="checkbox" id="zoomautoow" onchange="zoomAutoFullOverworld(this)" /><label id="zoomautoowtext" for="zoomautoow">Auto zoom</label></span>
 						</div>
 						<div class="cell">
-							<div id="zoomoutow" class="buttonbox" onclick="zoomOutFullOverworld()">Zoom out</div>
+							<div id="zoomoutow" class="buttonbox" style="margin: 4px 0;" onclick="zoomOutFullOverworld()">Zoom out</div>
 						</div>
 						<div class="cell">
 							<div id="zoominow" class="buttonbox" onclick="zoomInFullOverworld()">Zoom in</div>
@@ -783,7 +827,7 @@
 						<div id="fullowpaneloverlay" style="position: absolute; pointer-events: none; z-index: 3;"></div>
 					</div>
 				</div>
-				<div id="fullowscreenactions" style="max-width: 512px; display: none;">
+				<div id="fullowscreenactions" style="display: none;">
 					<div class="row">
 						<div style="display: inline-block;">
 							<h3 id="fullowscreenname" class="textrow" style="margin-left: 4px;"></h3>
@@ -800,15 +844,16 @@
 						<div id="fullowregionlist" class="cell rightalign"></div>
 					</div>
 				</div>
-				<div id="fullowedgeactions" class="row" style="max-width: 512px; display: none;">
+				<div id="fullowedgeactions" class="row" style="display: none;">
 					<div style="display: inline-block;">
 						<h3 id="fullowedgetext" class="textrow" style="margin-left: 4px;"></h3>
 					</div>
 					<div class="rightalign">
+						<div id="fullowedgeunselect" class="cell buttonbox" onclick="fullOverworldUnselectEdge()">Clear selection</div>
 						<div id="fullowedgedelete" class="cell buttonbox" style="border-color: rgb(255,128,128);" onclick="fullOverworldDeleteConnection()">Delete connection</div>
 					</div>
 				</div>
-				<div id="fullowconnectoractions" class="row" style="max-width: 512px; display: none;">
+				<div id="fullowconnectoractions" class="row" style="display: none;">
 					<div style="display: inline-block;">
 						<h3 class="textrow" style="margin-left: 4px;">Click on the connector end screen</h3>
 					</div>
@@ -816,9 +861,9 @@
 						<div class="cell buttonbox" onclick="fullOverworldCancelConnector()">Cancel</div>
 					</div>
 				</div>
-				<div id="fullowunknownconnector" style="max-width: 512px; display: none;">
+				<div id="fullowunknownconnector" style="display: none;">
 					<div class="row">
-						<div style="border-top: 2px solid white; margin: 12px 4px 0 4px; padding-top: 4px;">Recent connector with missing direction detail:</div>
+						<div style="border-top: 2px solid yellow; margin: 12px 4px 0 4px; padding-top: 4px;">Recent connector with missing direction detail:</div>
 					</div>
 					<div class="row">
 						<h3 id="fullowunknownconnectortext" style="margin: 0 4px 0 4px;"></h3>
@@ -828,13 +873,13 @@
 						<div class="cell buttonbox" onclick="fullConnectorTwoWay()">Both directions</div>
 					</div>
 				</div>
-				<div id="fullowcommonstarts" class="row" style="max-width: 512px; display: none;">
+				<div id="fullowcommonstarts" class="row" style="display: none;">
 					<div class="cell" style="height: 20px; top: 7px; position: relative;">
 						<label><input type="checkbox" id="owsearchincludecommon" />Always include common starts</label>
 					</div>
 					<div class="cell buttonbox rightalign" onclick="fullOverworldCommonStarts()">Use common starts only</div>
 				</div>
-				<div id="fullowflutespots" class="row" style="max-width: 512px; display: none;">
+				<div id="fullowflutespots" class="row" style="display: none;">
 					<h2 id="fullowflutespotstext" class="textrow" style="display: inline-block; margin-left: 4px;"></h2>
 					<div class="buttonbox rightalign" onclick="showFullOverworldModal('editedges')">Full map</div>
 				</div>
@@ -911,7 +956,7 @@
 		</div>
 		<div id="clickOWPathModal" aria-hidden="true" style="width: 100%; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none;" onclick="hideClickOverworldPathModal()">
 			<div id="clickOWPathModalMain" style="width: 360px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 300px; left: 8px; border-style: solid; border-color: white; color: white; overflow: hidden;" onclick="event.stopPropagation()">
-				<div id="currentclickedowpath" class="row path"></div>
+				<div id="currentclickedowpath" class="row path" style="transform-origin: 0 0;"></div>
 				<div class="row">
 					<div id="saveowpath" class="cell">
 						<div class="buttonbox" style="border-color: rgb(128,255,128);" onclick="pinOverworldPath(this)">Pin path for later</div>

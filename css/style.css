@@ -167,7 +167,8 @@ body {
 .possible { background-color: yellow; }
 .information { background-color: orange; }
 .darkavailable { background-color: blue; }
-.darkpossible { background-color: purple; } 
+.darkpossible { background-color: purple; }
+.partialavailable { background-color: rgb(23, 170, 238); }
 .opened { background-color: #7f7f7f; }
 .hidden { width: 0px!important; height: 0px!important; }
 
@@ -435,6 +436,18 @@ body {
 #locationMap64 { left: 44.9%; top: 14.7%; }
 #locationMap65 { left: 21.0%; top: 52.6%; }
 #locationMap66 { left: 29.0%; top: 52.6%; }
+#locationMap67 { left: 37.0%; top: 76.0%; }
+#locationMap68 { left: 5.2%; top: 59.6%; }
+#locationMap69 { left: 38.7%; top: 17.1%; }
+#locationMap70 { left: 83.5%; top: 78.5%; }
+#locationMap71 { left: 60.8%; top: 53.4%; }
+#locationMap72 { left: 93.3%; top: 20.2%; }
+#locationMap73 { left: 90.8%; top: 32.5%; }
+#locationMap74 { left: 66.6%; top: 6.3%; }
+#locationMap75 { left: 66.5%; top: 44.2%; }
+#locationMap76 { left: 40.0%; top: 27.5%; }
+#locationMap77 { left: 39.8%; top: 84.5%; }
+#locationMap78 { left: 77.4%; top: 67.9%; }
 
 .instructionsDiv {
     width: 1200px;

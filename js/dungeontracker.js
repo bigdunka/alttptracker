@@ -6,16 +6,16 @@
 	window.excludesmallkeys = true;
 	window.excludebigkeys = true;
 	window.owshuffle = 'N';
-	window.crossedow = false;
+	window.crossedow = 'N';
 	window.similarow = false;
 	window.mixedow = false;
 	window.fluteshuffle = false;
 	window.worldState = 'O';
 	window.entranceEnabled = false;
 
-	let outstandingUpdate = false,currentDungeon = -1,currentPath = null,clickedPathIndex,currentlyEditing = false,editingIndex,globalHasBranch = false,visibleSidebar = true;
+	let outstandingUpdate = false,awaitingNextUpdate = true,currentDungeon = -1,currentPath = null,clickedPathIndex,currentlyEditing = false,editingIndex,globalHasBranch = false,visibleSidebar = true;
 	let ownItems = {},reachableEdges = null,currentOWPath = null,currentOWScreen = null,fullOverworldMode = null,fullOWFixedEdge = null,fullOWSelectedScreen = null,fullOWSelectedEdge = null,fullOWConnectorStart = null,fullOWConnectorEnd = null,extraOWScreen = null,extraOWDirection = null,lastUnknownConnectorIndex = -1;
-	let searchResults = new Map(),searchRegion = null,searchStartScreen = null,searchRegionChoiceVisible = false,clickedOverworldPathIndex,clickedOverworldPathListName,clickedOverworldPath = null,clickedConnectorIndex,drawDarkWorld = false,sideBySide = false,fullZoom = .8,fullZoomAuto = true;
+	let searchResults = new Map(),searchRegion = null,searchStartScreen = null,searchRegionChoiceVisible = false,searchResultsLength = 0,clickedOverworldPathIndex,clickedOverworldPathListName,clickedOverworldPath = null,clickedConnectorIndex,drawDarkWorld = false,sideBySide = false,fullZoom = .8,fullZoomAuto = true,pathZoom = 1;
 	window.dungeonPaths = [];
 	window.entranceConnectors = [];
 	window.fixedStartRegions = [];
@@ -26,7 +26,7 @@
 
 	const dungeonNamesLong = ["Eastern Palace","Desert Palace","Tower of Hera","Palace of Darkness","Swamp Palace","Skull Woods","Thieves' Town","Ice Palace","Misery Mire","Turtle Rock","Ganon's Tower","Hyrule Castle","Castle Tower"];
 	const dungeonNamesShort = ["EP","DP","ToH","PoD","SP","SW","TT","IP","MM","TR","GT","HC","CT"];
-	const checkboxFlags = ["showmorerooms","splitpath","owsidebaredit","owsidebarnew","owsidebarsearch","itemsync","activeflutebox","connectorsync","pinnedlinkshouse","pinnedsanctuary","pinnedoldman","pinnedpyramid","compactpinned","compactprevious","alwaysfollowmarked","compactsearchresults","sidebysideow","zoomautoow","owsearchincludecommon"];
+	const checkboxFlags = ["globalsync","showmorerooms","splitpath","owsidebaredit","owsidebarnew","owsidebarsearch","itemsync","activeflutebox","connectorsync","pinnedlinkshouse","pinnedsanctuary","pinnedoldman","pinnedpyramid","compactpinned","compactprevious","alwaysfollowmarked","compactsearchresults","sidebysideow","zoomautoow","owsearchincludecommon"];
 	const fullOWTitle = {"newpath":"Start a new path","continuepath":"Where does this transition lead to?","searchpath":"Select a target screen","searchpathtarget":"Select a new target screen","searchpathstart":"Select a starting screen","editedges":"Click on a transition or screen","editflutespots":"Click on a screen to place a flute spot"};
 
 	window.overworldScreens = new Map();
@@ -753,6 +753,7 @@
 		doorshuffle = document.getElementById("selectdoorshuffle").value[0];
 		lobbyshuffle = document.getElementById("lobbyshuffle").checked;
 		updateOverviewElements();
+		sendUpdate();
 	};
 
 	window.updateKeys = function()
@@ -765,18 +766,19 @@
 	window.updateOverworldShuffle = function(showVanillaOWBox)
 	{
 		owshuffle = document.getElementById("selectowshuffle").value[0];
-		crossedow = document.getElementById("crossedow").checked;
+		crossedow = document.getElementById("crossedow").value[0];
 		similarow = document.getElementById("similarow").checked;
 		mixedow = document.getElementById("mixedow").checked;
 		fluteshuffle = document.getElementById("fluteshuffle").checked;
 		worldState = document.getElementById("selectworldstate").value[0];
 		entranceEnabled = document.getElementById("entranceenabled").checked;
-		if(owshuffle === 'N' && !crossedow && !mixedow)
+		if(owshuffle === 'N' && crossedow === 'N' && !mixedow)
 			document.getElementById("overworldoptionsfinalbox").style.display = "none";
 		else
 			if(showVanillaOWBox)
 				document.getElementById("overworldoptionsfinalbox").style.display = "block";
 		updateOverviewElements();
+		sendUpdate();
 		updateReachableEdges();
 	};
 
@@ -789,7 +791,7 @@
 
 	window.updateOverviewElements = function()
 	{
-		let noOverworld = owshuffle === 'N' && !crossedow && !mixedow && !fluteshuffle;
+		let noOverworld = owshuffle === 'N' && crossedow === 'N' && !mixedow && !fluteshuffle && !document.getElementById("globalsync").checked;
 		document.getElementById("overviewtitle").innerHTML = doorshuffle === 'N' ?(noOverworld ?"Please select a mode" :"Overworld Tracker") :(noOverworld ?"Dungeon Tracker" :"Overworld and Dungeon Tracker");
 		document.getElementById("overviewoverworld").style.display = noOverworld ?"none" :"block";
 		document.getElementById("overviewownewpath").style.display = owshuffle === 'N' ?"none" :"block";
@@ -801,23 +803,102 @@
 		updateSidebarElements();
 	};
 
+	window.hideFinalBox = function()
+	{
+		document.getElementById("overworldoptionsfinalbox").style.display = "none";
+	};
+
+	window.updateGlobalSync = function()
+	{
+		if(document.getElementById("globalsync").checked)
+		{
+			document.getElementById("itemsync").checked = document.getElementById("itemsync").disabled = document.getElementById("connectorsync").checked = document.getElementById("connectorsync").disabled = true;
+			document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = true;
+			awaitingNextUpdate = true;
+			if(window.opener && !window.opener.closed)
+				window.opener.postMessage("ITEMS","*");
+			updateConnectorList();
+		}
+		else
+		{
+			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = false;
+			document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = false;
+			awaitingNextUpdate = true;
+			if(window.opener && !window.opener.closed)
+				window.opener.postMessage("RESETLOGIC","*");
+		}
+		updateOverviewElements();
+		sendUpdate();
+	};
+
 	window.updateItemSync = function()
 	{
-		if(document.getElementById("itemsync").checked && window.opener && !window.opener.closed)
+		if((document.getElementById("itemsync").checked || document.getElementById("globalsync").checked) && window.opener && !window.opener.closed)
 			window.opener.postMessage("ITEMS","*");
 	};
 
 	window.updateConnectorSync = function()
 	{
-		if(document.getElementById("connectorsync").checked && window.opener && !window.opener.closed)
+		if((document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked) && window.opener && !window.opener.closed)
 			window.opener.postMessage("ITEMS","*");
 		updateConnectorList();
 	};
 
+	window.showGlobalSyncInfo = function()
+	{
+		let s = "If this is enabled, the main tracker window logic takes Overworld Shuffle and everything tracked in this window into account.\n";
+		s += "This only works if the full item tracker in the main window is used. The main window must also be in Overworld Shuffle mode. With Entrance Shuffle, connector caves also have to be set through the map tracker in the main window.\n";
+		s += "Also, this window must have been opened from the main tracker window and the main tracker window cannot be reloaded or closed. If a new connection between this window and the main tracker window needs to be established, check out the instructions for information on how to keep your tracking progress.\n";
+		s += "Before you start, make sure all mode settings are correctly set in the main tracker window and some form of Overworld Shuffle is enabled (otherwise you may have to go back to the tracker launcher). Only overworld-specific settings are still handled through this window.\n\n";
+		s += "Current status: ";
+		if(window.opener)
+			if(window.opener.closed)
+				s += "Disconnected from main tracker window, please close this tracker window and open it from the main tracker window.";
+			else
+				s += "Connected to main tracker window, sync possible.";
+		else
+			s += "Not opened from main tracker window, please close this tracker window and open it from the main tracker window obtained through the Community Tracker launcher.";
+		alert(s);
+	};
+
 	window.receiveItemUpdate = function(newItems)
 	{
-		let changed = false;
-		if(document.getElementById("itemsync").checked)
+		let changed = awaitingNextUpdate;
+		awaitingNextUpdate = false;
+		if(document.getElementById("globalsync").checked)
+		{
+			if(newItems.flags && newItems.flags.hasOwnProperty("gametype"))
+			{
+				let newState = newItems.flags.gametype;
+				if(newState != worldState && (newState === 'S' || newState === 'O' || newState === 'I' || newState === 'R'))
+				{
+					worldState = newState;
+					document.getElementById("selectworldstate").value = ""+worldState;
+					if(owshuffle !== 'N' || crossedow !== 'N' || mixedow)
+						document.getElementById("overworldoptionsfinalbox").style.display = "block";
+					hideFullOverworldModal();
+					if(document.getElementById("owmain").style.display === "block")
+						loadOverworld();
+					changed = true;
+				}
+			}
+			if(newItems.flags && newItems.flags.hasOwnProperty("entrancemode"))
+			{
+				let newState = newItems.flags.entrancemode;
+				if((newState === 'S') != entranceEnabled && (newState === 'N' || newState === 'S'))
+				{
+					entranceEnabled = newState === 'S';
+					document.getElementById("entranceenabled").checked = entranceEnabled;
+					if(owshuffle !== 'N' || crossedow !== 'N' || mixedow)
+						document.getElementById("overworldoptionsfinalbox").style.display = "block";
+					hideFullOverworldModal();
+					if(document.getElementById("owmain").style.display === "block")
+						loadOverworld();
+					changed = true;
+				}
+			}
+		}
+		if(document.getElementById("itemsync").checked || document.getElementById("globalsync").checked)
 		{
 			for(let item of ["moonpearl","hammer","hookshot","flippers","mirror","flute","boots","book","lantern","agahnim"])
 			{
@@ -852,8 +933,17 @@
 						ownItems.gloves = ownItems.mitts = true;
 						changed = true;
 					}
+			for(let item of Object.keys(newItems))
+				if(!["moonpearl","hammer","hookshot","flippers","mirror","flute","boots","book","lantern","agahnim"].includes(item))
+				{
+					if(ownItems[item] != newItems[item])
+					{
+						ownItems[item] = newItems[item];
+						changed = true;
+					}
+				}
 		}
-		if(document.getElementById("connectorsync").checked)
+		if(document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
 		{
 			let keepConnectors = new Set(),createConnectors = [];
 			for(let k = 0; k < newItems.connectorOne.length; k++)
@@ -918,7 +1008,7 @@
 				if(loadAll(event.data))
 				{
 					loadOverview();
-					if(document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked)
+					if(document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
 						window.opener.postMessage("ITEMS","*");
 				}
 				else
@@ -968,6 +1058,8 @@
 			all[checkboxFlag] = document.getElementById(checkboxFlag).checked;
 		all.sideBySide = sideBySide;
 		all.fullZoom = fullZoom;
+		all.pathZoom = pathZoom;
+		all.showOptionsFinalBox = document.getElementById("overworldoptionsfinalbox").style.display === "block";
 		all.timeString = new Date().toLocaleString();
 		return all;
 	};
@@ -1071,6 +1163,12 @@
 		pinnedPaths = newData.pinnedPaths;
 		previousPaths = newData.previousPaths;
 		crossedow = newData.crossedow;
+		if(crossedow === false)
+			crossedow = 'N';
+		if(crossedow === true)
+			crossedow = 'C';
+		if(crossedow !== 'N' && crossedow !== 'P' && crossedow !== 'C')
+			crossedow = 'N';
 		similarow = newData.similarow;
 		mixedow = newData.mixedow;
 		fluteshuffle = newData.fluteshuffle;
@@ -1083,7 +1181,7 @@
 		document.getElementById("excludesmallkeys").checked = excludesmallkeys;
 		document.getElementById("excludebigkeys").checked = excludebigkeys;
 		document.getElementById("selectowshuffle").value = ""+owshuffle;
-		document.getElementById("crossedow").checked = crossedow;
+		document.getElementById("crossedow").value = ""+crossedow;
 		document.getElementById("similarow").checked = similarow;
 		document.getElementById("mixedow").checked = mixedow;
 		document.getElementById("fluteshuffle").checked = fluteshuffle;
@@ -1094,12 +1192,24 @@
 		sideBySide = document.getElementById("sidebysideow").checked;
 		fullZoomAuto = document.getElementById("zoomautoow").checked;
 		fullZoom = newData.fullZoom ?Math.max(.5,Math.min(newData.fullZoom,1.5)) :.8;
+		pathZoom = newData.pathZoom ?Math.max(.5,Math.min(newData.pathZoom,2)) :1;
+		document.getElementById("overworldoptionsfinalbox").style.display = newData.showOptionsFinalBox && (owshuffle !== 'N' || crossedow !== 'N' || mixedow) ?"block" :"none";
+		if(document.getElementById("globalsync").checked)
+		{
+			document.getElementById("itemsync").checked = document.getElementById("connectorsync").checked = true;
+			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = true;
+		}
+		else
+			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = false;
+		awaitingNextUpdate = true;
 		updateOverviewElements();
 		updateReachableEdges();
 		updateItemTracker();
 		updateConnectorList();
 		updateStartRegionList();
 		updateMainPathLists();
+		applyFullOverworldZoom();
+		applyOverworldPathZoom();
 		return true;
 	};
 
@@ -1153,6 +1263,7 @@
 			customFluteSpots = [0x30];
 			pinnedPaths = [];
 			previousPaths = [];
+			document.getElementById("overworldoptionsfinalbox").style.display = owshuffle !== 'N' || crossedow !== 'N' || mixedow ?"block" :"none";
 			updateOverviewElements();
 			updateReachableEdges();
 			updateItemTracker();
@@ -1196,31 +1307,34 @@
 			worldState = 'O';
 		if(query.entrance_shuffle && query.entrance_shuffle !== 'N' && query.entrance_shuffle !== 'n')
 			entranceEnabled = true;
+		let sync = (query.init_sync+'').toLowerCase() === 'true';
 		document.getElementById("selectdoorshuffle").value = ""+doorshuffle;
 		document.getElementById("lobbyshuffle").checked = lobbyshuffle;
 		document.getElementById("excludesmallkeys").checked = excludesmallkeys;
 		document.getElementById("excludebigkeys").checked = excludebigkeys;
 		document.getElementById("selectowshuffle").value = ""+owshuffle;
-		document.getElementById("crossedow").checked = false;
+		document.getElementById("crossedow").value = 'N';
 		document.getElementById("similarow").checked = false;
 		document.getElementById("mixedow").checked = false;
 		document.getElementById("fluteshuffle").checked = false;
 		document.getElementById("selectworldstate").value = ""+worldState;
 		document.getElementById("entranceenabled").checked = entranceEnabled;
+		document.getElementById("globalsync").checked = sync;
 		document.getElementById("showmorerooms").checked = false;
 		document.getElementById("splitpath").checked = true;
 		document.getElementById("owsidebaredit").checked = true;
 		document.getElementById("owsidebarnew").checked = true;
 		document.getElementById("owsidebarsearch").checked = true;
-		document.getElementById("itemsync").checked = true;
+		document.getElementById("itemsync").checked = sync;
 		document.getElementById("connectortr").checked = false;
 		document.getElementById("connectorhccsanc").checked = false;
+		document.getElementById("connectorhcchcb").checked = false;
 		document.getElementById("connectorboesanc").checked = false;
 		document.getElementById("connectorboehcb").checked = false;
 		document.getElementById("connectorboehcc").checked = false;
 		document.getElementById("connectorsanchcb").checked = false;
 		document.getElementById("connectorsanchcc").checked = false;
-		document.getElementById("connectorsync").checked = true;
+		document.getElementById("connectorsync").checked = sync;
 		document.getElementById("owpathsnote").value = "";
 		document.getElementById("pinnedlinkshouse").checked = true;
 		document.getElementById("pinnedsanctuary").checked = false;
@@ -1233,6 +1347,10 @@
 		document.getElementById("sidebysideow").checked = false;
 		document.getElementById("zoomautoow").checked = true;
 		document.getElementById("owsearchincludecommon").checked = true;
+		if(sync)
+			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = true;
+		if(!query.request_update && (owshuffle !== 'N' || crossedow !== 'N' || mixedow))
+			document.getElementById("overworldoptionsfinalbox").style.display = "block";
 		try
 		{
 			if(localStorage.getItem("dungeonData"))
@@ -1275,7 +1393,7 @@
 		document.getElementById("owentrancecontainer").style.display = entranceEnabled ?"block" :"none";
 		document.getElementById("owfluteshufflerow").style.display = fluteshuffle ?"block" :"none";
 		document.getElementById("owpreviouspathscontainer").style.display = owshuffle === 'N' ?"none" :"block";
-		document.getElementById("owvanillatransitions").style.display = owshuffle === 'N' && !crossedow ?"none" :"";
+		document.getElementById("owvanillatransitions").style.display = owshuffle === 'N' && crossedow !== 'C' ?"none" :"";
 		updateConnectorList();
 		updateStartRegionList();
 		updateMainPathLists();
@@ -1307,7 +1425,7 @@
 	window.updateConnectorList = function()
 	{
 		document.getElementById("owconnectorlisttext").innerHTML = "Connector caves ("+entranceConnectors.length+")";
-		if(document.getElementById("connectorsync").checked)
+		if(document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
 			document.getElementById("owmainaddconnector").classList.add("disabled");
 		else
 			document.getElementById("owmainaddconnector").classList.remove("disabled");
@@ -1439,7 +1557,7 @@
 
 	window.deleteClickedConnector = function()
 	{
-		if(!document.getElementById("connectorsync").checked)
+		if(!document.getElementById("connectorsync").checked && !document.getElementById("globalsync").checked)
 		{
 			deleteEntranceConnector(clickedConnectorIndex,entranceConnectors[clickedConnectorIndex]);
 			outstandingUpdate = true;
@@ -1492,7 +1610,7 @@
 
 	window.toggleItem = function(item)
 	{
-		if(document.getElementById("itemsync").checked)
+		if(document.getElementById("itemsync").checked || document.getElementById("globalsync").checked)
 		{
 			if(window.opener && !window.opener.closed)
 				window.opener.postMessage("TOGGLE "+(item === "gloves" ?"glove" :item),"*");
@@ -1561,7 +1679,7 @@
 		updateReachableEdges();
 	};
 
-	window.clickScreenFull = function(id)
+	window.clickScreenFull = function(event,id)
 	{
 		switch(fullOverworldMode)
 		{
@@ -1583,7 +1701,8 @@
 				searchOverworldPath(false);
 				return;
 			case "editedges":
-				updateClickScreenOptions(id);
+				if(!fullOWSelectedEdge || event.detail > 1)
+					updateClickScreenOptions(id);
 				return;
 			case "editflutespots":
 				if(customFluteSpots.includes(id%0x40))
@@ -1764,6 +1883,14 @@
 		buttonFlash(button);
 	};
 
+	window.fullOverworldUnselectEdge = function()
+	{
+		fullOWSelectedEdge = null;
+		document.getElementById("fullowedgeactions").style.display = "none";
+		fullCheckConnectorDetails();
+		drawFullOverworldPanel();
+	};
+
 	window.fullOverworldDeleteConnection = function()
 	{
 		if(fullOWSelectedEdge && (fullOWSelectedEdge.out || fullOWSelectedEdge.in))
@@ -1793,14 +1920,17 @@
 
 	window.startOverworldPath = function(id)
 	{
-		currentOWPath = [id];
-		let screen = currentOWScreen = overworldScreens.get(id);
-		document.getElementById("owcurrentpathheader").innerHTML = "Creating a new"+" overworld path";
-		updateCurrentOverworldPath();
-		drawDirectionsFromScreen(screen);
-		hideFullOverworldModal();
-		activeOverworld();
-		switchScene("owpathedit");
+		if(owshuffle !== 'N')
+		{
+			currentOWPath = [id];
+			let screen = currentOWScreen = overworldScreens.get(id);
+			document.getElementById("owcurrentpathheader").innerHTML = "Creating a new overworld path";
+			updateCurrentOverworldPath();
+			drawDirectionsFromScreen(screen);
+			hideFullOverworldModal();
+			activeOverworld();
+			switchScene("owpathedit");
+		}
 	};
 
 	window.drawDirectionsFromScreen = function(screen)
@@ -1851,7 +1981,7 @@
 			{
 				updateCurrentOverworldPath();
 				fullOWFixedEdge = edge;
-				if(!sideBySide && !crossedow)
+				if(!sideBySide && crossedow === 'N')
 					drawDarkWorld = isDarkWorld(currentOWScreen);
 				showFullOverworldModal("continuepath");
 			}
@@ -2100,6 +2230,8 @@
 		searchStartScreen = null;
 		searchResults.clear();
 		document.getElementById("owsearchresults").innerHTML = "";
+		document.getElementById("owsearchresults").style.height = "0";
+		searchResultsLength = 0;
 		hideFullOverworldModal();
 		activeOverworld();
 		switchScene("owsearch");
@@ -2113,6 +2245,8 @@
 		document.getElementById("owsearchtitle").innerHTML = "Paths to "+screen.name;
 		document.getElementById("owsearchstarttext").innerHTML = "Starting from "+(searchStartScreen ?searchStartScreen.name :"common start locations");
 		document.getElementById("owsearchresults").innerHTML = "";
+		document.getElementById("owsearchresults").style.height = "0";
+		searchResultsLength = 0;
 		hideFullOverworldModal();
 		let items = getModifiedOwnItems();
 		let startRegions = searchStartScreen ?Array.from(searchStartScreen.regions.values()) :fixedStartRegions.concat(customStartRegions);
@@ -2214,8 +2348,10 @@
 					l--;
 				}
 		paths.sort((a,b)=>a.length-b.length);
-		document.getElementById("owsearchresultstext").innerHTML = "Search results ("+paths.length+")";
+		searchResultsLength = paths.length;
+		document.getElementById("owsearchresultstext").innerHTML = "Search results ("+searchResultsLength+")";
 		document.getElementById("owsearchresults").innerHTML = drawPathList(paths,document.getElementById("compactsearchresults").checked,"search");
+		document.getElementById("owsearchresults").style.height = (searchResultsLength*66-2)*pathZoom+"px";
 	};
 
 	window.drawPathList = function(paths,compact,listName)
@@ -2257,8 +2393,10 @@
 	{
 		document.getElementById("owpinnedtext").innerHTML = "Pinned paths ("+pinnedPaths.length+")";
 		document.getElementById("owpinnedpaths").innerHTML = drawPathList(pinnedPaths,document.getElementById("compactpinned").checked,"pinned");
+		document.getElementById("owpinnedpaths").style.height = (pinnedPaths.length*66-2)*pathZoom+"px";
 		document.getElementById("owprevioustext").innerHTML = "Saved explored paths ("+previousPaths.length+")";
 		document.getElementById("owpreviouspaths").innerHTML = drawPathList(previousPaths,document.getElementById("compactprevious").checked,"previous");
+		document.getElementById("owpreviouspaths").style.height = (previousPaths.length*66-2)*pathZoom+"px";
 	};
 
 	window.equalPaths = function(path1,path2)
@@ -2300,7 +2438,7 @@
 			ownItems.mitts = false;
 			document.getElementById("itemgloves").classList.remove("collected","mitts");
 		}
-		for(let item of ["connectortr","connectorhccsanc","connectorboesanc","connectorboehcb","connectorboehcc","connectorsanchcb","connectorsanchcc"])
+		for(let item of ["connectortr","connectorhccsanc","connectorhcchcb","connectorboesanc","connectorboehcb","connectorboehcc","connectorsanchcb","connectorsanchcc"])
 			document.getElementById(item).checked = ownItems[item];
 	};
 
@@ -2317,7 +2455,7 @@
 			if((!sideBySide && darkWorld != drawDarkWorld) || (screen.special && fullOverworldMode === "editflutespots"))
 				continue;
 			let unknownScreen = mixedow && screen.mixedState === "unknown" && fullOverworldMode !== "editflutespots";
-			let scale = .5,classes = "owscreen full",onClick = unknownScreen ?"" :"clickScreenFull("+id+")",valid = true;
+			let scale = .5,classes = "owscreen full",onClick = unknownScreen ?"" :"clickScreenFull(event,"+id+")",valid = true;
 			if(screen.big)
 				classes += " bigscreen";
 			if(screen === fixedScreen)
@@ -2342,7 +2480,7 @@
 			let y = screen.special ?screen.y :(id%0x40 >> 3)*128*scale;
 			if(sideBySide && darkWorld != drawDarkWorld)
 				x += 1024*scale;
-			s += "<div class='"+classes+"' onclick='"+onClick+(unknownScreen || (owshuffle === 'N' && !crossedow) ?"' " :"' onmouseover='hoverScreen("+id+")' onmouseout='clearFullOverlay()' ");
+			s += "<div class='"+classes+"' onclick='"+onClick+(unknownScreen || (owshuffle === 'N' && crossedow !== 'C') ?"' " :"' onmouseover='hoverScreen("+id+")' onmouseout='clearFullOverlay()' ");
 			if(screen.special)
 				s += "style='left: "+x+"px; top: "+y+"px; z-index: 1'><div class='specialshadow'><img class='roomnodeimg' src='./images/overlay/"+screen.file+".png' style='transform: scale("+scale+");'></div>";
 			else
@@ -2360,7 +2498,7 @@
 			s += "</span></div>";
 			if((fullOverworldMode === "editflutespots" || (fluteshuffle && ownItems.flute && document.getElementById("activeflutebox").checked)) && darkWorld === (worldState === 'I') && customFluteSpots.includes(id%0x40))
 				s += "<div class='flutesymbol' style='left: "+(x+getBigScreenSubareaX(screen)+16)+"px; top: "+(y+getBigScreenSubareaY(screen)+16)+"px; opacity: "+(fullOverworldMode === "editflutespots" ?1 :.75)+"'></div>";
-			if(!fullOWConnectorStart && !unknownScreen && (fullOverworldMode !== "editflutespots") && (owshuffle !== 'N' || crossedow))
+			if(!fullOWConnectorStart && !unknownScreen && (fullOverworldMode !== "editflutespots") && (owshuffle !== 'N' || crossedow === 'C'))
 				for(let edge of screen.edges.values())
 					if(!fixedEdge || edge === fixedEdge || edgesCompatible(edge,fixedEdge))
 					{
@@ -2378,10 +2516,10 @@
 							s += " onclick='clickEdgeFull("+id+",\""+edge.string+"\")' onmouseover='hoverEdge("+id+",\""+edge.string+"\")' onmouseout='clearFullOverlay()'";
 						s += "></div>";
 					}
-			if(id === 0x18 && !fullOWConnectorStart && ownItems.flute && !document.getElementById("activeflutebox").checked)
-				s += "<span class='activateflute"+(visitedScreenEdges.has(overworldScreens.get(0x18).edges.get("N0")) ?" green" :"")+"' style='left: "+(x+16)+"px; top: "+(y+26)+"px;' onclick='clickFluteActivated()'>Flute activated</span>";
-			if(id === 0x18 && fullOverworldMode === "editedges" && !fullOWConnectorStart && fluteshuffle && customFluteSpots.length != 8 && ownItems.flute && document.getElementById("activeflutebox").checked)
-				s += "<span class='activateflute"+(visitedScreenEdges.has(overworldScreens.get(0x18).edges.get("N0")) ?" green" :"")+"' style='left: "+(x+16)+"px; top: "+(y+26)+"px;' onclick='clickSetFluteSpots()'>Set flute spots</span>";
+			if((id === 0x18 || (id === 0x58 && !sideBySide)) && !fullOWConnectorStart && ownItems.flute && !document.getElementById("activeflutebox").checked)
+				s += "<span class='activateflute"+(visitedScreenEdges.has(overworldScreens.get(0x18).edges.get("N0")) && (ownItems.moonpearl || (id === 0x18) === (darkWorld === (worldState === 'I'))) ?" green" :"")+"' style='left: "+(x+16)+"px; top: "+(y+26)+"px;' onclick='clickFluteActivated()'>Flute activated</span>";
+			if(id%0x40 === 0x18 && (darkWorld === (worldState === 'I') || !sideBySide) && fullOverworldMode === "editedges" && !fullOWConnectorStart && fluteshuffle && customFluteSpots.length != 8 && ownItems.flute && document.getElementById("activeflutebox").checked)
+				s += "<span class='activateflute"+(true ?" green" :"")+"' style='left: "+(x+16)+"px; top: "+(y+26)+"px;' onclick='clickSetFluteSpots()'>Set flute spots</span>";
 			if(id%0x40 === 0x30 && mixedow && !darkWorld)
 				s += "<div class='lightworldsymbol' style='left: "+(x+1)+"px; top: "+(y+47)+"px;'></div>";
 			if(id%0x40 === 0x30 && mixedow && darkWorld)
@@ -2511,8 +2649,9 @@
 			document.getElementById("fullowpanel").classList.remove("clickedges");
 		fullOWSelectedScreen = fullOWSelectedEdge = fullOWConnectorStart = null;
 		document.getElementById("fullowscreenactions").style.display = "none";
+		document.getElementById("fullownewpath").style.display = owshuffle === 'N' ?"none" :"block";
 		document.getElementById("fullowunknownstate").style.display = mixedow ?"block" :"none";
-		document.getElementById("fullownewconnector").style.display = entranceEnabled && !document.getElementById("connectorsync").checked ?"block" :"none";
+		document.getElementById("fullownewconnector").style.display = entranceEnabled && !document.getElementById("connectorsync").checked && !document.getElementById("globalsync").checked ?"block" :"none";
 		document.getElementById("fullowedgeactions").style.display = "none";
 		document.getElementById("fullowconnectoractions").style.display = "none";
 		document.getElementById("fullowcommonstarts").style.display = mode === "searchpathstart" ?"block" :"none";
@@ -2605,18 +2744,21 @@
 
 	window.showClickOverworldPathModal = function(event,pathIndex,listName,pathString)
 	{
+		let width = document.body.clientWidth-64;
 		clickedOverworldPathIndex = pathIndex;
 		clickedOverworldPathListName = listName;
 		clickedOverworldPath = pathString.split("|");
 		for(let k = 0; k < clickedOverworldPath.length; k += 3)
 			clickedOverworldPath[k] = parseInt(clickedOverworldPath[k]);
-		let [drawn,,height] = drawOverworldPath(clickedOverworldPath,true,true,352);
+		let [drawn,,height] = drawOverworldPath(clickedOverworldPath,true,true,(width-8)/pathZoom);
+		height *= pathZoom;
 		document.getElementById("currentclickedowpath").style.height = height+"px";
 		document.getElementById("currentclickedowpath").innerHTML = drawn;
 		document.getElementById("saveowpath").style.display = listName === "pinned" ?"none" :"block";
 		document.getElementById("deleteowpath").style.display = listName === "search" ?"none" :"block";
-		document.getElementById("clickOWPathModalMain").style.left = (visibleSidebar ?"64" :"4")+"px";
+		document.getElementById("clickOWPathModalMain").style.left = "40px";
 		document.getElementById("clickOWPathModalMain").style.top = Math.min(event.clientY-20,window.innerHeight-height-48)+"px";
+		document.getElementById("clickOWPathModalMain").style.width = width+"px";
 		document.getElementById("clickOWPathModal").style.display = "block";
 	};
 
@@ -2651,7 +2793,7 @@
 			document.getElementById("clickedconnectorunknown").classList.add("disabled");
 		else
 			document.getElementById("clickedconnectorunknown").classList.remove("disabled");
-		document.getElementById("clickedconnectordelete").style.display = document.getElementById("connectorsync").checked ?"none" :"block";
+		document.getElementById("clickedconnectordelete").style.display = document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked ?"none" :"block";
 		document.getElementById("clickconnectorModalMain").style.left = (visibleSidebar ?"64" :"4")+"px";
 		document.getElementById("clickconnectorModalMain").style.top = Math.min(event.clientY-20,window.innerHeight-144)+"px";
 		document.getElementById("clickconnectorModal").style.display = "block";
@@ -2679,6 +2821,7 @@
 	window.toggleSideBySide = function()
 	{
 		sideBySide = !sideBySide;
+		outstandingUpdate = true;
 		if(fullZoomAuto)
 			calculateFullZoom();
 		drawFullOverworldPanel();
@@ -2687,6 +2830,7 @@
 	window.zoomAutoFullOverworld = function(checkbox)
 	{
 		fullZoomAuto = checkbox.checked;
+		outstandingUpdate = true;
 		if(fullZoomAuto)
 			calculateFullZoom();
 	};
@@ -2694,10 +2838,11 @@
 	window.zoomOutFullOverworld = function()
 	{
 		fullZoomAuto = document.getElementById("zoomautoow").checked = false;
+		outstandingUpdate = true;
 		if(fullZoom > .5)
 		{
 			fullZoom = Math.ceil(fullZoom*20-.0001)/20-.05;
-			applyFullOverworldZoom(fullZoom);
+			applyFullOverworldZoom();
 			document.getElementById("zoominow").classList.remove("disabled");
 			if(fullZoom <= .5)
 				document.getElementById("zoomoutow").classList.add("disabled");
@@ -2709,10 +2854,11 @@
 	window.zoomInFullOverworld = function()
 	{
 		fullZoomAuto = document.getElementById("zoomautoow").checked = false;
+		outstandingUpdate = true;
 		if(fullZoom < 1.5)
 		{
 			fullZoom = Math.floor(fullZoom*20+.0001)/20+.05;
-			applyFullOverworldZoom(fullZoom);
+			applyFullOverworldZoom();
 			document.getElementById("zoomoutow").classList.remove("disabled");
 			if(fullZoom >= 1.5)
 				document.getElementById("zoominow").classList.add("disabled");
@@ -2731,12 +2877,12 @@
 
 	window.calculateFullZoom = function()
 	{
-		let maxWidth = document.body.clientWidth-14,maxHeight = window.innerHeight-216;
+		let maxWidth = document.body.clientWidth-14,maxHeight = window.innerHeight-212;
 		if(sideBySide)
 			maxWidth /= 2;
 		let size = Math.max(256,Math.min(Math.min(maxWidth,maxHeight),768));
 		fullZoom = size/512;
-		applyFullOverworldZoom(fullZoom);
+		applyFullOverworldZoom();
 		if(fullZoom <= .5)
 			document.getElementById("zoomoutow").classList.add("disabled");
 		else
@@ -2747,11 +2893,60 @@
 			document.getElementById("zoominow").classList.remove("disabled");
 	};
 
-	window.applyFullOverworldZoom = function(zoom)
+	window.applyFullOverworldZoom = function()
 	{
-		document.getElementById("fullowpanel").style.width = 512*(sideBySide ?2 :1)*zoom+"px";
-		document.getElementById("fullowpanelrow").style.height = 512*zoom+"px";
-		document.getElementById("fullowpanel").style.transform = "scale("+zoom+")";
+		document.getElementById("fullowpanel").style.width = 512*(sideBySide ?2 :1)+"px";
+		document.getElementById("fullowpanelrow").style.height = 512*fullZoom+"px";
+		document.getElementById("fullowpanel").style.transform = "scale("+fullZoom+")";
+	};
+
+	window.zoomOutOverworldPath = function()
+	{
+		pathZoom = Math.max(.5,Math.ceil(pathZoom*8-.0001)/8-.125);
+		outstandingUpdate = true;
+		applyOverworldPathZoom();
+	};
+
+	window.zoomInOverworldPath = function()
+	{
+		pathZoom = Math.min(Math.floor(pathZoom*8+.0001)/8+.125,2);
+		outstandingUpdate = true;
+		applyOverworldPathZoom();
+	};
+
+	window.applyOverworldPathZoom = function()
+	{
+		document.getElementById("owpinnedpaths").style.transform = "scale("+pathZoom+")";
+		document.getElementById("owpreviouspaths").style.transform = "scale("+pathZoom+")";
+		document.getElementById("owsearchresults").style.transform = "scale("+pathZoom+")";
+		document.getElementById("currentclickedowpath").style.transform = "scale("+pathZoom+")";
+		document.getElementById("owpinnedpaths").style.height = (pinnedPaths.length*66-2)*pathZoom+"px";
+		document.getElementById("owpreviouspaths").style.height = (previousPaths.length*66-2)*pathZoom+"px";
+		document.getElementById("owsearchresults").style.height = (searchResultsLength*66-2)*pathZoom+"px";
+		if(pathZoom <= .5)
+		{
+			document.getElementById("zoomoutowpathpinned").classList.add("disabled");
+			document.getElementById("zoomoutowpathprevious").classList.add("disabled");
+			document.getElementById("zoomoutowpathsearch").classList.add("disabled");
+		}
+		else
+		{
+			document.getElementById("zoomoutowpathpinned").classList.remove("disabled");
+			document.getElementById("zoomoutowpathprevious").classList.remove("disabled");
+			document.getElementById("zoomoutowpathsearch").classList.remove("disabled");
+		}
+		if(pathZoom >= 2)
+		{
+			document.getElementById("zoominowpathpinned").classList.add("disabled");
+			document.getElementById("zoominowpathprevious").classList.add("disabled");
+			document.getElementById("zoominowpathsearch").classList.add("disabled");
+		}
+		else
+		{
+			document.getElementById("zoominowpathpinned").classList.remove("disabled");
+			document.getElementById("zoominowpathprevious").classList.remove("disabled");
+			document.getElementById("zoominowpathsearch").classList.remove("disabled");
+		}
 	};
 
 	window.getModifiedOwnItems = function()
@@ -2759,9 +2954,14 @@
 		let items = Object.assign({},ownItems);
 		if(!document.getElementById("activeflutebox").checked)
 			items.flute = false;
+		if(!document.getElementById("globalsync").checked && !document.getElementById("itemsync").checked)
+		{
+			items.bomb = true;
+			items.cape = false;
+		}
 		if(doorshuffle === 'N')
 		{
-			items.connectorboesanc = true;
+			items.connectorhcchcb = items.connectorboesanc = true;
 			items.connectorboehcb = items.connectorboehcc = items.connectorsanchcb = items.connectorsanchcc = false;
 		}
 		if(!items.gloves)
@@ -2894,7 +3094,7 @@
 		for(let edge of visitedScreenEdges)
 			if(!edge.out)
 				c++;
-		if(owshuffle !== 'N' || crossedow)
+		if(owshuffle !== 'N' || crossedow === 'C')
 		{
 			document.getElementById("sidesummaryow").innerHTML = c;
 			document.getElementById("summaryow").innerHTML = c;
@@ -2905,6 +3105,10 @@
 			document.getElementById("summaryow").innerHTML = "";
 		}
 		reachableEdges = visitedScreenEdges;
+		if(document.getElementById("globalsync").checked && window.opener && !window.opener.closed)
+		{
+			window.opener.postMessage(determineLocationAvailability(visitedRegions,items),"*");
+		}
 	};
 
 	window.inspectStartRegion = function(screenID,regionName,ignoreSwaps)

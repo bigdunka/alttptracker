@@ -2,19 +2,19 @@
 	<head>
 		<title>ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=16022"></script>
-		<script src="js/bootstrap.min.js?v=16022"></script>
-		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=16022">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=16022">
+		<script src="js/jquery-3.3.1.js?v=17001"></script>
+		<script src="js/bootstrap.min.js?v=17001"></script>
+		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=17001">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=17001">
 		<link href="css/fonts.css" rel="stylesheet">		
 
-		<script src="js/util.js?v=16022"></script>
-		<script src="js/items.js?v=16022"></script>
-		<script src="js/entrancechests.js?v=16022"></script>
-		<script src="js/track.js?v=16022"></script>
-		<script src="js/dungeons.js?v=16022"></script>
-		<script src="js/spoiler.js?v=16022"></script>
-		<script src="js/autot.js?v=16022"></script>
+		<script src="js/util.js?v=17001"></script>
+		<script src="js/items.js?v=17001"></script>
+		<script src="js/entrancechests.js?v=17001"></script>
+		<script src="js/track.js?v=17001"></script>
+		<script src="js/dungeons.js?v=17001"></script>
+		<script src="js/spoiler.js?v=17001"></script>
+		<script src="js/autot.js?v=17001"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -547,7 +547,8 @@
 		  <div id="entranceMap138" onClick="toggle_location(138)" onMouseover="highlight_entrance(138)" onMouseout="unhighlight_entrance(138)" oncontextmenu="javascript:rightClickEntrance(138);return false;"></div>
 		  <div id="entranceMap139" onClick="toggle_location(139)" onMouseover="highlight_entrance(139)" onMouseout="unhighlight_entrance(139)" oncontextmenu="javascript:rightClickEntrance(139);return false;"></div>
 		  <div id="entranceMap140" onClick="toggle_location(140)" onMouseover="highlight_entrance(140)" onMouseout="unhighlight_entrance(140)" oncontextmenu="javascript:rightClickEntrance(140);return false;"></div>
-		   <div id="connectorStop" onClick="StopAConnector()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2; visibility: hidden;"><img src="./images/interface/cancel.png" /></div>
+		  <div id="entranceSummary" onClick="LoadEntranceSummary()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2;"><img src="./images/interface/summary.png" /></div>
+		  <div id="connectorStop" onClick="StopAConnector()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2; visibility: hidden;"><img src="./images/interface/cancel.png" /></div>
 		  <div id="hideConnectorLines" onClick="HideConnectors()" style="cursor: pointer; position: absolute; top: 89.6%; left: 50.6%; z-index: 2;"><img src="./images/interface/show.png" id="hideConnectorLinesImg" /></div>
 		  <div id="connectorLineDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 0; visibility: collapse;">
 		  </div>
@@ -568,187 +569,83 @@
 					Connected To: <span id="ConnectorListSpan"></span>
 				</div>
 				<hr>
-				<div id="modalTags">
-					<table style="color: white;">
-						<tr>
-							<td colspan="5">
-								Light World Dungeons
-							</td>
-							<td width="228px" style="padding-left: 10px;" colspan="4">
-								General Key Locations
-							</td>
-							<td colspan="5">
-								Dark World Dungeons
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<img src="./images/interface/hc_m.png" style="cursor: pointer;" onclick="tagEntrance('hc_m', true)" id="hc_m" />
-							</td>
-							<td>
-								<img src="./images/interface/hc_w.png" style="cursor: pointer;" onclick="tagEntrance('hc_w', true)" id="hc_w" />
-							</td>
-							<td>
-								<img src="./images/interface/hc_e.png" style="cursor: pointer;" onclick="tagEntrance('hc_e', true)" id="hc_e" />
-							</td>
-							<td>
-								<img src="./images/interface/ct.png" style="cursor: pointer;" onclick="tagEntrance('ct', true)" id="ct" />
-							</td>
-							<td>
-								<img src="./images/interface/ep.png" style="cursor: pointer;" onclick="tagEntrance('ep', true)" id="ep" />
-							</td>
-							<td style="padding-left: 10px;">
-								<img src="./images/interface/rupee.png" style="cursor: pointer;" onclick="tagEntrance('rupee', false)" id="rupee" />
-							</td>
-							<td>
-								<img src="./images/interface/shop.png" style="cursor: pointer;" onclick="tagEntrance('shop', false)" id="shop" />
-							</td>
-							<td>
-								<img src="./images/interface/dark.png" style="cursor: pointer;" onclick="tagEntrance('dark', false)" id="dark" />
-							</td>
-							<td style="padding-right: 10px;">
-								<img src="./images/interface/connector.png" style="cursor: pointer;" onclick="tagEntrance('connector', false)" id="connector" />
-							</td>
-							<td>
-								<img src="./images/interface/pod.png" style="cursor: pointer;" onclick="tagEntrance('pod', true)" id="pod" />
-							</td>
-							<td>
-								<img src="./images/interface/sp.png" style="cursor: pointer;" onclick="tagEntrance('sp', true)" id="sp" />
-							</td>
-							<td>
-								<img src="./images/interface/sw.png" style="cursor: pointer;" onclick="tagEntrance('sw', true)" id="sw" />
-							</td>
-							<td>
-								<img src="./images/interface/tt.png" style="cursor: pointer;" onclick="tagEntrance('tt', true)" id="tt" />
-							</td>
-							<td>
-								<img src="./images/interface/ip.png" style="cursor: pointer;" onclick="tagEntrance('ip', true)" id="ip" />
-							</td>							
-						</tr>
-						<tr>
-							<td>
-								<img src="./images/interface/dp_m.png" style="cursor: pointer;" onclick="tagEntrance('dp_m', true)" id="dp_m" />
-							</td>
-							<td>
-								<img src="./images/interface/dp_w.png" style="cursor: pointer;" onclick="tagEntrance('dp_w', true)" id="dp_w" />
-							</td>
-							<td>
-								<img src="./images/interface/dp_e.png" style="cursor: pointer;" onclick="tagEntrance('dp_e', true)" id="dp_e" />
-							</td>
-							<td>
-								<img src="./images/interface/dp_n.png" style="cursor: pointer;" onclick="tagEntrance('dp_n', true)" id="dp_n" />
-							</td>
-							<td>
-								<img src="./images/interface/toh.png" style="cursor: pointer;" onclick="tagEntrance('toh', true)" id="toh" />
-							</td>
-							<td style="padding-left: 10px;" >
-								<img src="./images/interface/chest.png" style="cursor: pointer;" onclick="tagEntrance('chest', true)" id="chest" />
-							</td>
-							<td>
-							</td>
-							<td>
-							</td>							
-							<td>
-							</td>
-							<td>
-								<img src="./images/interface/mm.png" style="cursor: pointer;" onclick="tagEntrance('mm', true)" id="mm" />
-							</td>
-							<td>
-								<img src="./images/interface/tr_m.png" style="cursor: pointer;" onclick="tagEntrance('tr_m', true)" id="tr_m" />
-							</td>
-							<td>
-								<img src="./images/interface/tr_w.png" style="cursor: pointer;" onclick="tagEntrance('tr_w', true)" id="tr_w" />
-							</td>
-							<td>
-								<img src="./images/interface/tr_e.png" style="cursor: pointer;" onclick="tagEntrance('tr_e', true)" id="tr_e" />
-							</td>
-							<td>
-								<img src="./images/interface/tr_b.png" style="cursor: pointer;" onclick="tagEntrance('tr_b', true)" id="tr_b" />
-							</td>							
-						</tr>
-						<tr>
-							<td colspan="5">
-								Light World Key Locations
-							</td>
-							<td style="padding-left: 10px;" colspan="4">
-								Starting Locations
-							</td>
-							<td>
-								<img src="./images/interface/gt.png" style="cursor: pointer;" onclick="tagEntrance('gt', true)" id="gt" />
-							</td>
-							<td>
-								<img src="./images/interface/ganon.png" style="cursor: pointer;" onclick="tagEntrance('ganon', true)" id="ganon" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<img src="./images/interface/magic.png" style="cursor: pointer;" onclick="tagEntrance('magic', false)" id="magic" />
-							</td>
-							<td>
-								<img src="./images/interface/kid.png" style="cursor: pointer;" onclick="tagEntrance('kid', false)" id="kid" />
-							</td>
-							<td>
-								<img src="./images/interface/smith.png" style="cursor: pointer;" onclick="tagEntrance('smith', false)" id="smith" />
-							</td>
-							<td>
-								<img src="./images/interface/bat.png" style="cursor: pointer;" onclick="tagEntrance('bat', false)" id="bat" />
-							</td>
-							<td>
-								<img src="./images/interface/library.png" style="cursor: pointer;" onclick="tagEntrance('library', false)" id="library" />
-							</td>
-							<td style="padding-left: 10px;" >
-								<img src="./images/interface/link.png" style="cursor: pointer;" onclick="tagEntrance('link', true)" id="link" />
-							</td>
-							<td>
-								<img src="./images/interface/sanc.png" style="cursor: pointer;" onclick="tagEntrance('sanc', true)" id="sanc" />
-							</td>
-							<td>
-								<img src="./images/interface/mount.png" style="cursor: pointer;" onclick="tagEntrance('mount', true)" id="mount" />
-							</td>							
-							
-							<td>
-							</td>
-
-							<td colspan="5">
-								Dark World Key Locations
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<img src="./images/interface/sahas.png" style="cursor: pointer;" onclick="tagEntrance('sahas', false)" id="sahas" />
-							</td>
-							<td>
-								<img src="./images/interface/mimic.png" style="cursor: pointer;" onclick="tagEntrance('mimic', false)" id="mimic" />
-							</td>
-							<td>
-								<img src="./images/interface/dam.png" style="cursor: pointer;" onclick="tagEntrance('dam', false)" id="dam" />
-							</td>
-							<td>
-							</td>
-							<td>
-							</td>
-							<td colspan="4">
-							</td>
-							<td>
-								<img src="./images/interface/bomb.png" style="cursor: pointer;" onclick="tagEntrance('bomb', false)" id="bomb" />
-							</td>
-							<td>
-								<img src="./images/interface/bumper.png" style="cursor: pointer;" onclick="tagEntrance('bumper', false)" id="bumper" />
-							</td>
-							<td>
-								<img src="./images/interface/spike.png" style="cursor: pointer;" onclick="tagEntrance('spike', false)" id="spike" />
-							</td>
-							<td>
-								<img src="./images/interface/hook.png" style="cursor: pointer;" onclick="tagEntrance('hook', false)" id="hook" />
-							</td>
-						</tr>
-					</table>
+				<div id="modalTags" style="font-size: 16px;">
+					<div id="entranceModalLightWorld">
+						Light World Dungeons<br>
+						<img src="./images/interface/hc_m.png" style="cursor: pointer;" onclick="tagEntrance('hc_m', true)" id="hc_m" />
+						<img src="./images/interface/hc_w.png" style="cursor: pointer;" onclick="tagEntrance('hc_w', true)" id="hc_w" />
+						<img src="./images/interface/hc_e.png" style="cursor: pointer;" onclick="tagEntrance('hc_e', true)" id="hc_e" />
+						<img src="./images/interface/ct.png" style="cursor: pointer;" onclick="tagEntrance('ct', true)" id="ct" />
+						<img src="./images/interface/ep.png" style="cursor: pointer;" onclick="tagEntrance('ep', true)" id="ep" />
+						<img src="./images/interface/dp_m.png" style="cursor: pointer;" onclick="tagEntrance('dp_m', true)" id="dp_m" />
+						<img src="./images/interface/dp_w.png" style="cursor: pointer;" onclick="tagEntrance('dp_w', true)" id="dp_w" />
+						<img src="./images/interface/dp_e.png" style="cursor: pointer;" onclick="tagEntrance('dp_e', true)" id="dp_e" />
+						<img src="./images/interface/dp_n.png" style="cursor: pointer;" onclick="tagEntrance('dp_n', true)" id="dp_n" />
+						<img src="./images/interface/toh.png" style="cursor: pointer;" onclick="tagEntrance('toh', true)" id="toh" /><br>
+						Light World Key Locations<br>
+						<img src="./images/interface/magic.png" style="cursor: pointer;" onclick="tagEntrance('magic', false)" id="magic" />
+						<img src="./images/interface/kid.png" style="cursor: pointer;" onclick="tagEntrance('kid', false)" id="kid" />
+						<img src="./images/interface/smith.png" style="cursor: pointer;" onclick="tagEntrance('smith', false)" id="smith" />
+						<img src="./images/interface/bat.png" style="cursor: pointer;" onclick="tagEntrance('bat', false)" id="bat" />
+						<img src="./images/interface/library.png" style="cursor: pointer;" onclick="tagEntrance('library', false)" id="library" />
+						<img src="./images/interface/sahas.png" style="cursor: pointer;" onclick="tagEntrance('sahas', false)" id="sahas" />
+						<img src="./images/interface/mimic.png" style="cursor: pointer;" onclick="tagEntrance('mimic', false)" id="mimic" />
+						<img src="./images/interface/dam.png" style="cursor: pointer;" onclick="tagEntrance('dam', false)" id="dam" />
+					</div>
+					<div id="entranceModalGeneral">
+						General Key Locations<br>
+						<img src="./images/interface/rupee.png" style="cursor: pointer;" onclick="tagEntrance('rupee', false)" id="rupee" />
+						<img src="./images/interface/shop.png" style="cursor: pointer;" onclick="tagEntrance('shop', false)" id="shop" />
+						<img src="./images/interface/dark.png" style="cursor: pointer;" onclick="tagEntrance('dark', false)" id="dark" />
+						<img src="./images/interface/connector.png" style="cursor: pointer;" onclick="tagEntrance('connector', false)" id="connector" />
+						<img src="./images/interface/chest.png" style="cursor: pointer;" onclick="tagEntrance('chest', true)" id="chest" /><br>
+						Starting Locations<br>
+						<img src="./images/interface/link.png" style="cursor: pointer;" onclick="tagEntrance('link', true)" id="link" />
+						<img src="./images/interface/sanc.png" style="cursor: pointer;" onclick="tagEntrance('sanc', true)" id="sanc" />
+						<img src="./images/interface/mount.png" style="cursor: pointer;" onclick="tagEntrance('mount', true)" id="mount" />
+					</div>
+					<div id="entranceModalDarkWorld">
+						Dark World Dungeons<br>
+						<img src="./images/interface/pod.png" style="cursor: pointer;" onclick="tagEntrance('pod', true)" id="pod" />
+						<img src="./images/interface/sp.png" style="cursor: pointer;" onclick="tagEntrance('sp', true)" id="sp" />
+						<img src="./images/interface/sw.png" style="cursor: pointer;" onclick="tagEntrance('sw', true)" id="sw" />
+						<img src="./images/interface/tt.png" style="cursor: pointer;" onclick="tagEntrance('tt', true)" id="tt" />
+						<img src="./images/interface/ip.png" style="cursor: pointer;" onclick="tagEntrance('ip', true)" id="ip" />
+						<img src="./images/interface/mm.png" style="cursor: pointer;" onclick="tagEntrance('mm', true)" id="mm" />
+						<img src="./images/interface/tr_m.png" style="cursor: pointer;" onclick="tagEntrance('tr_m', true)" id="tr_m" />
+						<img src="./images/interface/tr_w.png" style="cursor: pointer;" onclick="tagEntrance('tr_w', true)" id="tr_w" />
+						<img src="./images/interface/tr_e.png" style="cursor: pointer;" onclick="tagEntrance('tr_e', true)" id="tr_e" />
+						<img src="./images/interface/tr_b.png" style="cursor: pointer;" onclick="tagEntrance('tr_b', true)" id="tr_b" />
+						<img src="./images/interface/gt.png" style="cursor: pointer;" onclick="tagEntrance('gt', true)" id="gt" />
+						<img src="./images/interface/ganon.png" style="cursor: pointer;" onclick="tagEntrance('ganon', true)" id="ganon" /><br>
+						Dark World Key Locations<br>
+						<img src="./images/interface/bomb.png" style="cursor: pointer;" onclick="tagEntrance('bomb', false)" id="bomb" />
+						<img src="./images/interface/bumper.png" style="cursor: pointer;" onclick="tagEntrance('bumper', false)" id="bumper" />
+						<img src="./images/interface/spike.png" style="cursor: pointer;" onclick="tagEntrance('spike', false)" id="spike" />
+						<img src="./images/interface/hook.png" style="cursor: pointer;" onclick="tagEntrance('hook', false)" id="hook" />
+					</div>
 				</div>
 				<br>
-						
-			</div>
 			</div>
 		</div>
+	</div>
+		
+	<div class="modal fade" id="summaryModal" aria-hidden="true" style="height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: absolute; top: 0px; display: none;" onclick="hideSummaryModal()">
+		<div id="summaryModalMain" style="background-color: rgb(0,0,0,1); z-index: 4; position: absolute; border-style: solid; border-color: white; color: #FFF;">
+			<div style="margin: 0px 10px 0px 10px;">
+				<div style="float: left; width: 380px; height: 300px; text-align: center">
+					Known Location Summary<br>
+					<div id="locationSummaryDiv" style="overflow-y: auto; text-align: left; height: 265px;">
+					</div>
+				</div>
+				<div style="float: left; width: 380px; height: 300px; text-align: center; margin-left: 10px;">
+					Known Entrance Summary<br>
+					<div id="entranceSummaryDiv" style="overflow-y: auto; text-align: left; height: 265px;">
+					</div>
+				</div>
+			</div>
+		</div>		
+		
 	</div>
 
 	<div class="modal fade" id="spoilerModal" aria-hidden="true" style="width: 400px; height: 440px; background-color: rgba(255, 255, 255, 1); z-index: 2; position: absolute; top: 6px; left: 20px; display: none;">
