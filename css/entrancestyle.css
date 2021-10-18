@@ -373,6 +373,7 @@ body {
 .enemizer-8 { background-image: url(../images/dungeons/boss7.png); background-size: 32px; }
 .enemizer-9 { background-image: url(../images/dungeons/boss8.png); background-size: 32px; }
 .enemizer-10 { background-image: url(../images/dungeons/boss9.png); background-size: 32px; }
+.enemizer-11 { background-image: url(../images/dungeons/compass.png); background-size: 32px; }
 .prize-0 { background-image: url(../images/dungeons/prize0.png); }
 .prize-1 { background-image: url(../images/dungeons/prize1.png); }
 .prize-2 { background-image: url(../images/dungeons/prize2.png); }
@@ -400,6 +401,8 @@ body {
 .pendant-2 { background-image: url(../images/overlay/pendant2.png); }
 
 .noitem { background-image: url(../images/dungeons/prize0.png); opacity: .25; }
+
+.separatortop { border-top: 1px dotted gray; margin-top: -1px; }
 
 #bossMap0, #dungeon0 { left: 46.8%; top: 38.8%; }
 #bossMap1, #dungeon1 { left: 3.8%;  top: 78.4%; }

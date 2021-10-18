@@ -2,19 +2,19 @@
 	<head>
 		<title>ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=17001"></script>
-		<script src="js/bootstrap.min.js?v=17001"></script>
-		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=17001">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=17001">
+		<script src="js/jquery-3.3.1.js?v=17002"></script>
+		<script src="js/bootstrap.min.js?v=17002"></script>
+		<link rel="stylesheet" type="text/css" href="css/entrancestyle.css?v=17002">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=17002">
 		<link href="css/fonts.css" rel="stylesheet">		
 
-		<script src="js/util.js?v=17001"></script>
-		<script src="js/items.js?v=17001"></script>
-		<script src="js/entrancechests.js?v=17001"></script>
-		<script src="js/track.js?v=17001"></script>
-		<script src="js/dungeons.js?v=17001"></script>
-		<script src="js/spoiler.js?v=17001"></script>
-		<script src="js/autot.js?v=17001"></script>
+		<script src="js/util.js?v=17002"></script>
+		<script src="js/items.js?v=17002"></script>
+		<script src="js/entrancechests.js?v=17002"></script>
+		<script src="js/track.js?v=17002"></script>
+		<script src="js/dungeons.js?v=17002"></script>
+		<script src="js/spoiler.js?v=17002"></script>
+		<script src="js/autot.js?v=17002"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -563,7 +563,7 @@
 		<div id="entranceModalMain" style="width: 800px; height: 300px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 50px; left: 40px; border-style: solid; border-color: white; color: #FFF; " onclick="overrideEntranceClose();">
 			<div style="margin: 0px 10px 0px 10px;">
 				<input id="entranceID" type="text" style="visibility: collapse; height: 0px;"/><br>
-				<span id="entranceModalTitle"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="addConnectorSpan" style="cursor: pointer;" onclick="StartAConnectorModal();">Add Connector:&nbsp;&nbsp;&nbsp;<img style="height: 15px;" src="./images/interface/connect.png" />&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</span><span>Note: <input id="entranceModalNote" type="text" style="width: 236px;" onkeypress="return checkReturn(event);" /></span><span id="connectTemplateSpan" style="cursor: pointer; visibility: hidden;" onclick="dosomething(1,2);" >Title&nbsp;&nbsp;&nbsp;<img id="connectTemplateImg" style="height: 15px;"src="./images/interface/cancel.png" />&nbsp;&nbsp;&nbsp;</span>
+				<span id="entranceModalTitle"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="addConnectorSpan" style="margin-right: 20px; cursor: pointer;" onclick="StartAConnectorModal();">Add Connector:&nbsp;&nbsp;&nbsp;<img style="height: 15px;" src="./images/interface/connect.png" /></span><label style="white-space: nowrap;">Note: <input id="entranceModalNote" type="text" style="width: 236px;" onkeypress="return checkReturn(event);" /></label><span id="connectTemplateSpan" style="cursor: pointer; visibility: hidden;" onclick="dosomething(1,2);" >Title&nbsp;&nbsp;&nbsp;<img id="connectTemplateImg" style="height: 15px;"src="./images/interface/cancel.png" />&nbsp;&nbsp;&nbsp;</span>
 				<hr>
 				<div>
 					Connected To: <span id="ConnectorListSpan"></span>
@@ -581,7 +581,7 @@
 						<img src="./images/interface/dp_w.png" style="cursor: pointer;" onclick="tagEntrance('dp_w', true)" id="dp_w" />
 						<img src="./images/interface/dp_e.png" style="cursor: pointer;" onclick="tagEntrance('dp_e', true)" id="dp_e" />
 						<img src="./images/interface/dp_n.png" style="cursor: pointer;" onclick="tagEntrance('dp_n', true)" id="dp_n" />
-						<img src="./images/interface/toh.png" style="cursor: pointer;" onclick="tagEntrance('toh', true)" id="toh" /><br>
+						<img src="./images/interface/toh.png" style="cursor: pointer;" onclick="tagEntrance('toh', true)" id="toh" />&nbsp;<br>
 						Light World Key Locations<br>
 						<img src="./images/interface/magic.png" style="cursor: pointer;" onclick="tagEntrance('magic', false)" id="magic" />
 						<img src="./images/interface/kid.png" style="cursor: pointer;" onclick="tagEntrance('kid', false)" id="kid" />
@@ -590,7 +590,7 @@
 						<img src="./images/interface/library.png" style="cursor: pointer;" onclick="tagEntrance('library', false)" id="library" />
 						<img src="./images/interface/sahas.png" style="cursor: pointer;" onclick="tagEntrance('sahas', false)" id="sahas" />
 						<img src="./images/interface/mimic.png" style="cursor: pointer;" onclick="tagEntrance('mimic', false)" id="mimic" />
-						<img src="./images/interface/dam.png" style="cursor: pointer;" onclick="tagEntrance('dam', false)" id="dam" />
+						<img src="./images/interface/dam.png" style="cursor: pointer;" onclick="tagEntrance('dam', false)" id="dam" />&nbsp;
 					</div>
 					<div id="entranceModalGeneral">
 						General Key Locations<br>
@@ -598,11 +598,11 @@
 						<img src="./images/interface/shop.png" style="cursor: pointer;" onclick="tagEntrance('shop', false)" id="shop" />
 						<img src="./images/interface/dark.png" style="cursor: pointer;" onclick="tagEntrance('dark', false)" id="dark" />
 						<img src="./images/interface/connector.png" style="cursor: pointer;" onclick="tagEntrance('connector', false)" id="connector" />
-						<img src="./images/interface/chest.png" style="cursor: pointer;" onclick="tagEntrance('chest', true)" id="chest" /><br>
+						<img src="./images/interface/chest.png" style="cursor: pointer;" onclick="tagEntrance('chest', true)" id="chest" />&nbsp;<br>
 						Starting Locations<br>
 						<img src="./images/interface/link.png" style="cursor: pointer;" onclick="tagEntrance('link', true)" id="link" />
 						<img src="./images/interface/sanc.png" style="cursor: pointer;" onclick="tagEntrance('sanc', true)" id="sanc" />
-						<img src="./images/interface/mount.png" style="cursor: pointer;" onclick="tagEntrance('mount', true)" id="mount" />
+						<img src="./images/interface/mount.png" style="cursor: pointer;" onclick="tagEntrance('mount', true)" id="mount" />&nbsp;
 					</div>
 					<div id="entranceModalDarkWorld">
 						Dark World Dungeons<br>
@@ -617,12 +617,12 @@
 						<img src="./images/interface/tr_e.png" style="cursor: pointer;" onclick="tagEntrance('tr_e', true)" id="tr_e" />
 						<img src="./images/interface/tr_b.png" style="cursor: pointer;" onclick="tagEntrance('tr_b', true)" id="tr_b" />
 						<img src="./images/interface/gt.png" style="cursor: pointer;" onclick="tagEntrance('gt', true)" id="gt" />
-						<img src="./images/interface/ganon.png" style="cursor: pointer;" onclick="tagEntrance('ganon', true)" id="ganon" /><br>
+						<img src="./images/interface/ganon.png" style="cursor: pointer;" onclick="tagEntrance('ganon', true)" id="ganon" />&nbsp;<br>
 						Dark World Key Locations<br>
 						<img src="./images/interface/bomb.png" style="cursor: pointer;" onclick="tagEntrance('bomb', false)" id="bomb" />
 						<img src="./images/interface/bumper.png" style="cursor: pointer;" onclick="tagEntrance('bumper', false)" id="bumper" />
 						<img src="./images/interface/spike.png" style="cursor: pointer;" onclick="tagEntrance('spike', false)" id="spike" />
-						<img src="./images/interface/hook.png" style="cursor: pointer;" onclick="tagEntrance('hook', false)" id="hook" />
+						<img src="./images/interface/hook.png" style="cursor: pointer;" onclick="tagEntrance('hook', false)" id="hook" />&nbsp;
 					</div>
 				</div>
 				<br>
@@ -634,13 +634,37 @@
 		<div id="summaryModalMain" style="background-color: rgb(0,0,0,1); z-index: 4; position: absolute; border-style: solid; border-color: white; color: #FFF;">
 			<div style="margin: 0px 10px 0px 10px;">
 				<div style="float: left; width: 380px; height: 300px; text-align: center">
-					Known Location Summary<br>
-					<div id="locationSummaryDiv" style="overflow-y: auto; text-align: left; height: 265px;">
+					<div style="margin: 10px 0 8px 0;" onclick="event.stopPropagation()">
+						<select id="summaryFilter0" onchange="LoadEntranceSummary(0)">
+							<option value="all">All Locations</option>
+							<option value="dungeons">Dungeons</option>
+							<option value="starts">Starting Locations</option>
+							<option value="keylocations">Key Locations</option>
+							<option value="shopschests">Shops and Simple Chests</option>
+							<option value="unknownconnectors">Unknown Connectors</option>
+							<option value="notes">Notes</option>
+							<option value="knownconnectors">Known Connectors</option>
+						</select>
+						<label><input type="checkbox" id="summaryCleared0" onchange="LoadEntranceSummary(0)" />Include cleared</label>
+					</div>
+					<div id="summaryDiv0" style="overflow-y: auto; text-align: left; height: 246px;">
 					</div>
 				</div>
 				<div style="float: left; width: 380px; height: 300px; text-align: center; margin-left: 10px;">
-					Known Entrance Summary<br>
-					<div id="entranceSummaryDiv" style="overflow-y: auto; text-align: left; height: 265px;">
+					<div style="margin: 10px 0 8px 0;" onclick="event.stopPropagation()">
+						<select id="summaryFilter1" onchange="LoadEntranceSummary(1)">
+							<option value="all">All Locations</option>
+							<option value="dungeons">Dungeons</option>
+							<option value="starts">Starting Locations</option>
+							<option value="keylocations">Key Locations</option>
+							<option value="shopschests">Shops and Simple Chests</option>
+							<option value="unknownconnectors">Unknown Connectors</option>
+							<option value="notes">Notes</option>
+							<option value="knownconnectors">Known Connectors</option>
+						</select>
+						<label><input type="checkbox" id="summaryCleared1" onchange="LoadEntranceSummary(1)" />Include cleared</label>
+					</div>
+					<div id="summaryDiv1" style="overflow-y: auto; text-align: left; height: 246px;">
 					</div>
 				</div>
 			</div>

@@ -46,6 +46,7 @@
 		}
 		switch (enemizer[i]) {
 			case 0:
+			case 11:
 				return (flags.bossshuffle != 'N' ? 'possible' : 'available');
 				break;
 			case 1:
@@ -200,7 +201,7 @@
 			var atticCell = (flags.doorshuffle === 'C' ? items.bombfloor : items.bomb) && (items.bigkey6 || !flags.wildbigkeys);
 			if(!atticCell && (flags.bossshuffle === 'N' || enemizer[6] === 7))
 				return 'unavailable';
-			if(!atticCell && flags.bossshuffle != 'N' && enemizer[6] === 0)
+			if(!atticCell && flags.bossshuffle != 'N' && enemizer[6]%11 === 0)
 			{
 				var check = enemizer_check(6);
 				return check === 'available' ? 'possible' : check;
@@ -661,7 +662,7 @@
     window.TTBoss = function() {
 		var dungeoncheck = enemizer_check(6);
 		if (!items.bomb && (flags.bossshuffle === 'N' || enemizer[6] === 7)) return 'unavailable';
-		if (!items.bomb && dungeoncheck === 'available' && flags.bossshuffle != 'N' && enemizer[6] === 0) dungeoncheck = 'possible';
+		if (!items.bomb && dungeoncheck === 'available' && flags.bossshuffle != 'N' && enemizer[6]%11 === 0) dungeoncheck = 'possible';
 		return (items.bigkey6 ? dungeoncheck : 'unavailable');
     };
 

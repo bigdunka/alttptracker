@@ -29,46 +29,6 @@
     function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 0 || items.hammer || items.firerod; }
 
     function always() { return 'available'; }
-
-	function enemizerCheck(i) {
-		switch (enemizer[i]) {
-			case 0:
-				return 'possible';
-				break;
-			case 1:
-				if (items.sword > 0 || items.hammer || items.bow > 0 || items.boomerang > 0 || items.byrna || items.somaria || items.icerod || items.firerod) return 'available';
-				break;
-			case 2:
-				if (melee_bow() || cane() || rod() || items.hammer) return 'available';
-				break;
-			case 3:
-				if (items.sword > 0 || items.hammer) return 'available';
-				break;
-			case 4:
-				if (items.sword > 0 || items.hammer || items.bow > 0) return 'available';
-				break;
-			case 5:
-				if (items.hookshot && (items.sword > 0 || items.hammer)) return 'available';
-				break;
-			case 6:
-				if (items.sword > 0 || items.hammer || items.firerod || items.byrna || items.somaria) return 'available';
-				break;
-			case 7:
-				if (items.sword > 0 || items.hammer || items.somaria || items.byrna) return 'available';
-				break;
-			case 8:
-				if (items.firerod || (items.bombos && (items.sword > 0 || items.hammer))) return 'available';
-				break;
-			case 9:
-				if (melee_bow() || items.hammer) return 'available';
-				break;
-			case 10:
-				if (items.firerod && items.icerod && (items.hammer || items.sword > 0)) return 'available';
-				break;
-				
-		}
-		return 'unavailable';
-	}
 		
 	function canReachDarkWorld()
 	{
