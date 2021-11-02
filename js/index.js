@@ -646,6 +646,37 @@ function loadinvertedadkeyspreset() {
 	window.scrollTo(0,document.body.scrollHeight);
 }
 
+function loadgoldrushspreset() {
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldnone").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("dungeonstandard").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalother").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("mysteryno").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingfluteno").checked = true;
+	document.getElementById("startinghookshotno").checked = true;
+	document.getElementById("startingicerodno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+}
+
+
+
 function importflags() {
 	var i = document.getElementById("importflag").value;
 	
