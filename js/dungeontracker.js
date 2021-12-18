@@ -13,21 +13,24 @@
 	window.worldState = 'O';
 	window.entranceEnabled = false;
 
-	let outstandingUpdate = false,awaitingNextUpdate = true,currentDungeon = -1,currentPath = null,clickedPathIndex,currentlyEditing = false,editingIndex,globalHasBranch = false,visibleSidebar = true;
-	let ownItems = {},reachableEdges = null,currentOWPath = null,currentOWScreen = null,fullOverworldMode = null,fullOWFixedEdge = null,fullOWSelectedScreen = null,fullOWSelectedEdge = null,fullOWConnectorStart = null,fullOWConnectorEnd = null,extraOWScreen = null,extraOWDirection = null,lastUnknownConnectorIndex = -1;
-	let searchResults = new Map(),searchRegion = null,searchStartScreen = null,searchRegionChoiceVisible = false,searchResultsLength = 0,clickedOverworldPathIndex,clickedOverworldPathListName,clickedOverworldPath = null,clickedConnectorIndex,drawDarkWorld = false,sideBySide = false,fullZoom = .8,fullZoomAuto = true,pathZoom = 1;
+	let outstandingUpdate = false,awaitingNextUpdate = true,awaitingResponse = false,currentDungeon = -1,currentPath = null,clickedPathIndex,currentlyEditing = false,editingIndex,globalHasBranch = false,visibleSidebar = true,welcomeMode = true;
+	let ownItems = {},reachableEdges = null,showOverworldModeSection = false,showFullMapMain = true,expandedMainTable = true,showChecklist = false,currentOWPath = null,currentOWScreen = null,fullOverworldMode = null,fullOWFixedEdge = null,fullOWSelectedScreen = null,fullOWSelectedEdge = null,fullOWConnectorStart = null,fullOWConnectorEnd = null,extraOWScreen = null,extraOWDirection = null,fullOWPath = null,hoveredPathNumber = -1,lastUnknownConnectorIndex = -1,useMain = true,backToMain = true;
+	let searchResults = new Map(),searchStartRegion = null,searchTargetRegion = null,searchStartScreen = null,searchAddCommonStarts = false,searchSaveQuitFluteEdges = false,searchResultsLength = 0,clickedOverworldPathIndex,clickedOverworldPathListName,clickedOverworldPath = null,clickedConnectorIndex,drawDarkWorldMain = false,drawDarkWorldPopout = false,sideBySideMain = false,sideBySidePopout = false,fullZoomMain = .8,fullZoomPopout = .8,fullZoomAutoMain = true,fullZoomAutoPopout = true,pathZoom = 1,fullPathCompact = true;
 	window.dungeonPaths = [];
 	window.entranceConnectors = [];
+	window.allStartRegions = [];
 	window.fixedStartRegions = [];
 	window.customStartRegions = [];
+	window.fluteSpotRegions = [];
 	window.customFluteSpots = [0x30];
 	window.pinnedPaths = [];
 	window.previousPaths = [];
 
 	const dungeonNamesLong = ["Eastern Palace","Desert Palace","Tower of Hera","Palace of Darkness","Swamp Palace","Skull Woods","Thieves' Town","Ice Palace","Misery Mire","Turtle Rock","Ganon's Tower","Hyrule Castle","Castle Tower"];
 	const dungeonNamesShort = ["EP","DP","ToH","PoD","SP","SW","TT","IP","MM","TR","GT","HC","CT"];
-	const checkboxFlags = ["globalsync","showmorerooms","splitpath","owsidebaredit","owsidebarnew","owsidebarsearch","itemsync","activeflutebox","connectorsync","pinnedlinkshouse","pinnedsanctuary","pinnedoldman","pinnedpyramid","compactpinned","compactprevious","alwaysfollowmarked","compactsearchresults","sidebysideow","zoomautoow","owsearchincludecommon"];
-	const fullOWTitle = {"newpath":"Start a new path","continuepath":"Where does this transition lead to?","searchpath":"Select a target screen","searchpathtarget":"Select a new target screen","searchpathstart":"Select a starting screen","editedges":"Click on a transition or screen","editflutespots":"Click on a screen to place a flute spot"};
+	const checkboxFlags = ["globalsync","showmorerooms","splitpath","owsidebaredit","owsidebarnew","owsidebarsearch","itemsync","activeflutebox","connectorsync","pinnedlinkshouse","pinnedsanctuary","pinnedoldman","pinnedpyramid","compactpinned","compactprevious","alwaysfollowmarked","compactsearchresults","mainsidebysideow","sidebysideow","mainzoomautoow","zoomautoow"];
+	const fullOWTitle = {"newpath":"Start a new path","continuepath":"Where does this transition lead to?","searchpath":"Select a target screen or preset","searchpathtarget":"Select a new target screen","searchpathstart":"Select a starting screen","editedges":"Full overworld map","editflutespots":"Click on screens to toggle flute spots"};
+	const reconnectHelpMessage = "In order to establish a new connection without losing any data, follow these steps:\nSave your data by going to \"Save and restore\" and clicking on \"Save data\".\nClose this window.\nFrom the main tracker window, open a new instance of this window by clicking on the map.\nNear the bottom of the page, click on \"Load manual save\".";
 
 	window.overworldScreens = new Map();
 	window.screenLinksGlobal = [];
@@ -61,6 +64,8 @@
 		updateStatistics();
 		if(document.getElementById("pathlist").style.display != "none" || document.getElementById("pathedit").style.display != "none" || document.getElementById("owmain").style.display != "none" || document.getElementById("owpathedit").style.display != "none" || document.getElementById("owsearch").style.display != "none")
 			switchScene("overview");
+		if(!welcomeMode && document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
+			testConnection(true);
 	};
 
 	window.loadDungeonSummaries = function()
@@ -603,7 +608,7 @@
 		document.getElementById("owmain").style.display = scene === "owmain" ?"block" :"none";
 		document.getElementById("owpathedit").style.display = scene === "owpathedit" ?"block" :"none";
 		document.getElementById("owsearch").style.display = scene === "owsearch" ?"block" :"none";
-		window.scrollTo(0,0);
+		scrollTo(0,0);
 		if(scene === "overview")
 		{
 			document.getElementById("homebutton").classList.add("activetab");
@@ -621,17 +626,20 @@
 
 	window.sendUpdate = function()
 	{
-		outstandingUpdate = false;
-		let data = allData();
-		try
+		if(!welcomeMode)
 		{
-			saveAuto(data);
+			outstandingUpdate = false;
+			let data = allData();
+			try
+			{
+				saveAuto(data);
+			}
+			catch(error)
+			{
+			}
+			if(window.opener && !window.opener.closed)
+				window.opener.postMessage(data,"*");
 		}
-		catch(error)
-		{
-		}
-		if(window.opener && !window.opener.closed)
-			window.opener.postMessage(data,"*");
 	};
 
 	window.home = function()
@@ -652,12 +660,14 @@
 		visibleSidebar = true;
 		loadDungeonSummaries();
 		document.getElementById("app").classList.add("showsidebar");
+		resizeHandler();
 	};
 
 	window.hideSidebar = function()
 	{
 		document.getElementById("app").classList.remove("showsidebar");
 		visibleSidebar = false;
+		resizeHandler();
 	};
 
 	window.showClickPathModal = function(event,index)
@@ -777,6 +787,7 @@
 		else
 			if(showVanillaOWBox)
 				document.getElementById("overworldoptionsfinalbox").style.display = "block";
+		document.getElementById("vanillawelcome").style.display = owshuffle === 'N' && crossedow !== 'C' ?"none" :"block";
 		updateOverviewElements();
 		sendUpdate();
 		updateReachableEdges();
@@ -808,13 +819,32 @@
 		document.getElementById("overworldoptionsfinalbox").style.display = "none";
 	};
 
+	window.testConnection = function(send)
+	{
+		awaitingResponse = true;
+		if(send && window.opener && !window.opener.closed)
+			window.opener.postMessage("PING","*");
+		setTimeout(checkIfResponded,50);
+	};
+
+	window.checkIfResponded = function()
+	{
+		if(awaitingResponse && window.opener && !welcomeMode && (document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked))
+		{
+			document.getElementById("overworldsyncerror").style.display = "block";
+		}
+		else
+			document.getElementById("overworldsyncerror").style.display = "none";
+	};
+
 	window.updateGlobalSync = function()
 	{
 		if(document.getElementById("globalsync").checked)
 		{
-			document.getElementById("itemsync").checked = document.getElementById("itemsync").disabled = document.getElementById("connectorsync").checked = document.getElementById("connectorsync").disabled = true;
+			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = true;
 			document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = true;
 			awaitingNextUpdate = true;
+			testConnection(false);
 			if(window.opener && !window.opener.closed)
 				window.opener.postMessage("ITEMS","*");
 			updateConnectorList();
@@ -824,6 +854,8 @@
 			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = false;
 			document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = false;
 			awaitingNextUpdate = true;
+			if(!document.getElementById("itemsync").checked && !document.getElementById("connectorsync").checked && !document.getElementById("globalsync").checked)
+				document.getElementById("overworldsyncerror").style.display = "none";
 			if(window.opener && !window.opener.closed)
 				window.opener.postMessage("RESETLOGIC","*");
 		}
@@ -834,14 +866,26 @@
 	window.updateItemSync = function()
 	{
 		if((document.getElementById("itemsync").checked || document.getElementById("globalsync").checked) && window.opener && !window.opener.closed)
+		{
+			testConnection(false);
 			window.opener.postMessage("ITEMS","*");
+		}
+		if(!document.getElementById("itemsync").checked && !document.getElementById("connectorsync").checked && !document.getElementById("globalsync").checked)
+			document.getElementById("overworldsyncerror").style.display = "none";
 	};
 
 	window.updateConnectorSync = function()
 	{
 		if((document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked) && window.opener && !window.opener.closed)
+		{
+			testConnection(false);
 			window.opener.postMessage("ITEMS","*");
+		}
+		if(!document.getElementById("itemsync").checked && !document.getElementById("connectorsync").checked && !document.getElementById("globalsync").checked)
+			document.getElementById("overworldsyncerror").style.display = "none";
 		updateConnectorList();
+		if(showFullMapMain && document.getElementById("owmain").style.display === "block")
+			loadFullOverworldMain();
 	};
 
 	window.showGlobalSyncInfo = function()
@@ -852,13 +896,18 @@
 		s += "Before you start, make sure all mode settings are correctly set in the main tracker window and some form of Overworld Shuffle is enabled (otherwise you may have to go back to the tracker launcher). Only overworld-specific settings are still handled through this window.\n\n";
 		s += "Current status: ";
 		if(window.opener)
-			if(window.opener.closed)
-				s += "Disconnected from main tracker window, please close this tracker window and open it from the main tracker window.";
+			if(window.opener.closed || awaitingResponse)
+				s += "Disconnected from main tracker window, please save your progress, close this tracker window and then open it again from the main tracker window.";
 			else
 				s += "Connected to main tracker window, sync possible.";
 		else
 			s += "Not opened from main tracker window, please close this tracker window and open it from the main tracker window obtained through the Community Tracker launcher.";
 		alert(s);
+	};
+
+	window.showSyncErrorInfo = function()
+	{
+		alert(reconnectHelpMessage);
 	};
 
 	window.receiveItemUpdate = function(newItems)
@@ -988,8 +1037,7 @@
 			updateReachableEdges();
 			updateItemTracker();
 			updateConnectorList();
-			if(document.getElementById("fullowModal").style.display === "block")
-				drawFullOverworldPanel();
+			drawFullOverworldPanels();
 		}
 	};
 
@@ -1003,20 +1051,34 @@
 	{
 		if(window.origin === event.origin)
 		{
-			if(event.data.dungeonPaths && event.data.dungeonPaths.length === 13)
+			if(awaitingResponse)
 			{
-				if(loadAll(event.data))
+				awaitingResponse = false;
+				document.getElementById("overworldsyncerror").style.display = "none";
+			}
+			if(event.data === "MYSTERYRELOAD")
+			{
+				if(document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
 				{
-					loadOverview();
-					if(document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
-						window.opener.postMessage("ITEMS","*");
+					testConnection(true);
+					alert("The main tracker window has been refreshed and disconnected from this window as a consequence of changing certain mode settings.\n\n"+reconnectHelpMessage);
 				}
-				else
-					console.log("Error while loading data from main tracker");
 			}
 			else
-				if(!isNaN(event.data.tunic))
-					receiveItemUpdate(event.data);
+				if(event.data.dungeonPaths && event.data.dungeonPaths.length === 13)
+				{
+					if(loadAll(event.data))
+					{
+						loadOverview();
+						if(document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
+							window.opener.postMessage("ITEMS","*");
+					}
+					else
+						console.log("Error while loading data from main tracker");
+				}
+				else
+					if(!isNaN(event.data.tunic))
+						receiveItemUpdate(event.data);
 		}
 	};
 
@@ -1056,9 +1118,17 @@
 		all.entranceEnabled = entranceEnabled;
 		for(let checkboxFlag of checkboxFlags)
 			all[checkboxFlag] = document.getElementById(checkboxFlag).checked;
-		all.sideBySide = sideBySide;
-		all.fullZoom = fullZoom;
+		all.visibleSidebar = visibleSidebar;
+		all.showOverworldModeSection = showOverworldModeSection;
+		all.showFullMapMain = showFullMapMain;
+		all.expandedMainTable = expandedMainTable;
+		all.showChecklist = showChecklist;
+		all.sideBySideMain = sideBySideMain;
+		all.sideBySidePopout = sideBySidePopout;
+		all.fullZoomMain = fullZoomMain;
+		all.fullZoomPopout = fullZoomPopout;
 		all.pathZoom = pathZoom;
+		all.fullPathCompact = fullPathCompact;
 		all.showOptionsFinalBox = document.getElementById("overworldoptionsfinalbox").style.display === "block";
 		all.timeString = new Date().toLocaleString();
 		return all;
@@ -1172,10 +1242,6 @@
 		similarow = newData.similarow;
 		mixedow = newData.mixedow;
 		fluteshuffle = newData.fluteshuffle;
-		worldState = newData.worldState;
-		if(worldState !== 'S' && worldState !== 'O' && worldState !== 'I' && worldState !== 'R')
-			worldState = 'O';
-		entranceEnabled = newData.entranceEnabled;
 		document.getElementById("selectdoorshuffle").value = ""+doorshuffle;
 		document.getElementById("lobbyshuffle").checked = lobbyshuffle;
 		document.getElementById("excludesmallkeys").checked = excludesmallkeys;
@@ -1185,30 +1251,56 @@
 		document.getElementById("similarow").checked = similarow;
 		document.getElementById("mixedow").checked = mixedow;
 		document.getElementById("fluteshuffle").checked = fluteshuffle;
-		document.getElementById("selectworldstate").value = ""+worldState;
-		document.getElementById("entranceenabled").checked = entranceEnabled;
 		for(let checkboxFlag of checkboxFlags)
 			document.getElementById(checkboxFlag).checked = newData[checkboxFlag];
-		sideBySide = document.getElementById("sidebysideow").checked;
-		fullZoomAuto = document.getElementById("zoomautoow").checked;
-		fullZoom = newData.fullZoom ?Math.max(.5,Math.min(newData.fullZoom,1.5)) :.8;
+		if(showOverworldModeSection !== newData.showOverworldModeSection)
+			toggleOverworldModeSection();
+		showFullMapMain = newData.showFullMapMain;
+		document.getElementById("togglefullowmain").className = showFullMapMain ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
+		document.getElementById("fullowmainpage").style.display = showFullMapMain ?"block" :"none";
+		expandedMainTable = newData.expandedMainTable;
+		document.getElementById("toggleowmaintable").className = expandedMainTable ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
+		document.getElementById("owmaintable").style.display = expandedMainTable ?"block" :"none";
+		document.getElementById("owmaintablemini").style.display = expandedMainTable ?"none" :"block";
+		showChecklist = newData.showChecklist;
+		document.getElementById("togglechecklist").className = showChecklist ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
+		document.getElementById("checklist").style.display = showChecklist ?"block" :"none";
+		sideBySideMain = document.getElementById("mainsidebysideow").checked;
+		sideBySidePopout = document.getElementById("sidebysideow").checked;
+		fullZoomAutoMain = document.getElementById("mainzoomautoow").checked;
+		fullZoomAutoPopout = document.getElementById("zoomautoow").checked;
+		fullZoomMain = newData.fullZoomMain ?Math.max(.5,Math.min(newData.fullZoomMain,1.5)) :.8;
+		fullZoomPopout = newData.fullZoomPopout ?Math.max(.5,Math.min(newData.fullZoomPopout,1.5)) :.8;
 		pathZoom = newData.pathZoom ?Math.max(.5,Math.min(newData.pathZoom,2)) :1;
+		fullPathCompact = newData.fullPathCompact;
 		document.getElementById("overworldoptionsfinalbox").style.display = newData.showOptionsFinalBox && (owshuffle !== 'N' || crossedow !== 'N' || mixedow) ?"block" :"none";
 		if(document.getElementById("globalsync").checked)
 		{
-			document.getElementById("itemsync").checked = document.getElementById("connectorsync").checked = true;
 			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = true;
 		}
 		else
+		{
 			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = false;
+			worldState = newData.worldState;
+			if(worldState !== 'S' && worldState !== 'O' && worldState !== 'I' && worldState !== 'R')
+				worldState = 'O';
+			entranceEnabled = newData.entranceEnabled;
+			document.getElementById("selectworldstate").value = ""+worldState;
+			document.getElementById("entranceenabled").checked = entranceEnabled;
+		}
+		if(!document.getElementById("itemsync").checked && !document.getElementById("connectorsync").checked && !document.getElementById("globalsync").checked)
+			document.getElementById("overworldsyncerror").style.display = "none";
 		awaitingNextUpdate = true;
+		setWelcomeMode(false);
+		newData.visibleSidebar ?showSidebar() :hideSidebar();
 		updateOverviewElements();
 		updateReachableEdges();
 		updateItemTracker();
 		updateConnectorList();
 		updateStartRegionList();
 		updateMainPathLists();
-		applyFullOverworldZoom();
+		applyFullOverworldZoomMain();
+		applyFullOverworldZoomPopout();
 		applyOverworldPathZoom();
 		return true;
 	};
@@ -1216,7 +1308,8 @@
 	window.loadManual = function()
 	{
 		let data = JSON.parse(localStorage.getItem("dungeonData"));
-		if(data && confirm("Load saved data from local storage?\nThis will replace all currently set dungeon paths, overworld transitions and notes.\n\nSaved at: "+data.timeString))
+		let extra = welcomeMode ?"" :"\nThis will replace all currently set dungeon paths, overworld transitions and notes.";
+		if(data && confirm("Load saved data from local storage?"+extra+"\n\nSaved at: "+data.timeString))
 			if(loadAll(data))
 				loadOverview();
 			else
@@ -1233,7 +1326,8 @@
 	window.loadAuto = function()
 	{
 		let data = JSON.parse(localStorage.getItem("dungeonDataAutoSave"));
-		if(data && confirm("Load auto-save data from local storage?\nThis will replace all currently set dungeon paths, overworld transitions and notes.\n\nSaved at: "+data.timeString))
+		let extra = welcomeMode ?"" :"\nThis will replace all currently set dungeon paths, overworld transitions and notes.";
+		if(data && confirm("Load auto-save data from local storage?"+extra+"\n\nSaved at: "+data.timeString))
 			if(loadAll(data))
 				loadOverview();
 			else
@@ -1284,6 +1378,50 @@
 		}
 	};
 
+	window.setWelcomeMode = function(enable)
+	{
+		welcomeMode = enable;
+		if(enable)
+			document.getElementById("app").classList.add("welcomemode");
+		else
+			document.getElementById("app").classList.remove("welcomemode");
+	};
+
+	window.welcomeStart = function(modeFinal)
+	{
+		setWelcomeMode(false);
+		if(document.getElementById("vanillawhirlpoolswelcome").checked)
+			vanillaWhirlpools(null);
+		if(document.getElementById("vanillaspecialwelcome").checked)
+			vanillaSpecialScreens(null);
+		if(document.getElementById("globalsync").checked)
+			testConnection(true);
+		if(modeFinal)
+			vanillaTransitionsMode(null);
+		else
+		{
+			sendUpdate();
+			updateReachableEdges();
+		}
+	};
+
+	window.welcomeStartMystery = function()
+	{
+		document.getElementById("selectdoorshuffle").value = 'C';
+		document.getElementById("lobbyshuffle").checked = true;
+		document.getElementById("excludesmallkeys").checked = false;
+		document.getElementById("excludebigkeys").checked = false;
+		document.getElementById("selectowshuffle").value = 'F';
+		document.getElementById("crossedow").value = 'C';
+		document.getElementById("similarow").checked = false;
+		document.getElementById("mixedow").checked = true;
+		document.getElementById("fluteshuffle").checked = true;
+		welcomeStart(false);
+		updateDoorShuffle();
+		updateKeys();
+		updateOverworldShuffle(true);
+	};
+
 	window.start = function()
 	{
 		dungeonPaths = [];
@@ -1308,6 +1446,10 @@
 		if(query.entrance_shuffle && query.entrance_shuffle !== 'N' && query.entrance_shuffle !== 'n')
 			entranceEnabled = true;
 		let sync = (query.init_sync+'').toLowerCase() === 'true';
+		if(sync || owshuffle !== 'N')
+			toggleOverworldModeSection();
+		document.getElementById("vanillawhirlpoolswelcome").checked = false;
+		document.getElementById("vanillaspecialwelcome").checked = false;
 		document.getElementById("selectdoorshuffle").value = ""+doorshuffle;
 		document.getElementById("lobbyshuffle").checked = lobbyshuffle;
 		document.getElementById("excludesmallkeys").checked = excludesmallkeys;
@@ -1325,7 +1467,7 @@
 		document.getElementById("owsidebaredit").checked = true;
 		document.getElementById("owsidebarnew").checked = true;
 		document.getElementById("owsidebarsearch").checked = true;
-		document.getElementById("itemsync").checked = sync;
+		document.getElementById("itemsync").checked = false;
 		document.getElementById("connectortr").checked = false;
 		document.getElementById("connectorhccsanc").checked = false;
 		document.getElementById("connectorhcchcb").checked = false;
@@ -1334,7 +1476,7 @@
 		document.getElementById("connectorboehcc").checked = false;
 		document.getElementById("connectorsanchcb").checked = false;
 		document.getElementById("connectorsanchcc").checked = false;
-		document.getElementById("connectorsync").checked = sync;
+		document.getElementById("connectorsync").checked = false;
 		document.getElementById("owpathsnote").value = "";
 		document.getElementById("pinnedlinkshouse").checked = true;
 		document.getElementById("pinnedsanctuary").checked = false;
@@ -1344,9 +1486,12 @@
 		document.getElementById("compactprevious").checked = true;
 		document.getElementById("alwaysfollowmarked").checked = true;
 		document.getElementById("compactsearchresults").checked = true;
+		document.getElementById("mainsidebysideow").checked = false;
 		document.getElementById("sidebysideow").checked = false;
+		document.getElementById("mainzoomautoow").checked = true;
 		document.getElementById("zoomautoow").checked = true;
-		document.getElementById("owsearchincludecommon").checked = true;
+		setWelcomeMode(!query.request_update);
+		document.getElementById("vanillawelcome").style.display = owshuffle === 'N' ?"none" :"block";
 		if(sync)
 			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = true;
 		if(!query.request_update && (owshuffle !== 'N' || crossedow !== 'N' || mixedow))
@@ -1354,9 +1499,15 @@
 		try
 		{
 			if(localStorage.getItem("dungeonData"))
+			{
+				document.getElementById("loadmanualwelcome").classList.remove("disabled");
 				document.getElementById("loadmanual").classList.remove("disabled");
+			}
 			if(localStorage.getItem("dungeonDataAutoSave"))
+			{
+				document.getElementById("loadautowelcome").classList.remove("disabled");
 				document.getElementById("loadauto").classList.remove("disabled");
+			}
 		}
 		catch(error)
 		{
@@ -1383,7 +1534,8 @@
 	{
 		currentDungeon = -1;
 		currentOWPath = null;
-		document.getElementById("owmaintablenewpath").style.display = owshuffle === 'N' ?"none" :"";
+		document.getElementById("owmaintablenewpath").style.display = owshuffle === 'N' ?"none" :"table-row";
+		document.getElementById("owmaintablemininewpath").style.display = owshuffle === 'N' ?"none" :"";
 		document.getElementById("pinnedlinkshouse").nextSibling.innerHTML = worldState === 'I' ?"Link's House" :"Link's House";
 		document.getElementById("pinnedsanctuary").nextSibling.innerHTML = worldState === 'I' ?"Dark Chapel" :"Sanctuary";
 		document.getElementById("pinnedoldman").nextSibling.innerHTML = worldState === 'I' ?"Dark Mountain" :"Mountain Cave";
@@ -1401,6 +1553,8 @@
 			sendUpdate();
 		activeOverworld();
 		switchScene("owmain");
+		if(showFullMapMain)
+			loadFullOverworldMain();
 	};
 
 	window.sideLoadOverworld = function()
@@ -1420,6 +1574,73 @@
 			document.getElementById("sideboss"+k).classList.remove("activetab");
 			document.getElementById("sidesummary"+k).classList.remove("activetab");
 		}
+	};
+
+	window.loadFullOverworldMain = function()
+	{
+		fullOWSelectedScreen = fullOWSelectedEdge = fullOWConnectorStart = fullOWFixedEdge = null;
+		document.getElementById("fullowmainscreenactions").style.display = "none";
+		document.getElementById("fullowmainnewpath").style.display = owshuffle === 'N' ?"none" :"block";
+		document.getElementById("fullowmainmixedactions").style.display = mixedow ?"block" :"none";
+		document.getElementById("fullowmainswapscreenwithedges").style.display = (owshuffle !== 'N' || crossedow === 'C') ?"block" :"none";
+		document.getElementById("fullowmainnewconnector").style.display = entranceEnabled && !document.getElementById("connectorsync").checked && !document.getElementById("globalsync").checked ?"block" :"none";
+		document.getElementById("fullowmainedgeactions").style.display = "none";
+		document.getElementById("fullowmainconnectoractions").style.display = "none";
+		document.getElementById("fullowmainpathactions").style.display = fullOWPath ?"block" :"none";
+		fullCheckConnectorDetails();
+		drawFullOverworldPanel(true);
+		if(fullZoomAutoMain)
+			calculateFullZoomMain();
+	};
+
+	window.enableUseMain = function()
+	{
+		useMain = true;
+		if(showFullMapMain && document.getElementById("owmain").style.display === "block")
+			loadFullOverworldMain();
+	};
+
+	window.disableUseMain = function()
+	{
+		useMain = false;
+		if(showFullMapMain && document.getElementById("owmain").style.display === "block")
+		{
+			document.getElementById("fullowmainscreenactions").style.display = "none";
+			document.getElementById("fullowmainedgeactions").style.display = "none";
+			document.getElementById("fullowmainconnectoractions").style.display = "none";
+		}
+	};
+
+	window.toggleOverworldModeSection = function()
+	{
+		showOverworldModeSection = !showOverworldModeSection;
+		document.getElementById("toggleowmodesection").className = showOverworldModeSection ?"buttonsquare collapsesection" :"buttonsquare expandsection";
+		document.getElementById("overworldmodelayout").style.display = showOverworldModeSection ?"inline-block" :"none";
+		document.getElementById("overworldmodesection").style.display = showOverworldModeSection ?"block" :"none";
+	};
+
+	window.toggleFullOverworldMain = function()
+	{
+		showFullMapMain = !showFullMapMain;
+		document.getElementById("togglefullowmain").className = showFullMapMain ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
+		document.getElementById("fullowmainpage").style.display = showFullMapMain ?"block" :"none";
+		if(showFullMapMain)
+			loadFullOverworldMain();
+	};
+
+	window.toggleOverworldMainTable = function()
+	{
+		expandedMainTable = !expandedMainTable;
+		document.getElementById("toggleowmaintable").className = expandedMainTable ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
+		document.getElementById("owmaintable").style.display = expandedMainTable ?"block" :"none";
+		document.getElementById("owmaintablemini").style.display = expandedMainTable ?"none" :"block";
+	};
+
+	window.toggleChecklist = function()
+	{
+		showChecklist = !showChecklist;
+		document.getElementById("togglechecklist").className = showChecklist ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
+		document.getElementById("checklist").style.display = showChecklist ?"block" :"none";
 	};
 
 	window.updateConnectorList = function()
@@ -1452,17 +1673,17 @@
 
 	window.fullCheckConnectorDetails = function()
 	{
-		if(entranceEnabled && fullOverworldMode === "editedges" && !fullOWSelectedScreen && !fullOWSelectedEdge && !fullOWConnectorStart)
+		if(entranceEnabled && (useMain || fullOverworldMode === "editedges") && !fullOWSelectedScreen && !fullOWSelectedEdge && !fullOWConnectorStart)
 			for(let k = entranceConnectors.length-1; k >= 0; k--)
 				if(entranceConnectors[k].status === "unknown")
 				{
 					lastUnknownConnectorIndex = k;
-					document.getElementById("fullowunknownconnectortext").innerHTML = connectorString(entranceConnectors[k]);
-					document.getElementById("fullowunknownconnector").style.display = "block";
+					document.getElementById(useMain ?"fullowmainunknownconnectortext" :"fullowunknownconnectortext").innerHTML = connectorString(entranceConnectors[k]);
+					document.getElementById(useMain ?"fullowmainunknownconnector" :"fullowunknownconnector").style.display = "block";
 					return;
 				}
 		lastUnknownConnectorIndex = -1;
-		document.getElementById("fullowunknownconnector").style.display = "none";
+		document.getElementById(useMain ?"fullowmainunknownconnector" :"fullowunknownconnector").style.display = "none";
 	};
 
 	window.connectorString = function(connector)
@@ -1484,6 +1705,7 @@
 			entranceConnectors[index].status = "single";
 			outstandingUpdate = true;
 			updateConnectorList();
+			drawFullOverworldPanels();
 		}
 		else
 			if(entranceConnectors[index].status === "both")
@@ -1492,6 +1714,7 @@
 				outstandingUpdate = true;
 				updateReachableEdges();
 				updateConnectorList();
+				drawFullOverworldPanels();
 			}
 	};
 
@@ -1512,7 +1735,6 @@
 		if(lastUnknownConnectorIndex !== -1)
 		{
 			unknownConnectorOneWay(lastUnknownConnectorIndex);
-			drawFullOverworldPanel();
 		}
 	};
 
@@ -1522,7 +1744,6 @@
 		if(lastUnknownConnectorIndex !== -1)
 		{
 			unknownConnectorTwoWay(lastUnknownConnectorIndex);
-			drawFullOverworldPanel();
 		}
 	};
 
@@ -1543,6 +1764,7 @@
 			entranceConnectors[clickedConnectorIndex].status = "unknown";
 			outstandingUpdate = true;
 			updateConnectorList();
+			drawFullOverworldPanels();
 		}
 		else
 			if(entranceConnectors[clickedConnectorIndex].status === "both")
@@ -1552,6 +1774,7 @@
 				outstandingUpdate = true;
 				updateReachableEdges();
 				updateConnectorList();
+				drawFullOverworldPanels();
 			}
 	};
 
@@ -1563,6 +1786,7 @@
 			outstandingUpdate = true;
 			updateReachableEdges();
 			updateConnectorList();
+			drawFullOverworldPanels();
 		}
 	};
 
@@ -1588,12 +1812,16 @@
 		outstandingUpdate = true;
 		updateReachableEdges();
 		updateStartRegionList();
+		drawFullOverworldPanels();
+		updateClickScreenCommonStarts();
 	};
 
 	window.updateDefaultStartRegions = function()
 	{
 		outstandingUpdate = true;
 		updateReachableEdges();
+		drawFullOverworldPanels();
+		updateClickScreenCommonStarts();
 	};
 
 	window.updateOverworldNotes = function()
@@ -1645,6 +1873,7 @@
 			}
 			outstandingUpdate = true;
 			updateReachableEdges();
+			drawFullOverworldPanels();
 		}
 	};
 
@@ -1652,6 +1881,7 @@
 	{
 		outstandingUpdate = true;
 		updateReachableEdges();
+		drawFullOverworldPanels();
 	};
 
 	window.clickFluteActivated = function()
@@ -1659,15 +1889,15 @@
 		document.getElementById("activeflutebox").checked = true;
 		outstandingUpdate = true;
 		updateReachableEdges();
-		drawFullOverworldPanel();
+		drawFullOverworldPanels();
 	};
 
 	window.clickSetFluteSpots = function()
 	{
 		if(fluteshuffle)
 		{
-			if(!sideBySide)
-				drawDarkWorld = worldState === 'I';
+			if(!sideBySidePopout)
+				drawDarkWorldPopout = worldState === 'I';
 			showFullOverworldModal("editflutespots");
 		}
 	};
@@ -1677,11 +1907,12 @@
 		ownItems[checkbox.id] = checkbox.checked;
 		outstandingUpdate = true;
 		updateReachableEdges();
+		drawFullOverworldPanels();
 	};
 
-	window.clickScreenFull = function(event,id)
+	window.clickScreenFull = function(event,id,main)
 	{
-		switch(fullOverworldMode)
+		switch(main ?"editedges" :fullOverworldMode)
 		{
 			case "newpath":
 				startOverworldPath(id);
@@ -1694,11 +1925,11 @@
 				return;
 			case "searchpathtarget":
 				currentOWScreen = overworldScreens.get(id);
-				searchOverworldPath(true);
+				searchOverworldPath(false,true);
 				return;
 			case "searchpathstart":
 				searchStartScreen = overworldScreens.get(id);
-				searchOverworldPath(false);
+				searchOverworldPath(true,false);
 				return;
 			case "editedges":
 				if(!fullOWSelectedEdge || event.detail > 1)
@@ -1714,21 +1945,22 @@
 				}
 				outstandingUpdate = true;
 				updateReachableEdges();
-				drawFullOverworldPanel();
+				drawFullOverworldPanels();
 		}
 	};
 
-	window.clickEdgeFull = function(screenID,edgeString)
+	window.clickEdgeFull = function(screenID,edgeString,main)
 	{
-		if(fullOverworldMode === "editedges")
+		if(main || fullOverworldMode === "editedges")
 		{
+			let mainString = main ?"fullowmain" :"fullow";
 			if(fullOWSelectedEdge)
 			{
 				let edge = overworldScreens.get(screenID).edges.get(edgeString);
 				if(edge === fullOWSelectedEdge)
 				{
 					fullOWSelectedEdge = null;
-					document.getElementById("fullowedgeactions").style.display = "none";
+					document.getElementById(mainString+"edgeactions").style.display = "none";
 					fullCheckConnectorDetails();
 				}
 				else
@@ -1737,7 +1969,7 @@
 					{
 						connectSimilarParallel(fullOWSelectedEdge,edge);
 						fullOWSelectedEdge = null;
-						document.getElementById("fullowedgeactions").style.display = "none";
+						document.getElementById(mainString+"edgeactions").style.display = "none";
 						fullCheckConnectorDetails();
 						outstandingUpdate = true;
 						updateReachableEdges();
@@ -1778,36 +2010,40 @@
 				{
 					fullOWSelectedEdge = overworldScreens.get(screenID).edges.get(edgeString);
 					fullOWSelectedScreen = null;
-					document.getElementById("fullowscreenactions").style.display = "none";
-					document.getElementById("fullowedgeactions").style.display = "block";
-					document.getElementById("fullowunknownconnector").style.display = "none";
+					document.getElementById(mainString+"screenactions").style.display = "none";
+					document.getElementById(mainString+"edgeactions").style.display = "block";
+					document.getElementById(mainString+"unknownconnector").style.display = "none";
 					if(fullOWSelectedEdge.out || fullOWSelectedEdge.in)
 					{
-						document.getElementById("fullowedgetext").innerHTML = "This transition is already set. Clicking on another edge will replace the old connection.";
-						document.getElementById("fullowedgedelete").classList.remove("disabled");
+						document.getElementById(mainString+"edgetext").innerHTML = "This transition is already set. Clicking on another edge will replace the old connection.";
+						document.getElementById(mainString+"edgedelete").classList.remove("disabled");
 					}
 					else
 					{
-						document.getElementById("fullowedgetext").innerHTML = "Click on another edge to set a screen transition.";
-						document.getElementById("fullowedgedelete").classList.add("disabled");
+						document.getElementById(mainString+"edgetext").innerHTML = "Click on another edge to set a screen transition.";
+						document.getElementById(mainString+"edgedelete").classList.add("disabled");
 					}
 				}
 			}
-			drawFullOverworldPanel();
+			drawFullOverworldPanels();
 		}
 	};
 
 	window.updateClickScreenOptions = function(id)
 	{
 		let screen = overworldScreens.get(id);
+		let mainString = useMain ?"fullowmain" :"fullow";
 		fullOWSelectedEdge = null;
-		document.getElementById("fullowedgeactions").style.display = "none";
+		document.getElementById(mainString+"edgeactions").style.display = "none";
 		if(fullOWConnectorStart)
 		{
 			if(screen.entranceRegions.length !== 0 && fullOWConnectorStart.entranceRegions.length !== 0)
 			{
 				fullOWConnectorEnd = screen;
+				backToMain = useMain;
+				let start = fullOWConnectorStart;
 				hideFullOverworldModal();
+				fullOWConnectorStart = start;
 				showOverworldConnectorModal();
 			}
 		}
@@ -1816,27 +2052,38 @@
 			if(screen === fullOWSelectedScreen)
 			{
 				fullOWSelectedScreen = null;
-				document.getElementById("fullowscreenactions").style.display = "none";
+				document.getElementById(mainString+"screenactions").style.display = "none";
 				fullCheckConnectorDetails();
 			}
 			else
 			{
 				fullOWSelectedScreen = screen;
 				if(screen.entranceRegions.length !== 0)
-					document.getElementById("fullownewconnector").classList.remove("disabled");
+					document.getElementById(mainString+"newconnector").classList.remove("disabled");
 				else
-					document.getElementById("fullownewconnector").classList.add("disabled");
-				document.getElementById("fullowscreenactions").style.display = "block";
-				document.getElementById("fullowscreenname").innerHTML = screen.name;
-				let s = "";
-				for(let regionName of screen.regions.keys())
-				{
-					s += "<div class='buttonbox small' style='float: left; margin: 2px;' onclick='addStartRegion(this,\""+regionName+"\")'>"+regionName+"</div>";
-				}
-				document.getElementById("fullowregionlist").innerHTML = s;
-				document.getElementById("fullowunknownconnector").style.display = "none";
+					document.getElementById(mainString+"newconnector").classList.add("disabled");
+				document.getElementById(mainString+"screenactions").style.display = "block";
+				document.getElementById(mainString+"screenname").innerHTML = screen.name;
+				document.getElementById(mainString+"mixedscreenstate").innerHTML = "Mixed state: "+screen.mixedState;
+				updateClickScreenCommonStarts();
+				document.getElementById(mainString+"unknownconnector").style.display = "none";
 			}
-			drawFullOverworldPanel();
+			drawFullOverworldPanelCurrent();
+		}
+	};
+
+	window.updateClickScreenCommonStarts = function()
+	{
+		if(fullOWSelectedScreen)
+		{
+			let mainString = useMain ?"fullowmain" :"fullow";
+			let s = "<div class='cell textrow' style='line-height: 16px; margin: 4px;'>Add/remove common start:</div>";
+			for(let [regionName,region] of fullOWSelectedScreen.regions)
+				if(allStartRegions.includes(region))
+					s += "<div class='buttonbox small redborder' style='float: left; margin: 2px;' onclick='removeStartRegion(this,\""+regionName+"\")'>"+regionName+"</div>";
+				else
+					s += "<div class='buttonbox small' style='float: left; margin: 2px;' onclick='addStartRegion(this,\""+regionName+"\")'>"+regionName+"</div>";
+			document.getElementById(mainString+"regionlist").innerHTML = s;
 		}
 	};
 
@@ -1855,10 +2102,40 @@
 		setMixedScreen(fullOWSelectedScreen,"unknown");
 		outstandingUpdate = true;
 		fullOWSelectedScreen = null;
-		document.getElementById("fullowscreenactions").style.display = "none";
+		document.getElementById(useMain ?"fullowmainscreenactions" :"fullowscreenactions").style.display = "none";
 		fullCheckConnectorDetails();
 		updateReachableEdges();
-		drawFullOverworldPanel();
+		drawFullOverworldPanels();
+	};
+
+	window.fullOverworldSwapScreen = function(button,includeEdges)
+	{
+		if(fullOWSelectedScreen.mixedState !== "unknown")
+		{
+			if(includeEdges)
+			{
+				let group = getScreenLinkGroup(fullOWSelectedScreen.id),gameLeft = fullOWSelectedScreen.id%0x40 === 0x28,gameRight = fullOWSelectedScreen.id%0x40 === 0x29;
+				for(let edge of fullOWSelectedScreen.edges.values())
+					if(edge.parallel && (!similarow || (!gameLeft && (!gameRight || edge.direction !== "W"))) && ((edge.out && !group.includes(edge.out.screen.id)) || (edge.parallel.out && !group.includes(edge.parallel.out.screen.id))))
+					{
+						let old = edge.out;
+						if(edge.parallel.out)
+							connectEdges(edge,edge.parallel.out,true);
+						else
+							deleteConnections(edge);
+						if(old)
+							connectEdges(edge.parallel,old,true);
+						else
+							deleteConnections(edge.parallel);
+					}
+			}
+			setMixedScreen(fullOWSelectedScreen,fullOWSelectedScreen.mixedState === "normal" ?"swapped" :"normal");
+			outstandingUpdate = true;
+			buttonFlash(button);
+			updateReachableEdges();
+			drawFullOverworldPanels();
+			document.getElementById(useMain ?"fullowmainmixedscreenstate" :"fullowmixedscreenstate").innerHTML = "Mixed state: "+fullOWSelectedScreen.mixedState;
+		}
 	};
 
 	window.fullOverworldNewConnector = function()
@@ -1867,9 +2144,9 @@
 		{
 			fullOWConnectorStart = fullOWSelectedScreen;
 			fullOWSelectedScreen = null;
-			document.getElementById("fullowscreenactions").style.display = "none";
-			document.getElementById("fullowconnectoractions").style.display = "block";
-			drawFullOverworldPanel();
+			document.getElementById(useMain ?"fullowmainscreenactions" :"fullowscreenactions").style.display = "none";
+			document.getElementById(useMain ?"fullowmainconnectoractions" :"fullowconnectoractions").style.display = "block";
+			drawFullOverworldPanelCurrent();
 		}
 	};
 
@@ -1879,16 +2156,47 @@
 		outstandingUpdate = true;
 		updateReachableEdges();
 		updateStartRegionList();
-		drawFullOverworldPanel();
+		drawFullOverworldPanels();
 		buttonFlash(button);
+		button.classList.add("redborder");
+		button.setAttribute("onclick","removeStartRegion(this,'"+regionName+"')");
+	};
+
+	window.removeStartRegion = function(button,regionName)
+	{
+		let region = fullOWSelectedScreen.regions.get(regionName);
+		if(fixedStartRegions.includes(region))
+		{
+			if(fullOWSelectedScreen.id%0x40 === 0x2C)
+				document.getElementById("pinnedlinkshouse").checked = false;
+			if(fullOWSelectedScreen.id%0x40 === 0x13)
+				document.getElementById("pinnedsanctuary").checked = false;
+			if(fullOWSelectedScreen.id%0x40 === 0x03)
+				document.getElementById("pinnedoldman").checked = false;
+			if(fullOWSelectedScreen.id%0x40 === 0x1B)
+				document.getElementById("pinnedpyramid").checked = false;
+		}
+		for(let k = 0; k < customStartRegions.length; k++)
+			if(customStartRegions[k] === region)
+			{
+				customStartRegions.splice(k,1);
+				k--;
+			}
+		outstandingUpdate = true;
+		updateReachableEdges();
+		updateStartRegionList();
+		drawFullOverworldPanels();
+		buttonFlash(button);
+		button.classList.remove("redborder");
+		button.setAttribute("onclick","addStartRegion(this,'"+regionName+"')");
 	};
 
 	window.fullOverworldUnselectEdge = function()
 	{
 		fullOWSelectedEdge = null;
-		document.getElementById("fullowedgeactions").style.display = "none";
+		document.getElementById(useMain ?"fullowmainedgeactions" :"fullowedgeactions").style.display = "none";
 		fullCheckConnectorDetails();
-		drawFullOverworldPanel();
+		drawFullOverworldPanelCurrent();
 	};
 
 	window.fullOverworldDeleteConnection = function()
@@ -1897,25 +2205,62 @@
 		{
 			deleteSimilarParallel(fullOWSelectedEdge);
 			fullOWSelectedEdge = null;
-			document.getElementById("fullowedgeactions").style.display = "none";
+			document.getElementById(useMain ?"fullowmainedgeactions" :"fullowedgeactions").style.display = "none";
 			outstandingUpdate = true;
 			fullCheckConnectorDetails();
 			updateReachableEdges();
-			drawFullOverworldPanel();
+			drawFullOverworldPanels();
 		}
 	};
 
 	window.fullOverworldCancelConnector = function()
 	{
 		fullOWConnectorStart = null;
-		document.getElementById("fullowconnectoractions").style.display = "none";
-		drawFullOverworldPanel();
+		document.getElementById(useMain ?"fullowmainconnectoractions" :"fullowconnectoractions").style.display = "none";
+		drawFullOverworldPanelCurrent();
 	};
 
 	window.fullOverworldCommonStarts = function()
 	{
 		searchStartScreen = null;
-		searchOverworldPath(false);
+		searchOverworldPath(true,false);
+	};
+
+	window.fullOverworldDisableFluteShuffle = function()
+	{
+		document.getElementById("fluteshuffle").checked = false;
+		updateOverworldShuffle(false);
+		showFullOverworldModal("editedges");
+	};
+
+	window.fullOverworldSavePath = function(button)
+	{
+		if(fullOWPath)
+		{
+			pinnedPaths.unshift(fullOWPath);
+			outstandingUpdate = true;
+			updateMainPathLists();
+			buttonFlash(button);
+		}
+	};
+
+	window.fullOverworldDeletePath = function()
+	{
+		document.getElementById("fullowmainpanelpathoverlay").innerHTML = document.getElementById("fullowpanelpathoverlay").innerHTML = "";
+		document.getElementById("fullowmainpathactions").style.display = document.getElementById("fullowpathactions").style.display = "none";
+		fullOWPath = null;
+		document.getElementById("fullowmainhighlightedpath").innerHTML = document.getElementById("fullowhighlightedpath").innerHTML = "";
+		drawFullOverworldPanels();
+	};
+
+	window.fullOverworldToggleCompactPath = function()
+	{
+		if(fullOWPath)
+		{
+			fullPathCompact = !fullPathCompact;
+			clearPathNumber();
+			document.getElementById("fullowmainhighlightedpath").innerHTML = document.getElementById("fullowhighlightedpath").innerHTML = drawOverworldPath(fullOWPath,!fullPathCompact,true,false)[0];
+		}
 	};
 
 	window.startOverworldPath = function(id)
@@ -1981,8 +2326,8 @@
 			{
 				updateCurrentOverworldPath();
 				fullOWFixedEdge = edge;
-				if(!sideBySide && crossedow === 'N')
-					drawDarkWorld = isDarkWorld(currentOWScreen);
+				if(!sideBySidePopout && crossedow === 'N')
+					drawDarkWorldPopout = isDarkWorld(currentOWScreen);
 				showFullOverworldModal("continuepath");
 			}
 		}
@@ -2012,11 +2357,13 @@
 		if(validEdges.length === 1)
 		{
 			document.getElementById("fullowModal").style.display = "none";
+			enableUseMain();
 			appendTargetToOverworldPath(screen,validEdges[0]);
 		}
 		if(validEdges.length > 1)
 		{
 			document.getElementById("fullowModal").style.display = "none";
+			enableUseMain();
 			extraOWScreen = screen;
 			let options = [false,false,false];
 			for(let edge of validEdges)
@@ -2039,14 +2386,15 @@
 	{
 		document.getElementById("owextraModal").style.display = "none";
 		document.getElementById("fullowModal").style.display = "block";
+		disableUseMain();
 	};
 
 	window.editFluteSpots = function()
 	{
 		if(fluteshuffle)
 		{
-			if(!sideBySide)
-				drawDarkWorld = worldState === 'I';
+			if(!sideBySidePopout)
+				drawDarkWorldPopout = worldState === 'I';
 			showFullOverworldModal("editflutespots");
 		}
 	};
@@ -2068,15 +2416,17 @@
 	window.connectorBackToFullOverworld = function()
 	{
 		fullOWConnectorStart = null;
-		drawFullOverworldPanel();
-		document.getElementById("fullowconnectoractions").style.display = "none";
+		useMain = backToMain;
+		document.getElementById(useMain ?"fullowmainconnectoractions" :"fullowconnectoractions").style.display = "none";
 		document.getElementById("owconnectorModal").style.display = "none";
-		document.getElementById("fullowModal").style.display = "block";
+		if(!useMain)
+			document.getElementById("fullowModal").style.display = "block";
+		drawFullOverworldPanels();
 	};
 
 	window.updateCurrentOverworldPath = function()
 	{
-		let [drawn,width,] = drawOverworldPath(currentOWPath,true,false);
+		let [drawn,width,] = drawOverworldPath(currentOWPath,true,false,false);
 		document.getElementById("owcurrentpath").innerHTML = drawn;
 		if(width <= Math.max(256,document.getElementById("owcurrentpath").parentElement.offsetWidth))
 		{
@@ -2100,7 +2450,7 @@
 		}
 	};
 
-	window.drawOverworldPath = function(path,detailed,multiline,maxWidth = Infinity)
+	window.drawOverworldPath = function(path,detailed,drawNumbers,multiline,maxWidth = Infinity)
 	{
 		let s = "",left = 0,top = 0,lastEdgeX,lastEdgeY;
 		for(let k = 0; k < path.length; k++)
@@ -2122,28 +2472,40 @@
 					let x = screen.special ?0 :screen.id%8*128*scale;
 					let y = screen.special ?0 :(screen.id%0x40 >> 3)*128*scale;
 					let file = screen.special ?screen.file :(screen.darkWorld ?"darkworld" :"lightworld");
-					s += "<div class='"+classes+"' style='left: "+left+"px; top: "+top+"px;'><img class='roomnodeimg' src='./images/overlay/"+file+".png' style='transform: translateX(-"+x+"px) translateY(-"+y+"px) scale("+scale+");'><span class='roomtt'><label class='ttlabel'>"+name+"</label></span></div>";
-					if(k != 0 && path[k-1] != "PO" && path[k-1] != "MI" && path[k-1] != "CO")
+					s += "<div class='"+classes+"' style='left: "+left+"px; top: "+top+"px;' onmouseover='hoverPathNumber("+path[k]+")' onmouseout='clearPathNumber()'><img class='roomnodeimg' src='./images/overlay/"+file+".png' style='transform: translateX(-"+x+"px) translateY(-"+y+"px) scale("+scale+");'><span class='roomtt'><label class='ttlabel'>"+name+"</label></span></div>";
+					if(drawNumbers)
+						s += "<div class='pathnumber' style='left: "+(left+24)+"px; top: "+(top+24)+"px;'>"+k/3+"</div>";
+					if(k != 0 && !specialEdgeTypes.includes(path[k-1]))
 					{
 						let edge = screen.edges.get(path[k-1][0]+path[k-1][1]);
 						let newX = left+edge.x2*128*scale,newY = top+edge.y2*128*scale;
-						s += "<div class='owedgedot' style='left: "+(newX-4)+"px; top: "+(newY-4)+"px;'></div>";
+						s += "<div class='owedgedot to' style='left: "+(newX-4)+"px; top: "+(newY-4)+"px;'></div>";
 						if(detailed || path.length <= 4)
 						{
 							let minX = Math.min(lastEdgeX,newX),maxX = Math.max(lastEdgeX,newX);
 							let minY = Math.min(lastEdgeY,newY),maxY = Math.max(lastEdgeY,newY);
-							s += "<div class='crossed"+(((lastEdgeY > newY) != (lastEdgeX > newX)) ?"left" :"right")+"' style='left: "+minX+"px; top: "+minY+"px; width: "+(maxX-minX)+"px; height: "+(maxY-minY)+"px;'></div>"
+							s += "<div class='crossed"+(((lastEdgeY > newY) != (lastEdgeX > newX)) ?"left" :"right")+"' style='left: "+minX+"px; top: "+minY+"px; width: "+(maxX-minX)+"px; height: "+(maxY-minY)+"px; z-index: -1;'></div>"
 						}
 					}
-					if(k != path.length-1 && path[k+1] != "PO" && path[k+1] != "MI" && path[k+1] != "CO")
+					if(k != path.length-1 && !specialEdgeTypes.includes(path[k+1]))
 					{
-						let edge = screen.edges.get(path[k+1][0]+path[k+1][1]);
+						let edge = screen.edges.get(path[k+1]);
 						lastEdgeX = left+edge.x2*128*scale;
 						lastEdgeY = top+edge.y2*128*scale;
 						s += "<div class='owedgedot' style='left: "+(lastEdgeX-4)+"px; top: "+(lastEdgeY-4)+"px;'></div>";
 					}
 					left += 64;
 				}
+				else
+					if(drawNumbers)
+					{
+						if(left+16 > maxWidth && multiline)
+						{
+							left = 32;
+							top += 64;
+						}
+						s += "<div class='pathnumber single' style='left: "+(left-8)+"px; top: "+(top+40)+"px;' onmouseover='hoverPathNumber("+path[k]+")' onmouseout='clearPathNumber()'>"+k/3+"</div>";
+					}
 				break;
 			case 1://Edge from
 				if(left+32 > maxWidth && multiline)
@@ -2178,7 +2540,7 @@
 	window.saveCurrentOverworldPath = function()
 	{
 		for(let k = 3; k < currentOWPath.length; k += 3)
-			if(currentOWPath[k-2] != "PO" && currentOWPath[k-2] != "MI" && currentOWPath[k-2] != "CO")
+			if(!specialEdgeTypes.includes(currentOWPath[k-2]))
 			{
 				let screen1 = overworldScreens.get(currentOWPath[k-3]),screen2 = overworldScreens.get(currentOWPath[k]);
 				let edge1 = screen1.edges.get(currentOWPath[k-2]),edge2 = screen2.edges.get(currentOWPath[k-1]);
@@ -2228,104 +2590,234 @@
 	{
 		currentOWScreen = overworldScreens.get(id);
 		searchStartScreen = null;
-		searchResults.clear();
-		document.getElementById("owsearchresults").innerHTML = "";
-		document.getElementById("owsearchresults").style.height = "0";
-		searchResultsLength = 0;
+		searchOnlyStartScreen();
+		document.getElementById("owsearchmirrorportals").checked = true;
+		document.getElementById("owsearchfollower").value = "none";
 		hideFullOverworldModal();
 		activeOverworld();
 		switchScene("owsearch");
-		searchOverworldPath(true);
+		searchOverworldPath(true,true);
 	};
 
-	window.searchOverworldPath = function(resetRegions)
+	window.startOverworldSearchPreset = function(preset)
+	{
+		switch(preset)
+		{
+			case "activateflute":
+				searchStartScreen = null;
+				currentOWScreen = overworldScreens.get(0x18);
+				searchTargetRegion = currentOWScreen.regions.get("Main");
+				document.getElementById("owsearchfollower").value = "none";
+				break;
+			case "smith":
+				searchStartScreen = overworldScreens.get(0x69);
+				searchStartRegion = searchStartScreen.regions.get("Frog");
+				currentOWScreen = overworldScreens.get(0x22);
+				searchTargetRegion = currentOWScreen.regions.get("Main");
+				document.getElementById("owsearchfollower").value = "smithfrog";
+				break;
+			case "purplechest":
+				searchStartScreen = overworldScreens.get(0x62);
+				searchStartRegion = searchStartScreen.regions.get("Main");
+				currentOWScreen = overworldScreens.get(0x3A);
+				searchTargetRegion = currentOWScreen.regions.get("Main");
+				document.getElementById("owsearchfollower").value = "purplechest";
+				break;
+			case "redbomb":
+				searchStartScreen = overworldScreens.get(worldState === 'I' ?0x2C :0x6C);
+				searchStartRegion = searchStartScreen.regions.get("Main");
+				currentOWScreen = overworldScreens.get(0x5B);
+				searchTargetRegion = currentOWScreen.regions.get("Main");
+				document.getElementById("owsearchfollower").value = "redbomb";
+				break;
+			default:
+				return;
+		}
+		if(searchStartScreen && searchStartScreen.regions.size === 1)
+			searchStartRegion = null;
+		if(currentOWScreen.regions.size === 1)
+			searchTargetRegion = null;
+		searchOnlyStartScreen();
+		document.getElementById("owsearchmirrorportals").checked = true;
+		hideFullOverworldModal();
+		activeOverworld();
+		switchScene("owsearch");
+		searchOverworldPath(false,false);
+	};
+
+	window.searchOverworldPath = function(resetStartRegions,resetTargetRegions)
 	{
 		let screen = currentOWScreen;
 		searchResults.clear();
-		document.getElementById("owsearchtitle").innerHTML = "Paths to "+screen.name;
-		document.getElementById("owsearchstarttext").innerHTML = "Starting from "+(searchStartScreen ?searchStartScreen.name :"common start locations");
 		document.getElementById("owsearchresults").innerHTML = "";
 		document.getElementById("owsearchresults").style.height = "0";
 		searchResultsLength = 0;
+		document.getElementById("checklistedges").style.display = owshuffle !== 'N' || crossedow === 'C' ?"table-row" :"none";
+		document.getElementById("checklistmixed").style.display = mixedow ?"table-row" :"none";
+		document.getElementById("checklistflute").style.display = fluteshuffle ?"table-row" :"none";
 		hideFullOverworldModal();
 		let items = getModifiedOwnItems();
-		let startRegions = searchStartScreen ?Array.from(searchStartScreen.regions.values()) :fixedStartRegions.concat(customStartRegions);
-		if(searchStartScreen && document.getElementById("owsearchincludecommon").checked)
-			startRegions = startRegions.concat(fixedStartRegions,customStartRegions);
+		if(document.getElementById("owsearchfollower").value !== "none")
+			items.follower = document.getElementById("owsearchfollower").value;
+		document.getElementById("owsearchmirrorportals").disabled = !items.mirror;
+		let startRegions = searchStartScreen ?(searchStartRegion ?[searchStartRegion] :Array.from(searchStartScreen.regions.values())) :allStartRegions.concat(fluteSpotRegions);
+		if(searchStartScreen && searchAddCommonStarts)
+			startRegions = startRegions.concat(allStartRegions,fluteSpotRegions);
+		let options = {};
+		options.saveQuitEdges = searchStartScreen && searchSaveQuitFluteEdges;
+		options.fluteEdges = searchStartScreen && searchSaveQuitFluteEdges;
 		for(let region of screen.regions.values())
 		{
-			dijkstra(region,items);
+			options.keepMirrorPortal = false;
+			dijkstra(region,items,options);
 			let pathsToRegion = [];
 			for(let start of startRegions)
 			{
 				if(start.distance != Infinity)
 				{
-					let current = start;
-					let path = [start.screen.id];
-					while(current.distance > 0)
+					pathsToRegion.push([buildPathFromSearch(start),start.distance]);
+				}
+				if(document.getElementById("owsearchmirrorportals").checked && items.mirror && isDarkWorld(start.screen) === (worldState === 'I') && start.parallel && !start.parallel.mirrorBlock && start.parallel.distance != Infinity)
+				{
+					let path = buildPathFromSearch(start.parallel);
+					if(path.length === 1 || (path[1] !== "MI" && path[1] !== "SQ"))
 					{
-						switch(current.nextEdgeType)
-						{
-							case "S":
-								path.push(current.nextEdge.string,getConnectedEdge(current.nextEdge,false).string,current.nextRegion.screen.id);
-								break;
-							case "P":
-								path.push("PO","PO",current.nextRegion.screen.id);
-								break;
-							case "M":
-								path.push("MI","MI",current.nextRegion.screen.id);
-								break;
-							case "C":
-								path.push("CO","CO",current.nextRegion.screen.id);
-						}
-						current = current.nextRegion;
+						path.unshift(start.screen.id,"MP","MP");
+						pathsToRegion.push([path,start.parallel.distance+5]);
 					}
-					pathsToRegion.push(path);
+				}
+			}
+			if(document.getElementById("owsearchmirrorportals").checked && items.mirror && isDarkWorld(screen) !== (worldState === 'I') && region.parallel && !region.mirrorBlock)
+			{
+				options.keepMirrorPortal = true;
+				dijkstra(region.parallel,items,options);
+				for(let start of startRegions)
+				{
+					if(start.distance != Infinity)
+					{
+						let path = buildPathFromSearch(start);
+						path.push("MP","MP",screen.id);
+						pathsToRegion.push([path,start.distance+8]);
+					}
 				}
 			}
 			searchResults.set(region,pathsToRegion);
 		}
-		if(resetRegions)
+		if(resetStartRegions)
 		{
-			if(searchRegionChoiceVisible = screen.regions.size != 1)
-			{
-				document.getElementById("owsearchregionchoicetext").style.display = "block";
-				let s = "<div id='owanyregion' class='cell buttonbox' onclick='chooseSearchRegion(null)'>Any region</div>";
-				for(let name of screen.regions.keys())
-					s += "<div id='owregion"+name+"' class='cell buttonbox' onclick='chooseSearchRegion(\""+name+"\")'>"+name+"</div>";
-				document.getElementById("owsearchregionchoice").innerHTML = s;
-			}
-			else
-			{
-				document.getElementById("owsearchregionchoicetext").style.display = "none";
-				document.getElementById("owsearchregionchoice").innerHTML = "";
-			}
-			searchRegion = null;
+			searchStartRegion = null;
+		}
+		document.getElementById("owsearchstartscreenname").innerHTML = "Start: "+(searchStartScreen ?searchStartScreen.name :"Common starting locations");
+		document.getElementById("owsearchstartbutton").innerHTML = searchStartScreen ?"Change" :"Select screen";
+		document.getElementById("owsearchstartpanel").innerHTML = searchStartScreen ?drawSingleOverworldScreen(searchStartScreen,"search") :"";
+		document.getElementById("owsearchstartpanel").style.display = searchStartScreen ?"block" :"none";
+		document.getElementById("owsearchstartcommonchoice").style.display = searchStartScreen ?"block" :"none";
+		if(searchStartScreen && searchStartScreen.regions.size != 1)
+		{
+			let s = "<div id='owstartanyregion' class='cell buttonbox dense' onclick='setSearchStartRegion(null)'>Any region</div>";
+			for(let name of searchStartScreen.regions.keys())
+				s += "<div id='owstartregion"+name+"' class='cell buttonbox dense' onclick='setSearchStartRegion(\""+name+"\")'>"+name+"</div>";
+			document.getElementById("owsearchstartregionchoice").innerHTML = s;
+			document.getElementById(searchStartRegion ?"owstartregion"+searchStartRegion.name :"owstartanyregion").classList.add("selected");
+		}
+		else
+		{
+			document.getElementById("owsearchstartregionchoice").innerHTML = "";
+		}
+		document.getElementById("owsearchtargetscreenname").innerHTML = "Target: "+screen.name;
+		document.getElementById("owsearchtargetpanel").innerHTML = drawSingleOverworldScreen(screen,"search");
+		if(screen.regions.size != 1)
+		{
+			let s = "<div id='owanyregion' class='cell buttonbox dense' onclick='setSearchTargetRegion(null)'>Any region</div>";
+			for(let name of screen.regions.keys())
+				s += "<div id='owregion"+name+"' class='cell buttonbox dense' onclick='setSearchTargetRegion(\""+name+"\")'>"+name+"</div>";
+			document.getElementById("owsearchtargetregionchoice").innerHTML = s;
+		}
+		else
+		{
+			document.getElementById("owsearchtargetregionchoice").innerHTML = "";
+		}
+		if(resetTargetRegions)
+		{
+			searchTargetRegion = null;
 		}
 		updateSearchResults();
 	};
 
-	window.chooseSearchRegion = function(regionName)
+	window.buildPathFromSearch = function(start)
 	{
-		searchRegion = regionName ?currentOWScreen.regions.get(regionName) :null;
+		let path = [start.screen.id];
+		for(let current = start; current.distance > 0; current = current.nextRegion)
+		{
+			switch(current.nextEdgeType)
+			{
+				case "S":
+					path.push(current.nextEdge.string,getConnectedEdge(current.nextEdge,false).string,current.nextRegion.screen.id);
+					break;
+				case "P":
+					path.push("PO","PO",current.nextRegion.screen.id);
+					break;
+				case "M":
+					path.push("MI","MI",current.nextRegion.screen.id);
+					break;
+				case "C":
+					path.push("CO","CO",current.nextRegion.screen.id);
+					break;
+				case "Q":
+					path.push("SQ","SQ",current.nextRegion.screen.id);
+					break;
+				case "F":
+					path.push("FL","FL",current.nextRegion.screen.id);
+					break;
+				case "R":
+					path.push("FL","FL",current.nextRegion.screen.id);
+			}
+		}
+		return path;
+	};
+
+	window.setSearchStartRegion = function(regionName)
+	{
+		searchStartRegion = regionName ?searchStartScreen.regions.get(regionName) :null;
+		if(regionName)
+		{
+			document.getElementById("owstartanyregion").classList.remove("selected");
+			for(let r of searchStartScreen.regions.values())
+				if(r === searchStartRegion)
+					document.getElementById("owstartregion"+r.name).classList.add("selected");
+				else
+					document.getElementById("owstartregion"+r.name).classList.remove("selected");
+		}
+		else
+		{
+			document.getElementById("owstartanyregion").classList.add("selected");
+			for(let r of searchStartScreen.regions.values())
+				document.getElementById("owstartregion"+r.name).classList.remove("selected");
+		}
+		searchOverworldPath(false,false);
+	};
+
+	window.setSearchTargetRegion = function(regionName)
+	{
+		searchTargetRegion = regionName ?currentOWScreen.regions.get(regionName) :null;
 		updateSearchResults();
 	};
 
 	window.updateSearchResults = function()
 	{
-		let paths = [],region = searchRegion;
+		let paths = [],region = searchTargetRegion;
 		if(region)
 		{
 			for(let path of searchResults.get(region))
 				paths.push(path);
-			if(searchRegionChoiceVisible)
+			if(currentOWScreen.regions.size != 1)
 			{
-				document.getElementById("owanyregion").classList.remove("disabled");
+				document.getElementById("owanyregion").classList.remove("selected");
 				for(let r of searchResults.keys())
 					if(r === region)
-						document.getElementById("owregion"+r.name).classList.add("disabled");
+						document.getElementById("owregion"+r.name).classList.add("selected");
 					else
-						document.getElementById("owregion"+r.name).classList.remove("disabled");
+						document.getElementById("owregion"+r.name).classList.remove("selected");
 			}
 		}
 		else
@@ -2333,33 +2825,68 @@
 			for(let list of searchResults.values())
 				for(let path of list)
 					paths.push(path);
-			if(searchRegionChoiceVisible)
+			if(currentOWScreen.regions.size != 1)
 			{
-				document.getElementById("owanyregion").classList.add("disabled");
+				document.getElementById("owanyregion").classList.add("selected");
 				for(let r of searchResults.keys())
-					document.getElementById("owregion"+r.name).classList.remove("disabled");
+					document.getElementById("owregion"+r.name).classList.remove("selected");
 			}
 		}
+		paths.sort((a,b)=>a[1]-b[1]);
 		for(let k = 0; k < paths.length-1; k++)
 			for(let l = k+1; l < paths.length; l++)
-				if(equalPaths(paths[k],paths[l]))
+				if(equalPaths(paths[k][0],paths[l][0]))
 				{
 					paths.splice(l,1);
 					l--;
 				}
-		paths.sort((a,b)=>a.length-b.length);
 		searchResultsLength = paths.length;
 		document.getElementById("owsearchresultstext").innerHTML = "Search results ("+searchResultsLength+")";
-		document.getElementById("owsearchresults").innerHTML = drawPathList(paths,document.getElementById("compactsearchresults").checked,"search");
+		document.getElementById("owsearchresults").innerHTML = drawPathList(paths.map(path=>path[0]),document.getElementById("compactsearchresults").checked,"search");
 		document.getElementById("owsearchresults").style.height = (searchResultsLength*66-2)*pathZoom+"px";
+	};
+
+	window.searchCanStartCommon = function()
+	{
+		searchAddCommonStarts = true;
+		searchSaveQuitFluteEdges = false;
+		document.getElementById("owsearchcanstartcommon").classList.add("selected");
+		document.getElementById("owsearchonlystartscreen").classList.remove("selected");
+		document.getElementById("owsearchnoflutequit").classList.remove("selected");
+	};
+
+	window.searchOnlyStartScreen = function()
+	{
+		searchAddCommonStarts = false;
+		searchSaveQuitFluteEdges = true;
+		document.getElementById("owsearchcanstartcommon").classList.remove("selected");
+		document.getElementById("owsearchonlystartscreen").classList.add("selected");
+		document.getElementById("owsearchnoflutequit").classList.remove("selected");
+	};
+
+	window.searchNoFluteQuit = function()
+	{
+		searchAddCommonStarts = false;
+		searchSaveQuitFluteEdges = false;
+		document.getElementById("owsearchcanstartcommon").classList.remove("selected");
+		document.getElementById("owsearchonlystartscreen").classList.remove("selected");
+		document.getElementById("owsearchnoflutequit").classList.add("selected");
 	};
 
 	window.drawPathList = function(paths,compact,listName)
 	{
 		let s = "";
 		for(let k = 0; k < paths.length; k++)
-			s += '<div class="row path" style="margin: 2px 0px;" onclick="showClickOverworldPathModal(event,'+k+',\''+listName+'\',\''+paths[k].join("|")+'\')">'+drawOverworldPath(paths[k],!compact,false)[0]+'</div>';
+			s += '<div class="row path" style="margin: 2px 0px;" onclick="showClickOverworldPathModal(event,'+k+',\''+listName+'\',\''+paths[k].join("|")+'\')">'+drawOverworldPath(paths[k],!compact,false,false)[0]+'</div>';
 		return s;
+	};
+
+	window.viewMapOverworldPath = function()
+	{
+		fullOWPath = clickedOverworldPath;
+		document.getElementById("fullowmainhighlightedpath").innerHTML = document.getElementById("fullowhighlightedpath").innerHTML = drawOverworldPath(fullOWPath,!fullPathCompact,true,false)[0];
+		hideClickOverworldPathModal();
+		showFullOverworldModal("editedges");
 	};
 
 	window.pinOverworldPath = function(button)
@@ -2442,20 +2969,38 @@
 			document.getElementById(item).checked = ownItems[item];
 	};
 
-	window.drawFullOverworldPanel = function()
+	window.drawFullOverworldPanels = function()
 	{
-		document.getElementById("fullowpaneloverlay").innerHTML = "";
+		if(showFullMapMain && document.getElementById("owmain").style.display === "block")
+			drawFullOverworldPanel(true);
+		if(!useMain)
+			drawFullOverworldPanel(false);
+	};
+
+	window.drawFullOverworldPanelCurrent = function()
+	{
+		drawFullOverworldPanel(useMain);
+	};
+
+	window.drawFullOverworldPanel = function(main)
+	{
+		let drawDarkWorld = main ?drawDarkWorldMain :drawDarkWorldPopout;
+		let sideBySide = main ?sideBySideMain :sideBySidePopout;
+		let mainString = main ?"fullowmain" :"fullow";
+		let mode = main ?"editedges" :fullOverworldMode;
+		document.getElementById(mainString+"paneloverlay").innerHTML = "";
+		document.getElementById(mainString+"panelpathoverlay").style.display = "block";
 		let visitedScreenEdges = reachableEdges;
 		let fixedScreen = fullOWConnectorStart ?fullOWConnectorStart :fullOWSelectedScreen;
-		let fixedEdge = fullOverworldMode === "continuepath" ?fullOWFixedEdge :fullOWSelectedEdge;
+		let fixedEdge = !main && mode === "continuepath" ?fullOWFixedEdge :fullOWSelectedEdge;
 		let s = "";
 		for(let [id,screen] of overworldScreens)
 		{
 			let darkWorld = isDarkWorld(screen);
-			if((!sideBySide && darkWorld != drawDarkWorld) || (screen.special && fullOverworldMode === "editflutespots"))
+			if((!sideBySide && darkWorld != drawDarkWorld) || (screen.special && mode === "editflutespots"))
 				continue;
-			let unknownScreen = mixedow && screen.mixedState === "unknown" && fullOverworldMode !== "editflutespots";
-			let scale = .5,classes = "owscreen full",onClick = unknownScreen ?"" :"clickScreenFull(event,"+id+")",valid = true;
+			let unknownScreen = mixedow && screen.mixedState === "unknown" && mode !== "editflutespots";
+			let scale = .5,classes = "owscreen full",onClick = unknownScreen ?"" :"clickScreenFull(event,"+id+","+main+")",valid = true;
 			if(screen.big)
 				classes += " bigscreen";
 			if(screen === fixedScreen)
@@ -2472,6 +3017,13 @@
 						break;
 					}
 			}
+			let indexInPath = -1;
+			if(mode === "editedges" && !fullOWSelectedScreen && !fullOWSelectedEdge && !fullOWConnectorStart && fullOWPath)
+			{
+				indexInPath = fullOWPath.indexOf(id);
+				if(indexInPath === -1)
+					valid = false;
+			}
 			if(!valid)
 				classes += " gray";
 			if(unknownScreen)
@@ -2480,7 +3032,7 @@
 			let y = screen.special ?screen.y :(id%0x40 >> 3)*128*scale;
 			if(sideBySide && darkWorld != drawDarkWorld)
 				x += 1024*scale;
-			s += "<div class='"+classes+"' onclick='"+onClick+(unknownScreen || (owshuffle === 'N' && crossedow !== 'C') ?"' " :"' onmouseover='hoverScreen("+id+")' onmouseout='clearFullOverlay()' ");
+			s += "<div id='full"+(main ?"main" :"popout")+id+"' class='"+classes+"' onclick='"+onClick+(unknownScreen || (owshuffle === 'N' && crossedow !== 'C') ?"' " :"' onmouseover='hoverScreen("+id+","+main+")' onmouseout='clearFullOverlay("+main+")' ");
 			if(screen.special)
 				s += "style='left: "+x+"px; top: "+y+"px; z-index: 1'><div class='specialshadow'><img class='roomnodeimg' src='./images/overlay/"+screen.file+".png' style='transform: scale("+scale+");'></div>";
 			else
@@ -2496,9 +3048,9 @@
 			else
 				s += "<label class='ttlabel'"+(x+y ?"" :" style='line-height: 144px;'")+">"+screen.name+"</label>";
 			s += "</span></div>";
-			if((fullOverworldMode === "editflutespots" || (fluteshuffle && ownItems.flute && document.getElementById("activeflutebox").checked)) && darkWorld === (worldState === 'I') && customFluteSpots.includes(id%0x40))
-				s += "<div class='flutesymbol' style='left: "+(x+getBigScreenSubareaX(screen)+16)+"px; top: "+(y+getBigScreenSubareaY(screen)+16)+"px; opacity: "+(fullOverworldMode === "editflutespots" ?1 :.75)+"'></div>";
-			if(!fullOWConnectorStart && !unknownScreen && (fullOverworldMode !== "editflutespots") && (owshuffle !== 'N' || crossedow === 'C'))
+			if((mode === "editflutespots" || (fluteshuffle && ownItems.flute && document.getElementById("activeflutebox").checked)) && darkWorld === (worldState === 'I') && customFluteSpots.includes(id%0x40))
+				s += "<div class='flutesymbol' style='left: "+(x+getBigScreenSubareaX(screen)+16)+"px; top: "+(y+getBigScreenSubareaY(screen)+16)+"px; opacity: "+(mode === "editflutespots" ?1 :.75)+"'></div>";
+			if(!fullOWConnectorStart && !unknownScreen && (mode !== "editflutespots") && (owshuffle !== 'N' || crossedow === 'C'))
 				for(let edge of screen.edges.values())
 					if(!fixedEdge || edge === fixedEdge || edgesCompatible(edge,fixedEdge))
 					{
@@ -2512,22 +3064,48 @@
 						else
 							classes += edge.out ?" blue" :" red";
 						s += "<div class='"+classes+"' style='left: "+(x+edge.x*128*scale-8)+"px; top: "+(y+edge.y*128*scale-8)+"px;"+(screen.special ?" z-index: 1;" :"")+"'";
-						if(fullOverworldMode === "editedges")
-							s += " onclick='clickEdgeFull("+id+",\""+edge.string+"\")' onmouseover='hoverEdge("+id+",\""+edge.string+"\")' onmouseout='clearFullOverlay()'";
+						if(mode === "editedges")
+							s += " onclick='clickEdgeFull("+id+",\""+edge.string+"\","+main+")' onmouseover='hoverEdge("+id+",\""+edge.string+"\","+main+")' onmouseout='clearFullOverlay("+main+")'";
 						s += "></div>";
 					}
 			if((id === 0x18 || (id === 0x58 && !sideBySide)) && !fullOWConnectorStart && ownItems.flute && !document.getElementById("activeflutebox").checked)
 				s += "<span class='activateflute"+(visitedScreenEdges.has(overworldScreens.get(0x18).edges.get("N0")) && (ownItems.moonpearl || (id === 0x18) === (darkWorld === (worldState === 'I'))) ?" green" :"")+"' style='left: "+(x+16)+"px; top: "+(y+26)+"px;' onclick='clickFluteActivated()'>Flute activated</span>";
-			if(id%0x40 === 0x18 && (darkWorld === (worldState === 'I') || !sideBySide) && fullOverworldMode === "editedges" && !fullOWConnectorStart && fluteshuffle && customFluteSpots.length != 8 && ownItems.flute && document.getElementById("activeflutebox").checked)
+			if(id%0x40 === 0x18 && (darkWorld === (worldState === 'I') || !sideBySide) && mode === "editedges" && !fullOWConnectorStart && fluteshuffle && customFluteSpots.length != 8 && ownItems.flute && document.getElementById("activeflutebox").checked)
 				s += "<span class='activateflute"+(true ?" green" :"")+"' style='left: "+(x+16)+"px; top: "+(y+26)+"px;' onclick='clickSetFluteSpots()'>Set flute spots</span>";
 			if(id%0x40 === 0x30 && mixedow && !darkWorld)
 				s += "<div class='lightworldsymbol' style='left: "+(x+1)+"px; top: "+(y+47)+"px;'></div>";
 			if(id%0x40 === 0x30 && mixedow && darkWorld)
 				s += "<div class='darkworldsymbol' style='left: "+(x+1)+"px; top: "+(y+47)+"px;'></div>";
+			if(indexInPath !== -1)
+				s += "<div class='pathnumber' style='left: "+(x+getBigScreenSubareaX(screen)+24)+"px; top: "+(y+getBigScreenSubareaY(screen)+24)+"px;'>"+indexInPath/3+"</div>";
 		}
-		document.getElementById("fullowpanelmain").innerHTML = s;
-		if(fullOverworldMode === "editflutespots")
-			document.getElementById("fullowflutespotstext").innerHTML = customFluteSpots.length+"/8 flute spots currently set";
+		document.getElementById(mainString+"panelmain").innerHTML = s;
+		if(mode === "editedges" && fullOWPath)
+		{
+			s = "";
+			for(let k = 0; k < fullOWPath.length; k += 3)
+			{
+				if(k != 0 && !specialEdgeTypes.includes(fullOWPath[k-1]))
+				{
+					let screen1 = overworldScreens.get(fullOWPath[k-3]),screen2 = overworldScreens.get(fullOWPath[k]),scale = .5;
+					let edge1 = screen1.edges.get(fullOWPath[k-2]),edge2 = screen2.edges.get(fullOWPath[k-1]);
+					let x = screen1.special ?screen1.x :screen1.id%8*128*scale;
+					let y = screen1.special ?screen1.y :(screen1.id%0x40 >> 3)*128*scale;
+					if(sideBySide && isDarkWorld(screen1) != drawDarkWorld)
+						x += 1024*scale;
+					s += drawFullEdgeConnection(edge1,edge2,x,y,sideBySide || isDarkWorld(screen1) === isDarkWorld(screen2) ?1 :.5);
+					s += "<div class='owedgedot' style='left: "+(x+edge1.x*128*scale-4)+"px; top: "+(y+edge1.y*128*scale-4)+"px;'></div>";
+					x = screen2.special ?screen2.x :screen2.id%8*128*scale;
+					y = screen2.special ?screen2.y :(screen2.id%0x40 >> 3)*128*scale;
+					if(sideBySide && isDarkWorld(screen2) != drawDarkWorld)
+						x += 1024*scale;
+					s += "<div class='owedgedot to' style='left: "+(x+edge2.x*128*scale-4)+"px; top: "+(y+edge2.y*128*scale-4)+"px;'></div>";
+				}
+			}
+			document.getElementById(mainString+"panelpathoverlay").innerHTML = s;
+		}
+		if(!main && mode === "editflutespots")
+			document.getElementById(mainString+"flutespotstext").innerHTML = customFluteSpots.length+"/8 flute spots currently set";
 	};
 
 	window.getBigScreenSubareaX = function(screen)
@@ -2545,7 +3123,7 @@
 		setMixedScreen(overworldScreens.get(id),"normal");
 		outstandingUpdate = true;
 		updateReachableEdges();
-		drawFullOverworldPanel();
+		drawFullOverworldPanels();
 	};
 
 	window.clickSwappedScreen = function(id)
@@ -2553,21 +3131,23 @@
 		setMixedScreen(overworldScreens.get(id),"swapped");
 		outstandingUpdate = true;
 		updateReachableEdges();
-		drawFullOverworldPanel();
+		drawFullOverworldPanels();
 	};
 
 	window.drawSingleOverworldScreen = function(screen,mode)
 	{
 		let visitedScreenEdges = reachableEdges;
 		let s = "";
-		let scale = 1,classes = "bigowscreen single";
+		let scale = 1,classes = mode === "search" ?"owscreen single" :"bigowscreen single";
 		if(screen.big)
 			scale = .5;
+		if(mode === "search")
+			scale /= 2;
 		let x = screen.special ?0 :screen.id%8*128*scale;
 		let y = screen.special ?0 :(screen.id%0x40 >> 3)*128*scale;
 		let file = screen.special ?screen.file :(screen.darkWorld ?"darkworld" :"lightworld");
 		s += "<div class='"+classes+"' style='left: "+0+"px; top: "+0+"px;'><img class='bigroomnodeimg' src='./images/overlay/"+file+".png' style='transform: translateX(-"+x+"px) translateY(-"+y+"px) scale("+scale+");'></div>";
-		if(mode !== "connector")
+		if(mode !== "connector" && mode !== "search")
 			for(let [edgeString,edge] of screen.edges)
 				if(mode === "alledges" || (edge.direction === extraOWDirection && !edge.water))
 				{
@@ -2582,34 +3162,35 @@
 		return s;
 	};
 
-	window.drawFullEdgeConnection = function(edge1,edge2,x1,y1,opacity)
+	window.drawFullEdgeConnection = function(edge1,edge2,x1,y1,opacity,main)
 	{
 		let scale = .5;
 		let lastEdgeX = x1+edge1.x*128*scale;
 		let lastEdgeY = y1+edge1.y*128*scale;
 		let newX = (edge2.screen.special ?edge2.screen.x :edge2.screen.id%8*128*scale)+edge2.x*128*scale;
 		let newY = (edge2.screen.special ?edge2.screen.y :(edge2.screen.id%0x40 >> 3)*128*scale)+edge2.y*128*scale;
-		if(sideBySide && isDarkWorld(edge2.screen) != drawDarkWorld)
+		if((main ?sideBySideMain :sideBySidePopout) && isDarkWorld(edge2.screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
 			newX += 1024*scale;
 		let minX = Math.min(lastEdgeX,newX),maxX = Math.max(lastEdgeX,newX);
 		let minY = Math.min(lastEdgeY,newY),maxY = Math.max(lastEdgeY,newY);
 		return "<div class='crossed"+(((lastEdgeY > newY) != (lastEdgeX > newX)) ?"left" :"right")+"' style='left: "+minX+"px; top: "+minY+"px; width: "+(maxX-minX)+"px; height: "+(maxY-minY)+"px; opacity: "+opacity+";'></div>";
 	};
 
-	window.hoverScreen = function(id)
+	window.hoverScreen = function(id,main)
 	{
 		let screen = overworldScreens.get(id),s = "",scale = .5;
 		let x = screen.special ?screen.x :id%8*128*scale;
 		let y = screen.special ?screen.y :(id%0x40 >> 3)*128*scale;
-		if(sideBySide && isDarkWorld(screen) != drawDarkWorld)
+		if((main ?sideBySideMain :sideBySidePopout) && isDarkWorld(screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
 			x += 1024*scale;
 		for(let edge of screen.edges.values())
 			if(edge.out)
-				s += drawFullEdgeConnection(edge,edge.out,x,y,sideBySide || isDarkWorld(screen) === isDarkWorld(edge.out.screen) ?1 :.5);
-		document.getElementById("fullowpaneloverlay").innerHTML = s;
+				s += drawFullEdgeConnection(edge,edge.out,x,y,(main ?sideBySideMain :sideBySidePopout) || isDarkWorld(screen) === isDarkWorld(edge.out.screen) ?1 :.5,main);
+		document.getElementById(main ?"fullowmainpaneloverlay" :"fullowpaneloverlay").innerHTML = s;
+		document.getElementById(main ?"fullowmainpanelpathoverlay" :"fullowpanelpathoverlay").style.display = "none";
 	};
 
-	window.hoverEdge = function(id,edgeString)
+	window.hoverEdge = function(id,edgeString,main)
 	{
 		let screen = overworldScreens.get(id),s = "",scale = .5;
 		let edge = screen.edges.get(edgeString);
@@ -2617,20 +3198,39 @@
 		{
 			let x = screen.special ?screen.x :id%8*128*scale;
 			let y = screen.special ?screen.y :(id%0x40 >> 3)*128*scale;
-			if(sideBySide && isDarkWorld(screen) != drawDarkWorld)
+			if((main ?sideBySideMain :sideBySidePopout) && isDarkWorld(screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
 				x += 1024*scale;
-			s += drawFullEdgeConnection(edge,edge.out,x,y,sideBySide || isDarkWorld(screen) === isDarkWorld(edge.out.screen) ?1 :.5);
+			s += drawFullEdgeConnection(edge,edge.out,x,y,(main ?sideBySideMain :sideBySidePopout) || isDarkWorld(screen) === isDarkWorld(edge.out.screen) ?1 :.5,main);
 		}
-		document.getElementById("fullowpaneloverlay").innerHTML = s;
+		document.getElementById(main ?"fullowmainpaneloverlay" :"fullowpaneloverlay").innerHTML = s;
+		document.getElementById(main ?"fullowmainpanelpathoverlay" :"fullowpanelpathoverlay").style.display = "none";
 	};
 
-	window.clearFullOverlay = function()
+	window.clearFullOverlay = function(main)
 	{
-		document.getElementById("fullowpaneloverlay").innerHTML = "";
+		document.getElementById(main ?"fullowmainpaneloverlay" :"fullowpaneloverlay").innerHTML = "";
+		document.getElementById(main ?"fullowmainpanelpathoverlay" :"fullowpanelpathoverlay").style.display = "block";
+	};
+
+	window.hoverPathNumber = function(id)
+	{
+		let element = document.getElementById("full"+(useMain ?"main" :"popout")+id);
+		if(element)
+			element.classList.add("highlighted");
+		hoveredPathNumber = id;
+	};
+
+	window.clearPathNumber = function()
+	{
+		let element = document.getElementById("full"+(useMain ?"main" :"popout")+hoveredPathNumber);
+		if(element)
+			element.classList.remove("highlighted");
+		hoveredPathNumber = -1;
 	};
 
 	window.showFullOverworldModal = function(mode)
 	{
+		disableUseMain();
 		fullOverworldMode = mode;
 		if(mode !== "continuepath")
 		{
@@ -2650,21 +3250,25 @@
 		fullOWSelectedScreen = fullOWSelectedEdge = fullOWConnectorStart = null;
 		document.getElementById("fullowscreenactions").style.display = "none";
 		document.getElementById("fullownewpath").style.display = owshuffle === 'N' ?"none" :"block";
-		document.getElementById("fullowunknownstate").style.display = mixedow ?"block" :"none";
+		document.getElementById("fullowmixedactions").style.display = mixedow ?"block" :"none";
+		document.getElementById("fullowswapscreenwithedges").style.display = (owshuffle !== 'N' || crossedow === 'C') ?"block" :"none";
 		document.getElementById("fullownewconnector").style.display = entranceEnabled && !document.getElementById("connectorsync").checked && !document.getElementById("globalsync").checked ?"block" :"none";
 		document.getElementById("fullowedgeactions").style.display = "none";
 		document.getElementById("fullowconnectoractions").style.display = "none";
+		document.getElementById("fullowsearchpresets").style.display = mode === "searchpath" ?"block" :"none";
 		document.getElementById("fullowcommonstarts").style.display = mode === "searchpathstart" ?"block" :"none";
 		document.getElementById("fullowflutespots").style.display = mode === "editflutespots" ?"block" :"none";
+		document.getElementById("fullowpathactions").style.display = mode === "editedges" && fullOWPath ?"block" :"none";
 		fullCheckConnectorDetails();
-		drawFullOverworldPanel();
+		drawFullOverworldPanel(false);
 		document.getElementById("fullowModal").style.display = "block";
-		if(fullZoomAuto)
-			calculateFullZoom();
+		if(fullZoomAutoPopout)
+			calculateFullZoomPopout();
 	};
 
 	window.hideFullOverworldModal = function()
 	{
+		enableUseMain();
 		document.getElementById("fullowModal").style.display = "none";
 		if(fullOWFixedEdge)
 		{
@@ -2707,6 +3311,10 @@
 
 	window.hideOverworldConnectorModal = function()
 	{
+		if(!backToMain)
+			fullOWConnectorStart = fullOWConnectorEnd = null;
+		if(showFullMapMain && document.getElementById("owmain").style.display === "block")
+			loadFullOverworldMain();
 		document.getElementById("owconnectorModal").style.display = "none";
 	};
 
@@ -2750,7 +3358,7 @@
 		clickedOverworldPath = pathString.split("|");
 		for(let k = 0; k < clickedOverworldPath.length; k += 3)
 			clickedOverworldPath[k] = parseInt(clickedOverworldPath[k]);
-		let [drawn,,height] = drawOverworldPath(clickedOverworldPath,true,true,(width-8)/pathZoom);
+		let [drawn,,height] = drawOverworldPath(clickedOverworldPath,true,false,true,(width-8)/pathZoom);
 		height *= pathZoom;
 		document.getElementById("currentclickedowpath").style.height = height+"px";
 		document.getElementById("currentclickedowpath").innerHTML = drawn;
@@ -2812,55 +3420,110 @@
 			document.getElementById("saveconnector").classList.add("disabled");
 	};
 
-	window.switchFullOverworld = function()
+	window.switchFullOverworldMain = function()
 	{
-		drawDarkWorld = !drawDarkWorld;
-		drawFullOverworldPanel();
+		drawDarkWorldMain = !drawDarkWorldMain;
+		drawFullOverworldPanel(true);
 	};
 
-	window.toggleSideBySide = function()
+	window.switchFullOverworldPopout = function()
 	{
-		sideBySide = !sideBySide;
-		outstandingUpdate = true;
-		if(fullZoomAuto)
-			calculateFullZoom();
-		drawFullOverworldPanel();
+		drawDarkWorldPopout = !drawDarkWorldPopout;
+		drawFullOverworldPanel(false);
 	};
 
-	window.zoomAutoFullOverworld = function(checkbox)
+	window.toggleSideBySideMain = function()
 	{
-		fullZoomAuto = checkbox.checked;
+		sideBySideMain = !sideBySideMain;
 		outstandingUpdate = true;
-		if(fullZoomAuto)
-			calculateFullZoom();
+		if(fullZoomAutoMain)
+			calculateFullZoomMain();
+		drawFullOverworldPanel(true);
 	};
 
-	window.zoomOutFullOverworld = function()
+	window.toggleSideBySidePopout = function()
 	{
-		fullZoomAuto = document.getElementById("zoomautoow").checked = false;
+		sideBySidePopout = !sideBySidePopout;
 		outstandingUpdate = true;
-		if(fullZoom > .5)
+		if(fullZoomAutoPopout)
+			calculateFullZoomPopout();
+		drawFullOverworldPanel(false);
+	};
+
+	window.zoomAutoFullOverworldMain = function(checkbox)
+	{
+		fullZoomAutoMain = checkbox.checked;
+		outstandingUpdate = true;
+		if(fullZoomAutoMain)
+			calculateFullZoomMain();
+	};
+
+	window.zoomAutoFullOverworldPopout = function(checkbox)
+	{
+		fullZoomAutoPopout = checkbox.checked;
+		outstandingUpdate = true;
+		if(fullZoomAutoPopout)
+			calculateFullZoomPopout();
+	};
+
+	window.zoomOutFullOverworldMain = function()
+	{
+		fullZoomAutoMain = document.getElementById("mainzoomautoow").checked = false;
+		outstandingUpdate = true;
+		if(fullZoomMain > .5)
 		{
-			fullZoom = Math.ceil(fullZoom*20-.0001)/20-.05;
-			applyFullOverworldZoom();
+			fullZoomMain = Math.ceil(fullZoomMain*20-.0001)/20-.05;
+			applyFullOverworldZoomMain();
+			document.getElementById("mainzoominow").classList.remove("disabled");
+			if(fullZoomMain <= .5)
+				document.getElementById("mainzoomoutow").classList.add("disabled");
+			else
+				document.getElementById("mainzoomoutow").classList.remove("disabled");
+		}
+	};
+
+	window.zoomOutFullOverworldPopout = function()
+	{
+		fullZoomAutoPopout = document.getElementById("zoomautoow").checked = false;
+		outstandingUpdate = true;
+		if(fullZoomPopout > .5)
+		{
+			fullZoomPopout = Math.ceil(fullZoomPopout*20-.0001)/20-.05;
+			applyFullOverworldZoomPopout();
 			document.getElementById("zoominow").classList.remove("disabled");
-			if(fullZoom <= .5)
+			if(fullZoomPopout <= .5)
 				document.getElementById("zoomoutow").classList.add("disabled");
 			else
 				document.getElementById("zoomoutow").classList.remove("disabled");
 		}
 	};
 
-	window.zoomInFullOverworld = function()
+	window.zoomInFullOverworldMain = function()
 	{
-		fullZoomAuto = document.getElementById("zoomautoow").checked = false;
+		fullZoomAutoMain = document.getElementById("mainzoomautoow").checked = false;
 		outstandingUpdate = true;
-		if(fullZoom < 1.5)
+		if(fullZoomMain < 1.5)
 		{
-			fullZoom = Math.floor(fullZoom*20+.0001)/20+.05;
-			applyFullOverworldZoom();
+			fullZoomMain = Math.floor(fullZoomMain*20+.0001)/20+.05;
+			applyFullOverworldZoomMain();
+			document.getElementById("mainzoomoutow").classList.remove("disabled");
+			if(fullZoomMain >= 1.5)
+				document.getElementById("mainzoominow").classList.add("disabled");
+			else
+				document.getElementById("mainzoominow").classList.remove("disabled");
+		}
+	};
+
+	window.zoomInFullOverworldPopout = function()
+	{
+		fullZoomAutoPopout = document.getElementById("zoomautoow").checked = false;
+		outstandingUpdate = true;
+		if(fullZoomPopout < 1.5)
+		{
+			fullZoomPopout = Math.floor(fullZoomPopout*20+.0001)/20+.05;
+			applyFullOverworldZoomPopout();
 			document.getElementById("zoomoutow").classList.remove("disabled");
-			if(fullZoom >= 1.5)
+			if(fullZoomPopout >= 1.5)
 				document.getElementById("zoominow").classList.add("disabled");
 			else
 				document.getElementById("zoominow").classList.remove("disabled");
@@ -2869,35 +3532,60 @@
 
 	window.resizeHandler = function()
 	{
-		document.getElementById("sidebysideowtext").innerHTML = document.body.clientWidth < 424 ?"Both" :"Side by side";
-		document.getElementById("zoomautoowtext").innerHTML = document.body.clientWidth < 424 ?"Auto" :"Auto zoom";
-		if(fullZoomAuto && document.getElementById("fullowModal").style.display != "none")
-			calculateFullZoom();
+		if(fullZoomAutoMain && showFullMapMain && document.getElementById("owmain").style.display === "block")
+			calculateFullZoomMain();
+		if(fullZoomAutoPopout && !useMain)
+			calculateFullZoomPopout();
 	};
 
-	window.calculateFullZoom = function()
+	window.calculateFullZoomMain = function()
 	{
-		let maxWidth = document.body.clientWidth-14,maxHeight = window.innerHeight-212;
-		if(sideBySide)
+		let maxWidth = document.body.clientWidth-(visibleSidebar ?72 :0),maxHeight = window.innerHeight-252;
+		if(sideBySideMain)
 			maxWidth /= 2;
 		let size = Math.max(256,Math.min(Math.min(maxWidth,maxHeight),768));
-		fullZoom = size/512;
-		applyFullOverworldZoom();
-		if(fullZoom <= .5)
+		fullZoomMain = size/512;
+		applyFullOverworldZoomMain();
+		if(fullZoomMain <= .5)
+			document.getElementById("mainzoomoutow").classList.add("disabled");
+		else
+			document.getElementById("mainzoomoutow").classList.remove("disabled");
+		if(fullZoomMain >= 1.5)
+			document.getElementById("mainzoominow").classList.add("disabled");
+		else
+			document.getElementById("mainzoominow").classList.remove("disabled");
+	};
+
+	window.calculateFullZoomPopout = function()
+	{
+		let maxWidth = document.body.clientWidth-14,maxHeight = window.innerHeight-212;
+		if(sideBySidePopout)
+			maxWidth /= 2;
+		let size = Math.max(256,Math.min(Math.min(maxWidth,maxHeight),768));
+		fullZoomPopout = size/512;
+		applyFullOverworldZoomPopout();
+		if(fullZoomPopout <= .5)
 			document.getElementById("zoomoutow").classList.add("disabled");
 		else
 			document.getElementById("zoomoutow").classList.remove("disabled");
-		if(fullZoom >= 1.5)
+		if(fullZoomPopout >= 1.5)
 			document.getElementById("zoominow").classList.add("disabled");
 		else
 			document.getElementById("zoominow").classList.remove("disabled");
 	};
 
-	window.applyFullOverworldZoom = function()
+	window.applyFullOverworldZoomMain = function()
 	{
-		document.getElementById("fullowpanel").style.width = 512*(sideBySide ?2 :1)+"px";
-		document.getElementById("fullowpanelrow").style.height = 512*fullZoom+"px";
-		document.getElementById("fullowpanel").style.transform = "scale("+fullZoom+")";
+		document.getElementById("fullowmainpanel").style.width = 512*(sideBySideMain ?2 :1)+"px";
+		document.getElementById("fullowmainpanelrow").style.height = 512*fullZoomMain+"px";
+		document.getElementById("fullowmainpanel").style.transform = "scale("+fullZoomMain+")";
+	};
+
+	window.applyFullOverworldZoomPopout = function()
+	{
+		document.getElementById("fullowpanel").style.width = 512*(sideBySidePopout ?2 :1)+"px";
+		document.getElementById("fullowpanelrow").style.height = 512*fullZoomPopout+"px";
+		document.getElementById("fullowpanel").style.transform = "scale("+fullZoomPopout+")";
 	};
 
 	window.zoomOutOverworldPath = function()
@@ -2952,6 +3640,7 @@
 	window.getModifiedOwnItems = function()
 	{
 		let items = Object.assign({},ownItems);
+		items.follower = null;
 		if(!document.getElementById("activeflutebox").checked)
 			items.flute = false;
 		if(!document.getElementById("globalsync").checked && !document.getElementById("itemsync").checked)
@@ -2977,7 +3666,9 @@
 		checkableScreens.clear();
 		maybeCheckableScreens.clear();
 		continueRegions.clear();
-		fixedStartRegions = new Set();
+		fixedStartRegions = [];
+		fluteSpotRegions = [];
+		let maybeVisitedRegions = new Set(),evr = new Set(),mvrl = new Set(),mvrd = new Set();
 		let visitedRegions = new Set(),visitedScreenEdges = new Set();
 		if(document.getElementById("pinnedlinkshouse").checked)
 			inspectStartRegion(0x2C,"Main",true);
@@ -2990,11 +3681,12 @@
 		if(items.flute)
 			for(let id of fluteshuffle ?customFluteSpots :[0x03,0x16,0x18,0x2C,0x2F,0x30,0x3B,0x3F])
 				inspectStartRegion(id,null,false);
-		fixedStartRegions = Array.from(fixedStartRegions);
-		let startRegions = fixedStartRegions.concat(customStartRegions);
+		allStartRegions = fixedStartRegions.concat(customStartRegions);
+		let startRegions = allStartRegions.concat(fluteSpotRegions);
+		let options = {};
 		for(let start of startRegions)
 			if(!visitedRegions.has(start) && (!mixedow || start.screen.mixedState !== "unknown"))
-				explore(start,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,emptyMap);
+				explore(start,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,emptyMap);
 		if(mixedow && checkableScreens.size != 0)
 		{//Find more checkable screens (bad algorithm, but works well enough to be useful)
 			let assumedScreens = new Set();
@@ -3023,13 +3715,13 @@
 					for(let n of group)
 						if(cr.has(n+" normal"))
 							for(let start of cr.get(n+" normal"))
-								explore(start,items,regionsAssumeNormal,edgesAssumeNormal,checkableAssumeNormal,continueAssumeNormal,assumptions);
+								explore(start,items,options,regionsAssumeNormal,edgesAssumeNormal,checkableAssumeNormal,continueAssumeNormal,assumptions);
 					for(let n of group)
 						assumptions.set(n,"swapped");
 					for(let n of group)
 						if(cr.has(n+" swapped"))
 							for(let start of cr.get(n+" swapped"))
-								explore(start,items,regionsAssumeSwapped,edgesAssumeSwapped,checkableAssumeSwapped,continueAssumeSwapped,assumptions);
+								explore(start,items,options,regionsAssumeSwapped,edgesAssumeSwapped,checkableAssumeSwapped,continueAssumeSwapped,assumptions);
 					let diffNormal = setDifference(checkableAssumeNormal,new Set()),diffSwapped = setDifference(checkableAssumeSwapped,new Set());
 					let commonCheckable = setIntersection(diffNormal,diffSwapped);
 					let maybeCheckable = setUnion(checkableAssumeNormal,checkableAssumeSwapped);
@@ -3070,6 +3762,27 @@
 						if(crNormal.size != normalSize || crSwapped.size != swappedSize)
 							assumedScreens.delete(c);
 					}
+					let commonRegions = setIntersection(regionsAssumeNormal,regionsAssumeSwapped);
+					let maybeRegions = setUnion(regionsAssumeNormal,regionsAssumeSwapped);
+					if(!maybeMode)
+					{
+						for(let region of commonRegions)
+						{
+							evr.add(region);
+						}
+					}
+					for(let region of maybeRegions)
+					{
+						maybeVisitedRegions.add(region);
+					}
+					for(let region of regionsAssumeNormal)
+					{
+						(region.screen.darkWorld ?mvrd :mvrl).add(region);
+					}
+					for(let region of regionsAssumeSwapped)
+					{
+						(region.screen.darkWorld ?mvrl :mvrd).add(region);
+					}
 				}
 				if(nextScreens.size == 0)
 				{
@@ -3090,6 +3803,7 @@
 				}
 			}
 		}
+		visitedRegions = setUnion(visitedRegions,evr);
 		let c = 0;
 		for(let edge of visitedScreenEdges)
 			if(!edge.out)
@@ -3105,9 +3819,9 @@
 			document.getElementById("summaryow").innerHTML = "";
 		}
 		reachableEdges = visitedScreenEdges;
-		if(document.getElementById("globalsync").checked && window.opener && !window.opener.closed)
+		if(!welcomeMode && document.getElementById("globalsync").checked && window.opener && !window.opener.closed)
 		{
-			window.opener.postMessage(determineLocationAvailability(visitedRegions,items),"*");
+			window.opener.postMessage(determineLocationAvailability(visitedRegions,evr,mvrl,mvrd,items),"*");
 		}
 	};
 
@@ -3132,13 +3846,13 @@
 			else
 			{
 				let region = regionName ?screen.regions.get(regionName) :screen.fluteRegion;
-				fixedStartRegions.add((ignoreSwaps || screen.mixedState === "normal") !== (worldState === 'I') ?region :region.parallel);
+				(regionName ?fixedStartRegions :fluteSpotRegions).push((ignoreSwaps || screen.mixedState === "normal") !== (worldState === 'I') ?region :region.parallel);
 			}
 		}
 		else
 		{
 			let region = regionName ?screen.regions.get(regionName) :screen.fluteRegion;
-			fixedStartRegions.add(worldState === 'I' ?region.parallel :region);
+			(regionName ?fixedStartRegions :fluteSpotRegions).push(worldState === 'I' ?region.parallel :region);
 		}
 	};
 }(window));

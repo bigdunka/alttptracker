@@ -668,7 +668,7 @@ function loadgoldrushspreset() {
 	document.getElementById("shuffledcompasses").checked = false;
 	document.getElementById("shuffledsmallkeys").checked = false;
 	document.getElementById("shuffledbigkeys").checked = false;
-	document.getElementById("startingbootsno").checked = true;
+	document.getElementById("startingbootsyes").checked = true;
 	document.getElementById("startingfluteno").checked = true;
 	document.getElementById("startinghookshotno").checked = true;
 	document.getElementById("startingicerodno").checked = true;

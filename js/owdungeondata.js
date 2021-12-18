@@ -2,13 +2,14 @@
 	'use strict';
 	window.opposite = {"N":"S","S":"N","W":"E","E":"W","Z":"Z"};
 	window.className = {"N":"north","S":"south","W":"west","E":"east","Z":"whirlpool"};
+	window.specialEdgeTypes = ["PO","MI","CO","SQ","FL","MP"];
 	window.entranceItemToItem = {};
 
 	window.initializeOverworldGraph = function()
 	{
 		createDoubleOverworldScreen(0x00,"Lost Woods","Skull Woods",true,["Southwest","South","Northeast","Southeast","Northwest","North","Divider"],"Southeast");
 		createDoubleOverworldScreen(0x02,"Lumberjacks","Dark Lumberjacks",false,null,"Main");
-		createDoubleOverworldScreen(0x03,"West Death Mountain","West Dark Death Mountain",true,["Top","Spectacle Rock","Bottom"],"Bottom");
+		createDoubleOverworldScreen(0x03,"West Death Mountain","West Dark Death Mountain",true,["Top","Spectacle Rock","Bottom","Ledges"],"Bottom");
 		createDoubleOverworldScreen(0x05,"East Death Mountain","East Dark Death Mountain",true,["Top Main","Bottom Main","Top West","Bottom West","Island","Spiral","Mimic","Laser Bridge","Blocked Cave"],"Bottom Main");
 		createDoubleOverworldScreen(0x07,"Turtle Rock Pegs","Turtle Rock",false,["Main","Portal"],"Main");
 		createDoubleOverworldScreen(0x0A,"Death Mountain Entry","Bumper",false,["Main","Ledge","Bottom Cave"],"Main");
@@ -22,7 +23,7 @@
 		createDoubleOverworldScreen(0x16,"Potion Shop","Dark Potion Shop",false,["West","East","River"],"West");
 		createDoubleOverworldScreen(0x17,"Zora Warning","Cafish Warning",false,["West","East","River"],"East");
 		createDoubleOverworldScreen(0x18,"Kakariko","Village of Outcasts",true,["Main","Blocked House","Southwest"],"Main");
-		createDoubleOverworldScreen(0x1A,"Forgotten Forest","Curiosity Shop",false,null,"Main");
+		createDoubleOverworldScreen(0x1A,"Forgotten Forest","Curiosity Shop",false,["Main","Blocked House"],"Main");
 		createDoubleOverworldScreen(0x1B,"Hyrule Castle","Pyramid",true,["Main","East","South","Southwest","Courtyard","Balcony","Pyramid Exit","Passage Exit"],"Courtyard");
 		createDoubleOverworldScreen(0x1D,"Wooden Bridge","Broken Bridge",false,["West","Northeast","Southeast","River"],"Northeast");
 		createDoubleOverworldScreen(0x1E,"Eastern Palace","Palace of Darkness",true,null,"Main");
@@ -327,69 +328,74 @@
 		createSingleLogicEdge(0x40,"Southwest","Divider","bushes",true);
 		createSingleLogicEdge(0x40,"Divider","Northeast",null,true);
 		createSingleLogicEdge(0x40,"South","Southeast","gloves",true);
-		createDoubleLogicEdge(0x03,"Top","Bottom",null,false);
+		createDoubleLogicEdge(0x03,"Top","Bottom","ledge",false);
 		createInvertedLogicEdge(0x43,"Top","Bottom",null,true);
-		createSingleLogicEdge(0x03,"Spectacle Rock","Top",null,false);
+		createSingleLogicEdge(0x03,"Spectacle Rock","Top","ledge",false);
 		createInvertedLogicEdge(0x03,"Spectacle Rock","Top",null,true);
-		createDoubleLogicEdge(0x03,"Spectacle Rock","Bottom",null,false);
+		createDoubleLogicEdge(0x03,"Spectacle Rock","Bottom","ledge",false);
 		createSingleLogicEdge(0x43,"Bottom","Spectacle Rock",null,false);
+		createDoubleLogicEdge(0x03,"Bottom","Ledges","ledge",true);
 		createDoublePortal(0x03,"Bottom",null);
-		createDoubleLogicEdge(0x05,"Top Main","Bottom Main",null,false);
+		createDoubleLogicEdge(0x05,"Top Main","Bottom Main","ledge",false);
 		createSingleLogicEdge(0x05,"Top West","Top Main","hammer",true);
 		createSingleLogicEdge(0x45,"Top West","Top Main",null,true);
 		createSingleLogicEdge(0x05,"Bottom West","Bottom Main","hookshot",true);
-		createSingleLogicEdge(0x45,"Island","Top Main",null,false);
+		createSingleLogicEdge(0x45,"Island","Top Main","ledge",false);
 		createInvertedLogicEdge(0x05,"Island","Top Main",null,true);
-		createSingleLogicEdge(0x05,"Top Main","Spiral",null,false);
-		createSingleLogicEdge(0x05,"Top Main","Laser Bridge",null,false);
-		createSingleLogicEdge(0x05,"Laser Bridge","Blocked Cave",null,false);
-		createSingleLogicEdge(0x05,"Spiral","Bottom Main",null,false);
+		createSingleLogicEdge(0x05,"Top Main","Spiral","ledge",false);
+		createSingleLogicEdge(0x05,"Top Main","Laser Bridge","ledge",false);
+		createSingleLogicEdge(0x05,"Laser Bridge","Blocked Cave","ledge",false);
+		createSingleLogicEdge(0x05,"Spiral","Bottom Main","ledge",false);
 		createSingleLogicEdge(0x45,"Spiral","Mimic",null,true);
-		createDoubleLogicEdge(0x05,"Blocked Cave","Bottom Main",null,false);
-		createSingleLogicEdge(0x05,"Bottom Main","Blocked Cave","mitts",false);
-		createSingleLogicEdge(0x45,"Bottom Main","Blocked Cave","bushes",false);
-		createInvertedLogicEdge(0x05,"Top Main","Mimic",null,false);
-		createInvertedLogicEdge(0x05,"Mimic","Bottom Main",null,false);
+		createDoubleLogicEdge(0x05,"Blocked Cave","Bottom Main","ledge",false);
+		createSingleLogicEdge(0x05,"Bottom Main","Blocked Cave","mitts",true);
+		createSingleLogicEdge(0x45,"Bottom Main","Blocked Cave","bushes",true);
+		createInvertedLogicEdge(0x05,"Top Main","Mimic","ledge",false);
+		createInvertedLogicEdge(0x05,"Mimic","Bottom Main","ledge",false);
 		createDoublePortal(0x05,"Bottom Main","mitts");
 		createSingleLogicEdge(0x07,"Main","Portal","mitts",false);
-		createInvertedLogicEdge(0x47,"Main","Portal",null,false);
-		createSingleLogicEdge(0x07,"Portal","Main","hammer",false);
-		createSingleLogicEdge(0x47,"Portal","Main",null,false);
+		createInvertedLogicEdge(0x47,"Main","Portal","ledge",false);
+		createSingleLogicEdge(0x07,"Portal","Main","hammerledge",false);
+		createSingleLogicEdge(0x47,"Portal","Main","ledge",false);
 		createPortal(0x07,"Portal","hammer");
 		createPortal(0x47,"Portal","mitts");
-		createDoubleLogicEdge(0x0A,"Main","Bottom Cave","gloves",false);
-		createDoubleLogicEdge(0x0A,"Ledge","Main",null,false);
-		createDoubleLogicEdge(0x0A,"Bottom Cave","Main",null,false);
+		createDoubleLogicEdge(0x0A,"Main","Bottom Cave","gloves",true);
+		createDoubleLogicEdge(0x0A,"Ledge","Main","ledge",false);
+		createDoubleLogicEdge(0x0A,"Bottom Cave","Main","ledge",false);
 		createDoubleLogicEdge(0x0F,"Main","Waterfall","flippers",true);
 		createSingleLogicEdge(0x10,"North","Portal","hammer",true);
 		createDoublePortal(0x10,"Portal","gloves");
 		createSingleLogicEdge(0x50,"North","Portal","bushes",true);
 		createDoubleLogicEdge(0x10,"South","Portal","mitts",true);
 		createSingleLogicEdge(0x50,"North","West","bushes",true);
-		createSingleLogicEdge(0x13,"Rocks","Main",null,false);
+		createSingleLogicEdge(0x13,"Rocks","Main","ledge",false);
 		createSingleLogicEdge(0x53,"Rocks","Main",null,true);
 		createSingleLogicEdge(0x14,"Main","King Tomb","mitts",true);
 		createSingleLogicEdge(0x14,"North","King Tomb","mitts",true);
 		createSingleLogicEdge(0x14,"Main","North","bushes",true);
-		createSingleLogicEdge(0x14,"Ledge","North",null,false);
+		createSingleLogicEdge(0x14,"Ledge","North","ledge",false);
 		createInvertedLogicEdge(0x14,"Ledge","North",null,true);
 		createSingleLogicEdge(0x54,"Main","King Tomb","bushes",true);
 		createSingleLogicEdge(0x54,"North","King Tomb","bushes",true);
 		createSingleLogicEdge(0x54,"Ledge","North",null,true);
 		createSingleLogicEdge(0x15,"West","River","flippers",true);
-		createSingleLogicEdge(0x55,"West","River","flippers",false);
+		createSingleLogicEdge(0x55,"West","River","waterledge",false);
 		createDoubleLogicEdge(0x15,"East","River","flippers",true);
 		setDoubleMirrorBlock(0x15,"River");
-		createDoubleLogicEdge(0x16,"West","River","flippers",false);
-		createDoubleLogicEdge(0x16,"East","River","flippers",false);
+		createDoubleLogicEdge(0x16,"West","River","waterledge",false);
+		createDoubleLogicEdge(0x16,"East","River","waterledge",false);
 		createDoubleLogicEdge(0x16,"West","East","gloves",true);
 		setDoubleMirrorBlock(0x16,"River");
-		createDoubleLogicEdge(0x17,"West","River","flippers",false);
-		createDoubleLogicEdge(0x17,"West","East",null,true);
+		createDoubleLogicEdge(0x17,"West","River","waterledge",false);
+		createDoubleLogicEdge(0x17,"West","East","ledge",true);
+		createDoubleLogicEdge(0x17,"West","East","mitts",true);
+		createDoubleLogicEdge(0x17,"West","East","boots",true);
 		setDoubleMirrorBlock(0x17,"River");
 		createSingleLogicEdge(0x18,"Main","Blocked House","bushes",true);
 		createSingleLogicEdge(0x58,"Main","Blocked House","hammer",true);
 		createDoubleLogicEdge(0x18,"Main","Southwest","bushes",true);
+		createSingleLogicEdge(0x1A,"Main","Blocked House",null,true);
+		createSingleLogicEdge(0x5A,"Main","Blocked House","ledge",true);
 		createSingleLogicEdge(0x1B,"Main","East","gloves",true);
 		createSingleLogicEdge(0x5B,"Main","East",null,true);
 		createSingleLogicEdge(0x1B,"Main","South",null,true);
@@ -397,10 +403,10 @@
 		createSingleLogicEdge(0x5B,"South","Southwest",null,true);
 		createSingleLogicEdge(0x5B,"Main","Courtyard",null,true);
 		createSingleLogicEdge(0x5B,"Courtyard","Balcony",null,true);
-		createSingleLogicEdge(0x1B,"Balcony","Courtyard",null,false);
-		createSingleLogicEdge(0x1B,"Balcony","Main",null,false);
+		createSingleLogicEdge(0x1B,"Balcony","Courtyard","ledge",false);
+		createSingleLogicEdge(0x1B,"Balcony","Main","ledge",false);
 		createSingleLogicEdge(0x1B,"Balcony","Pyramid Exit",null,true);
-		createSingleLogicEdge(0x5B,"Pyramid Exit","Main",null,false);
+		createSingleLogicEdge(0x5B,"Pyramid Exit","Main","ledge",false);
 		createSingleLogicEdge(0x1B,"Courtyard","Passage Exit","bushes",true);
 		createSingleLogicEdge(0x5B,"Courtyard","Passage Exit",null,true);
 		createPortal(0x1B,"Main","agahnim");
@@ -409,9 +415,9 @@
 		createSingleLogicEdge(0x1D,"West","Northeast","hookshot",false);
 		createSingleLogicEdge(0x5D,"Northeast","West","hookshot",false);
 		createSingleLogicEdge(0x1D,"West","Southeast",null,true);
-		createDoubleLogicEdge(0x1D,"West","River","flippers",false);
-		createDoubleLogicEdge(0x1D,"Northeast","River","flippers",false);
-		createSingleLogicEdge(0x5D,"Southeast","River","flippers",false);
+		createDoubleLogicEdge(0x1D,"West","River","waterledge",false);
+		createDoubleLogicEdge(0x1D,"Northeast","River","waterledge",false);
+		createSingleLogicEdge(0x5D,"Southeast","River","waterledge",false);
 		createSingleLogicEdge(0x1D,"Northeast","Southeast","bushes",true);
 		createSingleLogicEdge(0x5D,"Northeast","Southeast","hammer",true);
 		createSingleLogicEdge(0x5D,"Northeast","Southeast","gloves",true);
@@ -421,15 +427,15 @@
 		createSingleLogicEdge(0x22,"Main","Northeast","hammer",true);
 		createSingleLogicEdge(0x62,"Main","Northeast",null,true);
 		createSingleLogicEdge(0x28,"Minigame","Top","bushes",true);
-		createSingleLogicEdge(0x28,"Minigame","Bottom",null,false);
-		createDoubleLogicEdge(0x28,"Top","Bottom",null,false);
-		createSingleLogicEdge(0x68,"Minigame","Top","mitts",false);
-		createSingleLogicEdge(0x68,"Minigame","Bottom",null,true);
+		createSingleLogicEdge(0x28,"Minigame","Bottom","ledge",false);
+		createDoubleLogicEdge(0x28,"Top","Bottom","ledge",false);
+		createSingleLogicEdge(0x68,"Minigame","Top","mittsledge",false);
+		createSingleLogicEdge(0x68,"Minigame","Bottom","nofollower",true);
 		overworldScreens.get(0x68).regions.get("Minigame").mirrorBlock = true;
 		createSingleLogicEdge(0x29,"Top","Bottom",null,true);
 		createSingleLogicEdge(0x29,"Top","Frog",null,true);
-		createSingleLogicEdge(0x69,"Top","Bottom",null,false);
-		createSingleLogicEdge(0x69,"Bottom","Top","mitts",false);
+		createSingleLogicEdge(0x69,"Top","Bottom","ledge",false);
+		createSingleLogicEdge(0x69,"Bottom","Top","mitts",true);
 		createSingleLogicEdge(0x69,"Top","Frog","mitts",true);
 		createSingleLogicEdge(0x2D,"North","South",null,true);
 		createSingleLogicEdge(0x6D,"North","South","hammer",true);
@@ -439,44 +445,44 @@
 		createDoublePortal(0x2F,"Portal","gloves");
 		createSingleLogicEdge(0x30,"Main","Front","book",false);
 		createSingleLogicEdge(0x70,"Main","Front",null,true);
-		createSingleLogicEdge(0x30,"Ledge","Main",null,false);
+		createSingleLogicEdge(0x30,"Ledge","Main","ledge",false);
 		createSingleLogicEdge(0x70,"Ledge","Main",null,true);
-		createSingleLogicEdge(0x30,"Balcony","Main",null,false);
-		createSingleLogicEdge(0x30,"Tablet","Main",null,false);
+		createSingleLogicEdge(0x30,"Balcony","Main","ledge",false);
+		createSingleLogicEdge(0x30,"Tablet","Main","ledge",false);
 		createSingleLogicEdge(0x30,"Ledge","Back","gloves",true);
 		createSingleLogicEdge(0x70,"Ledge","Back",null,true);
-		createDoubleLogicEdge(0x30,"Portal","Main",null,false);
-		createSingleLogicEdge(0x30,"Northeast","Main",null,false);
+		createDoubleLogicEdge(0x30,"Portal","Main","ledge",false);
+		createSingleLogicEdge(0x30,"Northeast","Main","ledge",false);
 		createSingleLogicEdge(0x70,"Northeast","Main",null,true);
 		createInvertedLogicEdge(0x30,"Northeast","Main",null,true);
 		createDoublePortal(0x30,"Portal","mitts");
 		createDoubleLogicEdge(0x32,"North","Main","bushes",true);
-		createSingleLogicEdge(0x32,"Ledge","Main",null,false);
+		createSingleLogicEdge(0x32,"Ledge","Main","ledge",false);
 		createSingleLogicEdge(0x72,"Ledge","Main",null,true);
 		createInvertedLogicEdge(0x32,"Ledge","Main",null,true);
 		createDoubleLogicEdge(0x33,"West","East","gloves",true);
 		createDoubleLogicEdge(0x33,"East","Portal","hammer",true);
 		createDoublePortal(0x33,"Portal","gloves");
 		createSingleLogicEdge(0x35,"Northwest","Lake","flippers",true);
-		createSingleLogicEdge(0x75,"Northwest","Lake","flippers",false);
+		createSingleLogicEdge(0x75,"Northwest","Lake","waterledge",false);
 		createDoubleLogicEdge(0x35,"Northeast","Lake","flippers",true);
 		createSingleLogicEdge(0x35,"Southwest","Southeast",null,true);
-		createDoubleLogicEdge(0x35,"Southwest","Lake","flippers",false);
-		createDoubleLogicEdge(0x35,"Southeast","Lake","flippers",false);
+		createDoubleLogicEdge(0x35,"Southwest","Lake","waterledge",false);
+		createDoubleLogicEdge(0x35,"Southeast","Lake","waterledge",false);
 		createSingleLogicEdge(0x35,"Central Island","Lake","flippers",true);
 		createInvertedLogicEdge(0x75,"Central Island","Lake","flippers",true);
-		createSingleLogicEdge(0x35,"Small Island","Lake","flippers",false);
+		createSingleLogicEdge(0x35,"Small Island","Lake","waterledge",false);
 		createSingleLogicEdge(0x75,"Small Island","Lake","flippers",true);
 		createInvertedLogicEdge(0x35,"Small Island","Lake","flippers",true);
 		createDoublePortal(0x35,"Central Island","mitts");
-		createSingleLogicEdge(0x3A,"Ledge","Main",null,false);
+		createSingleLogicEdge(0x3A,"Ledge","Main","ledge",false);
 		createSingleLogicEdge(0x7A,"Ledge","Main",null,true);
 		createInvertedLogicEdge(0x3A,"Ledge","Main",null,true);
 		createSingleLogicEdge(0x3A,"Southeast","Main","gloves",true);
 		createSingleLogicEdge(0x7A,"Southeast","Main",null,true);
-		createDoubleLogicEdge(0x3F,"Waterfall","Main","flippers",false);
+		createDoubleLogicEdge(0x3F,"Waterfall","Main","waterledge",false);
 		setDoubleMirrorBlock(0x3F,"Waterfall");
-		createSingleLogicEdge(0x81,"Main","Southeast","flippers",true);
+		createSingleLogicEdge(0x81,"Main","Southeast","waterledge",true);
 		//Bumper Cave
 		createSpecialDefaultConnector(0x4A,"Bottom Cave","Bunny",0x4A,"Ledge","Bunny","cape",true);
 		createSpecialDefaultConnector(0x0A,"Bottom Cave","Bunny",0x0A,"Ledge","Bunny","cape",true);
@@ -515,7 +521,7 @@
 		createItemLocation(0x70,"Main",10,-1,"bushes");
 		createItemLocation(0x45,"Bottom Main",11,-1,"bushes");
 		createItemLocation(0x1E,"Main",12,-1,"bombdash");
-		createItemLocation(0x43,"Bottom",13,-1,"spikecave");
+		createItemLocation(0x43,"Ledges",13,-1,"spikecave");
 		createItemLocation(0x18,"Main",14,-1,"bomb");
 		createSpecialLocation(0x18,"Main","Bombless Well","bushes");
 		createItemLocation(0x18,"Main",15,-1,"bomb");
@@ -552,7 +558,7 @@
 		createSpecialLocation(0x00,"Southeast","Check Hideout",null);
 		createItemLocation(0x02,"Main",37,-1,"agaandboots");
 		createSpecialLocation(0x02,"Main","Check Lumberjack",null);
-		createItemLocation(0x03,"Bottom",38,-1,null);
+		createItemLocation(0x03,"Ledges",38,-1,null);
 		createItemLocation(0x32,"Ledge",39,-1,"bushes");
 		createSpecialLocation(0x32,"Ledge","Check 45",null);
 		createItemLocation(0x14,"Ledge",40,-1,"bomb");
@@ -608,7 +614,7 @@
 		createItemLocation(0x45,"Bottom Main",72,-1,null);
 		createItemLocation(0x56,"West",73,-1,null);
 		createItemLocation(0x42,"Main",74,-1,null);
-		createItemLocation(0x5A,"Main",75,-1,null);
+		createItemLocation(0x5A,"Blocked House",75,-1,null);
 		createItemLocation(0x16,"West",76,-1,null);
 		createItemLocation(0x35,"Central Island",77,-1,null);
 		createItemLocation(0x6C,"Main",78,-1,null);
@@ -719,8 +725,8 @@
 		createEntranceLocation(0x37,"Main",67,"glove");
 		createEntranceLocation(0x03,"Top",68,null);
 		createEntranceLocation(0x03,"Bottom",69,null);
-		createEntranceLocation(0x03,"Bottom",70,null);
-		createEntranceLocation(0x03,"Bottom",71,null);
+		createEntranceLocation(0x03,"Ledges",70,null);
+		createEntranceLocation(0x03,"Ledges",71,null);
 		createEntranceLocation(0x03,"Bottom",72,null);
 		createEntranceLocation(0x03,"Bottom",73,null);
 		createEntranceLocation(0x0A,"Ledge",74,null);
@@ -740,7 +746,7 @@
 		createEntranceLocation(0x74,"Main",88,"bomb");
 		createEntranceLocation(0x7B,"Main",89,null);
 		createEntranceLocation(0x53,"Main",90,null);
-		createEntranceLocation(0x5A,"Main",91,null);
+		createEntranceLocation(0x5A,"Blocked House",91,null);
 		createEntranceLocation(0x56,"West",92,null);
 		createEntranceLocation(0x5B,"Main",93,"agahnim2");
 		createSpecialLocation(0x1B,"Balcony","Inverted Ganon","agahnim2");
@@ -779,7 +785,7 @@
 		createEntranceLocation(0x70,"Main",125,null);
 		createEntranceLocation(0x70,"Main",126,null);
 		createEntranceLocation(0x43,"Top",127,"gtcrystals");
-		createEntranceLocation(0x43,"Bottom",128,null);
+		createEntranceLocation(0x43,"Ledges",128,null);
 		createEntranceLocation(0x4A,"Ledge",129,null);
 		createEntranceLocation(0x43,"Bottom",130,null);
 		createEntranceLocation(0x45,"Island",131,null);
@@ -799,9 +805,11 @@
         setEntranceRegion(0x02,"Main",[23,24,25]);
         setEntranceRegion(0x42,"Main",[104]);
         setEntranceRegion(0x03,"Top",[68]);
-        setEntranceRegion(0x03,"Bottom",[69,70,71,72,73,75,76]);
+        setEntranceRegion(0x03,"Bottom",[69,72,73,75,76]);
+        setEntranceRegion(0x03,"Ledges",[70,71]);
         setEntranceRegion(0x43,"Top",[127]);
-        setEntranceRegion(0x43,"Bottom",[128,130]);
+        setEntranceRegion(0x43,"Bottom",[130]);
+        setEntranceRegion(0x43,"Ledges",[128]);
         setEntranceRegion(0x05,"Top Main",[77]);
         setEntranceRegion(0x05,"Bottom Main",[78,79,81,82]);
         setEntranceRegion(0x05,"Spiral",[80]);
@@ -836,7 +844,7 @@
         setEntranceRegion(0x18,"Southwest",[38]);
         setEntranceRegion(0x58,"Main",[107,108,109,111]);
         setEntranceRegion(0x58,"Blocked House",[110]);
-        setEntranceRegion(0x5A,"Main",[91]);
+        setEntranceRegion(0x5A,"Blocked House",[91]);
         setEntranceRegion(0x1B,"Main",[12]);
         setEntranceRegion(0x1B,"Passage Exit",[11]);
         setEntranceRegion(0x1B,"Courtyard",[7]);
@@ -954,6 +962,7 @@
 		document.getElementById("overworldoptionsfinalbox").style.display = "none";
 		sendUpdate();
 		updateReachableEdges();
+		drawFullOverworldPanels();
 		if(button)
 			buttonFlash(button);
 	};
@@ -964,9 +973,13 @@
 		connectEdgesByKeys(0x12,"ZW",0x3F,"ZW",true);
 		connectEdgesByKeys(0x15,"ZW",0x33,"ZW",true);
 		connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true);
-		sendUpdate();
-		updateReachableEdges();
-		buttonFlash(button);
+		if(button)
+		{
+			sendUpdate();
+			updateReachableEdges();
+			drawFullOverworldPanels();
+			buttonFlash(button);
+		}
 	};
 
 	window.vanillaSpecialScreens = function(button)
@@ -974,9 +987,13 @@
 		connectEdgesByKeys(0x00,"N1",0x80,"S1",true);
 		connectEdgesByKeys(0x0F,"N1",0x81,"S1",true);
 		connectEdgesByKeys(0x2D,"W0",0x82,"E1",true);
-		sendUpdate();
-		updateReachableEdges();
-		buttonFlash(button);
+		if(button)
+		{
+			sendUpdate();
+			updateReachableEdges();
+			drawFullOverworldPanels();
+			buttonFlash(button);
+		}
 	};
 
 	window.isDarkWorld = function(screen)
@@ -1051,39 +1068,42 @@
 		}
 	};
 
-	window.explore = function(current,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions)
+	window.explore = function(current,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions)
 	{
 		visitedRegions.add(current);
 		let darkWorld = isAssumedDarkWorld(current.screen,assumptions);
 		let edgesOut = current.logicEdgesOut;
 		if((worldState === 'I') === (darkWorld === current.darkWorld))
 			edgesOut = edgesOut.concat(current.invertedLogicEdgesOut);
-		edgesOut = edgesOut.concat(entranceEnabled ?current.entranceConnectorsOut :current.defaultConnectorsOut);
-		if(!entranceEnabled && current.specialDefaultConnectorsOut && (!mixedow || getAssumedMixedState(current.screen,assumptions) !== "unknown"))
+		if(!items.follower || ((items.follower === "smithfrog" || items.follower === "smithfrognosq") && entranceEnabled))
 		{
-			let skip = false;
-			for(let edge of current.specialDefaultConnectorsOut)
+			edgesOut = edgesOut.concat(entranceEnabled ?current.entranceConnectorsOut :current.defaultConnectorsOut);
+			if(!entranceEnabled && current.specialDefaultConnectorsOut && (!mixedow || getAssumedMixedState(current.screen,assumptions) !== "unknown"))
 			{
-				if(mixedow)
+				let skip = false;
+				for(let edge of current.specialDefaultConnectorsOut)
 				{
-					if(getAssumedMixedState(edge.target.screen,assumptions) === "unknown" && current.name !== "Ledge")
+					if(mixedow)
 					{
-						if(!skip && (edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')) && (!edge.rule || checkRule(edge.rule,items,darkWorld)))
+						if(getAssumedMixedState(edge.target.screen,assumptions) === "unknown" && current.name !== "Ledge")
 						{
-							addContinueRegion(edge.target.screen.id,getAssumedMixedState(current.screen,assumptions),edge.target,edge.target.parallel,checkableScreens,continueRegions);
-							skip = true;
+							if(!skip && (edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')) && (!edge.rule || checkRule(edge.rule,items,darkWorld)))
+							{
+								addContinueRegion(edge.target.screen.id,getAssumedMixedState(current.screen,assumptions),edge.target,edge.target.parallel,checkableScreens,continueRegions);
+								skip = true;
+							}
 						}
+						else
+							if((edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')))
+								if((edge.targetWorld === "Link") === (isAssumedDarkWorld(edge.target.screen,assumptions) === (worldState === 'I')))
+									edgesOut.push(edge);
 					}
 					else
+					{
 						if((edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')))
-							if((edge.targetWorld === "Link") === (isAssumedDarkWorld(edge.target.screen,assumptions) === (worldState === 'I')))
+							if((edge.targetWorld === "Link") === (edge.target.darkWorld === (worldState === 'I')))
 								edgesOut.push(edge);
-				}
-				else
-				{
-					if((edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')))
-						if((edge.targetWorld === "Link") === (edge.target.darkWorld === (worldState === 'I')))
-							edgesOut.push(edge);
+					}
 				}
 			}
 		}
@@ -1094,7 +1114,7 @@
 				if(mixedow && getAssumedMixedState(edge.target.screen,assumptions) === "unknown")
 					checkableScreens.add(edge.target.screen.id&0xBF);
 				else
-					explore(edge.target,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
+					explore(edge.target,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 			}
 		}
 		for(let edge of current.screenEdges)
@@ -1111,22 +1131,34 @@
 					let targetEdge = getAssumedConnectedEdge(edge,false,assumptions);
 					if(targetEdge && (!edge.water || checkRule("flippers",items,isAssumedDarkWorld(targetEdge.screen,assumptions))) && !visitedRegions.has(targetEdge.region))
 					{
-						explore(targetEdge.region,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
+						explore(targetEdge.region,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 					}
 				}
 			}
 		}
 		if(current.portal && (darkWorld === (worldState === 'I')) && (!current.portal.rule || checkRule(current.portal.rule,items,darkWorld)) && !visitedRegions.has(current.parallel))
 		{
-			explore(current.parallel,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
+			explore(current.parallel,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 		}
-		if(current.parallel && (darkWorld === (worldState !== 'I')) && !current.mirrorBlock && items.mirror && !visitedRegions.has(current.parallel))
+		if(current.parallel && (darkWorld === (worldState !== 'I')) && !options.keepMirrorPortal && !current.mirrorBlock && items.mirror && !visitedRegions.has(current.parallel))
 		{
-			explore(current.parallel,items,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
+			explore(current.parallel,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
+		}
+		if(options.fluteEdges && items.flute && current.parallel && !current.mirrorBlock && darkWorld === (worldState === 'I'))
+		{
+			for(let region of fluteSpotRegions)
+				if((!mixedow || region.screen.mixedState !== "unknown") && !visitedRegions.has(region))
+					explore(region,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
+		}
+		if(options.saveQuitEdges && !options.keepMirrorPortal && items.follower !== "oldman" && items.follower !== "smithfrognosq" && items.follower !== "redbomb")
+		{
+			for(let region of allStartRegions)
+				if((!mixedow || region.screen.mixedState !== "unknown") && !visitedRegions.has(region))
+					explore(region,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 		}
 	};
 
-	window.dijkstra = function(goal,items)
+	window.dijkstra = function(goal,items,options)
 	{
 		let reachable = new Set();
 		for(let screen of overworldScreens.values())
@@ -1151,24 +1183,27 @@
 			let edgesIn = current.logicEdgesIn;
 			if((worldState === 'I') === (darkWorld === current.darkWorld))
 				edgesIn = edgesIn.concat(current.invertedLogicEdgesIn);
-			edgesIn = edgesIn.concat(entranceEnabled ?current.entranceConnectorsIn :current.defaultConnectorsIn);
-			if(!entranceEnabled && current.specialDefaultConnectorsIn)
-				for(let edge of current.specialDefaultConnectorsIn)
-				{
-					if(mixedow)
+			if(!items.follower || ((items.follower === "smithfrog" || items.follower === "smithfrognosq") && entranceEnabled))
+			{
+				edgesIn = edgesIn.concat(entranceEnabled ?current.entranceConnectorsIn :current.defaultConnectorsIn);
+				if(!entranceEnabled && current.specialDefaultConnectorsIn)
+					for(let edge of current.specialDefaultConnectorsIn)
 					{
-						if(edge.source.screen.mixedState !== "unknown")
+						if(mixedow)
+						{
+							if(edge.source.screen.mixedState !== "unknown")
+								if((edge.targetWorld === "Link") === (darkWorld === (worldState === 'I')))
+									if((edge.sourceWorld === "Link") === (isDarkWorld(edge.source.screen) === (worldState === 'I')))
+										edgesIn.push(edge);
+						}
+						else
+						{
 							if((edge.targetWorld === "Link") === (darkWorld === (worldState === 'I')))
-								if((edge.sourceWorld === "Link") === (isDarkWorld(edge.source.screen) === (worldState === 'I')))
+								if((edge.sourceWorld === "Link") === (edge.source.darkWorld === (worldState === 'I')))
 									edgesIn.push(edge);
+						}
 					}
-					else
-					{
-						if((edge.targetWorld === "Link") === (darkWorld === (worldState === 'I')))
-							if((edge.sourceWorld === "Link") === (edge.source.darkWorld === (worldState === 'I')))
-								edgesIn.push(edge);
-					}
-				}
+			}
 			for(let edge of edgesIn)
 			{
 				let distance = current.distance+edge.weight;
@@ -1204,15 +1239,86 @@
 					parallel.nextEdgeType = "P";
 					reachable.add(parallel);
 				}
-				if((!darkWorld === (worldState !== 'I')) && !parallel.mirrorBlock && items.mirror && distance < parallel.distance)
+				if((!darkWorld === (worldState !== 'I')) && !options.keepMirrorPortal && !parallel.mirrorBlock && items.mirror && distance < parallel.distance)
 				{
 					parallel.distance = distance;
 					parallel.nextRegion = current;
 					parallel.nextEdgeType = "M";
 					reachable.add(parallel);
 				}
+				if(options.fluteEdges && items.flute && fluteSpotRegions.includes(current))
+				{
+					let distance = current.distance+2;
+					for(let screen of overworldScreens.values())
+						if((!mixedow || screen.mixedState !== "unknown") && isDarkWorld(screen) === (worldState === 'I'))
+							for(let region of screen.regions.values())
+								if(region.parallel && !region.mirrorBlock && distance < region.distance)
+								{
+									region.distance = distance;
+									region.nextRegion = current;
+									region.nextEdgeType = "F";
+									reachable.add(region);
+								}
+				}
+			}
+			if(options.saveQuitEdges && !options.keepMirrorPortal && items.follower !== "oldman" && items.follower !== "smithfrognosq" && items.follower !== "redbomb" && allStartRegions.includes(current))
+			{
+				let distance = current.distance+4;
+				for(let screen of overworldScreens.values())
+					if(!mixedow || screen.mixedState !== "unknown")
+						for(let region of screen.regions.values())
+							if(distance < region.distance)
+							{
+								region.distance = distance;
+								region.nextRegion = current;
+								region.nextEdgeType = "Q";
+								reachable.add(region);
+							}
 			}
 		}
+	};
+
+	window.canReachFrom = function(start,target,items,follower,availability,mirrorStart,mirrorTarget)
+	{
+		let reachable = new Set(),options = {},oldFollower = items.follower;
+		items.follower = follower;
+		options.saveQuitEdges = true;
+		options.fluteEdges = true;
+		options.keepMirrorPortal = false;
+		explore(start,items,options,reachable,new Set(),new Set(),new Map(),emptyMap);
+		if(reachable.has(target))
+		{
+			items.follower = oldFollower;
+			return availability;
+		}
+		availability = "unavailable";
+		if(items.mirror)
+		{
+			if(mirrorStart !== "unavailable")
+			{
+				reachable.clear();
+				explore(start.parallel,items,options,reachable,new Set(),new Set(),new Map(),emptyMap);
+				if(reachable.has(target))
+					availability = mirrorStart;
+			}
+			if(mirrorTarget !== "unavailable" && availability !== "available")
+			{
+				options.keepMirrorPortal = true;
+				reachable.clear();
+				explore(start,items,options,reachable,new Set(),new Set(),new Map(),emptyMap);
+				if(reachable.has(target.parallel))
+				{
+					reachable.clear();
+					explore(target.parallel,items,options,reachable,new Set(),new Set(),new Map(),emptyMap);
+					if(reachable.has(start))
+					{
+						availability = mirrorTarget;
+					}
+				}
+			}
+		}
+		items.follower = oldFollower;
+		return availability;
 	};
 
 	window.checkRule = function(rule,items,darkWorld)
@@ -1235,6 +1341,16 @@
 				return items.bottle;
 			case "mushroom":
 				return items.mushroom;
+			case "nofollower":
+				return !items.follower;
+			case "ledge":
+				return items.follower !== "redbomb";
+			case "waterledge":
+				return items.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.flippers;
+			case "hammerledge":
+				return items.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.hammer;
+			case "mittsledge":
+				return items.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.mitts;
 			case "bombdash":
 				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && (items.bomb || items.boots);
 			case "bushesandlantern":
@@ -1357,7 +1473,7 @@
 		return set;
 	};
 
-	window.determineLocationAvailability = function(regions,items)
+	window.determineLocationAvailability = function(regions,extraRegions,maybeLightRegions,maybeDarkRegions,items)
 	{
 		let door = items.flags && items.flags.doorshuffle ?items.flags.doorshuffle !== 'N' :doorshuffle !== 'N';
 		let data = {};
@@ -1375,27 +1491,108 @@
 		data.dungeonsBunny = {};
 		data.special = {};
 		//Collect all points of interest in reachable regions
-		for(let region of regions)
+		for(let region of extraRegions)
 		{
-			let darkWorld = items.moonpearl || isDarkWorld(region.screen);
-			for(let location of region.locations)
+			if(region.screen.mixedState !== "unknown")
 			{
-				if(!location.rule || checkRule(location.rule,items,darkWorld))
-				{
-					data[location.type][location.id] = "available";
-				}
-				if(!items.moonpearl && location.type === "dungeons")
-					data.dungeonsBunny[location.id] = darkWorld !== (worldState === 'I');
+				regions.add(region);
 			}
 		}
+		for(let region of regions)
+		{
+			if(mixedow && region.screen.mixedState === "unknown")
+				extraRegions.add(region);
+			else
+			{
+				maybeLightRegions.delete(region);
+				maybeDarkRegions.delete(region);
+				let darkWorld = items.moonpearl || isDarkWorld(region.screen);
+				for(let location of region.locations)
+				{
+					if(!location.rule || checkRule(location.rule,items,darkWorld))
+					{
+						data[location.type][location.id] = "available";
+					}
+					if(!items.moonpearl && location.type === "dungeons")
+						data.dungeonsBunny[location.id] = darkWorld !== (worldState === 'I');
+				}
+			}
+		}
+		for(let region of extraRegions)
+		{
+			maybeLightRegions.delete(region);
+			maybeDarkRegions.delete(region);
+			for(let location of region.locations)
+			{
+				if(data[location.type][location.id] !== "available" && region.screen.mixedState === "unknown")
+				{
+					if(!location.rule || (checkRule(location.rule,items,true) && checkRule(location.rule,items,false)))
+					{
+						data[location.type][location.id] = "available";
+					}
+					else
+						if(checkRule(location.rule,items,true) || checkRule(location.rule,items,false))
+							data[location.type][location.id] = "possible";
+					if(!items.moonpearl && location.type === "dungeons")
+						data.dungeonsBunny[location.id] = data[location.type][location.id] === "available";
+				}
+			}
+		}
+		if(worldState !== 'I')
+			for(let region of maybeLightRegions)
+			{
+				for(let location of region.locations)
+				{
+					if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "possible")
+					{
+						if(!location.rule || checkRule(location.rule,items,false))
+						{
+							data[location.type][location.id] = "possible";
+						}
+						if(!items.moonpearl && location.type === "dungeons")
+							data.dungeonsBunny[location.id] = worldState === 'I';
+					}
+				}
+			}
+		for(let region of maybeDarkRegions)
+		{
+			for(let location of region.locations)
+			{
+				if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "possible")
+				{
+					if(!location.rule || checkRule(location.rule,items,true))
+					{
+						data[location.type][location.id] = "possible";
+					}
+					if(!items.moonpearl && location.type === "dungeons")
+						data.dungeonsBunny[location.id] = worldState !== 'I';
+				}
+			}
+		}
+		if(worldState === 'I')
+			for(let region of maybeLightRegions)
+			{
+				for(let location of region.locations)
+				{
+					if(data[location.type][location.id] !== "available" && data[location.type][location.id] !== "possible")
+					{
+						if(!location.rule || checkRule(location.rule,items,false))
+						{
+							data[location.type][location.id] = "possible";
+						}
+						if(!items.moonpearl && location.type === "dungeons")
+							data.dungeonsBunny[location.id] = worldState === 'I';
+					}
+				}
+			}
 		//Special rules for certain locations
 		if(worldState === 'I')
 		{
-			data.items[2] = data.special["Inverted Link's House"] ?"available" :"unavailable";
-			data.items[65] = data.items[66] = data.special["Inverted Castle Tower Access"] ?"available" :"unavailable";
-			data.items[78] = data.special["Inverted Bomb Shop"] ?"available" :"unavailable";
-			data.dungeons[80] = data.entrances[10] = data.special["Inverted Ganon's Tower"] ?"available" :"unavailable";
-			data.dungeons[96] = data.entrances[127] = data.special["Inverted Castle Tower"] ?"available" :"unavailable";
+			data.items[2] = data.special["Inverted Link's House"] || "unavailable";
+			data.items[65] = data.items[66] = data.special["Inverted Castle Tower Access"] || "unavailable";
+			data.items[78] = data.special["Inverted Bomb Shop"] || "unavailable";
+			data.dungeons[80] = data.entrances[10] = data.special["Inverted Ganon's Tower"] || "unavailable";
+			data.dungeons[96] = data.entrances[127] = data.special["Inverted Castle Tower"] || "unavailable";
 			orSpecial(data.dungeons,80,data.special["Inverted Maybe GT"],"possible");
 			orSpecial(data.entrances,10,data.special["Inverted Maybe GT"],"possible");
 			if(!items.moonpearl)
@@ -1413,7 +1610,7 @@
 		if((mixedow && overworldScreens.get(0x03).mixedState === "swapped") !== (worldState === 'I'))
 			if(entranceEnabled)
 			{
-				if(data.items[34] === "available")
+				if(data.items[34] !== "unavailable")
 				{
 					andSpecial(data.items,34,data.special["Inverted Old Man"]);
 					andSpecial(data.items,34,data.special["Old Man Hera"]);
@@ -1422,9 +1619,9 @@
 				}
 			}
 			else
-				data.items[34] = data.special["Inverted Old Man"] ?"available" :"unavailable";
+				data.items[34] = data.special["Inverted Old Man"] || "unavailable";
 		else
-			if(entranceEnabled && data.items[34] === "available")
+			if(entranceEnabled && data.items[34] !== "available")
 			{
 				andSpecial(data.items,34,data.special["Old Man Hera"]);
 				if(data.items[34] === "unavailable")
@@ -1432,8 +1629,8 @@
 			}
 		if((mixedow && overworldScreens.get(0x1B).mixedState === "swapped") !== (worldState === 'I'))
 		{
-			data.entrances[93] = data.special["Inverted Ganon"] ?"available" :"unavailable";
-			data.entrances[95] = data.special["Inverted Ganon Exit"] ?"available" :"unavailable";
+			data.entrances[93] = data.special["Inverted Ganon"] || "unavailable";
+			data.entrances[95] = data.special["Inverted Ganon Exit"] || "unavailable";
 		}
 		orSpecial(data.items,21,data.special["HSC Bottom Back"],"available");
 		orSpecial(data.items,22,data.special["HSC Top Back"],"available");
@@ -1464,51 +1661,70 @@
 		orSpecial(data.entrances,123,data.special["Maybe MM"],"possible");
 		orSpecial(data.entrances,136,data.special["Maybe TR"],"possible");
 		andSpecial(data.items,28,data.special["Thief"]);
-		andSpecial(data.items,28,data.items[60]);
 		andSpecial(data.items,60,data.special["Smith"]);
 		andSpecial(data.items,61,data.special["Red Bomb"]);
 		for(let k = 0; k < 23; k++)
 			data.entranceitems[k] = data.items[entranceItemToItem[k]];
-		andSpecial(data.items,28,data.items[60]);
-		//For now, unknown if followers can be delivered
-		for(let id of [28,60,61])
-			if(data.items[id] === "available")
-				data.items[id] = "possible";
+		//Red bomb
+		if(data.items[61] !== "unavailable")
+		{
+			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(worldState === 'I' ?0x2C :0x6C).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
+			let mirrorTarget = canPlaceMirrorPortal(overworldScreens.get(0x1B).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
+			data.items[61] = canReachFrom(overworldScreens.get(worldState === 'I' ?0x2C :0x6C).regions.get("Main"),overworldScreens.get(0x5B).regions.get("Main"),items,"redbomb",data.items[61],mirrorStart,mirrorTarget);
+		}
+		//Smith
+		if(data.items[60] !== "unavailable")
+		{
+			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(0x69).regions.get("Frog"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
+			let mirrorTarget = canPlaceMirrorPortal(overworldScreens.get(0x62).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
+			data.items[60] = canReachFrom(overworldScreens.get(0x69).regions.get("Frog"),overworldScreens.get(0x22).regions.get("Main"),items,"smithfrog",data.items[60],mirrorStart,mirrorTarget);
+			if(data.items[60] === "available" && canReachFrom(overworldScreens.get(0x69).regions.get("Frog"),overworldScreens.get(0x22).regions.get("Main"),items,"smithfrognosq",data.items[60],mirrorStart,mirrorTarget) !== "available")
+				data.items[60] === "possible";
+		}
+		//Purple chest
+		if(!entranceEnabled)
+			andSpecial(data.items,28,data.items[60]);
+		if(data.items[28] !== "unavailable")
+		{
+			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(0x62).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
+			let mirrorTarget = canPlaceMirrorPortal(overworldScreens.get(0x7A).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
+			data.items[28] = canReachFrom(overworldScreens.get(0x62).regions.get("Main"),overworldScreens.get(0x3A).regions.get("Main"),items,"purplechest",data.items[28],mirrorStart,mirrorTarget);
+		}
+		data.entranceitems[4] = data.items[28] === "available" ?"possible" :data.items[28];
+		//For now, unknown if followers can be delivered in Entrance
 		if(data.entranceitems[0] === "available")
 			data.entranceitems[0] = "possible";
-		if(data.entranceitems[4] === "available")
-			data.entranceitems[4] = "possible";
 		if(data.entrances[94] === "available")
 			data.entrances[94] = "possible";
 		//Manually refine access to certain items that involve dungeons
 		if(!entranceEnabled)
 		{
-			let front = data.items[63],back = data.items[55],towerAccess = data.items[65] === "available" && data.items[66] === "available";
+			let front = data.items[63],back = data.items[55],towerAccess = data.items[65] === "available" && data.items[66] === "available",towerMaybe = (data.items[65] === "available" || data.items[65] === "possible") && (data.items[66] === "available" || data.items[66] === "possible");
 			let retro = items.flags && items.flags.gametype ?items.flags.gametype === 'R' :worldState === 'R';
 			//Back of Escape
-			if(back === "available")
-				data.items[55] = items.bomb || items.boots ?"available" :"unavailable";
+			if(back !== "unavailable")
+				data.items[55] = items.bomb || items.boots ?back :"unavailable";
 			else
-				if(front === "available" && items.lantern && (items.bomb || items.boots) && (items.bomb || items.sword || items.bow || items.hammer || items.firerod || items.somaria || items.byrna))
+				if(front !== "unavailable" && items.lantern && (items.bomb || items.boots) && (items.bomb || items.sword || items.bow || items.hammer || items.firerod || items.somaria || items.byrna))
 				{
 					if(retro || (items.flags && items.flags.wildkeys))
-						data.items[55] = retro || items.smallkeyhalf0 ?"available" :"unavailable";
+						data.items[55] = retro || items.smallkeyhalf0 ?front :"unavailable";
 					else
 						data.items[55] = "possible";
 				}
 			//Sewers
-			if(front !== "available" && back === "available" && items.lantern && (items.bomb || items.sword || items.bow || items.hammer || items.firerod || items.somaria || items.byrna))
+			if(front !== "available" && back !== "unavailable" && items.lantern && (items.bomb || items.sword || items.bow || items.hammer || items.firerod || items.somaria || items.byrna))
 			{
 				if(retro || (items.flags && items.flags.wildkeys))
-					data.items[63] = retro || items.smallkeyhalf0 ?"available" :"unavailable";
+					data.items[63] = retro || items.smallkeyhalf0 ?back :"unavailable";
 				else
 					data.items[63] = "possible";
 			}
 			//Castle Tower
-			if(towerAccess && (items.sword || items.bow || items.hammer || items.firerod || items.somaria || items.byrna))
+			if(towerMaybe && (items.sword || items.bow || items.hammer || items.firerod || items.somaria || items.byrna))
 			{
-				data.items[65] = "available";
-				data.items[66] = items.lantern && (retro || items.smallkeyhalf1 || !items.flags || !items.flags.wildkeys) ?"available" :"unavailable";
+				data.items[65] = towerAccess ?"available" :"possible";
+				data.items[66] = items.lantern && (retro || items.smallkeyhalf1 || !items.flags || !items.flags.wildkeys) ?(towerAccess ?"available" :"possible") :"unavailable";
 			}
 			else
 				data.items[65] = data.items[66] = "unavailable";
@@ -1519,13 +1735,13 @@
 					if(items.book)
 					{
 						data.items[48] = "possible";
-						if(data.special["Desert Access"] === "available" && (mixedow && overworldScreens.get(0x30).mixedState === "swapped") !== (worldState === 'I'))
+						if(data.special["Desert Access"] && (mixedow && overworldScreens.get(0x30).mixedState === "swapped") !== (worldState === 'I'))
 							data.helpDesert = true;
 					}
 				}
 				else
-					if(data.special["Desert Access"] === "available")
-						data.items[48] = "available";
+					if(data.special["Desert Access"])
+						data.items[48] = data.special["Desert Access"];
 			//Mimic Cave
 			if(items.mirror && items.hammer && items.moonpearl && data.items[4] === "unavailable" && data.entrances[136] !== "unavailable" && (mixedow && overworldScreens.get(0x05).mixedState === "swapped") === (worldState === 'I'))
 				if(door)
@@ -1540,43 +1756,43 @@
 							data.items[4] = retro || items.smallkey9 > 1 ?data.entrances[136] :"unavailable";
 						else
 							data.items[4] = items.firerod ?data.entrances[136] :"possible";
-			//Consider guaranteed or possibles paths between dungeon entrances
+			//Consider guaranteed or possible paths between dungeon entrances
 			if(door)
 			{
 				//Desert Palace
 				if((mixedow && overworldScreens.get(0x30).mixedState === "swapped") !== (worldState === 'I'))
 				{
-					if(data.dungeons[8] === "available")
+					if(data.dungeons[8] !== "unavailable")
 					{
-						data.dungeons[9] = "available";
+						data.dungeons[9] = data.dungeons[8];
 						if(items.gloves && items.moonpearl)
-							data.dungeons[11] = "available";
+							data.dungeons[11] = data.dungeons[8];
 					}
 				}
-				if(data.dungeons[8] === "available" && data.dungeons[9] === "available" && data.dungeons[11] === "available")
-					data.dungeons[10] = "available";
+				if(data.dungeons[8] !== "unavailable" && data.dungeons[9] !== "unavailable" && data.dungeons[11] !== "unavailable")
+					data.dungeons[10] = data.dungeons[8] === "available" && data.dungeons[9] === "available" && data.dungeons[11] === "available" ?"available" :"possible";
 				//Skull Woods
 				if((mixedow && overworldScreens.get(0x00).mixedState === "swapped") === (worldState === 'I'))
 				{
-					if(data.dungeons[40] === "available" && data.dungeons[41] === "available" && data.dungeons[44] === "available" && data.dungeons[45] === "available" && data.dungeons[46] === "available")
+					if(data.dungeons[40] !== "unavailable" && data.dungeons[41] !== "unavailable" && data.dungeons[44] !== "unavailable" && data.dungeons[45] !== "unavailable" && data.dungeons[46] !== "unavailable")
 					{
-						data.dungeons[42] = data.dungeons[47] = "available";
+						data.dungeons[42] = data.dungeons[47] = data.dungeons[40] === "available" && data.dungeons[41] === "available" && data.dungeons[44] === "available" && data.dungeons[45] === "available" && data.dungeons[46] === "available" ?"available" :"possible";
 						if(items.firerod)
-							data.dungeons[43] = "available";
+							data.dungeons[43] = data.dungeons[40] === "available" && data.dungeons[41] === "available" && data.dungeons[44] === "available" && data.dungeons[45] === "available" && data.dungeons[46] === "available" ?"available" :"possible";
 					}
 				}
 				//Turtle Rock
 				if((mixedow && overworldScreens.get(0x05).mixedState === "swapped") === (worldState === 'I'))
 				{
-					if(data.dungeons[72] === "available" && items.bomb)
-						data.dungeons[73] = data.dungeons[74] = "available";
-					if(data.dungeons[72] === "available" && data.dungeons[73] === "available" && data.dungeons[74] === "available")
-						data.dungeons[75] = "available";
+					if(data.dungeons[72] !== "unavailable" && items.bomb)
+						data.dungeons[73] = data.dungeons[74] = data.dungeons[72];
+					if(data.dungeons[72] !== "unavailable" && data.dungeons[73] !== "unavailable" && data.dungeons[74] !== "unavailable")
+						data.dungeons[75] = data.dungeons[72] === "available" && data.dungeons[73] === "available" && data.dungeons[74] === "available" ?"available" :"possible";
 				}
 				//CT or GT through HC
 				if(worldState === 'I')
 				{
-					if(data.dungeons[80] === "unavailable")
+					if(data.dungeons[80] === "unavailable" && (!mixedow || overworldScreens.get(0x1B).mixedState !== "unknown"))
 					{
 						let entrycheck = checkRule("gtcrystals",items,isDarkWorld(overworldScreens.get(0x1B))) ?"available" :(checkRule("gtcrystalsmaybe",items,isDarkWorld(overworldScreens.get(0x1B))) ?"possible" :"unavailable");
 						if(entrycheck !== "unavailable" && (data.dungeons[88] !== "unavailable" || data.dungeons[91] !== "unavailable" || data.dungeons[92] !== "unavailable"))
@@ -1588,7 +1804,7 @@
 				}
 				else
 				{
-					if(data.dungeons[96] === "unavailable")
+					if(data.dungeons[96] === "unavailable" && (!mixedow || overworldScreens.get(0x1B).mixedState !== "unknown"))
 					{
 						if(checkRule("ctbarrier",items,isDarkWorld(overworldScreens.get(0x1B))) && (data.dungeons[88] !== "unavailable" || data.dungeons[91] !== "unavailable" || data.dungeons[92] !== "unavailable"))
 						{
@@ -1600,14 +1816,14 @@
 			}
 		}
 		//Skull Woods in Entrance
-		if(data.entrances[102] === "available" && !data.dungeonsBunny[40])
+		if(data.entrances[102] !== "unavailable" && !data.dungeonsBunny[40])
 		{
 			if(items.firerod && data.entrances[96] === "unavailable")
-				data.entrances[96] = door ?"possible" :"available";
+				data.entrances[96] = door ?"possible" :data.entrances[102];
 			if(data.entrances[97] === "unavailable")
-				data.entrances[97] = door ?"possible" :"available";
+				data.entrances[97] = door ?"possible" :data.entrances[102];
 			if(data.entrances[98] === "unavailable")
-				data.entrances[98] = door ?"possible" :"available";
+				data.entrances[98] = door ?"possible" :data.entrances[102];
 		}
 		data.special = null;
 		return data;
@@ -1617,12 +1833,24 @@
 	{
 		if(object[locationID] === "unavailable" && special === "available")
 			object[locationID] = availability;
+		else
+			if(object[locationID] === "unavailable" && special === "possible" && (availability === "available" || availability === "possible" || availability === "partialavailable"))
+				object[locationID] = "possible";
 	};
 
 	window.andSpecial = function(object,locationID,special)
 	{
 		if(object[locationID] !== "unavailable" && special !== "available")
 			object[locationID] = special ?special :"unavailable";
+	};
+
+	window.canPlaceMirrorPortal = function(region,visitedRegions,extraRegions,maybeLightRegions,maybeDarkRegions)
+	{
+		if((mixedow && region.screen.mixedState === "unavailable") || isDarkWorld(region.screen) !== (worldState === 'I') || !region.parallel || region.parallel.mirrorBlock)
+			return "unavailable";
+		if(visitedRegions.has(region.parallel) || extraRegions.has(region.parallel))
+			return "available";
+		return (worldState === 'I' ?maybeLightRegions.has(region.parallel) :maybeDarkRegions.has(region.parallel)) ?"possible" :"unavailable";
 	};
 
 	window.createLocation = function(screenID,regionName,locationType,locationID,rule)
@@ -2349,6 +2577,9 @@
 		overworldEdgeToDirection["CO"] = {"folder":"interface","file":"connectorentrance","x":80,"y":48};
 		overworldEdgeToDirection["PO"] = {"folder":"interface","file":"portal","x":48,"y":80};
 		overworldEdgeToDirection["MI"] = {"folder":"items","file":"mirror","x":80,"y":80};
+		overworldEdgeToDirection["SQ"] = {"folder":"interface","file":"savequit"};
+		overworldEdgeToDirection["FL"] = {"folder":"items","file":"flutet"};
+		overworldEdgeToDirection["MP"] = {"folder":"interface","file":"mirrorportal"};
 		objects.push({"folder":"dungeons","file":"trapdoor"});
 		objects.push({"folder":"dungeons","file":"keychest0"});
 		objects.push({"folder":"dungeons","file":"prize0"});

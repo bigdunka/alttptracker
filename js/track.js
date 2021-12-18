@@ -251,51 +251,54 @@
 				updateLocationAvailability();
 			}
 			else
-				if(event.data == "UPDATE" && doorWindow && !doorWindow.closed)
-					doorWindow.postMessage(dungeonData,"*");
+				if(event.data == "PING" && doorWindow && !doorWindow.closed)
+					doorWindow.postMessage("PONG","*");
 				else
-					if(event.data == "ITEMS" && doorWindow && !doorWindow.closed)
-						doorWindow.postMessage(cloneItems(),"*");
+					if(event.data == "UPDATE" && doorWindow && !doorWindow.closed)
+						doorWindow.postMessage(dungeonData,"*");
 					else
-						if(event.data == "RESETLOGIC" && flags.overworldshuffle != 'N' && doorWindow && !doorWindow.closed)
-						{
-							var olddungeons = dungeons;
-                            var oldagahnim = agahnim;
-                            var oldchests = chests;
-                            var oldentrances = flags.entrancemode === 'N' ?null :entrances;
-                            loadChestFlags();
-                            for(var k = 0; k < dungeons.length; k++)
-                            {
-                                olddungeons[k].is_beatable = dungeons[k].is_beatable;
-                                olddungeons[k].can_get_chest = dungeons[k].can_get_chest;
-                            }
-                            oldagahnim.is_available = agahnim.is_available;
-                            for(var k = 0; k < chests.length; k++)
-                                oldchests[k].is_available = chests[k].is_available;
-                            dungeons = olddungeons;
-                            agahnim = oldagahnim;
-                            chests = oldchests;
-                            if(flags.entrancemode != 'N')
-                            {
-                                for(var k = 0; k < entrances.length; k++)
-                                    oldentrances[k].is_available = entrances[k].is_available;
-                                entrances = oldentrances;
-                            }
-                            updateMapTracker();
-						}
+						if(event.data == "ITEMS" && doorWindow && !doorWindow.closed)
+							doorWindow.postMessage(cloneItems(),"*");
 						else
-							if((""+event.data).startsWith("TOGGLE "))
+							if(event.data == "RESETLOGIC" && flags.overworldshuffle != 'N' && doorWindow && !doorWindow.closed)
 							{
-								var item = (""+event.data).substring(7);
-								if(items.hasOwnProperty(item))
+								var olddungeons = dungeons;
+								var oldagahnim = agahnim;
+								var oldchests = chests;
+								var oldentrances = flags.entrancemode === 'N' ?null :entrances;
+								loadChestFlags();
+								for(var k = 0; k < dungeons.length; k++)
 								{
-									click_map();
-									toggle(item);
+									olddungeons[k].is_beatable = dungeons[k].is_beatable;
+									olddungeons[k].can_get_chest = dungeons[k].can_get_chest;
 								}
+								oldagahnim.is_available = agahnim.is_available;
+								for(var k = 0; k < chests.length; k++)
+									oldchests[k].is_available = chests[k].is_available;
+								dungeons = olddungeons;
+								agahnim = oldagahnim;
+								chests = oldchests;
+								if(flags.entrancemode != 'N')
+								{
+									for(var k = 0; k < entrances.length; k++)
+										oldentrances[k].is_available = entrances[k].is_available;
+									entrances = oldentrances;
+								}
+								updateMapTracker();
 							}
 							else
-								if(event.data.dungeonPaths && event.data.dungeonPaths.length === 13)
-									dungeonData = event.data;
+								if((""+event.data).startsWith("TOGGLE "))
+								{
+									var item = (""+event.data).substring(7);
+									if(items.hasOwnProperty(item))
+									{
+										click_map();
+										toggle(item);
+									}
+								}
+								else
+									if(event.data.dungeonPaths && event.data.dungeonPaths.length === 13)
+										dungeonData = event.data;
 		}
 	};
 
@@ -2052,6 +2055,10 @@
 		
 		//Entrance
 		if (document.getElementById('entranceselect').value != flags.entrancemode || adjustForEntrance) {
+			if (doorWindow && !doorWindow.closed) {
+				doorWindow.postMessage("MYSTERYRELOAD","*");
+			}
+			
 			var currentURL = window.location.href;
 			
 			if (document.getElementById('entranceselect').value === "N") {
@@ -2265,6 +2272,11 @@
 				document.getElementById('bossMap10').style.top = "52.5%";
 				document.getElementById('dungeon10').style.left = "25%";
 				document.getElementById('dungeon10').style.top = "52.5%";
+					
+				document.getElementById('bossMap12').style.left = "79.0%";
+				document.getElementById('bossMap12').style.top = flags.mapmode === 'C' ? "7.2%" : "5.5%";
+				document.getElementById('dungeon12').style.left = "79.0%";
+				document.getElementById('dungeon12').style.top = flags.mapmode === 'C' ? "7.2%" : "5.5%";
 			} else {
 				window.document.getElementById('locationMap1').style.visibility = 'hidden';
 				window.document.getElementById('entranceMap10').style.top = "40.0%";
