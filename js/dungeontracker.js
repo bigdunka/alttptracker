@@ -13,9 +13,9 @@
 	window.worldState = 'O';
 	window.entranceEnabled = false;
 
-	let outstandingUpdate = false,awaitingNextUpdate = true,awaitingResponse = false,currentDungeon = -1,currentPath = null,clickedPathIndex,currentlyEditing = false,editingIndex,globalHasBranch = false,visibleSidebar = true,welcomeMode = true;
+	let outstandingUpdate = false,awaitingNextUpdate = true,awaitingResponse = false,initWidth = 0,initHeight = 0,currentDungeon = -1,currentPath = null,clickedPathIndex,currentlyEditing = false,editingIndex,globalHasBranch = false,visibleSidebar = true,welcomeMode = true;
 	let ownItems = {},reachableEdges = null,showOverworldModeSection = false,showFullMapMain = true,expandedMainTable = true,showChecklist = false,currentOWPath = null,currentOWScreen = null,fullOverworldMode = null,fullOWFixedEdge = null,fullOWSelectedScreen = null,fullOWSelectedEdge = null,fullOWConnectorStart = null,fullOWConnectorEnd = null,extraOWScreen = null,extraOWDirection = null,fullOWPath = null,hoveredPathNumber = -1,lastUnknownConnectorIndex = -1,useMain = true,backToMain = true;
-	let searchResults = new Map(),searchStartRegion = null,searchTargetRegion = null,searchStartScreen = null,searchAddCommonStarts = false,searchSaveQuitFluteEdges = false,searchResultsLength = 0,clickedOverworldPathIndex,clickedOverworldPathListName,clickedOverworldPath = null,clickedConnectorIndex,drawDarkWorldMain = false,drawDarkWorldPopout = false,sideBySideMain = false,sideBySidePopout = false,fullZoomMain = .8,fullZoomPopout = .8,fullZoomAutoMain = true,fullZoomAutoPopout = true,pathZoom = 1,fullPathCompact = true;
+	let searchResults = new Map(),searchStartRegion = null,searchTargetRegion = null,searchStartScreen = null,searchAddCommonStarts = false,searchSaveQuitFluteEdges = false,searchResultsLength = 0,searchResultPaths = [],clickedOverworldPathIndex,clickedOverworldPathListName,clickedOverworldPath = null,clickedConnectorIndex,drawDarkWorldMain = false,drawDarkWorldPopout = false,sideBySideMain = false,sideBySidePopout = false,fullZoomMain = .8,fullZoomPopout = .8,fullZoomAutoMain = true,fullZoomAutoPopout = true,pathZoom = 1,fullPathCompact = true;
 	window.dungeonPaths = [];
 	window.entranceConnectors = [];
 	window.allStartRegions = [];
@@ -28,7 +28,8 @@
 
 	const dungeonNamesLong = ["Eastern Palace","Desert Palace","Tower of Hera","Palace of Darkness","Swamp Palace","Skull Woods","Thieves' Town","Ice Palace","Misery Mire","Turtle Rock","Ganon's Tower","Hyrule Castle","Castle Tower"];
 	const dungeonNamesShort = ["EP","DP","ToH","PoD","SP","SW","TT","IP","MM","TR","GT","HC","CT"];
-	const checkboxFlags = ["globalsync","showmorerooms","splitpath","owsidebaredit","owsidebarnew","owsidebarsearch","itemsync","activeflutebox","connectorsync","pinnedlinkshouse","pinnedsanctuary","pinnedoldman","pinnedpyramid","compactpinned","compactprevious","alwaysfollowmarked","compactsearchresults","mainsidebysideow","sidebysideow","mainzoomautoow","zoomautoow"];
+	const checkboxFlagsTrack = ["globalsync","itemsync","activeflutebox","connectorsync","pinnedlinkshouse","pinnedsanctuary","pinnedoldman","pinnedpyramid"];
+	const checkboxFlagsDisplay = ["showmorerooms","splitpath","owsidebaredit","owsidebarnew","owsidebarsearch","compactpinned","compactprevious","alwaysfollowmarked","compactsearchresults","mainsidebysideow","sidebysideow","mainzoomautoow","zoomautoow"];
 	const fullOWTitle = {"newpath":"Start a new path","continuepath":"Where does this transition lead to?","searchpath":"Select a target screen or preset","searchpathtarget":"Select a new target screen","searchpathstart":"Select a starting screen","editedges":"Full overworld map","editflutespots":"Click on screens to toggle flute spots"};
 	const reconnectHelpMessage = "In order to establish a new connection without losing any data, follow these steps:\nSave your data by going to \"Save and restore\" and clicking on \"Save data\".\nClose this window.\nFrom the main tracker window, open a new instance of this window by clicking on the map.\nNear the bottom of the page, click on \"Load manual save\".";
 
@@ -629,10 +630,11 @@
 		if(!welcomeMode)
 		{
 			outstandingUpdate = false;
-			let data = allData();
+			let data = allDataTrack();
 			try
 			{
 				saveAuto(data);
+				localStorage.setItem("displayData",JSON.stringify(allDataDisplay()));
 			}
 			catch(error)
 			{
@@ -808,10 +810,20 @@
 		document.getElementById("overviewownewpath").style.display = owshuffle === 'N' ?"none" :"block";
 		document.getElementById("overviewdungeons").style.display = doorshuffle === 'N' ?"none" :"block";
 		document.getElementById("dungeonoptions").style.display = doorshuffle === 'N' ?"none" :"block";
+		document.getElementById("changeworldstateentrance").style.display = document.getElementById("globalsync").checked ?"block" :"none";
 		document.getElementById("dungeonstats").style.display = doorshuffle === 'N' ?"none" :"block";
 		document.getElementById("sidebaroverworld").style.display = noOverworld ?"none" :"block";
 		document.getElementById("sidebardungeons").style.display = doorshuffle === 'N' ?"none" :"block";
 		updateSidebarElements();
+	};
+
+	window.changeMainTrackerSettings = function()
+	{
+		if(confirm("World State and Entrance Shuffle are handled through the main tracker window.\nEither disable the full sync between the two windows below to change these settings here, or change them in the Mystery menu in the main tracker window.\nProceed if you wish to open the Mystery menu in the main tracker window (even if not in Mystery mode).") && window.opener && !window.opener.closed)
+		{
+			window.opener.postMessage("OPENSETTINGS","*");
+			window.opener.focus();
+		}
 	};
 
 	window.hideFinalBox = function()
@@ -1067,7 +1079,7 @@
 			else
 				if(event.data.dungeonPaths && event.data.dungeonPaths.length === 13)
 				{
-					if(loadAll(event.data))
+					if(loadAllTrack(event.data))
 					{
 						loadOverview();
 						if(document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
@@ -1082,7 +1094,7 @@
 		}
 	};
 
-	window.allData = function()
+	window.allDataTrack = function()
 	{
 		let all = {};
 		all.dungeonPaths = dungeonPaths;
@@ -1116,25 +1128,16 @@
 		all.fluteshuffle = fluteshuffle;
 		all.worldState = worldState;
 		all.entranceEnabled = entranceEnabled;
-		for(let checkboxFlag of checkboxFlags)
+		for(let checkboxFlag of checkboxFlagsTrack)
 			all[checkboxFlag] = document.getElementById(checkboxFlag).checked;
-		all.visibleSidebar = visibleSidebar;
 		all.showOverworldModeSection = showOverworldModeSection;
-		all.showFullMapMain = showFullMapMain;
-		all.expandedMainTable = expandedMainTable;
-		all.showChecklist = showChecklist;
-		all.sideBySideMain = sideBySideMain;
-		all.sideBySidePopout = sideBySidePopout;
-		all.fullZoomMain = fullZoomMain;
-		all.fullZoomPopout = fullZoomPopout;
-		all.pathZoom = pathZoom;
-		all.fullPathCompact = fullPathCompact;
 		all.showOptionsFinalBox = document.getElementById("overworldoptionsfinalbox").style.display === "block";
 		all.timeString = new Date().toLocaleString();
+		all.buildString = window.buildString;
 		return all;
 	};
 
-	window.loadAll = function(newData)
+	window.loadAllTrack = function(newData)
 	{
 		if(!newData)
 			return false;
@@ -1230,8 +1233,36 @@
 			console.log(error);
 		}
 		customFluteSpots.sort((a,b)=>a-b);
-		pinnedPaths = newData.pinnedPaths;
-		previousPaths = newData.previousPaths;
+		pinnedPaths = [];
+		try
+		{
+			if(newData.pinnedPaths)
+				for(let pathData of newData.pinnedPaths)
+					if(Array.isArray(pinnedPaths))
+						pinnedPaths.push({path:pathData});
+					else
+						if(Array.isArray(pinnedPaths.path))
+							pinnedPaths.push(pathData);
+		}
+		catch(error)
+		{
+			console.log(error);
+		}
+		previousPaths = [];
+		try
+		{
+			if(newData.previousPaths)
+				for(let pathData of newData.previousPaths)
+					if(Array.isArray(previousPaths))
+						previousPaths.push({path:pathData});
+					else
+						if(Array.isArray(previousPaths.path))
+							previousPaths.push(pathData);
+		}
+		catch(error)
+		{
+			console.log(error);
+		}
 		crossedow = newData.crossedow;
 		if(crossedow === false)
 			crossedow = 'N';
@@ -1251,28 +1282,10 @@
 		document.getElementById("similarow").checked = similarow;
 		document.getElementById("mixedow").checked = mixedow;
 		document.getElementById("fluteshuffle").checked = fluteshuffle;
-		for(let checkboxFlag of checkboxFlags)
+		for(let checkboxFlag of checkboxFlagsTrack)
 			document.getElementById(checkboxFlag).checked = newData[checkboxFlag];
 		if(showOverworldModeSection !== newData.showOverworldModeSection)
 			toggleOverworldModeSection();
-		showFullMapMain = newData.showFullMapMain;
-		document.getElementById("togglefullowmain").className = showFullMapMain ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
-		document.getElementById("fullowmainpage").style.display = showFullMapMain ?"block" :"none";
-		expandedMainTable = newData.expandedMainTable;
-		document.getElementById("toggleowmaintable").className = expandedMainTable ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
-		document.getElementById("owmaintable").style.display = expandedMainTable ?"block" :"none";
-		document.getElementById("owmaintablemini").style.display = expandedMainTable ?"none" :"block";
-		showChecklist = newData.showChecklist;
-		document.getElementById("togglechecklist").className = showChecklist ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
-		document.getElementById("checklist").style.display = showChecklist ?"block" :"none";
-		sideBySideMain = document.getElementById("mainsidebysideow").checked;
-		sideBySidePopout = document.getElementById("sidebysideow").checked;
-		fullZoomAutoMain = document.getElementById("mainzoomautoow").checked;
-		fullZoomAutoPopout = document.getElementById("zoomautoow").checked;
-		fullZoomMain = newData.fullZoomMain ?Math.max(.5,Math.min(newData.fullZoomMain,1.5)) :.8;
-		fullZoomPopout = newData.fullZoomPopout ?Math.max(.5,Math.min(newData.fullZoomPopout,1.5)) :.8;
-		pathZoom = newData.pathZoom ?Math.max(.5,Math.min(newData.pathZoom,2)) :1;
-		fullPathCompact = newData.fullPathCompact;
 		document.getElementById("overworldoptionsfinalbox").style.display = newData.showOptionsFinalBox && (owshuffle !== 'N' || crossedow !== 'N' || mixedow) ?"block" :"none";
 		if(document.getElementById("globalsync").checked)
 		{
@@ -1292,12 +1305,73 @@
 			document.getElementById("overworldsyncerror").style.display = "none";
 		awaitingNextUpdate = true;
 		setWelcomeMode(false);
-		newData.visibleSidebar ?showSidebar() :hideSidebar();
 		updateOverviewElements();
 		updateReachableEdges();
 		updateItemTracker();
 		updateConnectorList();
 		updateStartRegionList();
+		updateMainPathLists();
+		return true;
+	};
+
+	window.allDataDisplay = function()
+	{
+		let all = {};
+		all.visibleSidebar = visibleSidebar;
+		all.showFullMapMain = showFullMapMain;
+		all.expandedMainTable = expandedMainTable;
+		all.showChecklist = showChecklist;
+		all.sideBySideMain = sideBySideMain;
+		all.sideBySidePopout = sideBySidePopout;
+		all.fullZoomMain = fullZoomMain;
+		all.fullZoomPopout = fullZoomPopout;
+		all.pathZoom = pathZoom;
+		all.fullPathCompact = fullPathCompact;
+		all.innerWidth = window.innerWidth;
+		all.innerHeight = window.innerHeight;
+		all.outerWidth = window.outerWidth;
+		all.outerHeight = window.outerHeight;
+		for(let checkboxFlag of checkboxFlagsDisplay)
+			all[checkboxFlag] = document.getElementById(checkboxFlag).checked;
+		all.timeString = new Date().toLocaleString();
+		all.buildString = window.buildString;
+		return all;
+	};
+
+	window.loadAllDisplay = function(newData)
+	{
+		if(!newData)
+			return false;
+		showFullMapMain = newData.showFullMapMain;
+		document.getElementById("togglefullowmain").className = showFullMapMain ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
+		document.getElementById("fullowmainpage").style.display = showFullMapMain ?"block" :"none";
+		expandedMainTable = newData.expandedMainTable;
+		document.getElementById("toggleowmaintable").className = expandedMainTable ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
+		document.getElementById("owmaintable").style.display = expandedMainTable ?"block" :"none";
+		document.getElementById("owmaintablemini").style.display = expandedMainTable ?"none" :"block";
+		showChecklist = newData.showChecklist;
+		document.getElementById("togglechecklist").className = showChecklist ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
+		document.getElementById("checklist").style.display = showChecklist ?"block" :"none";
+		for(let checkboxFlag of checkboxFlagsDisplay)
+			document.getElementById(checkboxFlag).checked = newData[checkboxFlag];
+		sideBySideMain = document.getElementById("mainsidebysideow").checked;
+		sideBySidePopout = document.getElementById("sidebysideow").checked;
+		fullZoomAutoMain = document.getElementById("mainzoomautoow").checked;
+		fullZoomAutoPopout = document.getElementById("zoomautoow").checked;
+		fullZoomMain = newData.fullZoomMain ?Math.max(.5,Math.min(newData.fullZoomMain,1.5)) :.8;
+		fullZoomPopout = newData.fullZoomPopout ?Math.max(.5,Math.min(newData.fullZoomPopout,1.5)) :.8;
+		pathZoom = newData.pathZoom ?Math.max(.5,Math.min(newData.pathZoom,2)) :1;
+		fullPathCompact = newData.fullPathCompact;
+		try
+		{
+			if(newData.outerWidth > 0 && newData.outerHeight > 0)
+				resizeTo(newData.outerWidth,newData.outerHeight);
+		}
+		catch(error)
+		{
+		}
+		newData.visibleSidebar ?showSidebar() :hideSidebar();
+		updateOverviewElements();
 		updateMainPathLists();
 		applyFullOverworldZoomMain();
 		applyFullOverworldZoomPopout();
@@ -1310,7 +1384,7 @@
 		let data = JSON.parse(localStorage.getItem("dungeonData"));
 		let extra = welcomeMode ?"" :"\nThis will replace all currently set dungeon paths, overworld transitions and notes.";
 		if(data && confirm("Load saved data from local storage?"+extra+"\n\nSaved at: "+data.timeString))
-			if(loadAll(data))
+			if(loadAllTrack(data))
 				loadOverview();
 			else
 				console.log("Error while loading data from manual save");
@@ -1318,8 +1392,15 @@
 
 	window.saveManual = function(button)
 	{
-		localStorage.setItem("dungeonData",JSON.stringify(allData()));
+		localStorage.setItem("dungeonData",JSON.stringify(allDataTrack()));
 		document.getElementById("loadmanual").classList.remove("disabled");
+		try
+		{
+			localStorage.setItem("displayData",JSON.stringify(allDataDisplay()));
+		}
+		catch(error)
+		{
+		}
 		buttonFlash(button);
 	};
 
@@ -1328,7 +1409,7 @@
 		let data = JSON.parse(localStorage.getItem("dungeonDataAutoSave"));
 		let extra = welcomeMode ?"" :"\nThis will replace all currently set dungeon paths, overworld transitions and notes.";
 		if(data && confirm("Load auto-save data from local storage?"+extra+"\n\nSaved at: "+data.timeString))
-			if(loadAll(data))
+			if(loadAllTrack(data))
 				loadOverview();
 			else
 				console.log("Error while loading data from auto-save");
@@ -1370,11 +1451,71 @@
 
 	window.clearLocalStorage = function()
 	{
-		if(confirm("Delete everything saved in local storage, both manual and auto-save?"))
+		if(confirm("Delete everything saved in local storage, including manual save, auto-save and display settings?"))
 		{
 			localStorage.clear();
 			document.getElementById("loadmanual").classList.add("disabled");
 			document.getElementById("loadauto").classList.add("disabled");
+		}
+	};
+
+	window.clearDisplaySettings = function()
+	{
+		if(confirm("Reset all display settings?"))
+		{
+			resetDisplayCheckboxFlags();
+			showSidebar();
+			if(!showFullMapMain)
+				toggleFullOverworldMain();
+			if(!expandedMainTable)
+				toggleOverworldMainTable();
+			if(showChecklist)
+				toggleChecklist();
+			if(sideBySideMain)
+				toggleSideBySideMain();
+			if(sideBySidePopout)
+				toggleSideBySidePopout();
+			fullZoomMain = fullZoomPopout = .8;
+			fullZoomAutoMain = fullZoomAutoPopout = true;
+			pathZoom = 1;
+			fullPathCompact = true;
+			updateOverviewElements();
+			updateMainPathLists();
+			applyFullOverworldZoomMain();
+			applyFullOverworldZoomPopout();
+			applyOverworldPathZoom();
+		}
+	};
+
+	window.resetDisplayCheckboxFlags = function()
+	{
+		document.getElementById("showmorerooms").checked = false;
+		document.getElementById("splitpath").checked = true;
+		document.getElementById("owsidebaredit").checked = true;
+		document.getElementById("owsidebarnew").checked = true;
+		document.getElementById("owsidebarsearch").checked = true;
+		document.getElementById("compactpinned").checked = true;
+		document.getElementById("compactprevious").checked = true;
+		document.getElementById("alwaysfollowmarked").checked = true;
+		document.getElementById("compactsearchresults").checked = true;
+		document.getElementById("mainsidebysideow").checked = false;
+		document.getElementById("sidebysideow").checked = false;
+		document.getElementById("mainzoomautoow").checked = true;
+		document.getElementById("zoomautoow").checked = true;
+	};
+
+	window.resetWindowSize = function()
+	{
+		if(confirm("Reset window size to the minimal recommended size?\nThis may fail if this page has been manually refreshed after the window had been opened."))
+		{
+			try
+			{
+				if(initWidth > 0 && initHeight > 0)
+					resizeTo(initWidth,initHeight);
+			}
+			catch(error)
+			{
+			}
 		}
 	};
 
@@ -1394,6 +1535,8 @@
 			vanillaWhirlpools(null);
 		if(document.getElementById("vanillaspecialwelcome").checked)
 			vanillaSpecialScreens(null);
+		if(modeFinal && !entranceEnabled && (worldState === 'S' || worldState === 'I' || doorshuffle === 'N'))
+			document.getElementById("pinnedsanctuary").checked = true;
 		if(document.getElementById("globalsync").checked)
 			testConnection(true);
 		if(modeFinal)
@@ -1448,6 +1591,9 @@
 		let sync = (query.init_sync+'').toLowerCase() === 'true';
 		if(sync || owshuffle !== 'N')
 			toggleOverworldModeSection();
+		initWidth = window.outerWidth;
+		initHeight = window.outerHeight;
+		resetDisplayCheckboxFlags();
 		document.getElementById("vanillawhirlpoolswelcome").checked = false;
 		document.getElementById("vanillaspecialwelcome").checked = false;
 		document.getElementById("selectdoorshuffle").value = ""+doorshuffle;
@@ -1462,11 +1608,6 @@
 		document.getElementById("selectworldstate").value = ""+worldState;
 		document.getElementById("entranceenabled").checked = entranceEnabled;
 		document.getElementById("globalsync").checked = sync;
-		document.getElementById("showmorerooms").checked = false;
-		document.getElementById("splitpath").checked = true;
-		document.getElementById("owsidebaredit").checked = true;
-		document.getElementById("owsidebarnew").checked = true;
-		document.getElementById("owsidebarsearch").checked = true;
 		document.getElementById("itemsync").checked = false;
 		document.getElementById("connectortr").checked = false;
 		document.getElementById("connectorhccsanc").checked = false;
@@ -1482,14 +1623,6 @@
 		document.getElementById("pinnedsanctuary").checked = false;
 		document.getElementById("pinnedoldman").checked = false;
 		document.getElementById("pinnedpyramid").checked = false;
-		document.getElementById("compactpinned").checked = true;
-		document.getElementById("compactprevious").checked = true;
-		document.getElementById("alwaysfollowmarked").checked = true;
-		document.getElementById("compactsearchresults").checked = true;
-		document.getElementById("mainsidebysideow").checked = false;
-		document.getElementById("sidebysideow").checked = false;
-		document.getElementById("mainzoomautoow").checked = true;
-		document.getElementById("zoomautoow").checked = true;
 		setWelcomeMode(!query.request_update);
 		document.getElementById("vanillawelcome").style.display = owshuffle === 'N' ?"none" :"block";
 		if(sync)
@@ -1511,6 +1644,7 @@
 		}
 		catch(error)
 		{
+			console.log(error);
 		}
 		initializeOverworldGraph();
 		initializeRoomsAndSymbols();
@@ -1518,6 +1652,15 @@
 		loadOverview();
 		updateOverviewElements();
 		resizeHandler();
+		try
+		{
+			let data = JSON.parse(localStorage.getItem("displayData"));
+			loadAllDisplay(data);
+		}
+		catch(error)
+		{
+			console.log(error);
+		}
 		window.addEventListener("resize",resizeHandler,false);
 		window.addEventListener("keydown",keyDown,false);
 		if(window.opener && !window.opener.closed)
@@ -1587,6 +1730,7 @@
 		document.getElementById("fullowmainedgeactions").style.display = "none";
 		document.getElementById("fullowmainconnectoractions").style.display = "none";
 		document.getElementById("fullowmainpathactions").style.display = fullOWPath ?"block" :"none";
+		document.getElementById("fullowmainrepeatsearch").style.display = fullOWPath && fullOWPath.search ?"block" :"none";
 		fullCheckConnectorDetails();
 		drawFullOverworldPanel(true);
 		if(fullZoomAutoMain)
@@ -1624,7 +1768,7 @@
 		showFullMapMain = !showFullMapMain;
 		document.getElementById("togglefullowmain").className = showFullMapMain ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
 		document.getElementById("fullowmainpage").style.display = showFullMapMain ?"block" :"none";
-		if(showFullMapMain)
+		if(showFullMapMain && document.getElementById("owmain").style.display === "block")
 			loadFullOverworldMain();
 	};
 
@@ -2244,6 +2388,12 @@
 		}
 	};
 
+	window.fullOverworldRepeatSearch = function()
+	{
+		if(fullOWPath && fullOWPath.search)
+			loadOverworldSearch(fullOWPath.search);
+	};
+
 	window.fullOverworldDeletePath = function()
 	{
 		document.getElementById("fullowmainpanelpathoverlay").innerHTML = document.getElementById("fullowpanelpathoverlay").innerHTML = "";
@@ -2259,7 +2409,7 @@
 		{
 			fullPathCompact = !fullPathCompact;
 			clearPathNumber();
-			document.getElementById("fullowmainhighlightedpath").innerHTML = document.getElementById("fullowhighlightedpath").innerHTML = drawOverworldPath(fullOWPath,!fullPathCompact,true,false)[0];
+			document.getElementById("fullowmainhighlightedpath").innerHTML = document.getElementById("fullowhighlightedpath").innerHTML = drawOverworldPath(fullOWPath.path,!fullPathCompact,true,false)[0];
 		}
 	};
 
@@ -2546,7 +2696,7 @@
 				let edge1 = screen1.edges.get(currentOWPath[k-2]),edge2 = screen2.edges.get(currentOWPath[k-1]);
 				connectSimilarParallel(edge1,edge2);
 			}
-		previousPaths.unshift(currentOWPath);
+		previousPaths.unshift({path:currentOWPath});
 		updateMainPathLists();
 		sendUpdate();
 		updateReachableEdges();
@@ -2591,7 +2741,7 @@
 		currentOWScreen = overworldScreens.get(id);
 		searchStartScreen = null;
 		searchOnlyStartScreen();
-		document.getElementById("owsearchmirrorportals").checked = true;
+		document.getElementById("owsearchmirrorportals").checked = false;
 		document.getElementById("owsearchfollower").value = "none";
 		hideFullOverworldModal();
 		activeOverworld();
@@ -2599,50 +2749,89 @@
 		searchOverworldPath(true,true);
 	};
 
-	window.startOverworldSearchPreset = function(preset)
+	window.startOverworldSearchPreset = function(presetName)
 	{
-		switch(preset)
+		switch(presetName)
 		{
 			case "activateflute":
-				searchStartScreen = null;
-				currentOWScreen = overworldScreens.get(0x18);
-				searchTargetRegion = currentOWScreen.regions.get("Main");
-				document.getElementById("owsearchfollower").value = "none";
+				loadOverworldSearch(createSearchPreset(null,null,0x18,"Main","none"));
 				break;
 			case "smith":
-				searchStartScreen = overworldScreens.get(0x69);
-				searchStartRegion = searchStartScreen.regions.get("Frog");
-				currentOWScreen = overworldScreens.get(0x22);
-				searchTargetRegion = currentOWScreen.regions.get("Main");
-				document.getElementById("owsearchfollower").value = "smithfrog";
+				loadOverworldSearch(createSearchPreset(0x69,"Frog",0x22,"Main","smithfrog"));
 				break;
 			case "purplechest":
-				searchStartScreen = overworldScreens.get(0x62);
-				searchStartRegion = searchStartScreen.regions.get("Main");
-				currentOWScreen = overworldScreens.get(0x3A);
-				searchTargetRegion = currentOWScreen.regions.get("Main");
-				document.getElementById("owsearchfollower").value = "purplechest";
+				loadOverworldSearch(createSearchPreset(0x62,"Main",0x3A,"Main","purplechest"));
 				break;
 			case "redbomb":
-				searchStartScreen = overworldScreens.get(worldState === 'I' ?0x2C :0x6C);
-				searchStartRegion = searchStartScreen.regions.get("Main");
-				currentOWScreen = overworldScreens.get(0x5B);
-				searchTargetRegion = currentOWScreen.regions.get("Main");
-				document.getElementById("owsearchfollower").value = "redbomb";
-				break;
-			default:
-				return;
+				loadOverworldSearch(createSearchPreset(worldState === 'I' ?0x2C :0x6C,"Main",0x5B,"Main","redbomb"));
 		}
-		if(searchStartScreen && searchStartScreen.regions.size === 1)
-			searchStartRegion = null;
-		if(currentOWScreen.regions.size === 1)
-			searchTargetRegion = null;
-		searchOnlyStartScreen();
-		document.getElementById("owsearchmirrorportals").checked = true;
+	};
+
+	window.createSearchPreset = function(startID,startRegion,targetID,targetRegion,follower)
+	{
+		let search = {};
+		search.startScreen = startID;
+		search.startRegion = startRegion;
+		search.startMode = "onlystartscreen";
+		search.targetScreen = targetID;
+		search.targetRegion = targetRegion;
+		search.mirrorPortals = follower !== "none";
+		search.follower = follower;
+		return search;
+	};
+
+	window.loadOverworldSearch = function(search)
+	{
 		hideFullOverworldModal();
-		activeOverworld();
-		switchScene("owsearch");
-		searchOverworldPath(false,false);
+		hideClickOverworldPathModal();
+		try
+		{
+			searchStartScreen = search.startScreen || search.startScreen === 0 ?overworldScreens.get(search.startScreen) :null;
+			searchStartRegion = searchStartScreen && search.startRegion && searchStartScreen.regions.size !== 1 ?searchStartScreen.regions.get(search.startRegion) :null;
+			if(search.startMode === "canstartcommon")
+				searchCanStartCommon();
+			else
+				if(search.startMode === "noflutequit")
+					searchNoFluteQuit();
+				else
+					searchOnlyStartScreen();
+			currentOWScreen = overworldScreens.get(search.targetScreen);
+			searchTargetRegion = search.targetRegion && currentOWScreen.regions.size !== 1 ?currentOWScreen.regions.get(search.targetRegion) :null;
+			document.getElementById("owsearchmirrorportals").checked = !!search.mirrorPortals;
+			document.getElementById("owsearchfollower").value = search.follower ?search.follower :"none";
+			activeOverworld();
+			switchScene("owsearch");
+			searchOverworldPath(false,false);
+		}
+		catch(error)
+		{
+			console.log(error);
+			sideLoadOverworld();
+		}
+	};
+
+	window.saveOverworldSearch = function()
+	{
+		let search = {};
+		if(searchStartScreen)
+		{
+			search.startScreen = searchStartScreen.id;
+			if(searchStartRegion)
+				search.startRegion = searchStartRegion.name;
+		}
+		if(searchAddCommonStarts)
+			search.startMode = "canstartcommon";
+		else
+			if(!searchSaveQuitFluteEdges)
+				search.startMode = "noflutequit";
+			else
+				search.startMode = "onlystartscreen";
+		search.targetScreen = currentOWScreen.id;
+		if(searchTargetRegion)
+			search.targetRegion = searchTargetRegion.name;
+		search.mirrorPortals = document.getElementById("owsearchmirrorportals").checked;
+		search.follower = document.getElementById("owsearchfollower").value;
+		return search;
 	};
 
 	window.searchOverworldPath = function(resetStartRegions,resetTargetRegions)
@@ -2652,6 +2841,7 @@
 		document.getElementById("owsearchresults").innerHTML = "";
 		document.getElementById("owsearchresults").style.height = "0";
 		searchResultsLength = 0;
+		searchResultPaths = [];
 		document.getElementById("checklistedges").style.display = owshuffle !== 'N' || crossedow === 'C' ?"table-row" :"none";
 		document.getElementById("checklistmixed").style.display = mixedow ?"table-row" :"none";
 		document.getElementById("checklistflute").style.display = fluteshuffle ?"table-row" :"none";
@@ -2840,9 +3030,11 @@
 					paths.splice(l,1);
 					l--;
 				}
+		let currentSearch = saveOverworldSearch();
 		searchResultsLength = paths.length;
+		searchResultPaths = paths.map(path=>({path:path[0],search:currentSearch}));
 		document.getElementById("owsearchresultstext").innerHTML = "Search results ("+searchResultsLength+")";
-		document.getElementById("owsearchresults").innerHTML = drawPathList(paths.map(path=>path[0]),document.getElementById("compactsearchresults").checked,"search");
+		document.getElementById("owsearchresults").innerHTML = drawPathList(searchResultPaths,document.getElementById("compactsearchresults").checked,"search");
 		document.getElementById("owsearchresults").style.height = (searchResultsLength*66-2)*pathZoom+"px";
 	};
 
@@ -2877,14 +3069,14 @@
 	{
 		let s = "";
 		for(let k = 0; k < paths.length; k++)
-			s += '<div class="row path" style="margin: 2px 0px;" onclick="showClickOverworldPathModal(event,'+k+',\''+listName+'\',\''+paths[k].join("|")+'\')">'+drawOverworldPath(paths[k],!compact,false,false)[0]+'</div>';
+			s += '<div class="row path" style="margin: 2px 0px;" onclick="showClickOverworldPathModal(event,'+k+',\''+listName+'\')">'+drawOverworldPath(paths[k].path,!compact,false,false)[0]+'</div>';
 		return s;
 	};
 
 	window.viewMapOverworldPath = function()
 	{
 		fullOWPath = clickedOverworldPath;
-		document.getElementById("fullowmainhighlightedpath").innerHTML = document.getElementById("fullowhighlightedpath").innerHTML = drawOverworldPath(fullOWPath,!fullPathCompact,true,false)[0];
+		document.getElementById("fullowmainhighlightedpath").innerHTML = document.getElementById("fullowhighlightedpath").innerHTML = drawOverworldPath(fullOWPath.path,!fullPathCompact,true,false)[0];
 		hideClickOverworldPathModal();
 		showFullOverworldModal("editedges");
 	};
@@ -2896,6 +3088,12 @@
 		if(clickedOverworldPathListName !== "search")
 			updateMainPathLists();
 		buttonFlash(button);
+	};
+
+	window.repeatSearch = function()
+	{
+		if(clickedOverworldPath && clickedOverworldPath.search)
+			loadOverworldSearch(clickedOverworldPath.search);
 	};
 
 	window.deleteOverworldPath = function()
@@ -3010,17 +3208,18 @@
 			if(valid && fixedEdge)
 			{
 				valid = false;
-				for(let edge of screen.edges.values())
-					if(edgesCompatible(edge,fixedEdge))
-					{
-						valid = true;
-						break;
-					}
+				if(!unknownScreen)
+					for(let edge of screen.edges.values())
+						if(edgesCompatible(edge,fixedEdge))
+						{
+							valid = true;
+							break;
+						}
 			}
 			let indexInPath = -1;
 			if(mode === "editedges" && !fullOWSelectedScreen && !fullOWSelectedEdge && !fullOWConnectorStart && fullOWPath)
 			{
-				indexInPath = fullOWPath.indexOf(id);
+				indexInPath = fullOWPath.path.indexOf(id);
 				if(indexInPath === -1)
 					valid = false;
 			}
@@ -3083,12 +3282,12 @@
 		if(mode === "editedges" && fullOWPath)
 		{
 			s = "";
-			for(let k = 0; k < fullOWPath.length; k += 3)
+			for(let k = 0; k < fullOWPath.path.length; k += 3)
 			{
-				if(k != 0 && !specialEdgeTypes.includes(fullOWPath[k-1]))
+				if(k != 0 && !specialEdgeTypes.includes(fullOWPath.path[k-1]))
 				{
-					let screen1 = overworldScreens.get(fullOWPath[k-3]),screen2 = overworldScreens.get(fullOWPath[k]),scale = .5;
-					let edge1 = screen1.edges.get(fullOWPath[k-2]),edge2 = screen2.edges.get(fullOWPath[k-1]);
+					let screen1 = overworldScreens.get(fullOWPath.path[k-3]),screen2 = overworldScreens.get(fullOWPath.path[k]),scale = .5;
+					let edge1 = screen1.edges.get(fullOWPath.path[k-2]),edge2 = screen2.edges.get(fullOWPath.path[k-1]);
 					let x = screen1.special ?screen1.x :screen1.id%8*128*scale;
 					let y = screen1.special ?screen1.y :(screen1.id%0x40 >> 3)*128*scale;
 					if(sideBySide && isDarkWorld(screen1) != drawDarkWorld)
@@ -3259,6 +3458,7 @@
 		document.getElementById("fullowcommonstarts").style.display = mode === "searchpathstart" ?"block" :"none";
 		document.getElementById("fullowflutespots").style.display = mode === "editflutespots" ?"block" :"none";
 		document.getElementById("fullowpathactions").style.display = mode === "editedges" && fullOWPath ?"block" :"none";
+		document.getElementById("fullowrepeatsearch").style.display = fullOWPath && fullOWPath.search ?"block" :"none";
 		fullCheckConnectorDetails();
 		drawFullOverworldPanel(false);
 		document.getElementById("fullowModal").style.display = "block";
@@ -3350,19 +3550,20 @@
 		}
 	};
 
-	window.showClickOverworldPathModal = function(event,pathIndex,listName,pathString)
+	window.showClickOverworldPathModal = function(event,pathIndex,listName)
 	{
 		let width = document.body.clientWidth-64;
 		clickedOverworldPathIndex = pathIndex;
 		clickedOverworldPathListName = listName;
-		clickedOverworldPath = pathString.split("|");
+		clickedOverworldPath = (listName === "pinned" ?pinnedPaths :(listName === "previous" ?previousPaths :searchResultPaths))[pathIndex];
 		for(let k = 0; k < clickedOverworldPath.length; k += 3)
 			clickedOverworldPath[k] = parseInt(clickedOverworldPath[k]);
-		let [drawn,,height] = drawOverworldPath(clickedOverworldPath,true,false,true,(width-8)/pathZoom);
+		let [drawn,,height] = drawOverworldPath(clickedOverworldPath.path,true,false,true,(width-8)/pathZoom);
 		height *= pathZoom;
 		document.getElementById("currentclickedowpath").style.height = height+"px";
 		document.getElementById("currentclickedowpath").innerHTML = drawn;
 		document.getElementById("saveowpath").style.display = listName === "pinned" ?"none" :"block";
+		document.getElementById("repeatsearch").style.display = listName === "search" || !clickedOverworldPath.search ?"none" :"block";
 		document.getElementById("deleteowpath").style.display = listName === "search" ?"none" :"block";
 		document.getElementById("clickOWPathModalMain").style.left = "40px";
 		document.getElementById("clickOWPathModalMain").style.top = Math.min(event.clientY-20,window.innerHeight-height-48)+"px";
@@ -3438,7 +3639,8 @@
 		outstandingUpdate = true;
 		if(fullZoomAutoMain)
 			calculateFullZoomMain();
-		drawFullOverworldPanel(true);
+		if(document.getElementById("owmain").style.display === "block")
+			drawFullOverworldPanel(true);
 	};
 
 	window.toggleSideBySidePopout = function()
@@ -3447,7 +3649,8 @@
 		outstandingUpdate = true;
 		if(fullZoomAutoPopout)
 			calculateFullZoomPopout();
-		drawFullOverworldPanel(false);
+		if(!useMain)
+			drawFullOverworldPanel(false);
 	};
 
 	window.zoomAutoFullOverworldMain = function(checkbox)

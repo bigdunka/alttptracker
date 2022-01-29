@@ -3,14 +3,14 @@
 	<head>
 		<title>Dungeon Tracker - ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=17005"></script>
-		<script src="js/bootstrap.min.js?v=17005"></script>
-		<link rel="stylesheet" type="text/css" href="css/dungeonstyle.css?v=17005">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=17005">
+		<script src="js/jquery-3.3.1.js?v=18001"></script>
+		<script src="js/bootstrap.min.js?v=18001"></script>
+		<link rel="stylesheet" type="text/css" href="css/dungeonstyle.css?v=18001">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=18001">
 		<link href="css/fonts.css" rel="stylesheet">
-		<script src="js/util.js?v=17005"></script>
-		<script src="js/owdungeondata.js?v=17005"></script>
-		<script src="js/dungeontracker.js?v=17005"></script>
+		<script src="js/util.js?v=18001"></script>
+		<script src="js/owdungeondata.js?v=18001"></script>
+		<script src="js/dungeontracker.js?v=18001"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -109,9 +109,10 @@
 						</div>
 					</div>
 					<div class="row welcomeshown" style="margin-top: 8px; width: 340px;">
-						Welcome! Please select the right settings below to start.<br>
-						These can be changed later, but if the mode is already known from the start, some things for Overworld Tracking can be filled in automatically for you.<br>
-						Or continue a previous session with the buttons at the bottom.
+						Welcome! This window is used for tracking the overworld layout (Overworld Shuffle) and/or dungeon interior layouts (Door Shuffle). Please select the right settings below to start.<br style="margin-bottom: 8px;">
+						These settings can be changed later, but if the mode is already known from the start, some things for Overworld Tracking can be filled in automatically for you.<br style="margin-bottom: 8px;">
+						Or continue a previous session with the buttons at the bottom.<br style="margin-bottom: 8px;">
+						All Overworld Tracking has an impact on the logic while Dungeon Tracking is only used for personal note taking.
 					</div>
 					<div id="overviewoverworld" class="welcomehidden">
 						<div class="row">
@@ -274,6 +275,7 @@
 										<option value="R">Retro</option>
 									</select>
 									<label style="height: 20px; top: 5px; position: relative;"><input type="checkbox" id="entranceenabled" onchange="updateOverworldShuffle(true)" />Entrance Shuffle</label>
+									<div id="changeworldstateentrance" class="buttonbox small" style="float: right; margin-top: 5px; margin-left: 8px;" onclick="changeMainTrackerSettings()">Edit</div>
 								</div>
 							</div>
 							<div id="overworldoptionsfinalbox" class="row welcomehidden" style="border: 1px solid yellow; display: none;">
@@ -350,11 +352,20 @@
 						</div>
 						<div class="row welcomehidden" style="height: 30px;">
 							<div style="display: inline-block;">
-								<h3 class="textrow">Reset:</h3>
+								<h3 class="textrow">Reset tracking:</h3>
 							</div>
 							<div class="cell rightalign">
 								<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onclick="clearData()">Clear current data</div>
 								<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onclick="clearLocalStorage()">Clear local storage</div>
+							</div>
+						</div>
+						<div class="row welcomehidden" style="height: 30px;">
+							<div style="display: inline-block;">
+								<h3 class="textrow">Reset display:</h3>
+							</div>
+							<div class="cell rightalign">
+								<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onclick="resetWindowSize()">Reset window size</div>
+								<div class="cell buttonbox" style="border-color: rgb(255,128,128); margin: 2px;" onclick="clearDisplaySettings()">Reset settings</div>
 							</div>
 						</div>
 						<div id="dungeonstats" class="welcomehidden">
@@ -577,14 +588,17 @@
 						<div id="fullowmainpathactions" style="display: none;">
 							<div class="row">
 								<div style="display: inline-block;">
-									<h3 class="textrow" style="margin-left: 4px;">Highlighted path:</h3>
+									<h3 class="textrow" style="margin-left: 2px;">Highlighted path:</h3>
 								</div>
 								<div class="rightalign">
 									<div id="fullowmainsavepath" class="cell">
-										<div class="buttonbox" style="border-color: rgb(128,255,128);" onclick="fullOverworldSavePath(this)">Pin for later</div>
+										<div class="buttonbox dense" style="border-color: rgb(128,255,128);" onclick="fullOverworldSavePath(this)">Pin</div>
+									</div>
+									<div id="fullowmainrepeatsearch" class="cell">
+										<div class="buttonbox dense" onclick="fullOverworldRepeatSearch()">Repeat search</div>
 									</div>
 									<div id="fullowmaindeletepath" class="cell">
-										<div class="buttonbox" style="border-color: rgb(255,128,128);" onclick="fullOverworldDeletePath()">Remove from this view</div>
+										<div class="buttonbox dense" style="border-color: rgb(255,128,128);" onclick="fullOverworldDeletePath()">Detach from map</div>
 									</div>
 								</div>
 							</div>
@@ -1186,14 +1200,17 @@
 				<div id="fullowpathactions" style="display: none;">
 					<div class="row">
 						<div style="display: inline-block;">
-							<h3 class="textrow" style="margin-left: 4px;">Highlighted path:</h3>
+							<h3 class="textrow" style="margin-left: 2px;">Highlighted path:</h3>
 						</div>
 						<div class="rightalign">
 							<div id="fullowsavepath" class="cell">
-								<div class="buttonbox" style="border-color: rgb(128,255,128);" onclick="fullOverworldSavePath(this)">Pin for later</div>
+								<div class="buttonbox dense" style="border-color: rgb(128,255,128);" onclick="fullOverworldSavePath(this)">Pin</div>
+							</div>
+							<div id="fullowrepeatsearch" class="cell">
+								<div class="buttonbox dense" onclick="fullOverworldRepeatSearch()">Repeat search</div>
 							</div>
 							<div id="fullowdeletepath" class="cell">
-								<div class="buttonbox" style="border-color: rgb(255,128,128);" onclick="fullOverworldDeletePath()">Remove from this view</div>
+								<div class="buttonbox dense" style="border-color: rgb(255,128,128);" onclick="fullOverworldDeletePath()">Detach from map</div>
 							</div>
 						</div>
 					</div>
@@ -1280,6 +1297,9 @@
 					</div>
 					<div id="saveowpath" class="cell">
 						<div class="buttonbox" style="border-color: rgb(128,255,128);" onclick="pinOverworldPath(this)">Pin for later</div>
+					</div>
+					<div id="repeatsearch" class="cell">
+						<div class="buttonbox" onclick="repeatSearch()">Repeat search</div>
 					</div>
 					<div id="deleteowpath" class="cell">
 						<div class="buttonbox" style="border-color: rgb(255,128,128);" onclick="deleteOverworldPath()">Delete from this list</div>

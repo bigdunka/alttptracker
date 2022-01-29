@@ -77,15 +77,12 @@ function launch_tracker() {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 	}
 	
-	var trackerName = entrance === 'N' ? 'tracker' : 'entrancetracker';
-	
 	if (glitches === 'O' && type === "I") {
 		alert('NOTICE: Inverted OWG is currently not supported for logic, all locations will be flagged as available.');
 		glitches = 'M';
 	}
 	
-	var trackerWindow = window.open('{tracker}.html?f={type}{entrance}{boss}{enemy}{glitches}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}0{map}{spoiler}{sphere}{mystery}{door}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{ambrosia}{overworld}{shopsanity}{autotracking}{trackingport}&sprite={sprite}{compact}&starting={startingboots}{startingflute}{startinghookshot}{startingicerod}'
-			.replace('{tracker}', trackerName)
+	var trackerWindow = window.open('tracker.html?f={type}{entrance}{boss}{enemy}{glitches}{item}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}0{map}{spoiler}{sphere}{mystery}{door}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{ambrosia}{overworld}{shopsanity}{autotracking}{trackingport}&sprite={sprite}{compact}&starting={startingboots}{startingflute}{startinghookshot}{startingicerod}'
 			.replace('{type}', type)
 			.replace('{entrance}', entrance)
 			.replace('{boss}', boss)
@@ -128,7 +125,7 @@ function loadopenpreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -157,7 +154,7 @@ function loadopenbootspreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -186,7 +183,7 @@ function loadambrosiapreset() {
 	document.getElementById("gametypestandard").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -215,7 +212,7 @@ function loadmysterypreset(scroll = true) {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossshuffled").checked = true;
 	document.getElementById("enemyshuffled").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -244,7 +241,7 @@ function loadcrosskeyspreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancesimple").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -273,7 +270,7 @@ function loadinvertedkeyspreset() {
 	document.getElementById("gametypeinverted").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -302,7 +299,7 @@ function loadenemizerpreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossshuffled").checked = true;
 	document.getElementById("enemyshuffled").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -331,7 +328,7 @@ function loadbootspreset() {
 	document.getElementById("gametypestandard").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -360,7 +357,7 @@ function loadopenkeyspreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -389,7 +386,7 @@ function loadadkeyspreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -418,7 +415,7 @@ function loadreducedpreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -447,7 +444,7 @@ function loadinvrosiapreset() {
 	document.getElementById("gametypeinverted").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -477,7 +474,7 @@ function loadstandardpreset() {
 	document.getElementById("gametypestandard").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -506,7 +503,7 @@ function loadmcshufflepreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -535,7 +532,7 @@ function loadpotpourripreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossshuffled").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -564,7 +561,7 @@ function loadretrancepreset() {
 	document.getElementById("gametyperetro").checked = true;
 	document.getElementById("entrancesimple").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -593,7 +590,7 @@ function loadcswordlesspreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -622,7 +619,7 @@ function loadinvertedadkeyspreset() {
 	document.getElementById("gametypeinverted").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -650,7 +647,7 @@ function loadgoldrushspreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;
@@ -732,7 +729,7 @@ function importflags() {
 			}
 			
 			document.getElementById("doornone").checked = true;
-			document.getElementById("overworldnone").checked = true;
+			document.getElementById("overworldno").checked = true;
 			document.getElementById("shopsanityno").checked = true;
 			document.getElementById("ambrosiano").checked = true;
 			

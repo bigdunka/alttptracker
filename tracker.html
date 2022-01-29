@@ -2,19 +2,21 @@
 	<head>
 		<title>ALTTP Randomizer Community Tracker</title>
 
-		<script src="js/jquery-3.3.1.js?v=17005"></script>
-		<script src="js/bootstrap.min.js?v=17005"></script>
-		<link rel="stylesheet" type="text/css" href="css/style.css?v=17005">
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=17005">
+		<script src="js/jquery-3.3.1.js?v=18001"></script>
+		<script src="js/bootstrap.min.js?v=18001"></script>
+		<link id="mainstyle" rel="stylesheet" type="text/css">
+		<link id="maincompactstyle" rel="stylesheet" type="text/css">
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=18001">
 		<link href="css/fonts.css" rel="stylesheet">		
 
-		<script src="js/util.js?v=17005"></script>
-		<script src="js/items.js?v=17005"></script>
-		<script src="js/chests.js?v=17005"></script>
-		<script src="js/track.js?v=17005"></script>
-		<script src="js/dungeons.js?v=17005"></script>
-		<script src="js/spoiler.js?v=17005"></script>
-		<script src="js/autot.js?v=17005"></script>
+		<script src="js/util.js?v=18001"></script>
+		<script src="js/items.js?v=18001"></script>
+		<script src="js/chests.js?v=18001"></script>
+		<script src="js/entrancechests.js?v=18001"></script>
+		<script src="js/track.js?v=18001"></script>
+		<script src="js/dungeons.js?v=18001"></script>
+		<script src="js/spoiler.js?v=18001"></script>
+		<script src="js/autot.js?v=18001"></script>
 
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -33,9 +35,9 @@
 		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
 	</head>
 
-	<body>
+	<body style="background-color: black;">
 
-	  <div id="app" class="row">
+	  <div id="app" class="row" style="display: none;">
 		<div id="tracker" class="cell">
 		  <div class="row">
 			<div class="cell">
@@ -404,94 +406,359 @@
 		  <div id="locationMap20" onClick="toggle_chest(20)" onMouseover="highlight(20)" onMouseout="unhighlight(20)" oncontextmenu="rightClickLocation(20); return false;"></div>
 		  <div id="locationMap21" onClick="toggle_chest(21)" onMouseover="highlight(21)" onMouseout="unhighlight(21)" oncontextmenu="rightClickLocation(21); return false;"></div>
 		  <div id="locationMap22" onClick="toggle_chest(22)" onMouseover="highlight(22)" onMouseout="unhighlight(22)" oncontextmenu="rightClickLocation(22); return false;"></div>
-		  <div id="locationMap23" onClick="toggle_chest(23)" onMouseover="highlight(23)" onMouseout="unhighlight(23)" oncontextmenu="rightClickLocation(23); return false;"></div>
-		  <div id="locationMap24" onClick="toggle_chest(24)" onMouseover="highlight(24)" onMouseout="unhighlight(24)" oncontextmenu="rightClickLocation(24); return false;"></div>
-		  <div id="locationMap25" onClick="toggle_chest(25)" onMouseover="highlight(25)" onMouseout="unhighlight(25)" oncontextmenu="rightClickLocation(25); return false;"></div>
-		  <div id="locationMap26" onClick="toggle_chest(26)" onMouseover="highlight(26)" onMouseout="unhighlight(26)" oncontextmenu="rightClickLocation(26); return false;"></div>
-		  <div id="locationMap27" onClick="toggle_chest(27)" onMouseover="highlight(27)" onMouseout="unhighlight(27)" oncontextmenu="rightClickLocation(27); return false;"></div>
-		  <div id="locationMap28" onClick="toggle_chest(28)" onMouseover="highlight(28)" onMouseout="unhighlight(28)" oncontextmenu="rightClickLocation(28); return false;"></div>
-		  <div id="locationMap29" onClick="toggle_chest(29)" onMouseover="highlight(29)" onMouseout="unhighlight(29)" oncontextmenu="rightClickLocation(29); return false;"></div>
-		  <div id="locationMap30" onClick="toggle_chest(30)" onMouseover="highlight(30)" onMouseout="unhighlight(30)" oncontextmenu="rightClickLocation(30); return false;"></div>
-		  <div id="locationMap31" onClick="toggle_chest(31)" onMouseover="highlight(31)" onMouseout="unhighlight(31)" oncontextmenu="rightClickLocation(31); return false;"></div>
-		  <div id="locationMap32" onClick="toggle_chest(32)" onMouseover="highlight(32)" onMouseout="unhighlight(32)" oncontextmenu="rightClickLocation(32); return false;"></div>
-		  <div id="locationMap33" onClick="toggle_chest(33)" onMouseover="highlight(33)" onMouseout="unhighlight(33)" oncontextmenu="rightClickLocation(33); return false;"></div>
-		  <div id="locationMap34" onClick="toggle_chest(34)" onMouseover="highlight(34)" onMouseout="unhighlight(34)" oncontextmenu="rightClickLocation(34); return false;"></div>
-		  <div id="locationMap35" onClick="toggle_chest(35)" onMouseover="highlight(35)" onMouseout="unhighlight(35)" oncontextmenu="rightClickLocation(35); return false;"></div>
-		  <div id="locationMap36" onClick="toggle_chest(36)" onMouseover="highlight(36)" onMouseout="unhighlight(36)" oncontextmenu="rightClickLocation(36); return false;"></div>
-		  <div id="locationMap37" onClick="toggle_chest(37)" onMouseover="highlight(37)" onMouseout="unhighlight(37)" oncontextmenu="rightClickLocation(37); return false;"></div>
-		  <div id="locationMap38" onClick="toggle_chest(38)" onMouseover="highlight(38)" onMouseout="unhighlight(38)" oncontextmenu="rightClickLocation(38); return false;"></div>
-		  <div id="locationMap39" onClick="toggle_chest(39)" onMouseover="highlight(39)" onMouseout="unhighlight(39)" oncontextmenu="rightClickLocation(39); return false;"></div>
-		  <div id="locationMap40" onClick="toggle_chest(40)" onMouseover="highlight(40)" onMouseout="unhighlight(40)" oncontextmenu="rightClickLocation(40); return false;"></div>
-		  <div id="locationMap41" onClick="toggle_chest(41)" onMouseover="highlight(41)" onMouseout="unhighlight(41)" oncontextmenu="rightClickLocation(41); return false;"></div>
-		  <div id="locationMap42" onClick="toggle_chest(42)" onMouseover="highlight(42)" onMouseout="unhighlight(42)" oncontextmenu="rightClickLocation(42); return false;"></div>
-		  <div id="locationMap43" onClick="toggle_chest(43)" onMouseover="highlight(43)" onMouseout="unhighlight(43)" oncontextmenu="rightClickLocation(43); return false;"></div>
-		  <div id="locationMap44" onClick="toggle_chest(44)" onMouseover="highlight(44)" onMouseout="unhighlight(44)" oncontextmenu="rightClickLocation(44); return false;"></div>
-		  <div id="locationMap45" onClick="toggle_chest(45)" onMouseover="highlight(45)" onMouseout="unhighlight(45)" oncontextmenu="rightClickLocation(45); return false;"></div>
-		  <div id="locationMap46" onClick="toggle_chest(46)" onMouseover="highlight(46)" onMouseout="unhighlight(46)" oncontextmenu="rightClickLocation(46); return false;"></div>
-		  <div id="locationMap47" onClick="toggle_chest(47)" onMouseover="highlight(47)" onMouseout="unhighlight(47)" oncontextmenu="rightClickLocation(47); return false;"></div>
-		  <div id="locationMap48" onClick="toggle_chest(48)" onMouseover="highlight(48)" onMouseout="unhighlight(48)" oncontextmenu="rightClickLocation(48); return false;"></div>
-		  <div id="locationMap49" onClick="toggle_chest(49)" onMouseover="highlight(49)" onMouseout="unhighlight(49)" oncontextmenu="rightClickLocation(49); return false;"></div>
-		  <div id="locationMap50" onClick="toggle_chest(50)" onMouseover="highlight(50)" onMouseout="unhighlight(50)" oncontextmenu="rightClickLocation(50); return false;"></div>
-		  <div id="locationMap51" onClick="toggle_chest(51)" onMouseover="highlight(51)" onMouseout="unhighlight(51)" oncontextmenu="rightClickLocation(51); return false;"></div>
-		  <div id="locationMap52" onClick="toggle_chest(52)" onMouseover="highlight(52)" onMouseout="unhighlight(52)" oncontextmenu="rightClickLocation(52); return false;"></div>
-		  <div id="locationMap53" onClick="toggle_chest(53)" onMouseover="highlight(53)" onMouseout="unhighlight(53)" oncontextmenu="rightClickLocation(53); return false;"></div>
-		  <div id="locationMap54" onClick="toggle_chest(54)" onMouseover="highlight(54)" onMouseout="unhighlight(54)" oncontextmenu="rightClickLocation(54); return false;"></div>
-		  <div id="locationMap55" onClick="toggle_chest(55)" onMouseover="highlight(55)" onMouseout="unhighlight(55)" oncontextmenu="rightClickLocation(55); return false;"></div>
-		  <div id="locationMap56" onClick="toggle_chest(56)" onMouseover="highlight(56)" onMouseout="unhighlight(56)" oncontextmenu="rightClickLocation(56); return false;"></div>
-		  <div id="locationMap57" onClick="toggle_chest(57)" onMouseover="highlight(57)" onMouseout="unhighlight(57)" oncontextmenu="rightClickLocation(57); return false;"></div>
-		  <div id="locationMap58" onClick="toggle_chest(58)" onMouseover="highlight(58)" onMouseout="unhighlight(58)" oncontextmenu="rightClickLocation(58); return false;"></div>
-		  <div id="locationMap59" onClick="toggle_chest(59)" onMouseover="highlight(59)" onMouseout="unhighlight(59)" oncontextmenu="rightClickLocation(59); return false;"></div>
-		  <div id="locationMap60" onClick="toggle_chest(60)" onMouseover="highlight(60)" onMouseout="unhighlight(60)" oncontextmenu="rightClickLocation(60); return false;"></div>
-		  <div id="locationMap61" onClick="toggle_chest(61)" onMouseover="highlight(61)" onMouseout="unhighlight(61)" oncontextmenu="rightClickLocation(61); return false;"></div>
-		  <div id="locationMap62" onClick="toggle_chest(62)" onMouseover="highlight(62)" onMouseout="unhighlight(62)" oncontextmenu="rightClickLocation(62); return false;"></div>
-		  <div id="locationMap63" onClick="toggle_chest(63)" onMouseover="highlight(63)" onMouseout="unhighlight(63)" oncontextmenu="rightClickLocation(63); return false;"></div>
-		  <div id="locationMap64" onClick="toggle_chest(64)" onMouseover="highlight(64)" onMouseout="unhighlight(64)" oncontextmenu="rightClickLocation(64); return false;"></div>
-		  <div id="locationMap65" onClick="toggle_chest(65)" onMouseover="highlight(65)" onMouseout="unhighlight(65)" oncontextmenu="rightClickLocation(65); return false;"></div>
-		  <div id="locationMap66" onClick="toggle_chest(66)" onMouseover="highlight(66)" onMouseout="unhighlight(66)" oncontextmenu="rightClickLocation(66); return false;"></div>
-		  <div id="locationMap67" onClick="toggle_chest(67)" onMouseover="highlight(67)" onMouseout="unhighlight(67)" oncontextmenu="rightClickLocation(67); return false;"></div>
-		  <div id="locationMap68" onClick="toggle_chest(68)" onMouseover="highlight(68)" onMouseout="unhighlight(68)" oncontextmenu="rightClickLocation(68); return false;"></div>
-		  <div id="locationMap69" onClick="toggle_chest(69)" onMouseover="highlight(69)" onMouseout="unhighlight(69)" oncontextmenu="rightClickLocation(69); return false;"></div>
-		  <div id="locationMap70" onClick="toggle_chest(70)" onMouseover="highlight(70)" onMouseout="unhighlight(70)" oncontextmenu="rightClickLocation(70); return false;"></div>
-		  <div id="locationMap71" onClick="toggle_chest(71)" onMouseover="highlight(71)" onMouseout="unhighlight(71)" oncontextmenu="rightClickLocation(71); return false;"></div>
-		  <div id="locationMap72" onClick="toggle_chest(72)" onMouseover="highlight(72)" onMouseout="unhighlight(72)" oncontextmenu="rightClickLocation(72); return false;"></div>
-		  <div id="locationMap73" onClick="toggle_chest(73)" onMouseover="highlight(73)" onMouseout="unhighlight(73)" oncontextmenu="rightClickLocation(73); return false;"></div>
-		  <div id="locationMap74" onClick="toggle_chest(74)" onMouseover="highlight(74)" onMouseout="unhighlight(74)" oncontextmenu="rightClickLocation(74); return false;"></div>
-		  <div id="locationMap75" onClick="toggle_chest(75)" onMouseover="highlight(75)" onMouseout="unhighlight(75)" oncontextmenu="rightClickLocation(75); return false;"></div>
-		  <div id="locationMap76" onClick="toggle_chest(76)" onMouseover="highlight(76)" onMouseout="unhighlight(76)" oncontextmenu="rightClickLocation(76); return false;"></div>
-		  <div id="locationMap77" onClick="toggle_chest(77)" onMouseover="highlight(77)" onMouseout="unhighlight(77)" oncontextmenu="rightClickLocation(77); return false;"></div>
-		  <div id="locationMap78" onClick="toggle_chest(78)" onMouseover="highlight(78)" onMouseout="unhighlight(78)" oncontextmenu="rightClickLocation(78); return false;"></div>
-		  <div id="bossMapAgahnim" class="boss" onMouseover="highlight_agahnim()" onMouseout="unhighlight_agahnim()"></div>
-		  <div id="castle" onMouseover="highlight_agahnim()" onMouseout="unhighlight_agahnim()"></div>
-		  <div id="bossMap0" onMouseover="highlight_dungeon(0)" onMouseout="unhighlight_dungeon(0)" oncontextmenu="rightClickDungeon(0); return false;"></div>
-		  <div id="dungeon0" onMouseover="highlight_dungeon(0)" onMouseout="unhighlight_dungeon(0)" oncontextmenu="rightClickDungeon(0); return false;"></div>
-		  <div id="bossMap1" onMouseover="highlight_dungeon(1)" onMouseout="unhighlight_dungeon(1)" oncontextmenu="rightClickDungeon(1); return false;"></div>
-		  <div id="dungeon1" onMouseover="highlight_dungeon(1)" onMouseout="unhighlight_dungeon(1)" oncontextmenu="rightClickDungeon(1); return false;"></div>
-		  <div id="bossMap2" onMouseover="highlight_dungeon(2)" onMouseout="unhighlight_dungeon(2)" oncontextmenu="rightClickDungeon(2); return false;"></div>
-		  <div id="dungeon2" onMouseover="highlight_dungeon(2)" onMouseout="unhighlight_dungeon(2)" oncontextmenu="rightClickDungeon(2); return false;"></div>
-		  <div id="bossMap3" onMouseover="highlight_dungeon(3)" onMouseout="unhighlight_dungeon(3)" oncontextmenu="rightClickDungeon(3); return false;"></div>
-		  <div id="dungeon3" onMouseover="highlight_dungeon(3)" onMouseout="unhighlight_dungeon(3)" oncontextmenu="rightClickDungeon(3); return false;"></div>
-		  <div id="bossMap4" onMouseover="highlight_dungeon(4)" onMouseout="unhighlight_dungeon(4)" oncontextmenu="rightClickDungeon(4); return false;"></div>
-		  <div id="dungeon4" onMouseover="highlight_dungeon(4)" onMouseout="unhighlight_dungeon(4)" oncontextmenu="rightClickDungeon(4); return false;"></div>
-		  <div id="bossMap5" onMouseover="highlight_dungeon(5)" onMouseout="unhighlight_dungeon(5)" oncontextmenu="rightClickDungeon(5); return false;"></div>
-		  <div id="dungeon5" onMouseover="highlight_dungeon(5)" onMouseout="unhighlight_dungeon(5)" oncontextmenu="rightClickDungeon(5); return false;"></div>
-		  <div id="bossMap6" onMouseover="highlight_dungeon(6)" onMouseout="unhighlight_dungeon(6)" oncontextmenu="rightClickDungeon(6); return false;"></div>
-		  <div id="dungeon6" onMouseover="highlight_dungeon(6)" onMouseout="unhighlight_dungeon(6)" oncontextmenu="rightClickDungeon(6); return false;"></div>
-		  <div id="bossMap7" onMouseover="highlight_dungeon(7)" onMouseout="unhighlight_dungeon(7)" oncontextmenu="rightClickDungeon(7); return false;"></div>
-		  <div id="dungeon7" onMouseover="highlight_dungeon(7)" onMouseout="unhighlight_dungeon(7)" oncontextmenu="rightClickDungeon(7); return false;"></div>
-		  <div id="bossMap8" onMouseover="highlight_dungeon(8)" onMouseout="unhighlight_dungeon(8)" oncontextmenu="rightClickDungeon(8); return false;"></div>
-		  <div id="dungeon8" onMouseover="highlight_dungeon(8)" onMouseout="unhighlight_dungeon(8)" oncontextmenu="rightClickDungeon(8); return false;"></div>
-		  <div id="bossMap9" onMouseover="highlight_dungeon(9)" onMouseout="unhighlight_dungeon(9)" oncontextmenu="rightClickDungeon(9); return false;"></div>
-		  <div id="dungeon9" onMouseover="highlight_dungeon(9)" onMouseout="unhighlight_dungeon(9)" oncontextmenu="rightClickDungeon(9); return false;"></div>
-		  <div id="bossMap10" onMouseover="highlight_dungeon(10)" onMouseout="unhighlight_dungeon(10)" oncontextmenu="rightClickDungeon(10); return false;"></div>
-		  <div id="dungeon10" onMouseover="highlight_dungeon(10)" onMouseout="unhighlight_dungeon(10)" oncontextmenu="rightClickDungeon(10); return false;"></div>
-		  <div id="bossMap11" onMouseover="highlight_dungeon(11)" onMouseout="unhighlight_dungeon(11)" oncontextmenu="rightClickDungeon(11); return false;"></div>
-		  <div id="dungeon11" onMouseover="highlight_dungeon(11)" onMouseout="unhighlight_dungeon(11)" oncontextmenu="rightClickDungeon(11); return false;"></div>
-		  <div id="bossMap12" onMouseover="highlight_dungeon(12)" onMouseout="unhighlight_dungeon(12)" oncontextmenu="rightClickDungeon(12); return false;"></div>
-		  <div id="dungeon12" onMouseover="highlight_dungeon(12)" onMouseout="unhighlight_dungeon(12)" oncontextmenu="rightClickDungeon(12); return false;"></div>
+		  <div id="mapItemDiv">
+			<div id="locationMap23" onClick="toggle_chest(23)" onMouseover="highlight(23)" onMouseout="unhighlight(23)" oncontextmenu="rightClickLocation(23); return false;"></div>
+			<div id="locationMap24" onClick="toggle_chest(24)" onMouseover="highlight(24)" onMouseout="unhighlight(24)" oncontextmenu="rightClickLocation(24); return false;"></div>
+			<div id="locationMap25" onClick="toggle_chest(25)" onMouseover="highlight(25)" onMouseout="unhighlight(25)" oncontextmenu="rightClickLocation(25); return false;"></div>
+			<div id="locationMap26" onClick="toggle_chest(26)" onMouseover="highlight(26)" onMouseout="unhighlight(26)" oncontextmenu="rightClickLocation(26); return false;"></div>
+			<div id="locationMap27" onClick="toggle_chest(27)" onMouseover="highlight(27)" onMouseout="unhighlight(27)" oncontextmenu="rightClickLocation(27); return false;"></div>
+			<div id="locationMap28" onClick="toggle_chest(28)" onMouseover="highlight(28)" onMouseout="unhighlight(28)" oncontextmenu="rightClickLocation(28); return false;"></div>
+			<div id="locationMap29" onClick="toggle_chest(29)" onMouseover="highlight(29)" onMouseout="unhighlight(29)" oncontextmenu="rightClickLocation(29); return false;"></div>
+			<div id="locationMap30" onClick="toggle_chest(30)" onMouseover="highlight(30)" onMouseout="unhighlight(30)" oncontextmenu="rightClickLocation(30); return false;"></div>
+			<div id="locationMap31" onClick="toggle_chest(31)" onMouseover="highlight(31)" onMouseout="unhighlight(31)" oncontextmenu="rightClickLocation(31); return false;"></div>
+			<div id="locationMap32" onClick="toggle_chest(32)" onMouseover="highlight(32)" onMouseout="unhighlight(32)" oncontextmenu="rightClickLocation(32); return false;"></div>
+			<div id="locationMap33" onClick="toggle_chest(33)" onMouseover="highlight(33)" onMouseout="unhighlight(33)" oncontextmenu="rightClickLocation(33); return false;"></div>
+			<div id="locationMap34" onClick="toggle_chest(34)" onMouseover="highlight(34)" onMouseout="unhighlight(34)" oncontextmenu="rightClickLocation(34); return false;"></div>
+			<div id="locationMap35" onClick="toggle_chest(35)" onMouseover="highlight(35)" onMouseout="unhighlight(35)" oncontextmenu="rightClickLocation(35); return false;"></div>
+			<div id="locationMap36" onClick="toggle_chest(36)" onMouseover="highlight(36)" onMouseout="unhighlight(36)" oncontextmenu="rightClickLocation(36); return false;"></div>
+			<div id="locationMap37" onClick="toggle_chest(37)" onMouseover="highlight(37)" onMouseout="unhighlight(37)" oncontextmenu="rightClickLocation(37); return false;"></div>
+			<div id="locationMap38" onClick="toggle_chest(38)" onMouseover="highlight(38)" onMouseout="unhighlight(38)" oncontextmenu="rightClickLocation(38); return false;"></div>
+			<div id="locationMap39" onClick="toggle_chest(39)" onMouseover="highlight(39)" onMouseout="unhighlight(39)" oncontextmenu="rightClickLocation(39); return false;"></div>
+			<div id="locationMap40" onClick="toggle_chest(40)" onMouseover="highlight(40)" onMouseout="unhighlight(40)" oncontextmenu="rightClickLocation(40); return false;"></div>
+			<div id="locationMap41" onClick="toggle_chest(41)" onMouseover="highlight(41)" onMouseout="unhighlight(41)" oncontextmenu="rightClickLocation(41); return false;"></div>
+			<div id="locationMap42" onClick="toggle_chest(42)" onMouseover="highlight(42)" onMouseout="unhighlight(42)" oncontextmenu="rightClickLocation(42); return false;"></div>
+			<div id="locationMap43" onClick="toggle_chest(43)" onMouseover="highlight(43)" onMouseout="unhighlight(43)" oncontextmenu="rightClickLocation(43); return false;"></div>
+			<div id="locationMap44" onClick="toggle_chest(44)" onMouseover="highlight(44)" onMouseout="unhighlight(44)" oncontextmenu="rightClickLocation(44); return false;"></div>
+			<div id="locationMap45" onClick="toggle_chest(45)" onMouseover="highlight(45)" onMouseout="unhighlight(45)" oncontextmenu="rightClickLocation(45); return false;"></div>
+			<div id="locationMap46" onClick="toggle_chest(46)" onMouseover="highlight(46)" onMouseout="unhighlight(46)" oncontextmenu="rightClickLocation(46); return false;"></div>
+			<div id="locationMap47" onClick="toggle_chest(47)" onMouseover="highlight(47)" onMouseout="unhighlight(47)" oncontextmenu="rightClickLocation(47); return false;"></div>
+			<div id="locationMap48" onClick="toggle_chest(48)" onMouseover="highlight(48)" onMouseout="unhighlight(48)" oncontextmenu="rightClickLocation(48); return false;"></div>
+			<div id="locationMap49" onClick="toggle_chest(49)" onMouseover="highlight(49)" onMouseout="unhighlight(49)" oncontextmenu="rightClickLocation(49); return false;"></div>
+			<div id="locationMap50" onClick="toggle_chest(50)" onMouseover="highlight(50)" onMouseout="unhighlight(50)" oncontextmenu="rightClickLocation(50); return false;"></div>
+			<div id="locationMap51" onClick="toggle_chest(51)" onMouseover="highlight(51)" onMouseout="unhighlight(51)" oncontextmenu="rightClickLocation(51); return false;"></div>
+			<div id="locationMap52" onClick="toggle_chest(52)" onMouseover="highlight(52)" onMouseout="unhighlight(52)" oncontextmenu="rightClickLocation(52); return false;"></div>
+			<div id="locationMap53" onClick="toggle_chest(53)" onMouseover="highlight(53)" onMouseout="unhighlight(53)" oncontextmenu="rightClickLocation(53); return false;"></div>
+			<div id="locationMap54" onClick="toggle_chest(54)" onMouseover="highlight(54)" onMouseout="unhighlight(54)" oncontextmenu="rightClickLocation(54); return false;"></div>
+			<div id="locationMap55" onClick="toggle_chest(55)" onMouseover="highlight(55)" onMouseout="unhighlight(55)" oncontextmenu="rightClickLocation(55); return false;"></div>
+			<div id="locationMap56" onClick="toggle_chest(56)" onMouseover="highlight(56)" onMouseout="unhighlight(56)" oncontextmenu="rightClickLocation(56); return false;"></div>
+			<div id="locationMap57" onClick="toggle_chest(57)" onMouseover="highlight(57)" onMouseout="unhighlight(57)" oncontextmenu="rightClickLocation(57); return false;"></div>
+			<div id="locationMap58" onClick="toggle_chest(58)" onMouseover="highlight(58)" onMouseout="unhighlight(58)" oncontextmenu="rightClickLocation(58); return false;"></div>
+			<div id="locationMap59" onClick="toggle_chest(59)" onMouseover="highlight(59)" onMouseout="unhighlight(59)" oncontextmenu="rightClickLocation(59); return false;"></div>
+			<div id="locationMap60" onClick="toggle_chest(60)" onMouseover="highlight(60)" onMouseout="unhighlight(60)" oncontextmenu="rightClickLocation(60); return false;"></div>
+			<div id="locationMap61" onClick="toggle_chest(61)" onMouseover="highlight(61)" onMouseout="unhighlight(61)" oncontextmenu="rightClickLocation(61); return false;"></div>
+			<div id="locationMap62" onClick="toggle_chest(62)" onMouseover="highlight(62)" onMouseout="unhighlight(62)" oncontextmenu="rightClickLocation(62); return false;"></div>
+			<div id="locationMap63" onClick="toggle_chest(63)" onMouseover="highlight(63)" onMouseout="unhighlight(63)" oncontextmenu="rightClickLocation(63); return false;"></div>
+			<div id="locationMap64" onClick="toggle_chest(64)" onMouseover="highlight(64)" onMouseout="unhighlight(64)" oncontextmenu="rightClickLocation(64); return false;"></div>
+			<div id="locationMap65" onClick="toggle_chest(65)" onMouseover="highlight(65)" onMouseout="unhighlight(65)" oncontextmenu="rightClickLocation(65); return false;"></div>
+			<div id="locationMap66" onClick="toggle_chest(66)" onMouseover="highlight(66)" onMouseout="unhighlight(66)" oncontextmenu="rightClickLocation(66); return false;"></div>
+			<div id="locationMap67" onClick="toggle_chest(67)" onMouseover="highlight(67)" onMouseout="unhighlight(67)" oncontextmenu="rightClickLocation(67); return false;"></div>
+			<div id="locationMap68" onClick="toggle_chest(68)" onMouseover="highlight(68)" onMouseout="unhighlight(68)" oncontextmenu="rightClickLocation(68); return false;"></div>
+			<div id="locationMap69" onClick="toggle_chest(69)" onMouseover="highlight(69)" onMouseout="unhighlight(69)" oncontextmenu="rightClickLocation(69); return false;"></div>
+			<div id="locationMap70" onClick="toggle_chest(70)" onMouseover="highlight(70)" onMouseout="unhighlight(70)" oncontextmenu="rightClickLocation(70); return false;"></div>
+			<div id="locationMap71" onClick="toggle_chest(71)" onMouseover="highlight(71)" onMouseout="unhighlight(71)" oncontextmenu="rightClickLocation(71); return false;"></div>
+			<div id="locationMap72" onClick="toggle_chest(72)" onMouseover="highlight(72)" onMouseout="unhighlight(72)" oncontextmenu="rightClickLocation(72); return false;"></div>
+			<div id="locationMap73" onClick="toggle_chest(73)" onMouseover="highlight(73)" onMouseout="unhighlight(73)" oncontextmenu="rightClickLocation(73); return false;"></div>
+			<div id="locationMap74" onClick="toggle_chest(74)" onMouseover="highlight(74)" onMouseout="unhighlight(74)" oncontextmenu="rightClickLocation(74); return false;"></div>
+			<div id="locationMap75" onClick="toggle_chest(75)" onMouseover="highlight(75)" onMouseout="unhighlight(75)" oncontextmenu="rightClickLocation(75); return false;"></div>
+			<div id="locationMap76" onClick="toggle_chest(76)" onMouseover="highlight(76)" onMouseout="unhighlight(76)" oncontextmenu="rightClickLocation(76); return false;"></div>
+			<div id="locationMap77" onClick="toggle_chest(77)" onMouseover="highlight(77)" onMouseout="unhighlight(77)" oncontextmenu="rightClickLocation(77); return false;"></div>
+			<div id="locationMap78" onClick="toggle_chest(78)" onMouseover="highlight(78)" onMouseout="unhighlight(78)" oncontextmenu="rightClickLocation(78); return false;"></div>
+			<div id="bossMapAgahnim" class="boss" onMouseover="highlight_agahnim()" onMouseout="unhighlight_agahnim()"></div>
+			<div id="castle" onMouseover="highlight_agahnim()" onMouseout="unhighlight_agahnim()"></div>
+			<div id="bossMap0" onMouseover="highlight_dungeon(0)" onMouseout="unhighlight_dungeon(0)" oncontextmenu="rightClickDungeon(0); return false;"></div>
+			<div id="dungeon0" onMouseover="highlight_dungeon(0)" onMouseout="unhighlight_dungeon(0)" oncontextmenu="rightClickDungeon(0); return false;"></div>
+			<div id="bossMap1" onMouseover="highlight_dungeon(1)" onMouseout="unhighlight_dungeon(1)" oncontextmenu="rightClickDungeon(1); return false;"></div>
+			<div id="dungeon1" onMouseover="highlight_dungeon(1)" onMouseout="unhighlight_dungeon(1)" oncontextmenu="rightClickDungeon(1); return false;"></div>
+			<div id="bossMap2" onMouseover="highlight_dungeon(2)" onMouseout="unhighlight_dungeon(2)" oncontextmenu="rightClickDungeon(2); return false;"></div>
+			<div id="dungeon2" onMouseover="highlight_dungeon(2)" onMouseout="unhighlight_dungeon(2)" oncontextmenu="rightClickDungeon(2); return false;"></div>
+			<div id="bossMap3" onMouseover="highlight_dungeon(3)" onMouseout="unhighlight_dungeon(3)" oncontextmenu="rightClickDungeon(3); return false;"></div>
+			<div id="dungeon3" onMouseover="highlight_dungeon(3)" onMouseout="unhighlight_dungeon(3)" oncontextmenu="rightClickDungeon(3); return false;"></div>
+			<div id="bossMap4" onMouseover="highlight_dungeon(4)" onMouseout="unhighlight_dungeon(4)" oncontextmenu="rightClickDungeon(4); return false;"></div>
+			<div id="dungeon4" onMouseover="highlight_dungeon(4)" onMouseout="unhighlight_dungeon(4)" oncontextmenu="rightClickDungeon(4); return false;"></div>
+			<div id="bossMap5" onMouseover="highlight_dungeon(5)" onMouseout="unhighlight_dungeon(5)" oncontextmenu="rightClickDungeon(5); return false;"></div>
+			<div id="dungeon5" onMouseover="highlight_dungeon(5)" onMouseout="unhighlight_dungeon(5)" oncontextmenu="rightClickDungeon(5); return false;"></div>
+			<div id="bossMap6" onMouseover="highlight_dungeon(6)" onMouseout="unhighlight_dungeon(6)" oncontextmenu="rightClickDungeon(6); return false;"></div>
+			<div id="dungeon6" onMouseover="highlight_dungeon(6)" onMouseout="unhighlight_dungeon(6)" oncontextmenu="rightClickDungeon(6); return false;"></div>
+			<div id="bossMap7" onMouseover="highlight_dungeon(7)" onMouseout="unhighlight_dungeon(7)" oncontextmenu="rightClickDungeon(7); return false;"></div>
+			<div id="dungeon7" onMouseover="highlight_dungeon(7)" onMouseout="unhighlight_dungeon(7)" oncontextmenu="rightClickDungeon(7); return false;"></div>
+			<div id="bossMap8" onMouseover="highlight_dungeon(8)" onMouseout="unhighlight_dungeon(8)" oncontextmenu="rightClickDungeon(8); return false;"></div>
+			<div id="dungeon8" onMouseover="highlight_dungeon(8)" onMouseout="unhighlight_dungeon(8)" oncontextmenu="rightClickDungeon(8); return false;"></div>
+			<div id="bossMap9" onMouseover="highlight_dungeon(9)" onMouseout="unhighlight_dungeon(9)" oncontextmenu="rightClickDungeon(9); return false;"></div>
+			<div id="dungeon9" onMouseover="highlight_dungeon(9)" onMouseout="unhighlight_dungeon(9)" oncontextmenu="rightClickDungeon(9); return false;"></div>
+			<div id="bossMap10" onMouseover="highlight_dungeon(10)" onMouseout="unhighlight_dungeon(10)" oncontextmenu="rightClickDungeon(10); return false;"></div>
+			<div id="dungeon10" onMouseover="highlight_dungeon(10)" onMouseout="unhighlight_dungeon(10)" oncontextmenu="rightClickDungeon(10); return false;"></div>
+			<div id="bossMap11" onMouseover="highlight_dungeon(11)" onMouseout="unhighlight_dungeon(11)" oncontextmenu="rightClickDungeon(11); return false;"></div>
+			<div id="dungeon11" onMouseover="highlight_dungeon(11)" onMouseout="unhighlight_dungeon(11)" oncontextmenu="rightClickDungeon(11); return false;"></div>
+			<div id="bossMap12" onMouseover="highlight_dungeon(12)" onMouseout="unhighlight_dungeon(12)" oncontextmenu="rightClickDungeon(12); return false;"></div>
+			<div id="dungeon12" onMouseover="highlight_dungeon(12)" onMouseout="unhighlight_dungeon(12)" oncontextmenu="rightClickDungeon(12); return false;"></div>
+		  </div>
+		  <div id="mapEntranceDiv">
+			<div id="entranceMap0" onClick="toggle_location(0)" onMouseover="highlight_entrance(0)" onMouseout="unhighlight_entrance(0)" oncontextmenu="javascript:rightClickEntrance(0);return false;"></div>
+			<div id="entranceMap1" onClick="toggle_location(1)" onMouseover="highlight_entrance(1)" onMouseout="unhighlight_entrance(1)" oncontextmenu="javascript:rightClickEntrance(1);return false;"></div>
+			<div id="entranceMap2" onClick="toggle_location(2)" onMouseover="highlight_entrance(2)" onMouseout="unhighlight_entrance(2)" oncontextmenu="javascript:rightClickEntrance(2);return false;"></div>
+			<div id="entranceMap3" onClick="toggle_location(3)" onMouseover="highlight_entrance(3)" onMouseout="unhighlight_entrance(3)" oncontextmenu="javascript:rightClickEntrance(3);return false;"></div>
+			<div id="entranceMap4" onClick="toggle_location(4)" onMouseover="highlight_entrance(4)" onMouseout="unhighlight_entrance(4)" oncontextmenu="javascript:rightClickEntrance(4);return false;"></div>
+			<div id="entranceMap5" onClick="toggle_location(5)" onMouseover="highlight_entrance(5)" onMouseout="unhighlight_entrance(5)" oncontextmenu="javascript:rightClickEntrance(5);return false;"></div>
+			<div id="entranceMap6" onClick="toggle_location(6)" onMouseover="highlight_entrance(6)" onMouseout="unhighlight_entrance(6)" oncontextmenu="javascript:rightClickEntrance(6);return false;"></div>
+			<div id="entranceMap7" onClick="toggle_location(7)" onMouseover="highlight_entrance(7)" onMouseout="unhighlight_entrance(7)" oncontextmenu="javascript:rightClickEntrance(7);return false;"></div>
+			<div id="entranceMap8" onClick="toggle_location(8)" onMouseover="highlight_entrance(8)" onMouseout="unhighlight_entrance(8)" oncontextmenu="javascript:rightClickEntrance(8);return false;"></div>
+			<div id="entranceMap9" onClick="toggle_location(9)" onMouseover="highlight_entrance(9)" onMouseout="unhighlight_entrance(9)" oncontextmenu="javascript:rightClickEntrance(9);return false;"></div>
+			<div id="entranceMap10" onClick="toggle_location(10)" onMouseover="highlight_entrance(10)" onMouseout="unhighlight_entrance(10)" oncontextmenu="javascript:rightClickEntrance(10);return false;"></div>
+			<div id="entranceMap11" onClick="toggle_location(11)" onMouseover="highlight_entrance(11)" onMouseout="unhighlight_entrance(11)" oncontextmenu="javascript:rightClickEntrance(11);return false;"></div>
+			<div id="entranceMap12" onClick="toggle_location(12)" onMouseover="highlight_entrance(12)" onMouseout="unhighlight_entrance(12)" oncontextmenu="javascript:rightClickEntrance(12);return false;"></div>
+			<div id="entranceMap13" onClick="toggle_location(13)" onMouseover="highlight_entrance(13)" onMouseout="unhighlight_entrance(13)" oncontextmenu="javascript:rightClickEntrance(13);return false;"></div>
+			<div id="entranceMap14" onClick="toggle_location(14)" onMouseover="highlight_entrance(14)" onMouseout="unhighlight_entrance(14)" oncontextmenu="javascript:rightClickEntrance(14);return false;"></div>
+			<div id="entranceMap15" onClick="toggle_location(15)" onMouseover="highlight_entrance(15)" onMouseout="unhighlight_entrance(15)" oncontextmenu="javascript:rightClickEntrance(15);return false;"></div>
+			<div id="entranceMap16" onClick="toggle_location(16)" onMouseover="highlight_entrance(16)" onMouseout="unhighlight_entrance(16)" oncontextmenu="javascript:rightClickEntrance(16);return false;"></div>
+			<div id="entranceMap17" onClick="toggle_location(17)" onMouseover="highlight_entrance(17)" onMouseout="unhighlight_entrance(17)" oncontextmenu="javascript:rightClickEntrance(17);return false;"></div>
+			<div id="entranceMap18" onClick="toggle_location(18)" onMouseover="highlight_entrance(18)" onMouseout="unhighlight_entrance(18)" oncontextmenu="javascript:rightClickEntrance(18);return false;"></div>
+			<div id="entranceMap19" onClick="toggle_location(19)" onMouseover="highlight_entrance(19)" onMouseout="unhighlight_entrance(19)" oncontextmenu="javascript:rightClickEntrance(19);return false;"></div>
+			<div id="entranceMap20" onClick="toggle_location(20)" onMouseover="highlight_entrance(20)" onMouseout="unhighlight_entrance(20)" oncontextmenu="javascript:rightClickEntrance(20);return false;"></div>
+			<div id="entranceMap21" onClick="toggle_location(21)" onMouseover="highlight_entrance(21)" onMouseout="unhighlight_entrance(21)" oncontextmenu="javascript:rightClickEntrance(21);return false;"></div>
+			<div id="entranceMap22" onClick="toggle_location(22)" onMouseover="highlight_entrance(22)" onMouseout="unhighlight_entrance(22)" oncontextmenu="javascript:rightClickEntrance(22);return false;"></div>
+			<div id="entranceMap23" onClick="toggle_location(23)" onMouseover="highlight_entrance(23)" onMouseout="unhighlight_entrance(23)" oncontextmenu="javascript:rightClickEntrance(23);return false;"></div>
+			<div id="entranceMap24" onClick="toggle_location(24)" onMouseover="highlight_entrance(24)" onMouseout="unhighlight_entrance(24)" oncontextmenu="javascript:rightClickEntrance(24);return false;"></div>
+			<div id="entranceMap25" onClick="toggle_location(25)" onMouseover="highlight_entrance(25)" onMouseout="unhighlight_entrance(25)" oncontextmenu="javascript:rightClickEntrance(25);return false;"></div>
+			<div id="entranceMap26" onClick="toggle_location(26)" onMouseover="highlight_entrance(26)" onMouseout="unhighlight_entrance(26)" oncontextmenu="javascript:rightClickEntrance(26);return false;"></div>
+			<div id="entranceMap27" onClick="toggle_location(27)" onMouseover="highlight_entrance(27)" onMouseout="unhighlight_entrance(27)" oncontextmenu="javascript:rightClickEntrance(27);return false;"></div>
+			<div id="entranceMap28" onClick="toggle_location(28)" onMouseover="highlight_entrance(28)" onMouseout="unhighlight_entrance(28)" oncontextmenu="javascript:rightClickEntrance(28);return false;"></div>
+			<div id="entranceMap29" onClick="toggle_location(29)" onMouseover="highlight_entrance(29)" onMouseout="unhighlight_entrance(29)" oncontextmenu="javascript:rightClickEntrance(29);return false;"></div>
+			<div id="entranceMap30" onClick="toggle_location(30)" onMouseover="highlight_entrance(30)" onMouseout="unhighlight_entrance(30)" oncontextmenu="javascript:rightClickEntrance(30);return false;"></div>
+			<div id="entranceMap31" onClick="toggle_location(31)" onMouseover="highlight_entrance(31)" onMouseout="unhighlight_entrance(31)" oncontextmenu="javascript:rightClickEntrance(31);return false;"></div>
+			<div id="entranceMap32" onClick="toggle_location(32)" onMouseover="highlight_entrance(32)" onMouseout="unhighlight_entrance(32)" oncontextmenu="javascript:rightClickEntrance(32);return false;"></div>
+			<div id="entranceMap33" onClick="toggle_location(33)" onMouseover="highlight_entrance(33)" onMouseout="unhighlight_entrance(33)" oncontextmenu="javascript:rightClickEntrance(33);return false;"></div>
+			<div id="entranceMap34" onClick="toggle_location(34)" onMouseover="highlight_entrance(34)" onMouseout="unhighlight_entrance(34)" oncontextmenu="javascript:rightClickEntrance(34);return false;"></div>
+			<div id="entranceMap35" onClick="toggle_location(35)" onMouseover="highlight_entrance(35)" onMouseout="unhighlight_entrance(35)" oncontextmenu="javascript:rightClickEntrance(35);return false;"></div>
+			<div id="entranceMap36" onClick="toggle_location(36)" onMouseover="highlight_entrance(36)" onMouseout="unhighlight_entrance(36)" oncontextmenu="javascript:rightClickEntrance(36);return false;"></div>
+			<div id="entranceMap37" onClick="toggle_location(37)" onMouseover="highlight_entrance(37)" onMouseout="unhighlight_entrance(37)" oncontextmenu="javascript:rightClickEntrance(37);return false;"></div>
+			<div id="entranceMap38" onClick="toggle_location(38)" onMouseover="highlight_entrance(38)" onMouseout="unhighlight_entrance(38)" oncontextmenu="javascript:rightClickEntrance(38);return false;"></div>
+			<div id="entranceMap39" onClick="toggle_location(39)" onMouseover="highlight_entrance(39)" onMouseout="unhighlight_entrance(39)" oncontextmenu="javascript:rightClickEntrance(39);return false;"></div>
+			<div id="entranceMap40" onClick="toggle_location(40)" onMouseover="highlight_entrance(40)" onMouseout="unhighlight_entrance(40)" oncontextmenu="javascript:rightClickEntrance(40);return false;"></div>
+			<div id="entranceMap41" onClick="toggle_location(41)" onMouseover="highlight_entrance(41)" onMouseout="unhighlight_entrance(41)" oncontextmenu="javascript:rightClickEntrance(41);return false;"></div>
+			<div id="entranceMap42" onClick="toggle_location(42)" onMouseover="highlight_entrance(42)" onMouseout="unhighlight_entrance(42)" oncontextmenu="javascript:rightClickEntrance(42);return false;"></div>
+			<div id="entranceMap43" onClick="toggle_location(43)" onMouseover="highlight_entrance(43)" onMouseout="unhighlight_entrance(43)" oncontextmenu="javascript:rightClickEntrance(43);return false;"></div>
+			<div id="entranceMap44" onClick="toggle_location(44)" onMouseover="highlight_entrance(44)" onMouseout="unhighlight_entrance(44)" oncontextmenu="javascript:rightClickEntrance(44);return false;"></div>
+			<div id="entranceMap45" onClick="toggle_location(45)" onMouseover="highlight_entrance(45)" onMouseout="unhighlight_entrance(45)" oncontextmenu="javascript:rightClickEntrance(45);return false;"></div>
+			<div id="entranceMap46" onClick="toggle_location(46)" onMouseover="highlight_entrance(46)" onMouseout="unhighlight_entrance(46)" oncontextmenu="javascript:rightClickEntrance(46);return false;"></div>
+			<div id="entranceMap47" onClick="toggle_location(47)" onMouseover="highlight_entrance(47)" onMouseout="unhighlight_entrance(47)" oncontextmenu="javascript:rightClickEntrance(47);return false;"></div>
+			<div id="entranceMap48" onClick="toggle_location(48)" onMouseover="highlight_entrance(48)" onMouseout="unhighlight_entrance(48)" oncontextmenu="javascript:rightClickEntrance(48);return false;"></div>
+			<div id="entranceMap49" onClick="toggle_location(49)" onMouseover="highlight_entrance(49)" onMouseout="unhighlight_entrance(49)" oncontextmenu="javascript:rightClickEntrance(49);return false;"></div>
+			<div id="entranceMap50" onClick="toggle_location(50)" onMouseover="highlight_entrance(50)" onMouseout="unhighlight_entrance(50)" oncontextmenu="javascript:rightClickEntrance(50);return false;"></div>
+			<div id="entranceMap51" onClick="toggle_location(51)" onMouseover="highlight_entrance(51)" onMouseout="unhighlight_entrance(51)" oncontextmenu="javascript:rightClickEntrance(51);return false;"></div>
+			<div id="entranceMap52" onClick="toggle_location(52)" onMouseover="highlight_entrance(52)" onMouseout="unhighlight_entrance(52)" oncontextmenu="javascript:rightClickEntrance(52);return false;"></div>
+			<div id="entranceMap53" onClick="toggle_location(53)" onMouseover="highlight_entrance(53)" onMouseout="unhighlight_entrance(53)" oncontextmenu="javascript:rightClickEntrance(53);return false;"></div>
+			<div id="entranceMap54" onClick="toggle_location(54)" onMouseover="highlight_entrance(54)" onMouseout="unhighlight_entrance(54)" oncontextmenu="javascript:rightClickEntrance(54);return false;"></div>
+			<div id="entranceMap55" onClick="toggle_location(55)" onMouseover="highlight_entrance(55)" onMouseout="unhighlight_entrance(55)" oncontextmenu="javascript:rightClickEntrance(55);return false;"></div>
+			<div id="entranceMap56" onClick="toggle_location(56)" onMouseover="highlight_entrance(56)" onMouseout="unhighlight_entrance(56)" oncontextmenu="javascript:rightClickEntrance(56);return false;"></div>
+			<div id="entranceMap57" onClick="toggle_location(57)" onMouseover="highlight_entrance(57)" onMouseout="unhighlight_entrance(57)" oncontextmenu="javascript:rightClickEntrance(57);return false;"></div>
+			<div id="entranceMap58" onClick="toggle_location(58)" onMouseover="highlight_entrance(58)" onMouseout="unhighlight_entrance(58)" oncontextmenu="javascript:rightClickEntrance(58);return false;"></div>
+			<div id="entranceMap59" onClick="toggle_location(59)" onMouseover="highlight_entrance(59)" onMouseout="unhighlight_entrance(59)" oncontextmenu="javascript:rightClickEntrance(59);return false;"></div>
+			<div id="entranceMap60" onClick="toggle_location(60)" onMouseover="highlight_entrance(60)" onMouseout="unhighlight_entrance(60)" oncontextmenu="javascript:rightClickEntrance(60);return false;"></div>
+			<div id="entranceMap61" onClick="toggle_location(61)" onMouseover="highlight_entrance(61)" onMouseout="unhighlight_entrance(61)" oncontextmenu="javascript:rightClickEntrance(61);return false;"></div>
+			<div id="entranceMap62" onClick="toggle_location(62)" onMouseover="highlight_entrance(62)" onMouseout="unhighlight_entrance(62)" oncontextmenu="javascript:rightClickEntrance(62);return false;"></div>
+			<div id="entranceMap63" onClick="toggle_location(63)" onMouseover="highlight_entrance(63)" onMouseout="unhighlight_entrance(63)" oncontextmenu="javascript:rightClickEntrance(63);return false;"></div>
+			<div id="entranceMap64" onClick="toggle_location(64)" onMouseover="highlight_entrance(64)" onMouseout="unhighlight_entrance(64)" oncontextmenu="javascript:rightClickEntrance(64);return false;"></div>
+			<div id="entranceMap65" onClick="toggle_location(65)" onMouseover="highlight_entrance(65)" onMouseout="unhighlight_entrance(65)" oncontextmenu="javascript:rightClickEntrance(65);return false;"></div>
+			<div id="entranceMap66" onClick="toggle_location(66)" onMouseover="highlight_entrance(66)" onMouseout="unhighlight_entrance(66)" oncontextmenu="javascript:rightClickEntrance(66);return false;"></div>
+			<div id="entranceMap67" onClick="toggle_location(67)" onMouseover="highlight_entrance(67)" onMouseout="unhighlight_entrance(67)" oncontextmenu="javascript:rightClickEntrance(67);return false;"></div>
+			<div id="entranceMap68" onClick="toggle_location(68)" onMouseover="highlight_entrance(68)" onMouseout="unhighlight_entrance(68)" oncontextmenu="javascript:rightClickEntrance(68);return false;"></div>
+			<div id="entranceMap69" onClick="toggle_location(69)" onMouseover="highlight_entrance(69)" onMouseout="unhighlight_entrance(69)" oncontextmenu="javascript:rightClickEntrance(69);return false;"></div>
+			<div id="entranceMap70" onClick="toggle_location(70)" onMouseover="highlight_entrance(70)" onMouseout="unhighlight_entrance(70)" oncontextmenu="javascript:rightClickEntrance(70);return false;"></div>
+			<div id="entranceMap71" onClick="toggle_location(71)" onMouseover="highlight_entrance(71)" onMouseout="unhighlight_entrance(71)" oncontextmenu="javascript:rightClickEntrance(71);return false;"></div>
+			<div id="entranceMap72" onClick="toggle_location(72)" onMouseover="highlight_entrance(72)" onMouseout="unhighlight_entrance(72)" oncontextmenu="javascript:rightClickEntrance(72);return false;"></div>
+			<div id="entranceMap73" onClick="toggle_location(73)" onMouseover="highlight_entrance(73)" onMouseout="unhighlight_entrance(73)" oncontextmenu="javascript:rightClickEntrance(73);return false;"></div>
+			<div id="entranceMap74" onClick="toggle_location(74)" onMouseover="highlight_entrance(74)" onMouseout="unhighlight_entrance(74)" oncontextmenu="javascript:rightClickEntrance(74);return false;"></div>
+			<div id="entranceMap75" onClick="toggle_location(75)" onMouseover="highlight_entrance(75)" onMouseout="unhighlight_entrance(75)" oncontextmenu="javascript:rightClickEntrance(75);return false;"></div>
+			<div id="entranceMap76" onClick="toggle_location(76)" onMouseover="highlight_entrance(76)" onMouseout="unhighlight_entrance(76)" oncontextmenu="javascript:rightClickEntrance(76);return false;"></div>
+			<div id="entranceMap77" onClick="toggle_location(77)" onMouseover="highlight_entrance(77)" onMouseout="unhighlight_entrance(77)" oncontextmenu="javascript:rightClickEntrance(77);return false;"></div>
+			<div id="entranceMap78" onClick="toggle_location(78)" onMouseover="highlight_entrance(78)" onMouseout="unhighlight_entrance(78)" oncontextmenu="javascript:rightClickEntrance(78);return false;"></div>
+			<div id="entranceMap79" onClick="toggle_location(79)" onMouseover="highlight_entrance(79)" onMouseout="unhighlight_entrance(79)" oncontextmenu="javascript:rightClickEntrance(79);return false;"></div>
+			<div id="entranceMap80" onClick="toggle_location(80)" onMouseover="highlight_entrance(80)" onMouseout="unhighlight_entrance(80)" oncontextmenu="javascript:rightClickEntrance(80);return false;"></div>
+			<div id="entranceMap81" onClick="toggle_location(81)" onMouseover="highlight_entrance(81)" onMouseout="unhighlight_entrance(81)" oncontextmenu="javascript:rightClickEntrance(81);return false;"></div>
+			<div id="entranceMap82" onClick="toggle_location(82)" onMouseover="highlight_entrance(82)" onMouseout="unhighlight_entrance(82)" oncontextmenu="javascript:rightClickEntrance(82);return false;"></div>
+			<div id="entranceMap83" onClick="toggle_location(83)" onMouseover="highlight_entrance(83)" onMouseout="unhighlight_entrance(83)" oncontextmenu="javascript:rightClickEntrance(83);return false;"></div>
+			<div id="entranceMap84" onClick="toggle_location(84)" onMouseover="highlight_entrance(84)" onMouseout="unhighlight_entrance(84)" oncontextmenu="javascript:rightClickEntrance(84);return false;"></div>
+			<div id="entranceMap85" onClick="toggle_location(85)" onMouseover="highlight_entrance(85)" onMouseout="unhighlight_entrance(85)" oncontextmenu="javascript:rightClickEntrance(85);return false;"></div>
+			<div id="entranceMap86" onClick="toggle_location(86)" onMouseover="highlight_entrance(86)" onMouseout="unhighlight_entrance(86)" oncontextmenu="javascript:rightClickEntrance(86);return false;"></div>
+			<div id="entranceMap87" onClick="toggle_location(87)" onMouseover="highlight_entrance(87)" onMouseout="unhighlight_entrance(87)" oncontextmenu="javascript:rightClickEntrance(87);return false;"></div>
+			<div id="entranceMap88" onClick="toggle_location(88)" onMouseover="highlight_entrance(88)" onMouseout="unhighlight_entrance(88)" oncontextmenu="javascript:rightClickEntrance(88);return false;"></div>
+			<div id="entranceMap89" onClick="toggle_location(89)" onMouseover="highlight_entrance(89)" onMouseout="unhighlight_entrance(89)" oncontextmenu="javascript:rightClickEntrance(89);return false;"></div>
+			<div id="entranceMap90" onClick="toggle_location(90)" onMouseover="highlight_entrance(90)" onMouseout="unhighlight_entrance(90)" oncontextmenu="javascript:rightClickEntrance(90);return false;"></div>
+			<div id="entranceMap91" onClick="toggle_location(91)" onMouseover="highlight_entrance(91)" onMouseout="unhighlight_entrance(91)" oncontextmenu="javascript:rightClickEntrance(91);return false;"></div>
+			<div id="entranceMap92" onClick="toggle_location(92)" onMouseover="highlight_entrance(92)" onMouseout="unhighlight_entrance(92)" oncontextmenu="javascript:rightClickEntrance(92);return false;"></div>
+			<div id="entranceMap93" onClick="toggle_location(93)" onMouseover="highlight_entrance(93)" onMouseout="unhighlight_entrance(93)" oncontextmenu="javascript:rightClickEntrance(93);return false;"></div>
+			<div id="entranceMap94" onClick="toggle_location(94)" onMouseover="highlight_entrance(94)" onMouseout="unhighlight_entrance(94)" oncontextmenu="javascript:rightClickEntrance(94);return false;"></div>
+			<div id="entranceMap95" onClick="toggle_location(95)" onMouseover="highlight_entrance(95)" onMouseout="unhighlight_entrance(95)" oncontextmenu="javascript:rightClickEntrance(95);return false;"></div>
+			<div id="entranceMap96" onClick="toggle_location(96)" onMouseover="highlight_entrance(96)" onMouseout="unhighlight_entrance(96)" oncontextmenu="javascript:rightClickEntrance(96);return false;"></div>
+			<div id="entranceMap97" onClick="toggle_location(97)" onMouseover="highlight_entrance(97)" onMouseout="unhighlight_entrance(97)" oncontextmenu="javascript:rightClickEntrance(97);return false;"></div>
+			<div id="entranceMap98" onClick="toggle_location(98)" onMouseover="highlight_entrance(98)" onMouseout="unhighlight_entrance(98)" oncontextmenu="javascript:rightClickEntrance(98);return false;"></div>
+			<div id="entranceMap99" onClick="toggle_location(99)" onMouseover="highlight_entrance(99)" onMouseout="unhighlight_entrance(99)" oncontextmenu="javascript:rightClickEntrance(99);return false;"></div>
+			<div id="entranceMap100" onClick="toggle_location(100)" onMouseover="highlight_entrance(100)" onMouseout="unhighlight_entrance(100)" oncontextmenu="javascript:rightClickEntrance(100);return false;"></div>
+			<div id="entranceMap101" onClick="toggle_location(101)" onMouseover="highlight_entrance(101)" onMouseout="unhighlight_entrance(101)" oncontextmenu="javascript:rightClickEntrance(101);return false;"></div>
+			<div id="entranceMap102" onClick="toggle_location(102)" onMouseover="highlight_entrance(102)" onMouseout="unhighlight_entrance(102)" oncontextmenu="javascript:rightClickEntrance(102);return false;"></div>
+			<div id="entranceMap103" onClick="toggle_location(103)" onMouseover="highlight_entrance(103)" onMouseout="unhighlight_entrance(103)" oncontextmenu="javascript:rightClickEntrance(103);return false;"></div>
+			<div id="entranceMap104" onClick="toggle_location(104)" onMouseover="highlight_entrance(104)" onMouseout="unhighlight_entrance(104)" oncontextmenu="javascript:rightClickEntrance(104);return false;"></div>
+			<div id="entranceMap105" onClick="toggle_location(105)" onMouseover="highlight_entrance(105)" onMouseout="unhighlight_entrance(105)" oncontextmenu="javascript:rightClickEntrance(105);return false;"></div>
+			<div id="entranceMap106" onClick="toggle_location(106)" onMouseover="highlight_entrance(106)" onMouseout="unhighlight_entrance(106)" oncontextmenu="javascript:rightClickEntrance(106);return false;"></div>
+			<div id="entranceMap107" onClick="toggle_location(107)" onMouseover="highlight_entrance(107)" onMouseout="unhighlight_entrance(107)" oncontextmenu="javascript:rightClickEntrance(107);return false;"></div>
+			<div id="entranceMap108" onClick="toggle_location(108)" onMouseover="highlight_entrance(108)" onMouseout="unhighlight_entrance(108)" oncontextmenu="javascript:rightClickEntrance(108);return false;"></div>
+			<div id="entranceMap109" onClick="toggle_location(109)" onMouseover="highlight_entrance(109)" onMouseout="unhighlight_entrance(109)" oncontextmenu="javascript:rightClickEntrance(109);return false;"></div>
+			<div id="entranceMap110" onClick="toggle_location(110)" onMouseover="highlight_entrance(110)" onMouseout="unhighlight_entrance(110)" oncontextmenu="javascript:rightClickEntrance(110);return false;"></div>
+			<div id="entranceMap111" onClick="toggle_location(111)" onMouseover="highlight_entrance(111)" onMouseout="unhighlight_entrance(111)" oncontextmenu="javascript:rightClickEntrance(111);return false;"></div>
+			<div id="entranceMap112" onClick="toggle_location(112)" onMouseover="highlight_entrance(112)" onMouseout="unhighlight_entrance(112)" oncontextmenu="javascript:rightClickEntrance(112);return false;"></div>
+			<div id="entranceMap113" onClick="toggle_location(113)" onMouseover="highlight_entrance(113)" onMouseout="unhighlight_entrance(113)" oncontextmenu="javascript:rightClickEntrance(113);return false;"></div>
+			<div id="entranceMap114" onClick="toggle_location(114)" onMouseover="highlight_entrance(114)" onMouseout="unhighlight_entrance(114)" oncontextmenu="javascript:rightClickEntrance(114);return false;"></div>
+			<div id="entranceMap115" onClick="toggle_location(115)" onMouseover="highlight_entrance(115)" onMouseout="unhighlight_entrance(115)" oncontextmenu="javascript:rightClickEntrance(115);return false;"></div>
+			<div id="entranceMap116" onClick="toggle_location(116)" onMouseover="highlight_entrance(116)" onMouseout="unhighlight_entrance(116)" oncontextmenu="javascript:rightClickEntrance(116);return false;"></div>
+			<div id="entranceMap117" onClick="toggle_location(117)" onMouseover="highlight_entrance(117)" onMouseout="unhighlight_entrance(117)" oncontextmenu="javascript:rightClickEntrance(117);return false;"></div>
+			<div id="entranceMap118" onClick="toggle_location(118)" onMouseover="highlight_entrance(118)" onMouseout="unhighlight_entrance(118)" oncontextmenu="javascript:rightClickEntrance(118);return false;"></div>
+			<div id="entranceMap119" onClick="toggle_location(119)" onMouseover="highlight_entrance(119)" onMouseout="unhighlight_entrance(119)" oncontextmenu="javascript:rightClickEntrance(119);return false;"></div>
+			<div id="entranceMap120" onClick="toggle_location(120)" onMouseover="highlight_entrance(120)" onMouseout="unhighlight_entrance(120)" oncontextmenu="javascript:rightClickEntrance(120);return false;"></div>
+			<div id="entranceMap121" onClick="toggle_location(121)" onMouseover="highlight_entrance(121)" onMouseout="unhighlight_entrance(121)" oncontextmenu="javascript:rightClickEntrance(121);return false;"></div>
+			<div id="entranceMap122" onClick="toggle_location(122)" onMouseover="highlight_entrance(122)" onMouseout="unhighlight_entrance(122)" oncontextmenu="javascript:rightClickEntrance(122);return false;"></div>
+			<div id="entranceMap123" onClick="toggle_location(123)" onMouseover="highlight_entrance(123)" onMouseout="unhighlight_entrance(123)" oncontextmenu="javascript:rightClickEntrance(123);return false;"></div>
+			<div id="entranceMap124" onClick="toggle_location(124)" onMouseover="highlight_entrance(124)" onMouseout="unhighlight_entrance(124)" oncontextmenu="javascript:rightClickEntrance(124);return false;"></div>
+			<div id="entranceMap125" onClick="toggle_location(125)" onMouseover="highlight_entrance(125)" onMouseout="unhighlight_entrance(125)" oncontextmenu="javascript:rightClickEntrance(125);return false;"></div>
+			<div id="entranceMap126" onClick="toggle_location(126)" onMouseover="highlight_entrance(126)" onMouseout="unhighlight_entrance(126)" oncontextmenu="javascript:rightClickEntrance(126);return false;"></div>
+			<div id="entranceMap127" onClick="toggle_location(127)" onMouseover="highlight_entrance(127)" onMouseout="unhighlight_entrance(127)" oncontextmenu="javascript:rightClickEntrance(127);return false;"></div>
+			<div id="entranceMap128" onClick="toggle_location(128)" onMouseover="highlight_entrance(128)" onMouseout="unhighlight_entrance(128)" oncontextmenu="javascript:rightClickEntrance(128);return false;"></div>
+			<div id="entranceMap129" onClick="toggle_location(129)" onMouseover="highlight_entrance(129)" onMouseout="unhighlight_entrance(129)" oncontextmenu="javascript:rightClickEntrance(129);return false;"></div>
+			<div id="entranceMap130" onClick="toggle_location(130)" onMouseover="highlight_entrance(130)" onMouseout="unhighlight_entrance(130)" oncontextmenu="javascript:rightClickEntrance(130);return false;"></div>
+			<div id="entranceMap131" onClick="toggle_location(131)" onMouseover="highlight_entrance(131)" onMouseout="unhighlight_entrance(131)" oncontextmenu="javascript:rightClickEntrance(131);return false;"></div>
+			<div id="entranceMap132" onClick="toggle_location(132)" onMouseover="highlight_entrance(132)" onMouseout="unhighlight_entrance(132)" oncontextmenu="javascript:rightClickEntrance(132);return false;"></div>
+			<div id="entranceMap133" onClick="toggle_location(133)" onMouseover="highlight_entrance(133)" onMouseout="unhighlight_entrance(133)" oncontextmenu="javascript:rightClickEntrance(133);return false;"></div>
+			<div id="entranceMap134" onClick="toggle_location(134)" onMouseover="highlight_entrance(134)" onMouseout="unhighlight_entrance(134)" oncontextmenu="javascript:rightClickEntrance(134);return false;"></div>
+			<div id="entranceMap135" onClick="toggle_location(135)" onMouseover="highlight_entrance(135)" onMouseout="unhighlight_entrance(135)" oncontextmenu="javascript:rightClickEntrance(135);return false;"></div>
+			<div id="entranceMap136" onClick="toggle_location(136)" onMouseover="highlight_entrance(136)" onMouseout="unhighlight_entrance(136)" oncontextmenu="javascript:rightClickEntrance(136);return false;"></div>
+			<div id="entranceMap137" onClick="toggle_location(137)" onMouseover="highlight_entrance(137)" onMouseout="unhighlight_entrance(137)" oncontextmenu="javascript:rightClickEntrance(137);return false;"></div>
+			<div id="entranceMap138" onClick="toggle_location(138)" onMouseover="highlight_entrance(138)" onMouseout="unhighlight_entrance(138)" oncontextmenu="javascript:rightClickEntrance(138);return false;"></div>
+			<div id="entranceMap139" onClick="toggle_location(139)" onMouseover="highlight_entrance(139)" onMouseout="unhighlight_entrance(139)" oncontextmenu="javascript:rightClickEntrance(139);return false;"></div>
+			<div id="entranceMap140" onClick="toggle_location(140)" onMouseover="highlight_entrance(140)" onMouseout="unhighlight_entrance(140)" oncontextmenu="javascript:rightClickEntrance(140);return false;"></div>
+			<div id="entranceSummary" onClick="LoadEntranceSummary()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2;"><img src="./images/interface/summary.png" /></div>
+			<div id="connectorStop" onClick="StopAConnector()" style="cursor: pointer; position: absolute; top: 89.6%; left: 43.8%; z-index: 2; visibility: hidden;"><img src="./images/interface/cancel.png" /></div>
+			<div id="hideConnectorLines" onClick="HideConnectors()" style="cursor: pointer; position: absolute; top: 89.6%; left: 50.6%; z-index: 2;"><img src="./images/interface/show.png" id="hideConnectorLinesImg" /></div>
+			<div id="connectorLineDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 0; visibility: collapse;">
+			</div>
+			<div id="informationDiv" style="width: 100%; height: 100%; position: absolute; top: 0; left: 0; z-index: 0;">
+			</div>
+		  </div>
 		  <div id="caption">&nbsp;</div>
 		  <div id="autotrackingstatus">&nbsp;</div>
 		</div>
 	  </div>
+
+	  <div class="modal fade" id="entranceModal" aria-hidden="true" style="width: 884px; height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: absolute; top: 0px; left: 456px; display: none;" onclick="hideEntranceModal()">
+		  <div id="entranceModalMain" style="width: 800px; height: 300px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 50px; left: 40px; border-style: solid; border-color: white; color: #FFF; " onclick="overrideEntranceClose();">
+			  <div style="margin: 0px 10px 0px 10px;">
+				  <input id="entranceID" type="text" style="visibility: collapse; height: 0px;"/><br>
+				  <span id="entranceModalTitle"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="addConnectorSpan" style="margin-right: 20px; cursor: pointer;" onclick="StartAConnectorModal();">Add Connector:&nbsp;&nbsp;&nbsp;<img style="height: 15px;" src="./images/interface/connect.png" /></span><label style="white-space: nowrap;">Note: <input id="entranceModalNote" type="text" style="width: 236px;" onkeypress="return checkReturn(event);" /></label><span id="connectTemplateSpan" style="cursor: pointer; visibility: hidden;" onclick="dosomething(1,2);" >Title&nbsp;&nbsp;&nbsp;<img id="connectTemplateImg" style="height: 15px;"src="./images/interface/cancel.png" />&nbsp;&nbsp;&nbsp;</span>
+				  <hr>
+				  <div>
+					  Connected To: <span id="ConnectorListSpan"></span>
+				  </div>
+				  <hr>
+				  <div id="modalTags" style="font-size: 16px;">
+					  <div id="entranceModalLightWorld">
+						  Light World Dungeons<br>
+						  <img src="./images/interface/hc_m.png" style="cursor: pointer;" onclick="tagEntrance('hc_m', true)" id="hc_m" />
+						  <img src="./images/interface/hc_w.png" style="cursor: pointer;" onclick="tagEntrance('hc_w', true)" id="hc_w" />
+						  <img src="./images/interface/hc_e.png" style="cursor: pointer;" onclick="tagEntrance('hc_e', true)" id="hc_e" />
+						  <img src="./images/interface/ct.png" style="cursor: pointer;" onclick="tagEntrance('ct', true)" id="ct" />
+						  <img src="./images/interface/ep.png" style="cursor: pointer;" onclick="tagEntrance('ep', true)" id="ep" />
+						  <img src="./images/interface/dp_m.png" style="cursor: pointer;" onclick="tagEntrance('dp_m', true)" id="dp_m" />
+						  <img src="./images/interface/dp_w.png" style="cursor: pointer;" onclick="tagEntrance('dp_w', true)" id="dp_w" />
+						  <img src="./images/interface/dp_e.png" style="cursor: pointer;" onclick="tagEntrance('dp_e', true)" id="dp_e" />
+						  <img src="./images/interface/dp_n.png" style="cursor: pointer;" onclick="tagEntrance('dp_n', true)" id="dp_n" />
+						  <img src="./images/interface/toh.png" style="cursor: pointer;" onclick="tagEntrance('toh', true)" id="toh" />&nbsp;<br>
+						  Light World Key Locations<br>
+						  <img src="./images/interface/magic.png" style="cursor: pointer;" onclick="tagEntrance('magic', false)" id="magic" />
+						  <img src="./images/interface/kid.png" style="cursor: pointer;" onclick="tagEntrance('kid', false)" id="kid" />
+						  <img src="./images/interface/smith.png" style="cursor: pointer;" onclick="tagEntrance('smith', false)" id="smith" />
+						  <img src="./images/interface/bat.png" style="cursor: pointer;" onclick="tagEntrance('bat', false)" id="bat" />
+						  <img src="./images/interface/library.png" style="cursor: pointer;" onclick="tagEntrance('library', false)" id="library" />
+						  <img src="./images/interface/sahas.png" style="cursor: pointer;" onclick="tagEntrance('sahas', false)" id="sahas" />
+						  <img src="./images/interface/mimic.png" style="cursor: pointer;" onclick="tagEntrance('mimic', false)" id="mimic" />
+						  <img src="./images/interface/dam.png" style="cursor: pointer;" onclick="tagEntrance('dam', false)" id="dam" />&nbsp;
+					  </div>
+					  <div id="entranceModalGeneral">
+						  General Key Locations<br>
+						  <img src="./images/interface/rupee.png" style="cursor: pointer;" onclick="tagEntrance('rupee', false)" id="rupee" />
+						  <img src="./images/interface/shop.png" style="cursor: pointer;" onclick="tagEntrance('shop', false)" id="shop" />
+						  <img src="./images/interface/dark.png" style="cursor: pointer;" onclick="tagEntrance('dark', false)" id="dark" />
+						  <img src="./images/interface/connector.png" style="cursor: pointer;" onclick="tagEntrance('connector', false)" id="connector" />
+						  <img src="./images/interface/chest.png" style="cursor: pointer;" onclick="tagEntrance('chest', true)" id="chest" />&nbsp;<br>
+						  Starting Locations<br>
+						  <img src="./images/interface/link.png" style="cursor: pointer;" onclick="tagEntrance('link', true)" id="link" />
+						  <img src="./images/interface/sanc.png" style="cursor: pointer;" onclick="tagEntrance('sanc', true)" id="sanc" />
+						  <img src="./images/interface/mount.png" style="cursor: pointer;" onclick="tagEntrance('mount', true)" id="mount" />&nbsp;
+					  </div>
+					  <div id="entranceModalDarkWorld">
+						  Dark World Dungeons<br>
+						  <img src="./images/interface/pod.png" style="cursor: pointer;" onclick="tagEntrance('pod', true)" id="pod" />
+						  <img src="./images/interface/sp.png" style="cursor: pointer;" onclick="tagEntrance('sp', true)" id="sp" />
+						  <img src="./images/interface/sw.png" style="cursor: pointer;" onclick="tagEntrance('sw', true)" id="sw" />
+						  <img src="./images/interface/tt.png" style="cursor: pointer;" onclick="tagEntrance('tt', true)" id="tt" />
+						  <img src="./images/interface/ip.png" style="cursor: pointer;" onclick="tagEntrance('ip', true)" id="ip" />
+						  <img src="./images/interface/mm.png" style="cursor: pointer;" onclick="tagEntrance('mm', true)" id="mm" />
+						  <img src="./images/interface/tr_m.png" style="cursor: pointer;" onclick="tagEntrance('tr_m', true)" id="tr_m" />
+						  <img src="./images/interface/tr_w.png" style="cursor: pointer;" onclick="tagEntrance('tr_w', true)" id="tr_w" />
+						  <img src="./images/interface/tr_e.png" style="cursor: pointer;" onclick="tagEntrance('tr_e', true)" id="tr_e" />
+						  <img src="./images/interface/tr_b.png" style="cursor: pointer;" onclick="tagEntrance('tr_b', true)" id="tr_b" />
+						  <img src="./images/interface/gt.png" style="cursor: pointer;" onclick="tagEntrance('gt', true)" id="gt" />
+						  <img src="./images/interface/ganon.png" style="cursor: pointer;" onclick="tagEntrance('ganon', true)" id="ganon" />&nbsp;<br>
+						  Dark World Key Locations<br>
+						  <img src="./images/interface/bomb.png" style="cursor: pointer;" onclick="tagEntrance('bomb', false)" id="bomb" />
+						  <img src="./images/interface/bumper.png" style="cursor: pointer;" onclick="tagEntrance('bumper', false)" id="bumper" />
+						  <img src="./images/interface/spike.png" style="cursor: pointer;" onclick="tagEntrance('spike', false)" id="spike" />
+						  <img src="./images/interface/hook.png" style="cursor: pointer;" onclick="tagEntrance('hook', false)" id="hook" />&nbsp;
+					  </div>
+				  </div>
+				  <br>
+			  </div>
+		  </div>
+	  </div>
+		  
+	  <div class="modal fade" id="summaryModal" aria-hidden="true" style="height: 100%; background-color: rgb(0,0,0,.3); z-index: 3; position: absolute; top: 0px; display: none;" onclick="hideSummaryModal()">
+		  <div id="summaryModalMain" style="background-color: rgb(0,0,0,1); z-index: 4; position: absolute; border-style: solid; border-color: white; color: #FFF;">
+			  <div style="margin: 0px 10px 0px 10px;">
+				  <div style="float: left; width: 380px; height: 300px; text-align: center">
+					  <div style="margin: 10px 0 8px 0;" onclick="event.stopPropagation()">
+						  <select id="summaryFilter0" onchange="LoadEntranceSummary(0); this.blur()">
+							  <option value="all">All Locations</option>
+							  <option value="dungeons">Dungeons</option>
+							  <option value="starts">Starting Locations</option>
+							  <option value="keylocations">Key Locations</option>
+							  <option value="shopschests">Shops and Simple Chests</option>
+							  <option value="unknownconnectors">Unknown Connectors</option>
+							  <option value="notes">Notes</option>
+							  <option value="knownconnectors">Known Connectors</option>
+						  </select>
+						  <label><input type="checkbox" id="summaryCleared0" onchange="LoadEntranceSummary(0); this.blur()" />Include cleared</label>
+					  </div>
+					  <div id="summaryDiv0" style="overflow-y: auto; text-align: left; height: 246px;">
+					  </div>
+				  </div>
+				  <div style="float: left; width: 380px; height: 300px; text-align: center; margin-left: 10px;">
+					  <div style="margin: 10px 0 8px 0;" onclick="event.stopPropagation()">
+						  <select id="summaryFilter1" onchange="LoadEntranceSummary(1); this.blur()">
+							  <option value="all">All Locations</option>
+							  <option value="dungeons">Dungeons</option>
+							  <option value="starts">Starting Locations</option>
+							  <option value="keylocations">Key Locations</option>
+							  <option value="shopschests">Shops and Simple Chests</option>
+							  <option value="unknownconnectors">Unknown Connectors</option>
+							  <option value="notes">Notes</option>
+							  <option value="knownconnectors">Known Connectors</option>
+						  </select>
+						  <label><input type="checkbox" id="summaryCleared1" onchange="LoadEntranceSummary(1); this.blur()" />Include cleared</label>
+					  </div>
+					  <div id="summaryDiv1" style="overflow-y: auto; text-align: left; height: 246px;">
+					  </div>
+				  </div>
+			  </div>
+		  </div>		
+		  
+	  </div>  
 
 		<div class="modal fade" id="spoilerModal" aria-hidden="true" style="width: 400px; height: 440px; background-color: rgba(255, 255, 255, 1); z-index: 2; position: absolute; top: 6px; left: 20px; display: none;">
 			<div>
@@ -563,112 +830,146 @@
 			</div>
 		</div>
 	  
-		<div class="modal fade" id="flagsModal" aria-hidden="true" style="width: 400px; height: 440px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 6px; left: 20px; display: none;">
+		<div class="modal fade" id="flagsModal" aria-hidden="true" style="width: 400px; height: 354px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 22px; left: 24px; display: none;">
 			<div>
-				<center><h3>Change Flags</h3></center>
-				<table width="380px" height="72px" style="margin: auto;">
-					<tr>
-						<td width="140px">
-							World State:
-						</td>
-						<td>
-							<select id="stateselect" style="width: 140px">
-								<option value="S">Standard</option>
-								<option value="O">Open</option>
-								<option value="I">Inverted</option>
-								<option value="R">Retro</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td width="140px">
-							Entrance Shuffle:
-						</td>
-						<td>
-							<select id="entranceselect" style="width: 140px">
-								<option value="N">None</option>
-								<option value="S">Simple/Restricted/Full/Crossed</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td width="100px">
-							Boss Shuffle:
-						</td>
-						<td>
-							<select id="bossselect" style="width: 140px">
-								<option value="N">None</option>
-								<option value="S">Simple/Full/Random</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td width="100px">
-							Enemy Shuffle:
-						</td>
-						<td>
-							<select id="enemyselect" style="width: 140px">
-								<option value="N">None</option>
-								<option value="S">Shuffled/Random</option>
-							</select>
-						</td>
-					</tr>					
-					<tr>
-						<td width="120px">
-							Dungeon Items:
-						</td>
-						<td>
-							<input id="shuffledmaps" type="checkbox" />
-							<label for="shuffledmaps" style="width:100px">Maps</label>
-							<input id="shuffledcompasses" type="checkbox" />
-							<label for="shuffledcompasses" style="width:100px">Compasses</label><br>
-							<input id="shuffledkeys" type="checkbox" />
-							<label for="shuffledkeys" style="width:100px">Small Keys</label>
-							<input id="shuffledbigkeys" type="checkbox" />
-							<label for="shuffledbigkeys" style="width:100px" >Big Keys</label>
-						</td>
-					</tr>					
-					<tr>
-						<td width="100px">
-							Goal:
-						</td>
-						<td>
-							<select id="goalselect" style="width: 140px">
-								<option value="G">Ganon</option>
-								<option value="F">Fast Ganon</option>
-								<option value="A">All Dungeons</option>
-								<option value="P">Pedestal</option>
-								<option value="O">Other</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							Swords:
-						</td>
-						<td>
-							<select id="swordselect" style="width: 140px">
-								<option value="R">Randomized</option>
-								<option value="A">Assured</option>
-								<option value="V">Vanilla</option>
-								<option value="S">Swordless</option>
-							</select>
-						</td>
-					</tr>
-					<tr>
-						<td width="120px">
-							Activated Flute (Inverted Only):
-						</td>
-						<td>
-							<input id="invertedactivatedflute" type="checkbox" />
-						</td>
-					</tr>
-				</table>
-				<br>
-				<center>NOTE: If you change from Entrance to Non-Entrance (or vise-versa), you will lose all items and map locations tracked. If you switch from Inverted to Non-Inverted (or vise-versa), you will lose any map tracking locations<br><br>
-				<center><input type="button" onclick="closeFlagsModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="adjustFlags();" value="Submit" /></center>
+				<div style="user-select: none;">
+					<h3 style="width: 190px; display: inline-block; margin-left: 12px;">Change Flags</h3>
+					<span id="flagsmaintab" class="tab" onclick="openMainSettings();">Main settings</span>
+					<span id="flagsextratab" class="tab" onclick="openExtraSettings();">Extra settings</span>
+				</div>
+				<div style="height: 256px;">
+					<table id="flagsmain" width="380px" height="72px" style="margin: auto;">
+						<tr>
+							<td width="140px">
+								World State:
+							</td>
+							<td>
+								<select id="stateselect" style="width: 140px">
+									<option value="S">Standard</option>
+									<option value="O">Open</option>
+									<option value="I">Inverted</option>
+									<option value="R">Retro</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td width="140px">
+								Entrance Shuffle:
+							</td>
+							<td>
+								<select id="entranceselect" style="width: 140px">
+									<option value="N">None</option>
+									<option value="S">Simple/Restricted/Full/Crossed</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td width="100px">
+								Boss Shuffle:
+							</td>
+							<td>
+								<select id="bossselect" style="width: 140px">
+									<option value="N">None</option>
+									<option value="S">Simple/Full/Random</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td width="100px">
+								Enemy Shuffle:
+							</td>
+							<td>
+								<select id="enemyselect" style="width: 140px">
+									<option value="N">None</option>
+									<option value="S">Shuffled/Random</option>
+								</select>
+							</td>
+						</tr>					
+						<tr>
+							<td width="120px">
+								Dungeon Items:
+							</td>
+							<td style="user-select: none;">
+								<input id="shuffledmaps" type="checkbox" />
+								<label for="shuffledmaps" style="width:100px">Maps</label>
+								<input id="shuffledcompasses" type="checkbox" />
+								<label for="shuffledcompasses" style="width:100px">Compasses</label><br>
+								<input id="shuffledkeys" type="checkbox" />
+								<label for="shuffledkeys" style="width:100px">Small Keys</label>
+								<input id="shuffledbigkeys" type="checkbox" />
+								<label for="shuffledbigkeys" style="width:100px" >Big Keys</label>
+							</td>
+						</tr>					
+						<tr>
+							<td width="100px">
+								Goal:
+							</td>
+							<td>
+								<select id="goalselect" style="width: 140px">
+									<option value="G">Ganon</option>
+									<option value="F">Fast Ganon</option>
+									<option value="A">All Dungeons</option>
+									<option value="P">Pedestal</option>
+									<option value="O">Other</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Swords:
+							</td>
+							<td>
+								<select id="swordselect" style="width: 140px">
+									<option value="R">Randomized</option>
+									<option value="A">Assured</option>
+									<option value="V">Vanilla</option>
+									<option value="S">Swordless</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td width="120px">
+								Activated Flute (Inverted Only):
+							</td>
+							<td>
+								<input id="invertedactivatedflute" type="checkbox" style="transform: scale(1.5);" />
+							</td>
+						</tr>
+					</table>
+					<table id="flagsextra" width="380px" height="12px" style="margin: auto;">
+						<tr>
+							<td width="140px">
+								Door Shuffle:
+							</td>
+							<td>
+								<select id="doorselect" style="width: 140px">
+									<option value="N">None</option>
+									<option value="B">Basic</option>
+									<option value="C">Crossed</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Overworld Shuffle:
+							</td>
+							<td>
+								<input id="overworldbox" type="checkbox" style="transform: scale(1.5);" />
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Shopsanity:
+							</td>
+							<td>
+								<input id="shopsanitybox" type="checkbox" style="transform: scale(1.5);" />
+							</td>
+						</tr>
+					</table>
+				</div>
+				<center style="user-select: none; transform: scale(1.25);"><input type="button" onclick="closeFlagsModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="adjustFlags();" value="Submit" /></center>
 			</div>
-		</div>	  
+		</div>
 	  
 	  <script>start()</script>
 

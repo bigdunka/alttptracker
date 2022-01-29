@@ -127,7 +127,7 @@
 		return (items.glove === 2 && (items.flute || (flags.glitches != 'N' && items.boots))) || (items.moonpearl && (flags.glitches != 'N' && items.boots) && canReachSDW()); 
 	}
 	
-	window.loadChestFlags = function() {
+	window.loadChestFlagsItem = function() {
 			
 		//Is OWG Mode, does not cover Inverted
 		if (flags.glitches === "O")
@@ -2980,10 +2980,7 @@
 					return can_reach_outcast() || (items.agahnim && items.moonpearl && items.hammer) ? 'available' : 'unavailable';
 				}
 			}];
-		}	
-			
+		}
 	};
-	
-	loadChestFlags();
 	
 }(window));

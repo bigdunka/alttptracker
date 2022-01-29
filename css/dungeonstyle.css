@@ -170,10 +170,10 @@ a, a:visited{ color: #80C0FF; }
 .hint .pathsymbol { margin-right: 4px; }
 .hint span { height: 32px; line-height: 16px; display: grid; align-items: center; top: -1px; position: relative; }
 
-.buttonbox { border: 1px solid white; height: 24px; line-height: 24px; text-align: center; padding: 0 4px 24px 4px; margin: 4px; user-select: none; }
+.buttonbox { border: 1px solid white; height: 24px; line-height: 25px; text-align: center; padding: 0 4px 24px 4px; margin: 4px; user-select: none; }
 .buttonbox.dense { margin: 2px; }
-.buttonbox.big { height: 36px; line-height: 32px; font-size: 14pt; padding: 0 8px 24px 8px; }
-.buttonbox.small { height: 20px; line-height: 18px; padding: 0px 2px 18px 2px; }
+.buttonbox.big { height: 36px; line-height: 33px; font-size: 14pt; padding: 0 8px 24px 8px; }
+.buttonbox.small { height: 20px; line-height: 19px; padding: 0px 2px 18px 2px; }
 .buttonbox.disabled { cursor: default; border-color: darkgray!important; color: darkgray; }
 .buttonbox.selected { color: black; background-color: white; }
 .redborder { border-color: rgb(255,128,128); }

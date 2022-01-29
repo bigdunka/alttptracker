@@ -15,7 +15,7 @@ body {
 .cell { position: relative; float: left; }
 .cell.split { height: 64px; width: 64px; position: relative; float: left; background-image: url(../images/items/splitbackground.png); }
 
-#app { width: 1340px; height: 744px; overflow: hidden; }
+#app { width: 1340px; height: 744px; overflow: hidden; display: block!important; }
 #app.mapless { width: 448px; }
 #app.sphereless { height: 448px; }
 
@@ -403,6 +403,9 @@ body {
 .noitem { background-image: url(../images/dungeons/prize0.png); opacity: .25; }
 
 .separatortop { border-top: 1px dotted gray; margin-top: -1px; }
+
+.tab { padding: 4px; border: 2px solid white; color: blue; user-select: none; cursor: pointer; }
+.tab.active { border-color: black; color: black; background-color: #E0E0E0; cursor: default; }
 
 #bossMap0, #dungeon0 { left: 46.8%; top: 38.8%; }
 #bossMap1, #dungeon1 { left: 3.8%;  top: 78.4%; }

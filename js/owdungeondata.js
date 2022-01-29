@@ -1621,7 +1621,7 @@
 			else
 				data.items[34] = data.special["Inverted Old Man"] || "unavailable";
 		else
-			if(entranceEnabled && data.items[34] !== "available")
+			if(entranceEnabled && data.items[34] !== "unavailable")
 			{
 				andSpecial(data.items,34,data.special["Old Man Hera"]);
 				if(data.items[34] === "unavailable")
@@ -2184,12 +2184,17 @@
 
 	window.edgesCompatible = function(edge1,edge2)
 	{
-		return edge1.direction === opposite[edge2.direction] && edge1.water === edge2.water && (worldState !== 'S' || crossedow === 'C' || mixedow || (edge1.escapeEdge === edge2.escapeEdge)) && compatibleKnownWorlds(edge1.screen,edge2.screen) && compatibleParallel(edge1,edge2) && compatibleSimilar(edge1,edge2);
+		return edge1.direction === opposite[edge2.direction] && edge1.water === edge2.water && (worldState !== 'S' || crossedow === 'C' || mixedow || (edge1.escapeEdge === edge2.escapeEdge)) && maybeCompatibleWorlds(edge1.screen,edge2.screen) && compatibleParallel(edge1,edge2) && compatibleSimilar(edge1,edge2);
+	};
+
+	window.maybeCompatibleWorlds = function(screen1,screen2)
+	{
+		return crossedow === 'C' || (crossedow === 'P' ?(screen1.darkWorld === screen2.darkWorld) :((mixedow && (screen1.mixedState === "unknown" || screen2.mixedState === "unknown")) || isDarkWorld(screen1) === isDarkWorld(screen2)));
 	};
 
 	window.compatibleKnownWorlds = function(screen1,screen2)
 	{
-		return (!mixedow || (screen1.mixedState !== "unknown" && screen2.mixedState !== "unknown")) && (crossedow === 'C' || (crossedow === 'P' ? (screen1.darkWorld === screen2.darkWorld) : (isDarkWorld(screen1) === isDarkWorld(screen2))));
+		return (!mixedow || (screen1.mixedState !== "unknown" && screen2.mixedState !== "unknown")) && (crossedow === 'C' || (crossedow === 'P' ?(screen1.darkWorld === screen2.darkWorld) :(isDarkWorld(screen1) === isDarkWorld(screen2))));
 	};
 
 	window.compatibleParallel = function(edge1,edge2)

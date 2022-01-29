@@ -345,7 +345,7 @@
 		return false;
 	}
 	
-	window.loadChestFlags = function() {
+	window.loadChestFlagsEntrance = function() {
 
 		//Is Inverted Mode
 		if (flags.gametype === "I")
@@ -3690,7 +3690,7 @@
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'unavailable') : 'unavailable';
+					//return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'unavailable') : 'unavailable';
 				}
 			}, { // [1]
 				caption: 'Stoops Lonk\'s Hoose',
@@ -3701,7 +3701,7 @@
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return canReachLightWorldBunny() ? 'available' : 'unavailable';
+					//return canReachLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [3]
 				caption: 'Ol\' Stumpy',
@@ -3712,123 +3712,123 @@
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return (items.mirror || items.glove === 2) && canReachLightWorldBunny() ? 'available' : 'unavailable';
+					//return (items.mirror || items.glove === 2) && canReachLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [5]
 				caption: 'Fugitive under the bridge {flippers}',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return canReachLightWorld() ? (items.flippers ? 'available' : 'unavailable') : 'unavailable';
+					//return canReachLightWorld() ? (items.flippers ? 'available' : 'unavailable') : 'unavailable';
 				}
 			}, { // [6]
 				caption: 'Ether Tablet {sword2}{book}',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return items.moonpearl && items.hammer && items.book && (activeFlute() || items.glove) && (items.hookshot || items.glove === 2) ?
+					/*return items.moonpearl && items.hammer && items.book && (activeFlute() || items.glove) && (items.hookshot || items.glove === 2) ?
 						(items.sword >= 2 || (flags.swordmode === 'S' && items.hammer) ? (items.lantern || activeFlute() ? 'available' : 'darkavailable') : 'information') :
-						'unavailable';
+						'unavailable';*/
 				}
 			}, { // [7]
 				caption: 'Bombos Tablet {sword2}{book}',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return canReachLightWorldBunny() && items.book ?
+					/*return canReachLightWorldBunny() && items.book ?
 						(items.sword >= 2 || (flags.swordmode === 'S' && items.hammer)) ? 'available' : 'information' :
-						'unavailable';
+						'unavailable';*/
 				}
 			}, { // [8]
 				caption: 'Catfish',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					if(!items.glove)
+					/*if(!items.glove)
 						return 'unavailable';
 					if(canReachPyramid())
 						return 'available';
-					return 'unavailable';
+					return 'unavailable';*/
 				}
 			}, { // [9]
 				caption: 'King Zora: Pay 500 rupees',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return canReachLightWorld() ? (items.flippers || items.glove ? 'available' : 'unavailable') : 'unavailable';
+					//return canReachLightWorld() ? (items.flippers || items.glove ? 'available' : 'unavailable') : 'unavailable';
 				}
 			}, { // [10]
 				caption: 'Lost Old Man {lantern}',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return items.glove || activeFlute() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
+					//return items.glove || activeFlute() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
 				}
 			}, { // [11]
 				caption: 'Mushroom',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'possible') : 'unavailable';
+					//return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'possible') : 'unavailable';
 				}
 			}, { // [12]
 				caption: 'Spectacle Rock',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					if(!(items.glove || activeFlute()))
+					/*if(!(items.glove || activeFlute()))
 						return 'unavailable';
 					return items.moonpearl && items.hammer && (items.hookshot || items.glove === 2) ?
 						(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
-						'information';
+						'information';*/
 				}
 			}, { // [13]
 				caption: 'Floating Island',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return (activeFlute() || items.glove) && ((items.hookshot && items.moonpearl) || items.glove === 2) ?
+					/*return (activeFlute() || items.glove) && ((items.hookshot && items.moonpearl) || items.glove === 2) ?
 						(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
-						'unavailable';
+						'unavailable';*/
 				}
 			}, { // [14]
 				caption: 'Race Minigame {bomb}/{boots}',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'possible') : 'unavailable';
+					//return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'possible') : 'unavailable';
 				}
 			}, { // [15]
 				caption: 'Desert West Ledge {book}',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return canReachLightWorldBunny() ? (items.book ? (items.moonpearl ? 'available' : 'information') : 'information') : 'unavailable';
+					//return canReachLightWorldBunny() ? (items.book ? (items.moonpearl ? 'available' : 'information') : 'information') : 'unavailable';
 				}
 			}, { // [16]
 				caption: 'Lake Hylia Island {flippers}',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					if(!canReachLightWorldBunny())
+					/*if(!canReachLightWorldBunny())
 						return 'unavailable';
-					return items.moonpearl ? (items.flippers ? 'available' : 'information') : 'information';
+					return items.moonpearl ? (items.flippers ? 'available' : 'information') : 'information';*/
 				}
 			}, { // [17]
 				caption: 'Bumper Cave {cape}{mirror}',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return items.glove && items.cape && items.mirror && canReachLightWorld() ? 'available' : 'information';
+					//return items.glove && items.cape && items.mirror && canReachLightWorld() ? 'available' : 'information';
 				}
 			}, { // [18]
 				caption: 'Pyramid',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					if(canReachPyramid())
+					/*if(canReachPyramid())
 						return 'available';
-					return 'unavailable';
+					return 'unavailable';*/
 				}
 			}, { // [19]
 				caption: 'Alec Baldwin\'s Dig-a-Thon: Pay 80 rupees',
@@ -3839,32 +3839,32 @@
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					if(!canReachLightWorld())
+					/*if(!canReachLightWorld())
 						return 'unavailable';
 					if(items.flippers)
 						return 'available';
-					return 'information';
+					return 'information';*/
 				}
 			}, { // [21]
 				caption: 'Buried Item {shovel}',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					return items.shovel && canReachLightWorld() ? 'available' : 'unavailable';
+					//return items.shovel && canReachLightWorld() ? 'available' : 'unavailable';
 				}
 			}, { // [22]
 				caption: 'Master Sword Pedestal {pendant0}{pendant1}{pendant2} (can check with {book})',
 				is_opened: false,
 				is_available: function() {
 					return 'available';
-					if(!canReachLightWorldBunny())
+					/*if(!canReachLightWorldBunny())
 						return 'unavailable';
 					var pendant_count = 0;
 					for(var k = 0; k < 10; k++)
 						if((prizes[k] === 1 || prizes[k] === 2) && items['boss'+k])
 							if(++pendant_count === 3)
 								return 'available';
-					return items.book ? 'information' : 'unavailable';
+					return items.book ? 'information' : 'unavailable';*/
 				}
 			}];
 		}
@@ -5580,7 +5580,5 @@
 			}];
 		}
 	};
-	
-	loadChestFlags();
 
 }(window));
