@@ -676,7 +676,7 @@ function loadludicrouspreset() {
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
-	document.getElementById("overworldnone").checked = true;
+	document.getElementById("overworldno").checked = true;
 	document.getElementById("bossnone").checked = true;
 	document.getElementById("enemynone").checked = true;
 	document.getElementById("glitchesnone").checked = true;

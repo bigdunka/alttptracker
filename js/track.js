@@ -2164,7 +2164,7 @@
 			} else {
 				window.document.getElementById('locationMap1').style.visibility = 'inherit';
 				window.document.getElementById('entranceMap10').style.top = "42%";
-				window.document.getElementById('entranceMap93').style.left = "25.7%";
+				window.document.getElementById('entranceMap93').style.left = "75.7%";
 				window.document.getElementById('entranceMap93').style.top = "42%";
 				window.document.getElementById('entranceMap95').style.left = "72.4%";
 				window.document.getElementById('entranceMap95').style.top = "50%";
