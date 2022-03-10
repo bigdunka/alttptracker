@@ -1,9 +1,9 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=18002"></script>
+		<script src="js/index.js?v=18003"></script>
 		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=18002"></script>
+		<script src="js/bootstrap.min.js?v=18003"></script>
 		<script type="text/javascript" src="js/jquery.powertip.js"></script>
 		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
 		<link href="css/fonts.css" rel="stylesheet">
@@ -13,6 +13,7 @@
 			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; }
 			label { width: 5em; display: inline-block; }
 			div { margin: 5px 0; }
+			.preset-btn { font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 110px; }
 		</style>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
@@ -36,7 +37,7 @@
 	<body onload="load_cookie();" background="./images/overlay/background.png">
 		<div style="float: left; width: 400px;">
 			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.8.002 013022 - Compatible for v31.x.x</span><br><br>
+			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.8.003 030922 - Compatible for v31.x.x</span><br><br>
 			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
 			<a href="instructions.html"><img src='./images/overlay/instructions.png' style="width: 380px"/></a><br><br>
 			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
@@ -46,37 +47,34 @@
 		</div>
 		<div style="float: left">
 			<div>
-				<div style="width: 1000px; color: white; font-size: 20px; background: #c75d2fa1; border: #0f0; border-width: 2px; border-style: solid; padding: 15px; margin-left: 24px;">
+				<!-- <div style="width: 1000px; color: white; font-size: 20px; background: #c75d2fa1; border: #0f0; border-width: 2px; border-style: solid; padding: 15px; margin-left: 24px;">
 					<center>NOTICE: If you are having issues with the tracker not loading, do a force refresh by pressing Shift + F5 and reload the tracker</center>
-				</div>
+				</div> -->
 				<table width="1000px" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
 					<tr>
 						<td>
-							<table width="1000px" height="100px" background="./images/overlay/presets.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
-								<tr height="40px">
+							<table width="1000px" height="140px" background="./images/overlay/presets.png" style="margin: auto; color: white; padding-left: 20px;">
+								<tr height="30px">
 									<td>
 									</td>
 								</tr>
-								<tr>
-									<td width="90px	">
-										<input type="button" value="Open" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadopenpreset()" />
+								<tr height="30px">
+									<td width="110px">
+										<input type="button" value="Open" class="preset-btn" onclick="loadopenpreset()" />
 									</td>
-									<td width="90px">
-										<input type="button" value="Casual Boots" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadbootspreset()" />
+									<td width="110px">
+										<input type="button" value="Casual Boots" class="preset-btn" onclick="loadbootspreset()" />
 									</td>
-									<td width="90px">
-										<input type="button" value="Mystery" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadmysterypreset()" />
+									<td width="110px">
+										<input type="button" value="Mystery" class="preset-btn" onclick="loadmysterypreset()" />
 									</td>
-									<td width="90px">
-										<input type="button" value="Crosskeys" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadcrosskeyspreset()" />
+									<td width="110px">
+										<input type="button" value="Crosskeys" class="preset-btn" onclick="loadcrosskeyspreset()" />
 									</td>
-									<td width="90px">
-										<input type="button" value="Ambrosia" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadambrosiapreset()" />
+									<td width="110px">
+										<input type="button" value="Invrosia" class="preset-btn" onclick="loadinvrosiapreset()" />
 									</td>
-									<td width="90px">
-										<input type="button" value="Ludic. Speed" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 90px;" onclick="loadludicrouspreset()" />
-									</td>
-									<td width="20px">
+									<td width="10px">
 									</td>
 									<td width="140px">
 										Enter Seed Hash: <span class="south" title="This will import the flags from the ALTTPR generator and import automatically. Does NOT work properly with customizer settings. (Does not work when offline)" style="font-size: 12px; color: red; height: 25px; cursor: pointer;">[?]</span>
@@ -86,6 +84,27 @@
 										<input type="button" value="Import Flags" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB;" onclick="importflags()" />
 									</td>
 								</tr>
+								<tr height="30px">
+									<td width="110px">
+										<input type="button" value="[Hard] Open [Plus]" class="preset-btn" onclick="loadhardopenpluspreset()" />
+									</td>
+									<td width="110px">
+										<input type="button" value="Keysanity" class="preset-btn" onclick="loadopenkeyspreset()" />
+									</td>
+									<td width="110px">
+										<input type="button" value="Ambrosia" class="preset-btn" onclick="loadambrosiapreset()" />
+									</td>
+									<td width="110px">
+										<input type="button" value="Inverted" class="preset-btn" onclick="loadinvertedspreset()" />
+									</td>
+									<td width="110px">
+										<input type="button" value="MC Boss Shuffle" class="preset-btn" onclick="loadmcbosspreset()" />
+									</td>
+								</tr>
+								<tr height="10px">
+									<td width="90px">
+									</td>
+								</tr>									
 							</table>
 						</td>
 					</tr>
@@ -355,6 +374,32 @@
 									<td>
 										<input id="startingicerodyes" value="Y" type="radio" name="startingicerodgroup" />
 										<label for="startingicerodyes" style="width:100px">Yes</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Non-Progressive Bows:
+									</td>
+									<td>
+										<input id="nonprogressivebowsno" value="N" type="radio" name="nonprogressivebowsgroup" checked />
+										<label for="nonprogressivebowsno" style="width:100px">No</label>
+									</td>
+									<td>
+										<input id="nonprogressivebowsyes" value="Y" type="radio" name="nonprogressivebowsgroup" />
+										<label for="nonprogressivebowsyes" style="width:100px">Yes</label>
+									</td>
+								</tr>
+								<tr>
+									<td width="100px">
+										Iveerted Activated Flute:
+									</td>
+									<td>
+										<input id="invertedfluteno" value="N" type="radio" name="invertedflutegroup" checked />
+										<label for="invertedfluteno" style="width:100px">No</label>
+									</td>
+									<td>
+										<input id="invertedfluteyes" value="Y" type="radio" name="invertedflutegroup" />
+										<label for="invertedfluteyes" style="width:100px">Yes</label>
 									</td>
 								</tr>
 							</table>

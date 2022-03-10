@@ -2,7 +2,7 @@
     'use strict';
 
     function melee() { return items.sword || items.hammer; }
-    function melee_bow() { return melee() || items.bow > 0; }
+    function melee_bow() { return melee() || items.bow > 1; }
     function cane() { return items.somaria || items.byrna; }
     function rod() { return items.firerod || items.icerod; }
 
@@ -50,7 +50,7 @@
 				return (flags.bossshuffle != 'N' ? 'possible' : 'available');
 				break;
 			case 1:
-				if (items.sword > 0 || items.hammer || items.bow > 0 || items.boomerang > 0 || items.byrna || items.somaria || items.icerod || items.firerod) return 'available';
+				if (items.sword > 0 || items.hammer || items.bow > 1 || items.boomerang > 0 || items.byrna || items.somaria || items.icerod || items.firerod) return 'available';
 				break;
 			case 2:
 				if (melee_bow() || cane() || rod() || items.hammer) return 'available';
@@ -59,7 +59,7 @@
 				if (items.sword > 0 || items.hammer) return 'available';
 				break;
 			case 4:
-				if (items.sword > 0 || items.hammer || items.bow > 0) return 'available';
+				if (items.sword > 0 || items.hammer || items.bow > 1) return 'available';
 				break;
 			case 5:
 				if (items.hookshot && (items.sword > 0 || items.hammer)) return 'available';
@@ -840,7 +840,7 @@
 		}
 		//Big Key Chest
 		if (!flags.wildbigkeys) {
-			chests[4] = (items.lantern ? 'A' : (((items.bow > 0 || flags.enemyshuffle != 'N') && dungeoncheck === 'available') ? 'DA' : 'P'));
+			chests[4] = (items.lantern ? 'A' : (((items.bow > 1 || flags.enemyshuffle != 'N') && dungeoncheck === 'available') ? 'DA' : 'P'));
 		} else {
 			chests[4] = (items.lantern ? 'A' : 'DA');
 		}
@@ -956,8 +956,12 @@
 				if (flags.wildkeys) {
 					chests[2] = (items.smallkey2 === 0 ? 'U' : (isDark ? 'DA' : 'A'));
 				} else {
-					//This needs to be only possible, because the small key could be locked upstairs in wild big keys
-					chests[2] = (isDark ? 'DP' : 'P');
+					//This needs to be only possible without the big key, because the small key could be locked upstairs in wild big keys
+					if (items.bigkey2) {
+						chests[2] = (isDark ? 'DA' : 'A');
+					} else {
+						chests[2] = (isDark ? 'DP' : 'P');
+					}
 				}
 			}
 		} else {
@@ -1022,7 +1026,7 @@
 		
 		//1) No Key Shuffle
 		if (!flags.wildbigkeys && !flags.wildkeys && flags.gametype != 'R') {
-			if ((items.bow > 0 || flags.enemyshuffle != 'N') && items.bomb) {
+			if ((items.bow > 1 || flags.enemyshuffle != 'N') && items.bomb) {
 				//If there is a bow and bombs, all chests are available with hammer, with dark logic
 				//Reserving four keys up front, two in the back, with the big key
 				
@@ -1057,7 +1061,7 @@
 			} else {
 				//Shooter Room
 				chests[0] = 'P';
-				if (items.bow > 0 || flags.enemyshuffle != 'N') {
+				if (items.bow > 1 || flags.enemyshuffle != 'N') {
 					//Map Chest
 					chests[1] = (items.bomb || items.boots) ? 'P' : 'U';
 					//The Arena - Ledge
@@ -1092,7 +1096,7 @@
 		} else if (flags.gametype === 'R') {
 			chests[0] = 'A';
 			
-			if (items.bow > 0 || flags.enemyshuffle != 'N') {
+			if (items.bow > 1 || flags.enemyshuffle != 'N') {
 				//Map Chest
 				chests[1] = (items.bomb || items.boots) ? 'A' : 'U';
 				//The Arena - Ledge
@@ -1125,14 +1129,14 @@
 		} else if (!flags.wildbigkeys && flags.wildkeys) {
 			chests[0] = 'A';
 
-			if (items.bow > 0 || flags.enemyshuffle != 'N') {
+			if (items.bow > 1 || flags.enemyshuffle != 'N') {
 				//Map Chest
 				chests[1] = (items.bomb || items.boots) ? 'A' : 'U';
 				//The Arena - Ledge
 				chests[2] = (items.bomb ? 'A' : 'U');
 			}
 			
-			if ((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) || items.smallkey3 > 0) {
+			if ((items.hammer && ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) || items.smallkey3 > 0) {
 				//Stalfos Basement
 				chests[3] = 'A';
 				//The Arena - Bridge
@@ -1140,11 +1144,11 @@
 			}
 			
 			//Big Key Chest
-			if (items.bomb && (((items.hammer && (items.bow > 0 || flags.enemyshuffle != 'N')) && items.smallkey3 > 2) || items.smallkey3 > 3)) {
+			if (items.bomb && (((items.hammer && (items.bow > 1 || flags.enemyshuffle != 'N')) && items.smallkey3 > 2) || items.smallkey3 > 3)) {
 				chests[5] = 'A';
 			}
 			
-			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 0) || items.smallkey3 > 1) {
+			if (((items.hammer && ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 0) || items.smallkey3 > 1) {
 				//Compass Chest
 				chests[6] = 'A';
 				//Dark Basement - Left
@@ -1153,12 +1157,12 @@
 				chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
 			}
 			
-			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 3) || items.smallkey3 > 4) {
+			if (((items.hammer && ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 3) || items.smallkey3 > 4) {
 				//Harmless Hellway
 				chests[7] = 'A';
 			}
 			
-			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 1) || items.smallkey3 > 2) {
+			if (((items.hammer && ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 1) || items.smallkey3 > 2) {
 				//Dark Maze - Top
 				chests[10] = (items.lantern ? 'A' : 'DA');
 				//Dark Maze - Bottom
@@ -1171,7 +1175,7 @@
 			chests[13] = ConvertBossToChest(PoDBoss());
 		//4) Big Key shuffle only
 		} else if (flags.wildbigkeys && !flags.wildkeys) {
-			if ((items.bow > 0 || flags.enemyshuffle === 'N') && items.bomb) {
+			if ((items.bow > 1 || flags.enemyshuffle === 'N') && items.bomb) {
 				//If there is a bow and bombs, all chests are available with hammer, with dark logic
 				//Reserving four keys up front, two in the back, with the big key
 				
@@ -1206,7 +1210,7 @@
 			} else {
 				//Shooter Room
 				chests[0] = 'P';
-				if (items.bow > 0 || flags.enemyshuffle === 'N') {
+				if (items.bow > 1 || flags.enemyshuffle === 'N') {
 					//Map Chest
 					chests[1] = (items.bomb || items.boots) ? 'P' : 'U';
 					//The Arena - Ledge
@@ -1239,14 +1243,14 @@
 		} else {
 			chests[0] = 'A';
 			
-			if (items.bow > 0 || flags.enemyshuffle != 'N') {
+			if (items.bow > 1 || flags.enemyshuffle != 'N') {
 				//Map Chest
 				chests[1] = (items.bomb || items.boots ? 'A' : 'U');
 				//The Arena - Ledge
 				chests[2] = (items.bomb ? 'A' : 'U');
 			}
 			
-			if ((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) || items.smallkey3 > 0) {
+			if ((items.hammer && ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) || items.smallkey3 > 0) {
 				//Stalfos Basement
 				chests[3] = 'A';
 				//The Arena - Bridge
@@ -1254,11 +1258,11 @@
 			}
 			
 			//Big Key Chest
-			if (items.bomb && (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N'))) && items.smallkey3 > 2) || items.smallkey3 > 3)) {
+			if (items.bomb && (((items.hammer && ((items.bow > 1 || flags.enemyshuffle != 'N'))) && items.smallkey3 > 2) || items.smallkey3 > 3)) {
 				chests[5] = 'A';
 			}
 			
-			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 0) || items.smallkey3 > 1) {
+			if (((items.hammer && ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 0) || items.smallkey3 > 1) {
 				//Compass Chest
 				chests[6] = 'A';
 				//Dark Basement - Left
@@ -1268,11 +1272,11 @@
 			}
 			
 			//Harmless Hellway
-			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 3) || items.smallkey3 > 4) {
+			if (((items.hammer && ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 3) || items.smallkey3 > 4) {
 				chests[7] = 'A';
 			}
 			
-			if (((items.hammer && ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 1) || items.smallkey3 > 2) {
+			if (((items.hammer && ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 1) || items.smallkey3 > 2) {
 				//Dark Maze - Top
 				chests[10] = (items.lantern ? 'A' : 'DA');
 				//Dark Maze - Bottom
@@ -2350,7 +2354,7 @@
 				}
 			}
 			
-			if ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
+			if ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
 				//Mini Helmasaur Room - Left - 3
 				chests[23] = 'A';
 				//Mini Helmasaur Room - Right - 3
@@ -2441,7 +2445,7 @@
 				}
 			}
 			
-			if ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
+			if ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
 				//Mini Helmasaur Room - Left - 3
 				chests[23] = 'A';
 				//Mini Helmasaur Room - Right - 3
@@ -2531,7 +2535,7 @@
 				}
 			}
 			
-			if ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod) && items.smallkey10 > 0 && items.bigkey10) {
+			if ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod) && items.smallkey10 > 0 && items.bigkey10) {
 				//Mini Helmasaur Room - Left - 3
 				chests[23] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
 				//Mini Helmasaur Room - Right - 3
@@ -2622,7 +2626,7 @@
 				}
 			}
 			
-			if (items.bigkey10 && (items.bow > 0 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
+			if (items.bigkey10 && (items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
 				//Mini Helmasaur Room - Left - 3
 				chests[23] = 'A';
 				//Mini Helmasaur Room - Right - 3
@@ -2713,7 +2717,7 @@
 				}
 			}
 			
-			if ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod) && items.smallkey10 > 0 && items.bigkey10) {
+			if ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod) && items.smallkey10 > 0 && items.bigkey10) {
 				//Mini Helmasaur Room - Left - 3
 				chests[23] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
 				//Mini Helmasaur Room - Right - 3
@@ -2808,7 +2812,7 @@
 				}
 			}
 			
-			if ((items.bow > 0 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
+			if ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
 				//Mini Helmasaur Room - Left - 3
 				chests[23] = 'A';
 				//Mini Helmasaur Room - Right - 3

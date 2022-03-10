@@ -30,6 +30,8 @@
 
 	window.doorWindow = null;
 	window.dungeonData = null;
+	
+	window.nonProgressiveBows = false;
 
     // Event of clicking on the item tracker
     window.toggle = function(label) {
@@ -152,6 +154,7 @@
 				if (label === 'sword' && flags.swordmode === 'S') {
 				} else {
 					var value = items.inc(label);
+					if (label === 'bow' && value === 1 && window.nonProgressiveBows === false) value = items.inc(label);
 					nodes.forEach(node=>{node.className = node.className.replace(/ ?active-\w+/, '')});
 					if (value)
 						nodes.forEach(node=>node.classList.add('active-' + value));
@@ -2453,6 +2456,14 @@
 		
 		if (window.startingitems.charAt(3) === 'Y') {
 			toggle('icerod');
+		}
+		
+		if (window.startingitems.charAt(4) === 'Y') {
+			window.nonProgressiveBows = true;
+		}
+		
+		if (window.startingitems.charAt(5) === 'Y') {
+			flags.invertedactivatedflute = true;
 		}
 		
 		if (flags.autotracking === 'Y') {
