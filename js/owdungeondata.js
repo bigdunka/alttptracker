@@ -1370,9 +1370,9 @@
 			case "spikecave":
 				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.gloves && items.hammer && (items.byrna || (items.cape && (items.bottle || items.magic)));
 			case "paradoxswitch":
-				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && (items.bomb || items.bow || items.boomerang || items.firerod || items.icerod || items.somaria);
+				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && (items.bomb || items.bow > 1 || items.boomerang || items.firerod || items.icerod || items.somaria);
 			case "castleweapon":
-				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && (items.bomb || items.sword || items.hammer || items.bow || items.firerod || items.somaria || items.byrna);
+				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && (items.bomb || items.sword || items.hammer || items.bow > 1 || items.firerod || items.somaria || items.byrna);
 			case "tablet":
 				return items.book && (items.sword > 1 || (items.flags && items.flags.swordmode === 'S' && items.hammer));
 			case "ctbarrier":
@@ -1705,7 +1705,7 @@
 			if(back !== "unavailable")
 				data.items[55] = items.bomb || items.boots ?back :"unavailable";
 			else
-				if(front !== "unavailable" && items.lantern && (items.bomb || items.boots) && (items.bomb || items.sword || items.bow || items.hammer || items.firerod || items.somaria || items.byrna))
+				if(front !== "unavailable" && items.lantern && (items.bomb || items.boots) && (items.bomb || items.sword || items.bow > 1 || items.hammer || items.firerod || items.somaria || items.byrna))
 				{
 					if(retro || (items.flags && items.flags.wildkeys))
 						data.items[55] = retro || items.smallkeyhalf0 ?front :"unavailable";
@@ -1713,7 +1713,7 @@
 						data.items[55] = "possible";
 				}
 			//Sewers
-			if(front !== "available" && back !== "unavailable" && items.lantern && (items.bomb || items.sword || items.bow || items.hammer || items.firerod || items.somaria || items.byrna))
+			if(front !== "available" && back !== "unavailable" && items.lantern && (items.bomb || items.sword || items.bow > 1 || items.hammer || items.firerod || items.somaria || items.byrna))
 			{
 				if(retro || (items.flags && items.flags.wildkeys))
 					data.items[63] = retro || items.smallkeyhalf0 ?back :"unavailable";
@@ -1721,7 +1721,7 @@
 					data.items[63] = "possible";
 			}
 			//Castle Tower
-			if(towerMaybe && (items.sword || items.bow || items.hammer || items.firerod || items.somaria || items.byrna))
+			if(towerMaybe && (items.sword || items.bow > 1 || items.hammer || items.firerod || items.somaria || items.byrna))
 			{
 				data.items[65] = towerAccess ?"available" :"possible";
 				data.items[66] = items.lantern && (retro || items.smallkeyhalf1 || !items.flags || !items.flags.wildkeys) ?(towerAccess ?"available" :"possible") :"unavailable";
@@ -2603,7 +2603,7 @@
 		itemicons.push({"folder":"items","file":"flippers","basic":[4]});
 		itemicons.push({"folder":"items","file":"hookshot","basic":[0,2,4,5,7,8,9,10]});
 		itemicons.push({"folder":"items","file":"boots","basic":[1,3,5,8,9,10]});
-		itemicons.push({"folder":"items","file":"bow1","basic":[0,3,10]});
+		itemicons.push({"folder":"items","file":"bow2","basic":[0,3,10]});
 		itemicons.push({"folder":"items","file":"hammer","basic":[3,4,6,7,10]});
 		itemicons.push({"folder":"items","file":"sword1","basic":[5,12]});
 		itemicons.push({"folder":"items","file":"glove1","basic":[1,6,7]});

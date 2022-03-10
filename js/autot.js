@@ -358,11 +358,11 @@ function autotrackDoTracking(data) {
     if (changed(0x3C5) && data[0x3C5] >= 3) // Agahnim Killed
         setitem("agahnim", true);
 
-    if (newbit(0x38E, 0x80))
-        setitem("bow", 1); // Bow
-    if (newbit(0x38E, 0x40))
-        setitem("bow", 2); // Silvers
-
+	if (newbit(0x38E, 0xC0)) {
+        var bits = data[0x38E] & 0xC0;
+        setitem("bow", bits == 0x40 && window.nonProgressiveBows ? 1 : (bits == 0x80 ? 2 : 3));
+    }
+	
     if (newbit(0x38C, 0xC0)) {
         var bits = data[0x38C] & 0xC0;
         setitem("boomerang", bits == 0x80 ? 1 : (bits == 0x40 ? 2 : 3));
