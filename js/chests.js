@@ -1401,7 +1401,7 @@
 					//If not, go through normal front door access
 					} else {
 						if (medallionCheck(1) === 'unavailable') return 'unavailable';
-						var frontcheck = window.TRFrontBoss(medallion_check(1));
+						var frontcheck = medallion_check(1);
 						if (frontcheck === 'available') {
 							//Only list as fully available if both front and back entrances are available
 							if (items.glove === 2 && items.mirror) {
