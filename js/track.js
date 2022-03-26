@@ -1621,7 +1621,7 @@
 				sword: { max: 4 },
 				shield: { max: 3 },
 				bottle: { max: 4 },
-				bow: { max: 2 },
+				bow: { max: 3 },
 				boomerang: { max: 3 },
 				glove: { max: 2 },
 				smallkey0: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 0 },

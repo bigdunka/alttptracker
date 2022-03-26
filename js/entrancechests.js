@@ -4516,6 +4516,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(68)) return 'available';
+					if (canReachDWWDM() && items.mirror) return 'available';
 					return (canReachWDMNorth()) ? 'available' : 'unavailable';
 				}
 			}, { // [69]
@@ -5457,8 +5458,8 @@
 				caption: 'Ether Tablet {sword2}{book}',
 				is_opened: false,
 				is_available: function() {
-					if (canReachWDMNorth() && items.book) {
-						return (items.sword >= 2 || flags.swordmode === 'S') ? 'available' : 'information';
+					if ((canReachWDMNorth() || (canReachDWWDM() && items.mirror)) && items.book) {
+						return (items.sword >= 2 || (flags.swordmode === 'S' && items.hammer)) ? 'available' : 'information';
 					}
 					return 'unavailable'
 				}
