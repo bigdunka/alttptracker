@@ -1,1032 +1,1030 @@
 <html>
-	<head>
-		<title>ALTTP Randomizer Community Tracker Launcher</title>
-		<script src="js/index.js?v=18006"></script>
-		<script type="text/javascript" src="js/jquery-3.3.1.js"></script>
-		<script src="js/bootstrap.min.js?v=18006"></script>
-		<script type="text/javascript" src="js/jquery.powertip.js"></script>
-		<link rel="stylesheet" type="text/css" href="css/jquery.powertip.css" />
-		<link href="css/fonts.css" rel="stylesheet">
-		<link href="css/sprites.css" rel="stylesheet">
-		<link href="css/toast.css" rel="stylesheet">
-		<style type="text/css">
-			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; }
-			label { width: 5em; display: inline-block; }
-			div { margin: 5px 0; }
-			.preset-btn { font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB; width: 110px; }
-		</style>
-		<!-- Global site tag (gtag.js) - Google Analytics -->
-		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
-		<script>
-			$(function() {
-				$('.south').powerTip({ placement: 's' });
-			});
-			window.dataLayer = window.dataLayer || [];
-			function gtag(){dataLayer.push(arguments);}
-			gtag('js', new Date());
-
-			gtag('config', 'UA-128165990-1');
-		</script>
-		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
-		<meta http-equiv="Pragma" content="no-cache" />
-		<meta http-equiv="Expires" content="0" />
-		<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
-	</head>
-	<body onload="load_cookie();" background="./images/overlay/background.png">
-		<div style="float: left; width: 400px;">
-			<img src="./images/overlay/header.png" style="width: 380px"><br>
-			<span style="font-size: 10px; color: white; float: right; margin: 8px 20px 0px 0px;">Build 1.8.006 032622 - Compatible for v31.x.x</span><br><br>
-			<a href="release.html"><img src='./images/overlay/release.png' style="width: 380px"/></a><br><br>
-			<a href="instructions.html"><img src='./images/overlay/instructions.png' style="width: 380px"/></a><br><br>
-			<a href="issues.html"><img src='./images/overlay/issues.png' style="width: 380px"/></a><br><br>
-			<a href="contributors.html"><img src='./images/overlay/contributors.png' style="width: 380px"/></a><br><br>
-			<a href="downloads.html"><img src='./images/overlay/downloads.png' style="width: 380px"/></a><br><br>
-			<span style="font-size: 14px; color: white;">Report any issues to Dunka (Discord: BigDunka#8354)<br>Check the Known Issues below for current outstanding issues</span>
-		</div>
-		<div style="float: left">
-			<div>
-				<!-- <div style="width: 1000px; color: white; font-size: 20px; background: #c75d2fa1; border: #0f0; border-width: 2px; border-style: solid; padding: 15px; margin-left: 24px;">
-					<center>NOTICE: If you are having issues with the tracker not loading, do a force refresh by pressing Shift + F5 and reload the tracker</center>
-				</div> -->
-				<table width="1000px" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
-					<tr>
-						<td>
-							<table width="1000px" height="140px" background="./images/overlay/presets.png" style="margin: auto; color: white; padding-left: 20px;">
-								<tr height="30px">
-									<td>
-									</td>
-								</tr>
-								<tr height="30px">
-									<td width="110px">
-										<input type="button" value="Open" class="preset-btn" onclick="loadopenpreset()" />
-									</td>
-									<td width="110px">
-										<input type="button" value="Casual Boots" class="preset-btn" onclick="loadbootspreset()" />
-									</td>
-									<td width="110px">
-										<input type="button" value="Mystery" class="preset-btn" onclick="loadmysterypreset()" />
-									</td>
-									<td width="110px">
-										<input type="button" value="Crosskeys" class="preset-btn" onclick="loadcrosskeyspreset()" />
-									</td>
-									<td width="110px">
-										<input type="button" value="Invrosia" class="preset-btn" onclick="loadinvrosiapreset()" />
-									</td>
-									<td width="10px">
-									</td>
-									<td width="140px">
-										Enter Seed Hash: <span class="south" title="This will import the flags from the ALTTPR generator and import automatically. Does NOT work properly with customizer settings. (Does not work when offline)" style="font-size: 12px; color: red; height: 25px; cursor: pointer;">[?]</span>
-									</td>
-									<td>
-										<input type="text" id="importflag" style="width:140px; height: 27px;" />
-										<input type="button" value="Import Flags" style="font-family: 'roboto_condensedregular', sans-serif; font-size: 14px; background-color: #BBB;" onclick="importflags()" />
-									</td>
-								</tr>
-								<tr height="30px">
-									<td width="110px">
-										<input type="button" value="Open [Hard/Plus]" class="preset-btn" onclick="loadhardopenpluspreset()" />
-									</td>
-									<td width="110px">
-										<input type="button" value="T Keysanity" class="preset-btn" onclick="loadopenkeyspreset()" />
-									</td>
-									<td width="110px">
-										<input type="button" value="Ambrosia" class="preset-btn" onclick="loadambrosiapreset()" />
-									</td>
-									<td width="110px">
-										<input type="button" value="T Inverted Keys" class="preset-btn" onclick="loadtinvertedkeyspreset()" />
-									</td>
-									<td width="110px">
-										<input type="button" value="MC Boss Shuffle" class="preset-btn" onclick="loadmcbosspreset()" />
-									</td>
-								</tr>
-								<tr height="10px">
-									<td width="90px">
-									</td>
-								</tr>									
-							</table>
-						</td>
-					</tr>
-					
-					<tr>
-						<td>
-							<table width="1000px" height="340px" background="./images/overlay/gameplay.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
-								<tr height="40px">
-									<td>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										World State:
-									</td>
-									<td>
-										<input id="gametypestandard" value="S" type="radio" name="gametypegroup" checked />
-										<label for="gametypestandard" style="width:100px" >Standard</label>
-									</td>
-									<td>
-										<input id="gametypeopen" value="O" type="radio" name="gametypegroup" />
-										<label for="gametypeopen" style="width:100px" >Open</label>
-									</td>
-									<td>
-										<input id="gametypeinverted" value="I" type="radio" name="gametypegroup" />
-										<label for="gametypeinverted" style="width:100px" >Inverted</label>
-									</td>
-									<td>
-										<input id="gametyperetro" value="R" type="radio" name="gametypegroup" />
-										<label for="gametyperetro" style="width:100px" >Retro</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="140px">
-										Entrance Shuffle:
-									</td>
-									<td>
-										<input id="entrancenone" value="N" type="radio" name="entrancegroup" checked />
-										<label for="entrancenone" style="width:100px" >None</label>
-									</td>
-									<td colspan="3">
-										<input id="entrancesimple" value="S" type="radio" name="entrancegroup" />
-										<label for="entrancesimple" style="width:300px" >Simple/Restricted/Full/Crossed</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Door Shuffle:
-									</td>
-									<td>
-										<input id="doornone" value="N" type="radio" name="doorgroup" checked />
-										<label for="doornone" style="width:100px" >None</label>
-									</td>
-									<td>
-										<input id="doorbasic" value="B" type="radio" name="doorgroup" />
-										<label for="doorbasic" style="width:100px" >Basic</label>
-									</td>
-									<td>
-										<input id="doorcrossed" value="C" type="radio" name="doorgroup" />
-										<label for="doorcrossed" style="width:100px" >Crossed</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Overworld Shuffle: <span class="south" title="BETA! Expect improvements in the future. Glitches not implemented." style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
-									</td>
-									<td>
-										<input id="overworldno" value="N" type="radio" name="overworldgroup" checked />
-										<label for="overworldno" style="width:100px" >No</label>
-									</td>
-									<td colspan="3">
-										<input id="overworldyes" value="Y" type="radio" name="overworldgroup" />
-										<label for="overworldyes" style="width:300px" >Yes (Layout/Crossed/Mixed/Flute) <span class="south" title="Detailed settings to be specified in the Overworld Tracker window. All combinations of Parallel/Full Layout Shuffle, Crossed, Mixed and Flute Shuffle are supported." style="font-size: 12px; color: red; cursor: pointer;">[?]</span></label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Boss Shuffle:
-									</td>
-									<td>
-										<input id="bossnone" value="N" type="radio" name="bossgroup" checked />
-										<label for="bossnone" style="width:100px" >None</label>
-									</td>
-									<td colspan="3">
-										<input id="bossshuffled" value="S" type="radio" name="bossgroup" />
-										<label for="bossshuffled" style="width:300px" >Simple/Full/Random</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Enemy Shuffle:
-									</td>
-									<td>
-										<input id="enemynone" value="N" type="radio" name="enemygroup" checked />
-										<label for="enemynone" style="width:100px" >None</label>
-									</td>
-									<td>
-										<input id="enemyshuffled" value="S" type="radio" name="enemygroup" />
-										<label for="enemyshuffled" style="width:100px" >Shuffled/Random</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Mystery Settings:
-									</td>
-									<td>
-										<input id="mysteryno" value="N" type="radio" name="mysterygroup" checked />
-										<label for="mysteryno" style="width:100px" >No</label>
-									</td>
-									<td>
-										<input id="mysteryyes" value="S" type="radio" name="mysterygroup" />
-										<label for="mysteryyes" style="width:100px" >Yes</label>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table width="1000px" height="260px" background="./images/overlay/logic.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
-								<tr height="40px">
-									<td>
-									</td>
-								</tr>
-								<tr>
-									<td width="140px">
-										Glitches: <span class="south" title="OWG glitches are currently implemented, need to be validated. Inverted/OWG is not currently implemented. Major/No Logic will show all locations available." style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
-									</td>
-									<td>
-										<input id="glitchesnone" value="N" type="radio" name="glitchesgroup" checked />
-										<label for="glitchesnone" style="width:100px">None</label>
-									</td>
-									<td >
-										<input id="glitchesoverworld" value="O" type="radio" name="glitchesgroup" />
-										<label for="glitchesoverworld" style="width:100px">Overworld</label>
-									</td>
-									<td colspan="2">
-										<input id="glitchesmajor" value="M" type="radio" name="glitchesgroup" />
-										<label for="glitchesmajor" style="width:200px">Major/No Logic</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="120px">
-										Dungeon Items:
-									</td>
-									<td>
-										<input id="dungeonstandard" value="S" type="radio" name="dungeongroup" onclick="setdungeonitems('S')" checked />
-										<label for="dungeonstandard" style="width:100px">Standard</label>
-									</td>
-									<td>
-										<input id="dungeonmcshuffle" value="M" type="radio" name="dungeongroup" onclick="setdungeonitems('M')" />
-										<label for="dungeonmcshuffle" style="width:100px">MC Shuffle</label>
-									</td>
-									<td>
-										<input id="dungeonmcsshuffle" value="K" type="radio" name="dungeongroup" onclick="setdungeonitems('K')" />
-										<label for="dungeonmcsshuffle" style="width:100px">MCS Shuffle</label>
-									</td>
-									<td>
-										<input id="dungeonfullshuffle" value="F" type="radio" name="dungeongroup" onclick="setdungeonitems('F')" />
-										<label for="dungeonfullshuffle" style="width:100px" >Keysanity</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="120px">
-										Shuffled Items:
-									</td>
-									<td>
-										<input id="shuffledmaps" type="checkbox" />
-										<label for="shuffledmaps" style="width:100px">Maps</label>
-									</td>
-									<td>
-										<input id="shuffledcompasses" type="checkbox" />
-										<label for="shuffledcompasses" style="width:100px">Compasses</label>
-									</td>
-									<td>
-										<input id="shuffledsmallkeys" type="checkbox" />
-										<label for="shuffledsmallkeys" style="width:100px">Small Keys</label>
-									</td>
-									<td>
-										<input id="shuffledbigkeys" type="checkbox" />
-										<label for="shuffledbigkeys" style="width:100px" >Big Keys</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="120px">
-										Shopsanity:
-									</td>
-									<td>
-										<input id="shopsanityno" value="N" type="radio" name="shopsanitygroup" checked />
-										<label for="shopsanityno" style="width:100px">No</label>
-									</td>
-									<td colspan="3">
-										<input id="shopsanityyes" value="Y" type="radio" name="shopsanitygroup" />
-										<label for="shopsanityyes" style="width:300px">Yes</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="120px">
-										'Ambrosia': <span class="south" title="This ensures there are no dungeon items (keys, maps, compasses) on bosses" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
-									</td>
-									<td>
-										<input id="ambrosiano" value="N" type="radio" name="ambrosiagroup" checked />
-										<label for="ambrosiano" style="width:100px">No</label>
-									</td>
-									<td colspan="3">
-										<input id="ambrosiayes" value="Y" type="radio" name="ambrosiagroup" />
-										<label for="ambrosiayes" style="width:300px">Yes</label>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr style="display: none">
-						<td>
-							<table width="1000px" height="180px" background="./images/overlay/logic.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
-								<tr height="40px">
-									<td>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Starting Boots:
-									</td>
-									<td>
-										<input id="startingbootsno" value="N" type="radio" name="startingbootsgroup" checked />
-										<label for="startingbootsno" style="width:100px">No</label>
-									</td>
-									<td>
-										<input id="startingbootsyes" value="Y" type="radio" name="startingbootsgroup" />
-										<label for="startingbootsyes" style="width:100px">Yes</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Starting Flute:
-									</td>
-									<td>
-										<input id="startingfluteno" value="N" type="radio" name="startingflutegroup" checked />
-										<label for="startingfluteno" style="width:100px">No</label>
-									</td>
-									<td>
-										<input id="startingfluteyes" value="Y" type="radio" name="startingflutegroup" />
-										<label for="startingfluteyes" style="width:100px">Yes</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Starting Hookshot:
-									</td>
-									<td>
-										<input id="startinghookshotno" value="N" type="radio" name="startinghookshotgroup" checked />
-										<label for="startinghookshotno" style="width:100px">No</label>
-									</td>
-									<td>
-										<input id="startinghookshotyes" value="Y" type="radio" name="startinghookshotgroup" />
-										<label for="startinghookshotyes" style="width:100px">Yes</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Starting Ice Rod:
-									</td>
-									<td>
-										<input id="startingicerodno" value="N" type="radio" name="startingicerodgroup" checked />
-										<label for="startingicerodno" style="width:100px">No</label>
-									</td>
-									<td>
-										<input id="startingicerodyes" value="Y" type="radio" name="startingicerodgroup" />
-										<label for="startingicerodyes" style="width:100px">Yes</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Non-Progressive Bows:
-									</td>
-									<td>
-										<input id="nonprogressivebowsno" value="N" type="radio" name="nonprogressivebowsgroup" checked />
-										<label for="nonprogressivebowsno" style="width:100px">No</label>
-									</td>
-									<td>
-										<input id="nonprogressivebowsyes" value="Y" type="radio" name="nonprogressivebowsgroup" />
-										<label for="nonprogressivebowsyes" style="width:100px">Yes</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Iveerted Activated Flute:
-									</td>
-									<td>
-										<input id="invertedfluteno" value="N" type="radio" name="invertedflutegroup" checked />
-										<label for="invertedfluteno" style="width:100px">No</label>
-									</td>
-									<td>
-										<input id="invertedfluteyes" value="Y" type="radio" name="invertedflutegroup" />
-										<label for="invertedfluteyes" style="width:100px">Yes</label>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table width="1000px" height="180px" background="./images/overlay/goal.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
-								<tr height="40px">
-									<td>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Goal:
-									</td>
-									<td>
-										<input id="goalganon" value="G" type="radio" name="goalgroup" checked />
-										<label for="goalganon" style="width:100px">Ganon</label>
-									</td>
-									<td>
-										<input id="goalfast" value="F" type="radio" name="goalgroup" />
-										<label for="goalfast" style="width:100px">Fast Ganon</label>
-									</td>
-									<td>
-										<input id="goaldungeons" value="A" type="radio" name="goalgroup" />
-										<label for="goaldungeons" style="width:100px">All Dungeons</label>
-									</td>
-									<td>
-										<input id="goalpedestal" value="P" type="radio" name="goalgroup" />
-										<label for="goalpedestal" style="width:100px">Pedestal</label>
-									</td>
-									<td>
-										<input id="goalother" value="O" type="radio" name="goalgroup" />
-										<label for="goalother" style="width:100px">Other</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="100px">
-										Open Tower:
-									</td>
-									<td>
-										<input id="goalcrystal" value="C" type="radio" name="towergroup" checked />
-										<label for="goalcrystal" style="width:100px">
-										  <select id="towerselect" style="width: 40px">
-											<option value="0">0</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7" selected>7</option>
-										  </select> Crystals</label>
-									</td>
-									<td>
-										<input id="goalrandom" value="R" type="radio" name="towergroup" />
-										<label for="goalrandom" style="width:100px">Random</label>
-									</td>
-								</tr>
-								<tr>
-									<td width="140px">
-										Ganon Vulnerable:
-									</td>
-									<td>
-										<input id="ganoncrystal" value="C" type="radio" name="ganongroup" checked />
-										<label for="ganoncrystal" style="width:100px">
-										<label for="ganoncrystal" style="width:100px">
-										  <select id="ganonselect" style="width: 40px">
-											<option value="0">0</option>
-											<option value="1">1</option>
-											<option value="2">2</option>
-											<option value="3">3</option>
-											<option value="4">4</option>
-											<option value="5">5</option>
-											<option value="6">6</option>
-											<option value="7" selected>7</option>
-										  </select> Crystals</label>
-									</td>
-									<td>
-										<input id="ganonrandom" value="R" type="radio" name="ganongroup" />
-										<label for="ganonrandom" style="width:100px">Random</label>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table width="1000px" height="100px" background="./images/overlay/difficulty.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
-								<tr height="40px">
-									<td>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										Swords:
-									</td>
-									<td>
-										<input checked id="swordsrandomized" value="R" type="radio" name="swordsgroup" />
-										<label for="swordsrandomized">Randomized</label>
-									</td>
-									<td>
-										<input id="swordsassured" value="A" type="radio" name="swordsgroup" />
-										<label for="swordsassured">Assured</label>
-									</td>
-									<td>
-										<input id="swordsvanilla" value="V" type="radio" name="swordsgroup" />
-										<label for="swordsvanilla">Vanilla</label>
-									</td>
-									<td>
-										<input id="swordsswordless" value="S" type="radio" name="swordsgroup" />
-										<label for="swordsswordless">Swordless</label>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td>
-							<table width="1000px" height="270px" background="./images/overlay/display.png" style="margin: auto; color: white; font-family: 'roboto_condensedregular', sans-serif; padding-left: 20px;">
-								<tr height="40px">
-									<td>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										Sprite: 
-									</td>
-									<td colspan="2">
-										<select id="spriteselect" style="width: 350px">
-											<option value="abigail">Abigail</option>
-											<option value="adol">Adol</option>
-											<option value="adventure_2600">Adventure 2600</option>
-											<option value="aggretsuko">Aggretsuko</option>
-											<option value="alice">Alice</option>
-											<option value="angry_video_game_nerd">Angry Video Game Nerd</option>
-											<option value="arcane">Arcane</option>
-											<option value="arcticartemisfox">ArcticArtemisFox</option>
-											<option value="aria">Aria</option>
-											<option value="ark">Ark</option>
-											<option value="ark_cape">Ark (Cape)</option>
-											<option value="arrghus">Arrghus</option>
-											<option value="astor">Astor</option>
-											<option value="astronaut">Astronaut</option>
-											<option value="asuna">Asuna</option>
-											<option value="b_s_boy">B.S. Boy</option>
-											<option value="b_s_girl">B.S. Girl</option>
-											<option value="baba">Baba</option>
-											<option value="baby_fro">Baby Fro</option>
-											<option value="baby_metroid">Baby Metroid</option>
-											<option value="badeline">Badeline</option>
-											<option value="bananas_in_pyjamas">Bananas In Pyjamas</option>
-											<option value="bandit">Bandit</option>
-											<option value="batman">Batman</option>
-											<option value="beau">Beau</option>
-											<option value="bee">Bee</option>
-											<option value="bel">Bel</option>
-											<option value="bewp">Bewp</option>
-											<option value="big_key">Big Key</option>
-											<option value="birb">Birb</option>
-											<option value="birb_of_paradise">Birb of Paradise</option>
-											<option value="birdfruit">Birdfruit</option>
-											<option value="birdo">Birdo</option>
-											<option value="black_mage">Black Mage</option>
-											<option value="blacksmith_link">Blacksmith Link</option>
-											<option value="blazer">Blazer</option>
-											<option value="blossom">Blossom</option>
-											<option value="bob">Bob</option>
-											<option value="bob_ross">Bob Ross</option>
-											<option value="boco_the_chocobo">Boco the Chocobo</option>
-											<option value="boo">Boo</option>
-											<option value="boo_2">Boo 2</option>
-											<option value="bottle_o_goo">Bottle o' Goo</option>
-											<option value="botw_link">BotW Link</option>
-											<option value="botw_zelda">BotW Zelda</option>
-											<option value="bowser">Bowser</option>
-											<option value="bowsette">Bowsette</option>
-											<option value="bowsette_red">Bowsette (Red)</option>
-											<option value="branch">Branch</option>
-											<option value="brian">Brian</option>
-											<option value="broccoli">Broccoli</option>
-											<option value="bronzor">Bronzor</option>
-											<option value="bubbles">Bubbles</option>
-											<option value="bullet_bill">Bullet Bill</option>
-											<option value="buttercup">Buttercup</option>
-											<option value="cactuar">Cactuar</option>
-											<option value="cadence">Cadence</option>
-											<option value="captain_novolin">Captain Novolin</option>
-											<option value="captain_toadette">Captain Toadette</option>
-											<option value="carlsagan42">CarlSagan42</option>
-											<option value="casual_zelda">Casual Zelda</option>
-											<option value="cat_boo">Cat Boo</option>
-											<option value="catgirl_hidari">Catgirl (Hidari)</option>
-											<option value="cd_i_link">CD-i Link</option>
-											<option value="celes">Celes</option>
-											<option value="centaur_enos">Centaur Enos</option>
-											<option value="charizard">Charizard</option>
-											<option value="cheep_cheep">Cheep Cheep</option>
-											<option value="chef_pepper">Chef Pepper</option>
-											<option value="chibity">Chibity</option>
-											<option value="chrizzz">Chrizzz</option>
-											<option value="chrono">Chrono</option>
-											<option value="cinna">Cinna</option>
-											<option value="cirno">Cirno</option>
-											<option value="clifford">Clifford</option>
-											<option value="clippy">Clippy</option>
-											<option value="cloud">Cloud</option>
-											<option value="clyde">Clyde</option>
-											<option value="conker">Conker</option>
-											<option value="conker_neo">Conker Neo</option>
-											<option value="cornelius">Cornelius</option>
-											<option value="corona">Corona</option>
-											<option value="crewmate">Crewmate</option>
-											<option value="cucco">Cucco</option>
-											<option value="cursor">Cursor</option>
-											<option value="d_owls">D.Owls</option>
-											<option value="dark_boy">Dark Boy</option>
-											<option value="dark_girl">Dark Girl</option>
-											<option value="dark_link">Dark Link</option>
-											<option value="dark_link_tunic">Dark Link (Tunic)</option>
-											<option value="dark_link_zelda_2">Dark Link (Zelda 2)</option>
-											<option value="dark_panda">Dark Panda</option>
-											<option value="dark_swatchy">Dark Swatchy</option>
-											<option value="dark_zelda">Dark Zelda</option>
-											<option value="dark_zora">Dark Zora</option>
-											<option value="deadpool_mythic">Deadpool (Mythic)</option>
-											<option value="deadpool_sirczah">Deadpool (SirCzah)</option>
-											<option value="deadrock">Deadrock</option>
-											<option value="decidueye">Decidueye</option>
-											<option value="dekar">Dekar</option>
-											<option value="demon_link">Demon Link</option>
-											<option value="dennsen86">Dennsen86</option>
-											<option value="diddy_kong">Diddy Kong</option>
-											<option value="dig_dug">Dig Dug</option>
-											<option value="dipper">Dipper</option>
-											<option value="discord">Discord</option>
-											<option value="dragonair">Dragonair</option>
-											<option value="dragonite">Dragonite</option>
-											<option value="drake_the_dragon">Drake The Dragon</option>
-											<option value="eevee">Eevee</option>
-											<option value="eggplant">Eggplant</option>
-											<option value="eirika">Eirika</option>
-											<option value="ema_skye">Ema Skye</option>
-											<option value="emosaru">EmoSaru</option>
-											<option value="espeon">Espeon</option>
-											<option value="ezlo">Ezlo</option>
-											<option value="fi">Fi</option>
-											<option value="fierce_deity_link">Fierce Deity Link</option>
-											<option value="figaro_merchant">Figaro Merchant</option>
-											<option value="finn_merten">Finn Merten</option>
-											<option value="finny_bear">Finny Bear</option>
-											<option value="flavor_guy">Flavor Guy</option>
-											<option value="floodgate_fish">Floodgate Fish</option>
-											<option value="four_swords_link">Four Swords Link</option>
-											<option value="fox_link">Fox Link</option>
-											<option value="freya_crescent">Freya Crescent</option>
-											<option value="frisk">Frisk</option>
-											<option value="frog_link">Frog Link</option>
-											<option value="fujin">Fujin</option>
-											<option value="future_trunks">Future Trunks</option>
-											<option value="gamer">Gamer</option>
-											<option value="ganondorf">Ganondorf</option>
-											<option value="garfield">Garfield</option>
-											<option value="garnet">Garnet</option>
-											<option value="garo_master">Garo Master</option>
-											<option value="gbc_link">GBC Link</option>
-											<option value="geno">Geno</option>
-											<option value="gliitchwiitch">GliitchWiitch</option>
-											<option value="glove_color_link">Glove Color Link</option>
-											<option value="gobli">Gobli</option>
-											<option value="gooey">Gooey</option>
-											<option value="goomba">Goomba</option>
-											<option value="goose">Goose</option>
-											<option value="graalian_noob">Graalian Noob</option>
-											<option value="grandpoobear">GrandPOOBear</option>
-											<option value="gretis">Gretis</option>
-											<option value="growlithe">Growlithe</option>
-											<option value="gruncle_stan">Gruncle Stan</option>
-											<option value="guiz">Guiz</option>
-											<option value="hanna">Hanna</option>
-											<option value="hardhat_beetle">Hardhat Beetle</option>
-											<option value="hat_color_link">Hat Color Link</option>
-											<option value="hat_kid">Hat Kid</option>
-											<option value="head_link">Head Link</option>
-											<option value="headless_link">Headless Link</option>
-											<option value="heem">Heem</option>
-											<option value="hello_kitty">Hello Kitty</option>
-											<option value="hero_of_awakening">Hero of Awakening</option>
-											<option value="hero_of_hyrule">Hero of Hyrule</option>
-											<option value="hidari">Hidari</option>
-											<option value="hint_tile">Hint Tile</option>
-											<option value="hoarder_bush">Hoarder (Bush)</option>
-											<option value="hoarder_pot">Hoarder (Pot)</option>
-											<option value="hoarder_rock">Hoarder (Rock)</option>
-											<option value="hollow_knight">Hollow Knight</option>
-											<option value="hollow_knight_malmo\/winter">Hollow Knight (Malmo\/Winter)</option>
-											<option value="homer_simpson">Homer Simpson</option>
-											<option value="hornet">Hornet</option>
-											<option value="horseman">Horseman</option>
-											<option value="hotdog">Hotdog</option>
-											<option value="hyrule_knight">Hyrule Knight</option>
-											<option value="hyrule_soldier">Hyrule Soldier</option>
-											<option value="ibazly">iBazly</option>
-											<option value="ignignokt">Ignignokt</option>
-											<option value="informant_woman">Informant Woman</option>
-											<option value="inkling">Inkling</option>
-											<option value="invisible_link">Invisible Link</option>
-											<option value="jack_frost">Jack Frost</option>
-											<option value="jason_frudnick">Jason Frudnick</option>
-											<option value="jasp">Jasp</option>
-											<option value="jogurt">Jogurt</option>
-											<option value="juste_belmont">Juste Belmont</option>
-											<option value="juzcook">Juzcook</option>
-											<option value="kaguya">Kaguya</option>
-											<option value="kain">Kain</option>
-											<option value="katsura">Katsura</option>
-											<option value="kecleon">Kecleon</option>
-											<option value="kefka">Kefka</option>
-											<option value="kenny_mccormick">Kenny McCormick</option>
-											<option value="ketchup">Ketchup</option>
-											<option value="kholdstare">Kholdstare</option>
-											<option value="king_gothalion">King Gothalion</option>
-											<option value="king_graham_v1_1">King Graham</option>
-											<option value="kinu">Kinu</option>
-											<option value="kira">Kira</option>
-											<option value="kirby">Kirby</option>
-											<option value="kirby_dreamland_3">Kirby (Dreamland 3)</option>
-											<option value="koragi">Koragi</option>
-											<option value="kore8">Kore8</option>
-											<option value="korok">Korok</option>
-											<option value="kriv">Kriv</option>
-											<option value="lakitu">Lakitu</option>
-											<option value="lapras">Lapras</option>
-											<option value="league_mascot">League Mascot</option>
-											<option value="lest">Lest</option>
-											<option value="lestat">Lestat</option>
-											<option value="lily">Lily</option>
-											<option value="linja">Linja</option>
-											<option value="link" selected>Link</option>
-											<option value="link_zelda_1">Link (Zelda 1)</option>
-											<option value="link_redrawn">Link Redrawn</option>
-											<option value="little_hylian">Little Hylian</option>
-											<option value="locke">Locke</option>
-											<option value="lucario">Lucario</option>
-											<option value="luffy">Luffy</option>
-											<option value="luigi">Luigi</option>
-											<option value="luna_maindo">Luna Maindo</option>
-											<option value="lynel_botw">Lynel (BotW)</option>
-											<option value="mad_tears">Mad_Tears</option>
-											<option value="madeline">Madeline</option>
-											<option value="magus">Magus</option>
-											<option value="maiden">Maiden</option>
-											<option value="majoras_mask">Majora's Mask</option>
-											<option value="mallow_cat">Mallow (Cat)</option>
-											<option value="manga_link">Manga Link</option>
-											<option value="maple_queen">Maple Queen</option>
-											<option value="marin">Marin</option>
-											<option value="mario_classic">Mario (Classic)</option>
-											<option value="mario_and_cappy">Mario and Cappy</option>
-											<option value="marisa_kirisame">Marisa Kirisame</option>
-											<option value="marvin_the_cat">Marvin the Cat</option>
-											<option value="matthias">Matthias</option>
-											<option value="meatwad">Meatwad</option>
-											<option value="medallions">Medallions</option>
-											<option value="medli">Medli</option>
-											<option value="mega_man_classic">Mega Man (Classic)</option>
-											<option value="megaman_x">Megaman X</option>
-											<option value="megaman_x2">Megaman X2</option>
-											<option value="mewlp">MewLp</option>
-											<option value="mike_jones">Mike Jones</option>
-											<option value="mimic">Mimic</option>
-											<option value="mini_ganon">Mini Ganon</option>
-											<option value="minish_cap_link">Minish Cap Link</option>
-											<option value="minish_link">Minish Link</option>
-											<option value="mipha">Mipha</option>
-											<option value="missingno">missingno</option>
-											<option value="moblin">Moblin</option>
-											<option value="modern_link">Modern Link</option>
-											<option value="mog">Mog</option>
-											<option value="momiji_inubashiri">Momiji Inubashiri</option>
-											<option value="moosh">Moosh</option>
-											<option value="mouse">Mouse</option>
-											<option value="ms_paint_dog">Ms. Paint Dog</option>
-											<option value="nature_link">Nature Link</option>
-											<option value="navi">Navi</option>
-											<option value="navirou">Navirou</option>
-											<option value="ned_flanders">Ned Flanders</option>
-											<option value="negative_link">Negative Link</option>
-											<option value="neosad">Neosad</option>
-											<option value="neptune">Neptune</option>
-											<option value="nes_link">NES Link</option>
-											<option value="ness_earthbound">Ness</option>
-											<option value="nia">Nia</option>
-											<option value="niddraig">Niddraig</option>
-											<option value="niko">Niko</option>
-											<option value="ninten">Ninten</option>
-											<option value="octorok">Octorok</option>
-											<option value="old_man">Old Man</option>
-											<option value="olde_man">Olde Man</option>
-											<option value="ori">Ori</option>
-											<option value="outline_link">Outline Link</option>
-											<option value="paper_mario">Paper Mario</option>
-											<option value="parallel_worlds_link">Parallel Worlds Link</option>
-											<option value="paula">Paula</option>
-											<option value="penguin_link">Penguin Link</option>
-											<option value="pete_harvest_moon">Pete</option>
-											<option value="phoenix_wright">Phoenix Wright</option>
-											<option value="pikachu">Pikachu</option>
-											<option value="pink_ribbon_link">Pink Ribbon Link</option>
-											<option value="piranha_plant">Piranha Plant</option>
-											<option value="plague_knight">Plague Knight</option>
-											<option value="plouni">Plouni</option>
-											<option value="poc_link">PoC Link</option>
-											<option value="pokey">Pokey</option>
-											<option value="pokey_subtle">Pokey (subtle)</option>
-											<option value="pony">Pony</option>
-											<option value="popoi">Popoi</option>
-											<option value="poppy">Poppy</option>
-											<option value="porg_knight">Porg Knight</option>
-											<option value="power_ranger">Power Ranger</option>
-											<option value="power_up_with_pride_mushroom">Power Up with Pride Mushroom</option>
-											<option value="powerpuff_girl">Powerpuff Girl</option>
-											<option value="pride_link">Pride Link</option>
-											<option value="primm">Primm</option>
-											<option value="princess_bubblegum">Princess Bubblegum</option>
-											<option value="princess_peach">Princess Peach</option>
-											<option value="prof_renderer_grizzleton">Prof. Renderer Grizzleton</option>
-											<option value="psyduck">Psyduck</option>
-											<option value="purple_chest">Purple Chest</option>
-											<option value="pyro">Pyro</option>
-											<option value="quadbanger">QuadBanger</option>
-											<option value="rainbow_link">Rainbow Link</option>
-											<option value="rat">Rat</option>
-											<option value="red_mage">Red Mage</option>
-											<option value="reimu_hakurei">Reimu Hakurei</option>
-											<option value="remeer">Remeer</option>
-											<option value="remus_r_black">Remus R Black</option>
-											<option value="reverse_mail_order">Reverse Mail Order</option>
-											<option value="rick_redacted">Rick</option>
-											<option value="robo_link_9000">Robo-Link 9000</option>
-											<option value="rocko">Rocko</option>
-											<option value="rottytops">Rottytops</option>
-											<option value="rover">Rover</option>
-											<option value="roy_koopa">Roy Koopa</option>
-											<option value="rumia">Rumia</option>
-											<option value="rydia">Rydia</option>
-											<option value="ryu">Ryu</option>
-											<option value="sailor_jupiter">Sailor Jupiter</option>
-											<option value="sailor_mars">Sailor Mars</option>
-											<option value="sailor_mercury">Sailor Mercury</option>
-											<option value="sailor_moon">Sailor Moon</option>
-											<option value="sailor_venus">Sailor Venus</option>
-											<option value="saitama">Saitama</option>
-											<option value="samurott">Samurott</option>
-											<option value="samus">Samus</option>
-											<option value="samus_classic">Samus (Classic)</option>
-											<option value="samus_super_metroid">Samus (Super Metroid)</option>
-											<option value="santa_hat_link">Santa Hat Link</option>
-											<option value="santa_link">Santa Link</option>
-											<option value="scholar">Scholar</option>
-											<option value="selan">Selan</option>
-											<option value="sevens1ns">SevenS1ns</option>
-											<option value="shadow">Shadow</option>
-											<option value="shadow_sakura">Shadow Sakura</option>
-											<option value="shantae">Shantae</option>
-											<option value="shinmyoumaru_sakuna">Shinmyoumaru Sakuna</option>
-											<option value="shuppet">Shuppet</option>
-											<option value="shy_gal">Shy Gal</option>
-											<option value="shy_guy">Shy Guy</option>
-											<option value="sighnwaive">SighnWaive</option>
-											<option value="skunk">Skunk</option>
-											<option value="slime">Slime</option>
-											<option value="slowpoke">Slowpoke</option>
-											<option value="snes_controller">SNES Controller</option>
-											<option value="sobble">Sobble</option>
-											<option value="soda_can">Soda Can</option>
-											<option value="sokka">Sokka</option>
-											<option value="solaire_of_astora">Solaire of Astora</option>
-											<option value="sonic_the_hedgehog">Sonic the Hedgehog</option>
-											<option value="sora">Sora</option>
-											<option value="sora_kh1">Sora (KH1)</option>
-											<option value="spiked_roller">Spiked Roller</option>
-											<option value="spongebob_squarepants">Spongebob Squarepants</option>
-											<option value="spyro_the_dragon">Spyro the Dragon</option>
-											<option value="squall">Squall</option>
-											<option value="squirrel">Squirrel</option>
-											<option value="squirtle">Squirtle</option>
-											<option value="stalfos">Stalfos</option>
-											<option value="stan">Stan</option>
-											<option value="static_link">Static Link</option>
-											<option value="steamed_hams">Steamed Hams</option>
-											<option value="stick_man">Stick Man</option>
-											<option value="super_bomb">Super Bomb</option>
-											<option value="super_bunny">Super Bunny</option>
-											<option value="super_meat_boy">Super Meat Boy</option>
-											<option value="susie">Susie</option>
-											<option value="swatchy">Swatchy</option>
-											<option value="swiper">Swiper</option>
-											<option value="tanooki_mario">Tanooki Mario</option>
-											<option value="tasbot">TASBot</option>
-											<option value="tea_time">Tea Time</option>
-											<option value="terra_esper">Terra (Esper)</option>
-											<option value="terry">Terry (Contact DS)</option>
-											<option value="tetra">Tetra</option>
-											<option value="tgh">TGH</option>
-											<option value="the_professor">The Professor</option>
-											<option value="the_pug">The Pug</option>
-											<option value="thief">Thief</option>
-											<option value="thinkdorm">ThinkDorm</option>
-											<option value="thomcrow">Thomcrow</option>
-											<option value="tile">Tile</option>
-											<option value="tingle">Tingle</option>
-											<option value="tmnt">TMNT</option>
-											<option value="toad">Toad</option>
-											<option value="toadette">Toadette</option>
-											<option value="totemlinks">TotemLinks</option>
-											<option value="tp_zelda">TP Zelda</option>
-											<option value="trogdor_the_burninator">Trogdor the Burninator</option>
-											<option value="tunic_color_link">Tunic Color Link</option>
-											<option value="twofaced">TwoFaced</option>
-											<option value="ty_the_tasmanian_tiger">Ty the Tasmanian Tiger</option>
-											<option value="ultros">Ultros</option>
-											<option value="umbreon">Umbreon</option>
-											<option value="valeera">Valeera</option>
-											<option value="vanillalink">VanillaLink</option>
-											<option value="vaporeon">Vaporeon</option>
-											<option value="vegeta">Vegeta</option>
-											<option value="vera">Vera</option>
-											<option value="vitreous">Vitreous</option>
-											<option value="vivi">Vivi</option>
-											<option value="vivian">Vivian</option>
-											<option value="wario">Wario</option>
-											<option value="white_mage">White Mage</option>
-											<option value="will">Will</option>
-											<option value="wixb">wixB</option>
-											<option value="wizzrobe">Wizzrobe</option>
-											<option value="wolf_link_festive">Wolf Link (Festive)</option>
-											<option value="wolf_link_tp">Wolf Link (TP)</option>
-											<option value="yoshi">Yoshi</option>
-											<option value="yunica_tovah">Yunica Tovah</option>
-											<option value="zandra">Zandra</option>
-											<option value="zaruvyen">Zaruvyen</option>
-											<option value="zebra_unicorn">Zebra Unicorn</option>
-											<option value="zeckemyro">Zeckemyro</option>
-											<option value="zelda">Zelda</option>
-											<option value="zero_suit_samus">Zero Suit Samus</option>
-											<option value="zora">Zora</option>
-										</select>									
-									</td>
-								</tr>
-								<tr>
-									<td>
-										Map:
-									</td>
-									<td>
-										<input checked id="mapno" value="N" type="radio" name="mapgroup" />
-										<label for="mapno">None</label>
-									</td>
-									<td>
-										<input id="mapyes" value="M" type="radio" name="mapgroup" />
-										<label for="mapyes">Normal</label>
-									</td>
-									<td>
-										<input id="mapsmall" value="C" type="radio" name="mapgroup" />
-										<label for="mapsmall">Compact</label>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										Use Spoiler Log: <span class="south" title="This will allow you to post a spoiler log after loading to populate items into the map<br>This feature is generally NOT allowed for tournaments! You must use spoiler logs generated from the ALTTPR Site, spoiler logs provided by bots will not be parsed properly (intentionally)." style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
-									</td>
-									<td>
-										<input id="spoilerno" value="N" type="radio" name="spoilergroup" checked />
-										<label for="spoilerno">No</label>
-									</td>
-									<td>
-										<input id="spoileryes" value="Y" type="radio" name="spoilergroup" />
-										<label for="spoileryes">Yes</label>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										Use Spheres: <span class="south" title="This will add additional sphere tracking functionality" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
-									</td>
-									<td>
-										<input id="sphereno" value="N" type="radio" name="spheregroup" checked />
-										<label for="sphereno">No</label>
-									</td>
-									<td>
-										<input id="sphereyes" value="Y" type="radio" name="spheregroup" />
-										<label for="sphereyes">Yes</label>
-									</td>
-								</tr>
-								<tr>
-									<td>
-										Use Autotracking: <span class="south" title="This will enable the autotracking listener, default on port 8080" style="font-size: 12px; color: red; cursor: pointer;">[?]</span>
-									</td>
-									<td>
-										<input id="autotrackingno" value="N" type="radio" name="autotrackinggroup" checked />
-										<label for="autotrackingno">No</label>
-									</td>
-									<td>
-										<input id="autotrackingyes" value="Y" type="radio" name="autotrackinggroup" />
-										<label for="autotrackingyes">Yes</label>
-									</td>
-									<td>
-										<label for="autotrackingport">Port:</label>
-										<input style="width: 50px" id="autotrackingport" value="8080" type="text" />
-									</td>
-								</tr>
-								<tr>
-									<td colspan="4">
-										<center><input type="checkbox" id="remembersettings"><label for="remembersettings" style="width: 220px">Remember Display Settings</label> <span class="south" title="This site uses a tracking cookie to remember your settings" style="font-size: 12px; color: red; cursor: pointer;">[?]</span></center>
-									</td>
-								</tr>
-							</table>
-						</td>
-					</tr>
-					<tr>
-						<td colspan="4">
-							<div id="snackbar">Settings Imported Successfully! Click to launch ==></div>						
-							<center><button type="button" class="launch" style="width: 400px; font-family: 'roboto_condensedregular', sans-serif; font-size: 50px; background-color: #BBB;" onclick="launch_tracker()">LAUNCH TRACKER</button></center>
-						</td>
-					</tr>
-				</table>
-			</div>
-		</div>
-	</body>
+   <head>
+      <title>ALTTP Randomizer Community Tracker - Launcher</title>
+      <script type="text/javascript" src="js/index.js?v=20001"></script>
+      <script type="text/javascript" src="js/jquery-3.3.1.js?v=20001"></script>
+      <script type="text/javascript" src="js/jquery.powertip.js?v=20001"></script>
+      <script type="text/javascript" src="js/bootstrap.min.js?v=20001"></script>
+      <link href="css/jquery.powertip.css?v=20001" rel="stylesheet" />
+      <link href="css/launcher.css?v=20001" rel="stylesheet">
+      <link href="css/fonts.css?v=20001" rel="stylesheet">
+      <link href="css/sprites.css?v=20001" rel="stylesheet">
+      <link href="css/toast.css?v=20001" rel="stylesheet">
+      <!-- Global site tag (gtag.js) - Google Analytics -->
+      <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3T0KM2W1L"></script>
+      <script>
+         $(function() {
+         	$('.south').powerTip({ placement: 's' });
+         });		
+         window.dataLayer = window.dataLayer || [];
+         function gtag(){dataLayer.push(arguments);}
+         gtag('js', new Date());
+         
+         gtag('config', 'G-Z3T0KM2W1L');
+      </script>
+      <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+      <meta http-equiv="Pragma" content="no-cache" />
+      <meta http-equiv="Expires" content="0" />
+      <link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
+      <link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
+      <link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
+   </head>
+   <body onload="load_cookie(); hideRestreaming();">
+      <div class="outer-wrapper">
+         <div>
+            <div class="header-main-div">
+               <a href="./index.html"><img src="./images/overlay/header.png" class="header-main-img"></a>
+               <div class="header-news-div" >
+                  <span class="default-white-text">Build 2.0.001 042322 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
+               </div>
+            </div>
+            <div class="header-links">
+               <a href="./release.html">
+                  <div class="header-link-img"><span class="header-text-span">Release Notes</span></div>
+               </a>
+               <a href="./instructions.html">
+                  <div class="header-link-img"><span class="header-text-span">Instructions</span></div>
+               </a>
+               <a href="./issues.html">
+                  <div class="header-link-img"><span class="header-text-span">Known Issues</span></div>
+               </a>
+               <a href="./contributors.html">
+                  <div class="header-link-img" ><span class="header-text-span">Contributors</span></div>
+               </a>
+               <a href="./downloads.html">
+                  <div class="header-link-img"><span class="header-text-span">Downloads</span></div>
+               </a>
+            </div>
+         </div>
+         <div class="main-wrapper">
+            <div class="preset-div">
+               <div class="preset-header" style="cursor: default;">
+                  Ladder Presets
+               </div>
+               <div>
+                  <span class="preset-btn-span">
+                  <input type="button" value="OPEN PLUS" class="preset-btn" onclick="loadhardopenpluspreset()" />
+                  </span>
+                  <span class="preset-btn-span">
+                  <input type="button" value="CASUAL BOOTS" class="preset-btn" onclick="loadbootspreset()" />
+                  </span>
+                  <span class="preset-btn-span">
+                  <input type="button" value="CROSSKEYS" class="preset-btn" onclick="loadcrosskeyspreset()" />
+                  </span>
+                  <span class="preset-btn-span">
+                  <input type="button" value="INVROSIA" class="preset-btn" onclick="loadinvrosiapreset()" />
+                  </span>
+                  <span class="preset-btn-span">
+                  <input type="button" value="MYSTERY" class="preset-btn" onclick="loadmysterypreset()" />
+                  </span>
+                  <span class="preset-btn-span">
+                  <input type="button" value="GRAB BAG" class="preset-btn" onclick="loadgrabbagpreset()" />
+                  </span>
+               </div>
+               <div class="preset-header" style="cursor: default;">
+                  Main Tournament Presets
+               </div>
+               <div>
+                  <span class="preset-btn-span">
+                  <input type="button" value="HARD OPEN" class="preset-btn" onclick="loadhardopenpluspreset()" />
+                  </span>
+                  <span class="preset-btn-span">
+                  <input type="button" value="KEYSANITY" class="preset-btn" onclick="loadopenkeyspreset()" />
+                  </span>
+                  <span class="preset-btn-span">
+                  <input type="button" value="AMBROSIA" class="preset-btn" onclick="loadambrosiapreset()" />
+                  </span>
+                  <span class="preset-btn-span">
+                  <input type="button" value="INVERTED KEYS" class="preset-btn" onclick="loadtinvertedkeyspreset()" />
+                  </span>
+                  <span class="preset-btn-span">
+                  <input type="button" value="MC BOSS SHUFFLE" class="preset-btn" onclick="loadmcbosspreset()" />
+                  </span>
+               </div>
+               <div class="preset-header" style="cursor: default;">
+                  Archived Presets
+               </div>
+               <div>
+                  <span class="preset-btn-span">
+                  <select id="archivepresetselect" class="sprite-dropdown">
+					<option value="ADKeysanity">AD Keysanity</option>
+					<option value="Ambrosia">Ambrosia</option>
+					<option value="CasualBoots">Casual Boots</option>
+					<option value="ChampionsSwordless">Champions Swordless</option>
+					<option value="Crosskeys">Crosskeys</option>
+					<option value="Enemizer">Enemizer</option>
+					<option value="GoldRush">Gold Rush</option>
+					<option value="InvertedADKeysanity">Inverted AD Keysanity</option>
+					<option value="InvertedKeysanity">Inverted Keysanity</option>
+					<option value="Invrosia">Invrosia</option>
+					<option value="LudicrousSpeed">Ludicrous Speed</option>
+					<option value="MCShuffle">MC Shuffle</option>
+					<option value="Open">Open</option>
+					<option value="OpenBoots">Open Boots</option>
+					<option value="OpenKeysanity">Open Keysanity</option>
+					<option value="HardOpenPlus">[Hard] Open [Plus]</option>
+					<option value="Potpourri">Potpourri</option>
+					<option value="ReducedCrystals">Reduced Crystals</option>
+					<option value="Retrance">Retrance</option>
+					<option value="Standard">[Hard] Standard</option>
+                  </select>
+                  </span>
+                  <span class="preset-btn-span">
+                  <input type="button" value="LOAD PRESET" class="preset-btn" onclick="loadarchivepreset()" />
+                  </span>
+               </div>
+               <div id="importflagsdiv">
+                  <div id="importflagsdiv" class="preset-header" style="cursor: default;">
+                     Import Flags
+                  </div>
+                  <div>
+                     <span class="preset-btn-span">
+                     Enter Seed URL: <span class="south tooltop-character" title="This will import the flags from the ALTTPR generator and import automatically. Does NOT work properly with some customizer settings, or when using in offline mode.">[?]</span>
+                     </span>
+                     <span class="preset-btn-span">
+                     <input type="text" id="importflag"/>
+                     </span>
+                     <span class="preset-btn-span">
+                     <input type="button" value="IMPORT FLAGS" class="preset-btn" onclick="importflags()" />
+                     </span>
+                  </div>
+               </div>
+            </div>
+            <div class="preset-div">
+               <div class="preset-header" onclick="togglediv('gameplay');">
+                  <span id="gameplayarrow">&#9660;</span> Gameplay Settings
+               </div>
+               <div id="gameplaydiv" style="display: none;">
+                  <div>
+                     <span class="preset-span-double">
+                     World State:
+                     </span>
+                     <span class="preset-span">
+                     <input id="gametypeopen" value="O" type="radio" name="gametypegroup" checked />
+                     <label for="gametypeopen" >Open</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="gametypestandard" value="S" type="radio" name="gametypegroup" />
+                     <label for="gametypestandard" >Standard</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="gametypeinverted" value="I" type="radio" name="gametypegroup" />
+                     <label for="gametypeinverted" >Inverted</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="gametyperetro" value="R" type="radio" name="gametypegroup" />
+                     <label for="gametyperetro" >Retro</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Entrance Shuffle:
+                     </span>
+                     <span class="preset-span">
+                     <input id="entrancenone" value="N" type="radio" name="entrancegroup" checked />
+                     <label for="entrancenone" >No</label>
+                     </span>
+                     <span class="preset-span-double">
+                     <input id="entrancesimple" value="S" type="radio" name="entrancegroup" />
+                     <label for="entrancesimple" >Simple/Restricted/Full/Crossed</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Door Shuffle:
+                     </span>
+                     <span class="preset-span">
+                     <input id="doornone" value="N" type="radio" name="doorgroup" checked />
+                     <label for="doornone" >No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="doorbasic" value="B" type="radio" name="doorgroup" />
+                     <label for="doorbasic" >Basic</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="doorcrossed" value="C" type="radio" name="doorgroup" />
+                     <label for="doorcrossed" >Crossed</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Overworld Shuffle: <span class="south tooltop-character" title="BETA! Expect improvements in the future. Glitches not implemented.">[?]</span>
+                     </span>
+                     <span class="preset-span">
+                     <input id="overworldno" value="N" type="radio" name="overworldgroup" checked />
+                     <label for="overworldno" >No</label>
+                     </span>
+                     <span class="preset-span-double">
+                     <input id="overworldyes" value="Y" type="radio" name="overworldgroup" />
+                     <label for="overworldyes" >Yes (Layout/Crossed/Mixed/Flute) <span class="south tooltop-character" title="Detailed settings to be specified in the Overworld Tracker window. All combinations of Parallel/Full Layout Shuffle, Crossed, Mixed and Flute Shuffle are supported." >[?]</span></label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Boss Shuffle:
+                     </span>
+                     <span class="preset-span">
+                     <input id="bossnone" value="N" type="radio" name="bossgroup" checked />
+                     <label for="bossnone" >No</label>
+                     </span>
+                     <span class="preset-span-double">
+                     <input id="bossshuffled" value="S" type="radio" name="bossgroup" />
+                     <label for="bossshuffled" >Simple/Full/Random</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Enemy Shuffle:
+                     </span>
+                     <span class="preset-span">
+                     <input id="enemynone" value="N" type="radio" name="enemygroup" checked />
+                     <label for="enemynone" >No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="enemyshuffled" value="S" type="radio" name="enemygroup" />
+                     <label for="enemyshuffled" >Shuffled</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Unknown Settings:
+                     </span>
+                     <span class="preset-span">
+                     <input id="unknownnone" value="N" type="radio" name="unknowngroup" checked />
+                     <label for="unknownnone" >No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="unknownmystery" value="M" type="radio" name="unknowngroup" />
+                     <label for="unknownmystery" >Mystery</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="unknowngrabbag" value="G" type="radio" name="unknowngroup" />
+                     <label for="unknowngrabbag" >Grab Bag</label>
+                     </span>
+                  </div>
+               </div>
+            </div>
+            <div class="preset-div">
+               <div class="preset-header" onclick="togglediv('logic');">
+                  <span id="logicarrow">&#9660;</span> Logic Settings
+               </div>
+               <div id="logicdiv" style="display: none;">
+                  <div>
+                     <span class="preset-span-double">
+                     Swords:
+                     </span>
+                     <span class="preset-span">
+                     <input checked id="swordsrandomized" value="R" type="radio" name="swordsgroup" />
+                     <label for="swordsrandomized">Randomized</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="swordsassured" value="A" type="radio" name="swordsgroup" />
+                     <label for="swordsassured">Assured</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="swordsvanilla" value="V" type="radio" name="swordsgroup" />
+                     <label for="swordsvanilla">Vanilla</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="swordsswordless" value="S" type="radio" name="swordsgroup" />
+                     <label for="swordsswordless">Swordless</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Shuffled Dungeon Items:
+                     </span>
+                     <span class="preset-span">
+                     <input id="shuffledmaps" type="checkbox" />
+                     <label for="shuffledmaps">Maps</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="shuffledcompasses" type="checkbox" />
+                     <label for="shuffledcompasses">Compasses</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="shuffledsmallkeys" type="checkbox" />
+                     <label for="shuffledsmallkeys">Small Keys</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="shuffledbigkeys" type="checkbox" />
+                     <label for="shuffledbigkeys" >Big Keys</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Ambrosia: <span class="south tooltop-character" title="This ensures there are no dungeon items (keys, maps, compasses) on bosses">[?]</span>
+                     </span>
+                     <span class="preset-span">
+                     <input id="ambrosiano" value="N" type="radio" name="ambrosiagroup" checked />
+                     <label for="ambrosiano">No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="ambrosiayes" value="Y" type="radio" name="ambrosiagroup" />
+                     <label for="ambrosiayes">Yes</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Non-Progressive Bows:</span>
+                     </span>
+                     <span class="preset-span">
+                     <input id="nonprogressivebowsno" value="N" type="radio" name="nonprogressivebowsgroup" checked />
+                     <label for="nonprogressivebowsno">No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="nonprogressivebowsyes" value="Y" type="radio" name="nonprogressivebowsgroup" />
+                     <label for="nonprogressivebowsyes">Yes</label>							
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Activated Flute:
+                     </span>
+                     <span class="preset-span">
+                     <input id="activatedfluteno" value="N" type="radio" name="activatedflutegroup" checked />
+                     <label for="activatedfluteno">No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="activatedfluteyes" value="Y" type="radio" name="activatedflutegroup" />
+                     <label for="activatedfluteyes">Yes</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Shopsanity:
+                     </span>
+                     <span class="preset-span">
+                     <input id="shopsanityno" value="N" type="radio" name="shopsanitygroup" checked />
+                     <label for="shopsanityno">No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="shopsanityyes" value="Y" type="radio" name="shopsanitygroup" />
+                     <label for="shopsanityyes">Yes</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Glitches: <span class="south tooltop-character" title="OWG glitches are currently implemented, need to be validated. Inverted/OWG is not currently implemented. Major/No Logic will show all locations available.">[?]</span>
+                     </span>
+                     <span class="preset-span">
+                     <input id="glitchesnone" value="N" type="radio" name="glitchesgroup" checked />
+                     <label for="glitchesnone">No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="glitchesoverworld" value="O" type="radio" name="glitchesgroup" />
+                     <label for="glitchesoverworld">Overworld</label>
+                     </span>
+                     <span class="preset-span-double">
+                     <input id="glitchesmajor" value="M" type="radio" name="glitchesgroup" />
+                     <label for="glitchesmajor">Major/No Logic</label>
+                     </span>
+                  </div>
+               </div>
+            </div>
+            <div class="preset-div">
+               <div class="preset-header" onclick="togglediv('goal');">
+                  <span id="goalarrow">&#9660;</span> Goal Settings
+               </div>
+               <div id="goaldiv" style="display: none;">
+                  <div>
+                     <span class="preset-span-double">
+                     Goal:
+                     </span>
+                     <span class="preset-span">
+                     <input id="goalganon" value="G" type="radio" name="goalgroup" checked />
+                     <label for="goalganon">Ganon</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="goalfast" value="F" type="radio" name="goalgroup" />
+                     <label for="goalfast">Fast Ganon</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="goaldungeons" value="A" type="radio" name="goalgroup" />
+                     <label for="goaldungeons">All Dungeons</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="goalpedestal" value="P" type="radio" name="goalgroup" />
+                     <label for="goalpedestal">Pedestal</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="goalother" value="O" type="radio" name="goalgroup" />
+                     <label for="goalother">Other</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Open Tower:
+                     </span>
+                     <span class="preset-span">
+                        <input id="goalcrystal" value="C" type="radio" name="towergroup" checked />
+                        <label for="goalcrystal" class="select-label">Crystals</label>
+                        <select id="towerselect" style="max-width: 40px;">
+                           <option value="0">0</option>
+                           <option value="1">1</option>
+                           <option value="2">2</option>
+                           <option value="3">3</option>
+                           <option value="4">4</option>
+                           <option value="5">5</option>
+                           <option value="6">6</option>
+                           <option value="7" selected>7</option>
+                        </select>
+                     </span>
+                     <span class="preset-span">
+                     <input id="goalrandom" value="R" type="radio" name="towergroup" />
+                     <label for="goalrandom">Random</label>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Ganon Vulnerable:
+                     </span>
+                     <span class="preset-span">
+                        <input id="ganoncrystal" value="C" type="radio" name="ganongroup" checked />
+                        <label for="ganoncrystal" class="select-label">Crystals</label>
+                        <select id="ganonselect" style="max-width: 40px;">
+                           <option value="0">0</option>
+                           <option value="1">1</option>
+                           <option value="2">2</option>
+                           <option value="3">3</option>
+                           <option value="4">4</option>
+                           <option value="5">5</option>
+                           <option value="6">6</option>
+                           <option value="7" selected>7</option>
+                        </select>
+                     </span>
+                     <span class="preset-span">
+                     <input id="ganonrandom" value="R" type="radio" name="ganongroup" />
+                     <label for="ganonrandom">Random</label>
+                     </span>
+                  </div>
+               </div>
+            </div>
+            <div class="preset-div">
+               <div class="preset-header" onclick="togglediv('starting');">
+                  <span id="startingarrow">&#9660;</span> Starting Items
+               </div>
+               <div id="startingdiv" style="display: none;">
+                  <div class="starting-inner-div">
+                     <div id="startingmoonpearl" class="item moonpearl" onClick="toggle('moonpearl',0)"></div>
+                     <div id="startingbow" class="item bow0" onclick="toggle('bow',1)"></div>
+                     <div id="startingboomerang" class="item boomerang0" onClick="toggle('boomerang',2)"></div>
+                     <div id="startinghookshot" class="item hookshot" onClick="toggle('hookshot',3)"></div>
+                     <div id="startingmushroom" class="item mushroom" onClick="toggle('mushroom',4)" ></div>
+                     <div id="startingpowder" class="item powder" onClick="toggle('powder',5)"></div>
+                     <div id="startingfirerod" class="item firerod" onClick="toggle('firerod',6)"></div>
+                     <div id="startingicerod" class="item icerod" onClick="toggle('icerod',7)"></div>
+                     <div id="startingbombos" class="item bombos" onClick="toggle('bombos',8)"></div>
+                     <div id="startingether" class="item ether" onClick="toggle('ether',9)"></div>
+                     <div id="startingquake" class="item quake" onClick="toggle('quake',10)"></div>
+                     <div id="startinglantern" class="item lantern" onClick="toggle('lantern',11)"></div>
+                     <div id="startinghammer" class="item hammer" onClick="toggle('hammer',12)"></div>
+                     <div id="startingshovel" class="item shovel" onClick="toggle('shovel',13)"></div>
+                     <div id="startingflute" class="item flute" onClick="toggle('flute',14)"></div>
+                     <div id="startingnet" class="item net" onClick="toggle('net',15)"></div>
+                     <div id="startingbook" class="item book" onClick="toggle('book',16)"></div>
+                     <div id="startingbottle" class="item bottle" onClick="toggle('bottle',17)"></div>
+                     <div id="startingsomaria" class="item somaria" onClick="toggle('somaria',18)"></div>
+                     <div id="startingbyrna" class="item byrna" onClick="toggle('byrna',19)"></div>
+                     <div id="startingcape" class="item cape" onClick="toggle('cape',20)"></div>
+                     <div id="startingmirror" class="item mirror" onClick="toggle('mirror',21)"></div>
+                     <div id="startingboots" class="item boots" onClick="toggle('boots',22)"></div>
+                     <div id="startingglove" class="item glove0" onClick="toggle('glove',23)"></div>
+                     <div id="startingflippers" class="item flippers" onClick="toggle('flippers',24)"></div>
+                     <div id="startingmagic" class="item magic" onClick="toggle('magic',25)"></div>
+                  </div>
+               </div>
+            </div>
+            <div id="restreamingpresetdiv" class="preset-div">
+               <div class="preset-header" onclick="togglediv('restream');">
+                  <span id="restreamarrow">&#9660;</span> Restreaming
+               </div>
+               <div id="restreamdiv" style="display: none;">
+                  <div>
+                     <span class="preset-span-double">
+                     Enter Code: <input style="width: 100px" id="restreamingcode" type="text" />
+                     </span>
+                     <span class="preset-btn-span">
+                     <input type="button" value="VALIDATE" class="preset-btn" onclick="validateRestreamCode()" />
+                     </span>
+                     <span class="preset-span" style="display: none;">
+                     <input id="restreamingno" value="N" type="radio" name="restreamgroup" checked />
+                     <label for="restreamingno">No</label>
+                     </span>
+                     <span class="preset-span" id="restreamingtrackerspan" style="display: none;">
+                     <input id="restreamingtracker" value="T" type="radio" name="restreamgroup" disabled />
+                     <label for="restreamingtracker">Racer/Tracker</label>
+                     </span>
+                     <span class="preset-span" id="restreamingrestreamerspan" style="display: none;">
+                     <input id="restreamingrestreamer" value="R" type="radio" name="restreamgroup" disabled />
+                     <label for="restreamingrestreamer">Restreamer</label>
+                     </span>
+                  </div>
+               </div>
+            </div>
+            <div class="preset-div">
+               <div class="preset-header-double">
+                  Display Settings
+               </div>
+               <div id="displaydiv" style="cursor: default;">
+                  <div>
+                     <span class="preset-span-double">
+                     Sprite: 
+                     </span>
+                     <span class="preset-span">
+                        <select id="spriteselect" class="sprite-dropdown">
+                           <option value="abigail">Abigail</option>
+                           <option value="adol">Adol</option>
+                           <option value="adventure_2600">Adventure 2600</option>
+                           <option value="aggretsuko">Aggretsuko</option>
+                           <option value="alice">Alice</option>
+                           <option value="angry_video_game_nerd">Angry Video Game Nerd</option>
+                           <option value="arcane">Arcane</option>
+                           <option value="arcticartemisfox">ArcticArtemisFox</option>
+                           <option value="aria">Aria</option>
+                           <option value="ark">Ark</option>
+                           <option value="ark_cape">Ark (Cape)</option>
+                           <option value="arrghus">Arrghus</option>
+                           <option value="astor">Astor</option>
+                           <option value="astronaut">Astronaut</option>
+                           <option value="asuna">Asuna</option>
+                           <option value="b_s_boy">B.S. Boy</option>
+                           <option value="b_s_girl">B.S. Girl</option>
+                           <option value="baba">Baba</option>
+                           <option value="baby_fro">Baby Fro</option>
+                           <option value="baby_metroid">Baby Metroid</option>
+                           <option value="badeline">Badeline</option>
+                           <option value="bananas_in_pyjamas">Bananas In Pyjamas</option>
+                           <option value="bandit">Bandit</option>
+                           <option value="batman">Batman</option>
+                           <option value="beau">Beau</option>
+                           <option value="bee">Bee</option>
+                           <option value="bel">Bel</option>
+                           <option value="bewp">Bewp</option>
+                           <option value="big_key">Big Key</option>
+                           <option value="birb">Birb</option>
+                           <option value="birb_of_paradise">Birb of Paradise</option>
+                           <option value="birdfruit">Birdfruit</option>
+                           <option value="birdo">Birdo</option>
+                           <option value="black_mage">Black Mage</option>
+                           <option value="blacksmith_link">Blacksmith Link</option>
+                           <option value="blazer">Blazer</option>
+                           <option value="blossom">Blossom</option>
+                           <option value="bob">Bob</option>
+                           <option value="bob_ross">Bob Ross</option>
+                           <option value="boco_the_chocobo">Boco the Chocobo</option>
+                           <option value="boo">Boo</option>
+                           <option value="boo_2">Boo 2</option>
+                           <option value="bottle_o_goo">Bottle o' Goo</option>
+                           <option value="botw_link">BotW Link</option>
+                           <option value="botw_zelda">BotW Zelda</option>
+                           <option value="bowser">Bowser</option>
+                           <option value="bowsette">Bowsette</option>
+                           <option value="bowsette_red">Bowsette (Red)</option>
+                           <option value="branch">Branch</option>
+                           <option value="brian">Brian</option>
+                           <option value="broccoli">Broccoli</option>
+                           <option value="bronzor">Bronzor</option>
+                           <option value="bubbles">Bubbles</option>
+                           <option value="bullet_bill">Bullet Bill</option>
+                           <option value="buttercup">Buttercup</option>
+                           <option value="cactuar">Cactuar</option>
+                           <option value="cadence">Cadence</option>
+                           <option value="captain_novolin">Captain Novolin</option>
+                           <option value="captain_toadette">Captain Toadette</option>
+                           <option value="carlsagan42">CarlSagan42</option>
+                           <option value="casual_zelda">Casual Zelda</option>
+                           <option value="cat_boo">Cat Boo</option>
+                           <option value="catgirl_hidari">Catgirl (Hidari)</option>
+                           <option value="cd_i_link">CD-i Link</option>
+                           <option value="celes">Celes</option>
+                           <option value="centaur_enos">Centaur Enos</option>
+                           <option value="charizard">Charizard</option>
+                           <option value="cheep_cheep">Cheep Cheep</option>
+                           <option value="chef_pepper">Chef Pepper</option>
+                           <option value="chibity">Chibity</option>
+                           <option value="chrizzz">Chrizzz</option>
+                           <option value="chrono">Chrono</option>
+                           <option value="cinna">Cinna</option>
+                           <option value="cirno">Cirno</option>
+                           <option value="clifford">Clifford</option>
+                           <option value="clippy">Clippy</option>
+                           <option value="cloud">Cloud</option>
+                           <option value="clyde">Clyde</option>
+                           <option value="conker">Conker</option>
+                           <option value="conker_neo">Conker Neo</option>
+                           <option value="cornelius">Cornelius</option>
+                           <option value="corona">Corona</option>
+                           <option value="crewmate">Crewmate</option>
+                           <option value="cucco">Cucco</option>
+                           <option value="cursor">Cursor</option>
+                           <option value="d_owls">D.Owls</option>
+                           <option value="dark_boy">Dark Boy</option>
+                           <option value="dark_girl">Dark Girl</option>
+                           <option value="dark_link">Dark Link</option>
+                           <option value="dark_link_tunic">Dark Link (Tunic)</option>
+                           <option value="dark_link_zelda_2">Dark Link (Zelda 2)</option>
+                           <option value="dark_panda">Dark Panda</option>
+                           <option value="dark_swatchy">Dark Swatchy</option>
+                           <option value="dark_zelda">Dark Zelda</option>
+                           <option value="dark_zora">Dark Zora</option>
+                           <option value="deadpool_mythic">Deadpool (Mythic)</option>
+                           <option value="deadpool_sirczah">Deadpool (SirCzah)</option>
+                           <option value="deadrock">Deadrock</option>
+                           <option value="decidueye">Decidueye</option>
+                           <option value="dekar">Dekar</option>
+                           <option value="demon_link">Demon Link</option>
+                           <option value="dennsen86">Dennsen86</option>
+                           <option value="diddy_kong">Diddy Kong</option>
+                           <option value="dig_dug">Dig Dug</option>
+                           <option value="dipper">Dipper</option>
+                           <option value="discord">Discord</option>
+                           <option value="dragonair">Dragonair</option>
+                           <option value="dragonite">Dragonite</option>
+                           <option value="drake_the_dragon">Drake The Dragon</option>
+                           <option value="eevee">Eevee</option>
+                           <option value="eggplant">Eggplant</option>
+                           <option value="eirika">Eirika</option>
+                           <option value="ema_skye">Ema Skye</option>
+                           <option value="emosaru">EmoSaru</option>
+                           <option value="espeon">Espeon</option>
+                           <option value="ezlo">Ezlo</option>
+                           <option value="fi">Fi</option>
+                           <option value="fierce_deity_link">Fierce Deity Link</option>
+                           <option value="figaro_merchant">Figaro Merchant</option>
+                           <option value="finn_merten">Finn Merten</option>
+                           <option value="finny_bear">Finny Bear</option>
+                           <option value="flavor_guy">Flavor Guy</option>
+                           <option value="floodgate_fish">Floodgate Fish</option>
+                           <option value="four_swords_link">Four Swords Link</option>
+                           <option value="fox_link">Fox Link</option>
+                           <option value="freya_crescent">Freya Crescent</option>
+                           <option value="frisk">Frisk</option>
+                           <option value="frog_link">Frog Link</option>
+                           <option value="fujin">Fujin</option>
+                           <option value="future_trunks">Future Trunks</option>
+                           <option value="gamer">Gamer</option>
+                           <option value="ganondorf">Ganondorf</option>
+                           <option value="garfield">Garfield</option>
+                           <option value="garnet">Garnet</option>
+                           <option value="garo_master">Garo Master</option>
+                           <option value="gbc_link">GBC Link</option>
+                           <option value="geno">Geno</option>
+                           <option value="gliitchwiitch">GliitchWiitch</option>
+                           <option value="glove_color_link">Glove Color Link</option>
+                           <option value="gobli">Gobli</option>
+                           <option value="gooey">Gooey</option>
+                           <option value="goomba">Goomba</option>
+                           <option value="goose">Goose</option>
+                           <option value="graalian_noob">Graalian Noob</option>
+                           <option value="grandpoobear">GrandPOOBear</option>
+                           <option value="gretis">Gretis</option>
+                           <option value="growlithe">Growlithe</option>
+                           <option value="gruncle_stan">Gruncle Stan</option>
+                           <option value="guiz">Guiz</option>
+                           <option value="hanna">Hanna</option>
+                           <option value="hardhat_beetle">Hardhat Beetle</option>
+                           <option value="hat_color_link">Hat Color Link</option>
+                           <option value="hat_kid">Hat Kid</option>
+                           <option value="head_link">Head Link</option>
+                           <option value="headless_link">Headless Link</option>
+                           <option value="heem">Heem</option>
+                           <option value="hello_kitty">Hello Kitty</option>
+                           <option value="hero_of_awakening">Hero of Awakening</option>
+                           <option value="hero_of_hyrule">Hero of Hyrule</option>
+                           <option value="hidari">Hidari</option>
+                           <option value="hint_tile">Hint Tile</option>
+                           <option value="hoarder_bush">Hoarder (Bush)</option>
+                           <option value="hoarder_pot">Hoarder (Pot)</option>
+                           <option value="hoarder_rock">Hoarder (Rock)</option>
+                           <option value="hollow_knight">Hollow Knight</option>
+                           <option value="hollow_knight_malmo\/winter">Hollow Knight (Malmo\/Winter)</option>
+                           <option value="homer_simpson">Homer Simpson</option>
+                           <option value="hornet">Hornet</option>
+                           <option value="horseman">Horseman</option>
+                           <option value="hotdog">Hotdog</option>
+                           <option value="hyrule_knight">Hyrule Knight</option>
+                           <option value="hyrule_soldier">Hyrule Soldier</option>
+                           <option value="ibazly">iBazly</option>
+                           <option value="ignignokt">Ignignokt</option>
+                           <option value="informant_woman">Informant Woman</option>
+                           <option value="inkling">Inkling</option>
+                           <option value="invisible_link">Invisible Link</option>
+                           <option value="jack_frost">Jack Frost</option>
+                           <option value="jason_frudnick">Jason Frudnick</option>
+                           <option value="jasp">Jasp</option>
+                           <option value="jogurt">Jogurt</option>
+                           <option value="juste_belmont">Juste Belmont</option>
+                           <option value="juzcook">Juzcook</option>
+                           <option value="kaguya">Kaguya</option>
+                           <option value="kain">Kain</option>
+                           <option value="katsura">Katsura</option>
+                           <option value="kecleon">Kecleon</option>
+                           <option value="kefka">Kefka</option>
+                           <option value="kenny_mccormick">Kenny McCormick</option>
+                           <option value="ketchup">Ketchup</option>
+                           <option value="kholdstare">Kholdstare</option>
+                           <option value="king_gothalion">King Gothalion</option>
+                           <option value="king_graham_v1_1">King Graham</option>
+                           <option value="kinu">Kinu</option>
+                           <option value="kira">Kira</option>
+                           <option value="kirby">Kirby</option>
+                           <option value="kirby_dreamland_3">Kirby (Dreamland 3)</option>
+                           <option value="koragi">Koragi</option>
+                           <option value="kore8">Kore8</option>
+                           <option value="korok">Korok</option>
+                           <option value="kriv">Kriv</option>
+                           <option value="lakitu">Lakitu</option>
+                           <option value="lapras">Lapras</option>
+                           <option value="league_mascot">League Mascot</option>
+                           <option value="lest">Lest</option>
+                           <option value="lestat">Lestat</option>
+                           <option value="lily">Lily</option>
+                           <option value="linja">Linja</option>
+                           <option value="link" selected>Link</option>
+                           <option value="link_zelda_1">Link (Zelda 1)</option>
+                           <option value="link_redrawn">Link Redrawn</option>
+                           <option value="little_hylian">Little Hylian</option>
+                           <option value="locke">Locke</option>
+                           <option value="lucario">Lucario</option>
+                           <option value="luffy">Luffy</option>
+                           <option value="luigi">Luigi</option>
+                           <option value="luna_maindo">Luna Maindo</option>
+                           <option value="lynel_botw">Lynel (BotW)</option>
+                           <option value="mad_tears">Mad_Tears</option>
+                           <option value="madeline">Madeline</option>
+                           <option value="magus">Magus</option>
+                           <option value="maiden">Maiden</option>
+                           <option value="majoras_mask">Majora's Mask</option>
+                           <option value="mallow_cat">Mallow (Cat)</option>
+                           <option value="manga_link">Manga Link</option>
+                           <option value="maple_queen">Maple Queen</option>
+                           <option value="marin">Marin</option>
+                           <option value="mario_classic">Mario (Classic)</option>
+                           <option value="mario_and_cappy">Mario and Cappy</option>
+                           <option value="marisa_kirisame">Marisa Kirisame</option>
+                           <option value="marvin_the_cat">Marvin the Cat</option>
+                           <option value="matthias">Matthias</option>
+                           <option value="meatwad">Meatwad</option>
+                           <option value="medallions">Medallions</option>
+                           <option value="medli">Medli</option>
+                           <option value="mega_man_classic">Mega Man (Classic)</option>
+                           <option value="megaman_x">Megaman X</option>
+                           <option value="megaman_x2">Megaman X2</option>
+                           <option value="mewlp">MewLp</option>
+                           <option value="mike_jones">Mike Jones</option>
+                           <option value="mimic">Mimic</option>
+                           <option value="mini_ganon">Mini Ganon</option>
+                           <option value="minish_cap_link">Minish Cap Link</option>
+                           <option value="minish_link">Minish Link</option>
+                           <option value="mipha">Mipha</option>
+                           <option value="missingno">missingno</option>
+                           <option value="moblin">Moblin</option>
+                           <option value="modern_link">Modern Link</option>
+                           <option value="mog">Mog</option>
+                           <option value="momiji_inubashiri">Momiji Inubashiri</option>
+                           <option value="moosh">Moosh</option>
+                           <option value="mouse">Mouse</option>
+                           <option value="ms_paint_dog">Ms. Paint Dog</option>
+                           <option value="nature_link">Nature Link</option>
+                           <option value="navi">Navi</option>
+                           <option value="navirou">Navirou</option>
+                           <option value="ned_flanders">Ned Flanders</option>
+                           <option value="negative_link">Negative Link</option>
+                           <option value="neosad">Neosad</option>
+                           <option value="neptune">Neptune</option>
+                           <option value="nes_link">NES Link</option>
+                           <option value="ness_earthbound">Ness</option>
+                           <option value="nia">Nia</option>
+                           <option value="niddraig">Niddraig</option>
+                           <option value="niko">Niko</option>
+                           <option value="ninten">Ninten</option>
+                           <option value="octorok">Octorok</option>
+                           <option value="old_man">Old Man</option>
+                           <option value="olde_man">Olde Man</option>
+                           <option value="ori">Ori</option>
+                           <option value="outline_link">Outline Link</option>
+                           <option value="paper_mario">Paper Mario</option>
+                           <option value="parallel_worlds_link">Parallel Worlds Link</option>
+                           <option value="paula">Paula</option>
+                           <option value="penguin_link">Penguin Link</option>
+                           <option value="pete_harvest_moon">Pete</option>
+                           <option value="phoenix_wright">Phoenix Wright</option>
+                           <option value="pikachu">Pikachu</option>
+                           <option value="pink_ribbon_link">Pink Ribbon Link</option>
+                           <option value="piranha_plant">Piranha Plant</option>
+                           <option value="plague_knight">Plague Knight</option>
+                           <option value="plouni">Plouni</option>
+                           <option value="poc_link">PoC Link</option>
+                           <option value="pokey">Pokey</option>
+                           <option value="pokey_subtle">Pokey (subtle)</option>
+                           <option value="pony">Pony</option>
+                           <option value="popoi">Popoi</option>
+                           <option value="poppy">Poppy</option>
+                           <option value="porg_knight">Porg Knight</option>
+                           <option value="power_ranger">Power Ranger</option>
+                           <option value="power_up_with_pride_mushroom">Power Up with Pride Mushroom</option>
+                           <option value="powerpuff_girl">Powerpuff Girl</option>
+                           <option value="pride_link">Pride Link</option>
+                           <option value="primm">Primm</option>
+                           <option value="princess_bubblegum">Princess Bubblegum</option>
+                           <option value="princess_peach">Princess Peach</option>
+                           <option value="prof_renderer_grizzleton">Prof. Renderer Grizzleton</option>
+                           <option value="psyduck">Psyduck</option>
+                           <option value="purple_chest">Purple Chest</option>
+                           <option value="pyro">Pyro</option>
+                           <option value="quadbanger">QuadBanger</option>
+                           <option value="rainbow_link">Rainbow Link</option>
+                           <option value="rat">Rat</option>
+                           <option value="red_mage">Red Mage</option>
+                           <option value="reimu_hakurei">Reimu Hakurei</option>
+                           <option value="remeer">Remeer</option>
+                           <option value="remus_r_black">Remus R Black</option>
+                           <option value="reverse_mail_order">Reverse Mail Order</option>
+                           <option value="rick_redacted">Rick</option>
+                           <option value="robo_link_9000">Robo-Link 9000</option>
+                           <option value="rocko">Rocko</option>
+                           <option value="rottytops">Rottytops</option>
+                           <option value="rover">Rover</option>
+                           <option value="roy_koopa">Roy Koopa</option>
+                           <option value="rumia">Rumia</option>
+                           <option value="rydia">Rydia</option>
+                           <option value="ryu">Ryu</option>
+                           <option value="sailor_jupiter">Sailor Jupiter</option>
+                           <option value="sailor_mars">Sailor Mars</option>
+                           <option value="sailor_mercury">Sailor Mercury</option>
+                           <option value="sailor_moon">Sailor Moon</option>
+                           <option value="sailor_venus">Sailor Venus</option>
+                           <option value="saitama">Saitama</option>
+                           <option value="samurott">Samurott</option>
+                           <option value="samus">Samus</option>
+                           <option value="samus_classic">Samus (Classic)</option>
+                           <option value="samus_super_metroid">Samus (Super Metroid)</option>
+                           <option value="santa_hat_link">Santa Hat Link</option>
+                           <option value="santa_link">Santa Link</option>
+                           <option value="scholar">Scholar</option>
+                           <option value="selan">Selan</option>
+                           <option value="sevens1ns">SevenS1ns</option>
+                           <option value="shadow">Shadow</option>
+                           <option value="shadow_sakura">Shadow Sakura</option>
+                           <option value="shantae">Shantae</option>
+                           <option value="shinmyoumaru_sakuna">Shinmyoumaru Sakuna</option>
+                           <option value="shuppet">Shuppet</option>
+                           <option value="shy_gal">Shy Gal</option>
+                           <option value="shy_guy">Shy Guy</option>
+                           <option value="sighnwaive">SighnWaive</option>
+                           <option value="skunk">Skunk</option>
+                           <option value="slime">Slime</option>
+                           <option value="slowpoke">Slowpoke</option>
+                           <option value="snes_controller">SNES Controller</option>
+                           <option value="sobble">Sobble</option>
+                           <option value="soda_can">Soda Can</option>
+                           <option value="sokka">Sokka</option>
+                           <option value="solaire_of_astora">Solaire of Astora</option>
+                           <option value="sonic_the_hedgehog">Sonic the Hedgehog</option>
+                           <option value="sora">Sora</option>
+                           <option value="sora_kh1">Sora (KH1)</option>
+                           <option value="spiked_roller">Spiked Roller</option>
+                           <option value="spongebob_squarepants">Spongebob Squarepants</option>
+                           <option value="spyro_the_dragon">Spyro the Dragon</option>
+                           <option value="squall">Squall</option>
+                           <option value="squirrel">Squirrel</option>
+                           <option value="squirtle">Squirtle</option>
+                           <option value="stalfos">Stalfos</option>
+                           <option value="stan">Stan</option>
+                           <option value="static_link">Static Link</option>
+                           <option value="steamed_hams">Steamed Hams</option>
+                           <option value="stick_man">Stick Man</option>
+                           <option value="super_bomb">Super Bomb</option>
+                           <option value="super_bunny">Super Bunny</option>
+                           <option value="super_meat_boy">Super Meat Boy</option>
+                           <option value="susie">Susie</option>
+                           <option value="swatchy">Swatchy</option>
+                           <option value="swiper">Swiper</option>
+                           <option value="tanooki_mario">Tanooki Mario</option>
+                           <option value="tasbot">TASBot</option>
+                           <option value="tea_time">Tea Time</option>
+                           <option value="terra_esper">Terra (Esper)</option>
+                           <option value="terry">Terry (Contact DS)</option>
+                           <option value="tetra">Tetra</option>
+                           <option value="tgh">TGH</option>
+                           <option value="the_professor">The Professor</option>
+                           <option value="the_pug">The Pug</option>
+                           <option value="thief">Thief</option>
+                           <option value="thinkdorm">ThinkDorm</option>
+                           <option value="thomcrow">Thomcrow</option>
+                           <option value="tile">Tile</option>
+                           <option value="tingle">Tingle</option>
+                           <option value="tmnt">TMNT</option>
+                           <option value="toad">Toad</option>
+                           <option value="toadette">Toadette</option>
+                           <option value="totemlinks">TotemLinks</option>
+                           <option value="tp_zelda">TP Zelda</option>
+                           <option value="trogdor_the_burninator">Trogdor the Burninator</option>
+                           <option value="tunic_color_link">Tunic Color Link</option>
+                           <option value="twofaced">TwoFaced</option>
+                           <option value="ty_the_tasmanian_tiger">Ty the Tasmanian Tiger</option>
+                           <option value="ultros">Ultros</option>
+                           <option value="umbreon">Umbreon</option>
+                           <option value="valeera">Valeera</option>
+                           <option value="vanillalink">VanillaLink</option>
+                           <option value="vaporeon">Vaporeon</option>
+                           <option value="vegeta">Vegeta</option>
+                           <option value="vera">Vera</option>
+                           <option value="vitreous">Vitreous</option>
+                           <option value="vivi">Vivi</option>
+                           <option value="vivian">Vivian</option>
+                           <option value="wario">Wario</option>
+                           <option value="white_mage">White Mage</option>
+                           <option value="will">Will</option>
+                           <option value="wixb">wixB</option>
+                           <option value="wizzrobe">Wizzrobe</option>
+                           <option value="wolf_link_festive">Wolf Link (Festive)</option>
+                           <option value="wolf_link_tp">Wolf Link (TP)</option>
+                           <option value="yoshi">Yoshi</option>
+                           <option value="yunica_tovah">Yunica Tovah</option>
+                           <option value="zandra">Zandra</option>
+                           <option value="zaruvyen">Zaruvyen</option>
+                           <option value="zebra_unicorn">Zebra Unicorn</option>
+                           <option value="zeckemyro">Zeckemyro</option>
+                           <option value="zelda">Zelda</option>
+                           <option value="zero_suit_samus">Zero Suit Samus</option>
+                           <option value="zora">Zora</option>
+                        </select>
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Map:
+                     </span>
+                     <span class="preset-span">
+                     <input checked id="mapno" value="N" type="radio" name="mapgroup" />
+                     <label for="mapno">None</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="mapyes" value="M" type="radio" name="mapgroup" />
+                     <label for="mapyes">Normal</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="mapsmall" value="C" type="radio" name="mapgroup" />
+                     <label for="mapsmall">Compact</label>	
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Spoiler Log: <span class="south tooltop-character" title="This will allow you to post a spoiler log after loading to populate items into the map<br>This feature is generally NOT allowed for tournaments! You must use spoiler logs generated from the ALTTPR Site, spoiler logs provided by bots will not be parsed properly (intentionally).">[?]</span>
+                     </span>
+                     <span class="preset-span">
+                     <input id="spoilerno" value="N" type="radio" name="spoilergroup" checked />
+                     <label for="spoilerno">No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="spoileryes" value="Y" type="radio" name="spoilergroup" />
+                     <label for="spoileryes">Yes</label>		
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Sphere Tracking: <span class="south tooltop-character" title="This will add additional sphere tracking functionality">[?]</span>
+                     </span>
+                     <span class="preset-span">
+                     <input id="sphereno" value="N" type="radio" name="spheregroup" checked />
+                     <label for="sphereno">No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="sphereyes" value="Y" type="radio" name="spheregroup" />
+                     <label for="sphereyes">Yes</label>	
+                     </span>
+                  </div>
+                  <div>
+                     <span class="preset-span-double">
+                     Autotracking: <span class="south tooltop-character" title="This will enable the autotracking listener, default on port 8080">[?]</span>
+                     </span>
+                     <span class="preset-span">
+                     <input id="autotrackingno" value="N" type="radio" name="autotrackinggroup" checked />
+                     <label for="autotrackingno">No</label>
+                     </span>
+                     <span class="preset-span">
+                     <input id="autotrackingyes" value="Y" type="radio" name="autotrackinggroup" />
+                     <label for="autotrackingyes">Yes</label>
+                     </span>
+                     <span class="preset-span">
+                     <label for="autotrackingport">Port:</label>
+                     <input style="width: 50px" id="autotrackingport" value="8080" type="text" />
+                     </span>							
+                  </div>
+                  <div>
+                     <span class="preset-span" style="min-width: 100%">
+                        <center><input type="checkbox" id="remembersettings"><label for="remembersettings" style="min-width: 184px;">Remember Display Settings</label> <span class="south tooltop-character" title="This site uses a tracking cookie to remember your settings">[?]</span></center>
+                     </span>
+                  </div>
+               </div>
+            </div>
+            <div>
+               <div id="snackbar">Settings Applied! Click to launch ==></div>
+               <center><button type="button" class="launch preset-btn" style="width: 400px; font-size: 50px;" onclick="launch_tracker()">LAUNCH TRACKER</button></center>
+            </div>
+         </div>
+      </div>
+   </body>
 </html>

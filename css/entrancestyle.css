@@ -592,3 +592,37 @@ body {
 #entranceMap137 { left: 91.7%; top: 13%; z-index: 2; }
 #entranceMap138 { left: 90.6%; top: 10%; z-index: 2; }
 #entranceMap139 { left: 92.9%; top: 10%; z-index: 2; }
+
+.grabbagtr {
+    border: 1px solid black;
+    cursor: pointer;
+    width: 140px;
+    height: 24px;
+    padding: 5px;
+}
+
+
+.entrancelocationdiv {
+	width: 50px;
+    height: 30px;
+	font-family: teko_light, Arial, Helvetica, sans-serif; 
+	font-variant: small-caps;	
+	background-image: url(../images/interface/entrancelocation.png);
+	cursor: pointer;
+    padding: 1px 0px 0px 3px;
+    font-size: 22px;
+	float: left;
+    margin-right: 3px;
+}
+
+.entranceModalGeneralInner { 
+	height: 90px; 
+}
+
+.entranceModalGeneralInnerSmall { 
+	height: 90px; 
+}
+
+.entranceModalGeneralInnerLarge { 
+	height: 120px; 
+}

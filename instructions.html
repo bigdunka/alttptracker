@@ -1,25 +1,29 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Instructions</title>
-		<script src="js/index.js"></script>
-		<link href="css/fonts.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
-		<style>
-			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; overflow: auto; }
-			label { width: 5em; display: inline-block; }
-			div { margin: 5px 0; }
-			a { color: lightblue; }
-			b { font-size: 22px; }
-			h2 { font-size: 36px; }
-			h3 { font-size: 30px; }
-		</style>
-		<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
-		<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
-		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
-		
+		<script type="text/javascript" src="js/index.js?v=20001"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20001"></script>
+		<script type="text/javascript" src="js/jquery.powertip.js?v=20001"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js?v=20001"></script>
+		<link href="css/jquery.powertip.css?v=20001" rel="stylesheet" />
+		<link href="css/launcher.css?v=20001" rel="stylesheet">
+		<link href="css/fonts.css?v=20001" rel="stylesheet">
+		<link href="css/sprites.css?v=20001" rel="stylesheet">
+		<link href="css/toast.css?v=20001" rel="stylesheet">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
 		<script>
-			const sectionnames = ['launcher','item','map','entrance','dungeon','overworld','auto'];
+			$(function() {
+				$('.south').powerTip({ placement: 's' });
+			});
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
 
+			gtag('config', 'G-Z3T0KM2W1L');
+			
+			const sectionnames = ['launcher','item','map','entrance','dungeon','overworld','auto'];
+			
 			function showsection(x) {
 				document.getElementById('launchersection').style.display = 'none';
 				document.getElementById('itemsection').style.display = 'none';
@@ -28,10 +32,10 @@
 				document.getElementById('dungeonsection').style.display = 'none';
 				document.getElementById('overworldsection').style.display = 'none';
 				document.getElementById('autosection').style.display = 'none';
-
+			
 				document.getElementById(x).style.display = 'block';
 			}
-
+			
 			function loadFromAnchor() {
 				let split = document.URL.toLowerCase().split('#');
 				if(split.length == 2 && sectionnames.includes(split[1]))
@@ -39,347 +43,498 @@
 					showsection(split[1]+'section');
 				}
 			}
-
+			
 			function start() {
 				window.addEventListener('hashchange',function(){loadFromAnchor();});
 				loadFromAnchor();
 			}
 		</script>
+		<style>
+			a { color: white; }
+		</style>
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
+		<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
+		<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
+		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
 	</head>
-	<body background="./images/overlay/background.png" onload="start()">
-		<div style="padding: 20px;">
-			<button type="button" onclick="window.location.href = 'index.html';" style="width: 200px; text-align: center; font-family: 'roboto_condensedregular', Arial, Helvetica, sans-serif;"><== RETURN TO MAIN</button><br><br>
-			<div style="width:300px; color: white; font-size: 24px; float: left;">
-				View Section<br><br>
-				<a href="#launcher" style="color: white">Using the Launcher</a><br>
-				<a href="#item" style="color: white">Using the Item Tracker</a><br>
-				<a href="#map" style="color: white">Using the Map Tracker</a><br>
-				<a href="#entrance" style="color: white">Using the Entrance Tracker</a><br>
-				<a href="#dungeon" style="color: white">Using the Dungeon Tracker</a><br>
-				<a href="#overworld" style="color: white">Using the Overworld Tracker</a><br>
-				<a href="#auto" style="color: white">Using the Autotracker</a><br>
+	<body onload="start()">
+		<div class="outer-wrapper">
+			<div>
+				<div class="header-main-div">
+					<a href="./index.html"><img src="./images/overlay/header.png" class="header-main-img"></a>
+					<div class="header-news-div" >
+						<span class="default-white-text">Build 2.0.001 042322 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
+					</div>
+				</div>
+				<div class="header-links">
+					<a href="./release.html">
+						<div class="header-link-img"><span class="header-text-span">Release Notes</span></div>
+					</a>
+					<a href="./instructions.html">
+						<div class="header-link-img"><span class="header-text-span">Instructions</span></div>
+					</a>
+					<a href="./issues.html">
+						<div class="header-link-img"><span class="header-text-span">Known Issues</span></div>
+					</a>
+					<a href="./contributors.html">
+						<div class="header-link-img" ><span class="header-text-span">Contributors</span></div>
+					</a>
+					<a href="./downloads.html">
+						<div class="header-link-img"><span class="header-text-span">Downloads</span></div>
+					</a>
+				</div>
+			</div>
+			<div class="main-wrapper">
+				<div class="preset-div">
+					<center>
+						<a href="#launcher">Using the Launcher</a> -  <a href="#item">Using the Item Tracker</a> - <a href="#map">Using the Map Tracker</a> - <a href="#entrance">Using the Entrance Tracker</a><br><a href="#dungeon">Using the Dungeon Tracker</a> - <a href="#overworld">Using the Overworld Tracker</a> - <a href="#auto">Using the Autotracker</a>
+					</center>
+				</div>
+				<div id="launchersection" class="preset-div">
+					<center>
+						<h2>Using the Launcher</h2>
+					</center>
+					There are several ways to use the Launcher to set your game modes. If you have a mode that has a listed preset, you can click on the button and it will automatically select the modes that you need and jump you to the bottom to select the custom Display Settings. Alternatively, you can import the seed URL into the Import Flags area and click Import Flags and it will automatically load them from the metadata. Please note, Customizer generated seeds, like Invrosia or Casual Boots, will not import all of their settings properly. Also, this feature will only work when using the online version and not the offline version, and will be removed from the launcher when running offline.<br>
+					<br>
+					<center><img src="./images/overlay/instructions1.png" style="width: 100%;"></center>
+					<br>
+					If you want to manually adjust your flags, the Gameplay Settings, Logic Settings, Goal Settings, and Starting Items can be adjusted to whatever mode you want. You can click on the header to expand the categories and adjust any flag that you want. If there are incompatibility issues with any of the modes, it will alert you when you start the tracker. Some modes have notes associated with them, which you can see by hovering over the [?] icons.<br>
+					<br>
+					<center><img src="./images/overlay/instructions2.png" style="width: 100%;"></center>
+					<br>
+					If you are using the tracker for restreaming, expand the section for Restreaming. First, enter in your supplied code into the Enter Code text field and click on Validate. As long as the code is correct, it will dispaly the proper section of which the code is supplied for, be it Restreamer or Racer/Tracker. You may then launch your tracker with the settings supplied. If you are a restreamer, you do not specifically need to set your settings, as it will be supplied by the Racer/Tracker. Also, you will not be allowed to click on anything on the tracker, but it will update every time a change has been made on the Racer/Tracker's tracker. If you are a Racer/Tracker, you can use your tracker as you normally would. This feature will only work when using the online version and not the offline version, and will be removed from the launcher when running offline.<br>
+					<br>
+					<center><img src="./images/overlay/instructions2b.png" style="width: 100%;"></center>
+					<br>
+					When you have your modes set, you can adjust any custom display settings at Display Settings at the bottom.<br>
+					<br>
+					<center><img src="./images/overlay/instructions3.png" style="width: 100%;"></center>
+					<br>
+					You can choose any of the provided custom Sprites by selecting it on the dropdown. There are three options for maps:<br>
+					None: This will only give you the item tracker and not the map tracker<br>
+					Normal: This will give you the normal map tracker displayed to the right of the item tracker<br>
+					Compact: This will give you a smaller version of the map tracker below the item tracker<br>
+					Use Spoiler log will allow you to upload a non-race version of the spoiler log, provided by the ALTTPR generator. This will give you an additional screen upon loading the tracker where you can upload your spoiler log and select items that you'd like to have ignored. Anything ignored will have their spots unchecked from the map tracker, and locations with what items are available will be noted when you hover over them.<br>
+					<br>
+					<center><img src="./images/overlay/instructions4.png"></center>
+					<br>
+					Use Spheres will load the sphere tracker. To use it, click on an item on the tracker, and then click on any of the ? squares on the sphere tracker. You can use this to determine what items are obtained logically behind other items, or track when you get an item out of sequence.<br>
+					<br>
+					<center><img src="./images/overlay/instructions5.png"></center>
+					<br>
+					Use Autotracking will enable the listener for autotracking, which defaults on port 8080. Once you have all of your options selected, you can click on Launch Tracker and it will pop up the tracker. Note, if you have popups blocked, it may require you to make an exception for it.<br>
+				</div>
+				<div id="itemsection" style="display: none;" class="preset-div">
+					<center>
+						<h2>Using the Item Tracker</h2>
+					</center>
+					Using the item tracker is fairly simple, as they are point and click, regardless if you use the map tracker or any additional options. All of the items are in order to match the item menu in the game for easy of menuing. Items that take up multiple spots and are important use split areas, like the Mushroom/Powder and Shovel/Flute. Those icons can be clicked independently. A couple items have multiple modes, which when you click on them multiple times, they cycle through options. These include the Bow, Gloves, Bottles, etc... There are also a couple of other locations where the icons are not always visible, like Swords and Shields. They have icons in the blank spaces above the sprite's raised arm and below the sprite's lowered arm. Clicking on the sprite itself will cycle through Green => Blue => Red mails. Clicking on the Moon Pearl will also cycle between the normal and bunny forms of your selected sprite. Above and to the left of the sprite shows the GT entry cost (shown by the top crystal icon and number) and the Ganon vulnerability count (shown by the bottom Ganon icon and number). If the count is static, these cannot be changed. If the Mystery flag is active, these can be changed. See more below about Mystery mode changes. Alternate goals, like All Dungeons and Pedestal, show different icons to designate the goal.<br>
+					<br>
+					<center><img src="./images/overlay/instructions6.png"></center>
+					<br>
+					Apart from the items, all of the dungeons, along with dungeon chests and options are always visible on the item tracker. Depending on the flags that are active, different options may be visible or hidden on the tracker, or show up differently. Each dungeon is shown with the dungeon's normal boss icon, and are shown on the left and bottom of the item tracker. The ? icon at the bottom right of the area is always visible and cycle through various known dungeon prizes with both left and right clicks. They cycle from Green Pendant => Blue/Red Pendant => Crystal => 5/6 Crystal => Map (Only available if maps are shuffled). Right clicking on the icon rotates backwards. Clicking on the boss will toggle between when a boss is defeated or not and will illuminate when it is marked as completed. Also always available will be the dungeon chest counts, which can be toggled through by left and right clicking on the chest icon. This will increment (left click) and decrement (right click) each count as you find items in the dungeon. An empty chest will show when all items are gone. Misery Mire and Turtle Rock also have medallion icons which can be cycled through with left and right clicks, to designate what medallion is required to open each dungeon. Ganon's Tower's chest count is listed under the sprite. At the bottom right corner of the item tracker are split icons for AGA1 and AGA2, to show when those bosses have been defeated.<br>
+					<br>
+					<center><img src="./images/overlay/instructions7.png"></center>
+					<br>
+					If more advanced flags are set, more icons will show up as available on the item tracker. The ? icon to the top left of each dungeon is for enemy shuffle mode and can be cycled through with all of the possible bosses with left and right clicking. This is more important for information and if you are using the map tracker, to show which bosses can and cannot be defeated. If wild keys or wild big keys are active, the chest icon will become smaller, but will function the same way with left and right clicks. If wild keys are active, there will be a count of your current small key count next to the key icon. This can be toggled with left and right clicks. If Retro mode is active, this will always override the wild small key flag, and will start with the maximum number of keys for each dungeon. These will decrement and increment backwards as wild keys, as it can be used to mark how many keys are required to clear each dungeon. Hyrule Castle and Castle Tower small keys are located to the right of the sprite and are marked with HC and CT headers. If wild big keys are selected, the big key icon will be shown next to each dungeon and can be clicked on to check on and off.
+					<br>
+					<center><img src="./images/overlay/instructions8.png"></center>
+					<br>
+					If the Mystery flag is active, there is a flag icon under the goal icon to the left of the sprite. Clicking on this icon will bring up an extra Mystery menu where you can change any of the flags that were selected from the launcher. This is so you can adjust the flags when you discover what each mode is. After clicking on Submit, any changes to the tracker will be made immediately. If you switch between Inverted and any non-Inverted World State, and you are using the map tracker, any checked off locations will also be reset.
+					<br>
+					<center><img src="./images/overlay/instructions9.png"></center>
+					<br>
+					If the Grab Bag flag is active, there is a bag icon under the goal icon to the left of the sprite. Clicking on this icon will bring up an extra Grab Bag matrix, where you can change any of the known settings to try to isolate the mode. The dropdown list will update with the available presets. Once you have determined what the preset is, you can click on Submit and it will automatically adjust the settings to what you have selected.
+					<br>
+					<center><img src="./images/overlay/instructions9b.png"></center>
+				</div>
+				<div id="mapsection" style="display: none;" class="preset-div">
+					<center>
+						<h2>Using the Map Tracker</h2>
+					</center>
+					If you have chosen to use the map tracker, it will appear to the left of the item tracker in normal mode, and below the item tracker in compact mode. For these examples, we will be using the normal map tracker, but the functionality is the same. Locations in the normal map tracker are split between overworld locations and dungeons. Overworld locations are shown with normal squares, where dungeons are shown by larger squares with adjustable icons in the middle. Each of these are also color coded and change depending on your item tracker, to show you what locations are available to be cleared. They go as follows:<br><br>
+					Green: Can be obtained<br>
+					Blue: Can be obtained, but may require dark room logical skips<br>
+					Yellow: Can possibly be obtained<br>
+					Purple: Can possibly be obtained, but require dark room logical skips<br>
+					Orange: Can be seen, but cannot be obtained<br>
+					Light Blue: Some, but not all, items can be obtained<br>
+					Red: Cannot be obtained<br>
+					Grey: Has been cleared<br><br>
+					All locations are color coded based off logical coding in the randomizer. It is possible to obtain items and reach locations by sequence breaking those locations, but the tracker will not show this, as it follows the game's logic. Each dungeon is color coded as well with an outer and inner color. The outer color is for items in the dungeon, and will change based off obtained items and when the item tracker's dungeon chest count changes, and matches the same color coding. (NOTE: Orange is not an option in dungeons, so items like the torch item in DP will be shown as red without Boots) The inner square shows a ? icon by default, and will rotate through pendants, crystals, and potentially maps, as you cycle through the icons next to the dungeons in the item tracker. The color coding in the inner square matches the same color coding and shows if the boss can be defeated or not. Clicking on each overworld location will check off if you have cleared the location or not. Clicking on the dungeon chests and dungeon icons on the item tracker will change the status of the dungeon locations on the map. Also, hovering over each location will show a text description of what each location is under the map.<br>
+					<br>
+					<center><img src="./images/overlay/instructions10.png" style="width: 100%;"></center>
+					<br>
+					As you continue to progress through the game and find more items, the statuses of each location will continue to change to inform you of what locations and dungeons can be obtained. Be sure to keep your item tracker up to date to show what is needed to finish each location. The different flags chosen will designate what logical locations are available to you.<br>
+					<br>
+					<center><img src="./images/overlay/instructions11.png" style="width: 100%;"></center>
+					<br>
+					If you have a location where you want to put in a reminder for an item, you can right click on the location on the map, and then left click on the item that you want to assign. In doing so, by hovering over the mark on the map, it will give you the item reminder text below the map.
+				</div>
+				<div id="entrancesection" style="display: none;" class="preset-div">
+					<center>
+						<h2>Using the Entrance Tracker</h2>
+					</center>
+					If you have chosen to use the map tracker in an entrance mode, it will show a different map tracker with all possible entrance locations, along with overworld locations. Each entrance is shown as a diamond and color coded similar to how the normal map tracker works, with green showing available entrances and red showing entrances that are not reachable. Squares on the map show overworld locations that are available. The blue eye icon at the bottom left of the Dark World portion of the map can be clicked to toggle if you want entrance lines visible, to show the connected entrances.<br>
+					<br>
+					<center><img src="./images/overlay/instructions12.png" style="width: 100%;"></center>
+					<br>
+					By left clicking on an entrance, it will check the entrance as cleared. To simplify the busy nature of the map in entrance mode, the icon is shown as a mostly invisible grey diamond. You can click on it again to re-show it, but this feature is to make the map more readable as your race progresses. Clicking on the squares for overworld locations will check off those locations as well. If you right click on an entrance, it will pull up an entrance menu. From here, you can perform various functions on the entrance. The name of the entrance will be at the top left of the menu. To the right of that will be an option to Add a Connector. More on how this works below. To the right of that will be a Note field, where you can type in a note about the location and press enter or click off of the menu, which will save the note. A small ? box will show up on the map above that location, which can be hovered over to show what the note says below the map. If there is a connector already established at the location, it will show the connected information in the Connected To line. Those connectors can be removed by clicking on the disconnect icon next to the name of the location. The bottom half of the menu will have a list of dungeons, key locations, and starting locations. By clicking on one of these, it will flag the location as an important location and it will tag the location on the map above the entrance's diamond with what you have selected. Dungeons are color coded as pink and key locations will be color coded as blue. If you make a mistake and need to change the tag, simply right click to the menu again and you can change it to whatever you want. Key locations are important to select! For example, the logic for the dam item is dependent on selecting the Dam key location on the entrance menu. Without it, it will not know if that item is obtainable or not.<br>
+					<br>
+					<center><img src="./images/overlay/instructions13.png" style="width: 100%;"></center>
+					<br>
+					To connect an entrance to another entrance, right click on the entrance to pull up the entrance menu, and click on the Add Connector icon. This will close the menu and bring you back to the map tracker, but a new icon will show at the bottom right of the Light World map area. This acts as a cancel button, which will cancel the action. To connect the entrance, simply click on the entrance that it connects to. The new logical reachable areas will change based off where you can now reach on the map.<br>
+					<br>
+					<center><img src="./images/overlay/instructions14.png" style="width: 100%;"></center>
+					<br>
+					If you have connector lines showing from clicking the eye button, it will also show you the connected line so you can visualize the connectors.<br>
+					<br>
+					<center><img src="./images/overlay/instructions15.png" style="width: 100%;"></center>
+					<br>
+					As a recommendation, when a dungeon is completed, or when a key location has been used and is no longer important, remove the information from the map. It can get quite busy and it will make it easier to read. If you want to view your known locations and entrances, you can click on the "notes" icon in the bottom right hand corner of light world, and it will bring up the known locations window.<br>
+					<br>
+					<center><img src="./images/overlay/instructions35.png" style="width: 100%;"></center>
+				</div>
+				<div id="dungeonsection" style="display: none;" class="preset-div">
+					<center>
+						<h2>Using the Dungeon Tracker</h2>
+					</center>
+					<span>(<a href="#overworld" style="color: white">For help with the Overworld Tracker which is located in the same window, click here!</a>)</span>
+					<br><br>
+					The Dungeon Tracker is a helpful tool when playing with Door Shuffle. It can help you remember paths in a dungeon for later, solve switch or key puzzles or remember which item is needed for a path.<br>
+					When <b>Door Shuffle</b> is enabled, click on the map icon next to the player sprite to open a new window with the Dungeon Tracker. If you have more space, we recommend enlarging this window so that more and longer paths can fit in there without needing to scroll.<br><br>
+					<br>
+					<center><img src="./images/overlay/instructions16.png" style="width: 100%;"></center>
+					<br>
+					<h3>What exactly is being tracked?</h3>
+					The main goal of this tracker is to require minimal clicking and searching so that you can focus on the game more and not have to pause (at least after getting used to it, you should take your time on your first seed with this tracker).<br>
+					This means you won't be clicking on every room with a branching path you come across and keeping track of all connections between these rooms. Instead, using this tracker can be compared to note-taking that complements your memory of your previous dungeon visits instead of fully replacing it.<br>
+					For each dungeon, as you are playing, you will be creating a list of paths. Each path consists of a concatenation of symbols (arrows, items, crystal switches and more) and complex or special rooms or entrances.<br>
+					As an example, the two paths in the image below may indicate "If I go right and then up from the entrance, I need the Cane of Somaria to continue." and "The path right and right from the entrance is done.".<br>
+					There is no right or wrong way to use the numerous symbols, the only thing that matters is that you know what your notes mean! The next section will go over the recommended usage for common scenarios during dungeon exploration.
+					<br><br>
+					<center><img src="./images/overlay/instructions34.png"></center>
+					<br>
+					<h3>Dungeon path tracking</h3>
+					<table style="color: #fff; font-size: 20px;">
+						<tr>
+							<td style="width: 100px"><b>Game:</b></td>
+							<td>You enter a dungeon.</td>
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>If on the overview screen, click on the respective dungeon, usually represented by its vanilla boss. Then, under <b>Start a new path</b>, click on the entrance you're taking (if there are multiple). If Lobby Shuffle is enabled, we recommend that you associate every entrance with a number, depending on the order in which you first came across them.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>You come across a branching point and pick one of the available directions that you'll be following next.</td>
+							<td rowspan="2"><img class="dtsymbol" src="images/dungeons/arrowright.png"><img class="dtsymbol" src="images/dungeons/quadranttopleft.png">
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Click on an arrow or quadrant marker that depicts the choice you made in the game. The symbols in the middle of the arrows can be used to depict a hole or warp tile in a specific quadrant of the room. It doesn't matter which symbol you choose as long as you understand what it means when you revisit this room later.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>You find a big branching point (hub-like room). In addition to marking the next direction, you want to remember the room itself for later.</td>
+							<td rowspan="2"><img class="dtsymbol" style="transform: rotate(180deg);" src="images/dungeons/arrowright.png">
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Click on <b>Insert room node</b> and then on the room you just found. By default, this will append this room to the current path, save it, and start a new path at this node. If you just want to insert the node and keep working on the current path, uncheck <b>Split path at this node</b> before clicking on the room. In Crossed, you can use the buttons at the top to filter how many and which rooms to display. Remember, you should only look for rooms here if they are big branching points or otherwise important rooms. Simpler branching paths should only be marked by arrows.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>You come across a crystal switch.</td>
+							<td rowspan="2"><img class="dtsymbol" src="images/dungeons/crystalswitch.png">
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Click on the crystal switch symbol. If a specific switch state is needed elsewhere, you might be able to use this switch for that.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>The path requires a specific crystal switch state (no matter the current state).</td>
+							<td rowspan="2"><img class="dtsymbol" src="images/dungeons/orangedown.png"><img class="dtsymbol" src="images/dungeons/bluedown.png">
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Click on the orange or blue peg symbol, whichever color needs to be down.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>You reached a dead end (and opened all chests if there were any), or looped back to a previous point and it's not worth remembering this loop for later (for a switch puzzle or routing convenience).</td>
+							<td rowspan="2"><img class="dtsymbol" src="images/dungeons/keychest0.png">
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Click on the opened chest symbol. This will mark this path as finished.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>You died on the way or for some other reason didn't continue this path and might need to repeat it later.</td>
+							<td rowspan="2"><img class="dtsymbol" src="images/dungeons/prize0.png">
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Click on the question mark symbol. This will mark this path as unfinished.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>An item you don't currently have is needed.</td>
+							<td rowspan="2"><img class="dtsymbol" style="width: 32px; height: 32px;" src="images/items/bow2.png"><img class="dtsymbol" src="images/dungeons/torch.png">
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Click on the symbol representing that item. Some symbols, like the torch, indicate that one of multiple items is needed.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>You are (for now) done with the current path (and marked it appropriately) and want to head back to the last branching point and take a different path from there. This usually happens after a dead end, looping back to a previous point or getting blocked by an item requirement.</td>
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Click on <b>Fork at last direction</b>. This will save the path you just finished traversing for later, and copy everything before the last branch to this new path you're creating now. The next click should be for the direction of the new path you're trying.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>You are (for now) done with the current path (and marked it appropriately) and want to either leave the dungeon or try a completely different path.</td>
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Click on <b>Save and close path</b>. This will save the path you just finished traversing for later, and return you to the path list of the current dungeon. If you want to leave the dungeon, click on its name or symbol at the top.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>You want to continue a previously unfinished path or create a new path based in some way on an existing path.</td>
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Click on the path and then on <b>Edit path</b>, <b>Duplicate</b> or <b>Fork</b>, depending on what best fits your need. Note that if you do this while editing another path, your changes won't get saved.</td>
+						</tr>
+						<tr>
+							<td><br></td>
+						</tr>
+						<tr>
+							<td><b>Game:</b></td>
+							<td>You have fully cleared the current dungeon and know that you won't ever have to come back to it for an item, the boss, the Thieves' Town attic bombable floor or a new connection to a different dungeon exit.</td>
+							<td rowspan="2"><img class="dtsymbol" src="images/dungeons/keychest0.png">
+						</tr>
+						<tr>
+							<td><b>Tracker:</b></td>
+							<td>Next to <b>Your paths</b>, click on <b>Mark dungeon completed</b>. This will send you back to the dungeon overview and there hide any item requirements that were added for this dungeon.</td>
+						</tr>
+					</table>
+					<br>
+					<center><img src="./images/overlay/instructions17.png"><img style="margin: 0px 8px;" src="./images/overlay/instructions18.png"><img src="./images/overlay/instructions25.png"></center>
+					<br>
+					Some additional ideas can be found by clicking on <b>Hints</b> when creating or editing a path.<br>
+					All of these are just recommendations. For every situation, it's up to you how you want to mark it. It will take some practice to get used to tracking while playing without losing time. At the beginning, don't hesitate to pause the game whenever you need more time to track properly.
+					<br><br>
+					<h3>Settings and saving</h3>
+					These should depend on the settings of the seed, but can be changed independently of the main tracker window based on preference.<br>
+					In <b>Crossed</b> Door Shuffle, the tracker allows you to place every symbol and almost every available rooms in any dungeon. In <b>Basic</b>, you can use the Flippers symbol and SP Hub node only in Swamp Palace, for example.<br>
+					If <b>Lobby Shuffle</b> is enabled, there are nodes for generic dungeon entrances and the Sanctuary can be used as an entrance point in any dungeon. Otherwise, the entrance rooms for every dungeon are fixed and the Sanctuary is always part of Hyrule Castle.<br>
+					You can decide whether <b>Small Keys</b> or <b>Big Keys</b> should be included in the dungeon overview. The main intention is that, if all keys are in their respective dungeons in your seed, information about where keys are needed is only important while in that dungeon.<br><br>
+					If your browser supports and permits Local Storage, you can save your entire tracking progress in this window by clicking on <b>Save data</b> to the right of <b>Manual save:</b>. If you continue playing the seed at some later point, just click on <b>Load data</b> to the left.<br>
+					Even if you forgot to save manually, there's a chance your progress is still automatically saved. Click on <b>Load data</b> next to <b>Auto-save:</b> to try.<br>
+					Your currently loaded tracked paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.<br><br>
+					Access the <b>Settings</b> menu by clicking on the cogwheel. The settings you can find here are automatically saved for future sessions.<br>
+					The <b>General</b> tab provides customization options for the theme of the tracker, and other behavior.<br>
+					The <b>Dungeons</b> tab lets you decide how many room nodes are displayed when you click on <b>Insert room node</b> while building a dungeon path in Crossed Door Shuffle. A basic explanation and a button that opens a preview are available below.
+					<br><br>
+					<h3>Example: Vanilla Palace of Darkness</h3>
+					Let us demonstrate the techniques described above with a specific example: Palace of Darkness like it would be without Door Shuffle. Lobby Shuffle will be off for this example.<br><br>
+					When you enter this dungeon in the game, in the dungeon tracker at the dungeon overview click on Helmasaur King to load Palace of Darkness.<br>
+					Under <b>Start a new path</b>, click on the entrance room. (If Lobby Shuffle was enabled, there would instead be a generic dungeon entrance to click on.)<br>
+					In the game, you start off with 3 choices: left staircase, door straight up or right staircase. First, take the left path. Click on a fitting arrow, like <img class="dtsymbol" style="width: 32px; height: 32px; transform: rotate(270deg);" src="images/dungeons/arrowrightup.png">, to append this symbol to the current path.<br>
+					The next room is a dead end that you don't ever have to return to. Open the chest and go back to the beginning. In the tracker, you can mark this dead end with <img class="dtsymbol" src="images/dungeons/keychest0.png">.<br>
+					<center><img src="./images/overlay/instructions22.png"></center>
+					Now you want to try a different path. To save the path you have just finished up and return to the last branching point, click on <b>Fork at last direction</b>.<br>
+					Next, click on <img class="dtsymbol" style="transform: rotate(270deg);" src="images/dungeons/arrowright.png"> to try the middle path.<br>
+					This path is blocked by a key door. Let us assume that you have a key, but want to try the other remaining path before spending it. Click on <img class="dtsymbol" src="images/dungeons/smallkey.png"> to mark what is blocking the path.<br>
+					<center><img src="./images/overlay/instructions23.png"></center>
+					Click on <b>Fork at last direction</b> and then try the right staircase by clicking on <img class="dtsymbol" style="transform: rotate(270deg);" src="images/dungeons/arrowrightdown.png">.<br>
+					The next couple rooms follow a linear path so you don't have to add any markers for them...until you get to the Mimics. You don't have a bow, so click on <img class="dtsymbol" style="width: 32px; height: 32px;" src="images/items/bow2.png"> and then either <b>Fork at last direction</b> or <b>Save and close path</b>. In the game, go back to the dungeon entrance.<br>
+					<center><img src="./images/overlay/instructions24.png"></center>
+					You decide to spend your key to follow the middle path. Either click on the up arrow again on a new path, or click on the path you have previously saved, then <b>Edit</b>, and continue from there. It's up to you if you want to keep the small key symbol or delete it with <b>Delete last step</b>.<br>
+					In the game, following this path, you get to what the tracker calls the Pit Room. There are a lot of branching paths from here, so if you want, you can insert a node specifically for this room into the path. Click on <b>Insert room node</b> and on the Pit Room.<br>
+					From here on, decide on the next path you want to try and mark every decision with an arrow or quadrant marker. Most rooms with branching paths don't have a unique node in the tracker as the intention for tracking is to require few clicks and not much searching for the right room.
+				</div>
+				<div id="overworldsection" style="display: none;" class="preset-div">
+					<center>
+						<h2>Using the Overworld Tracker</h2>
+					</center>
+					<span>(<a href="#dungeon" style="color: white">For help with the Dungeon Tracker which is located in the same window, click here!</a>)</span>
+					<br><br>
+					<div style="border: 2px dashed orange; padding: 4px; background-color: rgba(255,64,0,.125);">
+						<b>NOTE:</b> This tracking feature is still in beta state. Expect various things to change in the future.<br>
+						<span>We'd appreciate feedback. If you have suggestions, encountered a problem or simply want to say if this feature was helpful for you, feel free to message Catobat#4610 on Discord. Thank you!</span>
+					</div>
+					<br>
+					Overworld Shuffle is a new mode where tracking becomes much more important than usual.<br>
+					To access the Overworld Tracker, enable <b>Overworld Shuffle</b> in the launcher. In the main tracker window, click on the map icon next to the player sprite to open a new window with the Overworld Tracker. If you have more space, we recommend enlarging this window so that a larger overworld map and longer paths can fit in there.
+					<br><br>
+					<center><img src="./images/overlay/instructions26.png"><img style="margin-left: 8px;" src="./images/overlay/instructions27.png"></center>
+					<br>
+					<h3>First steps</h3>
+					When opening the Overworld Tracker window, you are first asked to select the overworld mode settings for your seed (or continue a previous session, see below). When you're done and you're sure the settings are correct, click on <b>Start, mode settings are final</b>. If you're not sure about a mode setting and it might change later, use <b>Start, mode settings may change</b>.<br>
+					If you want to start out with the least restrictive settings (anything can be connected to anything and marked as anything), and possibly narrow down the mode later on (Mystery seed), you can ignore the settings above and click on <b>Mystery mode (start with least restrictive settings)</b>.<br>
+					In either case, all settings can be changed later, though it's best to have them entered correctly from the start so the tracker can fill in certain screen transitions automatically (and doesn't fill in too much if you set the mode to something too restrictive). If you want to apply this automatic fill after changing the settings later (and finalizing them), click on <b>Make mode-specific transition adjustments</b> in the yellow box below the mode settings if it appears.<br>
+					For more information regarding the individual settings, see <b>Settings and saving</b> below. For the syncing process between the two tracker windows (items, connectors and logic), see <b>Items and sync</b> and <b>Sync logic and all data with main window</b>.<br>
+					Alternatively, if you want to continue with a previous session, go to <b>Restore previous session</b> near the bottom of the start page (or <b>Save and restore</b> on the main page at a later point) and use one of the buttons to load the respective saved data. Clicking on a button will show you the time when this save was created before confirming to load the data.<br>
+					Next, access the <b>Overworld Tracking</b> page by clicking on the overworld icon below <b>Overworld Tracker</b> at the top of the main page or in the sidebar. If Door Shuffle is disabled, you can consider this the hub page (otherwise, you'll be switching between this and the individual dungeons).<br>
+					The top of this page contains the <b>Full map</b> (which can be hidden with the arrow in the top-right), though it can also be accessed as a popout by clicking on one of the various <b>Full map</b> buttons throughout the tracker. If you have the sidebar enabled, you can even access this map from anywhere in the tracker without having to leave the page you're currently on! The use of this map of course depends on the mode you're playing, see the following sections for an explanation.<br>
+					Depending on the size of the window, you may want to check <b>Side by side</b> to fit both worlds on the screen at once. Otherwise, you can always use the <b>Switch worlds</b> button. The size of the map is handled automatically based on window size by default, but you can also choose to change the zoom level manually using the <b>-</b> and <b>+</b> buttons. You should always leave some free space at the bottom for buttons that pop up if you click on a screen or transition.<br>
+					If you know your Sanctuary (Dark Chapel in Inverted) save & quit spot will be vanilla (no Entrance or Door Shuffle), select <b>Sanctuary</b> (or <b>Dark Chapel</b>) under <b>Common starting locations</b> on the <b>Overworld Tracking</b> page. This is important for both the logic and finding convenient paths throughout the seed. For more information on these start locations and how to add save & quit spots in other places, read the <b>Common starting locations</b> section below.<br>
+					<br><br>
+					<h3>Parallel or Full Layout Shuffle: Tracking overworld transitions</h3>
+					The recommended way of tracking screen transitions is by opening the <b>Full map</b> which can be accessed from the top of the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which transitions are currently accessible and which transitions have been tracked so far.<br>
+					To track a transition, simply click on the edge you started from and then on the edge you ended up at. For convenience, for the second part only edges with a matching direction and ground type will light up. Certain overworld options such as <b>Keep Similar</b> can restrict the possible choices even further.<br>
+					As you will notice later, to be able to use the full potential of this tracker, you are expected to track every single overworld transition you take. Don't worry, it will easily be worth it!<br>
+					If you marked a transition wrong by accident, click on one of the affected edges and then <b>Delete connection</b> below the map.<br>
+					On the full map, you can see where certain transitions lead by moving the cursor over a screen or a single edge. However, for most cases, there is a much better way of finding out how to get back to a specific place: the <b>Search path</b> feature.
+					<br><br>
+					<center><img src="./images/overlay/instructions28.png"><img style="margin-left: 8px; vertical-align: top;" src="./images/overlay/instructions36.png"></center>
+					<center><img src="./images/overlay/instructions29.png" style="margin-top: 8px;"></center>
+					<br>
+					<h3>Crossed Overworld: Tracking overworld transitions</h3>
+					If this is combined with Parallel or Full Layout Shuffle, see the section above. The only difference is that transitions can now go across worlds. Such transitions will be marked with a cross.<br><br>
+					Otherwise, if the layout is vanilla:<br>
+					<b>Polar</b>: This option only has an effect if <b>Mixed Overworld</b> is enabled. All screen transitions are determined by the tracked screen states (see the section below).<br>
+					<b>Chaos</b>: Open the <b>Full map</b> which can be accessed from the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which transitions are currently accessible and which transitions have been tracked so far.<br>
+					If you want to track a transition that isn't yet tracked, click on the transition once to mark it as vanilla (same world) or twice to mark it as the crossed variant, indicated by a cross. Click a third time to reset it to the untracked state.<br>
+					When this option is combined with <b>Keep Similar</b>, clicking on one edge will affect all edges that are in the same group of similar edges.
+					<br><br>
+					<center><img src="./images/overlay/instructions30.png"></center>
+					<br>
+					<h3>Mixed Overworld: Tracking screen swaps</h3>
+					In Mixed, every overworld screen is in one of two states: normal or swapped. If it's in swapped state, the screen version that normally belongs to the Dark World is now part of the Light World.<br>
+					Open the <b>Full map</b> which can be accessed from the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which screen states have been tracked so far and which versions (Light and Dark World) belong to which world.<br>
+					Whenever you visit a screen for the first time, pay attention to its state, move the cursor to the question mark on that screen in the tracker and click on <b>Normal</b> or <b>Swapped</b> respectively.<br>
+					In case of a misclick, click on the screen that has accidentally been tracked and then on <b>Reset state</b> below the map.<br>
+					Tip: If you're unsure if you're currently looking at the Light World or Dark World map in the tracker, pay attention to the tree in the bottom-left corner in the desert/mire area. It will either be a Light World or Dark World tree depending on which world is being displayed behind it.
+					<br><br>
+					<center><img src="./images/overlay/instructions31.png"><img style="margin-left: 8px; vertical-align: top;" src="./images/overlay/instructions32.png"></center>
+					<br>
+					<h3>Flute Shuffle: Tracking flute spots</h3>
+					When <b>Flute Shuffle</b> is active, you need to tell the tracker where your flute spots are. Each overworld screen only has one possible position for a flute spot, so all you need to determine is which 8 screens contain a flute spot which you can tell just from looking at the flute menu.<br>
+					When you use the flute for the first time and you have marked your flute as activated in the tracker, the Kakariko screen on the <b>Full map</b> should have a <b>Set flute spots</b> button that brings you to the flute spot menu. Alternatively, you can click on <b>Edit flute spots</b> in the <b>Overworld Tracking</b> menu to access the flute spot menu.<br>
+					In the flute spot menu, click on a screen to toggle whether it contains a flute spot. The one in the desert/mire area is set by default so there should be 7 more flute spots to place. If all 8 are set, simply close the map or click on <b>Full map</b>.<br>
+					Note: Flute spots are only considered by the logic if the flute is marked as both collected and activated in the tracker. Check the <b>Items and sync</b> section below for more information!
+					<br><br>
+					<h3>Searching and finding paths</h3>
+					If you want to get back to a screen you have previously found, click on a button labelled <b>Search path</b> or <b>Search</b> and select a screen or preset. If you're already on the <b>Full map</b>, you can also select a screen first and then click on <b>Search path</b> below the map.<br>
+					The tracker will then compile a list of paths from all possible common starting locations (including flute spots if the flute is usable) to the selected target screen.<br>
+					If the target screen is divided into multiple logical regions (like Bonk Rocks and the rest on the Sanctuary screen), the tracker attempts to find paths to all of them. If the search result list is long, consider filtering them by fixing a target region with a button press (<b>Rocks</b> in the previous example). It can also be helpful to look at which screen edge each path ends, indicated by a gray square on the last screen.<br>
+					If, instead of (only) starting at the common start locations, you want to see if there's a quick path from your current location in the game, you can click on <b>Select screen</b> next to <b>Start: Common starting locations</b> and select a start screen. All logical regions of this screen are considered by default, but just like with the target, it can be restricted to a specified region.<br>
+					If a starting screen is selected, there are three different modes in which paths are shown: In <b>Must start here</b> (default), only paths that start on the selected screen are shown, but fluting and using a save & quit is permitted. With <b>Or from common</b>, (direct) paths that start at the selected screen or at common starts are mixed together. Use <b>No flute/quit</b> to only obtain direct paths (no fluting or save & quit) that start at the selected screen.<br>
+					By default, if you have the mirror, the search also considers possible mirror portal placements, but only at the start or target regions. Paths using mirror portals will never replace other paths in the list, they're just additional results. To disable this, uncheck <b>Mirror portals</b> next to <b>Options:</b>.<br>
+					If you currently have a <b>follower</b> that restricts your movement, like the red bomb (no ledges, connectors or save & quits), you can select the follower in the <b>Options:</b> row.<br>
+					Click on a path to view it with more details and lines connecting the edges of the screens. You can also click on <b>View on map</b> to attach the path to the full overworld map, highlighting screens that are on the path and numbering them, or <b>Pin for later</b> to permanently display it in a list on the <b>Overworld Tracking</b> page.<br>
+					Note: For this feature to work properly, it is important that you have the common starting locations, items and connectors set correctly. Please refer to the following sections for more information. In the tracker, the bottom of the page also has a checklist for common issues with quick tips.
+					<br><br>
+					<h3>Common starting locations</h3>
+					The common starting location list keeps track of locations you can quickly access from almost any point in the game. This list should generally only include save & quit spots and flute spots.<br>
+					By default, only <b>Link's House</b> and flute spots (once the flute is obtained and marked as active) are included, but depending on the game mode and your progress in the seed you might also want to check the boxes for <b>Sanctuary</b> entrance, <b>Mountain Cave</b> entrance or <b>Pyramid</b> screen (or the corresponding ones in Inverted or Mixed mode) if these vanilla save & quit spots are available in your seed.<br>
+					This list serves two purposes: It's used by the logic (a location is accessible if it can be reached from at least one starting location), and it's the default start region list when using the <b>Search path</b> feature.<br><br>
+					If you're playing with vanilla Entrances and Doors, you don't need to worry about adding locations to this list other than the ones in the checkboxes. If, for example, you're playing with Entrance Shuffle, you can add the places that the Sanctuary exit and the Old Man Cave exit(s) lead to.<br>
+					To add a region that's neither in a checkbox and nor a flute spot, open the <b>Full map</b>, click on the respective screen and, if there is a choice, choose a region that you think fits best below the map.
+					<br><br>
+					<h3>Items and sync</h3>
+					By default, your current item inventory gets sent from the main tracker window to this window.<br>
+					If you only use this Overworld Tracker in combination with another item/map tracker, don't forget to also mark certain items here in the <b>Overworld Tracking</b> menu!<br>
+					Below the item list is a checkbox that determines if the flute is currently active. This information is important for the logic. This can also be set through the <b>Full map</b> by clicking on the <b>Flute activated</b> button after the flute was obtained.<br>
+					If item (or connector) changes in the main window are somehow no longer being received even though <b>Sync with main window</b> is enabled (this can happen if a window was refreshed or the main window switched between vanilla and shuffled Entrances in Mystery mode), there is a way you can fix this problem:<br>
+					In the overworld window, go back to the start page. Under <b>Save and restore</b> and next to <b>Manual save:</b>, click on <b>Save data</b>. Close this window. In the item tracker window, click on the map icon next to the player sprite to open a new Overworld Tracker window. Finally, click on <b>Load manual save</b> under <b>Restore previous session</b> (or at a later point <b>Load data</b> next to <b>Manual save:</b> on the main page) to get your tracking progress back.
+					<br><br>
+					<h3>Sync logic and all data with main window</h3>
+					If you are also using the Community Tracker for item and map tracking, the logic from the Overworld Tracker can be used by the map tracker in the main tracker window. (This also means that the map tracker considers you responsible for telling the Overworld Tracker about flute activation and your save & quit spots!)<br>
+					This is enabled by default. If you want to disable this functionality, uncheck <b>Sync logic and all data with main window</b> below the mode options. Note that, in this case, the main window logic will ignore Overworld Shuffle completely.<br>
+					Enabling this full sync between the two tracker windows also means that items and connector caves will be shared between both windows. Please refer to the previous section for more information on that.<br>
+					Note: It is very important that the tracker has been opened through the Community Tracker launcher and that some kind of <b>Overworld Shuffle</b> has been enabled in the launcher. All non-overworld-specific mode settings should also be correctly set there as these will also be used by the Overworld Tracker logic.
+					<br><br>
+					<h3>Connector caves</h3>
+					If <b>Entrance Shuffle</b> is disabled, there are a few checkboxes below the items you can use to tell the tracker logic which dungeon connectors you can currently use. If, in addition, <b>Door Shuffle</b> is enabled, a couple more checkboxes are displayed.<br>
+					If <b>Entrance Shuffle</b> is enabled, by default all connectors you marked on the map tracker get sent from the main tracker window to this window. Connectors then start at the entrance you clicked first and end on the second clicked one.<br>
+					However, mostly for routing purposes, it can be helpful for this tracker to know if a connector is also usable in the other direction. If this is the case (and you currently have the items needed to do so), we recommend clicking on <b>Both directions</b> when you're getting asked by the tracker. Otherwise, click on <b>Only one direction</b>. This can be changed later by clicking on the connector on the <b>Overworld Tracking</b> page.<br>
+					If you are not using the built-in Entrance map tracker to mark connectors, make sure to disable <b>Sync with main</b> above the connector list. This will allow you do add or remove connectors from within this window.<br>
+					To add a connector in this manner, go to the <b>Full map</b>, click on the screen where the connector starts, and click on <b>New connector</b>. Then, click on the screen where the connector ends, maybe fill in region details depending on the screens, and determine whether you are currently able to also use this connector in the other direction, too.
+					<br><br>
+					<center><img src="./images/overlay/instructions33.png"></center>
+					<br>
+					<h3>Settings and saving</h3>
+					These should depend on the settings of the seed so the logic can work properly. See the sections above for explanations on how tracking the individual Overworld Shuffle modes works.<br>
+					Enabling one of the <b>Layout Shuffle</b> options allows you to track screen transitions. With <b>Parallel</b>, tracking an overworld transition in one world will automatically also mark the corresponding transition in the other world if a such parallel version exists. <b>Full</b> doesn't have this restriction.<br>
+					The <b>Keep Similar</b> option should be checked when the seed was rolled with the <b>Keep Similar Edges Together</b> option to quickly fill in groups of transitions.<br>
+					<b>Crossed Overworld</b> allows you to connect edges between the Light World and Dark World, even if the layout is vanilla.<br>
+					In <b>Mixed Overworld</b>, you can mark every overworld screen as normal or swapped.<br>
+					When <b>Flute Shuffle</b> is enabled, the 8 flute spots are assumed to not be vanilla and will have to be marked.<br>
+					The <b>World State</b> option needs to be set correctly to let the tracker now if the Inverted rules apply.<br>
+					If some kind of <b>Entrance Shuffle</b> is enabled, the corresponding box should be checked to let the tracker know if the connector caves will be vanilla.<br>
+					Changing the mode may cause a yellow box with a button labelled <b>Make mode-specific transition adjustments</b> to appear. If all settings are final, we recommend clicking on this button. This will connect all transitions that are guaranteed to be vanilla with your selected seed settings.<br><br>
+					If your browser supports and permits Local Storage, you can save your entire tracking progress in this window by clicking on <b>Save data</b> to the right of <b>Manual save:</b>. If you continue playing the seed at some later point, just click on <b>Load data</b> to the left.<br>
+					Even if you forgot to save manually, there's a chance your progress is still automatically saved. Click on <b>Load data</b> next to <b>Auto-save:</b> to try.<br>
+					Your currently loaded tracked transitions, states and paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.<br><br>
+					Access the <b>Settings</b> menu by clicking on the cogwheel. The settings you can find here are automatically saved for future sessions.<br>
+					The <b>General</b> tab provides customization options for the theme of the tracker, and other behavior.<br>
+					The <b>Overworld</b> tab contains settings for the full overworld map, and the default behavior for new overworld searches.
+				</div>
+				<div id="autosection" style="display: none;" class="preset-div">
+					<center>
+						<h2>Using the Autotracker</h2>
+					</center>
+					NOTE: The below setup is one way to configure auto tracking, it is not the ONLY way to do it. Please refer to your hardware/software packages to determine the best way to run it for your setup<br>
+					<br>
+					If you have chosen to use the auto tracker, you will need to be sure to have your setup configured so that the tracker can communicate with your rom. The Community Tracker requires the use of qusb2snes, which can be downloaded here: <a href="https://skarsnik.github.io/QUsb2snes/" target="_blank">https://skarsnik.github.io/QUsb2snes/</a> and follow the instructions on how to download and install for your operating system.<br>
+					<br>
+					To activate the auto tracker from the Launcher, be sure that Yes is selected in the Use Autotracking option under Display Settings, and you can manually type in a listening port. It defaults to 8080. If you have Remember Display Settings set, it will auto load your settings when you launch the tracker.<br>
+					<br>
+					<center><img src="./images/overlay/instructions19.png" style="width: 100%;"></center>
+					<br>
+					Start up qusb2snes by clicking on your startup executable. For example, in Windows, it is QUsb2Snes.exe.<br>
+					<br>
+					<center><img src="./images/overlay/instructions20.png" style="width: 100%;"></center>
+					<br>
+					Launch the Community Tracker with the Autotracking selection live and on the correct listening port. You will get a message from qusb2snes to allow for the tracker to communicate. You will need to click on Yes to allow.<br>
+					<br>
+					<center><img src="./images/overlay/instructions21.png" style="width: 100%;"></center>
+					<br>
+					You will need a device that is able to sent Lua Scripting, be it via your hardware or emulator. For emulator, we can recommend using snes9x-rr, located here: <a href="https://github.com/gocha/snes9x-rr/releases" target="_blank">https://github.com/gocha/snes9x-rr/releases</a>, but please refer to your hardware and software setup on how to enable Lua scripting. Please refer to the current <a href="https://link.alttpr.com/autotracking" target="_blank">ALTTPR Race Legal Rules</a> for more information on what can and cannot be tracked.
+				</div>
 			</div>
 		</div>
-		<div id="launchersection" class="instructionsDiv">
-			<center><h2>Using the Launcher</h2></center>
-			There are several ways to use the Launcher to set your game modes. If you have a mode that has a listed preset, you can click on the button and it will automatically select the modes that you need and jump you to the bottom to select the custom Display Settings. Alternatively, you can import the seed hash (Not the game hash) into the Import Flags area and click Import Flags and it will automatically load them from the metadata. Please note, Customizer generated seeds, like Invrosia or Casual Boots, will not import all of their settings properly.<br>
-			<br>
-			<center><img src="./images/overlay/instructions1.png"></center>
-			<br>
-			If you want to manually adjust your flags, the Gameplay, Logic, Goal, and Difficulty Settings can be adjusted to whatever mode you want. If there are incompatibility issues with any of the modes, it will alert you when you start the tracker. Some modes have notes associated with them, which you can see by hovering over the [?] icons.<br>
-			<br>
-			<center><img src="./images/overlay/instructions2.png"></center>
-			<br>
-			When you have your modes set, you can adjust any custom display settings at Display Settings at the bottom.<br>
-			<br>
-			<center><img src="./images/overlay/instructions3.png"></center>
-			<br>
-			You can choose any of the provided custom Sprites by selecting it on the dropdown. There are three options for maps:<br>
-			None: This will only give you the item tracker and not the map tracker<br>
-			Normal: This will give you the normal map tracker displayed to the right of the item tracker<br>
-			Compact: This will give you a smaller version of the map tracker below the item tracker<br>
-			Use Spoiler log will allow you to upload a non-race version of the spoiler log, provided by the ALTTPR generator. This will give you an additional screen upon loading the tracker where you can upload your spoiler log and select items that you'd like to have ignored. Anything ignored will have their spots unchecked from the map tracker, and locations with what items are available will be noted when you hover over them.<br>
-			<br>
-			<center><img src="./images/overlay/instructions4.png"></center>
-			<br>
-			Use Spheres will load the sphere tracker. To use it, click on an item on the tracker, and then click on any of the ? squares on the sphere tracker. You can use this to determine what items are obtained logically behind other items, or track when you get an item out of sequence.<br>
-			<br>
-			<center><img src="./images/overlay/instructions5.png"></center>
-			<br>
-			Use Autotracking will enable the listener for autotracking, which defaults on port 8080. Once you have all of your options selected, you can click on Launch Tracker and it will pop up the tracker. Note, if you have popups blocked, it may require you to make an exception for it.<br>
-		</div>
-
-		<div id="itemsection" style="display: none;" class="instructionsDiv">
-			<center><h2>Using the Item Tracker</h2></center>
-			Using the item tracker is fairly simple, as they are point and click, regardless if you use the map tracker or any additional options. All of the items are in order to match the item menu in the game for easy of menuing. Items that take up multiple spots and are important use split areas, like the Mushroom/Powder and Shovel/Flute. Those icons can be clicked independently. A couple items have multiple modes, which when you click on them multiple times, they cycle through options. These include the Bow, Gloves, Bottles, etc... There are also a couple of other locations where the icons are not always visible, like Swords and Shields. They have icons in the blank spaces above the sprite's raised arm and below the sprite's lowered arm. Clicking on the sprite itself will cycle through Green => Blue => Red mails. Clicking on the Moon Pearl will also cycle between the normal and bunny forms of your selected sprite. Above and to the left of the sprite shows the GT entry cost (shown by the top crystal icon and number) and the Ganon vulnerability count (shown by the bottom Ganon icon and number). If the count is static, these cannot be changed. If the Mystery flag is active, these can be changed. See more below about Mystery mode changes. Alternate goals, like All Dungeons and Pedestal, show different icons to designate the goal.<br>
-			<br>
-			<center><img src="./images/overlay/instructions6.png"></center>
-			<br>
-			Apart from the items, all of the dungeons, along with dungeon chests and options are always visible on the item tracker. Depending on the flags that are active, different options may be visible or hidden on the tracker, or show up differently. Each dungeon is shown with the dungeon's normal boss icon, and are shown on the left and bottom of the item tracker. The ? icon at the bottom right of the area is always visible and cycle through various known dungeon prizes with both left and right clicks. They cycle from Green Pendant => Blue/Red Pendant => Crystal => 5/6 Crystal => Map (Only available if maps are shuffled). Right clicking on the icon rotates backwards. Clicking on the boss will toggle between when a boss is defeated or not and will illuminate when it is marked as completed. Also always available will be the dungeon chest counts, which can be toggled through by left and right clicking on the chest icon. This will increment (left click) and decrement (right click) each count as you find items in the dungeon. An empty chest will show when all items are gone. Misery Mire and Turtle Rock also have medallion icons which can be cycled through with left and right clicks, to designate what medallion is required to open each dungeon. Ganon's Tower's chest count is listed under the sprite. At the bottom right corner of the item tracker are split icons for AGA1 and AGA2, to show when those bosses have been defeated.<br>
-			<br>
-			<center><img src="./images/overlay/instructions7.png"></center>
-			<br>
-			If more advanced flags are set, more icons will show up as available on the item tracker. The ? icon to the top left of each dungeon is for enemy shuffle mode and can be cycled through with all of the possible bosses with left and right clicking. This is more important for information and if you are using the map tracker, to show which bosses can and cannot be defeated. If wild keys or wild big keys are active, the chest icon will become smaller, but will function the same way with left and right clicks. If wild keys are active, there will be a count of your current small key count next to the key icon. This can be toggled with left and right clicks. If Retro mode is active, this will always override the wild small key flag, and will start with the maximum number of keys for each dungeon. These will decrement and increment backwards as wild keys, as it can be used to mark how many keys are required to clear each dungeon. Hyrule Castle and Castle Tower small keys are located to the right of the sprite and are marked with HC and CT headers. If wild big keys are selected, the big key icon will be shown next to each dungeon and can be clicked on to check on and off.
-			<br>
-			<center><img src="./images/overlay/instructions8.png"></center>
-			<br>
-			If the Mystery flag is active, there is a flag icon under the goal icon to the left of the sprite. Clicking on this icon will bring up an extra Mystery menu where you can change any of the flags that were selected from the launcher. This is so you can adjust the flags when you discover what each mode is. After clicking on Submit, any changes to the tracker will be made immediately. If you change the Entrance Shuffle selection, the tracker will be reloaded and any selections that you have been made will be reset. This is normally one of the first things that would be changed anyway, so very little progress will likely be lost. If you switch between Inverted and any non-Inverted World State, and you are using the map tracker, any checked off locations will also be reset.
-			<br>
-			<center><img src="./images/overlay/instructions9.png"></center>
-			<br>
-		</div>
-
-		<div id="mapsection" style="display: none;" class="instructionsDiv">
-			<center><h2>Using the Map Tracker</h2></center>
-			If you have chosen to use the map tracker, it will appear to the left of the item tracker in normal mode, and below the item tracker in compact mode. For these examples, we will be using the normal map tracker, but the functionality is the same. Locations in the normal map tracker are split between overworld locations and dungeons. Overworld locations are shown with normal squares, where dungeons are shown by larger squares with adjustable icons in the middle. Each of these are also color coded and change depending on your item tracker, to show you what locations are available to be cleared. They go as follows:<br><br>
-			Green: Can be obtained<br>
-			Blue: Can be obtained, but may require dark room logical skips<br>
-			Yellow: Can possibly be obtained<br>
-			Purple: Can possibly be obtained, but require dark room logical skips<br>
-			Orange: Can be seen, but cannot be obtained<br>
-			Light Blue: Some, but not all, items can be obtained<br>
-			Red: Cannot be obtained<br>
-			Grey: Has been cleared<br><br>
-			All locations are color coded based off logical coding in the randomizer. It is possible to obtain items and reach locations by sequence breaking those locations, but the tracker will not show this, as it follows the game's logic. Each dungeon is color coded as well with an outer and inner color. The outer color is for items in the dungeon, and will change based off obtained items and when the item tracker's dungeon chest count changes, and matches the same color coding. (NOTE: Orange is not an option in dungeons, so items like the torch item in DP will be shown as red without Boots) The inner square shows a ? icon by default, and will rotate through pendants, crystals, and potentially maps, as you cycle through the icons next to the dungeons in the item tracker. The color coding in the inner square matches the same color coding and shows if the boss can be defeated or not. Clicking on each overworld location will check off if you have cleared the location or not. Clicking on the dungeon chests and dungeon icons on the item tracker will change the status of the dungeon locations on the map. Also, hovering over each location will show a text description of what each location is under the map.<br>
-			<br>
-			<center><img src="./images/overlay/instructions10.png" style="width: 1100px;"></center>
-			<br>
-			As you continue to progress through the game and find more items, the statuses of each location will continue to change to inform you of what locations and dungeons can be obtained. Be sure to keep your item tracker up to date to show what is needed to finish each location. The different flags chosen will designate what logical locations are available to you.<br>
-			<br>
-			<center><img src="./images/overlay/instructions11.png" style="width: 1100px;"></center>
-			<br>
-			If you have a location where you want to put in a reminder for an item, you can right click on the location on the map, and then left click on the item that you want to assign. In doing so, by hovering over the mark on the map, it will give you the item reminder text below the map.
-		</div>
-
-		<div id="entrancesection" style="display: none;" class="instructionsDiv">
-			<center><h2>Using the Entrance Tracker</h2></center>
-			If you have chosen to use the map tracker in an entrance mode, it will show a different map tracker with all possible entrance locations, along with overworld locations. Each entrance is shown as a diamond and color coded similar to how the normal map tracker works, with green showing available entrances and red showing entrances that are not reachable. Squares on the map show overworld locations that are available. The blue eye icon at the bottom left of the Dark World portion of the map can be clicked to toggle if you want entrance lines visible, to show the connected entrances.<br>
-			<br>
-			<center><img src="./images/overlay/instructions12.png" style="width: 1100px;"></center>
-			<br>
-			By left clicking on an entrance, it will check the entrance as cleared. To simplify the busy nature of the map in entrance mode, the icon is shown as a mostly invisible grey diamond. You can click on it again to re-show it, but this feature is to make the map more readable as your race progresses. Clicking on the squares for overworld locations will check off those locations as well. If you right click on an entrance, it will pull up an entrance menu. From here, you can perform various functions on the entrance. The name of the entrance will be at the top left of the menu. To the right of that will be an option to Add a Connector. More on how this works below. To the right of that will be a Note field, where you can type in a note about the location and press enter or click off of the menu, which will save the note. A small ? box will show up on the map above that location, which can be hovered over to show what the note says below the map. If there is a connector already established at the location, it will show the connected information in the Connected To line. Those connectors can be removed by clicking on the disconnect icon next to the name of the location. The bottom half of the menu will have a list of dungeons, key locations, and starting locations. By clicking on one of these, it will flag the location as an important location and it will tag the location on the map above the entrance's diamond with what you have selected. Dungeons are color coded as pink and key locations will be color coded as blue. If you make a mistake and need to change the tag, simply right click to the menu again and you can change it to whatever you want. Key locations are important to select! For example, the logic for the dam item is dependent on selecting the Dam key location on the entrance menu. Without it, it will not know if that item is obtainable or not.<br>
-			<br>
-			<center><img src="./images/overlay/instructions13.png" style="width: 1100px;"></center>
-			<br>
-			To connect an entrance to another entrance, right click on the entrance to pull up the entrance menu, and click on the Add Connector icon. This will close the menu and bring you back to the map tracker, but a new icon will show at the bottom right of the Light World map area. This acts as a cancel button, which will cancel the action. To connect the entrance, simply click on the entrance that it connects to. The new logical reachable areas will change based off where you can now reach on the map.<br>
-			<br>
-			<center><img src="./images/overlay/instructions14.png" style="width: 1100px;"></center>
-			<br>
-			If you have connector lines showing from clicking the eye button, it will also show you the connected line so you can visualize the connectors.<br>
-			<br>
-			<center><img src="./images/overlay/instructions15.png" style="width: 1100px;"></center>
-			<br>
-			As a recommendation, when a dungeon is completed, or when a key location has been used and is no longer important, remove the information from the map. It can get quite busy and it will make it easier to read. If you want to view your known locations and entrances, you can click on the "notes" icon in the bottom right hand corner of light world, and it will bring up the known locations window.<br>
-			<br>
-			<center><img src="./images/overlay/instructions35.png" style="width: 1100px;"></center>
-		</div>
-
-		<div id="dungeonsection" style="display: none;" class="instructionsDiv">
-			<center><h2>Using the Dungeon Tracker</h2></center>
-			<span style="font-size: 12pt;">(<a href="#overworld" style="color: white">For help with the Overworld Tracker which is located in the same window, click here!</a>)</span>
-			<br><br>
-			The Dungeon Tracker is a helpful tool when playing with Door Shuffle. It can help you remember paths in a dungeon for later, solve switch or key puzzles or remember which item is needed for a path.<br>
-			When <b>Door Shuffle</b> is enabled, click on the map icon next to the player sprite to open a new window with the Dungeon Tracker. If you have more space, we recommend enlarging this window so that more and longer paths can fit in there without needing to scroll.<br><br>
-			<br>
-			<center><img src="./images/overlay/instructions16.png" style="width: 1100px;"></center>
-			<br>
-			<h3>What exactly is being tracked?</h3>
-			The main goal of this tracker is to require minimal clicking and searching so that you can focus on the game more and not have to pause (at least after getting used to it, you should take your time on your first seed with this tracker).<br>
-			This means you won't be clicking on every room with a branching path you come across and keeping track of all connections between these rooms. Instead, using this tracker can be compared to note-taking that complements your memory of your previous dungeon visits instead of fully replacing it.<br>
-			For each dungeon, as you are playing, you will be creating a list of paths. Each path consists of a concatenation of symbols (arrows, items, crystal switches and more) and complex or special rooms or entrances.<br>
-			As an example, the two paths in the image below may indicate "If I go right and then up from the entrance, I need the Cane of Somaria to continue." and "The path right and right from the entrance is done.".<br>
-			There is no right or wrong way to use the numerous symbols, the only thing that matters is that you know what your notes mean! The next section will go over the recommended usage for common scenarios during dungeon exploration.
-			<br><br>
-			<center><img src="./images/overlay/instructions34.png"></center>
-			<br>
-			<h3>Dungeon path tracking</h3>
-			<table style="color: #fff; font-size: 20px;">
-				<tr><td style="width: 100px"><b>Game:</b></td><td>You enter a dungeon.</td></tr>
-				<tr><td><b>Tracker:</b></td><td>If on the overview screen, click on the respective dungeon, usually represented by its vanilla boss. Then, under <b>Start a new path</b>, click on the entrance you're taking (if there are multiple). If Lobby Shuffle is enabled, we recommend that you associate every entrance with a number, depending on the order in which you first came across them.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You come across a branching point and pick one of the available directions that you'll be following next.</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/arrowright.png"><img class="dtsymbol" src="images/dungeons/quadranttopleft.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on an arrow or quadrant marker that depicts the choice you made in the game. The symbols in the middle of the arrows can be used to depict a hole or warp tile in a specific quadrant of the room. It doesn't matter which symbol you choose as long as you understand what it means when you revisit this room later.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You find a big branching point (hub-like room). In addition to marking the next direction, you want to remember the room itself for later.</td><td rowspan="2"><img class="dtsymbol" style="transform: rotate(180deg);" src="images/dungeons/arrowright.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on <b>Insert room node</b> and then on the room you just found. By default, this will append this room to the current path, save it, and start a new path at this node. If you just want to insert the node and keep working on the current path, uncheck <b>Split path at this node</b> before clicking on the room.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You come across a crystal switch.</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/crystalswitch.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on the crystal switch symbol. If a specific switch state is needed elsewhere, you might be able to use this switch for that.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>The path requires a specific crystal switch state (no matter the current state).</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/orangedown.png"><img class="dtsymbol" src="images/dungeons/bluedown.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on the orange or blue peg symbol, whichever color needs to be down.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You reached a dead end (and opened all chests if there were any), or looped back to a previous point and it's not worth remembering this loop for later (for a switch puzzle or routing convenience).</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/keychest0.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on the opened chest symbol. This will mark this path as finished.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You died on the way or for some other reason didn't continue this path and might need to repeat it later.</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/prize0.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on the question mark symbol. This will mark this path as unfinished.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>An item you don't currently have is needed.</td><td rowspan="2"><img class="dtsymbol" style="width: 32px; height: 32px;" src="images/items/bow2.png"><img class="dtsymbol" src="images/dungeons/torch.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on the symbol representing that item. Some symbols, like the torch, indicate that one of multiple items is needed.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You are (for now) done with the current path (and marked it appropriately) and want to head back to the last branching point and take a different path from there. This usually happens after a dead end, looping back to a previous point or getting blocked by an item requirement.</td></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on <b>Fork at last direction</b>. This will save the path you just finished traversing for later, and copy everything before the last branch to this new path you're creating now. The next click should be for the direction of the new path you're trying.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You are (for now) done with the current path (and marked it appropriately) and want to either leave the dungeon or try a completely different path.</td></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on <b>Save and close path</b>. This will save the path you just finished traversing for later, and return you to the path list of the current dungeon. If you want to leave the dungeon, click on its name or symbol at the top.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You want to continue a previously unfinished path or create a new path based in some way on an existing path.</td></tr>
-				<tr><td><b>Tracker:</b></td><td>Click on the path and then on <b>Edit path</b>, <b>Duplicate</b> or <b>Fork</b>, depending on what best fits your need. Note that if you do this while editing another path, your changes won't get saved.</td></tr>
-				<tr><td><br></td></tr>
-				<tr><td><b>Game:</b></td><td>You have fully cleared the current dungeon and know that you won't ever have to come back to it for an item, the boss, the Thieves' Town attic bombable floor or a new connection to a different dungeon exit.</td><td rowspan="2"><img class="dtsymbol" src="images/dungeons/keychest0.png"></tr>
-				<tr><td><b>Tracker:</b></td><td>Next to <b>Your paths</b>, click on <b>Mark dungeon completed</b>. This will send you back to the dungeon overview and there hide any item requirements that were added for this dungeon.</td></tr>
-			</table>
-			<br>
-			<center><img src="./images/overlay/instructions17.png"><img style="margin: 0px 8px;" src="./images/overlay/instructions18.png"><img src="./images/overlay/instructions25.png"></center>
-			<br>
-			Some additional ideas can be found by clicking on <b>Hints</b> when creating or editing a path.<br>
-			All of these are just recommendations. For every situation, it's up to you how you want to mark it. It will take some practice to get used to tracking while playing without losing time. At the beginning, don't hesitate to pause the game whenever you need more time to track properly.
-			<br><br>
-			<h3>Settings and saving</h3>
-			These should depend on the settings of the seed, but can be changed independently of the main tracker window based on preference.<br>
-			In <b>Crossed</b> Door Shuffle, the tracker allows you to place every symbol and almost every available rooms in any dungeon. In <b>Basic</b>, you can use the Flippers symbol and SP Hub node only in Swamp Palace, for example.<br>
-			If <b>Lobby Shuffle</b> is enabled, there are nodes for generic dungeon entrances and the Sanctuary can be used as an entrance point in any dungeon. Otherwise, the entrance rooms for every dungeon are fixed and the Sanctuary is always part of Hyrule Castle.<br>
-			You can decide whether <b>Small Keys</b> or <b>Big Keys</b> should be included in the dungeon overview. The main intention is that, if all keys are in their respective dungeons in your seed, information about where keys are needed is only important while in that dungeon.<br><br>
-			If your browser supports and permits Local Storage, you can save your entire tracking progress in this window by clicking on <b>Save data</b> to the right of <b>Manual save:</b>. If you continue playing the seed at some later point, just click on <b>Load data</b> to the left.<br>
-			Even if you forgot to save manually, there's a chance your progress is still automatically saved. Click on <b>Load data</b> next to <b>Auto-save:</b> to try.<br>
-			Your currently loaded tracked paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.
-			<br><br>
-			<h3>Example: Vanilla Palace of Darkness</h3>
-			Let us demonstrate the techniques described above with a specific example: Palace of Darkness like it would be without Door Shuffle. Lobby Shuffle will be off for this example.<br><br>
-			When you enter this dungeon in the game, in the dungeon tracker at the dungeon overview click on Helmasaur King to load Palace of Darkness.<br>
-			Under <b>Start a new path</b>, click on the entrance room. (If Lobby Shuffle was enabled, there would instead be a generic dungeon entrance to click on.)<br>
-			In the game, you start off with 3 choices: left staircase, door straight up or right staircase. First, take the left path. Click on a fitting arrow, like <img class="dtsymbol" style="width: 32px; height: 32px; transform: rotate(270deg);" src="images/dungeons/arrowrightup.png">, to append this symbol to the current path.<br>
-			The next room is a dead end that you don't ever have to return to. Open the chest and go back to the beginning. In the tracker, you can mark this dead end with <img class="dtsymbol" src="images/dungeons/keychest0.png">.<br>
-			<center><img src="./images/overlay/instructions22.png"></center>
-			Now you want to try a different path. To save the path you have just finished up and return to the last branching point, click on <b>Fork at last direction</b>.<br>
-			Next, click on <img class="dtsymbol" style="transform: rotate(270deg);" src="images/dungeons/arrowright.png"> to try the middle path.<br>
-			This path is blocked by a key door. Let us assume that you have a key, but want to try the other remaining path before spending it. Click on <img class="dtsymbol" src="images/dungeons/smallkey.png"> to mark what is blocking the path.<br>
-			<center><img src="./images/overlay/instructions23.png"></center>
-			Click on <b>Fork at last direction</b> and then try the right staircase by clicking on <img class="dtsymbol" style="transform: rotate(270deg);" src="images/dungeons/arrowrightdown.png">.<br>
-			The next couple rooms follow a linear path so you don't have to add any markers for them...until you get to the Mimics. You don't have a bow, so click on <img class="dtsymbol" style="width: 32px; height: 32px;" src="images/items/bow2.png"> and then either <b>Fork at last direction</b> or <b>Save and close path</b>. In the game, go back to the dungeon entrance.<br>
-			<center><img src="./images/overlay/instructions24.png"></center>
-			You decide to spend your key to follow the middle path. Either click on the up arrow again on a new path, or click on the path you have previously saved, then <b>Edit</b>, and continue from there. It's up to you if you want to keep the small key symbol or delete it with <b>Delete last step</b>.<br>
-			In the game, following this path, you get to what the tracker calls the Pit Room. There are a lot of branching paths from here, so if you want, you can insert a node specifically for this room into the path. Click on <b>Insert room node</b> and on the Pit Room.<br>
-			From here on, decide on the next path you want to try and mark every decision with an arrow or quadrant marker. Most rooms with branching paths don't have a unique node in the tracker as the intention for tracking is to require few clicks and not much searching for the right room.
-		</div>
-
-		<div id="overworldsection" style="display: none;" class="instructionsDiv">
-			<center><h2>Using the Overworld Tracker</h2></center>
-			<span style="font-size: 12pt;">(<a href="#dungeon" style="color: white">For help with the Dungeon Tracker which is located in the same window, click here!</a>)</span>
-			<br><br>
-			<div style="border: 2px dashed orange; padding: 4px; background-color: rgba(255,64,0,.125);">
-				<b>NOTE:</b> This tracking feature is still in beta state. Expect various things to change in the future.<br>
-				<span style="font-size: 10pt;">We'd appreciate feedback. If you have suggestions, encountered a problem or simply want to say if this feature was helpful for you, feel free to message Catobat#4610 on Discord. Thank you!</span>
-			</div>
-			<br>
-			Overworld Shuffle is a new mode where tracking becomes much more important than usual.<br>
-			To access the Overworld Tracker, enable <b>Overworld Shuffle</b> in the launcher. In the main tracker window, click on the map icon next to the player sprite to open a new window with the Overworld Tracker. If you have more space, we recommend enlarging this window so that a larger overworld map and longer paths can fit in there.
-			<br><br>
-			<center><img src="./images/overlay/instructions26.png"><img style="margin-left: 8px;" src="./images/overlay/instructions27.png"></center>
-			<br>
-			<h3>First steps</h3>
-			When opening the Overworld Tracker window, you are first asked to select the overworld mode settings for your seed (or continue a previous session, see below). When you're done and you're sure the settings are correct, click on <b>Start, mode settings are final</b>. If you're not sure about a mode setting and it might change later, use <b>Start, mode settings may change</b>.<br>
-			If you want to start out with the least restrictive settings (anything can be connected to anything and marked as anything), and possibly narrow down the mode later on (Mystery seed), you can ignore the settings above and click on <b>Mystery mode (start with least restrictive settings)</b>.<br>
-			In either case, all settings can be changed later, though it's best to have them entered correctly from the start so the tracker can fill in certain screen transitions automatically (and doesn't fill in too much if you set the mode to something too restrictive). If you want to apply this automatic fill after changing the settings later (and finalizing them), click on <b>Make mode-specific transition adjustments</b> in the yellow box below the mode settings if it appears.<br>
-			For more information regarding the individual settings, see <b>Settings and saving</b> below. For the syncing process between the two tracker windows (items, connectors and logic), see <b>Items and sync</b> and <b>Sync logic and all data with main window</b>.<br>
-			Alternatively, if you want to continue with a previous session, go to <b>Restore previous session</b> near the bottom of the start page (or <b>Save and restore</b> on the main page at a later point) and use one of the buttons to load the respective saved data. Clicking on a button will show you the time when this save was created before confirming to load the data.<br>
-			Next, access the <b>Overworld Tracking</b> page by clicking on the overworld icon below <b>Overworld Tracker</b> at the top of the main page or in the sidebar. If Door Shuffle is disabled, you can consider this the hub page (otherwise, you'll be switching between this and the individual dungeons).<br>
-			The top of this page contains the <b>Full map</b> (which can be hidden with the arrow in the top-right), though it can also be accessed as a popout by clicking on one of the various <b>Full map</b> buttons throughout the tracker. If you have the sidebar enabled, you can even access this map from anywhere in the tracker without having to leave the page you're currently on! The use of this map of course depends on the mode you're playing, see the following sections for an explanation.<br>
-			Depending on the size of the window, you may want to check <b>Side by side</b> to fit both worlds on the screen at once. Otherwise, you can always use the <b>Switch worlds</b> button. The size of the map is handled automatically based on window size by default, but you can also choose to change the zoom level manually using the <b>-</b> and <b>+</b> buttons. You should always leave some free space at the bottom for buttons that pop up if you click on a screen or transition.<br>
-			If you know your Sanctuary (Dark Chapel in Inverted) save & quit spot will be vanilla (no Entrance or Door Shuffle), select <b>Sanctuary</b> (or <b>Dark Chapel</b>) under <b>Common starting locations</b> on the <b>Overworld Tracking</b> page. This is important for both the logic and finding convenient paths throughout the seed. For more information on these start locations and how to add save & quit spots in other places, read the <b>Common starting locations</b> section below.<br>
-			<br><br>
-			<h3>Parallel or Full Layout Shuffle: Tracking overworld transitions</h3>
-			The recommended way of tracking screen transitions is by opening the <b>Full map</b> which can be accessed from the top of the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which transitions are currently accessible and which transitions have been tracked so far.<br>
-			To track a transition, simply click on the edge you started from and then on the edge you ended up at. For convenience, for the second part only edges with a matching direction and ground type will light up. Certain overworld options such as <b>Keep Similar</b> can restrict the possible choices even further.<br>
-			As you will notice later, to be able to use the full potential of this tracker, you are expected to track every single overworld transition you take. Don't worry, it will easily be worth it!<br>
-			If you marked a transition wrong by accident, click on one of the affected edges and then <b>Delete connection</b> below the map.<br>
-			On the full map, you can see where certain transitions lead by moving the cursor over a screen or a single edge. However, for most cases, there is a much better way of finding out how to get back to a specific place: the <b>Search path</b> feature.
-			<br><br>
-			<center><img src="./images/overlay/instructions28.png"><img style="margin-left: 8px; vertical-align: top;" src="./images/overlay/instructions36.png"></center>
-			<center><img src="./images/overlay/instructions29.png" style="margin-top: 8px;"></center>
-			<br>
-			<h3>Crossed Overworld: Tracking overworld transitions</h3>
-			If this is combined with Parallel or Full Layout Shuffle, see the section above. The only difference is that transitions can now go across worlds. Such transitions will be marked with a cross.<br><br>
-			Otherwise, if the layout is vanilla:<br>
-			<b>Polar</b>: This option only has an effect if <b>Mixed Overworld</b> is enabled. All screen transitions are determined by the tracked screen states (see the section below).<br>
-			<b>Chaos</b>: Open the <b>Full map</b> which can be accessed from the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which transitions are currently accessible and which transitions have been tracked so far.<br>
-			If you want to track a transition that isn't yet tracked, click on the transition once to mark it as vanilla (same world) or twice to mark it as the crossed variant, indicated by a cross. Click a third time to reset it to the untracked state.<br>
-			When this option is combined with <b>Keep Similar</b>, clicking on one edge will affect all edges that are in the same group of similar edges.
-			<br><br>
-			<center><img src="./images/overlay/instructions30.png"></center>
-			<br>
-			<h3>Mixed Overworld: Tracking which screens are swapped</h3>
-			In Mixed, every overworld screen is in one of two states: normal or swapped. If it's in swapped state, the screen version that normally belongs to the Dark World is now part of the Light World.<br>
-			Open the <b>Full map</b> which can be accessed from the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which screen states have been tracked so far and which versions (Light and Dark World) belong to which world.<br>
-			Whenever you visit a screen for the first time, pay attention to its state, move the cursor to the question mark on that screen in the tracker and click on <b>Normal</b> or <b>Swapped</b> respectively.<br>
-			In case of a misclick, click on the screen that has accidentally been tracked and then on <b>Reset state</b> below the map.<br>
-			Tip: If you're unsure if you're currently looking at the Light World or Dark World map in the tracker, pay attention to the tree in the bottom-left corner in the desert/mire area. It will either be a Light World or Dark World tree depending on which world is being displayed behind it.
-			<br><br>
-			<center><img src="./images/overlay/instructions31.png"><img style="margin-left: 8px; vertical-align: top;" src="./images/overlay/instructions32.png"></center>
-			<br>
-			<h3>Flute Shuffle: Tracking flute spots</h3>
-			When <b>Flute Shuffle</b> is active, you need to tell the tracker where your flute spots are. Each overworld screen only has one possible position for a flute spot, so all you need to determine is which 8 screens contain a flute spot which you can tell just from looking at the flute menu.<br>
-			When you use the flute for the first time and you have marked your flute as activated in the tracker, the Kakariko screen on the <b>Full map</b> should have a <b>Set flute spots</b> button that brings you to the flute spot menu. Alternatively, you can click on <b>Edit flute spots</b> in the <b>Overworld Tracking</b> menu to access the flute spot menu.<br>
-			In the flute spot menu, click on a screen to toggle whether it contains a flute spot. The one in the desert/mire area is set by default so there should be 7 more flute spots to place. If all 8 are set, simply close the map or click on <b>Full map</b>.<br>
-			Note: Flute spots are only considered by the logic if the flute is marked as both collected and activated in the tracker. Check the <b>Items and sync</b> section below for more information!
-			<br><br>
-			<h3>Searching and finding paths</h3>
-			If you want to get back to a screen you have previously found, click on a button labelled <b>Search path</b> or <b>Search</b> and select a screen or preset. If you're already on the <b>Full map</b>, you can also select a screen first and then click on <b>Search path</b> below the map.<br>
-			The tracker will then compile a list of paths from all possible common starting locations (including flute spots if the flute is usable) to the selected target screen.<br>
-			If the target screen is divided into multiple logical regions (like Bonk Rocks and the rest on the Sanctuary screen), the tracker attempts to find paths to all of them. If the search result list is long, consider filtering them by fixing a target region with a button press (<b>Rocks</b> in the previous example). It can also be helpful to look at which screen edge each path ends, indicated by a gray square on the last screen.<br>
-			If, instead of (only) starting at the common start locations, you want to see if there's a quick path from your current location in the game, you can click on <b>Select screen</b> next to <b>Start: Common starting locations</b> and select a start screen. All logical regions of this screen are considered by default, but just like with the target, it can be restricted to a specified region.<br>
-			If a starting screen is selected, there are three different modes in which paths are shown: In <b>Must start here</b> (default), only paths that start on the selected screen are shown, but fluting and using a save & quit is permitted. With <b>Or from common</b>, (direct) paths that start at the selected screen or at common starts are mixed together. Use <b>No flute/quit</b> to only obtain direct paths (no fluting or save & quit) that start at the selected screen.<br>
-			By default, if you have the mirror, the search also considers possible mirror portal placements, but only at the start or target regions. Paths using mirror portals will never replace other paths in the list, they're just additional results. To disable this, uncheck <b>Mirror portals</b> next to <b>Options:</b>.<br>
-			If you currently have a <b>follower</b> that restricts your movement, like the red bomb (no ledges, connectors or save & quits), you can select the follower in the <b>Options:</b> row.<br>
-			Click on a path to view it with more details and lines connecting the edges of the screens. You can also click on <b>View on map</b> to attach the path to the full overworld map, highlighting screens that are on the path and numbering them, or <b>Pin for later</b> to permanently display it in a list on the <b>Overworld Tracking</b> page.<br>
-			Note: For this feature to work properly, it is important that you have the common starting locations, items and connectors set correctly. Please refer to the following sections for more information. In the tracker, the bottom of the page also has a checklist for common issues with quick tips.
-			<br><br>
-			<h3>Common starting locations</h3>
-			The common starting location list keeps track of locations you can quickly access from almost any point in the game. This list should generally only include save & quit spots and flute spots.<br>
-			By default, only <b>Link's House</b> and flute spots (once the flute is obtained and marked as active) are included, but depending on the game mode and your progress in the seed you might also want to check the boxes for <b>Sanctuary</b> entrance, <b>Mountain Cave</b> entrance or <b>Pyramid</b> screen (or the corresponding ones in Inverted or Mixed mode) if these vanilla save & quit spots are available in your seed.<br>
-			This list serves two purposes: It's used by the logic (a location is accessible if it can be reached from at least one starting location), and it's the default start region list when using the <b>Search path</b> feature.<br><br>
-			If you're playing with vanilla Entrances and Doors, you don't need to worry about adding locations to this list other than the ones in the checkboxes. If, for example, you're playing with Entrance Shuffle, you can add the places that the Sanctuary exit and the Old Man Cave exit(s) lead to.<br>
-			To add a region that's neither in a checkbox and nor a flute spot, open the <b>Full map</b>, click on the respective screen and, if there is a choice, choose a region that you think fits best below the map.
-			<br><br>
-			<h3>Items and sync</h3>
-			By default, your current item inventory gets sent from the main tracker window to this window.<br>
-			If you only use this Overworld Tracker in combination with another item/map tracker, don't forget to also mark certain items here in the <b>Overworld Tracking</b> menu!<br>
-			Below the item list is a checkbox that determines if the flute is currently active. This information is important for the logic. This can also be set through the <b>Full map</b> by clicking on the <b>Flute activated</b> button after the flute was obtained.<br>
-			If item (or connector) changes in the main window are somehow no longer being received even though <b>Sync with main window</b> is enabled (this can happen if a window was refreshed or the main window switched between vanilla and shuffled Entrances in Mystery mode), there is a way you can fix this problem:<br>
-			In the overworld window, go back to the start page. Under <b>Save and restore</b> and next to <b>Manual save:</b>, click on <b>Save data</b>. Close this window. In the item tracker window, click on the map icon next to the player sprite to open a new Overworld Tracker window. Finally, click on <b>Load manual save</b> under <b>Restore previous session</b> (or at a later point <b>Load data</b> next to <b>Manual save:</b> on the main page) to get your tracking progress back.
-			<br><br>
-			<h3>Sync logic and all data with main window</h3>
-			If you are also using the Community Tracker for item and map tracking, the logic from the Overworld Tracker can be used by the map tracker in the main tracker window. (This also means that the map tracker considers you responsible for telling the Overworld Tracker about flute activation and your save & quit spots!)<br>
-			This is enabled by default. If you want to disable this functionality, uncheck <b>Sync logic and all data with main window</b> below the mode options. Note that, in this case, the main window logic will ignore Overworld Shuffle completely.<br>
-			Enabling this full sync between the two tracker windows also means that items and connector caves will be shared between both windows. Please refer to the previous section for more information on that.<br>
-			Note: It is very important that the tracker has been opened through the Community Tracker launcher and that some kind of <b>Overworld Shuffle</b> has been enabled in the launcher. All non-overworld-specific mode settings should also be correctly set there as these will also be used by the Overworld Tracker logic.
-			<br><br>
-			<h3>Connector caves</h3>
-			If <b>Entrance Shuffle</b> is disabled, there are a few checkboxes below the items you can use to tell the tracker logic which dungeon connectors you can currently use. If, in addition, <b>Door Shuffle</b> is enabled, a couple more checkboxes are displayed.<br>
-			If <b>Entrance Shuffle</b> is enabled, by default all connectors you marked on the map tracker get sent from the main tracker window to this window. Connectors then start at the entrance you clicked first and end on the second clicked one.<br>
-			However, mostly for routing purposes, it can be helpful for this tracker to know if a connector is also usable in the other direction. If this is the case (and you currently have the items needed to do so), we recommend clicking on <b>Both directions</b> when you're getting asked by the tracker. Otherwise, click on <b>Only one direction</b>. This can be changed later by clicking on the connector on the <b>Overworld Tracking</b> page.<br>
-			If you are not using the built-in Entrance map tracker to mark connectors, make sure to disable <b>Sync with main</b> above the connector list. This will allow you do add or remove connectors from within this window.<br>
-			To add a connector in this manner, go to the <b>Full map</b>, click on the screen where the connector starts, and click on <b>New connector</b>. Then, click on the screen where the connector ends, maybe fill in region details depending on the screens, and determine whether you are currently able to also use this connector in the other direction, too.
-			<br><br>
-			<center><img src="./images/overlay/instructions33.png"></center>
-			<br>
-			<h3>Settings and saving</h3>
-			These should depend on the settings of the seed so the logic can work properly. See the sections above for explanations on how tracking the individual Overworld Shuffle modes works.<br>
-			Enabling one of the <b>Layout Shuffle</b> options allows you to track screen transitions. With <b>Parallel</b>, tracking an overworld transition in one world will automatically also mark the corresponding transition in the other world if a such parallel version exists. <b>Full</b> doesn't have this restriction.<br>
-			The <b>Keep Similar</b> option should be checked when the seed was rolled with the <b>Keep Similar Edges Together</b> option to quickly fill in groups of transitions.<br>
-			<b>Crossed Overworld</b> allows you to connect edges between the Light World and Dark World, even if the layout is vanilla.<br>
-			In <b>Mixed Overworld</b>, you can mark every overworld screen as normal or swapped.<br>
-			When <b>Flute Shuffle</b> is enabled, the 8 flute spots are assumed to not be vanilla and will have to be marked.<br>
-			The <b>World State</b> option needs to be set correctly to let the tracker now if the Inverted rules apply.<br>
-			If some kind of <b>Entrance Shuffle</b> is enabled, the corresponding box should be checked to let the tracker know if the connector caves will be vanilla.<br>
-			Changing the mode may cause a yellow box with a button labelled <b>Make mode-specific transition adjustments</b> to appear. If all settings are final, we recommend clicking on this button. This will connect all transitions that are guaranteed to be vanilla with your selected seed settings.<br><br>
-			If your browser supports and permits Local Storage, you can save your entire tracking progress in this window by clicking on <b>Save data</b> to the right of <b>Manual save:</b>. If you continue playing the seed at some later point, just click on <b>Load data</b> to the left.<br>
-			Even if you forgot to save manually, there's a chance your progress is still automatically saved. Click on <b>Load data</b> next to <b>Auto-save:</b> to try.<br>
-			Your currently loaded tracked transitions, states and paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.
-		</div>
-
-		<div id="autosection" style="display: none;" class="instructionsDiv">
-			<center><h2>Using the Autotracker</h2></center>
-			NOTE: The below setup is one way to configure auto tracking, it is not the ONLY way to do it. Please refer to your hardware/software packages to determine the best way to run it for your setup<br>
-			<br>
-			If you have chosen to use the auto tracker, you will need to be sure to have your setup configured so that the tracker can communicate with your rom. The Community Tracker requires the use of qusb2snes, which can be downloaded here: <a href="https://skarsnik.github.io/QUsb2snes/" target="_blank">https://skarsnik.github.io/QUsb2snes/</a> and follow the instructions on how to download and install for your operating system.<br>
-			<br>
-			To activate the auto tracker from the Launcher, be sure that Yes is selected in the Use Autotracking option under Display Settings, and you can manually type in a listening port. It defaults to 8080. If you have Remember Display Settings set, it will auto load your settings when you launch the tracker.<br>
-			<br>
-			<center><img src="./images/overlay/instructions19.png" style="width: 1100px;"></center>
-			<br>
-			Start up qusb2snes by clicking on your startup executable. For example, in Windows, it is QUsb2Snes.exe.<br>
-			<br>
-			<center><img src="./images/overlay/instructions20.png" style="width: 1100px;"></center>
-			<br>
-			Launch the Community Tracker with the Autotracking selection live and on the correct listening port. You will get a message from qusb2snes to allow for the tracker to communicate. You will need to click on Yes to allow.<br>
-			<br>
-			<center><img src="./images/overlay/instructions21.png" style="width: 1100px;"></center>
-			<br>
-			You will need a device that is able to sent Lua Scripting, be it via your hardware or emulator. For emulator, we can recommend using snes9x-rr, located here: <a href="https://github.com/gocha/snes9x-rr/releases" target="_blank">https://github.com/gocha/snes9x-rr/releases</a>, but please refer to your hardware and software setup on how to enable Lua scripting. Please refer to the current <a href="https://link.alttpr.com/autotracking" target="_blank">ALTTPR Race Legal Rules</a> for more information on what can and cannot be tracked.
-			<br>
-		</div>
-
 	</body>
 </html>

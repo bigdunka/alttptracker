@@ -1,31 +1,76 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Contributors</title>
-		<script src="js/index.js"></script>
-		<link href="css/fonts.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
+		<script type="text/javascript" src="js/index.js?v=20001"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20001"></script>
+		<script type="text/javascript" src="js/jquery.powertip.js?v=20001"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js?v=20001"></script>
+		<link href="css/jquery.powertip.css?v=20001" rel="stylesheet" />
+		<link href="css/launcher.css?v=20001" rel="stylesheet">
+		<link href="css/fonts.css?v=20001" rel="stylesheet">
+		<link href="css/sprites.css?v=20001" rel="stylesheet">
+		<link href="css/toast.css?v=20001" rel="stylesheet">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3T0KM2W1L"></script>
+		<script>
+			$(function() {
+				$('.south').powerTip({ placement: 's' });
+			});		
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-Z3T0KM2W1L');
+		</script>
 		<style>
-			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; }
-			label { width: 5em; display: inline-block; }
-			div { margin: 5px 0; }
+			a { color: red; }
 		</style>
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
 		<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
 	</head>
-	<body background="./images/overlay/background.png">
-		<button type="button" onclick="window.location.href = 'index.html';" style="width: 200px; text-align: center; font-family: 'roboto_condensedregular', Arial, Helvetica, sans-serif;"><== RETURN TO MAIN</button><br><br>
-		<div style="width:1200px; color: white; font-size: 20px;">
-			<div class="releaseDiv">
-				<ul>
-					<li><b>Crossproduct and halfarebel</b>: Credit for the initial builds, all the way to release 5.0.  Credit these two for EVERYTHING, for this would not exist if not for them! Responsible for the standard and open logic, as well as the map and tracking template.</li><br>
-					<li><b>Dunka</b>: Currently hosting public GitHub repository for the Community Tracker, hosting on the live web site, created the majority of the keysanity/inverted keysanity logic, and created the entrance tracker.</li><br>
-					<li><b>Jem</b>: Added Sphere Tracking interface.</li><br>
-					<li><b>Catobat</b>: Added inverted logic, compact map interface, door rando, and spoiler log parsing feature. Also had a HUGE hand in helping in making the custom sprites by nearly automating the process.</li><br>
-					<li><b>Coxla</b>: Added OWG logic.</li><br>
-					<li><b>Bonta</b>: Provided the auto-tracking module.</li>
-					<li><b>willwc</b>: Added inverted entrance logic.</li>
-				</ul>
+	<body>
+		<div class="outer-wrapper">
+			<div>
+				<div class="header-main-div">
+					<a href="./index.html"><img src="./images/overlay/header.png" class="header-main-img"></a>
+					<div class="header-news-div" >
+						<span class="default-white-text">Build 2.0.001 042322 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
+					</div>
+				</div>
+				<div class="header-links">
+					<a href="./release.html">
+						<div class="header-link-img"><span class="header-text-span">Release Notes</span></div>
+					</a>
+					<a href="./instructions.html">
+						<div class="header-link-img"><span class="header-text-span">Instructions</span></div>
+					</a>
+					<a href="./issues.html">
+						<div class="header-link-img"><span class="header-text-span">Known Issues</span></div>
+					</a>
+					<a href="./contributors.html">
+						<div class="header-link-img" ><span class="header-text-span">Contributors</span></div>
+					</a>
+					<a href="./downloads.html">
+						<div class="header-link-img"><span class="header-text-span">Downloads</span></div>
+					</a>
+				</div>
+			</div>
+			<div class="main-wrapper">
+				<div class="preset-div">
+					<ul>
+						<li><b>Crossproduct and halfarebel</b>: Credit for the initial builds, all the way to their release 5.0.  Credit these two for EVERYTHING, for this would not exist if not for them! Responsible for the standard and open logic, as well as the map and tracking template.</li>
+						<li><b>Dunka</b>: Currently hosting public GitHub repository for the Community Tracker, hosting on the live web site, created the majority of the keysanity/inverted keysanity logic, and created the entrance tracker.</li>
+						<li><b>Jem</b>: Added Sphere Tracking interface.</li>
+						<li><b>Catobat</b>: Added inverted logic, compact map interface, door rando, and spoiler log parsing feature. Also had a HUGE hand in helping in making the custom sprites by nearly automating the process.</li>
+						<li><b>Coxla</b>: Added OWG logic.</li>
+						<li><b>Bonta</b>: Provided the auto-tracking module.</li>
+						<li><b>willwc</b>: Added inverted entrance logic.</li>
+					</ul>
+				</div>
 			</div>
 		</div>
 	</body>

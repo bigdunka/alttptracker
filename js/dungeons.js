@@ -585,7 +585,7 @@
 		var dungeoncheck = enemizer_check(0);
 		//Standard check
 		if (!items.bigkey0 || dungeoncheck === 'unavailable') return 'unavailable';
-		if (items.bow === 0 && flags.enemyshuffle === 'N') return 'unavailable';
+		if (items.bow < 2 && flags.enemyshuffle === 'N') return 'unavailable';
 		//Dark Room check
 		if (!items.lantern) {
 			if (flags.wildbigkeys) {
@@ -626,7 +626,7 @@
 
     window.PoDBoss = function() {
 		var dungeoncheck = enemizer_check(3);
-		if (!items.bigkey3 || !items.hammer || items.bow === 0 || dungeoncheck === 'unavailable') return 'unavailable';
+		if (!items.bigkey3 || !items.hammer || items.bow < 2 || dungeoncheck === 'unavailable') return 'unavailable';
 		if (flags.wildbigkeys || flags.wildkeys) {
 			if (items.smallkey3 < 5 && flags.gametype != 'R') return 'unavailable';
 			if (items.smallkey3 === 5 && flags.gametype != 'R') {
@@ -773,7 +773,7 @@
 
     window.GTBoss = function() {
 		var dungeoncheck = enemizer_check(10);
-		if (!items.bigkey10 || (items.bow === 0 && flags.enemyshuffle === 'N') || (!items.lantern && !items.firerod) || !items.hookshot || ((items.sword < 2 && flags.swordmode != 'S') || (flags.swordmode === 'S' && !items.hammer)) || !items.bomb || dungeoncheck === 'unavailable') return 'unavailable';
+		if (!items.bigkey10 || (items.bow < 2 && flags.enemyshuffle === 'N') || (!items.lantern && !items.firerod) || !items.hookshot || ((items.sword < 2 && flags.swordmode != 'S') || (flags.swordmode === 'S' && !items.hammer)) || !items.bomb || dungeoncheck === 'unavailable') return 'unavailable';
 		if (!items.sword && !items.hammer && !items.net) return 'unavailable';
 		if (flags.wildkeys) {
 			if (items.smallkey10 === 0 && flags.gametype != 'R') return 'unavailable';

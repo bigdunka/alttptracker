@@ -62,7 +62,7 @@
 	
 	function activeFluteInvertedEntrance()
 	{
-		return items.flute && (canReachInvertedLightWorld() || flags.invertedactivatedflute);
+		return items.flute && (canReachInvertedLightWorld() || flags.activatedflute);
 	}
 	
 	function hasFoundDungeon(x)
@@ -872,7 +872,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(54)) return 'available';
-					if (items.moonpearl && items.glove && hasFoundEntrance(56)) return 'available'
+					if (items.moonpearl && items.glove && hasFoundEntrance(56)) return 'available';
 					return 'unavailable';
 				}
 			}, { // [55]
@@ -893,7 +893,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(56)) return 'available';
-					if (items.moonpearl && items.glove && hasFoundEntrance(54)) return 'available'
+					if (items.moonpearl && items.glove && hasFoundEntrance(54)) return 'available';
 					return 'unavailable';
 				}
 			}, { // [57]
@@ -970,7 +970,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(64)) return 'available';
-					if (items.glove === 2 && hasFoundEntrance(118)) return 'available'
+					if (items.glove === 2 && hasFoundEntrance(118)) return 'available';
 					if (items.glove === 2 && items.flippers && (canReachInvertedSouthDW() || canReachInvertedEastDW())) return 'available';
 					return items.flippers && canReachInvertedLightWorld() ? 'available' : 'unavailable';
 				}
@@ -1723,7 +1723,7 @@
 					if (!items.mirror) return 'unavailable';				
 					if (hasFoundEntrance(77) || hasFoundEntrance(83)) return 'available';
 					if (items.moonpearl && items.hammer && hasFoundEntrance(68)) return 'available';
-					if (items.moonpearl && items.hammer && items.glove === 2 && canReachInvertedDarkDeathMountain()) return 'available'
+					if (items.moonpearl && items.hammer && items.glove === 2 && canReachInvertedDarkDeathMountain()) return 'available';
 					return 'unavailable';
 				}
 			}, { // [138]
@@ -1735,9 +1735,9 @@
 				is_available: function() {
 					if (hasFoundEntrance(138) || hasFoundEntrance(139)) return 'available';
 					if (!items.mirror) return 'unavailable';				
-					if (hasFoundEntrance(77) || hasFoundEntrance(80)) return 'available';
+					if (hasFoundEntrance(77) || hasFoundEntrance(80) || hasFoundEntrance(85)) return 'available';
 					if (items.moonpearl && items.hammer && hasFoundEntrance(68)) return 'available';
-					if (items.moonpearl && items.hammer && items.glove === 2 && canReachInvertedDarkDeathMountain()) return 'available'
+					if (items.moonpearl && items.hammer && items.glove === 2 && canReachInvertedDarkDeathMountain()) return 'available';
 					return 'unavailable';
 				}
 			}, { // [139]
@@ -1751,9 +1751,9 @@
 					
 					if (!items.mirror) return 'unavailable';				
 					
-					if (hasFoundEntrance(77) || hasFoundEntrance(85)) return 'available';
+					if (hasFoundEntrance(77) || hasFoundEntrance(80) || hasFoundEntrance(85)) return 'available';
 					if (items.moonpearl && items.hammer && hasFoundEntrance(68)) return 'available';
-					if (items.moonpearl && items.hammer && items.glove === 2 && canReachInvertedDarkDeathMountain()) return 'available'
+					if (items.moonpearl && items.hammer && items.glove === 2 && canReachInvertedDarkDeathMountain()) return 'available';
 					return 'unavailable';
 				}
 			}];
@@ -2038,7 +2038,7 @@
 				caption: 'Race Minigame',
 				is_opened: false,
 				is_available: function() {
-					if (items.moonpearl && hasFoundEntrance(46)) return 'available'
+					if (items.moonpearl && hasFoundEntrance(46)) return 'available';
 					return canReachInvertedLightWorldBunny() ? 'information' : 'unavailable';
 				}
 			}, { // [15]
@@ -5461,7 +5461,7 @@
 					if ((canReachWDMNorth() || (canReachDWWDM() && items.mirror)) && items.book) {
 						return (items.sword >= 2 || (flags.swordmode === 'S' && items.hammer)) ? 'available' : 'information';
 					}
-					return 'unavailable'
+					return 'unavailable';
 				}
 			}, { // [7]
 				caption: 'Bombos Tablet {mirror}{sword2}{book}',

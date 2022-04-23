@@ -1,0 +1,190 @@
+body { 
+	font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; 
+	font-size: 14px; 
+	background-image: url(../images/overlay/background.png);
+}
+
+label { 
+	display: inline-block; 
+}
+
+div { 
+	margin: 5px 0; 
+}
+
+.default-white-text {
+	font-size: 14px; 
+	color: white;
+}
+
+.outer-wrapper {
+	width: 1080px;
+	margin: 20px;
+	margin: auto;
+}
+
+.main-wrapper {
+	width: 1070px;
+}
+
+.preset-div {
+	font-size: 24px;
+    font-family: ptsans_regular;
+	font-variant: small-caps;
+	background-color: black;
+	color: white;
+	padding: 6px;
+    border-color: #5cc143;
+	border-width: 5px;
+    border-style: solid;
+    border-radius: 5px;
+}
+
+.preset-header {
+	cursor: pointer;
+}
+
+.preset-span {
+	padding-left: 20px;
+	font-size: 18px;
+	min-width: 136px;
+    display: inline-block;
+	font-weight: normal;
+	max-width: 136px;
+}
+
+.preset-span-double {
+	padding-left: 20px;
+	font-size: 18px;
+	min-width: 200px;
+    display: inline-block;
+	font-weight: normal;
+}
+
+
+.preset-btn-span {
+	padding-left: 20px;
+	font-size: 24px;
+	min-width: 110px;
+    display: inline-block;
+}
+
+.tooltop-character {
+	font-size: 16px; 
+	color: red; 
+	cursor: pointer;
+}
+
+.preset-btn { 
+	font-family: roboto_condensedregular, sans-serif; 
+	font-size: 14px; 
+	background-color: #BBB; 
+	width: 140px; 
+}
+
+.select-label {
+	
+}
+
+.starting-inner-div {
+	height: 160px;
+    width: 860px;
+    margin: auto;
+}
+
+.header-main-div {
+	height: 120px;
+}
+
+.header-main-img {
+	width: 380px;
+	float: left;
+	cursor: pointer;
+}
+
+.header-news-div {
+	float: left;
+	margin: 10px;
+	width: 60%;
+    background: black;
+	padding: 5px;
+    border-color: #ffa700;
+	border-width: 5px;
+    border-style: solid;
+    border-radius: 5px;	
+}
+
+.sprite-dropdown {
+	width: 350px;
+    font-size: 16px;
+}
+
+.header-links {
+	margin: auto;
+	height: 60px;
+}
+
+.header-link-img {
+	background-image: url(../images/overlay/headerimg.png);
+	background-size: contain;
+	width: 205px;
+	height: 50px;
+	margin: 4px;
+	font-family: triforce_regular, sans-serif;
+	float: left;
+}
+
+.header-text-span {
+	color: #fff;
+    font-size: 26px;
+    text-decoration: underline;
+	text-shadow: 2px 3px #7200ff;
+    position: relative;
+	top: 12px;
+    left: 12px;
+}
+
+.item { 
+	width: 64px; 
+	height: 64px; 
+	opacity: .25;
+	float: left;
+}
+
+.moonpearl { background-size: cover; background-image: url(../images/items/moonpearl.png); }
+.bomb { background-image: url(../images/items/bomb.png); }
+.bow0 { background-image: url(../images/items/bow0.png); }
+.bow1 { background-image: url(../images/items/bow1.png); }
+.bow2 { background-image: url(../images/items/bow2.png); }
+.bow3 { background-image: url(../images/items/bow3.png); }
+.boomerang0 { background-image: url(../images/items/boomerang1.png); }
+.boomerang1 { background-image: url(../images/items/boomerang1.png); }
+.boomerang2 { background-image: url(../images/items/boomerang2.png); }
+.boomerang3 { background-image: url(../images/items/boomerang3.png); }
+.hookshot { background-image: url(../images/items/hookshot.png); }
+.mushroom { background-image: url(../images/items/mushroom.png); }
+.powder { background-image: url(../images/items/powder.png); }
+.firerod { background-image: url(../images/items/firerod.png); }
+.icerod { background-image: url(../images/items/icerod.png); }
+.bombos { background-image: url(../images/items/bombos.png); }
+.ether { background-image: url(../images/items/ether.png); }
+.quake { background-image: url(../images/items/quake.png); }
+.lantern { background-image: url(../images/items/lantern.png); }
+.hammer { background-image: url(../images/items/hammer.png); }
+.shovel { background-image: url(../images/items/shovel.png); }
+.net { background-image: url(../images/items/net.png); }
+.book { background-image: url(../images/items/book.png); }
+.bottle { background-image: url(../images/items/bottle0.png); }
+.somaria { background-image: url(../images/items/somaria.png); }
+.byrna { background-image: url(../images/items/byrna.png); }
+.cape { background-image: url(../images/items/cape.png); }
+.mirror { background-image: url(../images/items/mirror.png); }
+.mirrorscroll { background-image: url(../images/dungeons/map.png); }
+.boots { background-image: url(../images/items/boots.png); }
+.glove0 { background-image: url(../images/items/glove1.png); }
+.glove1 { background-image: url(../images/items/glove1.png); }
+.glove2 { background-image: url(../images/items/glove2.png); }
+.flippers { background-image: url(../images/items/flippers.png); }
+.flute { background-image: url(../images/items/flute.png); }
+.magic { background-image: url(../images/items/magic.png); }
+

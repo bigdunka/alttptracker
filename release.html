@@ -1,957 +1,861 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Release Notes</title>
-		<script src="js/index.js"></script>
-		<link href="css/fonts.css" rel="stylesheet">
-		<link href="css/style.css" rel="stylesheet">
+		<script type="text/javascript" src="js/index.js?v=20001"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20001"></script>
+		<script type="text/javascript" src="js/jquery.powertip.js?v=20001"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js?v=20001"></script>
+		<link href="css/jquery.powertip.css?v=20001" rel="stylesheet" />
+		<link href="css/launcher.css?v=20001" rel="stylesheet">
+		<link href="css/fonts.css?v=20001" rel="stylesheet">
+		<link href="css/sprites.css?v=20001" rel="stylesheet">
+		<link href="css/toast.css?v=20001" rel="stylesheet">
+		<!-- Global site tag (gtag.js) - Google Analytics -->
+		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3T0KM2W1L"></script>
+		<script>
+			$(function() {
+				$('.south').powerTip({ placement: 's' });
+			});		
+			window.dataLayer = window.dataLayer || [];
+			function gtag(){dataLayer.push(arguments);}
+			gtag('js', new Date());
+
+			gtag('config', 'G-Z3T0KM2W1L');
+		</script>
 		<style>
-			body { font-family: roboto_condensedregular, Arial, Helvetica, sans-serif; font-size: 14px; overflow: auto; }
-			label { width: 5em; display: inline-block; }
-			div { margin: 5px 0; }
 			a { color: lightblue; }
 		</style>
+		<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+		<meta http-equiv="Pragma" content="no-cache" />
+		<meta http-equiv="Expires" content="0" />
 		<link rel="apple-touch-icon" sizes="180x180" href="images/icons/apple-touch-icon.png">
 		<link rel="icon" type="image/png" sizes="32x32" href="images/icons/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="images/icons/favicon-16x16.png">
 	</head>
-	<body background="./images/overlay/background.png">
-		<button type="button" onclick="window.location.href = 'index.html';" style="width: 200px; text-align: center; font-family: 'roboto_condensedregular', Arial, Helvetica, sans-serif;"><== RETURN TO MAIN</button><br><br>
-		<div style="width:1200px; color: white; font-size: 20px;">
-			<h2>Latest Changes:</h2>
-			<div class="releaseDiv">
-				<b><i>3/26/2022 Build 1.8.006 032622</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed with Bow not displaying or auto-tracking improperly in Mystery modes</li><br>
-					<li>Fixed entrance logical availability of NW DM with proper DDM access and Mirror</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>3/10/2022 Build 1.8.005 031022</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Updated up the presets for ALTTPR Main Tournament Inverted Keys mode</li><br>
-					<u>Logic Changes</u><br>
-					<li>Fixed issues with TR split front/back logic in Inverted modes</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>3/10/2022 Build 1.8.004 031022</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed issues with auto-tracking and OW Dungeons with non-progressive bows</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>3/9/2022 Build 1.8.003 030922</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Updated up the presets for ALTTPR Ladder Season Eleven Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) and Main Tournament modes (subject to change)</li><br>
-					<li>Restored functionality for non-progressive Bows with Open Plus and Hard Open presets (flag is hidden)</li><br>
-					<u>Logic Changes</u><br>
-					<li>Fixed logic issue with Turtle Rock in Inverted mode showing clearable if only having front access</li><br>
-					<li>Fixed logic issue with Hookshot Cave in Inverted mode not showing available with Mirror and LW access instead of a Glove</li><br>
-					<li>Fixed logic issue with Tower of Hera in Inverted mode with Basement chest being not obtainable with a fire source</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>1/30/2022 Build 1.8.002 013022</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Minor scripting fixes</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>1/29/2022 Build 1.8.001 012922</i></b><br>
-				<ul>
-					Thanks to Catobat for the following changes:<br>
-					<u>Interface Changes</u><br>
-					<li>In Mystery, when switching between Entrance and Non-Entrance (or World State in Entrance mode), the page no longer reloads. This means item tracking progress is no longer lost and it no longer causes disconnects with the Overworld Tracking window or Autotracking.</li><br>
-					<li>In Mystery, it is now possible to change the Door Shuffle, Overworld Shuffle and Shopsanity settings</li><br>
-					<li>The Dungeon and Overworld Tracking window now automatically saves and loads display settings. More customization options will be added in the future.</li><br>
-					<li>Overworld paths that were generated by a search now have a "Repeat search" button that allows for later repeating of a search with the same search settings.</li><br>
-					<li>When Overworld Tracking is synced with the main window, a new button assists in changing World State and Entrance Shuffle in case those were not set correctly from the start.</li><br>
-					<li>Updated sprites from 31.0.11</li><br>
-					<u>Logic Changes</u><br>
-					<li>Certain mode combinations will automatically mark Sanctuary (or Dark Chapel) as a common starting location when beginning.</li><br>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>1/5/2022 Build 1.7.005 010522</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Updated up the presets for ALTTPR Ladder Season Eleven Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li><br>
-				</ul>
-			</div>
-			
-			<div class="releaseDiv">
-				<b><i>12/17/2021 Build 1.7.004 121721</i></b><br>
-				<ul>
-					Thanks to Catobat for the following changes to the Overworld Tracker:<br>
-					<u>Interface Changes</u><br>
-					<li>The full overworld map can now also be used directly on the main Overworld Tracking page</li><br>
-					<li>Paths are now viewable on the overworld map</li><br>
-					<li>When opening the Overworld and Dungeon Tracker window for the first time, you are now immediately asked to either select all the mode settings and whether they might still change later, or load saved data to continue a previous session. Mystery mode is also available which simply sets all mode settings to the least restrictive options for the start.</li><br>
-					<li>The Overworld Path Search UI has been completely overhauled and now has a clearer distinction between and indication of start and target points</li><br>
-					<li>More Overworld Path Search options (selecting a single region on the starting screen, how common starts can be used when a specific starting screen is selected, followers, and mirror portals (only at start or target regions))
-When you are about to start a new search and asked about the target screen, you can now also select a search preset for commonly needed paths that may involve more than just selecting a target screen, like delivering the purple chest to the thief.</li><br>
-					<li>Below the Overworld Path Search, there is now a checklist that provides some quick tips on what may be missing if a path could not be found</li><br>
-					<li>When selecting a screen on the full overworld map, the buttons for adding a common start region can now also be used to remove already existing ones</li><br>
-					<li>Easier screen swapping in Mixed with an option to keep marked transitions in the same world as before the swap</li><br>
-					<li>In Mystery, when changing certain settings in the main tracker window that force a disconnection between the two tracker windows, a warning and explanation on how to reconnect the tracker windows is now displayed. The main page also starts showing a warning and the same explanation (this also happens if the connection is lost in some other way).</li><br>
-					<li>Fixed a bug where Castle Tower wasn't visually moved to Death Mountain in Inverted with Door Shuffle</li><br>
-					<li>Setting the flute spots in Flute Shuffle gives you the option to disable Flute Shuffle</li><br>
-					<u>Logic Changes</u><br>
-					<li>Logic supports traversal with followers</li><br>
-					<li>In Mixed, the item tracker logic now takes screens with unknown states into account. There are some minor issues with this that will be addressed in the future.</li><br>
-				</ul>
-			</div>
-			
-			<div class="releaseDiv">
-				<b><i>11/1/2021 Build 1.7.003 110121</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Updated up the presets for ALTTPR Ladder Season Ten Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li><br>
-				</ul>
-			</div>
-			
-			<div class="releaseDiv">
-				<b><i>10/17/2021 Build 1.7.002 101721</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Added sorting, various filtering options and notes to the Entrance Summary</li><br>
-					<li>Added compass icon to boss rotation if Compasses are Wild</li><br>
-					<u>Logic Changes</u><br>
-					<li>Fixed minor bugs with changing Boss Shuffle and Wild Maps in Mystery</li><br>
-					<li>Fixed minor styling issues in Entrance right-click menu</li><br>
-				</ul>
-			</div>
-			
-			<div class="releaseDiv">
-				<b><i>10/14/2021 Build 1.7.001 101421</i></b><br>
-				<ul>
-					<li>We've updated our URL! Please note the new URL: <a href="https://alttprtracker.dunka.net">https://alttprtracker.dunka.net</a></li><br>
-					The old URL will continue to work for a time and redirect to the new URL, and then will eventually be replaced permanently<br><br>
-					<li>A big thank you to Catobat for several of the following updates, notated by ** in the below notes</li><br>
-					<u>Interface Changes</u><br>
-					<li>Added Shopsanity tracking and logic**</li><br>
-					<li>Updated sprites from 31.0.10</li><br>
-					<li>Removed non-Bomb start in Standard modes to prevent confusion with Bomb Logic</li><br>
-					<li>Overworld Shuffle interface improvements**</li><br>
-					<li>Added Overworld Shuffle logic to the main window**</li><br>
-					<li>Added Polar Mixed Overworld tracking support**</li><br>
-					<li>Minor changes to importing flags**</li><br>
-					<li>FINALLY added the Known Locations and Known Entrances interface to the Entrance Tracker</li><br>
-					<u>Logic Changes</u><br>
-					<li>Added StructuralMike's Bomb Mode Logic, which allows for logic to not be able to use bombs until they are located. A big thanks to StructuralMike for this update and Catobat for merging it!</li><br>
-					<li>Door Shuffle logic adjustments**</li><br>
-					<li>Changed Old Man logic in Entrance**</li><br>
-					<li>Minor dungeon logic fixes (EP, DP, IP, TR and GT)**</li><br>
-					<li>Some preparations for dungeon logic in Entrance**</li><br>
-					<li>Added Door Shuffle logic for Entrance (only affects SW)**</li><br>
-					<li>Fix to Bombos Tablet check in entrance with no Moon Pearl</li><br>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>8/29/2021 Build 1.6.022 082921</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Updated up the presets for ALTTPR Ladder Season Nine Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li><br>
-					<li>Updated import flag endpoint to match new ALTTPR repository</li><br>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>8/14/2021 Build 1.6.021 081421</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Logic fixes in entrance and mystery</li><br>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>8/7/2021 Build 1.6.020 080721</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Thanks to Catobat for updating the Overworld Shuffle tracker! It now supports the following modes:</li>
-					- Inverted<br>
-					- Mixed Overworld<br>
-					- Crossed Overworld<br>
-					- Flute Shuffle<br>
-					<li>All combinations of the above and Vanilla/Parallel/Full Overworld Layout Shuffle are now supported (The map tracker in the main window is still not affected)</li><br>
-					<li>Various improvements to the Overworld/Dungeon Tracker window (side by side view for the map, flute activation handled manually and more)</li><br>
-					<li>Added starting activated Flute logic for Inverted Mystery. It can be toggled from the Mystery flags menu</li><br>
-					<li>Fixed sprite issue with Ark and Ark Cape</li><br>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>7/18/2021 Build 1.6.019 071821</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Fixed styles for some sprites which were not showing up upon load</li><br>
-					<li>Autotracking status will now be hidden when hovering over any object which displays a message in the map area</li><br>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>7/11/2021 Build 1.6.018 071121</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Fixed bug when switching between entrance modes in Mystery where autotracking would fail to re-load</li><br>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>6/26/2021 Build 1.6.017 062621</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Updated up the presets for ALTTPR Ladder Season Eight Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li><br>
-					<li>Updated sprite list, fixed outstanding missing sprites</li><br>
-					<li>Added a status indicator for Autotracking status in the bottom right corner of the map tracker</li><br>
-					NOTE: Because of lack of space, there is no spot left on the item tracker for this indicator for this feature, so unless you are using the map tracker, this feature will not be available
-				</ul>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Changed logic for GT entry in Mystery Modes, for when crystal requirement is unknown, entry will be marked as possible instead of unavailable if GT is reachable</li><br>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>5/24/2021 Build 1.6.016 052421</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Big thanks to Catobat for the following updates:</li><br>
-					<li>Added Overworld Shuffle tracking support which is located in the Dungeon Tracker window</li><br>
-					<li>Made some improvements to the Dungeon Tracker window including an optional sidebar for quick switching between dungeons (or dungeon and overworld)</li><br>
-					<li>Fixed right-clicking locations and marking them with items when auto-tracking is enabled</li><br>
-					<li>Fixed minor logic bugs at Mimic Cave and Desert West Ledge with Door Shuffle enabled</li><br>
-					<li>Fixed minor launcher styling issues (mostly in Firefox)</li><br>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>4/24/2021 Build 1.6.015 042421</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Updated up the presets for ALTTPR Ladder Season Seven Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li><br>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>3/28/2021 Build 1.6.014 032821</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Finally added the additional sprites for 31.0.8, just a little late!</u>
-					<li>Fixed logic issue in entrance with EDW access with limited items</u>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>2/6/2021 Build 1.6.013 020621</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed North WDM access with Hookshot, Mirror, and South EDM access in entrance</u>
-					<li>Fixed enemizer boss check in MM</u>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>1/24/2021 Build 1.6.012 012421</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed Hera basement chest in key shuffled modes</u>
-					<li>Fixed several OWG logic issues</u>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>1/17/2021 Build 1.6.011 011721</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed locations reachable via Flute activations in inverted entrance</u>
-					<li>Fixed King's Tomb opening in inverted entrance</u>
-					<li>Made locations in SW/Outcast area reachable always with Moon Pearl and back of SW entrance located</u><br>
-					NOTE: This is a reversion from a previous change. Where it is possible to get locked behind the one entrance and drop that you can access, it is always much more likely that it will be available. Be aware that this entrance may be one sided and you cannot progress through the single door, although unlikely. This will require the use of "Possible" entrances, which is currently not a feature. We will work on adding this in the future.<br>
-				</ul>
-			</div>
-			
-			<div class="releaseDiv">
-				<b><i>1/16/2021 Build 1.6.010 011621</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed fringe case of AGA required items in swordless mode</u>
-				</ul>
-			</div>
-			
-			<div class="releaseDiv">
-				<b><i>1/9/2021 Build 1.6.009 010921</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Added back end scripting to prevent accidental reloading of the tracker in Mystery modes by navigating backward (After doing this twice in Mystery, I had enough...)</li>
-					<u>Logic Changes</u><br>
-					<li>Fixed GT access with 0 GT requirements</u>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>1/2/2021 Build 1.6.008 010221</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Massive changes to Crossed Door shuffle and dungeon tracker, big thanks to catobat for updating his interface and logic! Check the instructions page for updated information.</u>
-					<li>Fix to launcher import settings functionality when importing from a seed</u>
-					<li>Fix to some of the sprites that were imported with the last build</u>
-				</ul>
-			</div>
-
-			<div class="releaseDiv">
-				<b><i>12/22/2020 Build 1.6.007 122220</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Fixed launcher issues, missing sprites from dropdown</u>
-				</ul>
-			</div>
-			
-			<div class="releaseDiv">
-				<b><i>12/21/2020 Build 1.6.006 122120</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Inverted Entrance logic has finally been added! Big thanks to willwc for creating this logic! Please report any issues you come across.</li>
-					<u>Interface Changes</u><br>
-					<li>Added version 31.0.7 sprites</u>
-					<li>Updated up the presets for ALTTPR Ladder Season Five Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li><br>
-				</ul>
-			</div>
-			
-			<div class="releaseDiv">
-				<b><i>12/08/2020 Build 1.6.005 120820</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Fixed the ability to right click on medallions in entrance mode</li>
-					<li>Fixed the import flag issue for checkboxes when importing item shuffles</li>
-				</ul>
-			</div>
-			
-			<div class="releaseDiv">
-				<b><i>11/11/2020 Build 1.6.004 111120</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Small logical fixes for IP and inverted</li>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/19/2020 Build 1.6.003 101920</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed auto tracking issues with entrance overworld locations</li>
-					<li>Fixed DP logic for Boots checks</li>
-					<li>Fixed inverted information check for Grove Cave without Moon Pearl</li>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/19/2020 Build 1.6.002 101920</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Fixed style issue with maps not showing up in entrance tracker</li>
-					<u>Logic Changes</u><br>
-					<li>Fixed auto tracking issues with swordless modes and half magic tracking</li>
-					<li>Disabled auto tracking for CT chests</li>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/18/2020 Build 1.6.001a 101820a</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Added instructions for auto tracking to the instructions page</li>
-					<li>Added variable port option for auto tracking</li>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/18/2020 Build 1.6.001 101820</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Numerous updates to the launcher!</li>
-					Updated the Logic Settings to include individual Shuffled Items for wild maps, compasses, small keys, and big keys<br>
-					NOTE: The Dungeon Items selector works to fill in presets, but it is no longer used beyond the launcher as each individual setting is now looked at for logic.<br>
-					Added Ambrosia to the logic settings, to always check for the last item in each dungeon when only one item remains<br>
-					Added Starting Items to the launcher, which is more for the presets and imports, but it will carry over to the tracker if you preset it (NOTE: If you use a preset with starting boots, like Open Boots, and then change up other flags, the boots will already be preset and you cannot uncheck it without using a different preset. This is NOT a bug, but an annoyance. Just uncheck them when you launch, and this will be addressed at a later time.)<br>
-					Removed Advanced/Basic difficulty settings, as it will no longer be looked at and all modes will be considered as advanced placement<br>
-					Added (FINALLY) an instructions document from the launcher, which explains all of the various modes and how to use the tracker in general<br><br>
-					<li>Updated up the presets for ALTTPR Ladder Season Four Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li><br>
-					<li>For those that have the ability to use it, there is a new auto tracking module added for items and locations! Just have it selected on the Launcher. Big shout-out to Bonta for providing the module to make this work! NOTE: The default websocket port that is being used is 8080.</li><br>
-					<li>Overworld Glitches logic has been added! Big thanks to Coxla for adding it! It hasn't been fully tested, so please report any issues. Major/No Logic will always show all locations, as logic there is not yet implemented. (Nor likely will it ever)</li><br>
-					<li>Added a map icon whenever Wild Maps are live, which is at the end of the rotation, and accessible by right clicking on pendant/crystal rotator when it is at the start (?)</li><br>
-					<li>Right clicking on medallions for MM and TR will now navigate backward</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/9/2020 Build 1.5.025 090920</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Added enhanced dungeon tracking for Door Rando! This is a feature with a lot of new options, so there is a walkthrough that you can <a href="instructions.html#dungeon" target="_blank">view here</a>. Thanks goes out to Catobat for this new addition to Door Rando tracking!</li><br>
-					<u>Logic Changes</u><br>
-					<li>Small keysanity logic fixes</li><br>
-					<li>Fixed typo with Magic Cape for some invuln checks</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>8/15/2020 Build 1.5.024 081520</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Updated up the presets for ALTTPR Ladder Season Three Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li><br>
-					<u>Logic Changes</u><br>
-					<li>Change to logic for Fire Rod access to back of Escape (Was previously hotfixed)</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>7/6/2020 Build 1.5.023 070620</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Added the new sprites for the 31.0.6 release</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>6/23/2020 Build 1.5.022 062320</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Changes up the presets for ALTTPR Ladder Season Two Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li><br>
-					<li>Added the new sprites for the 31.0.5 release!</li><br>
-					<u>Logic Changes</u><br>
-					<li>Various fixes in entrance mode</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>5/21/2020 Build 1.5.021 052120</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Reworked some of the PoD logic for Keysanity/MCS modes</li><br>
-					NOTE: We are reviewing this logic and may rework some of the methods in which we assign chest priorities, more to come in later builds<br><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>5/14/2020 Build 1.5.020 051420</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Added more presets to the main menu, coincidentally matching our current ALTTPR Ladder Season 1 Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li><br>
-					<u>Logic Changes</u><br>
-					<li>Fixed two DW entrance issues</li><br>
-					<li>Fixed logical checks for tablets in swordless modes</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>4/30/2020 Build 1.5.019 043020</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed a logical issue EP Keysanity</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>4/5/2020 Build 1.5.018 040520</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed a few DM entrance issues</li><br>
-					<li>Fixed a logical issue with PoD in Inverted mode</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>3/16/2020 Build 1.5.017 031620</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Fix in mystery mode where the goal icon could vanish</li><br>
-					<li>Added a generic "Chest" key location to entrance interface, for chests that are not obtainable but have been found</li><br>
-					<u>Logic Changes</u><br>
-					<li>Various fixes to entrance logic</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>3/12/2020 Build 1.5.016 031220</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Small fixes to import flags function, and added the ability to paste the entire URL instead of just the hash</li><br>
-					<li>Fixed issue where chests were only visually changed in mystery mode when going from open to standard</li><br>
-					<li>Fixed issue where small keys were being reset when switching between full Keysanity and MCS</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>2/28/2020 Build 1.5.015 022820</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>New location note feature has been added! If you right click on a location, it will allow you to select an item, which will then leave a note (hover to see it below the map in the caption area) on the location so you remember to go back for it later. Thanks goes out to Catobat for this handy new feature!</li><br>
-					<u>Logic Changes</u><br>
-					<li>Various entrance logic fixes</li><br>				
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>2/22/2020 Build 1.5.014 022220</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Various entrance logic fixes</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>1/25/2020 Build 1.5.013 012520</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fix for MM logic boss clear without either fire source</li><br>
-					<u>Interface Changes</u><br>
-					<li>It is true, you always have bombs, except..... *dramatic chipmunk!*</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>1/18/2020 Build 1.5.012 011820</i></b><br>
-				<ul>
-					<u>Mode Changes</u><br>
-					<li>Thanks to Catobat to contributing a new toggle for tracking door rando! This adds additional chest and key info for tracking individual pieces of dungeons, which also does open up new considerations, like small keys in EP, or the bomb hole in TT. Currently, there is no logic built to track what could be available within the dungeons and what chests could be accessed logically, as there really isn't a good way to tell the tracker what is and what isn't available. So the mode may look a little bit different.</li><br>
-					<u>Logic Changes</u><br>
-					<li>Small logical fixes for enemizer combinations</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>1/2/2020 Build 1.5.011 010220</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed logical issue in entrance where the Bumper Cave exit ledge was included in the WDM entrance pool</li><br>
-					<li>Fixed logical issue in entrance where WDM was not available with WDDM access and Mirror</li><br>
-					<li>Fixed logical issue in entrance where the dark shopping mall areas were available with Flippers and without Moon Pearl</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>12/28/2019 Build 1.5.010 122819</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Compact map now has entrance and full mystery options available! Big thanks to Catobat for making these changes! The compact map may still be a little hard to read at times...but what can ya do with that space? We will work on ways of improving the visual aspect to improve visibility.</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>12/22/2019 Build 1.5.009 122219</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Fixed issue where map tracker icon for dungeons were being overwritten when changing enemy shuffle option</li><br>
-					<li>Added override styles for unavailable known locations in entrance tracking mode</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>12/10/2019 Build 1.5.008 121019</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Added starting zones for Entrance for Link's House, Sanctuary, and Death Mountain</li><br>
-					<li>Modified tag locations for areas near the north of the map to show under the location tab instead of over, to prevent it falling off the screen</li><br>
-					<u>Logic Changes</u><br>
-					<li>Applied already live hotfix for new swordless bug</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>12/08/2019 Build 1.5.007 120819</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Changed the map tracker icons from the boss icons for each respective dungeon to the selected dungeon prize</li><br>
-					NOTE: This change is currently tentative, based off feedback, and may be reverted<br><br>
-					<u>Logic Changes</u><br>
-					<li>Fixed swordless bug for entry into MM/TR/IP</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>12/04/2019 Build 1.5.006 120419</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Moved Mystery settings flag to the main interface and changed so the tracker does not auto-load on a preset setting, but instead goes to the display settings at the bottom</li><br>
-					<u>Logic Changes</u><br>
-					<li>Modified the Ice Palace boss logic to once again allow for possible completion without Hookshot or Somaria</li><br>
-					NOTE: I've gone back and forth with this logic, as it makes no actual sense. However, there are situations where you can force the old vanilla route with keys up front where hook and cane are not actually required. Also note, that in full keysanity mode, it will still return an unavailable (red) for the boss when you don't have hook, cane, or the big key. Chest logic remains unchanged.<br><br>
-					<li>Fixed issue where hammer was required for low crystal count GT for chests</li><br>
-					<li>Fixed a map tracking update issue where crystals and pendants are swapped, not affecting map tracking for GT entry and Ganon vulnerability until a refresh has occurred</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>12/02/2019 Build 1.5.005 120219</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>A few new entrance logic fixes</li><br>
-					<li>Fixed a bug in retro mode where SP was looking for non-retro small keys to complete</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>12/01/2019 Build 1.5.004a 120119</i></b><br>
-				<ul>
-					<u>Mode Changes</u><br>
-					<li>Because everybody loves a good mystery, a new Mystery Seed preset has been added! This will allow you to switch between modes in a mystery race (They are ALLLLLL the rage these days) whenever you figure out one of the flags. Doing so will load the default settings: Open, non-Entrance, Boss + Enemy Shuffle, Keysanity, Ganon w/ Random-Random. When in Mystery Seed mode, a new flag icon will appear in the top left under the Ganon Vulnerable icon. Simply click on it, change what settings you want, and save and the adjustments should occur. Note, that if you switch between Entrance and non-Entrance, you will lose all of your tracked items and map locations. If you switch between Inverted and non-Inverted, you will lose your map tracking locations.</li><br>
-					NOTE: Entrance mode is not supported with compact map and thus, you cannot switch between them<br><br>
-					<li>Added basic "glitched" tracking, which is basically just everything is on for now without any logic built in, so the modes are currently condensed into one. When proper logic is added later, those will be split back out again.</li><br>
-					<u>Logic Changes</u><br>
-					<li>Numerous entrance logic fixes</li><br>
-					<li>Fixed back of escape chests in retro not showing available with lantern</li><br>
-					<li>Fixed inverted keysanity check with Castle Tower showing available when it should be dark accessible only</li><br>
-					<li>Fixed inverted keysanity SP boss check without small key showing available</li><br>
-					<li>Fixed unlikely scenario where SP items were showing possible, but no actual way to get to SP, after AGA1 kill</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>11/21/2019 Build 1.5.003 112119</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed entrance known areas for dungeons not recognizing located</li><br>
-					<li>Fixed entrance bug for lower EDM w/ hookshot and WDM access</li><br>
-					<li>Added Dam location check for Dam underwater item and updated text</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>11/20/2019 Build 1.5.002 112019</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Updated entrance interface to allow for multiple entrances (up to 3) to be connected to a single location</li><br>
-					NOTE: This changes how the connector addition interface works, and you now need to go to the right click menu to connect and disconnect locations. Having the on screen icon to add was too troublesome with the new multi-entrance logic build. All entrance adds and disconnects will now be handled from this menu. The old connect button on the map has been removed and the disconnect will only be visible when needing to cancel a location. That space will be replaced by the soon-to-have Summary Page, which will show you a summary of all known locations.<br><br>
-					<li>Added a small note indicator when a note is active on a location, although other on-screen items always have priority (So the note icon may be hidden)</li><br>
-					<li>Updated the hover-over caption to give more complete information</li><br>
-					<li>Modified key locations in conjunction with connectors, allowing both connectors and key locations to be on one item; Key location color schemes will always get priority in this case</li><br>
-					<li>Updated the right click menu to better summarize the location details</li><br>
-					<li>Added temp location for Mystery Seed default settings, it is coming soon, which will give you the ability to update flags without reloading the tracker in mystery seeds!</li><br>
-					<u>Logic Changes</u><br>
-					<li>Fixed small logic issues with entrance logic</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>11/16/2019 Build 1.5.001 111619</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Changed the default item tracker, added bombs, half magic, and AGA 2, and split some items to share one spot</li><br>
-					Explanation: Okay, I feel like I need to explain this one. The core of this revolves around needing AGA 2 as a clickable option, because entrance and non-fast Ganon modes require clearing AGA 2, but not always when you are ready to finish the game. So making the split spot for AGA 1 and AGA 2 was natural. However, there has been a push by some of the community to make the tracker match the in-game menu, which meant adding...sigh...Bombs. (Editors note: YOU ALWAYS HAVE BOMBS!!) In order to do that, it required merging Mushroom/Powder and Shovel/Flute spots. The deciding factor in all of this, is that it allowed the addition of Half Magic, something which I have been wanting for a while, because there is some logic that runs from it. (NOTE: That logic has yet to be implemented in this release, and it is limited to basic item placement modes, so it will come later) So, hopefully this should make MOST people happy.<br><br>
-					<u>Logic Changes</u><br>
-					<li>Added logic for non-inverted entrance mode! Be aware, in order to properly use it, you will need to make connectors to the areas that you need access to. For example, you need to make a valid connection to Death Mountain for the logic to recognize it. Also, this logic is still in the validation phase, so please report any issues!</li><br>
-					<li>Fixed bug in medallion checks</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/21/2019 Build 1.4.009 102119</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Fixed issue with spoiler log mode where the hover overs were not compatible with some of the latest entrance changes (NOTE: Spoiler logs and entrance still do not mix well, maybe that'll get added at some point)</li><br>
-					<u>Logic Changes</u><br>
-					<li>Fixed some retro logic with standard and MC shuffles with the incorrect amount of chests showing up</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/20/2019 Build 1.4.008 102019</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Finished uploading ALL of the custom sprites! Huge thanks to Catobat for the way to automate the generation, saved several hours of time!</li><br>
-					<u>Logic Changes</u><br>
-					<li>Changed method of validation MM and TR medallion checks, removing some legacy code which was causing a conflict with the new method of chest checks</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/19/2019 Build 1.4.007 101919a</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Started implementing custom sprites! For right now, it is just Link and Ultros, but we'll put in more as we can design them</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/19/2019 Build 1.4.006 101919</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed logic issue with Full Keysanity/MCS Shuffle with retro, where small keys are not being ignored by the retro key tracker</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/17/2019 Build 1.4.005 101719</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Added visual tags for known key locations, which also are hidden when the location is checked off</li><br>
-					<li>Added new category for key entrance locations for general locations, and added an "Unknown Connector" location</li><br>
-					<li>Fixed a scripting error when right clicking on small keys in entrance mode</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/16/2019 Build 1.4.004 101619</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Consolidated Entrance modes on the launcher, as at this time (and probably in the future) there will be no functional changes between modes</li><br>
-					<li>Removed Insanity Entrance mode on the launcher, as this will not be supported at this time</li><br>
-					<li>Fixed connector line issue with entrances on the same X/Y coordinate</li><br>
-					<li>Fixed spoiler log issue with tracking progressive bow</li><br>
-					<li>Modified entrance tracker chest color codes to be more subtle</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/15/2019 Build 1.4.003 101519a</i></b><br>
-				<ul>
-					<u>Interface Changes</u><br>
-					<li>Added color scheme changes for chests in entrance mode to show when chests are available in dungeons, since the dungeon trackers have been removed</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/15/2019 Build 1.4.002 101519</i></b><br>
-				<ul>
-					<u>Mode Changes</u><br>
-					<li>Added Connect icon to the right click menu for entrance tracking, to save a click if already in the menu</li><br>
-					<li>Added Ganon to the Dark World Key Locations in the right click menu for entrance tracking</li><br>
-					<li>Changed opacity of checked locations in entrance to half opacity, to prevent additional clutter on the map</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/14/2019 Build 1.4.001 101419</i></b><br>
-				<ul>
-					<u>Mode Changes</u><br>
-					<li>Basic entrance tracking has been added!<br>
-					This is going to be the first of several releases of Entrance, as we are going to roll it out slowly. This first initial build has no built in logic behind the entrances. Just the locations, the ability to check off locations, tag known locations, make connections, and add notes. The next major builds will improve and clean up the interface, the ability to properly track available dungeon chests, followed by logic.<br>
-					Currently, if you left click on a diamond (entrance), it will simply check it off, the way that chests currently do. However, if you right click on it, it will bring up the options for the entrance. You can click a known location, which will highlight it, and/or add a note. Any known locations or notes will show up in the caption area under the map.<br>
-					To add a connector, click at the connector button near the bottom right area of the light world map.  Then click on the two entrances you want to connect, and they should highlight that they are active. Hovering over them will show where they are connected in the caption area, or you can view the details on the right click menu. That is where you can remove the connector as well, it will show a Disconnect button. Also, if you want to view the lines of the connector, you can do so by clicking on the Eye button in the bottom left hand corner of the dark world map.  You can re-hide them by pressing the button again.<br>
-					Also, for the entrance version of the map, there are no dungeon indicators on the map (because the dungeon could be anywhere!). As stated before, we will update this with a new method to track chests in a future release.<br>
-					As always, please report any issues, thank you!<br>
-					<br>			
-					<u>Logic Changes</u><br>
-					<li>Updated dark logic to GT</li><br>
-					<li>Updated Ganon vulnerability check when Ganon Vuln is available, but GT is not, and is not Fast Ganon</li><br>
-					<li>Updated dark + advanced logic in EP</li><br>
-					<li>Updated MM boss check w/ unknown medallion</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/1/2019 Build 1.3.011 100119</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Updated Ice Palace boss logic<br>
-					This logic is going to be one of those exceptions to the rules, in regards to what is "required" vs what is "expected". This may change down the road, but as it stands, it basically requires the Hookshot or Somaria and the big key (in full keysanity mode), although that does not exactly fit what the logic says.<br>
-					<br>				
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/29/2019 Build 1.3.010 092919</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed Dark Cross Advanced logic w/ Fire Rod</li><br>
-					<li>Removed old sequence break logic and will replace with new glitched logic in future revision</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/28/2019 Build 1.3.009 092819</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed issue with EP showing items available in inverted keysanity without the big key</li><br>
-					<li>Added additional checks for MM and TR to bypass the medallion check, if items are still not obtainable</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/27/2019 Build 1.3.008a 092719</i></b><br>
-				<ul>
-					<u>Mode Changes</u><br>
-					<li>Added ability to import flags from the ALTTPR randomizer site if you have the seed hash and are online</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/27/2019 Build 1.3.008 092719</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Added "Information" orange tile in the map tracker for items you can see, but not get. This replaced earlier functionality of matching the yellow "Possible" tile, which is not accurate, as they are not obtainable.<br>
-					<br>
-					<u>Mode Changes</u><br>
-					<li>Restored the Spoiler Log setting</li><br>
-					<u>Misc Changes</u><br>
-					<li>Minor cleanup from previous build</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/26/2019 Build 1.3.007 092619</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Finalized rebuilding all of the dungeon logic for all available modes<br>
-					As per the previous announcement, there were several changes to the logic structure in regards to small keys in order to handle the new MCS shuffle mode. Because of this, the entire way that chest logic is handled was redesigned. There are chances that some logic issues slipped through testing, and if you discover any, please let Dunka know via Discord @ BigDunka#8354.<br>
-					Logic was redesigned to more closely match what is in the randomizer seeding and placement logic. Because of this, areas like Ice Palace, where the tracker would previously show available via bomb jump, that has since been removed and the bomb jump is no longer in logic. Other areas, like Turtle Rock with small key shuffle, were redesigned to allow for max potential items for keys by logic, which means it will not count skipping the vanilla big key location with only 3 small keys, making the boss not killable.<br>
-					Other areas went outside of the logic, with regards to availability of killing bosses. If a boss is killable, but the dungeon is not fully clearable, it will show that the boss can be defeated, even if the logic states that it shouldn't be. Other areas that were adjusted with for getting items "smartly" and showing possibilities. PoD is an example, with being able to full clear all items and the boss with just five small keys, as long as you use the hammer and bow to not open the front door. These logically are marked as possible on the map, but will not show fully available without all six keys.<br>
-					Long story short: Please use the map tracker with the understanding that it is based off the logic and you can use your knowledge of the game to bypass this logic, the same way you could use a sequence break to get items you should not.<br>
-					<br>
-					<u>Misc Changes</u><br>
-					<li>Added right click functionality for small keys and chests</li><br>
-					<li>Updated the ALTTPR 2019 Tournament presets to the newly defined flags</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/22/2019 Build 1.3.006 092219</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Continuing to work on logic issues, none release on this build</li><br>
-					<u>Misc Changes</u><br>
-					<li>Changed default Item Placement flag to Advanced over Basic</li><br>
-					<li>Various display and initialization fixes</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/18/2019 Build 1.3.005 091819a</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed visual display bug for DP</li><br>
-					<u>Misc Changes</u><br>
-					<li>Fixed highlight visual when hovering over map locations</li><br>
-					<li>Fixed bug with styles misaligning with GT chest</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/18/2019 Build 1.3.004 091819</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Continued work on IP, TR, and GT logic, and a more simplified way to track items in all dungeons</li><br>
-					<u>Mode Changes</u><br>
-					<li>Enabled Enemy Shuffle, which is important to complete some dungeons (ie: Possibly completing Eastern Palace without the bow without having to fight the red Eyegores)</li><br>
-					<li>Enabled Item Placement, which for this tracker, is only important for dark rooms with torches being in logic with Fire Rod (Not all logic has been entered and tested)</li><br>
-					<u>Misc Changes</u><br>
-					<li>Adjusted the styles to make chests larger when small and big keys are not being tracked, to eliminate un-used space</li><br>
-					<li>Added preset option for ALTTPR 2019 Tournament qualifiers</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/17/2019 Build 1.3.003 091719</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed issue where DW dungeons were showing accessible without DW access</li><br>
-					<u>Mode Changes</u><br>
-					<li>Added Fast Ganon goal, to allow to defeat Ganon without any access to DM or GT, just need MS, a way to LW/DW, and a fire source, once Ganon is vulnerable</li><br>
-					<li>Fixed issue where Fighters Sword was not automatically assigned in Assured mode</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/16/2019 Build 1.3.002 091619a</i></b><br>
-				<ul>
-					<u>Logic Changes</u><br>
-					<li>Fixed a few boss requirements to add in more obscure items that can kill bosses in logic</li><br>
-					<u>Mode Changes</u><br>
-					<li>Combined modes for Boss and Enemy Shuffle to be either on or off, as logic does not change based off those flags (Any flags that can be condensed is good!)</li><br>
-					<li>Enabled Open Tower and Ganon Vulnerable flags. The user will be given an icon in the top left hand corner to click on to set the known requirements if the requirements are random.</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>9/16/2019 Build 1.3.001 091619</i></b><br>
-				<ul>
-					<li>First major release for v31!<br>
-					<li>Complete overhaul of launcher to show all available flags, and several that will be released in the future, including entrance!<br>
-					<li>Updated all sub-page interfaces and stylesheets<br>
-					<li>Overhaul of logic to match new v31 options<br>
-					NOTICE: There will be several incremental updates once v31 is formally released. We are basing the logic off what limited information has been released to this point. Please be sure to report any issues when you find them and we will make an updated list on the Known Issues page.<br>
-					<li>Removed "known easy sequence breaks" to line up the general logic, but continue to allow "common sense" sequence breaks<br>
-					To expand on this, the original tracker always had Ice Palace built in with a possible sequence break with the bomb jump. That has since been removed and the notation in the comments also removed. If you do not have the Hookshot or Somaria, Ice Palace will show as not completable. This is because there are going to be new flags in the logic to allow for certain glitches to be auto-populated and the previous logic would override that.<br>
-					Other common sense logic, however, has not been removed. For example, in Full Shuffle, Desert Palace is not completable by logic without both the big key and the small key, to prevent a potential small key lock. However, if you have the big key and not the small key, the tracker will show that the dungeon boss is indeed killable. This is to allow for ease of recognition of clearable dungeons while in go mode.<br>
-					<li>Added a new purple color coded map tracker function for "Dark Room Possible". The current color codes are now as follows:<br>
-					Red = Unavailable<br>
-					Green = Available<br>
-					Yellow = Possible<br>
-					Blue = Dark Room Available<br>
-					Purple = Dark Room Possible<br>
-					<li>Right clicking on crystal/pendant icons will go backwards, making for faster crystal selection<br>
-					<li>This release is assuming Basic Item Placement, which means required items are using the v30 logic (Laser Bridge for example still requires a safety). Advanced logic will be added in a future release.<br>
-					<li>Entrance Shuffle, Enemy Shuffle, Glitches, Item Placement, Open Tower, Ganon Vulnerable, and Spoiler Log settings are currently disabled, pending more development and validation</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>2/21/2019 Build 1.2.001 022019</i></b><br>
-				<ul>
-					<li>Added ability to upload a spoiler log to mark items on the tracker. Credit to Catobat for this feature!<br>
-					NOTICE: At this time, there is a Spoiler Log Tournament going on, but using a parser to parse out the spoiler log is NOT ALLOWED by the rules! Please do not use this feature in the tournament or risk a disqualification.</li><br>
-					<li>Fixed inverted check for Zora Ledge without flippers<br>
-					<li>Fixed inverted keysanity check for clearing MM without big key<br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>12/23/2018 Build 1.1.012 122318</i></b><br>
-				<ul>
-					<li>Fixed keysanity bug where one chest was showing available in MM without a fire source<br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>12/21/2018 Build 1.1.011 122118</i></b><br>
-				<ul>
-					<li>Fixed keysanity bug where TR chests were showing up accessable past the big key door without the big key<br>
-					<li>Fixed inverted bug where some East Dark World locations were not showing accessable with the flute<br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>12/4/2018 Build 1.1.010 120418</i></b><br>
-				<ul>
-					<li>Fixed GT completion check when not enemizer<br>
-					<li>Fixed various boss logic checks for enemizer<br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>11/30/2018 Build 1.1.009 120118</i></b><br>
-				<ul>
-					<li>Modified some enemizer boss checks and added note about full shuffle over boss shuffle only<br>
-					<li>Fixed AGA 1 tower enemy check for swordless<br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>11/30/2018 Build 1.1.008 113018</i></b><br>
-				<ul>
-					<li>Added support for Enemizer modes to check known bosses (Still partially in progress and in testing)<br>
-					<li>Fixed a bug in standard keysanity sewers chests being always available<br>
-					<li>Fixed a bug in inverted swordless where AGA 1 was not listed as available with certain bugnet checks with a cane weapon<br>
-					<li>Fixed a bug in inverted where a sequence break PoD was showing up without sequence break logic<br>
-					<li>Fixed a bug in swordless retro where the Castle Tower chests were not showing as active with the hammer to access<br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>11/25/2018 Build 1.1.007 112518</i></b><br>
-				<ul>
-					<li>Enabled Compact + Sphere functionality<br>
-					Credit to Catobat for these changes</li><br>
-					<li>Added placeholders for Enemizer<br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>11/24/2018 Build 1.1.006 112418</i></b><br>
-				<ul>
-					<li>Fixed swordless AGA1 access w/ cape and bug net</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>11/20/2018 Build 1.1.005 112018</i></b><br>
-				<ul>
-					<li>Fixed inverted keysanity boss logic bug for Desert Palace</li><br>
-					<li>Still looking into current inverted keysanity logic for Turtle Rock</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>11/14/2018 Build 1.1.004 111418</i></b><br>
-				<ul>
-					<li>Split Game and Display settings on launcher</li><br>
-					<li>Added ability to store default Display settings via cookies</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/25/2018 Build 1.1.003 102518</i></b><br>
-				<ul>
-					<li>Added formal build release schema</li><br>
-					<li>Added reference pages for release notes, known issues, contributors, and downloads</li><br>
-					<li>Fixed swordless bug in logic where AGA 1 was not marked as accessible</li><br>
-					<li>Fixed AGA toggle logic to always check on item changes beyond just normal AGA required items to fix inverted/swordless bug</li><br>
-					<li>Fixed inverted logic for always checking for light world bunny access, would sometimes skip the macro check</li><br>
-					<li>Fixed inverted logic for Tower of Hera with flute and without lantern</li><br>
-					<li>Fixed keysanity logic for chests accessible in Tower of Hera without lantern or fire rod</li><br>
-					<li>Fixed inverted labeling for Desert Ledge to only require book</li><br>
-					<li>Disabled all current sequence breaking logic and labeling, will release formal inclusion in future release</li><br>
-					<li>Added Google Analytics data</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/17/2018</i></b><br>
-				<ul>
-					<li>Added Compact map<br>
-					Credit to Compact map goes to Catobat (Will post full credits page soon!)</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/16/2018</i></b><br>
-				<ul>
-					<li>Added Sphere tracking<br>
-					Credit to Sphere tracking goes to Jem (Will post full credits page soon!)</li><br>
-				</ul>
-			</div>
-			<div class="releaseDiv">
-				<b><i>10/14/2018</i></b><br>
-				<ul>
-					<li><b>STILL IN TESTING</b> Added Inverted + Keysanity logic<br>
-					NOTE: Turtle Rock is still fairly untested, as there are two different logic sets (front door and mirror entrances) using the best available options. Not all dungeons have been fully tested, please report issues to Dunka (BigDunka#8354)</li><br>
-					<li>Disabled some of the Sequence Break logic, will reactivate after the toggle has been added</li><br>
-					<li>Fixed the inverted + keysanity AGA 1 chests and opening logic</li><br>
-					<li>Fixed some minor icon issues</li><br>
-				</ul>
+	<body>
+		<div class="outer-wrapper">
+			<div>
+				<div class="header-main-div">
+					<a href="./index.html"><img src="./images/overlay/header.png" class="header-main-img"></a>
+					<div class="header-news-div" >
+						<span class="default-white-text">Build 2.0.001 042322 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
+					</div>
+				</div>
+				<div class="header-links">
+					<a href="./release.html">
+						<div class="header-link-img"><span class="header-text-span">Release Notes</span></div>
+					</a>
+					<a href="./instructions.html">
+						<div class="header-link-img"><span class="header-text-span">Instructions</span></div>
+					</a>
+					<a href="./issues.html">
+						<div class="header-link-img"><span class="header-text-span">Known Issues</span></div>
+					</a>
+					<a href="./contributors.html">
+						<div class="header-link-img" ><span class="header-text-span">Contributors</span></div>
+					</a>
+					<a href="./downloads.html">
+						<div class="header-link-img"><span class="header-text-span">Downloads</span></div>
+					</a>
+				</div>
+			</div>
+			<div class="main-wrapper">
+				<div class="preset-div">
+					<span id="gameplayarrow"></span> Release 2.0
+					<div id="release20">
+						<b><i>4/23/2022 Build 2.0.001 042322</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Major overhaul and style changes of all non-tracker pages</li>
+							<li>Changed the categories and order of some of the presets to consolidate and simplify launcher</li>
+							<li>Added visible flags for Non-Progressive Bows and Activated Flute</li>
+							<li>Added an interface for all normal starting items from the launcher</li>
+							<li>Added the Restreaming function, which allows for a Tracker (or racer) to send current tracker status to a Restreamer (NOTE: Currently, only the item tracker status is being shared; We expect to add full map tracking in the near future)</li>
+							<li>Added Grab Bag preset and interface to switch between modes after the tracker is launched</li>
+							<li>Added an offline checker to remove items that will not work when running offline</li>
+							<li>Fixed a few invalid sprites which weren't loading properly</li>
+							<li>Added a settings menu to the Overworld and Dungeon Tracker window which includes a light theme and many other behavior and display customization options</li>
+							<li>Overworld Shuffle: Updated the logic for Inverted and Mixed to the current Inverted implementation in the OWR branch (only affects the logic from the Overworld Tracker window)</li>
+							<li>Door Shuffle: When adding a room node, more rooms are now available, and rooms are divided into multiple categories (default view can be changed in the settings menu)</li>
+							<li>Made the button for adding a new connector larger</li>
+							<li>Fixed a bug with TR Bridge in Inverted Entrance	</li>
+							<li>Fixed a bug with reaching Catfish in Inverted with Mirrow and LW access</li>
+						</ul>
+					</div>
+				</div>
+				<div class="preset-div">
+					<div class="preset-header" onclick="togglereleasediv('18');">
+						<span id="arrow18">&#9660;</span> Release 1.8
+					</div>
+					<div id="release18" style="display: none;">
+						<b><i>3/10/2022 Build 1.8.004 031022</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed issues with auto-tracking and OW Dungeons with non-progressive bows</li>
+						</ul>
+						<b><i>3/9/2022 Build 1.8.003 030922</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updated up the presets for ALTTPR Ladder Season Eleven Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) and Main Tournament modes (subject to change)</li>
+							<li>Restored functionality for non-progressive Bows with Open Plus and Hard Open presets (flag is hidden)</li>
+							<u>Logic Changes</u><br>
+							<li>Fixed logic issue with Turtle Rock in Inverted mode showing clearable if only having front access</li>
+							<li>Fixed logic issue with Hookshot Cave in Inverted mode not showing available with Mirror and LW access instead of a Glove</li>
+							<li>Fixed logic issue with Tower of Hera in Inverted mode with Basement chest being not obtainable with a fire source</li>
+						</ul>
+						<b><i>1/30/2022 Build 1.8.002 013022</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Minor scripting fixes</li>
+						</ul>
+						<b><i>1/29/2022 Build 1.8.001 012922</i></b><br>
+						<ul>
+							Thanks to Catobat for the following changes:<br>
+							<u>Interface Changes</u><br>
+							<li>In Mystery, when switching between Entrance and Non-Entrance (or World State in Entrance mode), the page no longer reloads. This means item tracking progress is no longer lost and it no longer causes disconnects with the Overworld Tracking window or Autotracking.</li>
+							<li>In Mystery, it is now possible to change the Door Shuffle, Overworld Shuffle and Shopsanity settings</li>
+							<li>The Dungeon and Overworld Tracking window now automatically saves and loads display settings. More customization options will be added in the future.</li>
+							<li>Overworld paths that were generated by a search now have a "Repeat search" button that allows for later repeating of a search with the same search settings.</li>
+							<li>When Overworld Tracking is synced with the main window, a new button assists in changing World State and Entrance Shuffle in case those were not set correctly from the start.</li>
+							<li>Updated sprites from 31.0.11</li>
+							<u>Logic Changes</u><br>
+							<li>Certain mode combinations will automatically mark Sanctuary (or Dark Chapel) as a common starting location when beginning.</li>
+						</ul>
+					</div>
+				</div>
+				<div class="preset-div">
+					<div class="preset-header" onclick="togglereleasediv('17');">
+						<span id="arrow17">&#9660;</span> Release 1.7
+					</div>
+					<div id="release17" style="display: none;">
+						<b><i>1/5/2022 Build 1.7.005 010522</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updated up the presets for ALTTPR Ladder Season Eleven Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li>
+						</ul>
+						<b><i>12/17/2021 Build 1.7.004 121721</i></b><br>
+						<ul>
+							Thanks to Catobat for the following changes to the Overworld Tracker:<br>
+							<u>Interface Changes</u><br>
+							<li>The full overworld map can now also be used directly on the main Overworld Tracking page</li>
+							<li>Paths are now viewable on the overworld map</li>
+							<li>When opening the Overworld and Dungeon Tracker window for the first time, you are now immediately asked to either select all the mode settings and whether they might still change later, or load saved data to continue a previous session. Mystery mode is also available which simply sets all mode settings to the least restrictive options for the start.</li>
+							<li>The Overworld Path Search UI has been completely overhauled and now has a clearer distinction between and indication of start and target points</li>
+							<li>More Overworld Path Search options (selecting a single region on the starting screen, how common starts can be used when a specific starting screen is selected, followers, and mirror portals (only at start or target regions)) When you are about to start a new search and asked about the target screen, you can now also select a search preset for commonly needed paths that may involve more than just selecting a target screen, like delivering the purple chest to the thief.</li>
+							<li>Below the Overworld Path Search, there is now a checklist that provides some quick tips on what may be missing if a path could not be found</li>
+							<li>When selecting a screen on the full overworld map, the buttons for adding a common start region can now also be used to remove already existing ones</li>
+							<li>Easier screen swapping in Mixed with an option to keep marked transitions in the same world as before the swap</li>
+							<li>In Mystery, when changing certain settings in the main tracker window that force a disconnection between the two tracker windows, a warning and explanation on how to reconnect the tracker windows is now displayed. The main page also starts showing a warning and the same explanation (this also happens if the connection is lost in some other way).</li>
+							<li>Fixed a bug where Castle Tower wasn't visually moved to Death Mountain in Inverted with Door Shuffle</li>
+							<li>Setting the flute spots in Flute Shuffle gives you the option to disable Flute Shuffle</li>
+							<u>Logic Changes</u><br>
+							<li>Logic supports traversal with followers</li>
+							<li>In Mixed, the item tracker logic now takes screens with unknown states into account. There are some minor issues with this that will be addressed in the future.</li>
+						</ul>
+						<b><i>11/1/2021 Build 1.7.003 110121</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updated up the presets for ALTTPR Ladder Season Ten Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li>
+						</ul>
+						<b><i>10/17/2021 Build 1.7.002 101721</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Added sorting, various filtering options and notes to the Entrance Summary</li>
+							<li>Added compass icon to boss rotation if Compasses are Wild</li>
+							<u>Logic Changes</u><br>
+							<li>Fixed minor bugs with changing Boss Shuffle and Wild Maps in Mystery</li>
+							<li>Fixed minor styling issues in Entrance right-click menu</li>
+						</ul>
+						<b><i>10/14/2021 Build 1.7.001 101421</i></b><br>
+						<ul>
+							<li>We've updated our URL! Please note the new URL: <a href="https://alttprtracker.dunka.net">https://alttprtracker.dunka.net</a></li>
+							The old URL will continue to work for a time and redirect to the new URL, and then will eventually be replaced permanently<br><br>
+							<li>A big thank you to Catobat for several of the following updates, notated by ** in the below notes</li>
+							<u>Interface Changes</u><br>
+							<li>Added Shopsanity tracking and logic**</li>
+							<li>Updated sprites from 31.0.10</li>
+							<li>Removed non-Bomb start in Standard modes to prevent confusion with Bomb Logic</li>
+							<li>Overworld Shuffle interface improvements**</li>
+							<li>Added Overworld Shuffle logic to the main window**</li>
+							<li>Added Polar Mixed Overworld tracking support**</li>
+							<li>Minor changes to importing flags**</li>
+							<li>FINALLY added the Known Locations and Known Entrances interface to the Entrance Tracker</li>
+							<u>Logic Changes</u><br>
+							<li>Added StructuralMike's Bomb Mode Logic, which allows for logic to not be able to use bombs until they are located. A big thanks to StructuralMike for this update and Catobat for merging it!</li>
+							<li>Door Shuffle logic adjustments**</li>
+							<li>Changed Old Man logic in Entrance**</li>
+							<li>Minor dungeon logic fixes (EP, DP, IP, TR and GT)**</li>
+							<li>Some preparations for dungeon logic in Entrance**</li>
+							<li>Added Door Shuffle logic for Entrance (only affects SW)**</li>
+							<li>Fix to Bombos Tablet check in entrance with no Moon Pearl</li>
+						</ul>
+					</div>
+				</div>
+				<div class="preset-div">
+					<div class="preset-header" onclick="togglereleasediv('16');">
+						<span id="arrow16">&#9660;</span> Release 1.6
+					</div>
+					<div id="release16" style="display: none;">
+						<b><i>8/29/2021 Build 1.6.022 082921</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updated up the presets for ALTTPR Ladder Season Nine Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li>
+							<li>Updated import flag endpoint to match new ALTTPR repository</li>
+						</ul>
+						<b><i>8/14/2021 Build 1.6.021 081421</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Logic fixes in entrance and mystery</li>
+						</ul>
+						<b><i>8/7/2021 Build 1.6.020 080721</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Thanks to Catobat for updating the Overworld Shuffle tracker! It now supports the following modes:</li>
+							- Inverted<br>
+							- Mixed Overworld<br>
+							- Crossed Overworld<br>
+							- Flute Shuffle<br>
+							<li>All combinations of the above and Vanilla/Parallel/Full Overworld Layout Shuffle are now supported (The map tracker in the main window is still not affected)</li>
+							<li>Various improvements to the Overworld/Dungeon Tracker window (side by side view for the map, flute activation handled manually and more)</li>
+							<li>Added starting activated Flute logic for Inverted Mystery. It can be toggled from the Mystery flags menu</li>
+							<li>Fixed sprite issue with Ark and Ark Cape</li>
+						</ul>
+						<b><i>7/18/2021 Build 1.6.019 071821</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Fixed styles for some sprites which were not showing up upon load</li>
+							<li>Autotracking status will now be hidden when hovering over any object which displays a message in the map area</li>
+						</ul>
+						<b><i>7/11/2021 Build 1.6.018 071121</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Fixed bug when switching between entrance modes in Mystery where autotracking would fail to re-load</li>
+						</ul>
+						<b><i>6/26/2021 Build 1.6.017 062621</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updated up the presets for ALTTPR Ladder Season Eight Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li>
+							<li>Updated sprite list, fixed outstanding missing sprites</li>
+							<li>Added a status indicator for Autotracking status in the bottom right corner of the map tracker</li>
+							NOTE: Because of lack of space, there is no spot left on the item tracker for this indicator for this feature, so unless you are using the map tracker, this feature will not be available
+						</ul>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Changed logic for GT entry in Mystery Modes, for when crystal requirement is unknown, entry will be marked as possible instead of unavailable if GT is reachable</li>
+						</ul>
+						<b><i>5/24/2021 Build 1.6.016 052421</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Big thanks to Catobat for the following updates:</li>
+							<li>Added Overworld Shuffle tracking support which is located in the Dungeon Tracker window</li>
+							<li>Made some improvements to the Dungeon Tracker window including an optional sidebar for quick switching between dungeons (or dungeon and overworld)</li>
+							<li>Fixed right-clicking locations and marking them with items when auto-tracking is enabled</li>
+							<li>Fixed minor logic bugs at Mimic Cave and Desert West Ledge with Door Shuffle enabled</li>
+							<li>Fixed minor launcher styling issues (mostly in Firefox)</li>
+						</ul>
+						<b><i>4/24/2021 Build 1.6.015 042421</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updated up the presets for ALTTPR Ladder Season Seven Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li>
+						</ul>
+						<b><i>3/28/2021 Build 1.6.014 032821</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Finally added the additional sprites for 31.0.8, just a little late!</u>
+							<li>Fixed logic issue in entrance with EDW access with limited items</u>
+						</ul>
+						<b><i>2/6/2021 Build 1.6.013 020621</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed North WDM access with Hookshot, Mirror, and South EDM access in entrance</u>
+							<li>Fixed enemizer boss check in MM</u>
+						</ul>
+						<b><i>1/24/2021 Build 1.6.012 012421</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed Hera basement chest in key shuffled modes</u>
+							<li>Fixed several OWG logic issues</u>
+						</ul>
+						<b><i>1/17/2021 Build 1.6.011 011721</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed locations reachable via Flute activations in inverted entrance</u>
+							<li>Fixed King's Tomb opening in inverted entrance</u>
+							<li>Made locations in SW/Outcast area reachable always with Moon Pearl and back of SW entrance located</u><br>
+								NOTE: This is a reversion from a previous change. Where it is possible to get locked behind the one entrance and drop that you can access, it is always much more likely that it will be available. Be aware that this entrance may be one sided and you cannot progress through the single door, although unlikely. This will require the use of "Possible" entrances, which is currently not a feature. We will work on adding this in the future.<br>
+						</ul>
+						<b><i>1/16/2021 Build 1.6.010 011621</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed fringe case of AGA required items in swordless mode</u>
+						</ul>
+						<b><i>1/9/2021 Build 1.6.009 010921</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Added back end scripting to prevent accidental reloading of the tracker in Mystery modes by navigating backward (After doing this twice in Mystery, I had enough...)</li>
+							<u>Logic Changes</u><br>
+							<li>Fixed GT access with 0 GT requirements</u>
+						</ul>
+						<b><i>1/2/2021 Build 1.6.008 010221</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Massive changes to Crossed Door shuffle and dungeon tracker, big thanks to catobat for updating his interface and logic! Check the instructions page for updated information.</u>
+							<li>Fix to launcher import settings functionality when importing from a seed</u>
+							<li>Fix to some of the sprites that were imported with the last build</u>
+						</ul>
+						<b><i>12/22/2020 Build 1.6.007 122220</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Fixed launcher issues, missing sprites from dropdown</u>
+						</ul>
+						<b><i>12/21/2020 Build 1.6.006 122120</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Inverted Entrance logic has finally been added! Big thanks to willwc for creating this logic! Please report any issues you come across.</li>
+							<u>Interface Changes</u><br>
+							<li>Added version 31.0.7 sprites</u>
+							<li>Updated up the presets for ALTTPR Ladder Season Five Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li>
+						</ul>
+						<b><i>12/08/2020 Build 1.6.005 120820</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Fixed the ability to right click on medallions in entrance mode</li>
+							<li>Fixed the import flag issue for checkboxes when importing item shuffles</li>
+						</ul>
+						<b><i>11/11/2020 Build 1.6.004 111120</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Small logical fixes for IP and inverted</li>
+						</ul>
+						<b><i>10/19/2020 Build 1.6.003 101920</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed auto tracking issues with entrance overworld locations</li>
+							<li>Fixed DP logic for Boots checks</li>
+							<li>Fixed inverted information check for Grove Cave without Moon Pearl</li>
+						</ul>
+						<b><i>10/19/2020 Build 1.6.002 101920</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Fixed style issue with maps not showing up in entrance tracker</li>
+							<u>Logic Changes</u><br>
+							<li>Fixed auto tracking issues with swordless modes and half magic tracking</li>
+							<li>Disabled auto tracking for CT chests</li>
+						</ul>
+						<b><i>10/18/2020 Build 1.6.001a 101820a</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Added instructions for auto tracking to the instructions page</li>
+							<li>Added variable port option for auto tracking</li>
+						</ul>
+						<b><i>10/18/2020 Build 1.6.001 101820</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Numerous updates to the launcher!</li>
+							Updated the Logic Settings to include individual Shuffled Items for wild maps, compasses, small keys, and big keys<br>
+							NOTE: The Dungeon Items selector works to fill in presets, but it is no longer used beyond the launcher as each individual setting is now looked at for logic.<br>
+							Added Ambrosia to the logic settings, to always check for the last item in each dungeon when only one item remains<br>
+							Added Starting Items to the launcher, which is more for the presets and imports, but it will carry over to the tracker if you preset it (NOTE: If you use a preset with starting boots, like Open Boots, and then change up other flags, the boots will already be preset and you cannot uncheck it without using a different preset. This is NOT a bug, but an annoyance. Just uncheck them when you launch, and this will be addressed at a later time.)<br>
+							Removed Advanced/Basic difficulty settings, as it will no longer be looked at and all modes will be considered as advanced placement<br>
+							Added (FINALLY) an instructions document from the launcher, which explains all of the various modes and how to use the tracker in general<br><br>
+							<li>Updated up the presets for ALTTPR Ladder Season Four Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li>
+							<li>For those that have the ability to use it, there is a new auto tracking module added for items and locations! Just have it selected on the Launcher. Big shout-out to Bonta for providing the module to make this work! NOTE: The default websocket port that is being used is 8080.</li>
+							<li>Overworld Glitches logic has been added! Big thanks to Coxla for adding it! It hasn't been fully tested, so please report any issues. Major/No Logic will always show all locations, as logic there is not yet implemented. (Nor likely will it ever)</li>
+							<li>Added a map icon whenever Wild Maps are live, which is at the end of the rotation, and accessible by right clicking on pendant/crystal rotator when it is at the start (?)</li>
+							<li>Right clicking on medallions for MM and TR will now navigate backward</li>
+						</ul>
+					</div>
+				</div>
+				<div class="preset-div">
+					<div class="preset-header" onclick="togglereleasediv('15');">
+						<span id="arrow15">&#9660;</span> Release 1.5
+					</div>
+					<div id="release15" style="display: none;">
+						<b><i>9/9/2020 Build 1.5.025 090920</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Added enhanced dungeon tracking for Door Rando! This is a feature with a lot of new options, so there is a walkthrough that you can <a href="instructions.html#dungeon" target="_blank">view here</a>. Thanks goes out to Catobat for this new addition to Door Rando tracking!</li>
+							<u>Logic Changes</u><br>
+							<li>Small keysanity logic fixes</li>
+							<li>Fixed typo with Magic Cape for some invuln checks</li>
+						</ul>
+						<b><i>8/15/2020 Build 1.5.024 081520</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updated up the presets for ALTTPR Ladder Season Three Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li>
+							<u>Logic Changes</u><br>
+							<li>Change to logic for Fire Rod access to back of Escape (Was previously hotfixed)</li>
+						</ul>
+						<b><i>7/6/2020 Build 1.5.023 070620</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Added the new sprites for the 31.0.6 release</li>
+						</ul>
+						<b><i>6/23/2020 Build 1.5.022 062320</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Changes up the presets for ALTTPR Ladder Season Two Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li>
+							<li>Added the new sprites for the 31.0.5 release!</li>
+							<u>Logic Changes</u><br>
+							<li>Various fixes in entrance mode</li>
+						</ul>
+						<b><i>5/21/2020 Build 1.5.021 052120</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Reworked some of the PoD logic for Keysanity/MCS modes</li>
+							NOTE: We are reviewing this logic and may rework some of the methods in which we assign chest priorities, more to come in later builds<br><br>
+						</ul>
+						<b><i>5/14/2020 Build 1.5.020 051420</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Added more presets to the main menu, coincidentally matching our current ALTTPR Ladder Season 1 Modes! (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>) </li>
+							<u>Logic Changes</u><br>
+							<li>Fixed two DW entrance issues</li>
+							<li>Fixed logical checks for tablets in swordless modes</li>
+						</ul>
+						<b><i>4/30/2020 Build 1.5.019 043020</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed a logical issue EP Keysanity</li>
+						</ul>
+						<b><i>4/5/2020 Build 1.5.018 040520</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed a few DM entrance issues</li>
+							<li>Fixed a logical issue with PoD in Inverted mode</li>
+						</ul>
+						<b><i>3/16/2020 Build 1.5.017 031620</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Fix in mystery mode where the goal icon could vanish</li>
+							<li>Added a generic "Chest" key location to entrance interface, for chests that are not obtainable but have been found</li>
+							<u>Logic Changes</u><br>
+							<li>Various fixes to entrance logic</li>
+						</ul>
+						<b><i>3/12/2020 Build 1.5.016 031220</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Small fixes to import flags function, and added the ability to paste the entire URL instead of just the hash</li>
+							<li>Fixed issue where chests were only visually changed in mystery mode when going from open to standard</li>
+							<li>Fixed issue where small keys were being reset when switching between full Keysanity and MCS</li>
+						</ul>
+						<b><i>2/28/2020 Build 1.5.015 022820</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>New location note feature has been added! If you right click on a location, it will allow you to select an item, which will then leave a note (hover to see it below the map in the caption area) on the location so you remember to go back for it later. Thanks goes out to Catobat for this handy new feature!</li>
+							<u>Logic Changes</u><br>
+							<li>Various entrance logic fixes</li>
+						</ul>
+						<b><i>2/22/2020 Build 1.5.014 022220</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Various entrance logic fixes</li>
+						</ul>
+						<b><i>1/25/2020 Build 1.5.013 012520</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fix for MM logic boss clear without either fire source</li>
+							<u>Interface Changes</u><br>
+							<li>It is true, you always have bombs, except..... *dramatic chipmunk!*</li>
+						</ul>
+						<b><i>1/18/2020 Build 1.5.012 011820</i></b><br>
+						<ul>
+							<u>Mode Changes</u><br>
+							<li>Thanks to Catobat to contributing a new toggle for tracking door rando! This adds additional chest and key info for tracking individual pieces of dungeons, which also does open up new considerations, like small keys in EP, or the bomb hole in TT. Currently, there is no logic built to track what could be available within the dungeons and what chests could be accessed logically, as there really isn't a good way to tell the tracker what is and what isn't available. So the mode may look a little bit different.</li>
+							<u>Logic Changes</u><br>
+							<li>Small logical fixes for enemizer combinations</li>
+						</ul>
+						<b><i>1/2/2020 Build 1.5.011 010220</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed logical issue in entrance where the Bumper Cave exit ledge was included in the WDM entrance pool</li>
+							<li>Fixed logical issue in entrance where WDM was not available with WDDM access and Mirror</li>
+							<li>Fixed logical issue in entrance where the dark shopping mall areas were available with Flippers and without Moon Pearl</li>
+						</ul>
+						<b><i>12/28/2019 Build 1.5.010 122819</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Compact map now has entrance and full mystery options available! Big thanks to Catobat for making these changes! The compact map may still be a little hard to read at times...but what can ya do with that space? We will work on ways of improving the visual aspect to improve visibility.</li>
+						</ul>
+						<b><i>12/22/2019 Build 1.5.009 122219</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Fixed issue where map tracker icon for dungeons were being overwritten when changing enemy shuffle option</li>
+							<li>Added override styles for unavailable known locations in entrance tracking mode</li>
+						</ul>
+						<b><i>12/10/2019 Build 1.5.008 121019</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Added starting zones for Entrance for Link's House, Sanctuary, and Death Mountain</li>
+							<li>Modified tag locations for areas near the north of the map to show under the location tab instead of over, to prevent it falling off the screen</li>
+							<u>Logic Changes</u><br>
+							<li>Applied already live hotfix for new swordless bug</li>
+						</ul>
+						<b><i>12/08/2019 Build 1.5.007 120819</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Changed the map tracker icons from the boss icons for each respective dungeon to the selected dungeon prize</li>
+							NOTE: This change is currently tentative, based off feedback, and may be reverted<br><br>
+							<u>Logic Changes</u><br>
+							<li>Fixed swordless bug for entry into MM/TR/IP</li>
+						</ul>
+						<b><i>12/04/2019 Build 1.5.006 120419</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Moved Mystery settings flag to the main interface and changed so the tracker does not auto-load on a preset setting, but instead goes to the display settings at the bottom</li>
+							<u>Logic Changes</u><br>
+							<li>Modified the Ice Palace boss logic to once again allow for possible completion without Hookshot or Somaria</li>
+							NOTE: I've gone back and forth with this logic, as it makes no actual sense. However, there are situations where you can force the old vanilla route with keys up front where hook and cane are not actually required. Also note, that in full keysanity mode, it will still return an unavailable (red) for the boss when you don't have hook, cane, or the big key. Chest logic remains unchanged.<br><br>
+							<li>Fixed issue where hammer was required for low crystal count GT for chests</li>
+							<li>Fixed a map tracking update issue where crystals and pendants are swapped, not affecting map tracking for GT entry and Ganon vulnerability until a refresh has occurred</li>
+						</ul>
+						<b><i>12/02/2019 Build 1.5.005 120219</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>A few new entrance logic fixes</li>
+							<li>Fixed a bug in retro mode where SP was looking for non-retro small keys to complete</li>
+						</ul>
+						<b><i>12/01/2019 Build 1.5.004a 120119</i></b><br>
+						<ul>
+							<u>Mode Changes</u><br>
+							<li>Because everybody loves a good mystery, a new Mystery Seed preset has been added! This will allow you to switch between modes in a mystery race (They are ALLLLLL the rage these days) whenever you figure out one of the flags. Doing so will load the default settings: Open, non-Entrance, Boss + Enemy Shuffle, Keysanity, Ganon w/ Random-Random. When in Mystery Seed mode, a new flag icon will appear in the top left under the Ganon Vulnerable icon. Simply click on it, change what settings you want, and save and the adjustments should occur. Note, that if you switch between Entrance and non-Entrance, you will lose all of your tracked items and map locations. If you switch between Inverted and non-Inverted, you will lose your map tracking locations.</li>
+							NOTE: Entrance mode is not supported with compact map and thus, you cannot switch between them<br><br>
+							<li>Added basic "glitched" tracking, which is basically just everything is on for now without any logic built in, so the modes are currently condensed into one. When proper logic is added later, those will be split back out again.</li>
+							<u>Logic Changes</u><br>
+							<li>Numerous entrance logic fixes</li>
+							<li>Fixed back of escape chests in retro not showing available with lantern</li>
+							<li>Fixed inverted keysanity check with Castle Tower showing available when it should be dark accessible only</li>
+							<li>Fixed inverted keysanity SP boss check without small key showing available</li>
+							<li>Fixed unlikely scenario where SP items were showing possible, but no actual way to get to SP, after AGA1 kill</li>
+						</ul>
+						<b><i>11/21/2019 Build 1.5.003 112119</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed entrance known areas for dungeons not recognizing located</li>
+							<li>Fixed entrance bug for lower EDM w/ hookshot and WDM access</li>
+							<li>Added Dam location check for Dam underwater item and updated text</li>
+						</ul>
+						<b><i>11/20/2019 Build 1.5.002 112019</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updated entrance interface to allow for multiple entrances (up to 3) to be connected to a single location</li>
+							NOTE: This changes how the connector addition interface works, and you now need to go to the right click menu to connect and disconnect locations. Having the on screen icon to add was too troublesome with the new multi-entrance logic build. All entrance adds and disconnects will now be handled from this menu. The old connect button on the map has been removed and the disconnect will only be visible when needing to cancel a location. That space will be replaced by the soon-to-have Summary Page, which will show you a summary of all known locations.<br><br>
+							<li>Added a small note indicator when a note is active on a location, although other on-screen items always have priority (So the note icon may be hidden)</li>
+							<li>Updated the hover-over caption to give more complete information</li>
+							<li>Modified key locations in conjunction with connectors, allowing both connectors and key locations to be on one item; Key location color schemes will always get priority in this case</li>
+							<li>Updated the right click menu to better summarize the location details</li>
+							<li>Added temp location for Mystery Seed default settings, it is coming soon, which will give you the ability to update flags without reloading the tracker in mystery seeds!</li>
+							<u>Logic Changes</u><br>
+							<li>Fixed small logic issues with entrance logic</li>
+						</ul>
+						<b><i>11/16/2019 Build 1.5.001 111619</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Changed the default item tracker, added bombs, half magic, and AGA 2, and split some items to share one spot</li>
+							Explanation: Okay, I feel like I need to explain this one. The core of this revolves around needing AGA 2 as a clickable option, because entrance and non-fast Ganon modes require clearing AGA 2, but not always when you are ready to finish the game. So making the split spot for AGA 1 and AGA 2 was natural. However, there has been a push by some of the community to make the tracker match the in-game menu, which meant adding...sigh...Bombs. (Editors note: YOU ALWAYS HAVE BOMBS!!) In order to do that, it required merging Mushroom/Powder and Shovel/Flute spots. The deciding factor in all of this, is that it allowed the addition of Half Magic, something which I have been wanting for a while, because there is some logic that runs from it. (NOTE: That logic has yet to be implemented in this release, and it is limited to basic item placement modes, so it will come later) So, hopefully this should make MOST people happy.<br><br>
+							<u>Logic Changes</u><br>
+							<li>Added logic for non-inverted entrance mode! Be aware, in order to properly use it, you will need to make connectors to the areas that you need access to. For example, you need to make a valid connection to Death Mountain for the logic to recognize it. Also, this logic is still in the validation phase, so please report any issues!</li>
+							<li>Fixed bug in medallion checks</li>
+						</ul>
+					</div>
+				</div>
+				<div class="preset-div">
+					<div class="preset-header" onclick="togglereleasediv('14');">
+						<span id="arrow14">&#9660;</span> Release 1.4
+					</div>
+					<div id="release14" style="display: none;">
+						<b><i>10/21/2019 Build 1.4.009 102119</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Fixed issue with spoiler log mode where the hover overs were not compatible with some of the latest entrance changes (NOTE: Spoiler logs and entrance still do not mix well, maybe that'll get added at some point)</li>
+							<u>Logic Changes</u><br>
+							<li>Fixed some retro logic with standard and MC shuffles with the incorrect amount of chests showing up</li>
+						</ul>
+						<b><i>10/20/2019 Build 1.4.008 102019</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Finished uploading ALL of the custom sprites! Huge thanks to Catobat for the way to automate the generation, saved several hours of time!</li>
+							<u>Logic Changes</u><br>
+							<li>Changed method of validation MM and TR medallion checks, removing some legacy code which was causing a conflict with the new method of chest checks</li>
+						</ul>
+						<b><i>10/19/2019 Build 1.4.007 101919a</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Started implementing custom sprites! For right now, it is just Link and Ultros, but we'll put in more as we can design them</li>
+						</ul>
+						<b><i>10/19/2019 Build 1.4.006 101919</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed logic issue with Full Keysanity/MCS Shuffle with retro, where small keys are not being ignored by the retro key tracker</li>
+						</ul>
+						<b><i>10/17/2019 Build 1.4.005 101719</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Added visual tags for known key locations, which also are hidden when the location is checked off</li>
+							<li>Added new category for key entrance locations for general locations, and added an "Unknown Connector" location</li>
+							<li>Fixed a scripting error when right clicking on small keys in entrance mode</li>
+						</ul>
+						<b><i>10/16/2019 Build 1.4.004 101619</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Consolidated Entrance modes on the launcher, as at this time (and probably in the future) there will be no functional changes between modes</li>
+							<li>Removed Insanity Entrance mode on the launcher, as this will not be supported at this time</li>
+							<li>Fixed connector line issue with entrances on the same X/Y coordinate</li>
+							<li>Fixed spoiler log issue with tracking progressive bow</li>
+							<li>Modified entrance tracker chest color codes to be more subtle</li>
+						</ul>
+						<b><i>10/15/2019 Build 1.4.003 101519a</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Added color scheme changes for chests in entrance mode to show when chests are available in dungeons, since the dungeon trackers have been removed</li>
+						</ul>
+						<b><i>10/15/2019 Build 1.4.002 101519</i></b><br>
+						<ul>
+							<u>Mode Changes</u><br>
+							<li>Added Connect icon to the right click menu for entrance tracking, to save a click if already in the menu</li>
+							<li>Added Ganon to the Dark World Key Locations in the right click menu for entrance tracking</li>
+							<li>Changed opacity of checked locations in entrance to half opacity, to prevent additional clutter on the map</li>
+						</ul>
+						<b><i>10/14/2019 Build 1.4.001 101419</i></b><br>
+						<ul>
+							<u>Mode Changes</u><br>
+							<li>Basic entrance tracking has been added!<br>
+								This is going to be the first of several releases of Entrance, as we are going to roll it out slowly. This first initial build has no built in logic behind the entrances. Just the locations, the ability to check off locations, tag known locations, make connections, and add notes. The next major builds will improve and clean up the interface, the ability to properly track available dungeon chests, followed by logic.<br>
+								Currently, if you left click on a diamond (entrance), it will simply check it off, the way that chests currently do. However, if you right click on it, it will bring up the options for the entrance. You can click a known location, which will highlight it, and/or add a note. Any known locations or notes will show up in the caption area under the map.<br>
+								To add a connector, click at the connector button near the bottom right area of the light world map.  Then click on the two entrances you want to connect, and they should highlight that they are active. Hovering over them will show where they are connected in the caption area, or you can view the details on the right click menu. That is where you can remove the connector as well, it will show a Disconnect button. Also, if you want to view the lines of the connector, you can do so by clicking on the Eye button in the bottom left hand corner of the dark world map.  You can re-hide them by pressing the button again.<br>
+								Also, for the entrance version of the map, there are no dungeon indicators on the map (because the dungeon could be anywhere!). As stated before, we will update this with a new method to track chests in a future release.<br>
+								As always, please report any issues, thank you!<br>
+								<br>			
+								<u>Logic Changes</u><br>
+							<li>Updated dark logic to GT</li>
+							<li>Updated Ganon vulnerability check when Ganon Vuln is available, but GT is not, and is not Fast Ganon</li>
+							<li>Updated dark + advanced logic in EP</li>
+							<li>Updated MM boss check w/ unknown medallion</li>
+						</ul>
+					</div>
+				</div>
+				<div class="preset-div">
+					<div class="preset-header" onclick="togglereleasediv('13');">
+						<span id="arrow13">&#9660;</span> Release 1.3
+					</div>
+					<div id="release13" style="display: none;">
+						<b><i>10/1/2019 Build 1.3.011 100119</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Updated Ice Palace boss logic<br>
+								This logic is going to be one of those exceptions to the rules, in regards to what is "required" vs what is "expected". This may change down the road, but as it stands, it basically requires the Hookshot or Somaria and the big key (in full keysanity mode), although that does not exactly fit what the logic says.<br>
+								<br>				
+						</ul>
+						<b><i>9/29/2019 Build 1.3.010 092919</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed Dark Cross Advanced logic w/ Fire Rod</li>
+							<li>Removed old sequence break logic and will replace with new glitched logic in future revision</li>
+						</ul>
+						<b><i>9/28/2019 Build 1.3.009 092819</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed issue with EP showing items available in inverted keysanity without the big key</li>
+							<li>Added additional checks for MM and TR to bypass the medallion check, if items are still not obtainable</li>
+						</ul>
+						<b><i>9/27/2019 Build 1.3.008a 092719</i></b><br>
+						<ul>
+							<u>Mode Changes</u><br>
+							<li>Added ability to import flags from the ALTTPR randomizer site if you have the seed hash and are online</li>
+						</ul>
+						<b><i>9/27/2019 Build 1.3.008 092719</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Added "Information" orange tile in the map tracker for items you can see, but not get. This replaced earlier functionality of matching the yellow "Possible" tile, which is not accurate, as they are not obtainable.<br>
+								<br>
+								<u>Mode Changes</u><br>
+							<li>Restored the Spoiler Log setting</li>
+							<u>Misc Changes</u><br>
+							<li>Minor cleanup from previous build</li>
+						</ul>
+						<b><i>9/26/2019 Build 1.3.007 092619</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Finalized rebuilding all of the dungeon logic for all available modes<br>
+								As per the previous announcement, there were several changes to the logic structure in regards to small keys in order to handle the new MCS shuffle mode. Because of this, the entire way that chest logic is handled was redesigned. There are chances that some logic issues slipped through testing, and if you discover any, please let Dunka know via Discord @ BigDunka#8354.<br>
+								Logic was redesigned to more closely match what is in the randomizer seeding and placement logic. Because of this, areas like Ice Palace, where the tracker would previously show available via bomb jump, that has since been removed and the bomb jump is no longer in logic. Other areas, like Turtle Rock with small key shuffle, were redesigned to allow for max potential items for keys by logic, which means it will not count skipping the vanilla big key location with only 3 small keys, making the boss not killable.<br>
+								Other areas went outside of the logic, with regards to availability of killing bosses. If a boss is killable, but the dungeon is not fully clearable, it will show that the boss can be defeated, even if the logic states that it shouldn't be. Other areas that were adjusted with for getting items "smartly" and showing possibilities. PoD is an example, with being able to full clear all items and the boss with just five small keys, as long as you use the hammer and bow to not open the front door. These logically are marked as possible on the map, but will not show fully available without all six keys.<br>
+								Long story short: Please use the map tracker with the understanding that it is based off the logic and you can use your knowledge of the game to bypass this logic, the same way you could use a sequence break to get items you should not.<br>
+								<br>
+								<u>Misc Changes</u><br>
+							<li>Added right click functionality for small keys and chests</li>
+							<li>Updated the ALTTPR 2019 Tournament presets to the newly defined flags</li>
+						</ul>
+						<b><i>9/22/2019 Build 1.3.006 092219</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Continuing to work on logic issues, none release on this build</li>
+							<u>Misc Changes</u><br>
+							<li>Changed default Item Placement flag to Advanced over Basic</li>
+							<li>Various display and initialization fixes</li>
+						</ul>
+						<b><i>9/18/2019 Build 1.3.005 091819a</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed visual display bug for DP</li>
+							<u>Misc Changes</u><br>
+							<li>Fixed highlight visual when hovering over map locations</li>
+							<li>Fixed bug with styles misaligning with GT chest</li>
+						</ul>
+						<b><i>9/18/2019 Build 1.3.004 091819</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Continued work on IP, TR, and GT logic, and a more simplified way to track items in all dungeons</li>
+							<u>Mode Changes</u><br>
+							<li>Enabled Enemy Shuffle, which is important to complete some dungeons (ie: Possibly completing Eastern Palace without the bow without having to fight the red Eyegores)</li>
+							<li>Enabled Item Placement, which for this tracker, is only important for dark rooms with torches being in logic with Fire Rod (Not all logic has been entered and tested)</li>
+							<u>Misc Changes</u><br>
+							<li>Adjusted the styles to make chests larger when small and big keys are not being tracked, to eliminate un-used space</li>
+							<li>Added preset option for ALTTPR 2019 Tournament qualifiers</li>
+						</ul>
+						<b><i>9/17/2019 Build 1.3.003 091719</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed issue where DW dungeons were showing accessible without DW access</li>
+							<u>Mode Changes</u><br>
+							<li>Added Fast Ganon goal, to allow to defeat Ganon without any access to DM or GT, just need MS, a way to LW/DW, and a fire source, once Ganon is vulnerable</li>
+							<li>Fixed issue where Fighters Sword was not automatically assigned in Assured mode</li>
+						</ul>
+						<b><i>9/16/2019 Build 1.3.002 091619a</i></b><br>
+						<ul>
+							<u>Logic Changes</u><br>
+							<li>Fixed a few boss requirements to add in more obscure items that can kill bosses in logic</li>
+							<u>Mode Changes</u><br>
+							<li>Combined modes for Boss and Enemy Shuffle to be either on or off, as logic does not change based off those flags (Any flags that can be condensed is good!)</li>
+							<li>Enabled Open Tower and Ganon Vulnerable flags. The user will be given an icon in the top left hand corner to click on to set the known requirements if the requirements are random.</li>
+						</ul>
+						<b><i>9/16/2019 Build 1.3.001 091619</i></b><br>
+						<ul>
+							<li>First major release for v31!<br>
+							<li>Complete overhaul of launcher to show all available flags, and several that will be released in the future, including entrance!<br>
+							<li>Updated all sub-page interfaces and stylesheets<br>
+							<li>Overhaul of logic to match new v31 options<br>
+								NOTICE: There will be several incremental updates once v31 is formally released. We are basing the logic off what limited information has been released to this point. Please be sure to report any issues when you find them and we will make an updated list on the Known Issues page.<br>
+							<li>Removed "known easy sequence breaks" to line up the general logic, but continue to allow "common sense" sequence breaks<br>
+								To expand on this, the original tracker always had Ice Palace built in with a possible sequence break with the bomb jump. That has since been removed and the notation in the comments also removed. If you do not have the Hookshot or Somaria, Ice Palace will show as not completable. This is because there are going to be new flags in the logic to allow for certain glitches to be auto-populated and the previous logic would override that.<br>
+								Other common sense logic, however, has not been removed. For example, in Full Shuffle, Desert Palace is not completable by logic without both the big key and the small key, to prevent a potential small key lock. However, if you have the big key and not the small key, the tracker will show that the dungeon boss is indeed killable. This is to allow for ease of recognition of clearable dungeons while in go mode.<br>
+							<li>Added a new purple color coded map tracker function for "Dark Room Possible". The current color codes are now as follows:<br>
+								Red = Unavailable<br>
+								Green = Available<br>
+								Yellow = Possible<br>
+								Blue = Dark Room Available<br>
+								Purple = Dark Room Possible<br>
+							<li>Right clicking on crystal/pendant icons will go backwards, making for faster crystal selection<br>
+							<li>This release is assuming Basic Item Placement, which means required items are using the v30 logic (Laser Bridge for example still requires a safety). Advanced logic will be added in a future release.<br>
+							<li>Entrance Shuffle, Enemy Shuffle, Glitches, Item Placement, Open Tower, Ganon Vulnerable, and Spoiler Log settings are currently disabled, pending more development and validation</li>
+						</ul>
+					</div>
+				</div>
+				<div class="preset-div">
+					<div class="preset-header" onclick="togglereleasediv('12');">
+						<span id="arrow12">&#9660;</span> Release 1.2
+					</div>
+					<div id="release12" style="display: none;">
+						<b><i>2/21/2019 Build 1.2.001 022019</i></b><br>
+						<ul>
+							<li>Added ability to upload a spoiler log to mark items on the tracker. Credit to Catobat for this feature!<br>
+								NOTICE: At this time, there is a Spoiler Log Tournament going on, but using a parser to parse out the spoiler log is NOT ALLOWED by the rules! Please do not use this feature in the tournament or risk a disqualification.
+							</li>
+							<li>Fixed inverted check for Zora Ledge without flippers<br>
+							<li>Fixed inverted keysanity check for clearing MM without big key<br>
+						</ul>
+					</div>
+				</div>
+				<div class="preset-div">
+					<div class="preset-header" onclick="togglereleasediv('11');">
+						<span id="arrow11">&#9660;</span> Release 1.1
+					</div>
+					<div id="release11" style="display: none;">
+						<b><i>12/23/2018 Build 1.1.012 122318</i></b><br>
+						<ul>
+							<li>Fixed keysanity bug where one chest was showing available in MM without a fire source<br>
+						</ul>
+						<b><i>12/21/2018 Build 1.1.011 122118</i></b><br>
+						<ul>
+							<li>Fixed keysanity bug where TR chests were showing up accessable past the big key door without the big key<br>
+							<li>Fixed inverted bug where some East Dark World locations were not showing accessable with the flute<br>
+						</ul>
+						<b><i>12/4/2018 Build 1.1.010 120418</i></b><br>
+						<ul>
+							<li>Fixed GT completion check when not enemizer<br>
+							<li>Fixed various boss logic checks for enemizer<br>
+						</ul>
+						<b><i>11/30/2018 Build 1.1.009 120118</i></b><br>
+						<ul>
+							<li>Modified some enemizer boss checks and added note about full shuffle over boss shuffle only<br>
+							<li>Fixed AGA 1 tower enemy check for swordless<br>
+						</ul>
+						<b><i>11/30/2018 Build 1.1.008 113018</i></b><br>
+						<ul>
+							<li>Added support for Enemizer modes to check known bosses (Still partially in progress and in testing)<br>
+							<li>Fixed a bug in standard keysanity sewers chests being always available<br>
+							<li>Fixed a bug in inverted swordless where AGA 1 was not listed as available with certain bugnet checks with a cane weapon<br>
+							<li>Fixed a bug in inverted where a sequence break PoD was showing up without sequence break logic<br>
+							<li>Fixed a bug in swordless retro where the Castle Tower chests were not showing as active with the hammer to access<br>
+						</ul>
+						<b><i>11/25/2018 Build 1.1.007 112518</i></b><br>
+						<ul>
+							<li>Enabled Compact + Sphere functionality<br>
+								Credit to Catobat for these changes
+							</li>
+							<li>Added placeholders for Enemizer<br>
+						</ul>
+						<b><i>11/24/2018 Build 1.1.006 112418</i></b><br>
+						<ul>
+							<li>Fixed swordless AGA1 access w/ cape and bug net</li>
+						</ul>
+						<b><i>11/20/2018 Build 1.1.005 112018</i></b><br>
+						<ul>
+							<li>Fixed inverted keysanity boss logic bug for Desert Palace</li>
+							<li>Still looking into current inverted keysanity logic for Turtle Rock</li>
+						</ul>
+						<b><i>11/14/2018 Build 1.1.004 111418</i></b><br>
+						<ul>
+							<li>Split Game and Display settings on launcher</li>
+							<li>Added ability to store default Display settings via cookies</li>
+						</ul>
+						<b><i>10/25/2018 Build 1.1.003 102518</i></b><br>
+						<ul>
+							<li>Added formal build release schema</li>
+							<li>Added reference pages for release notes, known issues, contributors, and downloads</li>
+							<li>Fixed swordless bug in logic where AGA 1 was not marked as accessible</li>
+							<li>Fixed AGA toggle logic to always check on item changes beyond just normal AGA required items to fix inverted/swordless bug</li>
+							<li>Fixed inverted logic for always checking for light world bunny access, would sometimes skip the macro check</li>
+							<li>Fixed inverted logic for Tower of Hera with flute and without lantern</li>
+							<li>Fixed keysanity logic for chests accessible in Tower of Hera without lantern or fire rod</li>
+							<li>Fixed inverted labeling for Desert Ledge to only require book</li>
+							<li>Disabled all current sequence breaking logic and labeling, will release formal inclusion in future release</li>
+							<li>Added Google Analytics data</li>
+						</ul>
+						<b><i>10/17/2018</i></b><br>
+						<ul>
+							<li>Added Compact map<br>
+								Credit to Compact map goes to Catobat (Will post full credits page soon!)
+							</li>
+						</ul>
+						<b><i>10/16/2018</i></b><br>
+						<ul>
+							<li>Added Sphere tracking<br>
+								Credit to Sphere tracking goes to Jem (Will post full credits page soon!)
+							</li>
+						</ul>
+						<b><i>10/14/2018</i></b><br>
+						<ul>
+							<li><b>STILL IN TESTING</b> Added Inverted + Keysanity logic<br>
+								NOTE: Turtle Rock is still fairly untested, as there are two different logic sets (front door and mirror entrances) using the best available options. Not all dungeons have been fully tested, please report issues to Dunka (BigDunka#8354)
+							</li>
+							<li>Disabled some of the Sequence Break logic, will reactivate after the toggle has been added</li>
+							<li>Fixed the inverted + keysanity AGA 1 chests and opening logic</li>
+							<li>Fixed some minor icon issues</li>
+						</ul>
+					</div>
+				</div>
 			</div>
 		</div>
-
 	</body>
 </html>

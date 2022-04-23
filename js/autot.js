@@ -360,7 +360,7 @@ function autotrackDoTracking(data) {
 
 	if (newbit(0x38E, 0xC0)) {
         var bits = data[0x38E] & 0xC0;
-        setitem("bow", bits == 0x40 && window.nonProgressiveBows ? 1 : (bits == 0x80 ? 2 : 3));
+        setitem("bow", bits == 0x40 && flags.nonprogressivebows ? 1 : (bits == 0x80 ? 2 : 3));
     }
 	
     if (newbit(0x38C, 0xC0)) {

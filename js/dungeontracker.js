@@ -13,9 +13,10 @@
 	window.worldState = 'O';
 	window.entranceEnabled = false;
 
-	let outstandingUpdate = false,awaitingNextUpdate = true,awaitingResponse = false,initWidth = 0,initHeight = 0,currentDungeon = -1,currentPath = null,clickedPathIndex,currentlyEditing = false,editingIndex,globalHasBranch = false,visibleSidebar = true,welcomeMode = true;
+	let outstandingUpdate = false,awaitingNextUpdate = true,awaitingResponse = false,enableAutoSave = false,initWidth = 0,initHeight = 0,currentDungeon = -1,currentPath = null,clickedPathIndex,currentlyEditing = false,editingIndex,globalHasBranch = false,roomModalClickAction = null,visibleSidebar = true,welcomeMode = true;
 	let ownItems = {},reachableEdges = null,showOverworldModeSection = false,showFullMapMain = true,expandedMainTable = true,showChecklist = false,currentOWPath = null,currentOWScreen = null,fullOverworldMode = null,fullOWFixedEdge = null,fullOWSelectedScreen = null,fullOWSelectedEdge = null,fullOWConnectorStart = null,fullOWConnectorEnd = null,extraOWScreen = null,extraOWDirection = null,fullOWPath = null,hoveredPathNumber = -1,lastUnknownConnectorIndex = -1,useMain = true,backToMain = true;
 	let searchResults = new Map(),searchStartRegion = null,searchTargetRegion = null,searchStartScreen = null,searchAddCommonStarts = false,searchSaveQuitFluteEdges = false,searchResultsLength = 0,searchResultPaths = [],clickedOverworldPathIndex,clickedOverworldPathListName,clickedOverworldPath = null,clickedConnectorIndex,drawDarkWorldMain = false,drawDarkWorldPopout = false,sideBySideMain = false,sideBySidePopout = false,fullZoomMain = .8,fullZoomPopout = .8,fullZoomAutoMain = true,fullZoomAutoPopout = true,pathZoom = 1,fullPathCompact = true;
+	let theme = "dark",invertDirectionColors = false,restoreWindowSize = true,autoSaveSafety = true,drawFluteSpots = "fluteshuffle",drawSaveQuitSpots = "startshuffle",forceMapOrder = false,preventClickEdgeScreen = true,disableBlur = false,searchStartDefault = "onlystartscreen",searchMirrorPortalDefault = false,importantRoomNodes = "default";
 	window.dungeonPaths = [];
 	window.entranceConnectors = [];
 	window.allStartRegions = [];
@@ -28,8 +29,11 @@
 
 	const dungeonNamesLong = ["Eastern Palace","Desert Palace","Tower of Hera","Palace of Darkness","Swamp Palace","Skull Woods","Thieves' Town","Ice Palace","Misery Mire","Turtle Rock","Ganon's Tower","Hyrule Castle","Castle Tower"];
 	const dungeonNamesShort = ["EP","DP","ToH","PoD","SP","SW","TT","IP","MM","TR","GT","HC","CT"];
+	const vanillaFluteSpots = [0x03,0x16,0x18,0x2C,0x2F,0x30,0x3B,0x3F];
 	const checkboxFlagsTrack = ["globalsync","itemsync","activeflutebox","connectorsync","pinnedlinkshouse","pinnedsanctuary","pinnedoldman","pinnedpyramid"];
-	const checkboxFlagsDisplay = ["showmorerooms","splitpath","owsidebaredit","owsidebarnew","owsidebarsearch","compactpinned","compactprevious","alwaysfollowmarked","compactsearchresults","mainsidebysideow","sidebysideow","mainzoomautoow","zoomautoow"];
+	const checkboxFlagsDisplay = ["settingsinvertdirectioncolors","settingsrestorewindowsize","settingsautosavesafety","settingsforcemaporder","settingspreventclickedgescreen","settingsdisableblur","settingssearchmirrorportaldefault","showmorerooms","splitpath","owsidebaredit","owsidebarnew","owsidebarsearch","compactpinned","compactprevious","alwaysfollowmarked","compactsearchresults","mainsidebysideow","sidebysideow","mainzoomautoow","zoomautoow"];
+	const searchStartDefaultHelp = {"canstartcommon":"Takes both the selected screen and all common start points (save & quit spots) into account, mixed together.","onlystartscreen":"Always starts at selected screen, but can save & quit to common starts and use flute (if available).","noflutequit":"Always starts at selected screen and searches direct paths without using save & quit or flute."};
+	const importantRoomNodesHelp = {"fewer":"Similar to \"Default\", but some of the simpler rooms are left out (mostly from groups of multiple similar rooms).","default":"Roughly, these are the rooms or supertiles that are bounded by at least 5 screen transitions, or that play a special role (like TT Attic).","more":"Roughly, these are the rooms or supertiles that are bounded by at least 4 screen transitions, or that play a special role (like TT Attic)."};
 	const fullOWTitle = {"newpath":"Start a new path","continuepath":"Where does this transition lead to?","searchpath":"Select a target screen or preset","searchpathtarget":"Select a new target screen","searchpathstart":"Select a starting screen","editedges":"Full overworld map","editflutespots":"Click on screens to toggle flute spots"};
 	const reconnectHelpMessage = "In order to establish a new connection without losing any data, follow these steps:\nSave your data by going to \"Save and restore\" and clicking on \"Save data\".\nClose this window.\nFrom the main tracker window, open a new instance of this window by clicking on the map.\nNear the bottom of the page, click on \"Load manual save\".";
 
@@ -63,7 +67,7 @@
 		currentDungeon = -1;
 		loadDungeonSummaries();
 		updateStatistics();
-		if(document.getElementById("pathlist").style.display != "none" || document.getElementById("pathedit").style.display != "none" || document.getElementById("owmain").style.display != "none" || document.getElementById("owpathedit").style.display != "none" || document.getElementById("owsearch").style.display != "none")
+		if(document.getElementById("settings").style.display != "none" || document.getElementById("pathlist").style.display != "none" || document.getElementById("pathedit").style.display != "none" || document.getElementById("owmain").style.display != "none" || document.getElementById("owpathedit").style.display != "none" || document.getElementById("owsearch").style.display != "none")
 			switchScene("overview");
 		if(!welcomeMode && document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
 			testConnection(true);
@@ -148,19 +152,6 @@
 			document.getElementById("completedbutton").classList.add("pointer");
 		updatePathList();
 		document.getElementById("dungeonpathsnote").value = dungeonPaths[n].notes;
-		document.getElementById("sidebossow").classList.remove("activetab");
-		document.getElementById("sidesummaryow").classList.remove("activetab");
-		for(let k = 0; k < 13; k++)
-			if(k == n)
-			{
-				document.getElementById("sideboss"+k).classList.add("activetab");
-				document.getElementById("sidesummary"+k).classList.add("activetab");
-			}
-			else
-			{
-				document.getElementById("sideboss"+k).classList.remove("activetab");
-				document.getElementById("sidesummary"+k).classList.remove("activetab");
-			}
 		if(outstandingUpdate)
 			sendUpdate();
 		switchScene("pathlist");
@@ -171,44 +162,52 @@
 		currentPath = null;
 		if(currentDungeon != -1)
 			saveNotes();
-		window.loadDungeon(n);
+		loadDungeon(n);
+	};
+
+	window.createImportantRoomNodeList = function(type,clickAction)
+	{
+		let minPriority = {"fewer":3,"default":2,"more":1,"nondefault":1}[type ?type :importantRoomNodes];
+		let maxPriority = type === "nondefault" ?1 :3;
+		let all = doorshuffle === 'C' || !clickAction;
+		let starts = "";
+		for(let k = 0; k < dungeonImportant.length; k++)
+			if(all ?(dungeonImportant[k].priority >= minPriority && dungeonImportant[k].priority <= maxPriority) :(dungeonImportant[k].dungeon === currentDungeon))
+				starts += createRoomNode(dungeonImportant[k],all,clickAction);
+		return starts;
+	};
+
+	window.createUsedRoomNodeList = function(clickAction)
+	{
+		let starts = "";
+		let items = [];
+		for(let path of dungeonPaths[currentDungeon].paths)
+		{
+			for(let l = 0; l < path.length-1; l += 2)
+			{
+				if(path[l] === '1')
+				{
+					let id = path.substring(l,l+2);
+					if(!items.includes(id))
+						items.push(id);
+				}
+			}
+		}
+		items.sort();
+		for(let id of items)
+		{
+			let room = roomMap[id];
+			if(doorshuffle === 'C' || room.dungeon === currentDungeon)
+				starts += createRoomNode(room,doorshuffle === 'C',clickAction);
+		}
+		return starts;
 	};
 
 	window.updateStartRooms = function()
 	{
-		let starts = createEntranceNodes(false,"startPath");
-		document.getElementById("dungeonentrances").innerHTML = starts;
-		starts = "";
-		if(document.getElementById("showmorerooms").checked)
-		{
-			for(let k = 0; k < dungeonImportant.length; k++)
-				if(doorshuffle === 'C' || dungeonImportant[k].dungeon === currentDungeon)
-					starts += createRoomNode(dungeonImportant[k],doorshuffle === 'C',"startPath");
-		}
-		else
-		{
-			let items = [];
-			for(let path of dungeonPaths[currentDungeon].paths)
-			{
-				for(let l = 0; l < path.length-1; l += 2)
-				{
-					if(path[l] === '1')
-					{
-						let id = path.substring(l,l+2);
-						if(!items.includes(id))
-							items.push(id);
-					}
-				}
-			}
-			items.sort();
-			for(let id of items)
-			{
-				let room = roomMap[id];
-				if(doorshuffle === 'C' || room.dungeon === currentDungeon)
-					starts += createRoomNode(room,doorshuffle === 'C',"startPath");
-			}
-		}
-		document.getElementById("dungeonimportant").innerHTML = starts;
+		document.getElementById("dungeonentrances").innerHTML = createEntranceNodes(false,"startPath");
+		document.getElementById("dungeonimportant").innerHTML = document.getElementById("showmorerooms").checked ?createImportantRoomNodeList(null,"startPath") :"";
+		document.getElementById("dungeonused").innerHTML = createUsedRoomNodeList("startPath");
 	};
 
 	window.closeDungeon = function()
@@ -290,7 +289,7 @@
 
 	window.createSymbolNode = function(symbol,left,top,small = false)
 	{
-		return "<div class='symbolnode"+(small ?" small" :"")+"' style='background-image: url("+"./images/"+symbol.folder+"/"+symbol.file+".png); left: "+left+"px; top: "+top+"px;"+(symbol.rotate ?" transform: rotate("+symbol.rotate+"deg);" :"")+"'></div>";
+		return "<div class='symbolnode"+(small ?" small" :"")+(symbol.direction ?" direction" :"")+"' style='background-image: url("+"./images/"+symbol.folder+"/"+symbol.file+".png); left: "+left+"px; top: "+top+"px;"+(symbol.rotate ?" transform: rotate("+symbol.rotate+"deg);" :"")+"'></div>";
 	};
 
 	window.drawPath = function(path,markLastBranch = false)
@@ -334,7 +333,7 @@
 		if(markLastBranch && lastBranch != -1)
 		{
 			globalHasBranch = true;
-			s += "<div class='symbolnode' style='width: 16px; height: 64px; border-left: 2px dashed yellow; opacity: .75; left: "+lastBranch+"px;'></div>";
+			s += "<div class='symbolnode' style='width: 16px; height: 64px; border-left: 2px dashed "+(theme === "light" ?"#C0C000" :"yellow")+"; opacity: .75; left: "+lastBranch+"px;'></div>";
 		}
 		return s;
 	};
@@ -596,7 +595,7 @@
 				style += " transform: rotate("+list[k].rotate+"deg);";
 			if(key === 'd')
 				style += " position: absolute; left: "+list[k].x+"px; top: "+list[k].y+"px;";
-			s += "<div class='pathsymbol' style='"+style+"' onclick='appendToPath(\""+id+"\")'></div>";
+			s += "<div class='pathsymbol "+(key === 'd' ?" direction" :"")+"' style='"+style+"' onclick='appendToPath(\""+id+"\")'></div>";
 		}
 		document.getElementById(elementID).innerHTML = s;
 	};
@@ -604,6 +603,7 @@
 	window.switchScene = function(scene)
 	{
 		document.getElementById("overview").style.display = scene === "overview" ?"block" :"none";
+		document.getElementById("settings").style.display = scene === "settings" ?"block" :"none";
 		document.getElementById("pathlist").style.display = scene === "pathlist" ?"block" :"none";
 		document.getElementById("pathedit").style.display = scene === "pathedit" ?"block" :"none";
 		document.getElementById("owmain").style.display = scene === "owmain" ?"block" :"none";
@@ -611,18 +611,30 @@
 		document.getElementById("owsearch").style.display = scene === "owsearch" ?"block" :"none";
 		scrollTo(0,0);
 		if(scene === "overview")
-		{
 			document.getElementById("homebutton").classList.add("activetab");
-			document.getElementById("sidebossow").classList.remove("activetab");
-			document.getElementById("sidesummaryow").classList.remove("activetab");
-			for(let k = 0; k < 13; k++)
-			{
-				document.getElementById("sideboss"+k).classList.remove("activetab");
-				document.getElementById("sidesummary"+k).classList.remove("activetab");
-			}
-		}
 		else
 			document.getElementById("homebutton").classList.remove("activetab");
+		if(scene === "settings")
+			document.getElementById("sidesettings").classList.add("activetab");
+		else
+			document.getElementById("sidesettings").classList.remove("activetab");
+		document.getElementById("sidebossow").classList.remove("activetab");
+		document.getElementById("sidesummaryow").classList.remove("activetab");
+		for(let k = 0; k < 13; k++)
+		{
+			document.getElementById("sideboss"+k).classList.remove("activetab");
+			document.getElementById("sidesummary"+k).classList.remove("activetab");
+		}
+		if(scene === "pathlist" || scene === "pathedit")
+		{
+			document.getElementById("sideboss"+currentDungeon).classList.add("activetab");
+			document.getElementById("sidesummary"+currentDungeon).classList.add("activetab");
+		}
+		if(scene === "owmain" || scene === "owpathedit" || scene === "owsearch")
+		{
+			document.getElementById("sidebossow").classList.add("activetab");
+			document.getElementById("sidesummaryow").classList.add("activetab");
+		}
 	};
 
 	window.sendUpdate = function()
@@ -633,12 +645,15 @@
 			let data = allDataTrack();
 			try
 			{
-				saveAuto(data);
-				localStorage.setItem("displayData",JSON.stringify(allDataDisplay()));
+				if(enableAutoSave)
+					saveAuto(data,null);
+				else
+					document.getElementById("saveauto").classList.remove("disabled");
 			}
 			catch(error)
 			{
 			}
+			trySaveDisplayData();
 			if(window.opener && !window.opener.closed)
 				window.opener.postMessage(data,"*");
 		}
@@ -743,15 +758,71 @@
 		return starts;
 	};
 
+	window.loadRoomModalFull = function()
+	{
+		document.getElementById("roommodalfull").classList.add("selected");
+		document.getElementById("roommodaldefault").classList.remove("selected");
+		document.getElementById("roommodalnondefault").classList.remove("selected");
+		document.getElementById("roommodalimportant").classList.remove("selected");
+		document.getElementById("dungeonimportantmodal").innerHTML = createImportantRoomNodeList("more",roomModalClickAction);
+	};
+
+	window.loadRoomModalDefault = function()
+	{
+		document.getElementById("roommodalfull").classList.remove("selected");
+		document.getElementById("roommodaldefault").classList.add("selected");
+		document.getElementById("roommodalnondefault").classList.remove("selected");
+		document.getElementById("roommodalimportant").classList.remove("selected");
+		document.getElementById("dungeonimportantmodal").innerHTML = createImportantRoomNodeList("default",roomModalClickAction);
+	};
+
+	window.loadRoomModalNonDefault = function()
+	{
+		document.getElementById("roommodalfull").classList.remove("selected");
+		document.getElementById("roommodaldefault").classList.remove("selected");
+		document.getElementById("roommodalnondefault").classList.add("selected");
+		document.getElementById("roommodalimportant").classList.remove("selected");
+		document.getElementById("dungeonimportantmodal").innerHTML = createImportantRoomNodeList("nondefault",roomModalClickAction);
+	};
+
+	window.loadRoomModalImportant = function()
+	{
+		document.getElementById("roommodalfull").classList.remove("selected");
+		document.getElementById("roommodaldefault").classList.remove("selected");
+		document.getElementById("roommodalnondefault").classList.remove("selected");
+		document.getElementById("roommodalimportant").classList.add("selected");
+		document.getElementById("dungeonimportantmodal").innerHTML = createImportantRoomNodeList("fewer",roomModalClickAction);
+	};
+
+	window.loadRoomModalInit = function()
+	{
+		if(importantRoomNodes === "more")
+			loadRoomModalFull();
+		if(importantRoomNodes === "default")
+			loadRoomModalDefault();
+		if(importantRoomNodes === "fewer")
+			loadRoomModalImportant();
+	};
+
 	window.showRoomModal = function()
 	{
-		let starts = createEntranceNodes(doorshuffle === 'C',"append");
-		document.getElementById("dungeonentrancesmodal").innerHTML = starts;
-		starts = "";
-		for(let k = 0; k < dungeonImportant.length; k++)
-			if(doorshuffle === 'C' || dungeonImportant[k].dungeon === currentDungeon)
-				starts += createRoomNode(dungeonImportant[k],doorshuffle === 'C',"append");
-		document.getElementById("dungeonimportantmodal").innerHTML = starts;
+		roomModalClickAction = "append";
+		document.getElementById("roommodalswitcher").style.display = doorshuffle === 'C' ?"flex" :"none";
+		document.getElementById("dungeonentrancesmodal").innerHTML = createEntranceNodes(doorshuffle === 'C',"append");
+		loadRoomModalInit();
+		document.getElementById("dungeonusedmodal").innerHTML = createUsedRoomNodeList("append");
+		document.getElementById("roomModalMain").style.top = doorshuffle === 'C' ?"60px" :"120px";
+		document.getElementById("roomModal").style.display = "block";
+	};
+
+	window.showRoomModalPreview = function()
+	{
+		roomModalClickAction = null;
+		document.getElementById("roommodalswitcher").style.display = "flex";
+		document.getElementById("dungeonentrancesmodal").innerHTML = createRoomNode(lobbyEntrances[0],true,null);
+		loadRoomModalInit();
+		document.getElementById("dungeonusedmodal").innerHTML = "";
+		document.getElementById("roomModalMain").style.top = "60px";
 		document.getElementById("roomModal").style.display = "block";
 	};
 
@@ -1317,6 +1388,11 @@
 	window.allDataDisplay = function()
 	{
 		let all = {};
+		all.theme = theme;
+		all.drawFluteSpots = drawFluteSpots;
+		all.drawSaveQuitSpots = drawSaveQuitSpots;
+		all.searchStartDefault = searchStartDefault;
+		all.importantRoomNodes = importantRoomNodes;
 		all.visibleSidebar = visibleSidebar;
 		all.showFullMapMain = showFullMapMain;
 		all.expandedMainTable = expandedMainTable;
@@ -1342,6 +1418,16 @@
 	{
 		if(!newData)
 			return false;
+		if(newData.theme && (newData.theme === "dark" || newData.theme === "light"))
+			document.getElementById("settingstheme").value = theme = newData.theme;
+		if(newData.drawFluteSpots && (newData.drawFluteSpots === "no" || newData.drawFluteSpots === "fluteshuffle" || newData.drawFluteSpots === "yes"))
+			document.getElementById("settingsdrawflutespots").value = drawFluteSpots = newData.drawFluteSpots;
+		if(newData.drawSaveQuitSpots && (newData.drawSaveQuitSpots === "no" || newData.drawSaveQuitSpots === "startshuffle" || newData.drawSaveQuitSpots === "yes"))
+			document.getElementById("settingsdrawsavequitspots").value = drawSaveQuitSpots = newData.drawSaveQuitSpots;
+		if(newData.searchStartDefault && (newData.searchStartDefault === "canstartcommon" || newData.searchStartDefault === "onlystartscreen" || newData.searchStartDefault === "noflutequit"))
+			document.getElementById("settingssearchstartdefault").value = searchStartDefault = newData.searchStartDefault;
+		if(newData.importantRoomNodes && (newData.importantRoomNodes === "fewer" || newData.importantRoomNodes === "default" || newData.importantRoomNodes === "more"))
+			document.getElementById("settingsimportantroomnodes").value = importantRoomNodes = newData.importantRoomNodes;
 		showFullMapMain = newData.showFullMapMain;
 		document.getElementById("togglefullowmain").className = showFullMapMain ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
 		document.getElementById("fullowmainpage").style.display = showFullMapMain ?"block" :"none";
@@ -1353,7 +1439,15 @@
 		document.getElementById("togglechecklist").className = showChecklist ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
 		document.getElementById("checklist").style.display = showChecklist ?"block" :"none";
 		for(let checkboxFlag of checkboxFlagsDisplay)
-			document.getElementById(checkboxFlag).checked = newData[checkboxFlag];
+			if(newData[checkboxFlag] === false || newData[checkboxFlag] === true)
+				document.getElementById(checkboxFlag).checked = newData[checkboxFlag];
+		invertDirectionColors = document.getElementById("settingsinvertdirectioncolors").checked;
+		restoreWindowSize = document.getElementById("settingsrestorewindowsize").checked;
+		autoSaveSafety = document.getElementById("settingsautosavesafety").checked;
+		forceMapOrder = document.getElementById("settingsforcemaporder").checked;
+		preventClickEdgeScreen = document.getElementById("settingspreventclickedgescreen").checked;
+		disableBlur = document.getElementById("settingsdisableblur").checked;
+		searchMirrorPortalDefault = document.getElementById("settingssearchmirrorportaldefault").checked;
 		sideBySideMain = document.getElementById("mainsidebysideow").checked;
 		sideBySidePopout = document.getElementById("sidebysideow").checked;
 		fullZoomAutoMain = document.getElementById("mainzoomautoow").checked;
@@ -1364,13 +1458,16 @@
 		fullPathCompact = newData.fullPathCompact;
 		try
 		{
-			if(newData.outerWidth > 0 && newData.outerHeight > 0)
+			if(restoreWindowSize && newData.outerWidth > 0 && newData.outerHeight > 0)
 				resizeTo(newData.outerWidth,newData.outerHeight);
 		}
 		catch(error)
 		{
 		}
+		updateTheme();
 		newData.visibleSidebar ?showSidebar() :hideSidebar();
+		maybeForceMapOrderMain();
+		maybeForceMapOrderPopout();
 		updateOverviewElements();
 		updateMainPathLists();
 		applyFullOverworldZoomMain();
@@ -1394,13 +1491,7 @@
 	{
 		localStorage.setItem("dungeonData",JSON.stringify(allDataTrack()));
 		document.getElementById("loadmanual").classList.remove("disabled");
-		try
-		{
-			localStorage.setItem("displayData",JSON.stringify(allDataDisplay()));
-		}
-		catch(error)
-		{
-		}
+		trySaveDisplayData();
 		buttonFlash(button);
 	};
 
@@ -1415,10 +1506,16 @@
 				console.log("Error while loading data from auto-save");
 	};
 
-	window.saveAuto = function(data)
+	window.saveAuto = function(data,button)
 	{
+		enableAutoSave = true;
+		if(!data)
+			data = allDataTrack();
 		localStorage.setItem("dungeonDataAutoSave",JSON.stringify(data));
 		document.getElementById("loadauto").classList.remove("disabled");
+		document.getElementById("saveauto").classList.add("disabled");
+		if(button)
+			buttonFlash(button);
 	};
 
 	window.clearData = function()
@@ -1439,6 +1536,8 @@
 			pinnedPaths = [];
 			previousPaths = [];
 			document.getElementById("overworldoptionsfinalbox").style.display = owshuffle !== 'N' || crossedow !== 'N' || mixedow ?"block" :"none";
+			maybeForceMapOrderMain();
+			maybeForceMapOrderPopout();
 			updateOverviewElements();
 			updateReachableEdges();
 			updateItemTracker();
@@ -1463,6 +1562,18 @@
 	{
 		if(confirm("Reset all display settings?"))
 		{
+			theme = "dark";
+			invertDirectionColors = false;
+			restoreWindowSize = true;
+			autoSaveSafety = true;
+			drawFluteSpots = "fluteshuffle";
+			drawSaveQuitSpots = "startshuffle";
+			forceMapOrder = false;
+			preventClickEdgeScreen = true;
+			disableBlur = false;
+			searchStartDefault = "onlystartscreen";
+			searchMirrorPortalDefault = false;
+			importantRoomNodes = "default";
 			resetDisplayCheckboxFlags();
 			showSidebar();
 			if(!showFullMapMain)
@@ -1479,6 +1590,7 @@
 			fullZoomAutoMain = fullZoomAutoPopout = true;
 			pathZoom = 1;
 			fullPathCompact = true;
+			updateTheme();
 			updateOverviewElements();
 			updateMainPathLists();
 			applyFullOverworldZoomMain();
@@ -1489,6 +1601,13 @@
 
 	window.resetDisplayCheckboxFlags = function()
 	{
+		document.getElementById("settingsinvertdirectioncolors").checked = invertDirectionColors;
+		document.getElementById("settingsrestorewindowsize").checked = restoreWindowSize;
+		document.getElementById("settingsautosavesafety").checked = autoSaveSafety;
+		document.getElementById("settingsforcemaporder").checked = forceMapOrder;
+		document.getElementById("settingspreventclickedgescreen").checked = preventClickEdgeScreen;
+		document.getElementById("settingsdisableblur").checked = disableBlur;
+		document.getElementById("settingssearchmirrorportaldefault").checked = searchMirrorPortalDefault;
 		document.getElementById("showmorerooms").checked = false;
 		document.getElementById("splitpath").checked = true;
 		document.getElementById("owsidebaredit").checked = true;
@@ -1511,12 +1630,30 @@
 			try
 			{
 				if(initWidth > 0 && initHeight > 0)
+				{
 					resizeTo(initWidth,initHeight);
+					trySaveDisplayData();
+				}
 			}
 			catch(error)
 			{
 			}
 		}
+	};
+
+	window.resetPathZoom = function()
+	{
+		if(confirm("Reset the zoom level for overworld paths to the default value in search results and saved path lists?"))
+		{
+			pathZoom = 1;
+			applyOverworldPathZoom();
+			trySaveDisplayData();
+		}
+	};
+
+	window.endAutoSaveSafety = function()
+	{
+		enableAutoSave = true;
 	};
 
 	window.setWelcomeMode = function(enable)
@@ -1525,12 +1662,19 @@
 		if(enable)
 			document.getElementById("app").classList.add("welcomemode");
 		else
+		{
 			document.getElementById("app").classList.remove("welcomemode");
+			if(autoSaveSafety)
+				setTimeout(endAutoSaveSafety,120000);
+			else
+				enableAutoSave = true;
+		}
 	};
 
 	window.welcomeStart = function(modeFinal)
 	{
 		setWelcomeMode(false);
+		scrollTo(0,0);
 		if(document.getElementById("vanillawhirlpoolswelcome").checked)
 			vanillaWhirlpools(null);
 		if(document.getElementById("vanillaspecialwelcome").checked)
@@ -1673,15 +1817,136 @@
 		}
 	};
 
+	window.loadSettings = function()
+	{
+		switchScene("settings");
+		loadGeneralSettings();
+	};
+
+	window.sideLoadSettings = function()
+	{
+		currentPath = currentOWPath = null;
+		if(currentDungeon != -1)
+		{
+			saveNotes();
+			currentDungeon = -1;
+		}
+		if(outstandingUpdate)
+			sendUpdate();
+		loadSettings();
+	};
+
+	window.loadGeneralSettings = function()
+	{
+		document.getElementById("settingstabgeneral").classList.add("selected");
+		document.getElementById("settingstaboverworld").classList.remove("selected");
+		document.getElementById("settingstabdoor").classList.remove("selected");
+		document.getElementById("settingsgeneral").style.display = "block";
+		document.getElementById("settingsoverworld").style.display = "none";
+		document.getElementById("settingsdoor").style.display = "none";
+		document.getElementById("settingstheme").value = theme;
+		document.getElementById("settingsinvertdirectioncolors").checked = invertDirectionColors;
+		document.getElementById("settingsrestorewindowsize").checked = restoreWindowSize;
+		document.getElementById("settingsautosavesafety").checked = autoSaveSafety;
+	};
+
+	window.loadOverworldSettings = function()
+	{
+		document.getElementById("settingstabgeneral").classList.remove("selected");
+		document.getElementById("settingstaboverworld").classList.add("selected");
+		document.getElementById("settingstabdoor").classList.remove("selected");
+		document.getElementById("settingsgeneral").style.display = "none";
+		document.getElementById("settingsoverworld").style.display = "block";
+		document.getElementById("settingsdoor").style.display = "none";
+		document.getElementById("settingsdrawflutespots").value = drawFluteSpots;
+		document.getElementById("settingsdrawsavequitspots").value = drawSaveQuitSpots;
+		document.getElementById("settingsforcemaporder").checked = forceMapOrder;
+		document.getElementById("settingspreventclickedgescreen").checked = preventClickEdgeScreen;
+		document.getElementById("settingsdisableblur").checked = disableBlur;
+		document.getElementById("settingssearchstartdefault").value = searchStartDefault;
+		document.getElementById("settingssearchmirrorportaldefault").checked = searchMirrorPortalDefault;
+		document.getElementById("settingssearchstartdefaulttext").innerHTML = "Explanation: "+searchStartDefaultHelp[searchStartDefault];
+	};
+
+	window.loadDoorSettings = function()
+	{
+		document.getElementById("settingstabgeneral").classList.remove("selected");
+		document.getElementById("settingstaboverworld").classList.remove("selected");
+		document.getElementById("settingstabdoor").classList.add("selected");
+		document.getElementById("settingsgeneral").style.display = "none";
+		document.getElementById("settingsoverworld").style.display = "none";
+		document.getElementById("settingsdoor").style.display = "block";
+		document.getElementById("settingsimportantroomnodes").value = importantRoomNodes;
+		document.getElementById("settingsimportantroomnodestext").innerHTML = "Description: "+importantRoomNodesHelp[importantRoomNodes];
+	};
+
+	window.updateGeneralSettings = function()
+	{
+		theme = document.getElementById("settingstheme").value;
+		invertDirectionColors = document.getElementById("settingsinvertdirectioncolors").checked;
+		restoreWindowSize = document.getElementById("settingsrestorewindowsize").checked;
+		autoSaveSafety = document.getElementById("settingsautosavesafety").checked;
+		trySaveDisplayData();
+	};
+
+	window.updateOverworldSettings = function()
+	{
+		drawFluteSpots = document.getElementById("settingsdrawflutespots").value;
+		drawSaveQuitSpots = document.getElementById("settingsdrawsavequitspots").value;
+		forceMapOrder = document.getElementById("settingsforcemaporder").checked;
+		preventClickEdgeScreen = document.getElementById("settingspreventclickedgescreen").checked;
+		disableBlur = document.getElementById("settingsdisableblur").checked;
+		searchStartDefault = document.getElementById("settingssearchstartdefault").value;
+		searchMirrorPortalDefault = document.getElementById("settingssearchmirrorportaldefault").checked;
+		maybeForceMapOrderMain();
+		maybeForceMapOrderPopout();
+		document.getElementById("settingssearchstartdefaulttext").innerHTML = "Explanation: "+searchStartDefaultHelp[searchStartDefault];
+		trySaveDisplayData();
+	};
+
+	window.updateDoorSettings = function()
+	{
+		importantRoomNodes = document.getElementById("settingsimportantroomnodes").value;
+		document.getElementById("settingsimportantroomnodestext").innerHTML = "Description: "+importantRoomNodesHelp[importantRoomNodes];
+		trySaveDisplayData();
+	};
+
+	window.trySaveDisplayData = function()
+	{
+		try
+		{
+			localStorage.setItem("displayData",JSON.stringify(allDataDisplay()));
+		}
+		catch(error)
+		{
+		}
+	};
+
+	window.updateTheme = function()
+	{
+		if(theme === "dark")
+			document.body.classList.remove("light");
+		else
+			document.body.classList.add("light");
+		if(invertDirectionColors)
+			document.body.classList.add("invdir");
+		else
+			document.body.classList.remove("invdir");
+		if(disableBlur)
+			document.body.classList.add("noblur");
+		else
+			document.body.classList.remove("noblur");
+	};
+
 	window.loadOverworld = function()
 	{
 		currentDungeon = -1;
 		currentOWPath = null;
 		document.getElementById("owmaintablenewpath").style.display = owshuffle === 'N' ?"none" :"table-row";
 		document.getElementById("owmaintablemininewpath").style.display = owshuffle === 'N' ?"none" :"";
-		document.getElementById("pinnedlinkshouse").nextSibling.innerHTML = worldState === 'I' ?"Link's House" :"Link's House";
+		document.getElementById("pinnedlinkshouse").nextSibling.innerHTML = worldState === 'I' ?"Bomb Shop" :"Link's House";
 		document.getElementById("pinnedsanctuary").nextSibling.innerHTML = worldState === 'I' ?"Dark Chapel" :"Sanctuary";
-		document.getElementById("pinnedoldman").nextSibling.innerHTML = worldState === 'I' ?"Dark Mountain" :"Mountain Cave";
+		document.getElementById("pinnedoldman").nextSibling.innerHTML = worldState === 'I' ?"Mountain Cave" :"Mountain Cave";
 		document.getElementById("pinnedpyramid").nextSibling.innerHTML = worldState === 'I' ?"Castle" :"Pyramid";
 		document.getElementById("dungeonconnectorsdefault").style.display = entranceEnabled ?"none" :"block";
 		document.getElementById("dungeonconnectorsdoors").style.display = entranceEnabled || doorshuffle === 'N' ?"none" :"block";
@@ -1694,7 +1959,6 @@
 		updateMainPathLists();
 		if(outstandingUpdate)
 			sendUpdate();
-		activeOverworld();
 		switchScene("owmain");
 		if(showFullMapMain)
 			loadFullOverworldMain();
@@ -1706,17 +1970,6 @@
 		if(currentDungeon != -1)
 			saveNotes();
 		loadOverworld();
-	};
-
-	window.activeOverworld = function()
-	{
-		document.getElementById("sidebossow").classList.add("activetab");
-		document.getElementById("sidesummaryow").classList.add("activetab");
-		for(let k = 0; k < 13; k++)
-		{
-			document.getElementById("sideboss"+k).classList.remove("activetab");
-			document.getElementById("sidesummary"+k).classList.remove("activetab");
-		}
 	};
 
 	window.loadFullOverworldMain = function()
@@ -1945,7 +2198,7 @@
 			if(region.screen.regions.size != 1)
 				s += " - "+region.name;
 			s += "</h3></div><div class='rightalign'><div class='cell'>";
-			s += "<div class='buttonsquare close' style='margin: 2px; border-color: rgb(255,128,128);' onclick='deleteStartRegion("+k+")'></div></div></div></div>";
+			s += "<div class='buttonsquare close redborder' style='margin: 2px;' onclick='deleteStartRegion("+k+")'></div></div></div></div>";
 		}
 		document.getElementById("owstartregions").innerHTML = s;
 	};
@@ -2076,7 +2329,7 @@
 				searchOverworldPath(true,false);
 				return;
 			case "editedges":
-				if(!fullOWSelectedEdge || event.detail > 1)
+				if(!preventClickEdgeScreen || !fullOWSelectedEdge || event.detail > 1)
 					updateClickScreenOptions(id);
 				return;
 			case "editflutespots":
@@ -2423,7 +2676,6 @@
 			updateCurrentOverworldPath();
 			drawDirectionsFromScreen(screen);
 			hideFullOverworldModal();
-			activeOverworld();
 			switchScene("owpathedit");
 		}
 	};
@@ -2740,11 +2992,10 @@
 	{
 		currentOWScreen = overworldScreens.get(id);
 		searchStartScreen = null;
-		searchOnlyStartScreen();
-		document.getElementById("owsearchmirrorportals").checked = false;
+		setSearchStartMode(searchStartDefault);
+		document.getElementById("owsearchmirrorportals").checked = searchMirrorPortalDefault;
 		document.getElementById("owsearchfollower").value = "none";
 		hideFullOverworldModal();
-		activeOverworld();
 		switchScene("owsearch");
 		searchOverworldPath(true,true);
 	};
@@ -2788,18 +3039,11 @@
 		{
 			searchStartScreen = search.startScreen || search.startScreen === 0 ?overworldScreens.get(search.startScreen) :null;
 			searchStartRegion = searchStartScreen && search.startRegion && searchStartScreen.regions.size !== 1 ?searchStartScreen.regions.get(search.startRegion) :null;
-			if(search.startMode === "canstartcommon")
-				searchCanStartCommon();
-			else
-				if(search.startMode === "noflutequit")
-					searchNoFluteQuit();
-				else
-					searchOnlyStartScreen();
+			setSearchStartMode(search.startMode);
 			currentOWScreen = overworldScreens.get(search.targetScreen);
 			searchTargetRegion = search.targetRegion && currentOWScreen.regions.size !== 1 ?currentOWScreen.regions.get(search.targetRegion) :null;
 			document.getElementById("owsearchmirrorportals").checked = !!search.mirrorPortals;
 			document.getElementById("owsearchfollower").value = search.follower ?search.follower :"none";
-			activeOverworld();
 			switchScene("owsearch");
 			searchOverworldPath(false,false);
 		}
@@ -2832,6 +3076,17 @@
 		search.mirrorPortals = document.getElementById("owsearchmirrorportals").checked;
 		search.follower = document.getElementById("owsearchfollower").value;
 		return search;
+	};
+
+	window.setSearchStartMode = function(startMode)
+	{
+		if(startMode === "canstartcommon")
+			searchCanStartCommon();
+		else
+			if(startMode === "noflutequit")
+				searchNoFluteQuit();
+			else
+				searchOnlyStartScreen();
 	};
 
 	window.searchOverworldPath = function(resetStartRegions,resetTargetRegions)
@@ -3247,7 +3502,14 @@
 			else
 				s += "<label class='ttlabel'"+(x+y ?"" :" style='line-height: 144px;'")+">"+screen.name+"</label>";
 			s += "</span></div>";
-			if((mode === "editflutespots" || (fluteshuffle && ownItems.flute && document.getElementById("activeflutebox").checked)) && darkWorld === (worldState === 'I') && customFluteSpots.includes(id%0x40))
+			if(drawSaveQuitSpots === "on" || (drawSaveQuitSpots === "startshuffle" && (entranceEnabled || (doorshuffle !== 'N' && worldState !== 'S' && worldState !== 'I'))))
+				for(let region of screen.regions.values())
+					if(allStartRegions.includes(region))
+					{
+						s += "<div class='savequitsymbol' style='left: "+(x+getBigScreenSubareaX(screen)+16)+"px; top: "+(y+getBigScreenSubareaY(screen)+16)+"px; opacity: "+(mode === "editflutespots" ?.25 :.5)+"'></div>";
+						break;
+					}
+			if((mode === "editflutespots" || ((drawFluteSpots === "on" || (drawFluteSpots === "fluteshuffle" && fluteshuffle)) && ownItems.flute && document.getElementById("activeflutebox").checked)) && darkWorld === (worldState === 'I') && (fluteshuffle ?customFluteSpots :vanillaFluteSpots).includes(id%0x40))
 				s += "<div class='flutesymbol' style='left: "+(x+getBigScreenSubareaX(screen)+16)+"px; top: "+(y+getBigScreenSubareaY(screen)+16)+"px; opacity: "+(mode === "editflutespots" ?1 :.75)+"'></div>";
 			if(!fullOWConnectorStart && !unknownScreen && (mode !== "editflutespots") && (owshuffle !== 'N' || crossedow === 'C'))
 				for(let edge of screen.edges.values())
@@ -3636,6 +3898,7 @@
 	window.toggleSideBySideMain = function()
 	{
 		sideBySideMain = !sideBySideMain;
+		maybeForceMapOrderMain();
 		outstandingUpdate = true;
 		if(fullZoomAutoMain)
 			calculateFullZoomMain();
@@ -3646,11 +3909,36 @@
 	window.toggleSideBySidePopout = function()
 	{
 		sideBySidePopout = !sideBySidePopout;
+		maybeForceMapOrderPopout();
 		outstandingUpdate = true;
 		if(fullZoomAutoPopout)
 			calculateFullZoomPopout();
 		if(!useMain)
 			drawFullOverworldPanel(false);
+	};
+
+	window.maybeForceMapOrderMain = function()
+	{
+		if(forceMapOrder)
+		{
+			document.getElementById("mainswitchow").style.display = sideBySideMain ?"none" :"block";
+			if(sideBySideMain)
+				drawDarkWorldMain = false;
+		}
+		else
+			document.getElementById("mainswitchow").style.display = "block";
+	};
+
+	window.maybeForceMapOrderPopout = function()
+	{
+		if(forceMapOrder)
+		{
+			document.getElementById("switchow").style.display = sideBySidePopout ?"none" :"block";
+			if(sideBySidePopout)
+				drawDarkWorldPopout = false;
+		}
+		else
+			document.getElementById("switchow").style.display = "block";
 	};
 
 	window.zoomAutoFullOverworldMain = function(checkbox)
@@ -3874,15 +4162,15 @@
 		let maybeVisitedRegions = new Set(),evr = new Set(),mvrl = new Set(),mvrd = new Set();
 		let visitedRegions = new Set(),visitedScreenEdges = new Set();
 		if(document.getElementById("pinnedlinkshouse").checked)
-			inspectStartRegion(0x2C,"Main",true);
+			inspectStartRegion(0x2C,"Main",false);
 		if(document.getElementById("pinnedsanctuary").checked)
-			inspectStartRegion(0x13,"Main",true);
+			inspectStartRegion(worldState === 'I' ?0x53 :0x13,"Main",true);
 		if(document.getElementById("pinnedoldman").checked)
-			inspectStartRegion(0x03,"Bottom",false);
+			inspectStartRegion(0x03,"Bottom",true);
 		if(document.getElementById("pinnedpyramid").checked)
 			inspectStartRegion(0x5B,"Balcony",false);
 		if(items.flute)
-			for(let id of fluteshuffle ?customFluteSpots :[0x03,0x16,0x18,0x2C,0x2F,0x30,0x3B,0x3F])
+			for(let id of fluteshuffle ?customFluteSpots :vanillaFluteSpots)
 				inspectStartRegion(id,null,false);
 		allStartRegions = fixedStartRegions.concat(customStartRegions);
 		let startRegions = allStartRegions.concat(fluteSpotRegions);
@@ -4043,19 +4331,19 @@
 				if(!continueRegions.has(keySwapped))
 					continueRegions.set(keySwapped,new Set());
 				let region = regionName ?screen.regions.get(regionName) :screen.fluteRegion;
-				continueRegions.get(keyNormal).add(worldState !== 'I' ?region :region.parallel);
-				continueRegions.get(keySwapped).add(ignoreSwaps !== (worldState === 'I') ?region :region.parallel);
+				continueRegions.get(keyNormal).add(ignoreSwaps || worldState !== 'I' ?region :region.parallel);
+				continueRegions.get(keySwapped).add(ignoreSwaps || worldState === 'I' ?region :region.parallel);
 			}
 			else
 			{
 				let region = regionName ?screen.regions.get(regionName) :screen.fluteRegion;
-				(regionName ?fixedStartRegions :fluteSpotRegions).push((ignoreSwaps || screen.mixedState === "normal") !== (worldState === 'I') ?region :region.parallel);
+				(regionName ?fixedStartRegions :fluteSpotRegions).push(ignoreSwaps || (screen.mixedState === "swapped") === (worldState === 'I') ?region :region.parallel);
 			}
 		}
 		else
 		{
 			let region = regionName ?screen.regions.get(regionName) :screen.fluteRegion;
-			(regionName ?fixedStartRegions :fluteSpotRegions).push(worldState === 'I' ?region.parallel :region);
+			(regionName ?fixedStartRegions :fluteSpotRegions).push(ignoreSwaps || worldState !== 'I' ?region :region.parallel);
 		}
 	};
 }(window));

@@ -81,7 +81,7 @@
 
 	function activeFlute()
 	{
-		return items.flute && (canReachLightWorld() || flags.invertedactivatedflute);
+		return items.flute && (canReachLightWorld() || flags.activatedflute);
 	}
 	
 	function canSpinSpeed()
@@ -1726,9 +1726,9 @@
 				caption: 'Catfish',
 				is_opened: false,
 				is_available: function() {
-					if(!items.glove)
-						return 'unavailable';
-					if(canReachPyramid())
+					if(canReachPyramid() && items.glove)
+						return 'available';
+					if(canReachLightWorld() && items.mirror)
 						return 'available';
 					return 'unavailable';
 				}

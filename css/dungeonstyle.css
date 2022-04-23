@@ -6,6 +6,7 @@ body {
   color: white;
   overflow-x: hidden;
 }
+body.light { background-color: #F8F8F8; color: black; }
 
 * { box-sizing: border-box; }
 
@@ -30,24 +31,42 @@ a, a:visited{ color: #80C0FF; }
 .welcomemode .welcomeshown { display: block; }
 
 #sidebar { display: none; width: 0px; }
-.showsidebar #sidebar { width: 67px; height: 100%; float: left; position: fixed; top: 0; left: 0; display: block; }
+.showsidebar #sidebar { width: 67px; height: 100%; float: left; position: fixed; top: 0; left: 0; display: flex; flex-direction: column; }
 #main { min-width: 256px; min-height: 100vh; float: left; flex-grow: 1; }
 .showsidebar:not(.welcomemode) #main { border-left: 1px solid white; padding-left: 4px; margin-left: 67px; }
+.light .showsidebar:not(.welcomemode) #main { border-color: black; }
 .showsidebar .nosidebar { display: none; width: 0px; }
 .welcomemode .nosidebar { display: none; width: 0px; }
 .activetab { border-color: skyblue!important; }
+.light .activetab { border-color: rgb(0,0,255)!important; }
+.light .buttonsquare.activetab { border-color: rgb(255,255,0)!important; }
 
 .sidebutton { width: 66px; height: 22px; margin-left: 1px; border-width: 1px 0 1px 1px; border-style: solid; border-color: white; line-height: 20px; text-align: center; padding: 0px 2px 20px 2px; user-select: none; }
+.light .sidebutton { border-color: black; }
 .sidetab { width: 33px; height: 34px; float: left; border-width: 1px 0 1px 1px; border-style: solid; border-color: white; }
+.light .sidetab { border-color: black; }
 .sideboss { margin-left: 1px; background-size: 32px 32px; }
 .sideboss.completed { opacity: .25; }
 .sidesummary { position: relative; }
 
+.modalbg { width: 100%; height: 100%; background-color: rgba(0,0,0,.3); z-index: 3; position: fixed; top: 0px; left: 0px; display: none; }
+.modal { background-color: black; z-index: 4; position: absolute; border-style: solid; border-color: white; color: white; overflow: hidden; }
+.light .modal { background-color: #F8F8F8; border-color: black; color: black; }
+
+#overworldoptionsfinalbox { border: 1px solid yellow; display: none; }
+.light #overworldoptionsfinalbox { border-color: #C0C000; }
+#overworldglobalsyncbox { border: 1px solid white; margin-top: 4px; }
+.light #overworldglobalsyncbox { border-color: black; }
+#overworldsyncerrortext { padding: 2px 4px; color: rgb(255,192,192); }
+.light #overworldsyncerrortext { color: rgb(128,0,0); }
+
 .fixedtop { position: fixed; top: 0; background-color: black; z-index: 2; overflow: hidden; }
-.showsidebar .fixedtop { padding-right: 72px; }
+.light .fixedtop { background-color: #F8F8F8; }
+.showsidebar:not(.welcomemode) .fixedtop { padding-right: 72px; }
 .scenetitle { margin: 14px 12px 10px 10px; }
 
 .dungeon { border: 1px solid white; margin: 1px; }
+.light .dungeon { border-color: black; }
 .boss { width: 64px; height: 64px; background-size: 64px 64px; }
 .boss.completed { opacity: .25; }
 .summary { position: relative; height: 32px; }
@@ -68,6 +87,7 @@ a, a:visited{ color: #80C0FF; }
 
 .connector { cursor: default; }
 .connector:hover { background-color: rgba(255,255,255,.125); }
+.light .connector:hover { background-color: rgba(0,0,0,.125); }
 
 .fullowpanel { width: 512px; height: 512px; position: relative; transform-origin: 0 0; cursor: default; }
 .fullowpanel.pointer { cursor: pointer; }
@@ -82,7 +102,9 @@ a, a:visited{ color: #80C0FF; }
 .owscreen.bigscreen { width: 128px; height: 128px; }
 .owscreen.gray .roomnodeimg { filter: grayscale(100%); }
 .owscreen.unknown .roomnodeimg { filter: grayscale(50%) blur(3px); }
+.noblur .owscreen.unknown .roomnodeimg { filter: grayscale(75%); }
 .owscreen.gray.unknown .roomnodeimg { filter: grayscale(100%) blur(3px); }
+.noblur .owscreen.gray.unknown .roomnodeimg { filter: grayscale(100%); }
 .owscreen .roomtt { width: 64px; height: 64px; z-index: 1; cursor: inherit; position: absolute; top: 0; left: 0; font-size: 10pt; background-color: black; display: inline-block; color: #fff; text-align: center; pointer-events: none; visibility: hidden; opacity: 0; transition: opacity .25s; }
 .owscreen.bigscreen .roomtt { width: 128px; height: 128px; }
 .owscreen:hover .roomtt { visibility: visible; opacity: .5; }
@@ -93,7 +115,7 @@ a, a:visited{ color: #80C0FF; }
 .fullowpanel.clickedges .owedge { pointer-events: all; }
 .owedge:hover { box-shadow: inset 0px 0px 0px 1px white; }
 .owedgedot { width: 8px; height: 8px; position: absolute; box-shadow: inset 0px 0px 0px 1px black; background-color: rgb(0,255,255); pointer-events: none; }
-.owedgedot.to { background-color: #7f7f7f; }
+.owedgedot.to { background-color: #808080; }
 .owedgecrossed { background: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' version='1.1' preserveAspectRatio='none' viewBox='0 0 100 100'><path d='M100 0 L0 100' stroke='black' stroke-width='8'/><path d='M0 0 L100 100' stroke='black' stroke-width='8'/></svg>");
   background-repeat: no-repeat; background-position: center center; background-size: 100% 100%,auto; }
 .south { border-radius: 37.5% 37.5% 0 0; }
@@ -101,7 +123,8 @@ a, a:visited{ color: #80C0FF; }
 .north { border-radius: 0 0 37.5% 37.5%; }
 .east { border-radius: 37.5% 0 0 37.5%; }
 .whirlpool { border-radius: 37.5%; }
-.flutesymbol { overflow: hidden; width: 32px; height: 32px; background-size: 32px 32px; position: absolute; background-image: url(../images/items/flutet.png); pointer-events: none; }
+.flutesymbol { overflow: hidden; width: 32px; height: 32px; background-size: 32px 32px; position: absolute; background-image: url(../images/items/flute.png); pointer-events: none; }
+.savequitsymbol { overflow: hidden; width: 32px; height: 32px; background-size: 32px 32px; position: absolute; background-image: url(../images/interface/savequit.png); pointer-events: none; }
 .activateflute { width: 96px; height: 26px; z-index: 2; cursor: default; position: absolute; box-shadow: inset 0px 0px 0px 1px black; color: black; background-color: lightskyblue; font-size: 14px; display: inline-block; text-align: center; line-height: 25px; border-radius: 6px; user-select: none; }
 .activateflute:hover { box-shadow: inset 0px 0px 0px 1px white; }
 .fullmixed { cursor: default; width: 56px; height: 26px; position: absolute; box-shadow: inset 0px 0px 0px 1px black; color: black; font-size: 14px; line-height: 25px; pointer-events: all; }
@@ -162,7 +185,9 @@ a, a:visited{ color: #80C0FF; }
 .pathlist { transform-origin: 0 0; }
 .pathlist .path.row { width: 200%; }
 .pathlist .path:hover { background-color: rgba(255,255,255,.125); }
+.light .pathlist .path:hover { background-color: rgba(0,0,0,.125); }
 .leftfadeout { width: 16px; height: 64px; z-index: 2; background-image: linear-gradient(to right, black, transparent); position: absolute; pointer-events: none; }
+.light .leftfadeout { background-image: linear-gradient(to right, white, transparent); }
 
 .symbolnode { margin: 0px; width: 32px; height: 32px; background-size: 32px 32px; position: absolute; z-index: -1; }
 .symbolnode.small { width: 16px; height: 16px; background-size: 16px 16px; }
@@ -170,34 +195,58 @@ a, a:visited{ color: #80C0FF; }
 .hint .pathsymbol { margin-right: 4px; }
 .hint span { height: 32px; line-height: 16px; display: grid; align-items: center; top: -1px; position: relative; }
 
+.invdir .direction { filter: invert(100%); }
+
 .buttonbox { border: 1px solid white; height: 24px; line-height: 25px; text-align: center; padding: 0 4px 24px 4px; margin: 4px; user-select: none; }
+.light .buttonbox { border-color: black; }
 .buttonbox.dense { margin: 2px; }
 .buttonbox.big { height: 36px; line-height: 33px; font-size: 14pt; padding: 0 8px 24px 8px; }
 .buttonbox.small { height: 20px; line-height: 19px; padding: 0px 2px 18px 2px; }
 .buttonbox.disabled { cursor: default; border-color: darkgray!important; color: darkgray; }
 .buttonbox.selected { color: black; background-color: white; }
-.redborder { border-color: rgb(255,128,128); }
+.light .buttonbox.selected { color: white; background-color: black; }
 
 .buttonsquare { border: 1px solid white; width: 26px; height: 26px; user-select: none; }
+.light .buttonsquare { filter: invert(100%); }
 .buttonsquare.disabled { cursor: default; filter: brightness(60%); }
+.light .buttonsquare.disabled { filter: brightness(60%) invert(100%); }
 .buttonsquare.home { background-image: url(../images/interface/home.png); cursor: pointer; }
 .buttonsquare.collapse { background-image: url(../images/interface/collapse.png); }
 .buttonsquare.expand { background-image: url(../images/interface/collapse.png); transform: scaleX(-1); }
 .buttonsquare.collapsesection { background-image: url(../images/interface/collapsesection.png); }
 .buttonsquare.expandsection { background-image: url(../images/interface/collapsesection.png); transform: rotate(-90deg); }
 .buttonsquare.close { background-image: url(../images/interface/close.png); }
+.buttonsquare.settings { background-image: url(../images/interface/settings.png); }
+.buttonsquare.uparrow { background-image: url(../images/interface/uparrow.png); }
 .buttonsquare.plus { background-image: url(../images/interface/plus.png); margin: 4px; }
 .buttonsquare.minus { background-image: url(../images/interface/minus.png); margin: 4px; }
 .buttonsquare.owicon { background-image: url(../images/overlay/overworldicon.png); background-size: 24px 24px; }
+.light .buttonsquare.owicon { border-color: black; filter: none; }
+
+.redborder { border-color: rgb(255,128,128); }
+.light .redborder { border-color: rgb(255,0,0); }
+.light .buttonsquare.redborder { border-color: rgb(0,255,255); }
+.greenborder { border-color: rgb(128,255,128); }
+.light .greenborder { border-color: rgb(0,192,0); }
+.yellowborder { border-color: rgb(255,255,128); }
+.light .yellowborder { border-color: rgb(192,192,0); }
+.orangeborder { border-color: rgb(255,192,128); }
+.light .orangeborder { border-color: rgb(255,128,0); }
+.blueborder { border-color: rgb(128,128,255); }
+.light .blueborder { border-color: rgb(0,0,255); }
 
 .rightalign { float: right; }
 .centercheckbox { width: 100%; display: inline-block; text-align: center; }
 
 .newpath { animation: newpath 2s forwards 1; }
+.light .newpath { animation: newpathlight 2s forwards 1; }
 @keyframes newpath { from { background-color: rgba(192,255,192,.25); } to { background-color: none; } }
+@keyframes newpathlight { from { background-color: rgba(0,64,0,.25); } to { background-color: none; } }
 
 .buttonaction { animation: buttonaction 1s forwards 1; }
+.light .buttonaction { animation: buttonactionlight 1s forwards 1; }
 @keyframes buttonaction { from { background-color: rgba(192,255,192,.5); } to { background-color: none; } }
+@keyframes buttonactionlight { from { background-color: rgba(0,64,0,.5); } to { background-color: none; } }
 
 .overworldicon { background-image: url(../images/overlay/overworldicon.png); }
 .boss0 { background-image: url(../images/dungeons/boss0.png); }

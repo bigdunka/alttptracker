@@ -9,7 +9,7 @@
 	{
 		createDoubleOverworldScreen(0x00,"Lost Woods","Skull Woods",true,["Southwest","South","Northeast","Southeast","Northwest","North","Divider"],"Southeast");
 		createDoubleOverworldScreen(0x02,"Lumberjacks","Dark Lumberjacks",false,null,"Main");
-		createDoubleOverworldScreen(0x03,"West Death Mountain","West Dark Death Mountain",true,["Top","Spectacle Rock","Bottom","Ledges"],"Bottom");
+		createDoubleOverworldScreen(0x03,"West Death Mountain","West Dark Death Mountain",true,["Top","Spectacle Rock","Bottom","Ledges","Flute"],"Flute");
 		createDoubleOverworldScreen(0x05,"East Death Mountain","East Dark Death Mountain",true,["Top Main","Bottom Main","Top West","Bottom West","Island","Spiral","Mimic","Laser Bridge","Blocked Cave"],"Bottom Main");
 		createDoubleOverworldScreen(0x07,"Turtle Rock Pegs","Turtle Rock",false,["Main","Portal"],"Main");
 		createDoubleOverworldScreen(0x0A,"Death Mountain Entry","Bumper",false,["Main","Ledge","Bottom Cave"],"Main");
@@ -60,6 +60,7 @@
 		specialScreen.y = 224;
 		specialScreen.file = "hobo";
 		screenLinksLayout.push([0x00,0x2D,0x80,0x82]);
+		screenLinksEntrance.push([0x03,0x0A]);
 		screenLinksEntrance.push([0x05,0x07]);
 		screenLinksLayout.push([0x0F,0x35,0x81]);
 		screenLinksLayout.push([0x12,0x15,0x33,0x3F]);
@@ -329,13 +330,15 @@
 		createSingleLogicEdge(0x40,"Divider","Northeast",null,true);
 		createSingleLogicEdge(0x40,"South","Southeast","gloves",true);
 		createDoubleLogicEdge(0x03,"Top","Bottom","ledge",false);
-		createInvertedLogicEdge(0x43,"Top","Bottom",null,true);
 		createSingleLogicEdge(0x03,"Spectacle Rock","Top","ledge",false);
 		createInvertedLogicEdge(0x03,"Spectacle Rock","Top",null,true);
 		createDoubleLogicEdge(0x03,"Spectacle Rock","Bottom","ledge",false);
 		createSingleLogicEdge(0x43,"Bottom","Spectacle Rock",null,false);
 		createDoubleLogicEdge(0x03,"Bottom","Ledges","ledge",true);
+		createOpenLogicEdge(0x03,"Flute","Bottom",null,true);
+		createInvertedLogicEdge(0x43,"Flute","Top",null,true);
 		createDoublePortal(0x03,"Bottom",null);
+		setDoubleMirrorBlock(0x03,"Flute");
 		createDoubleLogicEdge(0x05,"Top Main","Bottom Main","ledge",false);
 		createSingleLogicEdge(0x05,"Top West","Top Main","hammer",true);
 		createSingleLogicEdge(0x45,"Top West","Top Main",null,true);
@@ -351,14 +354,14 @@
 		createSingleLogicEdge(0x05,"Bottom Main","Blocked Cave","mitts",true);
 		createSingleLogicEdge(0x45,"Bottom Main","Blocked Cave","bushes",true);
 		createInvertedLogicEdge(0x05,"Top Main","Mimic","ledge",false);
-		createInvertedLogicEdge(0x05,"Mimic","Bottom Main","ledge",false);
+		createInvertedLogicEdge(0x05,"Spiral","Mimic",null,true);
+		createInvertedLogicEdge(0x05,"Mimic","Laser Bridge","ledge",false);
 		createDoublePortal(0x05,"Bottom Main","mitts");
-		createSingleLogicEdge(0x07,"Main","Portal","mitts",false);
-		createInvertedLogicEdge(0x47,"Main","Portal","ledge",false);
-		createSingleLogicEdge(0x07,"Portal","Main","hammerledge",false);
-		createSingleLogicEdge(0x47,"Portal","Main","ledge",false);
-		createPortal(0x07,"Portal","hammer");
-		createPortal(0x47,"Portal","mitts");
+		createOpenLogicEdge(0x07,"Main","Portal","mitts",true);
+		createOpenLogicEdge(0x47,"Portal","Main","ledge",false);
+		createInvertedLogicEdge(0x07,"Portal","Main","hammermitts",false);
+		createInvertedLogicEdge(0x47,"Main","Portal","ledge",true);
+		createDoublePortal(0x07,"Portal","mitts");
 		createDoubleLogicEdge(0x0A,"Main","Bottom Cave","gloves",true);
 		createDoubleLogicEdge(0x0A,"Ledge","Main","ledge",false);
 		createDoubleLogicEdge(0x0A,"Bottom Cave","Main","ledge",false);
@@ -470,11 +473,11 @@
 		createDoubleLogicEdge(0x35,"Southwest","Lake","waterledge",false);
 		createDoubleLogicEdge(0x35,"Southeast","Lake","waterledge",false);
 		createSingleLogicEdge(0x35,"Central Island","Lake","flippers",true);
-		createInvertedLogicEdge(0x75,"Central Island","Lake","flippers",true);
 		createSingleLogicEdge(0x35,"Small Island","Lake","waterledge",false);
 		createSingleLogicEdge(0x75,"Small Island","Lake","flippers",true);
 		createInvertedLogicEdge(0x35,"Small Island","Lake","flippers",true);
-		createDoublePortal(0x35,"Central Island","mitts");
+		createPortal(0x35,"Central Island","mitts");
+		createPortal(0x75,"Lake","mitts");
 		createSingleLogicEdge(0x3A,"Ledge","Main","ledge",false);
 		createSingleLogicEdge(0x7A,"Ledge","Main",null,true);
 		createInvertedLogicEdge(0x3A,"Ledge","Main",null,true);
@@ -484,16 +487,11 @@
 		setDoubleMirrorBlock(0x3F,"Waterfall");
 		createSingleLogicEdge(0x81,"Main","Southeast","waterledge",true);
 		//Bumper Cave
-		createSpecialDefaultConnector(0x4A,"Bottom Cave","Bunny",0x4A,"Ledge","Bunny","cape",true);
-		createSpecialDefaultConnector(0x0A,"Bottom Cave","Bunny",0x0A,"Ledge","Bunny","cape",true);
+		createDefaultConnector(0x4A,"Bottom Cave",0x4A,"Ledge","cape",true);
 		//DM Ascent
-		createSpecialDefaultConnector(0x0A,"Bottom Cave","Link",0x03,"Bottom","Link","lantern",false);
-		createSpecialDefaultConnector(0x4A,"Bottom Cave","Link",0x43,"Bottom","Link","lantern",false);
-		createSpecialDefaultConnector(0x0A,"Bottom Cave","Link",0x43,"Bottom","Link","lantern",false);
-		createSpecialDefaultConnector(0x4A,"Bottom Cave","Link",0x03,"Bottom","Link","lantern",false);
+		createDefaultConnector(0x0A,"Bottom Cave",0x03,"Bottom","lantern",false);
 		//DM Descent
-		createSpecialDefaultConnector(0x03,"Bottom","Link",0x0A,"Ledge","Link","lantern",true);
-		createSpecialDefaultConnector(0x03,"Bottom","Link",0x4A,"Ledge","Link","lantern",true);
+		createDefaultConnector(0x03,"Bottom",0x0A,"Ledge","lantern",true);
 		createDefaultConnector(0x05,"Bottom Main",0x05,"Top Main",null,true);
 		createDefaultConnector(0x45,"Bottom Main",0x45,"Top Main",null,false);
 		createDefaultConnector(0x45,"Top Main",0x45,"Island","glovesandbomb",true);
@@ -1075,37 +1073,12 @@
 		let edgesOut = current.logicEdgesOut;
 		if((worldState === 'I') === (darkWorld === current.darkWorld))
 			edgesOut = edgesOut.concat(current.invertedLogicEdgesOut);
+		else
+			if(current.openLogicEdgesOut)
+				edgesOut = edgesOut.concat(current.openLogicEdgesOut);
 		if(!items.follower || ((items.follower === "smithfrog" || items.follower === "smithfrognosq") && entranceEnabled))
 		{
 			edgesOut = edgesOut.concat(entranceEnabled ?current.entranceConnectorsOut :current.defaultConnectorsOut);
-			if(!entranceEnabled && current.specialDefaultConnectorsOut && (!mixedow || getAssumedMixedState(current.screen,assumptions) !== "unknown"))
-			{
-				let skip = false;
-				for(let edge of current.specialDefaultConnectorsOut)
-				{
-					if(mixedow)
-					{
-						if(getAssumedMixedState(edge.target.screen,assumptions) === "unknown" && current.name !== "Ledge")
-						{
-							if(!skip && (edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')) && (!edge.rule || checkRule(edge.rule,items,darkWorld)))
-							{
-								addContinueRegion(edge.target.screen.id,getAssumedMixedState(current.screen,assumptions),edge.target,edge.target.parallel,checkableScreens,continueRegions);
-								skip = true;
-							}
-						}
-						else
-							if((edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')))
-								if((edge.targetWorld === "Link") === (isAssumedDarkWorld(edge.target.screen,assumptions) === (worldState === 'I')))
-									edgesOut.push(edge);
-					}
-					else
-					{
-						if((edge.sourceWorld === "Link") === (darkWorld === (worldState === 'I')))
-							if((edge.targetWorld === "Link") === (edge.target.darkWorld === (worldState === 'I')))
-								edgesOut.push(edge);
-					}
-				}
-			}
 		}
 		for(let edge of edgesOut)
 		{
@@ -1183,26 +1156,12 @@
 			let edgesIn = current.logicEdgesIn;
 			if((worldState === 'I') === (darkWorld === current.darkWorld))
 				edgesIn = edgesIn.concat(current.invertedLogicEdgesIn);
+			else
+				if(current.openLogicEdgesIn)
+					edgesIn = edgesIn.concat(current.openLogicEdgesIn);
 			if(!items.follower || ((items.follower === "smithfrog" || items.follower === "smithfrognosq") && entranceEnabled))
 			{
 				edgesIn = edgesIn.concat(entranceEnabled ?current.entranceConnectorsIn :current.defaultConnectorsIn);
-				if(!entranceEnabled && current.specialDefaultConnectorsIn)
-					for(let edge of current.specialDefaultConnectorsIn)
-					{
-						if(mixedow)
-						{
-							if(edge.source.screen.mixedState !== "unknown")
-								if((edge.targetWorld === "Link") === (darkWorld === (worldState === 'I')))
-									if((edge.sourceWorld === "Link") === (isDarkWorld(edge.source.screen) === (worldState === 'I')))
-										edgesIn.push(edge);
-						}
-						else
-						{
-							if((edge.targetWorld === "Link") === (darkWorld === (worldState === 'I')))
-								if((edge.sourceWorld === "Link") === (edge.source.darkWorld === (worldState === 'I')))
-									edgesIn.push(edge);
-						}
-					}
 			}
 			for(let edge of edgesIn)
 			{
@@ -1351,6 +1310,8 @@
 				return items.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.hammer;
 			case "mittsledge":
 				return items.follower !== "redbomb" && (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.mitts;
+			case "hammermitts":
+				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && items.hammer && items.mitts;
 			case "bombdash":
 				return (items.moonpearl || (darkWorld === (worldState === 'I'))) && (items.bomb || items.boots);
 			case "bushesandlantern":
@@ -1586,11 +1547,20 @@
 				}
 			}
 		//Special rules for certain locations
-		if(worldState === 'I')
+		let towerSwap = "unknown";
+		if(mixedow)
 		{
-			data.items[2] = data.special["Inverted Link's House"] || "unavailable";
+			if((overworldScreens.get(0x1B).mixedState !== "unknown" && (overworldScreens.get(0x1B).mixedState === "swapped") === (worldState === 'I')) || (overworldScreens.get(0x03).mixedState !== "unknown" && (overworldScreens.get(0x03).mixedState === "swapped") === (worldState === 'I')))
+				towerSwap = false;
+			else
+				if(overworldScreens.get(0x1B).mixedState !== "unknown" && (overworldScreens.get(0x1B).mixedState === "swapped") !== (worldState === 'I') && overworldScreens.get(0x03).mixedState !== "unknown" && (overworldScreens.get(0x03).mixedState === "swapped") !== (worldState === 'I'))
+					towerSwap = true;
+		}
+		else
+			towerSwap = worldState === 'I';
+		if(towerSwap === true)
+		{
 			data.items[65] = data.items[66] = data.special["Inverted Castle Tower Access"] || "unavailable";
-			data.items[78] = data.special["Inverted Bomb Shop"] || "unavailable";
 			data.dungeons[80] = data.entrances[10] = data.special["Inverted Ganon's Tower"] || "unavailable";
 			data.dungeons[96] = data.entrances[127] = data.special["Inverted Castle Tower"] || "unavailable";
 			orSpecial(data.dungeons,80,data.special["Inverted Maybe GT"],"possible");
@@ -1602,12 +1572,23 @@
 				data.dungeonsBunny[96] = swap;
 			}
 		}
-		else
+		if(towerSwap === false)
 		{
 			orSpecial(data.dungeons,80,data.special["Maybe GT"],"possible");
 			orSpecial(data.entrances,127,data.special["Maybe GT"],"possible");
 		}
+		if(towerSwap === "unknown")
+		{
+			data.items[65] = data.items[66] = twoOptions(data.items[65],data.special["Inverted Castle Tower Access"] || "unavailable");
+			data.dungeons[80] = twoOptions(orSpecial2(data.dungeons[80],data.special["Maybe GT"],"possible"),orSpecial2(data.special["Inverted Ganon's Tower"] || "unavailable",data.special["Inverted Maybe GT"],"possible"));
+			data.entrances[10] = twoOptions(data.entrances[10],orSpecial2(data.special["Inverted Ganon's Tower"] || "unavailable",data.special["Inverted Maybe GT"],"possible"));
+			data.dungeons[96] = twoOptions(data.dungeons[96],data.special["Inverted Castle Tower"] || "unavailable");
+			data.entrances[127] = twoOptions(orSpecial2(data.entrances[127],data.special["Maybe GT"],"possible"),data.special["Inverted Castle Tower"] || "unavailable");
+			if(data.dungeonsBunny[80] !== data.dungeonsBunny[96])
+				data.dungeonsBunny[80] = data.dungeonsBunny[96] = false;
+		}
 		if((mixedow && overworldScreens.get(0x03).mixedState === "swapped") !== (worldState === 'I'))
+		{
 			if(entranceEnabled)
 			{
 				if(data.items[34] !== "unavailable")
@@ -1618,8 +1599,7 @@
 						data.items[34] = "possible";
 				}
 			}
-			else
-				data.items[34] = data.special["Inverted Old Man"] || "unavailable";
+		}
 		else
 			if(entranceEnabled && data.items[34] !== "unavailable")
 			{
@@ -1668,9 +1648,9 @@
 		//Red bomb
 		if(data.items[61] !== "unavailable")
 		{
-			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(worldState === 'I' ?0x2C :0x6C).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
+			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(0x6C).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
 			let mirrorTarget = canPlaceMirrorPortal(overworldScreens.get(0x1B).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
-			data.items[61] = canReachFrom(overworldScreens.get(worldState === 'I' ?0x2C :0x6C).regions.get("Main"),overworldScreens.get(0x5B).regions.get("Main"),items,"redbomb",data.items[61],mirrorStart,mirrorTarget);
+			data.items[61] = canReachFrom(overworldScreens.get(0x6C).regions.get("Main"),overworldScreens.get(0x5B).regions.get("Main"),items,"redbomb",data.items[61],mirrorStart,mirrorTarget);
 		}
 		//Smith
 		if(data.items[60] !== "unavailable")
@@ -1790,7 +1770,7 @@
 						data.dungeons[75] = data.dungeons[72] === "available" && data.dungeons[73] === "available" && data.dungeons[74] === "available" ?"available" :"possible";
 				}
 				//CT or GT through HC
-				if(worldState === 'I')
+				if(towerSwap !== false)
 				{
 					if(data.dungeons[80] === "unavailable" && (!mixedow || overworldScreens.get(0x1B).mixedState !== "unknown"))
 					{
@@ -1798,18 +1778,20 @@
 						if(entrycheck !== "unavailable" && (data.dungeons[88] !== "unavailable" || data.dungeons[91] !== "unavailable" || data.dungeons[92] !== "unavailable"))
 						{
 							data.dungeons[80] = "possible";
-							data.dungeonsBunny[80] = data.dungeonsBunny[88];
+							if(towerSwap !== "unknown")
+								data.dungeonsBunny[80] = data.dungeonsBunny[88];
 						}
 					}
 				}
-				else
+				if(towerSwap !== true)
 				{
 					if(data.dungeons[96] === "unavailable" && (!mixedow || overworldScreens.get(0x1B).mixedState !== "unknown"))
 					{
 						if(checkRule("ctbarrier",items,isDarkWorld(overworldScreens.get(0x1B))) && (data.dungeons[88] !== "unavailable" || data.dungeons[91] !== "unavailable" || data.dungeons[92] !== "unavailable"))
 						{
 							data.dungeons[96] = "possible";
-							data.dungeonsBunny[96] = data.dungeonsBunny[88];
+							if(towerSwap !== "unknown")
+								data.dungeonsBunny[96] = data.dungeonsBunny[88];
 						}
 					}
 				}
@@ -1826,6 +1808,7 @@
 				data.entrances[98] = door ?"possible" :data.entrances[102];
 		}
 		data.special = null;
+		data.towerSwap = towerSwap;
 		return data;
 	};
 
@@ -1838,10 +1821,27 @@
 				object[locationID] = "possible";
 	};
 
+	window.orSpecial2 = function(base,special,availability)
+	{
+		if(base === "unavailable" && special === "available")
+			return availability;
+		else
+			if(base === "unavailable" && special === "possible" && (availability === "available" || availability === "possible" || availability === "partialavailable"))
+				return "possible";
+		return base;
+	};
+
 	window.andSpecial = function(object,locationID,special)
 	{
 		if(object[locationID] !== "unavailable" && special !== "available")
 			object[locationID] = special ?special :"unavailable";
+	};
+
+	window.twoOptions = function(option1,option2)
+	{
+		if(option1 === option2)
+			return option1;
+		return "possible";
 	};
 
 	window.canPlaceMirrorPortal = function(region,visitedRegions,extraRegions,maybeLightRegions,maybeDarkRegions)
@@ -1995,6 +1995,36 @@
 			edge.weight = .1;
 			region1.logicEdgesIn.push(edge);
 			region2.logicEdgesOut.push(edge);
+		}
+	};
+
+	window.createOpenLogicEdge = function(screenID,regionName1,regionName2,rule,bidirectional)
+	{
+		let edge = {},screen = overworldScreens.get(screenID);
+		let region1 = screen.regions.get(regionName1),region2 = screen.regions.get(regionName2);
+		edge.source = region1;
+		edge.target = region2;
+		edge.rule = rule;
+		edge.weight = .1;
+		if(!region1.openLogicEdgesOut)
+			region1.openLogicEdgesOut = [];
+		if(!region2.openLogicEdgesIn)
+			region2.openLogicEdgesIn = [];
+		region1.openLogicEdgesOut.push(edge);
+		region2.openLogicEdgesIn.push(edge);
+		if(bidirectional)
+		{
+			edge = {};
+			edge.target = region1;
+			edge.source = region2;
+			edge.rule = rule;
+			edge.weight = .1;
+			if(!region1.openLogicEdgesIn)
+				region1.openLogicEdgesIn = [];
+			if(!region2.openLogicEdgesOut)
+				region2.openLogicEdgesOut = [];
+			region1.openLogicEdgesIn.push(edge);
+			region2.openLogicEdgesOut.push(edge);
 		}
 	};
 
@@ -2464,25 +2494,36 @@
 
 	window.initializeRoomsAndSymbols = function()
 	{
-		dungeonImportant.push({"dungeon":11,"name":"Lobby","supertile":0x61,"part":"full"});
+		dungeonImportant.push({"dungeon":11,"name":"West Lobby","supertile":0x60,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":11,"name":"Main Lobby","supertile":0x61,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":11,"name":"East Lobby","supertile":0x62,"part":"full","priority":1});
 		dungeonEntrances.push({"dungeon":0,"name":"Entrance","supertile":0xC9,"part":"full"});
 		dungeonEntrances.push({"dungeon":1,"name":"Main","supertile":0x84,"part":"full"});
 		dungeonEntrances.push({"dungeon":1,"name":"West","supertile":0x83,"part":"bottomleft"});
 		dungeonEntrances.push({"dungeon":1,"name":"East","supertile":0x85,"part":"bottomright"});
 		dungeonEntrances.push({"dungeon":1,"name":"Back","supertile":0x63,"part":"bottomleft"});
-		dungeonImportant.push({"dungeon":1,"name":"Lobby","supertile":0x84,"part":"full"});
+		dungeonImportant.push({"dungeon":1,"name":"Main Lobby","supertile":0x84,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":1,"name":"East Lobby","supertile":0x85,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":1,"name":"North Hall","supertile":0x74,"part":"full","priority":1});
 		dungeonEntrances.push({"dungeon":2,"name":"Entrance","supertile":0x77,"part":"full"});
-		dungeonImportant.push({"dungeon":2,"name":"Lobby","supertile":0x77,"part":"full"});
-		dungeonImportant.push({"dungeon":2,"name":"Big Key Door","supertile":0x31,"part":"full"});
-		dungeonImportant.push({"dungeon":2,"name":"Big Chest Room","supertile":0x27,"part":"full"});
-		dungeonImportant.push({"dungeon":2,"name":"Bumper Room","supertile":0x17,"part":"full"});
+		dungeonImportant.push({"dungeon":2,"name":"Lobby","supertile":0x77,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":2,"name":"Big Key Door","supertile":0x31,"part":"full","priority":2});
+		dungeonImportant.push({"dungeon":2,"name":"Big Chest Room","supertile":0x27,"part":"full","priority":2});
+		dungeonImportant.push({"dungeon":2,"name":"Bumper Room","supertile":0x17,"part":"full","priority":3});
 		dungeonEntrances.push({"dungeon":3,"name":"Entrance","supertile":0x4A,"part":"full"});
-		dungeonImportant.push({"dungeon":3,"name":"Pit Room","supertile":0x3A,"part":"full"});
-		dungeonImportant.push({"dungeon":3,"name":"Arena","supertile":0x2A,"part":"full"});
-		dungeonImportant.push({"dungeon":3,"name":"Falling Bridge","supertile":0x1A,"part":"full"});
+		dungeonImportant.push({"dungeon":3,"name":"Lobby","supertile":0x4A,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":3,"name":"Pit Room","supertile":0x3A,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":3,"name":"Arena","supertile":0x2A,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":3,"name":"Falling Bridge","supertile":0x1A,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":3,"name":"Sexy Statue","supertile":0x2B,"part":"full","priority":1});
 		dungeonEntrances.push({"dungeon":4,"name":"Entrance","supertile":0x28,"part":"full"});
-		dungeonImportant.push({"dungeon":4,"name":"Drained Dam","supertile":0x28,"part":"full"});
-		dungeonImportant.push({"dungeon":4,"name":"Hub","supertile":0x36,"part":"full"});
+		dungeonImportant.push({"dungeon":4,"name":"Drained Dam","supertile":0x28,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":4,"name":"Trench 1","supertile":0x37,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":4,"name":"Hub","supertile":0x36,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":4,"name":"Trench 2","supertile":0x35,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":4,"name":"West Side","supertile":0x34,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":4,"name":"Push Statue","supertile":0x26,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":4,"name":"Drain","supertile":0x76,"part":"full","priority":1});
 		dungeonEntrances.push({"dungeon":5,"name":"Front Main","supertile":0x58,"part":"bottomleft"});
 		dungeonEntrances.push({"dungeon":5,"name":"Front West","supertile":0x67,"part":"topleft"});
 		dungeonEntrances.push({"dungeon":5,"name":"Front Pinball","supertile":0x68,"part":"full"});
@@ -2494,22 +2535,37 @@
 		dungeonEntrances.push({"dungeon":6,"name":"Entrance","supertile":0xDB,"part":"full"});
 		dungeonEntrances.push({"dungeon":6,"name":"Blind's Cell","supertile":0x45,"part":"topright"});
 		dungeonEntrances.push({"dungeon":6,"name":"Boss Room","supertile":0xAC,"part":"bottomright"});
-		dungeonImportant.push({"dungeon":6,"name":"Lobby SW","supertile":0xDB,"part":"full"});
-		dungeonImportant.push({"dungeon":6,"name":"Lobby NW","supertile":0xCB,"part":"full"});
-		dungeonImportant.push({"dungeon":6,"name":"Lobby NE","supertile":0xCC,"part":"full"});
-		dungeonImportant.push({"dungeon":6,"name":"Lobby SE","supertile":0xDC,"part":"full"});
-		dungeonImportant.push({"dungeon":6,"name":"Attic","supertile":0x65,"part":"bottomright"});
+		dungeonImportant.push({"dungeon":6,"name":"Lobby SW","supertile":0xDB,"part":"full","priority":2});
+		dungeonImportant.push({"dungeon":6,"name":"Lobby NW","supertile":0xCB,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":6,"name":"Lobby NE","supertile":0xCC,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":6,"name":"Lobby SE","supertile":0xDC,"part":"full","priority":2});
+		dungeonImportant.push({"dungeon":6,"name":"Hallway","supertile":0xBC,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":6,"name":"Hellway","supertile":0xBB,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":6,"name":"Attic","supertile":0x65,"part":"bottomright","priority":3});
 		dungeonEntrances.push({"dungeon":7,"name":"Entrance","supertile":0x0E,"part":"bottomright"});
-		dungeonImportant.push({"dungeon":7,"name":"Pushable Block","supertile":0x9E,"part":"bottomright"});
+		dungeonImportant.push({"dungeon":7,"name":"Cross","supertile":0x1E,"part":"bottomright","priority":1});
+		dungeonImportant.push({"dungeon":7,"name":"Spike Cross","supertile":0x5E,"part":"bottomright","priority":1});
+		dungeonImportant.push({"dungeon":7,"name":"Tall Hint","supertile":0x7E,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":7,"name":"Block Puzzle","supertile":0x9E,"part":"bottomright","priority":3});
 		dungeonEntrances.push({"dungeon":8,"name":"Entrance","supertile":0x98,"part":"bottomleft"});
-		dungeonImportant.push({"dungeon":8,"name":"Hub","supertile":0xC2,"part":"full"});
+		dungeonImportant.push({"dungeon":8,"name":"Hub","supertile":0xC2,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":8,"name":"Big Chest","supertile":0xC3,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":8,"name":"Push Block","supertile":0xB2,"part":"bottomright","priority":1});
+		dungeonImportant.push({"dungeon":8,"name":"Spike Chest","supertile":0xB3,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":8,"name":"Tile Room","supertile":0xC1,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":8,"name":"Hourglass","supertile":0xB1,"part":"full","priority":1});
 		dungeonEntrances.push({"dungeon":9,"name":"Main","supertile":0xD6,"part":"bottomright"});
 		dungeonEntrances.push({"dungeon":9,"name":"West","supertile":0x23,"part":"bottomright"});
 		dungeonEntrances.push({"dungeon":9,"name":"East","supertile":0x24,"part":"bottomright"});
 		dungeonEntrances.push({"dungeon":9,"name":"Back","supertile":0xD5,"part":"bottomleft"});
-		dungeonImportant.push({"dungeon":9,"name":"Hub","supertile":0xC6,"part":"full"});
+		dungeonImportant.push({"dungeon":9,"name":"Hub","supertile":0xC6,"part":"full","priority":3});
+		dungeonImportant.push({"dungeon":9,"name":"Twin Pokeys","supertile":0x24,"part":"full","priority":1});
 		dungeonEntrances.push({"dungeon":10,"name":"Entrance","supertile":0x0C,"part":"full"});
-		dungeonImportant.push({"dungeon":10,"name":"Torch Area","supertile":0x8C,"part":"full"});
+		dungeonImportant.push({"dungeon":10,"name":"Lobby","supertile":0x0C,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":10,"name":"Torch Area","supertile":0x8C,"part":"full","priority":2});
+		dungeonImportant.push({"dungeon":10,"name":"Invisible Floor","supertile":0x9C,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":10,"name":"Mini Helmasaur Area","supertile":0x3D,"part":"full","priority":1});
+		dungeonImportant.push({"dungeon":10,"name":"Moldorm 2","supertile":0x4D,"part":"full","priority":1});
 		dungeonEntrances.push({"dungeon":11,"name":"Main","supertile":0x61,"part":"full"});
 		dungeonEntrances.push({"dungeon":11,"name":"West","supertile":0x60,"part":"full"});
 		dungeonEntrances.push({"dungeon":11,"name":"East","supertile":0x62,"part":"full"});
@@ -2533,39 +2589,39 @@
 		lobbyHC.push({"dungeon":11,"name":"Zelda's Cell","supertile":0x80,"part":"topright"});
 		for(let k = 0; k < dungeonEntrances.length; k++)
 		{
-			let id = "0"+k.toString(36);
+			let id = "0"+toBase62(k);
 			dungeonEntrances[k].id = id;
 			roomMap[id] = dungeonEntrances[k];
 		}
 		for(let k = 0; k < dungeonImportant.length; k++)
 		{
-			let id = "1"+k.toString(36);
+			let id = "1"+toBase62(k);
 			dungeonImportant[k].id = id;
 			roomMap[id] = dungeonImportant[k];
 		}
 		let lobbyAll = lobbyEntrances.concat(lobbySanctuary,lobbySW,lobbyTT,lobbyHC)
 		for(let k = 0; k < lobbyAll.length; k++)
 		{
-			let id = "2"+k.toString(36);
+			let id = "2"+toBase62(k);
 			lobbyAll[k].id = id;
 			roomMap[id] = lobbyAll[k];
 		}
-		directions.push({"folder":"dungeons","file":"arrowright","x":128,"y":64});
-		directions.push({"folder":"dungeons","file":"arrowrightup","x":128,"y":32});
-		directions.push({"folder":"dungeons","file":"arrowrightdown","x":128,"y":96});
-		directions.push({"folder":"dungeons","file":"arrowright","rotate":90,"x":64,"y":128});
-		directions.push({"folder":"dungeons","file":"arrowrightup","rotate":90,"x":96,"y":128});
-		directions.push({"folder":"dungeons","file":"arrowrightdown","rotate":90,"x":32,"y":128});
-		directions.push({"folder":"dungeons","file":"arrowright","rotate":180,"x":0,"y":64});
-		directions.push({"folder":"dungeons","file":"arrowrightup","rotate":180,"x":0,"y":96});
-		directions.push({"folder":"dungeons","file":"arrowrightdown","rotate":180,"x":0,"y":32});
-		directions.push({"folder":"dungeons","file":"arrowright","rotate":270,"x":64,"y":0});
-		directions.push({"folder":"dungeons","file":"arrowrightup","rotate":270,"x":32,"y":0});
-		directions.push({"folder":"dungeons","file":"arrowrightdown","rotate":270,"x":96,"y":0});
-		directions.push({"folder":"dungeons","file":"quadranttopleft","x":48,"y":48});
-		directions.push({"folder":"dungeons","file":"quadranttopleft","rotate":90,"x":80,"y":48});
-		directions.push({"folder":"dungeons","file":"quadranttopleft","rotate":270,"x":48,"y":80});
-		directions.push({"folder":"dungeons","file":"quadranttopleft","rotate":180,"x":80,"y":80});
+		directions.push({"folder":"dungeons","file":"arrowright","x":128,"y":64,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowrightup","x":128,"y":32,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowrightdown","x":128,"y":96,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowright","rotate":90,"x":64,"y":128,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowrightup","rotate":90,"x":96,"y":128,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowrightdown","rotate":90,"x":32,"y":128,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowright","rotate":180,"x":0,"y":64,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowrightup","rotate":180,"x":0,"y":96,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowrightdown","rotate":180,"x":0,"y":32,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowright","rotate":270,"x":64,"y":0,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowrightup","rotate":270,"x":32,"y":0,"direction":true});
+		directions.push({"folder":"dungeons","file":"arrowrightdown","rotate":270,"x":96,"y":0,"direction":true});
+		directions.push({"folder":"dungeons","file":"quadranttopleft","x":48,"y":48,"direction":true});
+		directions.push({"folder":"dungeons","file":"quadranttopleft","rotate":90,"x":80,"y":48,"direction":true});
+		directions.push({"folder":"dungeons","file":"quadranttopleft","rotate":270,"x":48,"y":80,"direction":true});
+		directions.push({"folder":"dungeons","file":"quadranttopleft","rotate":180,"x":80,"y":80,"direction":true});
 		overworldEdgeToDirection["N0"] = directions[10];
 		overworldEdgeToDirection["N1"] = directions[9];
 		overworldEdgeToDirection["N2"] = directions[11];
@@ -2583,7 +2639,7 @@
 		overworldEdgeToDirection["PO"] = {"folder":"interface","file":"portal","x":48,"y":80};
 		overworldEdgeToDirection["MI"] = {"folder":"items","file":"mirror","x":80,"y":80};
 		overworldEdgeToDirection["SQ"] = {"folder":"interface","file":"savequit"};
-		overworldEdgeToDirection["FL"] = {"folder":"items","file":"flutet"};
+		overworldEdgeToDirection["FL"] = {"folder":"items","file":"flute"};
 		overworldEdgeToDirection["MP"] = {"folder":"interface","file":"mirrorportal"};
 		objects.push({"folder":"dungeons","file":"trapdoor"});
 		objects.push({"folder":"dungeons","file":"keychest0"});
@@ -2605,7 +2661,7 @@
 		itemicons.push({"folder":"items","file":"boots","basic":[1,3,5,8,9,10]});
 		itemicons.push({"folder":"items","file":"bow2","basic":[0,3,10]});
 		itemicons.push({"folder":"items","file":"hammer","basic":[3,4,6,7,10]});
-		itemicons.push({"folder":"items","file":"sword1","basic":[5,12]});
+		itemicons.push({"folder":"items","file":"swordoutline","basic":[5,12]});
 		itemicons.push({"folder":"items","file":"glove1","basic":[1,6,7]});
 		itemicons.push({"folder":"items","file":"shield3","basic":[9]});
 		itemicons.push({"folder":"dungeons","file":"freezor","basic":[7]});
@@ -2645,9 +2701,18 @@
 	{
 		for(let k = 0; k < list.length; k++)
 		{
-			let id = key+k.toString(36);
+			let id = key+toBase62(k);
 			list[k].id = id;
 			symbolMap[id] = list[k];
 		}
+	};
+
+	window.toBase62 = function(k)
+	{
+		if(k < 10)
+			return ""+k;
+		if(k < 36)
+			return String.fromCharCode(k+55);
+		return String.fromCharCode(k+61);
 	};
 }(window));
