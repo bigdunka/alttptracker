@@ -1349,7 +1349,7 @@
 				caption: 'Turtle Rock {medallion0}/{mirror}',
 				is_beaten: false,
 				is_beatable: function() {
-					if (!(items.glove || activeFlute())) return 'unavailable';
+					if (!(items.glove || activeFlute()) || !items.somaria) return 'unavailable';
 					if(flags.doorshuffle != 'N')
 					{
 						if(medallionCheck(1) === 'unavailable' && (!items.mirror || ((!items.hookshot || !items.moonpearl) && items.glove < 2))) return 'unavailable';
@@ -1400,7 +1400,7 @@
 						return window.TRBackChests();
 					//If not, go through normal front door access
 					} else {
-						if (medallionCheck(1) === 'unavailable') return 'unavailable';
+						if (medallionCheck(1) === 'unavailable' || !items.somaria) return 'unavailable';
 						var frontcheck = medallion_check(1);
 						if (frontcheck === 'available') {
 							//Only list as fully available if both front and back entrances are available
