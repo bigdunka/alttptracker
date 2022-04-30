@@ -2552,8 +2552,8 @@
 			emode = "N";
 			flags.bossshuffle = "N";
 			flags.enemyshuffle = "N";
-			flags.wildmaps = false;
-			flags.wildcompasses = false;
+			flags.wildmaps = true;
+			flags.wildcompasses = true;
 			flags.wildkeys = false;
 			flags.wildbigkeys = false;
 			flags.ambrosia = "N";

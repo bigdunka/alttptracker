@@ -1349,7 +1349,7 @@
 				caption: 'Turtle Rock {medallion0}/{mirror}',
 				is_beaten: false,
 				is_beatable: function() {
-					if (!(items.glove || activeFlute()) || !items.somaria) return 'unavailable';
+					if (!(items.glove || activeFlute())) return 'unavailable';
 					if(flags.doorshuffle != 'N')
 					{
 						if(medallionCheck(1) === 'unavailable' && (!items.mirror || ((!items.hookshot || !items.moonpearl) && items.glove < 2))) return 'unavailable';
@@ -1362,7 +1362,7 @@
 							return 'darkpossible';
 						return doorcheck;
 					}
-					if (!(items.glove || activeFlute())) return 'unavailable';
+					if (!items.somaria) return 'unavailable';
 					//First, check for back door access through mirror, it has logic priority
 					if (items.mirror && ((items.hookshot && items.moonpearl) || (items.glove === 2))) {
 						return window.TRBackBoss();
