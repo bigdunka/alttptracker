@@ -1698,7 +1698,7 @@
 				caption: 'Gary\'s Lunchbox (save the frog first)',
 				is_opened: false,
 				is_available: function() {
-					return (items.mirror || items.glove === 2) && canReachLightWorldBunny() ? 'available' : 'unavailable';
+					return (items.mirror || (items.glove === 2 && items.moonpearl)) && canReachLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [29]
 				caption: 'Fugitive under the bridge {flippers}',
@@ -1893,7 +1893,7 @@
 					var doorcheck = window.doorCheck(11,false,false,true,['glove','killbomb','bombdash'],'item');
 					if(doorcheck)
 						return items.moonpearl ? doorcheck : 'unavailable';
-					return canReachLightWorldBunny() && (items.bomb || items.boots) ? (items.glove && items.moonpearl ? 'available' : (items.mirror ? 'possible' : 'unavailable')) : 'unavailable';
+					return canReachLightWorldBunny() && (items.bomb || items.boots) ? ((items.glove || items.smallkeyhalf0 > 0) && items.moonpearl ? 'available' : (items.mirror ? 'possible' : 'unavailable')) : 'unavailable';
 				}
 			}, { // [56]
 				caption: "Castle Secret Entrance (Uncle + 1)",
@@ -1928,7 +1928,7 @@
 				caption: 'Take the frog home',
 				is_opened: false,
 				is_available: function() {
-					return (items.mirror || items.glove === 2) && canReachLightWorldBunny() ? 'available' : 'unavailable';
+					return (items.mirror || (items.glove === 2 && items.moonpearl)) && canReachLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [61]
 				caption: 'Fat Fairy: Buy OJ bomb from Light Link\'s House after {crystal}5 {crystal}6 (2 items)',

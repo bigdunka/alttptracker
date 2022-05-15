@@ -1,20 +1,20 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Tracker</title>
-		<script src="js/jquery-3.3.1.js?v=20003"></script>
-		<script src="js/bootstrap.min.js?v=20003"></script>
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=20003">
-		<link rel="stylesheet" type="text/css" href="css/fonts.css?v=20003">
+		<script src="js/jquery-3.3.1.js?v=20004"></script>
+		<script src="js/bootstrap.min.js?v=20004"></script>
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=20004">
+		<link rel="stylesheet" type="text/css" href="css/fonts.css?v=20004">
 		<link rel="stylesheet" type="text/css" id="mainstyle">
 		<link rel="stylesheet" type="text/css" id="maincompactstyle">
-		<script src="js/util.js?v=20003"></script>
-		<script src="js/items.js?v=20003"></script>
-		<script src="js/chests.js?v=20003"></script>
-		<script src="js/entrancechests.js?v=20003"></script>
-		<script src="js/track.js?v=20003"></script>
-		<script src="js/dungeons.js?v=20003"></script>
-		<script src="js/spoiler.js?v=20003"></script>
-		<script src="js/autot.js?v=20003"></script>
+		<script src="js/util.js?v=20004"></script>
+		<script src="js/items.js?v=20004"></script>
+		<script src="js/chests.js?v=20004"></script>
+		<script src="js/entrancechests.js?v=20004"></script>
+		<script src="js/track.js?v=20004"></script>
+		<script src="js/dungeons.js?v=20004"></script>
+		<script src="js/spoiler.js?v=20004"></script>
+		<script src="js/autot.js?v=20004"></script>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3T0KM2W1L"></script>
 		<script>
@@ -67,9 +67,6 @@
 											</div>
 											<div id="changeflagsdiv" class="changeflags">
 												<img class="goalselect" src="./images/dungeons/flagicon.png" onClick="changeFlags()"/>
-											</div>
-											<div id="changemodediv" class="changeflags">
-												<img class="goalselect" src="./images/dungeons/bagicon.png" onClick="changeGrabBag()"/>
 											</div>
 											<div id="ganondiv" class="item active ganongoal" onClick="ganonGoal()"></div>
 											<div id="showpathsdiv" class="showpaths">
@@ -1305,225 +1302,6 @@
 					</table>
 				</div>
 				<center style="user-select: none; transform: scale(1.25);"><input type="button" onclick="closeFlagsModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="adjustFlags();" value="Submit" /></center>
-			</div>
-		</div>
-		<div class="modal fade" id="grabbagModal" aria-hidden="true" style="width: 400px; height: 406px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 22px; left: 24px; display: none;">
-			<div>
-				<div>
-				</div>
-				<div style="height: 256px;">
-					<table id="flagsmain" width="380px" height="72px" style="margin: auto; font-size: 12px;">
-						<tr>
-							<td colspan="2">
-								<h3>Change Mode</h3>
-							</td>
-							<td colspan="2">
-							</td>
-							<td>
-								<input type="button" onclick="closeGrabBagModal();" value="Close" />
-							</td>
-						</tr>
-						<tr>
-							<td width="140px">
-								Modes: <span id="grabbagmodecount">(17)</span>
-							</td>
-							<td colspan="3">
-								<select id="grabbagmodeselect" style="width: 180px">
-									<option value="0">AD Keysanity</option>
-									<option value="1">Ambrosia</option>
-									<option value="2">Champions Swordless</option>
-									<option value="3">Enemizer</option>
-									<option value="4">Gold Rush</option>
-									<option value="5">Hard Standard</option>
-									<option value="6">Inverted AD Keys</option>
-									<option value="7">Inverted Keysanity</option>
-									<option value="8">Ludicrous Speed</option>
-									<option value="9">MC Shuffle</option>
-									<option value="10">Open Boots</option>
-									<option value="11">Open Keysanity</option>
-									<option value="12">Potpourri</option>
-									<option value="13">Reduced Crystals</option>
-									<option value="14">Retrance</option>
-									<option value="15">SGL Casual Boots</option>
-									<option value="16">Standard</option>
-								</select>
-							</td>
-							<td width="140px">
-								<input type="button" onclick="adjustGrabBagMode();" value="Submit" />
-							</td>
-						</tr>
-						<tr>
-							<td>
-								World State
-							</td>
-							<td id="worldstateStandard" class="grabbagtr" onclick="updateMatrix('worldstate', 'Standard');">
-								Standard
-							</td>
-							<td id="worldstateOpen" class="grabbagtr" onclick="updateMatrix('worldstate', 'Open');">
-								Open
-							</td>
-							<td id="worldstateInverted" class="grabbagtr" onclick="updateMatrix('worldstate', 'Inverted');">
-								Inverted
-							</td>
-							<td id="worldstateRetro" class="grabbagtr" onclick="updateMatrix('worldstate', 'Retro');">
-								Retro
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Is Entrance
-							</td>
-							<td id="entranceYes" class="grabbagtr" onclick="updateMatrix('entrance', 'Yes');">
-								Yes
-							</td>
-							<td id="entranceNo" class="grabbagtr" onclick="updateMatrix('entrance', 'No');">
-								No
-							</td>
-							<td>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								M / C Shuffle
-							</td>
-							<td id="mapshuffleYes" class="grabbagtr" onclick="updateMatrix('mapshuffle', 'Yes');">
-								Yes
-							</td>
-							<td id="mapshuffleNo" class="grabbagtr" onclick="updateMatrix('mapshuffle', 'No');">
-								No
-							</td>
-							<td>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								S Key Shuffle
-							</td>
-							<td id="smallkeyshuffleYes" class="grabbagtr" onclick="updateMatrix('smallkeyshuffle', 'Yes');">
-								Yes
-							</td>
-							<td id="smallkeyshuffleNo" class="grabbagtr" onclick="updateMatrix('smallkeyshuffle', 'No');">
-								No
-							</td>
-							<td>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								B Key Shuffle
-							</td>
-							<td id="bigkeyshuffleYes" class="grabbagtr" onclick="updateMatrix('bigkeyshuffle', 'Yes');">
-								Yes
-							</td>
-							<td id="bigkeyshuffleNo" class="grabbagtr" onclick="updateMatrix('bigkeyshuffle', 'No');">
-								No
-							</td>
-							<td>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Goal
-							</td>
-							<td id="goalGanon" class="grabbagtr" onclick="updateMatrix('goal', 'Ganon');">
-								Ganon
-							</td>
-							<td id="goalFast" class="grabbagtr" onclick="updateMatrix('goal', 'Fast');">
-								Fast Ganon
-							</td>
-							<td id="goalDungeons" class="grabbagtr" onclick="updateMatrix('goal', 'Dungeons');">
-								All Dungeons
-							</td>
-							<td id="goalTriforce" class="grabbagtr" onclick="updateMatrix('goal', 'Triforce');">
-								T. Hunt
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Swords
-							</td>
-							<td id="swordsRandomized" class="grabbagtr" onclick="updateMatrix('swords', 'Randomized');">
-								Random
-							</td>
-							<td id="swordsAssured" class="grabbagtr" onclick="updateMatrix('swords', 'Assured');">
-								Assured
-							</td>
-							<td id="swordsSwordless" class="grabbagtr" onclick="updateMatrix('swords', 'Swordless');">
-								Swordless
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Start Boots
-							</td>
-							<td id="startingbootsYes" class="grabbagtr" onclick="updateMatrix('startingboots', 'Yes');">
-								Yes
-							</td>
-							<td id="startingbootsNo" class="grabbagtr" onclick="updateMatrix('startingboots', 'No');">
-								No
-							</td>
-							<td>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Start Flute
-							</td>
-							<td id="startingfluteYes" class="grabbagtr" onclick="updateMatrix('startingflute', 'Yes');">
-								Yes
-							</td>
-							<td id="startingfluteNo" class="grabbagtr" onclick="updateMatrix('startingflute', 'No');">
-								No
-							</td>
-							<td>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Boots Hint
-							</td>
-							<td id="bootshintYes" class="grabbagtr" onclick="updateMatrix('bootshint', 'Yes');">
-								Yes
-							</td>
-							<td id="bootshintNo" class="grabbagtr" onclick="updateMatrix('bootshint', 'No');">
-								No
-							</td>
-							<td>
-							</td>
-							<td>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								Duplicates
-							</td>
-							<td id="duplicateYes" class="grabbagtr" onclick="updateMatrix('duplicate', 'Yes');">
-								Yes
-							</td>
-							<td id="duplicateNo" class="grabbagtr" onclick="updateMatrix('duplicate', 'No');">
-								No
-							</td>
-							<td>
-							</td>
-							<td>
-							</td>
-						</tr>
-					</table>
-				</div>
 			</div>
 		</div>
 		<script>start()</script>
