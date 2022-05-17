@@ -118,6 +118,7 @@ function launch_tracker() {
 	var trackingport = document.getElementById('autotrackingport').value;
 	var restreamingcode = document.getElementById('restreamingcode').value;
 	var restreamer = document.querySelector('input[name="restreamgroup"]:checked').value;
+	var restreamdelay = (document.getElementById("restreamingdelay").checked === true ? "1" : "0");
 	var spritesel = document.getElementById("spriteselect");
 	var sprite = spritesel.options[spritesel.selectedIndex].value;
 	
@@ -151,7 +152,7 @@ function launch_tracker() {
 		glitches = 'M';
 	}
 	
-	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}&s={startingitemstring}&p={sprite}&r={epoch}'
+	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}&s={startingitemstring}&p={sprite}&r={epoch}'
 			.replace('{world}', world)
 			.replace('{entrance}', entrance)
 			.replace('{door}', door)
@@ -181,6 +182,7 @@ function launch_tracker() {
 			.replace('{trackingport}', trackingport)
 			.replace('{restreamingcode}', restreamingcode)
 			.replace('{restreamer}', restreamer)
+			.replace('{restreamdelay}', restreamdelay)
 			.replace('{startingitemstring}', startingitemstring)
 			.replace('{sprite}', sprite)
 			.replace('{epoch}', Date.now()),
@@ -1175,6 +1177,8 @@ function validateRestreamCode() {
 					document.getElementById("restreamingrestreamerspan").style.display = "";
 					document.getElementById("restreamingrestreamer").disabled = false;
 					document.getElementById("restreamingrestreamer").checked = true;
+					document.getElementById("restreamingusedelayspan").style.display = "";
+					document.getElementById("restreamingdelay").disabled = false;
 				}
 			} else {
 				alert("Restreamer code is invalid");

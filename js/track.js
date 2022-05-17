@@ -594,7 +594,7 @@
 	
 	window.getTrackerCommand =  function() {
 		var xhr = new XMLHttpRequest();
-		xhr.open("GET", "../api/v1/RestreamerAPI/GetItemObject?code=" + flags.restreamingcode + "&guid=" + restreamingguid, true);
+		xhr.open("GET", "../api/v1/RestreamerAPI/GetItemObject?code=" + flags.restreamingcode + "&delay=" + flags.restreamdelay + "&guid=" + restreamingguid, true);
 		xhr.responseType = 'text';
 		xhr.onload = function () {
 			if (xhr.readyState === xhr.DONE) {
@@ -997,7 +997,9 @@
 				}
             }
 
-			updateMapTracker();
+			if (flags.restreamer === "T" && loadPrimer === true) {
+				resetTrackerTimer();
+			}
 
             return;
         }
@@ -1086,6 +1088,10 @@
 		for (var k = 0; k < dungeons.length; k++) {
 			document.getElementById('chest'+k).style.backgroundColor = 'white';
 		}
+		
+		if (flags.restreamer === "T" && loadPrimer === true) {
+			resetTrackerTimer();
+		}		
 
 		if(doorWindow && !doorWindow.closed)
 			doorWindow.postMessage(cloneItems(),"*");
