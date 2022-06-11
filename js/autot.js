@@ -446,6 +446,78 @@ function autotrackDoTracking(data) {
     if (changed(0x37B))
         setitem("magic", data[0x37B] > 0);
 	
+	if (flags.wildmaps) {
+		if (newbit(0x369, 0x20) && prizes[0] === 0)
+			setmap(0, 5);
+		
+		if (newbit(0x369, 0x10) && prizes[1] === 0)
+			setmap(1, 5);
+		
+		if (newbit(0x368, 0x20) && prizes[2] === 0)
+			setmap(2, 5);
+		
+		if (newbit(0x369, 0x02) && prizes[3] === 0)
+			setmap(3, 5);
+		
+		if (newbit(0x369, 0x04) && prizes[4] === 0)
+			setmap(4, 5);
+		
+		if (newbit(0x368, 0x80) && prizes[5] === 0)
+			setmap(5, 5);
+		
+		if (newbit(0x368, 0x10) && prizes[6] === 0)
+			setmap(6, 5);
+		
+		if (newbit(0x368, 0x40) && prizes[7] === 0)
+			setmap(7, 5);
+		
+		if (newbit(0x369, 0x01) && prizes[8] === 0)
+			setmap(8, 5);
+		
+		if (newbit(0x368, 0x08) && prizes[9] === 0)
+			setmap(9, 5);
+	}
+	
+	if (flags.wildcompasses) {
+		if (newbit(0x365, 0x20) && enemizer[0] === 0)
+			setcompass(0, 11);
+		
+		if (newbit(0x365, 0x10) && enemizer[1] === 0)
+			setcompass(1, 11);
+		
+		if (newbit(0x364, 0x20) && enemizer[2] === 0)
+			setcompass(2, 11);
+		
+		if (newbit(0x365, 0x02) && enemizer[3] === 0)
+			setcompass(3, 11);
+		
+		if (newbit(0x365, 0x04) && enemizer[4] === 0)
+			setcompass(4, 11);
+		
+		if (newbit(0x364, 0x80) && enemizer[5] === 0)
+			setcompass(5, 11);
+		
+		if (newbit(0x364, 0x10) && enemizer[6] === 0)
+			setcompass(6, 11);
+		
+		if (newbit(0x364, 0x40) && enemizer[7] === 0)
+			setcompass(7, 11);
+		
+		if (newbit(0x365, 0x01) && enemizer[8] === 0)
+			setcompass(8, 11);
+		
+		if (newbit(0x364, 0x08) && enemizer[9] === 0)
+			setcompass(9, 11);
+	}
+	
+	function setmap(dungeon, value) {
+		rightClickPrize(dungeon);
+    };
+	
+	function setcompass(dungeon, value) {
+		rightClickEnemy(dungeon);
+    };
+	
     var prevbottles = -1;
     if (autotrackPrevData !== null)
         prevbottles = (autotrackPrevData[0x35C] == 0 ? 0 : 1) + (autotrackPrevData[0x35D] == 0 ? 0 : 1) + (autotrackPrevData[0x35E] == 0 ? 0 : 1) + (autotrackPrevData[0x35F] == 0 ? 0 : 1);

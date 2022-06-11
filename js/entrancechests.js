@@ -335,7 +335,7 @@
 	function canReachInvertedEastDeathMountain()
 	{
 		// east DM locations
-		if (hasFoundEntrance(77) && hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84) || hasFoundEntrance(85)) return true;
+		if (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84) || hasFoundEntrance(85)) return true;
 		// west DM locations
 		if (items.moonpearl && items.hookshot && canReachInvertedWestDeathMountain()) return true;
 		// hera is a special butterfly
@@ -458,6 +458,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(10)) return 'available';
+					if (crystalCheck() < flags.opentowercount && flags.opentowercount != 8) return 'unavailable';
 					if (hasFoundEntrance(8) || hasFoundEntrance(9)) {
 						if (flags.opentowercount == 8) {
 							return 'possible';

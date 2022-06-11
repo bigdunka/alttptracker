@@ -779,6 +779,7 @@ function loadinvertedadkeyspreset() {
 
 function loadgoldrushspreset() {
 	resetallstartingitems();
+	setstartingitem("boots",22,"1");
 	document.getElementById("gametypeopen").checked = true;
 	document.getElementById("entrancenone").checked = true;
 	document.getElementById("doornone").checked = true;
@@ -795,10 +796,10 @@ function loadgoldrushspreset() {
 	document.getElementById("unknownnone").checked = true;
 	document.getElementById("shopsanityno").checked = true;
 	document.getElementById("ambrosiano").checked = true;
-	document.getElementById("shuffledmaps").checked = false;
-	document.getElementById("shuffledcompasses").checked = false;
-	document.getElementById("shuffledsmallkeys").checked = false;
-	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
 	document.getElementById("nonprogressivebowsno").checked = true;
 	document.getElementById("activatedfluteno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
