@@ -88,6 +88,38 @@
 		return items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim && items.hookshot && (items.hammer || items.glove || items.flippers));
 	}
 	
+	function canReachOutcastEntrance() {
+		if (items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim && items.hookshot && (items.hammer || items.glove || items.flippers))) return true;
+		if (hasFoundEntrance(90) || hasFoundEntrance(91) || (flags.doorshuffle === 'N' && hasFoundEntrance(96)) || hasFoundEntrance(99) || hasFoundEntrance(102) || hasFoundEntrance(104) || hasFoundEntrance(105) || hasFoundEntrance(106) || hasFoundEntrance(107) || hasFoundEntrance(108) || hasFoundEntrance(109) || (hasFoundEntrance(110) && items.moonpearl && items.hammer) || hasFoundEntrance(111) || (hasFoundEntrance(112) && items.moonpearl && items.glove === 2) || hasFoundEntrance(129)) return true;
+		if ((hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) && items.moonpearl && (items.glove === 2 || (items.flippers && items.hookshot) || (items.glove > 0 && items.hammer && items.hookshot))) return true;
+		if (canReachDarkWorldEast() && items.moonpearl && ((items.flippers || items.hammer || items.glove > 0) && items.hookshot)) return true;
+		if (hasFoundEntrance(92) && items.moonpearl && items.hookshot) return true;
+		return false;
+	}
+	
+	function canReachDarkWorldEast() {
+		if (canReachDarkWorld() && (items.hammer || items.flippers)) return true;
+		if (items.agahnim || hasFoundEntrance(94) || hasFoundEntrance(95) || hasFoundEntrance(114) || hasFoundEntrance(115) || hasFoundEntrance(116) || hasFoundEntrance(117) || ((hasFoundEntrance(86) || hasFoundEntrance(87) || hasFoundEntrance(88) || hasFoundEntrance(89) || hasFoundEntrance(113) || hasFoundEntrance(119)) && (items.hammer || items.flippers) && items.moonpearl) || (hasFoundEntrance(92) && items.moonpearl && (items.glove > 0 || items.hammer))) return true;
+		if ((hasFoundEntrance(90) || hasFoundEntrance(91) || (flags.doorshuffle === 'N' && hasFoundEntrance(96)) || hasFoundEntrance(99) || hasFoundEntrance(102) || hasFoundEntrance(104) || hasFoundEntrance(105) || hasFoundEntrance(106) || hasFoundEntrance(107) || hasFoundEntrance(108) || hasFoundEntrance(109) || (hasFoundEntrance(110) && items.hammer) || hasFoundEntrance(111) || hasFoundEntrance(129)) && items.moonpearl && (items.flippers || items.hammer)) return true;
+		if (canReachAndLeaveShoppingMall()) return true;
+		return false;
+	}
+	
+	function canReachDarkWorld()
+	{
+		return items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim);
+	}	
+	
+	function canReachAndLeaveShoppingMall()
+	{
+		if ((hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122)) && items.moonpearl && items.flippers) return true;
+		return false;
+	}
+	
+	function hasFoundEntrance(x) {
+		return (entrances[x].is_connector || entrances[x].known_location != '') ? true : false;
+	}	
+	
 	function canReachOtherWorld() //Can get from light => dark, or dark => light
 	{
 		return items.moonpearl && (items.glove === 2 || items.glove && items.hammer || items.agahnim);
@@ -2937,5 +2969,475 @@
 
 		return available_chests(12, chests, items.maxchest12, items.chest12);
 	};
-		
+
+	function hasFoundLocation(x) {
+		for (var i = 0; i < entrances.length; i++) {
+			if (entrances[i].known_location === x) {
+				return true;
+			}
+		}
+		return false;
+	}
+
+	window.EntranceEPChests = function() {
+		var c = 'notfound';
+		if (items.chest0 > 0) {
+			if (hasFoundLocation('ep')) {
+				c = EPChests();
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest0').style.backgroundColor = 'white';
+				document.getElementById('chest0').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest0').style.backgroundColor = 'lime';
+					document.getElementById('chest0').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest0').style.backgroundColor = 'blue';
+					document.getElementById('chest0').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest0').style.backgroundColor = 'yellow';
+					document.getElementById('chest0').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest0').style.backgroundColor = 'purple';
+					document.getElementById('chest0').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest0').style.backgroundColor = 'red';
+					document.getElementById('chest0').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest0').style.backgroundColor = 'orange';
+					document.getElementById('chest0').style.color = 'black';
+				}
+			}
+		}
+	}
+
+	window.EntranceDPChests = function() {
+		var c = 'notfound';
+		if (items.chest1 > 0) {
+			var front = (hasFoundLocation('dp_m') || hasFoundLocation('dp_w') || hasFoundLocation('dp_e')) === true ? 'available' : 'unavailable';
+			var back = hasFoundLocation('dp_n') === true ? 'available' : 'unavailable';
+						
+			if (front === 'available' || back === 'available') {				
+				c = DPChests(front,back);
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest1').style.backgroundColor = 'white';
+				document.getElementById('chest1').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest1').style.backgroundColor = 'lime';
+					document.getElementById('chest1').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest1').style.backgroundColor = 'blue';
+					document.getElementById('chest1').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest1').style.backgroundColor = 'yellow';
+					document.getElementById('chest1').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest1').style.backgroundColor = 'purple';
+					document.getElementById('chest1').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest1').style.backgroundColor = 'red';
+					document.getElementById('chest1').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest1').style.backgroundColor = 'orange';
+					document.getElementById('chest1').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+	window.EntranceHeraChests = function() {
+		var c = 'notfound';
+		if (items.chest2 > 0) {
+			if (hasFoundLocation('toh')) {
+				c = HeraChests();
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest2').style.backgroundColor = 'white';
+				document.getElementById('chest2').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest2').style.backgroundColor = 'lime';
+					document.getElementById('chest2').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest2').style.backgroundColor = 'blue';
+					document.getElementById('chest2').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest2').style.backgroundColor = 'yellow';
+					document.getElementById('chest2').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest2').style.backgroundColor = 'purple';
+					document.getElementById('chest2').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest2').style.backgroundColor = 'red';
+					document.getElementById('chest2').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest2').style.backgroundColor = 'orange';
+					document.getElementById('chest2').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+	window.EntrancePoDChests = function() {
+		var c = 'notfound';
+		if (items.chest3 > 0) {
+			if (hasFoundLocation('pod')) {
+				c = PoDChests();
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest3').style.backgroundColor = 'white';
+				document.getElementById('chest3').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest3').style.backgroundColor = 'lime';
+					document.getElementById('chest3').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest3').style.backgroundColor = 'blue';
+					document.getElementById('chest3').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest3').style.backgroundColor = 'yellow';
+					document.getElementById('chest3').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest3').style.backgroundColor = 'purple';
+					document.getElementById('chest3').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest3').style.backgroundColor = 'red';
+					document.getElementById('chest3').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest3').style.backgroundColor = 'orange';
+					document.getElementById('chest3').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+	window.EntranceSPChests = function() {
+		var c = 'notfound';
+		if (items.chest4 > 0) {
+			if (hasFoundLocation('sp')) {
+				if (hasFoundLocation('dam')) {
+					c = SPChests();
+				} else {
+					c = 'unavailable';
+				}
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest4').style.backgroundColor = 'white';
+				document.getElementById('chest4').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest4').style.backgroundColor = 'lime';
+					document.getElementById('chest4').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest4').style.backgroundColor = 'blue';
+					document.getElementById('chest4').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest4').style.backgroundColor = 'yellow';
+					document.getElementById('chest4').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest4').style.backgroundColor = 'purple';
+					document.getElementById('chest4').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest4').style.backgroundColor = 'red';
+					document.getElementById('chest4').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest4').style.backgroundColor = 'orange';
+					document.getElementById('chest4').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+	window.EntranceSWChests = function() {
+		var c = 'notfound';
+		if (items.chest5 > 0) {
+			//Need to add a special check to see if they have DW access, as most front SW checks are available
+			var front = canReachOutcastEntrance() === true ? 'available' : 'unavailable';
+			var back = hasFoundLocation('sw') === true ? 'available' : 'unavailable';
+			
+			if (front === 'available' || back === 'avaialble')
+			{
+				c = SWChests(front,back);
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest5').style.backgroundColor = 'white';
+				document.getElementById('chest5').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest5').style.backgroundColor = 'lime';
+					document.getElementById('chest5').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest5').style.backgroundColor = 'blue';
+					document.getElementById('chest5').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest5').style.backgroundColor = 'yellow';
+					document.getElementById('chest5').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest5').style.backgroundColor = 'purple';
+					document.getElementById('chest5').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest5').style.backgroundColor = 'red';
+					document.getElementById('chest5').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest5').style.backgroundColor = 'orange';
+					document.getElementById('chest5').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+	window.EntranceTTChests = function() {
+		var c = 'notfound';
+		if (items.chest6 > 0) {
+			if (hasFoundLocation('tt')) {
+				c = TTChests();
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest6').style.backgroundColor = 'white';
+				document.getElementById('chest6').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest6').style.backgroundColor = 'lime';
+					document.getElementById('chest6').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest6').style.backgroundColor = 'blue';
+					document.getElementById('chest6').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest6').style.backgroundColor = 'yellow';
+					document.getElementById('chest6').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest6').style.backgroundColor = 'purple';
+					document.getElementById('chest6').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest6').style.backgroundColor = 'red';
+					document.getElementById('chest6').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest6').style.backgroundColor = 'orange';
+					document.getElementById('chest6').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+	window.EntranceIPChests = function() {
+		var c = 'notfound';
+		if (items.chest7 > 0) {
+			if (hasFoundLocation('ip')) {
+				c = IPChests();
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest7').style.backgroundColor = 'white';
+				document.getElementById('chest7').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest7').style.backgroundColor = 'lime';
+					document.getElementById('chest7').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest7').style.backgroundColor = 'blue';
+					document.getElementById('chest7').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest7').style.backgroundColor = 'yellow';
+					document.getElementById('chest7').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest7').style.backgroundColor = 'purple';
+					document.getElementById('chest7').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest7').style.backgroundColor = 'red';
+					document.getElementById('chest7').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest7').style.backgroundColor = 'orange';
+					document.getElementById('chest7').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+	window.EntranceMMChests = function() {
+		var c = 'notfound';
+		if (items.chest8 > 0) {
+			if (hasFoundLocation('mm')) {
+				c = MMChests();
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest8').style.backgroundColor = 'white';
+				document.getElementById('chest8').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest8').style.backgroundColor = 'lime';
+					document.getElementById('chest8').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest8').style.backgroundColor = 'blue';
+					document.getElementById('chest8').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest8').style.backgroundColor = 'yellow';
+					document.getElementById('chest8').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest8').style.backgroundColor = 'purple';
+					document.getElementById('chest8').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest8').style.backgroundColor = 'red';
+					document.getElementById('chest8').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest8').style.backgroundColor = 'orange';
+					document.getElementById('chest8').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+	window.EntranceTRChests = function() {
+		var c = 'notfound';
+		if (items.chest9 > 0) {
+			var front = hasFoundLocation('tr_m') === true ? 'available' : 'unavailable';
+			var middle = hasFoundLocation('tr_w') === true ? 'available' : 'unavailable';
+			var bigchest = hasFoundLocation('tr_e') === true ? 'available' : 'unavailable';
+			var back = hasFoundLocation('tr_b') === true ? 'available' : 'unavailable';
+			
+			if (front === 'available' || middle === 'available' || bigchest === 'available' || back === 'available') {
+				c = TRChests(front,middle,bigchest,back);
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest9').style.backgroundColor = 'white';
+				document.getElementById('chest9').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest9').style.backgroundColor = 'lime';
+					document.getElementById('chest9').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest9').style.backgroundColor = 'blue';
+					document.getElementById('chest9').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest9').style.backgroundColor = 'yellow';
+					document.getElementById('chest9').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest9').style.backgroundColor = 'purple';
+					document.getElementById('chest9').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest9').style.backgroundColor = 'red';
+					document.getElementById('chest9').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest9').style.backgroundColor = 'orange';
+					document.getElementById('chest9').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+	window.EntranceGTChests = function() {
+		var c = 'notfound';
+		if (items.chest10 > 0) {
+			if (hasFoundLocation('gt')) {
+				c = GTChests();
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest10').style.backgroundColor = 'white';
+				document.getElementById('chest10').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest10').style.backgroundColor = 'lime';
+					document.getElementById('chest10').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest10').style.backgroundColor = 'blue';
+					document.getElementById('chest10').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest10').style.backgroundColor = 'yellow';
+					document.getElementById('chest10').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest10').style.backgroundColor = 'purple';
+					document.getElementById('chest10').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest10').style.backgroundColor = 'red';
+					document.getElementById('chest10').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest10').style.backgroundColor = 'orange';
+					document.getElementById('chest10').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+	window.EntranceHCChests = function() {
+		var c = 'notfound';
+		if (items.chest11 > 0) {
+			var front = (hasFoundLocation('hc_m') || hasFoundLocation('hc_w') || hasFoundLocation('hc_e')) === true ? 'available' : 'unavailable';
+			var back = (front === 'available' && (items.smallkeyhalf0 === 1 || flags.gametype === 'R')) || ((entrances[22].known_location === 'sanc' || entrances[29].known_location === 'sanc' || entrances[18].known_location === 'sanc' || entrances[11].known_location === 'sanc')) || ((entrances[24].known_location === 'sanc' && items.boots && items.agahnim) || (entrances[13].known_location === 'sanc' && items.glove > 0 && (flags.gametype != 'I' || (items.moonpearl && canReachOutcastEntrance())) || entrances[43].known_location === 'sanc' && items.hammer || entrances[94].known_location === 'sanc' && items.agahnim2)) ? 'available' : 'unavailable';
+			var sanc = 'available';
+			
+			c = HCChests(front, back, sanc);
+			
+			if (c === 'notfound') {
+				document.getElementById('chest11').style.backgroundColor = 'white';
+				document.getElementById('chest11').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest11').style.backgroundColor = 'lime';
+					document.getElementById('chest11').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest11').style.backgroundColor = 'blue';
+					document.getElementById('chest11').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest11').style.backgroundColor = 'yellow';
+					document.getElementById('chest11').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest11').style.backgroundColor = 'purple';
+					document.getElementById('chest11').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest11').style.backgroundColor = 'red';
+					document.getElementById('chest11').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest11').style.backgroundColor = 'orange';
+					document.getElementById('chest11').style.color = 'black';
+				}
+			}
+		}
+	}
+	
+		window.EntranceCTChests = function() {
+		var c = 'notfound';
+		if (items.chest12 > 0) {
+			if (hasFoundLocation('ct')) {
+				c = CTChests();
+			}
+			
+			if (c === 'notfound') {
+				document.getElementById('chest12').style.backgroundColor = 'white';
+				document.getElementById('chest12').style.color = 'black';
+			} else {
+				if (c === 'available') {
+					document.getElementById('chest12').style.backgroundColor = 'lime';
+					document.getElementById('chest12').style.color = 'black';
+				} else if (c === 'darkavailable') {
+					document.getElementById('chest12').style.backgroundColor = 'blue';
+					document.getElementById('chest12').style.color = 'white';
+				} else if (c === 'possible') {
+					document.getElementById('chest12').style.backgroundColor = 'yellow';
+					document.getElementById('chest12').style.color = 'black';
+				} else if (c === 'darkpossible') {
+					document.getElementById('chest12').style.backgroundColor = 'purple';
+					document.getElementById('chest12').style.color = 'white';
+				} else if (c === 'unavailable') {
+					document.getElementById('chest12').style.backgroundColor = 'red';
+					document.getElementById('chest12').style.color = 'white';
+				} else if (c === 'information') {
+					document.getElementById('chest12').style.backgroundColor = 'orange';
+					document.getElementById('chest12').style.color = 'black';
+				}
+			}
+		}
+	}
+
 }(window));

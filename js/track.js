@@ -994,6 +994,8 @@
 					var x = label.substring(5);
 					document.getElementById('dungeon'+x).className = 'dungeon ' +
 						(value ? dungeons[x].can_get_chest() : 'opened');
+				} else {
+					updateLocationAvailability();
 				}
             }
 
@@ -1072,6 +1074,7 @@
 			   document.getElementsByClassName('tunic')[0].classList[!items.moonpearl ? 'add' : 'remove']('bunny');
 			}
 		}
+		
         if (flags.mapmode != 'N') {
 			updateLocationAvailability();
 			
@@ -1084,9 +1087,11 @@
 			}
         }
 		
-		//Update the backgrounds of the chests in entrance
-		for (var k = 0; k < dungeons.length; k++) {
-			document.getElementById('chest'+k).style.backgroundColor = 'white';
+		//Update the backgrounds of the chests in non-entrance
+		if (flags.entrancemode === 'N' || flags.mapmode === 'N') {
+			for (var k = 0; k < dungeons.length; k++) {
+				document.getElementById('chest'+k).style.backgroundColor = 'white';
+			}
 		}
 		
 		if (flags.restreamer === "T" && loadPrimer === true) {
@@ -1118,6 +1123,10 @@
 						document.getElementById('entranceMap'+k).className = 'entrance ' + entrances[k].is_available() + entrancetype;
 					}
 				}
+				for (var k = 0; k < dungeonChecks.length; k++) {
+					dungeonChecks[k].can_get_chest();
+				}				
+
 			} else {
 				for (var k = 0; k < dungeons.length; k++) {
 					document.getElementById('bossMap'+k).className = 'bossprize-' + prizes[k] + ' boss ' + (dungeons[k].is_beaten ? 'opened' : dungeons[k].is_beatable());

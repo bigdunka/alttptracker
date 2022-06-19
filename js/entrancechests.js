@@ -346,6 +346,60 @@
 	}
 	
 	window.loadChestFlagsEntrance = function() {
+		
+		window.dungeonChecks = [{ // [0]
+			can_get_chest: function() {
+				window.EntranceEPChests();
+			}
+		}, { // [1]
+			can_get_chest: function() {
+				window.EntranceDPChests();
+			}
+		}, { // [2]
+			can_get_chest: function() {
+				window.EntranceHeraChests();
+			}
+		}, { // [3]
+			can_get_chest: function() {
+				window.EntrancePoDChests();
+			}
+		}, { // [4]
+			can_get_chest: function() {
+				window.EntranceSPChests();
+			}
+		}, { // [5]
+			can_get_chest: function() {
+				window.EntranceSWChests();
+			}
+		}, { // [6]
+			can_get_chest: function() {
+				window.EntranceTTChests();
+			}
+		}, { // [7]
+			can_get_chest: function() {
+				window.EntranceIPChests();
+			}
+		}, { // [8]
+			can_get_chest: function() {
+				window.EntranceMMChests();
+			}
+		}, { // [9]
+			can_get_chest: function() {
+				window.EntranceTRChests();
+			}
+		}, { // [10]
+			can_get_chest: function() {
+				window.EntranceGTChests();
+			}
+		}, { // [11]
+			can_get_chest: function() {
+				window.EntranceHCChests();
+			}
+		}, { // [12]
+			can_get_chest: function() {
+				window.EntranceCTChests();
+			}
+		}];
 
 		//Is Inverted Mode
 		if (flags.gametype === "I")
