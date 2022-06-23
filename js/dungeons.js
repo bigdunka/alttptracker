@@ -3375,9 +3375,11 @@
 		if (items.chest11 > 0) {
 			var front = (hasFoundLocation('hc_m') || hasFoundLocation('hc_w') || hasFoundLocation('hc_e')) === true ? 'available' : 'unavailable';
 			var back = (front === 'available' && (items.smallkeyhalf0 === 1 || flags.gametype === 'R')) || ((entrances[22].known_location === 'sanc' || entrances[29].known_location === 'sanc' || entrances[18].known_location === 'sanc' || entrances[11].known_location === 'sanc')) || ((entrances[24].known_location === 'sanc' && items.boots && items.agahnim) || (entrances[13].known_location === 'sanc' && items.glove > 0 && (flags.gametype != 'I' || (items.moonpearl && canReachOutcastEntrance())) || entrances[43].known_location === 'sanc' && items.hammer || entrances[94].known_location === 'sanc' && items.agahnim2)) ? 'available' : 'unavailable';
-			var sanc = 'available';
+			var sanc = (flags.gametype === "I" ? 'possible' : 'available');
 			
-			c = HCChests(front, back, sanc);
+			//if (front === 'available' || back === 'available' || sanc === 'available') {
+				c = HCChests(front, back, sanc);
+			//}			
 			
 			if (c === 'notfound') {
 				document.getElementById('chest11').style.backgroundColor = 'white';

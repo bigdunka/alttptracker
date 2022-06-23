@@ -4733,6 +4733,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(84)) return 'available';
+					if (items.moonpearl && items.mirror && canReachEDM()) return 'available';
 					return (hasFoundEntrance(83) || canReachEDMNorth() || (canReachEDM() && items.glove === 2) || (hasFoundEntrance(137) && items.mirror)) ? 'available' : 'unavailable';
 				}
 			}, { // [85]
