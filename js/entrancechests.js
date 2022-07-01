@@ -669,6 +669,7 @@
 				known_location: '',
 				is_connector: false,
 				is_available: function() {
+					if (hasFoundEntrance(26)) return 'available';
 					return items.glove && canReachInvertedLightWorld() ? 'available' : 'unavailable';
 				}
 			}, { // [27]
@@ -1307,6 +1308,8 @@
 				is_available: function() {
 					if (hasFoundEntrance(92)) return 'available';
 					if (activeFluteInvertedEntrance()) return 'available';
+					if (items.mirror && hasFoundEntrance(4)) return 'available';
+					if (items.mirror && canReachInvertedLightWorld()) return 'available';
 					if (items.flippers && (canReachInvertedNorthDW() || canReachInvertedSouthDW() || canReachInvertedEastDW())) return 'available';
 					if ((items.hammer || items.glove) && canReachInvertedEastDW()) return 'available';
 					return 'unavailable';
@@ -4733,7 +4736,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(84)) return 'available';
-					if (items.moonpearl && items.mirror && canReachEDM()) return 'available';
+					if (items.moonpearl && items.mirror && canReachDWEDM()) return 'available';
 					return (hasFoundEntrance(83) || canReachEDMNorth() || (canReachEDM() && items.glove === 2) || (hasFoundEntrance(137) && items.mirror)) ? 'available' : 'unavailable';
 				}
 			}, { // [85]

@@ -3163,7 +3163,7 @@
 			var front = canReachOutcastEntrance() === true ? 'available' : 'unavailable';
 			var back = hasFoundLocation('sw') === true ? 'available' : 'unavailable';
 			
-			if (front === 'available' || back === 'avaialble')
+			if (front === 'available' || back === 'available')
 			{
 				c = SWChests(front,back);
 			}

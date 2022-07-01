@@ -1661,7 +1661,7 @@
 				caption: 'Hookshot Cave (3 top chests) {hookshot}',
 				is_opened: false,
 				is_available: function() {
-					if ((!items.lantern || items.glove === 0) && !activeFlute()) return 'unavailable';
+					if (items.glove === 0 && !activeFlute()) return 'unavailable';
 					return items.hookshot && (items.glove || (items.mirror && (items.moonpearl || items.glove === 2))) ?
 						(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
 						'unavailable';
