@@ -65,55 +65,6 @@
 		return items.flute && (canReachInvertedLightWorld() || flags.activatedflute);
 	}
 	
-	function hasFoundDungeon(x)
-	{
-		var dungeonname = '';
-		
-		switch (x) {
-			case 0:
-				dungeonname = 'ep'
-				break;
-			case 1:
-				dungeonname = 'dp'
-				break;
-			case 2:
-				dungeonname = 'toh'
-				break;
-			case 3:
-				dungeonname = 'pod'
-				break;
-			case 4:
-				dungeonname = 'sp'
-				break;
-			case 5:
-				dungeonname = 'sw'
-				break;
-			case 6:
-				dungeonname = 'tt'
-				break;
-			case 7:
-				dungeonname = 'ip'
-				break;
-			case 8:
-				dungeonname = 'mm'
-				break;
-			case 9:
-				dungeonname = 'tr'
-				break;
-			case 10:
-				dungeonname = 'gt'
-				break;
-		}	
-		
-		for (var i = 0; i < entrances.length; i++) {
-			if (entrances[i].known_location === dungeonname) {
-				return true;
-			}
-		}
-
-		return false;
-	}
-	
 	function hasFoundLocation(x) {
 		for (var i = 0; i < entrances.length; i++) {
 			if (entrances[i].known_location === x) {
@@ -349,55 +300,55 @@
 		
 		window.dungeonChecks = [{ // [0]
 			can_get_chest: function() {
-				window.EntranceEPChests();
+				entranceChests(['ep'],0);
 			}
 		}, { // [1]
 			can_get_chest: function() {
-				window.EntranceDPChests();
+				entranceChests(['dp_m','dp_w','dp_e','dp_n'],1);
 			}
 		}, { // [2]
 			can_get_chest: function() {
-				window.EntranceHeraChests();
+				entranceChests(['toh'],2);
 			}
 		}, { // [3]
 			can_get_chest: function() {
-				window.EntrancePoDChests();
+				entranceChests(['pod'],3);
 			}
 		}, { // [4]
 			can_get_chest: function() {
-				window.EntranceSPChests();
+				entranceChests(['sp'],4);
 			}
 		}, { // [5]
 			can_get_chest: function() {
-				window.EntranceSWChests();
+				entranceChests(['placeholder','placeholder','placeholder','sw','placeholder','placeholder','placeholder','placeholder'],5);
 			}
 		}, { // [6]
 			can_get_chest: function() {
-				window.EntranceTTChests();
+				entranceChests(['tt'],6);
 			}
 		}, { // [7]
 			can_get_chest: function() {
-				window.EntranceIPChests();
+				entranceChests(['ip'],7);
 			}
 		}, { // [8]
 			can_get_chest: function() {
-				window.EntranceMMChests();
+				entranceChests(['mm'],8);
 			}
 		}, { // [9]
 			can_get_chest: function() {
-				window.EntranceTRChests();
+				entranceChests(['tr_m','tr_w','tr_e','tr_b'],9);
 			}
 		}, { // [10]
 			can_get_chest: function() {
-				window.EntranceGTChests();
+				entranceChests(['gt'],10);
 			}
 		}, { // [11]
 			can_get_chest: function() {
-				window.EntranceHCChests();
+				entranceChests(['hc_m','hc_w','hc_e','placeholder','placeholder'],11);
 			}
 		}, { // [12]
 			can_get_chest: function() {
-				window.EntranceCTChests();
+				entranceChests(['ct'],12);
 			}
 		}];
 
@@ -1321,7 +1272,7 @@
 				known_location: '',
 				is_connector: false,
 				is_available: function() {
-					return items.agahnim2 ? 'available' : 'unavailable';
+					return items.agahnim2 || hasFoundEntrance(93) ? 'available' : 'unavailable';
 				}
 			}, { // [94]
 				caption: 'Fat Fairy',
