@@ -632,18 +632,6 @@
 			for (var i = 0; i < entranceNames.length; i++) {
 				for (var j = 0; j < entrances.length; j++) {
 					if (entrances[j].known_location === entranceNames[i]) {
-						if (entranceNames[i] == 'sp' && dungeonID == 4) {
-							entranceAvail.push(hasFoundLocation('dam') ? 'available' : 'unavailable');
-							entranceBunny.push(hasFoundLocation('dam') ? !items.moonpearl && entranceInBunnyWorld(j) : 'unavailable');
-							found = true;
-							continue nextEntrance;
-						}
-						if (entranceNames[i] == 'mm' && dungeonID == 8) {
-							entranceAvail.push((melee_bow() || rod() || cane()) ? 'available' : 'unavailable');
-							entranceBunny.push((melee_bow() || rod() || cane()) ? !items.moonpearl && entranceInBunnyWorld(j) : 'unavailable');
-							found = true;
-							continue nextEntrance;
-						}
 						entranceAvail.push('available');
 						entranceBunny.push(!items.moonpearl && entranceInBunnyWorld(j));
 						found = true;
@@ -651,7 +639,6 @@
 					}
 				}
 				//special cases
-			
 				if (entranceNames[i] == 'placeholder' && dungeonID == 5 && canReachOutcastEntrance()) {
 					entranceAvail.push('available');
 					entranceBunny.push(!items.moonpearl && entranceInBunnyWorld(102));
@@ -1423,6 +1410,10 @@
     };
 
     window.SPChests = function() {
+		if (flags.entrancemode != 'N') {
+			if (!hasFoundLocation('dam')) return 'unavailable';
+		}
+		
 		if (!items.flippers || (!items.mirror && flags.entrancemode === 'N')) return 'unavailable';
 		var chests = ['U','U','U','U','U','U','U','U','U','U'];
 		
@@ -1652,6 +1643,7 @@
 
     window.MMChests = function(medcheck) {
 		if (!items.boots && !items.hookshot) return 'unavailable';
+		if (!melee_bow() && !rod() && !cane()) return 'unavailable';
 		if (medcheck === 'unavailable') return 'unavailable';
 		if (medcheck === 'possible') return 'possible';
 
