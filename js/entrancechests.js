@@ -86,6 +86,7 @@
 		(items.mirror && (hasFoundEntrance(69) || hasFoundEntrance(70) || hasFoundEntrance(71) || hasFoundEntrance(72) || hasFoundEntrance(73) || hasFoundEntrance(75) || hasFoundEntrance(76) || hasFoundEntrance(127) || hasFoundEntrance(131) || hasFoundEntrance(132) || hasFoundEntrance(133) || hasFoundEntrance(136))) || (items.flute && items.mirror)
 		) return true;
 		if (items.mirror && items.hookshot && (hasFoundEntrance(77) || hasFoundEntrance(78) || hasFoundEntrance(79) || hasFoundEntrance(80) || hasFoundEntrance(81) || hasFoundEntrance(82) || hasFoundEntrance(83) || hasFoundEntrance(84))) return true;
+		if (items.mirror && items.hammer && (hasFoundEntrance(128) || hasFoundEntrance(130))) return true;
 		
 		return false;
 	}
@@ -413,7 +414,7 @@
 					return items.flippers && canReachInvertedLightWorld() ? 'available' : 'unavailable';
 				}
 			}, { // [6]
-				caption: 'Fairy Spring {bomb}',
+				caption: 'Hype Fairy {bomb}',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -560,7 +561,7 @@
 					return canReachInvertedLightWorld() ? 'available' : 'unavailable';
 				}
 			}, { // [20]
-				caption: 'Gamble',
+				caption: 'Woods Chest Game',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -624,7 +625,7 @@
 					return items.glove && canReachInvertedLightWorld() ? 'available' : 'unavailable';
 				}
 			}, { // [27]
-				caption: 'Fortune Teller',
+				caption: 'Kakariko Fortune Teller',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -724,7 +725,7 @@
 					return canReachInvertedLightWorld() ? 'available' : 'unavailable';
 				}
 			}, { // [38]
-				caption: 'Bomb Hut {bomb}',
+				caption: 'Kakariko Bomb Hut {bomb}',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -817,7 +818,7 @@
 					return canReachInvertedLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [48]
-				caption: 'Chest Game',
+				caption: 'Kakariko Chest Game',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -844,7 +845,7 @@
 					return canReachInvertedLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [51]
-				caption: 'Fairy Spring',
+				caption: 'Eastern Fairy Spring',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -853,7 +854,7 @@
 					return canReachInvertedLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [52]
-				caption: 'Fairy Cave',
+				caption: 'Eastern Fairy Cave',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -951,7 +952,7 @@
 					return canReachInvertedLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [62]
-				caption: 'Fortune Teller',
+				caption: 'Lake Fortune Teller',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1202,7 +1203,7 @@
 					return canReachInvertedSouthDW() ? 'available' : 'unavailable';
 				}
 			}, { // [87]
-				caption: 'Bonk Fairy',
+				caption: 'Dark Bonk Fairy',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1251,7 +1252,7 @@
 					return canReachInvertedNorthDW() ? 'available' : 'unavailable';
 				}
 			}, { // [92]
-				caption: 'North East Shop',
+				caption: 'Dark North East Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1406,7 +1407,7 @@
 					return (items.glove && canReachInvertedNorthDW()) ? 'available' : 'unavailable';
 				}
 			}, { // [106]
-				caption: 'Fortune Teller',
+				caption: 'VoO Fortune Teller',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1415,7 +1416,7 @@
 					return canReachInvertedNorthDW() ? 'available' : 'unavailable';
 				}
 			}, { // [107]
-				caption: 'Chest Game',
+				caption: 'VoO Chest Game',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1442,7 +1443,7 @@
 					return canReachInvertedNorthDW() ? 'available' : 'unavailable';
 				}
 			}, { // [110]
-				caption: 'Shop (VoO)',
+				caption: 'VoO Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1454,7 +1455,7 @@
 					return (items.hammer && canReachInvertedNorthDW()) ? 'available' : 'unavailable';
 				}
 			}, { // [111]
-				caption: 'Bombable Hut {bomb}',
+				caption: 'VoO Bombable Hut {bomb}',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1493,7 +1494,7 @@
 					return canReachInvertedEastDW() ? 'available' : 'unavailable';
 				}
 			}, { // [115]
-				caption: 'Hint (North)',
+				caption: 'PoD North Hint',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1502,7 +1503,7 @@
 					return canReachInvertedEastDW() ? 'available' : 'unavailable';
 				}
 			}, { // [116]
-				caption: 'Fairy Spring',
+				caption: 'PoD Fairy Spring',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1511,7 +1512,7 @@
 					return canReachInvertedEastDW() ? 'available' : 'unavailable';
 				}
 			}, { // [117]
-				caption: 'Hint (South)',
+				caption: 'PoD South Hint',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1531,7 +1532,7 @@
 					return (items.flippers && (canReachInvertedEastDW() || canReachInvertedSouthDW() || hasFoundEntrance(120) || hasFoundEntrance(121) || hasFoundEntrance(122))) ? 'available' : 'unavailable';
 				}
 			}, { // [119]
-				caption: 'Shop (Dark Lake)',
+				caption: 'Dark Lake Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1590,7 +1591,7 @@
 					return medallionCheck(0);
 				}
 			}, { // [124]
-				caption: 'Shed',
+				caption: 'Mire Shed',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1599,7 +1600,7 @@
 					return canReachInvertedMireArea() ? 'available' : 'unavailable';
 				}
 			}, { // [125]
-				caption: 'Fairy',
+				caption: 'Mire Fairy',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1608,7 +1609,7 @@
 					return canReachInvertedMireArea() ? 'available' : 'unavailable';
 				}
 			}, { // [126]
-				caption: 'Hint',
+				caption: 'Mire Hint',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1647,7 +1648,7 @@
 					return 'unavailable';
 				}
 			}, { // [130]
-				caption: 'Fairy Spring',
+				caption: 'Dark Fairy Spring',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -1700,7 +1701,7 @@
 					return canReachInvertedDarkDeathMountain() ? 'available' : 'unavailable';
 				}
 			}, { // [135]
-				caption: 'Shop (DDM)',
+				caption: 'DDM Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -2182,7 +2183,7 @@
 					return 'available';
 				}
 			}, { // [6]
-				caption: 'Fairy Spring',
+				caption: 'Hype Fairy',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -2322,7 +2323,7 @@
 					return 'available';
 				}
 			}, { // [20]
-				caption: 'Gamble',
+				caption: 'Woods Chest Game',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -2392,7 +2393,7 @@
 					return 'available';
 				}
 			}, { // [27]
-				caption: 'Fortune Teller',
+				caption: 'Kakariko Fortune Teller',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -2502,7 +2503,7 @@
 					return 'available';
 				}
 			}, { // [38]
-				caption: 'Bomb Hut',
+				caption: 'Kakariko Bomb Hut',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -2602,7 +2603,7 @@
 					return 'available';
 				}
 			}, { // [48]
-				caption: 'Chest Game',
+				caption: 'Kakariko Chest Game',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -2632,7 +2633,7 @@
 					return 'available';
 				}
 			}, { // [51]
-				caption: 'Fairy Spring',
+				caption: 'Eastern Fairy Spring',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -2642,7 +2643,7 @@
 					return 'available';
 				}
 			}, { // [52]
-				caption: 'Fairy Cave',
+				caption: 'Eastern Fairy Cave',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -2742,7 +2743,7 @@
 					return 'available';
 				}
 			}, { // [62]
-				caption: 'Fortune Teller',
+				caption: 'Lake Fortune Teller',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -2992,7 +2993,7 @@
 					return 'available';
 				}
 			}, { // [87]
-				caption: 'Bonk Fairy',
+				caption: 'Dark Bonk Fairy',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3042,7 +3043,7 @@
 					return 'available';
 				}
 			}, { // [92]
-				caption: 'North East Shop',
+				caption: 'Dark North East Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3182,7 +3183,7 @@
 					return 'available';
 				}
 			}, { // [106]
-				caption: 'Fortune Teller',
+				caption: 'VoO Fortune Teller',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3192,7 +3193,7 @@
 					return 'available';
 				}
 			}, { // [107]
-				caption: 'Chest Game',
+				caption: 'VoO Chest Game',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3222,7 +3223,7 @@
 					return 'available';
 				}
 			}, { // [110]
-				caption: 'Shop (VoO)',
+				caption: 'VoO Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3232,7 +3233,7 @@
 					return 'available';
 				}
 			}, { // [111]
-				caption: 'Bombable Hut',
+				caption: 'VoO Bombable Hut',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3272,7 +3273,7 @@
 					return 'available';
 				}
 			}, { // [115]
-				caption: 'Hint (North)',
+				caption: 'PoD North Hint',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3282,7 +3283,7 @@
 					return 'available';
 				}
 			}, { // [116]
-				caption: 'Fairy Spring',
+				caption: 'PoD Fairy Spring',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3292,7 +3293,7 @@
 					return 'available';
 				}
 			}, { // [117]
-				caption: 'Hint (South)',
+				caption: 'PoD South Hint',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3312,7 +3313,7 @@
 					return 'available';
 				}
 			}, { // [119]
-				caption: 'Shop (Dark Lake)',
+				caption: 'Dark Lake Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3362,7 +3363,7 @@
 					return 'available';
 				}
 			}, { // [124]
-				caption: 'Shed',
+				caption: 'Mire Shed',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3372,7 +3373,7 @@
 					return 'available';
 				}
 			}, { // [125]
-				caption: 'Fairy',
+				caption: 'Mire Fairy',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3382,7 +3383,7 @@
 					return 'available';
 				}
 			}, { // [126]
-				caption: 'Hint',
+				caption: 'Mire Hint',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3422,7 +3423,7 @@
 					return 'available';
 				}
 			}, { // [130]
-				caption: 'Fairy Spring',
+				caption: 'Dark Fairy Spring',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3472,7 +3473,7 @@
 					return 'available';
 				}
 			}, { // [135]
-				caption: 'Shop (DDM)',
+				caption: 'DDM Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -3937,7 +3938,7 @@
 					return (items.flippers ? 'available' : 'unavailable');
 				}
 			}, { // [6]
-				caption: 'Fairy Spring {bomb}',
+				caption: 'Hype Fairy {bomb}',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4071,7 +4072,7 @@
 					return 'available';
 				}
 			}, { // [20]
-				caption: 'Gamble',
+				caption: 'Woods Chest Game',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4136,7 +4137,7 @@
 					return (items.glove > 0 || (hasFoundEntrance(105) && items.mirror)) ? 'available' : 'unavailable';
 				}
 			}, { // [27]
-				caption: 'Fortune Teller',
+				caption: 'Kakariko Fortune Teller',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4235,7 +4236,7 @@
 					return 'available';
 				}
 			}, { // [38]
-				caption: 'Bomb Hut {bomb}',
+				caption: 'Kakariko Bomb Hut {bomb}',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4327,7 +4328,7 @@
 					return 'available';
 				}
 			}, { // [48]
-				caption: 'Chest Game',
+				caption: 'Kakariko Chest Game',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4354,7 +4355,7 @@
 					return 'available';
 				}
 			}, { // [51]
-				caption: 'Fairy Spring',
+				caption: 'Eastern Fairy Spring',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4363,7 +4364,7 @@
 					return 'available';
 				}
 			}, { // [52]
-				caption: 'Fairy Cave',
+				caption: 'Eastern Fairy Cave',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4459,7 +4460,7 @@
 					return 'available';
 				}
 			}, { // [62]
-				caption: 'Fortune Teller',
+				caption: 'Lake Fortune Teller',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4710,7 +4711,7 @@
 					return canReachDarkWorldSouth() ? 'available' : 'unavailable';
 				}
 			}, { // [87]
-				caption: 'Bonk Fairy',
+				caption: 'Dark Bonk Fairy',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4757,7 +4758,7 @@
 					return canReachOutcast() ? 'available' : 'unavailable';
 				}
 			}, { // [92]
-				caption: 'North East Shop',
+				caption: 'Dark North East Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4913,7 +4914,7 @@
 					return (canReachOutcast() && items.glove > 0 && items.moonpearl) ? 'available' : 'unavailable';
 				}
 			}, { // [106]
-				caption: 'Fortune Teller',
+				caption: 'VoO Fortune Teller',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4922,7 +4923,7 @@
 					return (canReachOutcast()) ? 'available' : 'unavailable';
 				}
 			}, { // [107]
-				caption: 'Chest Game',
+				caption: 'VoO Chest Game',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4950,7 +4951,7 @@
 					return (canReachOutcast()) ? 'available' : 'unavailable';
 				}
 			}, { // [110]
-				caption: 'Shop (VoO)',
+				caption: 'VoO Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -4960,7 +4961,7 @@
 					return (canReachOutcast() && items.moonpearl && items.hammer) ? 'available' : 'unavailable';
 				}
 			}, { // [111]
-				caption: 'Bombable Hut {bomb}',
+				caption: 'VoO Bombable Hut {bomb}',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -5000,7 +5001,7 @@
 					return (items.moonpearl && canReachDarkWorldEast()) ? 'available' : 'unavailable';
 				}
 			}, { // [115]
-				caption: 'Hint (North)',
+				caption: 'PoD North Hint',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -5010,7 +5011,7 @@
 					return canReachDarkWorldEast() ? 'available' : 'unavailable';
 				}
 			}, { // [116]
-				caption: 'Fairy Spring',
+				caption: 'PoD Fairy Spring',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -5020,7 +5021,7 @@
 					return canReachDarkWorldEast() ? 'available' : 'unavailable';
 				}
 			}, { // [117]
-				caption: 'Hint (South)',
+				caption: 'PoD South Hint',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -5042,7 +5043,7 @@
 					return 'available';
 				}
 			}, { // [119]
-				caption: 'Shop (Dark Lake)',
+				caption: 'Dark Lake Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -5093,7 +5094,7 @@
 					return (medallionCheck(0) === 'possible') ? 'possible' : 'available';
 				}
 			}, { // [124]
-				caption: 'Shed',
+				caption: 'Mire Shed',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -5103,7 +5104,7 @@
 					return (canReachMiseryMire()) ? 'available' : 'unavailable';
 				}
 			}, { // [125]
-				caption: 'Fairy',
+				caption: 'Mire Fairy',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -5113,7 +5114,7 @@
 					return (canReachMiseryMire()) ? 'available' : 'unavailable';
 				}
 			}, { // [126]
-				caption: 'Hint',
+				caption: 'Mire Hint',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -5159,7 +5160,7 @@
 					return 'unavailable';
 				}
 			}, { // [130]
-				caption: 'Fairy Spring',
+				caption: 'Dark Fairy Spring',
 				is_opened: false,
 				note: '',
 				known_location: '',
@@ -5209,7 +5210,7 @@
 					return (canReachDWEDM()|| (canReachEDM() && items.glove === 2)) ? 'available' : 'unavailable';
 				}
 			}, { // [135]
-				caption: 'Shop (DDM)',
+				caption: 'DDM Shop',
 				is_opened: false,
 				note: '',
 				known_location: '',

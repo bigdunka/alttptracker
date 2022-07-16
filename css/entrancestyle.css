@@ -593,6 +593,18 @@ body {
 #entranceMap138 { left: 90.6%; top: 10%; z-index: 2; }
 #entranceMap139 { left: 92.9%; top: 10%; z-index: 2; }
 
+.entranceBossDiv {
+	position: absolute; 
+	left: 22px; 
+	top: 22px; 
+	width: 20px; 
+	height: 20px; 
+	border: 2px solid black; 
+	pointer-events: none; 
+	opacity: .5;
+	visibility: none;
+}
+
 .grabbagtr {
     border: 1px solid black;
     cursor: pointer;
@@ -600,7 +612,6 @@ body {
     height: 24px;
     padding: 5px;
 }
-
 
 .entrancelocationdiv {
 	width: 50px;

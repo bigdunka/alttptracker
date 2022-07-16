@@ -671,6 +671,43 @@
 	
 			if (found) {
 				var c = dungeonChests(dungeonID,entranceAvail,entranceBunny);
+				if (dungeonID < 10) {
+					document.getElementById('entranceBoss'+dungeonID).style.visibility = (!dungeons[dungeonID].is_beaten ? 'visible' : 'hidden');
+					
+					switch (dungeonID) {
+						case 0:
+							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? EPBoss() : 'unavailable');
+							break;
+						case 1:
+							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(DPBoss('unavailable', (hasFoundLocation('dp_n') && !entranceBunny[3] ? 'available' : 'unavailable')));
+							break;
+						case 2:
+							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? HeraBoss() : 'unavailable');
+							break;
+						case 3:
+							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? PoDBoss() : 'unavailable');
+							break;
+						case 4:
+							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? SPBoss() : 'unavailable');
+							break;
+						case 5:
+							if (!hasFoundLocation('sw')) document.getElementById('entranceBoss'+dungeonID).style.visibility = 'hidden';
+							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(SWBoss('unavailable', (hasFoundLocation('sw') && !entranceBunny[0] ? 'available' : 'unavailable')));
+							break;
+						case 6:
+							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? TTBoss() : 'unavailable');
+							break;
+						case 7:
+							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? IPBoss() : 'unavailable');
+							break;
+						case 8:
+							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? MMBoss() : 'unavailable');
+							break;
+						case 9:
+							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? TRBoss() : 'unavailable');
+							break;
+					}
+				}
 				if (c === 'available') {
 					document.getElementById('chest'+dungeonID).style.backgroundColor = 'lime';
 					document.getElementById('chest'+dungeonID).style.color = 'black';
@@ -691,11 +728,32 @@
 					document.getElementById('chest'+dungeonID).style.color = 'black';
 				}
 			} else {
+				if (dungeonID < 10) {
+					document.getElementById('entranceBoss'+dungeonID).style.visibility = 'hidden';
+				}
 				document.getElementById('chest'+dungeonID).style.backgroundColor = 'white';
 				document.getElementById('chest'+dungeonID).style.color = 'black';
 			}
+		} else {
+			if (dungeonID < 10) {
+				document.getElementById('entranceBoss'+dungeonID).style.visibility = 'hidden';
+			}
 		}
 	};
+	
+	window.ConvertBossToColor = function(availability) {
+		if (availability === 'available') {
+			return 'lime';
+		} else if (availability === 'possible') {
+			return 'yellow';
+		} else if (availability === 'darkavailable') {
+			return 'blue';
+		} else if (availability === 'darkpossible') {
+			return 'purple';
+		} else {
+			return 'red';
+		}
+	}
 
     window.EPBoss = function() {
 		var dungeoncheck = enemizer_check(0);
@@ -735,7 +793,22 @@
     window.HeraBoss = function() {
 		var dungeoncheck = enemizer_check(2);
 		if (!items.bigkey2 || dungeoncheck === 'unavailable') return 'unavailable';
-		if (flags.wildbigkeys) return (dungeoncheck === 'available' ? ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available') : ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible')); 
+		if (flags.wildbigkeys) {
+			if (dungeoncheck === 'available') {
+				if (flags.entrancemode === 'N' && flags.overworldshuffle === 'N') {
+					return (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available';
+				} else {
+					return 'available';
+					
+				}
+			} else {
+				if (flags.entrancemode === 'N' && flags.overworldshuffle === 'N') {
+					return (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible';
+				} else {
+					return 'possible';
+				}				
+			}
+		}	
 		if ((flags.wildkeys && (items.smallkey2 === 0 && flags.gametype != 'R')) || (!items.lantern && !items.firerod)) return (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible';
 		return (dungeoncheck === 'available' ? ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available') : ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible'));
     };
