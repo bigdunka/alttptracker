@@ -1027,21 +1027,25 @@
 		if (label.substring(0,12) === 'smallkeyhalf') {
 			if (flags.gametype != 'R') {
 				var value = items.inc(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 				skipkey = true;
 			} else {
 				var value = items.dec(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 				skipkey = true;
 			}
         }		
-		if (label.substring(0,8) === 'smallkey' && label.substring(0,12) != 'smallkeyhalf') {
+		else if (label.substring(0,8) === 'smallkey') {
 			if (flags.gametype != 'R') {
 				var value = items.inc(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 				skipkey = true;
 			} else {
 				var value = items.dec(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 				skipkey = true;
 			}
@@ -1395,18 +1399,22 @@
 		if (label.substring(0,12) === 'smallkeyhalf') {
 			if (flags.gametype != 'R') {
 				var value = items.dec(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 			} else {
 				var value = items.inc(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 			}
         }		
-		if (label.substring(0,8) === 'smallkey' && label.substring(0,12) != 'smallkeyhalf') {
+		else if (label.substring(0,8) === 'smallkey') {
 			if (flags.gametype != 'R') {
 				var value = items.dec(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 			} else {
 				var value = items.inc(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 			}
         }
