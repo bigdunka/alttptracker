@@ -2,24 +2,24 @@
     'use strict';
 
     var query = uri_query();
-	
-	window.flags = {
+    
+    window.flags = {
         gametype: query.f.charAt(0),
         entrancemode: query.f.charAt(1),
-		doorshuffle: query.f.charAt(2),
-		overworldshuffle: query.f.charAt(3),		
+        doorshuffle: query.f.charAt(2),
+        overworldshuffle: query.f.charAt(3),        
         bossshuffle: query.f.charAt(4),
         enemyshuffle: query.f.charAt(5),
-		unknown: query.f.charAt(6),
+        unknown: query.f.charAt(6),
         glitches: query.f.charAt(7),
-		wildmaps: (query.f.charAt(8) === '1' ? true : false),
-		wildcompasses: (query.f.charAt(9) === '1' ? true : false),
-		wildkeys: (query.f.charAt(10) === '1' ? true : false),
-		wildbigkeys: (query.f.charAt(11) === '1' ? true : false),
-		shopsanity: query.f.charAt(12),
-		ambrosia: query.f.charAt(13),
-		nonprogressivebows: (query.f.charAt(14) === 'Y' ? true : false),
-		activatedflute: (query.f.charAt(15) === 'Y' ? true : false),
+        wildmaps: (query.f.charAt(8) === '1' ? true : false),
+        wildcompasses: (query.f.charAt(9) === '1' ? true : false),
+        wildkeys: (query.f.charAt(10) === '1' ? true : false),
+        wildbigkeys: (query.f.charAt(11) === '1' ? true : false),
+        shopsanity: query.f.charAt(12),
+        ambrosia: query.f.charAt(13),
+        nonprogressivebows: (query.f.charAt(14) === 'Y' ? true : false),
+        activatedflute: (query.f.charAt(15) === 'Y' ? true : false),
         goals: query.f.charAt(16),
         opentower: query.f.charAt(17),
         opentowercount: query.f.charAt(18),
@@ -29,52 +29,52 @@
         mapmode: query.d.charAt(0),
         spoilermode: query.d.charAt(1),
         spheresmode: query.d.charAt(2),
-		autotracking: query.d.charAt(3),
-		trackingport: query.d.charAt(4) + query.d.charAt(5) + query.d.charAt(6) + query.d.charAt(7),
-		restreamingcode: query.d.charAt(8) + query.d.charAt(9) + query.d.charAt(10) + query.d.charAt(11) + query.d.charAt(12) + query.d.charAt(13),
-		restreamer: query.d.charAt(14),
-		restreamdelay: query.d.charAt(15),
-		startingitems: query.s,
+        autotracking: query.d.charAt(3),
+        trackingport: query.d.charAt(4) + query.d.charAt(5) + query.d.charAt(6) + query.d.charAt(7),
+        restreamingcode: query.d.charAt(8) + query.d.charAt(9) + query.d.charAt(10) + query.d.charAt(11) + query.d.charAt(12) + query.d.charAt(13),
+        restreamer: query.d.charAt(14),
+        restreamdelay: query.d.charAt(15),
+        startingitems: query.s,
         sprite: query.p.replace('#','').replace('!',''),
     };
-	
-	window.maptype = query.map;
-	
-	window.startingitems = query.starting;
-	
-	var chestmod = 0;
-	
-	if (flags.wildmaps) {
-		chestmod++;
-	}
-	
-	if (flags.wildcompasses) {
-		chestmod++;
-	}
-	
-	var chestmodcrossed = chestmod;
-	
-	if (flags.wildbigkeys) {
-		chestmod++;
-		if (flags.wildkeys || flags.gametype === 'R') {
-			chestmodcrossed++;
-		}		
-	}
-	
-	var chests0 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 3 + chestmod;
-	var chests1 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
-	var chests2 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
-	var chests3 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 6 : 0);
-	var chests4 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 6 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
-	var chests5 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
-	var chests6 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 4 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
-	var chests7 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 3 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 2 : 0);
-	var chests8 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
-	var chests9 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
-	var chests10 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 20 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
-	var chests11 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 6 + (flags.wildmaps ? 1 : 0) + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
-	var chests12 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : ((flags.wildkeys || flags.gametype === 'R') ? 2 : 0);
-		
+    
+    window.maptype = query.map;
+    
+    window.startingitems = query.starting;
+    
+    var chestmod = 0;
+    
+    if (flags.wildmaps) {
+        chestmod++;
+    }
+    
+    if (flags.wildcompasses) {
+        chestmod++;
+    }
+    
+    var chestmodcrossed = chestmod;
+    
+    if (flags.wildbigkeys) {
+        chestmod++;
+        if (flags.wildkeys || flags.gametype === 'R') {
+            chestmodcrossed++;
+        }        
+    }
+    
+    var chests0 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 3 + chestmod;
+    var chests1 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+    var chests2 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+    var chests3 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 6 : 0);
+    var chests4 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 6 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+    var chests5 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
+    var chests6 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 4 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+    var chests7 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 3 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 2 : 0);
+    var chests8 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
+    var chests9 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
+    var chests10 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 20 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
+    var chests11 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 6 + (flags.wildmaps ? 1 : 0) + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+    var chests12 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : ((flags.wildkeys || flags.gametype === 'R') ? 2 : 0);
+        
     var maxchests0 = flags.doorshuffle === 'C' ? 32 : chests0;
     var maxchests1 = flags.doorshuffle === 'C' ? 32 : chests1;
     var maxchests2 = flags.doorshuffle === 'C' ? 32 : chests2;
@@ -88,42 +88,42 @@
     var maxchests10 = flags.doorshuffle === 'C' ? 32 : chests10;
     var maxchests11 = flags.doorshuffle === 'C' ? 32 : chests11;
     var maxchests12 = flags.doorshuffle === 'C' ? 32 : chests12;
-	var range = {
-		tunic: { min: 1, max: 3 },
-		sword: { min: 0, max: 4 },
-		shield: { min: 0, max: 3 },
-		bottle: { min: 0, max: 4 },
-		bow: { min: 0, max: 3 },
-		boomerang: { min: 0, max: 3 },
-		glove: { min: 0, max: 2 },
-		smallkey0: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 0 },
-		smallkey1: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
-		smallkey2: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
-		smallkey3: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 6 },
-		smallkey4: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
-		smallkey5: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 3 },
-		smallkey6: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
-		smallkey7: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 2 },
-		smallkey8: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 3 },
-		smallkey9: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 4 },
-		smallkey10: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 4 },
-		smallkeyhalf0: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
-		smallkeyhalf1: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 2 },
-		chest0: { min: 0, max: maxchests0 },
-		chest1: { min: 0, max: maxchests1 },
-		chest2: { min: 0, max: maxchests2 },
-		chest3: { min: 0, max: maxchests3 },
-		chest4: { min: 0, max: maxchests4 },
-		chest5: { min: 0, max: maxchests5 },
-		chest6: { min: 0, max: maxchests6 },
-		chest7: { min: 0, max: maxchests7 },
-		chest8: { min: 0, max: maxchests8 },
-		chest9: { min: 0, max: maxchests9 },
-		chest10: { min: 0, max: maxchests10 },
-		chest11: { min: 0, max: maxchests11 },
-		chest12: { min: 0, max: maxchests12 }
-	};
-	
+    var range = {
+        tunic: { min: 1, max: 3 },
+        sword: { min: 0, max: 4 },
+        shield: { min: 0, max: 3 },
+        bottle: { min: 0, max: 4 },
+        bow: { min: 0, max: 3 },
+        boomerang: { min: 0, max: 3 },
+        glove: { min: 0, max: 2 },
+        smallkey0: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 0 },
+        smallkey1: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
+        smallkey2: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
+        smallkey3: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 6 },
+        smallkey4: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
+        smallkey5: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 3 },
+        smallkey6: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
+        smallkey7: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 2 },
+        smallkey8: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 3 },
+        smallkey9: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 4 },
+        smallkey10: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 4 },
+        smallkeyhalf0: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
+        smallkeyhalf1: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 2 },
+        chest0: { min: 0, max: maxchests0 },
+        chest1: { min: 0, max: maxchests1 },
+        chest2: { min: 0, max: maxchests2 },
+        chest3: { min: 0, max: maxchests3 },
+        chest4: { min: 0, max: maxchests4 },
+        chest5: { min: 0, max: maxchests5 },
+        chest6: { min: 0, max: maxchests6 },
+        chest7: { min: 0, max: maxchests7 },
+        chest8: { min: 0, max: maxchests8 },
+        chest9: { min: 0, max: maxchests9 },
+        chest10: { min: 0, max: maxchests10 },
+        chest11: { min: 0, max: maxchests11 },
+        chest12: { min: 0, max: maxchests12 }
+    };
+    
     window.items = {
         tunic: 1,
         sword: 0,
@@ -160,9 +160,9 @@
         flute: false,
         agahnim: false,
         agahnim2: false,
-		bomb: false,
-		magic: false,
-		bombfloor: false,
+        bomb: false,
+        magic: false,
+        bombfloor: false,
 
         boss0: false,
         boss1: false,
@@ -174,7 +174,7 @@
         boss7: false,
         boss8: false,
         boss9: false,
-		
+        
         chest0: chests0,
         chest1: chests1,
         chest2: chests2,
@@ -185,10 +185,10 @@
         chest7: chests7,
         chest8: chests8,
         chest9: chests9,
-		chest10: chests10,
-		chest11: chests11,
-		chest12: chests12,
-		
+        chest10: chests10,
+        chest11: chests11,
+        chest12: chests12,
+        
         maxchest0: maxchests0,
         maxchest1: maxchests1,
         maxchest2: maxchests2,
@@ -199,9 +199,9 @@
         maxchest7: maxchests7,
         maxchest8: maxchests8,
         maxchest9: maxchests9,
-		maxchest10: maxchests10,
-		maxchest11: maxchests11,
-		maxchest12: maxchests12,
+        maxchest10: maxchests10,
+        maxchest11: maxchests11,
+        maxchest12: maxchests12,
 
         chestknown0: false,
         chestknown1: false,
@@ -217,20 +217,20 @@
         chestknown11: false,
         chestknown12: false,
 
-		bigkey0: !flags.wildbigkeys,
-		bigkey1: !flags.wildbigkeys,
-		bigkey2: !flags.wildbigkeys,
-		bigkey3: !flags.wildbigkeys,
-		bigkey4: !flags.wildbigkeys,
-		bigkey5: !flags.wildbigkeys,
-		bigkey6: !flags.wildbigkeys,
-		bigkey7: !flags.wildbigkeys,
-		bigkey8: !flags.wildbigkeys,
-		bigkey9: !flags.wildbigkeys,
-		bigkey10: !flags.wildbigkeys,
-		bigkeyhalf0: !flags.wildbigkeys,
-		bigkeyhalf1: !flags.wildbigkeys,
-		
+        bigkey0: !flags.wildbigkeys,
+        bigkey1: !flags.wildbigkeys,
+        bigkey2: !flags.wildbigkeys,
+        bigkey3: !flags.wildbigkeys,
+        bigkey4: !flags.wildbigkeys,
+        bigkey5: !flags.wildbigkeys,
+        bigkey6: !flags.wildbigkeys,
+        bigkey7: !flags.wildbigkeys,
+        bigkey8: !flags.wildbigkeys,
+        bigkey9: !flags.wildbigkeys,
+        bigkey10: !flags.wildbigkeys,
+        bigkeyhalf0: !flags.wildbigkeys,
+        bigkeyhalf1: !flags.wildbigkeys,
+        
         smallkey0: (flags.wildkeys ? 0 : range['smallkey0'].max),
         smallkey1: (flags.wildkeys ? 0 : range['smallkey1'].max),
         smallkey2: (flags.wildkeys ? 0 : range['smallkey2'].max),
@@ -241,15 +241,15 @@
         smallkey7: (flags.wildkeys ? 0 : range['smallkey7'].max),
         smallkey8: (flags.wildkeys ? 0 : range['smallkey8'].max),
         smallkey9: (flags.wildkeys ? 0 : range['smallkey9'].max),
-		smallkey10: (flags.wildkeys ? 0 : range['smallkey10'].max),
-		smallkeyhalf0: (flags.wildkeys ? 0 : range['smallkeyhalf0'].max),
-		smallkeyhalf1: (flags.wildkeys ? 0 : range['smallkeyhalf1'].max),
-		
-		range: range,
+        smallkey10: (flags.wildkeys ? 0 : range['smallkey10'].max),
+        smallkeyhalf0: (flags.wildkeys ? 0 : range['smallkeyhalf0'].max),
+        smallkeyhalf1: (flags.wildkeys ? 0 : range['smallkeyhalf1'].max),
+        
+        range: range,
         inc: limit(1, range),
         dec: limit(-1, range)
     };
-	
+    
     function limit(delta, limits) {
         return function(item) {
             var value = items[item],
