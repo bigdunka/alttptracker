@@ -290,10 +290,10 @@ function autotrackDoTracking(data) {
 
     function updatesmallkeys(dungeon, offset) {
         if (changed(offset)) {
-			var label = "smallkey" + dungeon;
+        var label = "smallkey" + dungeon;
             var newkeys = autotrackPrevData === null ? data[offset] : (data[offset] - autotrackPrevData[offset] + items[label]);
             if (newkeys > items[label]) {
-				document.getElementById(label).style.color = (newkeys === items.range[label].max) ? "green" : "white";
+                document.getElementById(label).style.color = (newkeys === items.range[label].max) ? "green" : "white";
                 document.getElementById(label).innerHTML = newkeys;
                 items[label] = newkeys;
                 updateMapTracker();
