@@ -2599,70 +2599,8 @@
 				}
 			}
 			
-			items.inc = limit(1, {
-				tunic: { min: 1, max: 3 },
-				sword: { max: 4 },
-				shield: { max: 3 },
-				bottle: { max: 4 },
-				bow: { max: 3 },
-				boomerang: { max: 3 },
-				glove: { max: 2 },
-				smallkey0: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 0 },
-				smallkey1: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey2: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey3: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 6 },
-				smallkey4: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey5: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 3 },
-				smallkey6: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey7: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 2 },
-				smallkey8: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 3 },
-				smallkey9: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 4 },
-				smallkey10: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 4 },
-				smallkeyhalf0: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkeyhalf1: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 2 },
-				chest0: { min: 0, max: maxchests0 },
-				chest1: { min: 0, max: maxchests1 },
-				chest2: { min: 0, max: maxchests2 },
-				chest3: { min: 0, max: maxchests3 },
-				chest4: { min: 0, max: maxchests4 },
-				chest5: { min: 0, max: maxchests5 },
-				chest6: { min: 0, max: maxchests6 },
-				chest7: { min: 0, max: maxchests7 },
-				chest8: { min: 0, max: maxchests8 },
-				chest9: { min: 0, max: maxchests9 },
-				chest10: { min: 0, max: maxchests10 },
-				chest11: { min: 0, max: maxchests11 },
-				chest12: { min: 0, max: maxchests12 }
-			}); 
-			
-			items.dec = limit(-1, {
-				chest0: { max: maxchests0 },
-				chest1: { max: maxchests1 },
-				chest2: { max: maxchests2 },
-				chest3: { max: maxchests3 },
-				chest4: { max: maxchests4 },
-				chest5: { max: maxchests5 },
-				chest6: { max: maxchests6 },
-				chest7: { max: maxchests7 },
-				chest8: { max: maxchests8 },
-				chest9: { max: maxchests9 },
-				chest10: { max: maxchests10 },
-				chest11: { max: maxchests11 },
-				chest12: { max: maxchests12 },
-				smallkey0: { max: document.getElementById('doorselect').value === 'C' ? 29 : 0 },
-				smallkey1: { max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey2: { max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey3: { max: document.getElementById('doorselect').value === 'C' ? 29 : 6 },
-				smallkey4: { max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey5: { max: document.getElementById('doorselect').value === 'C' ? 29 : 3 },
-				smallkey6: { max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey7: { max: document.getElementById('doorselect').value === 'C' ? 29 : 2 },
-				smallkey8: { max: document.getElementById('doorselect').value === 'C' ? 29 : 3 },
-				smallkey9: { max: document.getElementById('doorselect').value === 'C' ? 29 : 4 },
-				smallkey10: { max: document.getElementById('doorselect').value === 'C' ? 29 : 4 },
-				smallkeyhalf0: { max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkeyhalf1: { max: document.getElementById('doorselect').value === 'C' ? 29 : 2 }
-			});
+			items.inc = limit(1, items.range);
+			items.dec = limit(-1, items.range);
 
 			flags.doorshuffle = document.getElementById('doorselect').value;
 
