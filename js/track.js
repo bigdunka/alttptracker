@@ -334,247 +334,443 @@
 	
 	window.sendTrackerCommand = function()	{
 		if (flags.restreamer === "T") {
-			var megapack = {
-				"restreamingguid":restreamingguid,
-				"gametype":flags.gametype,
-				"entrancemode":flags.entrancemode,
-				"doorshuffle":flags.doorshuffle,
-				"overworldshuffle":flags.overworldshuffle,
-				"bossshuffle":flags.bossshuffle,
-				"enemyshuffle":flags.enemyshuffle,
-				"unknown":flags.unknown,
-				"glitches":flags.glitches,
-				"wildmaps":flags.wildmaps,
-				"wildcompasses":flags.wildcompasses,
-				"wildkeys":flags.wildkeys,
-				"wildbigkeys":flags.wildbigkeys,
-				"shopsanity":flags.shopsanity,
-				"ambrosia":flags.ambrosia,
-				"nonprogressivebows":flags.nonprogressivebows,
-				"activatedflute":flags.activatedflute,
-				"goals":flags.goals,
-				"opentower":flags.opentower,
-				"opentowercount":flags.opentowercount,
-				"ganonvuln":flags.ganonvuln,
-				"ganonvulncount":flags.ganonvulncount,
-				"swordmode":flags.swordmode,
-				"sprite":flags.sprite,
-				"tunic":items.tunic,
-				"sword":items.sword,
-				"shield":items.shield,
-				"moonpearl":items.moonpearl,
-				"bow":items.bow,
-				"boomerang":items.boomerang,
-				"hookshot":items.hookshot,
-				"mushroom":items.mushroom,
-				"powder":items.powder,
-				"firerod":items.firerod,
-				"icerod":items.icerod,
-				"bombos":items.bombos,
-				"ether":items.ether,
-				"quake":items.quake,
-				"lantern":items.lantern,
-				"hammer":items.hammer,
-				"shovel":items.shovel,
-				"net":items.net,
-				"book":items.book,
-				"bottle":items.bottle,
-				"somaria":items.somaria,
-				"byrna":items.byrna,
-				"cape":items.cape,
-				"mirror":items.mirror,
-				"boots":items.boots,
-				"glove":items.glove,
-				"flippers":items.flippers,
-				"flute":items.flute,
-				"agahnim":items.agahnim,
-				"agahnim2":items.agahnim2,
-				"bomb":items.bomb,
-				"magic":items.magic,
-				"bombfloor":items.bombfloor,
-				"boss0":items.boss0,
-				"boss1":items.boss1,
-				"boss2":items.boss2,
-				"boss3":items.boss3,
-				"boss4":items.boss4,
-				"boss5":items.boss5,
-				"boss6":items.boss6,
-				"boss7":items.boss7,
-				"boss8":items.boss8,
-				"boss9":items.boss9,
-				"chest0":items.chest0,
-				"chest1":items.chest1,
-				"chest2":items.chest2,
-				"chest3":items.chest3,
-				"chest4":items.chest4,
-				"chest5":items.chest5,
-				"chest6":items.chest6,
-				"chest7":items.chest7,
-				"chest8":items.chest8,
-				"chest9":items.chest9,
-				"chest10":items.chest10,
-				"chest11":items.chest11,
-				"chest12":items.chest12,
-				"maxchest0":items.maxchest0,
-				"maxchest1":items.maxchest1,
-				"maxchest2":items.maxchest2,
-				"maxchest3":items.maxchest3,
-				"maxchest4":items.maxchest4,
-				"maxchest5":items.maxchest5,
-				"maxchest6":items.maxchest6,
-				"maxchest7":items.maxchest7,
-				"maxchest8":items.maxchest8,
-				"maxchest9":items.maxchest9,
-				"maxchest10":items.maxchest10,
-				"maxchest11":items.maxchest11,
-				"maxchest12":items.maxchest12,
-				"chestknown0":items.chestknown0,
-				"chestknown1":items.chestknown1,
-				"chestknown2":items.chestknown2,
-				"chestknown3":items.chestknown3,
-				"chestknown4":items.chestknown4,
-				"chestknown5":items.chestknown5,
-				"chestknown6":items.chestknown6,
-				"chestknown7":items.chestknown7,
-				"chestknown8":items.chestknown8,
-				"chestknown9":items.chestknown9,
-				"chestknown10":items.chestknown10,
-				"chestknown11":items.chestknown11,
-				"chestknown12":items.chestknown12,
-				"bigkey0":items.bigkey0,
-				"bigkey1":items.bigkey1,
-				"bigkey2":items.bigkey2,
-				"bigkey3":items.bigkey3,
-				"bigkey4":items.bigkey4,
-				"bigkey5":items.bigkey5,
-				"bigkey6":items.bigkey6,
-				"bigkey7":items.bigkey7,
-				"bigkey8":items.bigkey8,
-				"bigkey9":items.bigkey9,
-				"bigkey10":items.bigkey10,
-				"bigkeyhalf0":items.bigkeyhalf0,
-				"bigkeyhalf1":items.bigkeyhalf1,
-				"smallkey0":items.smallkey0,
-				"smallkey1":items.smallkey1,
-				"smallkey2":items.smallkey2,
-				"smallkey3":items.smallkey3,
-				"smallkey4":items.smallkey4,
-				"smallkey5":items.smallkey5,
-				"smallkey6":items.smallkey6,
-				"smallkey7":items.smallkey7,
-				"smallkey8":items.smallkey8,
-				"smallkey9":items.smallkey9,
-				"smallkey10":items.smallkey10,
-				"smallkeyhalf0":items.smallkeyhalf0,
-				"smallkeyhalf1":items.smallkeyhalf1,
-				"location0":chests[0].is_opened,
-				"location1":chests[1].is_opened,
-				"location2":chests[2].is_opened,
-				"location3":chests[3].is_opened,
-				"location4":chests[4].is_opened,
-				"location5":chests[5].is_opened,
-				"location6":chests[6].is_opened,
-				"location7":chests[7].is_opened,
-				"location8":chests[8].is_opened,
-				"location9":chests[9].is_opened,
-				"location10":chests[10].is_opened,
-				"location11":chests[11].is_opened,
-				"location12":chests[12].is_opened,
-				"location13":chests[13].is_opened,
-				"location14":chests[14].is_opened,
-				"location15":chests[15].is_opened,
-				"location16":chests[16].is_opened,
-				"location17":chests[17].is_opened,
-				"location18":chests[18].is_opened,
-				"location19":chests[19].is_opened,
-				"location20":chests[20].is_opened,
-				"location21":chests[21].is_opened,
-				"location22":chests[22].is_opened,
-				"location23":chests[23].is_opened,
-				"location24":chests[24].is_opened,
-				"location25":chests[25].is_opened,
-				"location26":chests[26].is_opened,
-				"location27":chests[27].is_opened,
-				"location28":chests[28].is_opened,
-				"location29":chests[29].is_opened,
-				"location30":chests[30].is_opened,
-				"location31":chests[31].is_opened,
-				"location32":chests[32].is_opened,
-				"location33":chests[33].is_opened,
-				"location34":chests[34].is_opened,
-				"location35":chests[35].is_opened,
-				"location36":chests[36].is_opened,
-				"location37":chests[37].is_opened,
-				"location38":chests[38].is_opened,
-				"location39":chests[39].is_opened,
-				"location40":chests[40].is_opened,
-				"location41":chests[41].is_opened,
-				"location42":chests[42].is_opened,
-				"location43":chests[43].is_opened,
-				"location44":chests[44].is_opened,
-				"location45":chests[45].is_opened,
-				"location46":chests[46].is_opened,
-				"location47":chests[47].is_opened,
-				"location48":chests[48].is_opened,
-				"location49":chests[49].is_opened,
-				"location50":chests[50].is_opened,
-				"location51":chests[51].is_opened,
-				"location52":chests[52].is_opened,
-				"location53":chests[53].is_opened,
-				"location54":chests[54].is_opened,
-				"location55":chests[55].is_opened,
-				"location56":chests[56].is_opened,
-				"location57":chests[57].is_opened,
-				"location58":chests[58].is_opened,
-				"location59":chests[59].is_opened,
-				"location60":chests[60].is_opened,
-				"location61":chests[61].is_opened,
-				"location62":chests[62].is_opened,
-				"location63":chests[63].is_opened,
-				"location64":chests[64].is_opened,
-				"location65":chests[65].is_opened,
-				"location66":chests[66].is_opened,
-				"location67":chests[67].is_opened,
-				"location68":chests[68].is_opened,
-				"location69":chests[69].is_opened,
-				"location70":chests[70].is_opened,
-				"location71":chests[71].is_opened,
-				"location72":chests[72].is_opened,
-				"location73":chests[73].is_opened,
-				"location74":chests[74].is_opened,
-				"location75":chests[75].is_opened,
-				"location76":chests[76].is_opened,
-				"location77":chests[77].is_opened,
-				"location78":chests[78].is_opened,
-				"prize0":prizes[0],
-				"prize1":prizes[1],
-				"prize2":prizes[2],
-				"prize3":prizes[3],
-				"prize4":prizes[4],
-				"prize5":prizes[5],
-				"prize6":prizes[6],
-				"prize7":prizes[7],
-				"prize8":prizes[8],
-				"prize9":prizes[9],
-				"prize10":prizes[10],
-				"prize11":prizes[11],
-				"prize12":prizes[12],
-				"medallion0":medallions[0],
-				"medallion1":medallions[1],
-				"dungeon0":dungeons[0].is_beaten,
-				"dungeon1":dungeons[1].is_beaten,
-				"dungeon2":dungeons[2].is_beaten,
-				"dungeon3":dungeons[3].is_beaten,
-				"dungeon4":dungeons[4].is_beaten,
-				"dungeon5":dungeons[5].is_beaten,
-				"dungeon6":dungeons[6].is_beaten,
-				"dungeon7":dungeons[7].is_beaten,
-				"dungeon8":dungeons[8].is_beaten,
-				"dungeon9":dungeons[9].is_beaten,
-				"dungeon10":dungeons[10].is_beaten,
-				"dungeon11":dungeons[11].is_beaten,
-				"dungeon12":dungeons[12].is_beaten
+			
+			var megapack = { };
+			
+			if (flags.entrancemode === "N") {
+				megapack = {
+					"restreamingguid":restreamingguid,
+					"gametype":flags.gametype,
+					"entrancemode":flags.entrancemode,
+					"doorshuffle":flags.doorshuffle,
+					"overworldshuffle":flags.overworldshuffle,
+					"bossshuffle":flags.bossshuffle,
+					"enemyshuffle":flags.enemyshuffle,
+					"unknown":flags.unknown,
+					"glitches":flags.glitches,
+					"wildmaps":flags.wildmaps,
+					"wildcompasses":flags.wildcompasses,
+					"wildkeys":flags.wildkeys,
+					"wildbigkeys":flags.wildbigkeys,
+					"shopsanity":flags.shopsanity,
+					"ambrosia":flags.ambrosia,
+					"nonprogressivebows":flags.nonprogressivebows,
+					"activatedflute":flags.activatedflute,
+					"goals":flags.goals,
+					"opentower":flags.opentower,
+					"opentowercount":flags.opentowercount,
+					"ganonvuln":flags.ganonvuln,
+					"ganonvulncount":flags.ganonvulncount,
+					"swordmode":flags.swordmode,
+					"sprite":flags.sprite,
+					"tunic":items.tunic,
+					"sword":items.sword,
+					"shield":items.shield,
+					"moonpearl":items.moonpearl,
+					"bow":items.bow,
+					"boomerang":items.boomerang,
+					"hookshot":items.hookshot,
+					"mushroom":items.mushroom,
+					"powder":items.powder,
+					"firerod":items.firerod,
+					"icerod":items.icerod,
+					"bombos":items.bombos,
+					"ether":items.ether,
+					"quake":items.quake,
+					"lantern":items.lantern,
+					"hammer":items.hammer,
+					"shovel":items.shovel,
+					"net":items.net,
+					"book":items.book,
+					"bottle":items.bottle,
+					"somaria":items.somaria,
+					"byrna":items.byrna,
+					"cape":items.cape,
+					"mirror":items.mirror,
+					"boots":items.boots,
+					"glove":items.glove,
+					"flippers":items.flippers,
+					"flute":items.flute,
+					"agahnim":items.agahnim,
+					"agahnim2":items.agahnim2,
+					"bomb":items.bomb,
+					"magic":items.magic,
+					"bombfloor":items.bombfloor,
+					"boss0":items.boss0,
+					"boss1":items.boss1,
+					"boss2":items.boss2,
+					"boss3":items.boss3,
+					"boss4":items.boss4,
+					"boss5":items.boss5,
+					"boss6":items.boss6,
+					"boss7":items.boss7,
+					"boss8":items.boss8,
+					"boss9":items.boss9,
+					"chest0":items.chest0,
+					"chest1":items.chest1,
+					"chest2":items.chest2,
+					"chest3":items.chest3,
+					"chest4":items.chest4,
+					"chest5":items.chest5,
+					"chest6":items.chest6,
+					"chest7":items.chest7,
+					"chest8":items.chest8,
+					"chest9":items.chest9,
+					"chest10":items.chest10,
+					"chest11":items.chest11,
+					"chest12":items.chest12,
+					"maxchest0":items.maxchest0,
+					"maxchest1":items.maxchest1,
+					"maxchest2":items.maxchest2,
+					"maxchest3":items.maxchest3,
+					"maxchest4":items.maxchest4,
+					"maxchest5":items.maxchest5,
+					"maxchest6":items.maxchest6,
+					"maxchest7":items.maxchest7,
+					"maxchest8":items.maxchest8,
+					"maxchest9":items.maxchest9,
+					"maxchest10":items.maxchest10,
+					"maxchest11":items.maxchest11,
+					"maxchest12":items.maxchest12,
+					"chestknown0":items.chestknown0,
+					"chestknown1":items.chestknown1,
+					"chestknown2":items.chestknown2,
+					"chestknown3":items.chestknown3,
+					"chestknown4":items.chestknown4,
+					"chestknown5":items.chestknown5,
+					"chestknown6":items.chestknown6,
+					"chestknown7":items.chestknown7,
+					"chestknown8":items.chestknown8,
+					"chestknown9":items.chestknown9,
+					"chestknown10":items.chestknown10,
+					"chestknown11":items.chestknown11,
+					"chestknown12":items.chestknown12,
+					"bigkey0":items.bigkey0,
+					"bigkey1":items.bigkey1,
+					"bigkey2":items.bigkey2,
+					"bigkey3":items.bigkey3,
+					"bigkey4":items.bigkey4,
+					"bigkey5":items.bigkey5,
+					"bigkey6":items.bigkey6,
+					"bigkey7":items.bigkey7,
+					"bigkey8":items.bigkey8,
+					"bigkey9":items.bigkey9,
+					"bigkey10":items.bigkey10,
+					"bigkeyhalf0":items.bigkeyhalf0,
+					"bigkeyhalf1":items.bigkeyhalf1,
+					"smallkey0":items.smallkey0,
+					"smallkey1":items.smallkey1,
+					"smallkey2":items.smallkey2,
+					"smallkey3":items.smallkey3,
+					"smallkey4":items.smallkey4,
+					"smallkey5":items.smallkey5,
+					"smallkey6":items.smallkey6,
+					"smallkey7":items.smallkey7,
+					"smallkey8":items.smallkey8,
+					"smallkey9":items.smallkey9,
+					"smallkey10":items.smallkey10,
+					"smallkeyhalf0":items.smallkeyhalf0,
+					"smallkeyhalf1":items.smallkeyhalf1,
+					"location0":chests[0].is_opened,
+					"location1":chests[1].is_opened,
+					"location2":chests[2].is_opened,
+					"location3":chests[3].is_opened,
+					"location4":chests[4].is_opened,
+					"location5":chests[5].is_opened,
+					"location6":chests[6].is_opened,
+					"location7":chests[7].is_opened,
+					"location8":chests[8].is_opened,
+					"location9":chests[9].is_opened,
+					"location10":chests[10].is_opened,
+					"location11":chests[11].is_opened,
+					"location12":chests[12].is_opened,
+					"location13":chests[13].is_opened,
+					"location14":chests[14].is_opened,
+					"location15":chests[15].is_opened,
+					"location16":chests[16].is_opened,
+					"location17":chests[17].is_opened,
+					"location18":chests[18].is_opened,
+					"location19":chests[19].is_opened,
+					"location20":chests[20].is_opened,
+					"location21":chests[21].is_opened,
+					"location22":chests[22].is_opened,
+					"location23":chests[23].is_opened,
+					"location24":chests[24].is_opened,
+					"location25":chests[25].is_opened,
+					"location26":chests[26].is_opened,
+					"location27":chests[27].is_opened,
+					"location28":chests[28].is_opened,
+					"location29":chests[29].is_opened,
+					"location30":chests[30].is_opened,
+					"location31":chests[31].is_opened,
+					"location32":chests[32].is_opened,
+					"location33":chests[33].is_opened,
+					"location34":chests[34].is_opened,
+					"location35":chests[35].is_opened,
+					"location36":chests[36].is_opened,
+					"location37":chests[37].is_opened,
+					"location38":chests[38].is_opened,
+					"location39":chests[39].is_opened,
+					"location40":chests[40].is_opened,
+					"location41":chests[41].is_opened,
+					"location42":chests[42].is_opened,
+					"location43":chests[43].is_opened,
+					"location44":chests[44].is_opened,
+					"location45":chests[45].is_opened,
+					"location46":chests[46].is_opened,
+					"location47":chests[47].is_opened,
+					"location48":chests[48].is_opened,
+					"location49":chests[49].is_opened,
+					"location50":chests[50].is_opened,
+					"location51":chests[51].is_opened,
+					"location52":chests[52].is_opened,
+					"location53":chests[53].is_opened,
+					"location54":chests[54].is_opened,
+					"location55":chests[55].is_opened,
+					"location56":chests[56].is_opened,
+					"location57":chests[57].is_opened,
+					"location58":chests[58].is_opened,
+					"location59":chests[59].is_opened,
+					"location60":chests[60].is_opened,
+					"location61":chests[61].is_opened,
+					"location62":chests[62].is_opened,
+					"location63":chests[63].is_opened,
+					"location64":chests[64].is_opened,
+					"location65":chests[65].is_opened,
+					"location66":chests[66].is_opened,
+					"location67":chests[67].is_opened,
+					"location68":chests[68].is_opened,
+					"location69":chests[69].is_opened,
+					"location70":chests[70].is_opened,
+					"location71":chests[71].is_opened,
+					"location72":chests[72].is_opened,
+					"location73":chests[73].is_opened,
+					"location74":chests[74].is_opened,
+					"location75":chests[75].is_opened,
+					"location76":chests[76].is_opened,
+					"location77":chests[77].is_opened,
+					"location78":chests[78].is_opened,
+					"prize0":prizes[0],
+					"prize1":prizes[1],
+					"prize2":prizes[2],
+					"prize3":prizes[3],
+					"prize4":prizes[4],
+					"prize5":prizes[5],
+					"prize6":prizes[6],
+					"prize7":prizes[7],
+					"prize8":prizes[8],
+					"prize9":prizes[9],
+					"prize10":prizes[10],
+					"prize11":prizes[11],
+					"prize12":prizes[12],
+					"medallion0":medallions[0],
+					"medallion1":medallions[1],
+					"dungeon0":dungeons[0].is_beaten,
+					"dungeon1":dungeons[1].is_beaten,
+					"dungeon2":dungeons[2].is_beaten,
+					"dungeon3":dungeons[3].is_beaten,
+					"dungeon4":dungeons[4].is_beaten,
+					"dungeon5":dungeons[5].is_beaten,
+					"dungeon6":dungeons[6].is_beaten,
+					"dungeon7":dungeons[7].is_beaten,
+					"dungeon8":dungeons[8].is_beaten,
+					"dungeon9":dungeons[9].is_beaten,
+					"dungeon10":dungeons[10].is_beaten,
+					"dungeon11":dungeons[11].is_beaten,
+					"dungeon12":dungeons[12].is_beaten
+				}				
+				
+			} else {
+				megapack = {
+					"restreamingguid":restreamingguid,
+					"gametype":flags.gametype,
+					"entrancemode":flags.entrancemode,
+					"doorshuffle":flags.doorshuffle,
+					"overworldshuffle":flags.overworldshuffle,
+					"bossshuffle":flags.bossshuffle,
+					"enemyshuffle":flags.enemyshuffle,
+					"unknown":flags.unknown,
+					"glitches":flags.glitches,
+					"wildmaps":flags.wildmaps,
+					"wildcompasses":flags.wildcompasses,
+					"wildkeys":flags.wildkeys,
+					"wildbigkeys":flags.wildbigkeys,
+					"shopsanity":flags.shopsanity,
+					"ambrosia":flags.ambrosia,
+					"nonprogressivebows":flags.nonprogressivebows,
+					"activatedflute":flags.activatedflute,
+					"goals":flags.goals,
+					"opentower":flags.opentower,
+					"opentowercount":flags.opentowercount,
+					"ganonvuln":flags.ganonvuln,
+					"ganonvulncount":flags.ganonvulncount,
+					"swordmode":flags.swordmode,
+					"sprite":flags.sprite,
+					"tunic":items.tunic,
+					"sword":items.sword,
+					"shield":items.shield,
+					"moonpearl":items.moonpearl,
+					"bow":items.bow,
+					"boomerang":items.boomerang,
+					"hookshot":items.hookshot,
+					"mushroom":items.mushroom,
+					"powder":items.powder,
+					"firerod":items.firerod,
+					"icerod":items.icerod,
+					"bombos":items.bombos,
+					"ether":items.ether,
+					"quake":items.quake,
+					"lantern":items.lantern,
+					"hammer":items.hammer,
+					"shovel":items.shovel,
+					"net":items.net,
+					"book":items.book,
+					"bottle":items.bottle,
+					"somaria":items.somaria,
+					"byrna":items.byrna,
+					"cape":items.cape,
+					"mirror":items.mirror,
+					"boots":items.boots,
+					"glove":items.glove,
+					"flippers":items.flippers,
+					"flute":items.flute,
+					"agahnim":items.agahnim,
+					"agahnim2":items.agahnim2,
+					"bomb":items.bomb,
+					"magic":items.magic,
+					"bombfloor":items.bombfloor,
+					"boss0":items.boss0,
+					"boss1":items.boss1,
+					"boss2":items.boss2,
+					"boss3":items.boss3,
+					"boss4":items.boss4,
+					"boss5":items.boss5,
+					"boss6":items.boss6,
+					"boss7":items.boss7,
+					"boss8":items.boss8,
+					"boss9":items.boss9,
+					"chest0":items.chest0,
+					"chest1":items.chest1,
+					"chest2":items.chest2,
+					"chest3":items.chest3,
+					"chest4":items.chest4,
+					"chest5":items.chest5,
+					"chest6":items.chest6,
+					"chest7":items.chest7,
+					"chest8":items.chest8,
+					"chest9":items.chest9,
+					"chest10":items.chest10,
+					"chest11":items.chest11,
+					"chest12":items.chest12,
+					"maxchest0":items.maxchest0,
+					"maxchest1":items.maxchest1,
+					"maxchest2":items.maxchest2,
+					"maxchest3":items.maxchest3,
+					"maxchest4":items.maxchest4,
+					"maxchest5":items.maxchest5,
+					"maxchest6":items.maxchest6,
+					"maxchest7":items.maxchest7,
+					"maxchest8":items.maxchest8,
+					"maxchest9":items.maxchest9,
+					"maxchest10":items.maxchest10,
+					"maxchest11":items.maxchest11,
+					"maxchest12":items.maxchest12,
+					"chestknown0":items.chestknown0,
+					"chestknown1":items.chestknown1,
+					"chestknown2":items.chestknown2,
+					"chestknown3":items.chestknown3,
+					"chestknown4":items.chestknown4,
+					"chestknown5":items.chestknown5,
+					"chestknown6":items.chestknown6,
+					"chestknown7":items.chestknown7,
+					"chestknown8":items.chestknown8,
+					"chestknown9":items.chestknown9,
+					"chestknown10":items.chestknown10,
+					"chestknown11":items.chestknown11,
+					"chestknown12":items.chestknown12,
+					"bigkey0":items.bigkey0,
+					"bigkey1":items.bigkey1,
+					"bigkey2":items.bigkey2,
+					"bigkey3":items.bigkey3,
+					"bigkey4":items.bigkey4,
+					"bigkey5":items.bigkey5,
+					"bigkey6":items.bigkey6,
+					"bigkey7":items.bigkey7,
+					"bigkey8":items.bigkey8,
+					"bigkey9":items.bigkey9,
+					"bigkey10":items.bigkey10,
+					"bigkeyhalf0":items.bigkeyhalf0,
+					"bigkeyhalf1":items.bigkeyhalf1,
+					"smallkey0":items.smallkey0,
+					"smallkey1":items.smallkey1,
+					"smallkey2":items.smallkey2,
+					"smallkey3":items.smallkey3,
+					"smallkey4":items.smallkey4,
+					"smallkey5":items.smallkey5,
+					"smallkey6":items.smallkey6,
+					"smallkey7":items.smallkey7,
+					"smallkey8":items.smallkey8,
+					"smallkey9":items.smallkey9,
+					"smallkey10":items.smallkey10,
+					"smallkeyhalf0":items.smallkeyhalf0,
+					"smallkeyhalf1":items.smallkeyhalf1,
+					"location0":chests[0].is_opened,
+					"location1":chests[1].is_opened,
+					"location2":chests[2].is_opened,
+					"location3":chests[3].is_opened,
+					"location4":chests[4].is_opened,
+					"location5":chests[5].is_opened,
+					"location6":chests[6].is_opened,
+					"location7":chests[7].is_opened,
+					"location8":chests[8].is_opened,
+					"location9":chests[9].is_opened,
+					"location10":chests[10].is_opened,
+					"location11":chests[11].is_opened,
+					"location12":chests[12].is_opened,
+					"location13":chests[13].is_opened,
+					"location14":chests[14].is_opened,
+					"location15":chests[15].is_opened,
+					"location16":chests[16].is_opened,
+					"location17":chests[17].is_opened,
+					"location18":chests[18].is_opened,
+					"location19":chests[19].is_opened,
+					"location20":chests[20].is_opened,
+					"location21":chests[21].is_opened,
+					"location22":chests[22].is_opened,
+					"prize0":prizes[0],
+					"prize1":prizes[1],
+					"prize2":prizes[2],
+					"prize3":prizes[3],
+					"prize4":prizes[4],
+					"prize5":prizes[5],
+					"prize6":prizes[6],
+					"prize7":prizes[7],
+					"prize8":prizes[8],
+					"prize9":prizes[9],
+					"prize10":prizes[10],
+					"prize11":prizes[11],
+					"prize12":prizes[12],
+					"medallion0":medallions[0],
+					"medallion1":medallions[1],
+					"dungeon0":dungeons[0].is_beaten,
+					"dungeon1":dungeons[1].is_beaten,
+					"dungeon2":dungeons[2].is_beaten,
+					"dungeon3":dungeons[3].is_beaten,
+					"dungeon4":dungeons[4].is_beaten,
+					"dungeon5":dungeons[5].is_beaten,
+					"dungeon6":dungeons[6].is_beaten,
+					"dungeon7":dungeons[7].is_beaten,
+					"dungeon8":dungeons[8].is_beaten,
+					"dungeon9":dungeons[9].is_beaten,
+					"dungeon10":dungeons[10].is_beaten,
+					"dungeon11":dungeons[11].is_beaten,
+					"dungeon12":dungeons[12].is_beaten
+				}								
+				
 			}
+			
+			
+			
 			
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", "../api/v1/RestreamerAPI/PostItemObject?code=" + flags.restreamingcode, true);
@@ -759,62 +955,64 @@
 						chests[20].is_opened = megapack.location20;
 						chests[21].is_opened = megapack.location21;
 						chests[22].is_opened = megapack.location22;
-						chests[23].is_opened = megapack.location23;
-						chests[24].is_opened = megapack.location24;
-						chests[25].is_opened = megapack.location25;
-						chests[26].is_opened = megapack.location26;
-						chests[27].is_opened = megapack.location27;
-						chests[28].is_opened = megapack.location28;
-						chests[29].is_opened = megapack.location29;
-						chests[30].is_opened = megapack.location30;
-						chests[31].is_opened = megapack.location31;
-						chests[32].is_opened = megapack.location32;
-						chests[33].is_opened = megapack.location33;
-						chests[34].is_opened = megapack.location34;
-						chests[35].is_opened = megapack.location35;
-						chests[36].is_opened = megapack.location36;
-						chests[37].is_opened = megapack.location37;
-						chests[38].is_opened = megapack.location38;
-						chests[39].is_opened = megapack.location39;
-						chests[40].is_opened = megapack.location40;
-						chests[41].is_opened = megapack.location41;
-						chests[42].is_opened = megapack.location42;
-						chests[43].is_opened = megapack.location43;
-						chests[44].is_opened = megapack.location44;
-						chests[45].is_opened = megapack.location45;
-						chests[46].is_opened = megapack.location46;
-						chests[47].is_opened = megapack.location47;
-						chests[48].is_opened = megapack.location48;
-						chests[49].is_opened = megapack.location49;
-						chests[50].is_opened = megapack.location50;
-						chests[51].is_opened = megapack.location51;
-						chests[52].is_opened = megapack.location52;
-						chests[53].is_opened = megapack.location53;
-						chests[54].is_opened = megapack.location54;
-						chests[55].is_opened = megapack.location55;
-						chests[56].is_opened = megapack.location56;
-						chests[57].is_opened = megapack.location57;
-						chests[58].is_opened = megapack.location58;
-						chests[59].is_opened = megapack.location59;
-						chests[60].is_opened = megapack.location60;
-						chests[61].is_opened = megapack.location61;
-						chests[62].is_opened = megapack.location62;
-						chests[63].is_opened = megapack.location63;
-						chests[64].is_opened = megapack.location64;
-						chests[65].is_opened = megapack.location65;
-						chests[66].is_opened = megapack.location66;
-						chests[67].is_opened = megapack.location67;
-						chests[68].is_opened = megapack.location68;
-						chests[69].is_opened = megapack.location69;
-						chests[70].is_opened = megapack.location70;
-						chests[71].is_opened = megapack.location71;
-						chests[72].is_opened = megapack.location72;
-						chests[73].is_opened = megapack.location73;
-						chests[74].is_opened = megapack.location74;
-						chests[75].is_opened = megapack.location75;
-						chests[76].is_opened = megapack.location76;
-						chests[77].is_opened = megapack.location77;
-						chests[78].is_opened = megapack.location78;
+						if (flags.entrancemode === "N") {
+							chests[23].is_opened = megapack.location23;
+							chests[24].is_opened = megapack.location24;
+							chests[25].is_opened = megapack.location25;
+							chests[26].is_opened = megapack.location26;
+							chests[27].is_opened = megapack.location27;
+							chests[28].is_opened = megapack.location28;
+							chests[29].is_opened = megapack.location29;
+							chests[30].is_opened = megapack.location30;
+							chests[31].is_opened = megapack.location31;
+							chests[32].is_opened = megapack.location32;
+							chests[33].is_opened = megapack.location33;
+							chests[34].is_opened = megapack.location34;
+							chests[35].is_opened = megapack.location35;
+							chests[36].is_opened = megapack.location36;
+							chests[37].is_opened = megapack.location37;
+							chests[38].is_opened = megapack.location38;
+							chests[39].is_opened = megapack.location39;
+							chests[40].is_opened = megapack.location40;
+							chests[41].is_opened = megapack.location41;
+							chests[42].is_opened = megapack.location42;
+							chests[43].is_opened = megapack.location43;
+							chests[44].is_opened = megapack.location44;
+							chests[45].is_opened = megapack.location45;
+							chests[46].is_opened = megapack.location46;
+							chests[47].is_opened = megapack.location47;
+							chests[48].is_opened = megapack.location48;
+							chests[49].is_opened = megapack.location49;
+							chests[50].is_opened = megapack.location50;
+							chests[51].is_opened = megapack.location51;
+							chests[52].is_opened = megapack.location52;
+							chests[53].is_opened = megapack.location53;
+							chests[54].is_opened = megapack.location54;
+							chests[55].is_opened = megapack.location55;
+							chests[56].is_opened = megapack.location56;
+							chests[57].is_opened = megapack.location57;
+							chests[58].is_opened = megapack.location58;
+							chests[59].is_opened = megapack.location59;
+							chests[60].is_opened = megapack.location60;
+							chests[61].is_opened = megapack.location61;
+							chests[62].is_opened = megapack.location62;
+							chests[63].is_opened = megapack.location63;
+							chests[64].is_opened = megapack.location64;
+							chests[65].is_opened = megapack.location65;
+							chests[66].is_opened = megapack.location66;
+							chests[67].is_opened = megapack.location67;
+							chests[68].is_opened = megapack.location68;
+							chests[69].is_opened = megapack.location69;
+							chests[70].is_opened = megapack.location70;
+							chests[71].is_opened = megapack.location71;
+							chests[72].is_opened = megapack.location72;
+							chests[73].is_opened = megapack.location73;
+							chests[74].is_opened = megapack.location74;
+							chests[75].is_opened = megapack.location75;
+							chests[76].is_opened = megapack.location76;
+							chests[77].is_opened = megapack.location77;
+							chests[78].is_opened = megapack.location78;
+						}
 						prizes[0] = megapack.prize0;
 						prizes[1] = megapack.prize1;
 						prizes[2] = megapack.prize2;
@@ -870,7 +1068,7 @@
 	window.resetClasses = function(label, value) {
 		var nodes = Array.from(document.getElementsByClassName(label));
 		var isboss = label.startsWith('boss');
-		
+
 		for (var i = 0; i < 10; i++) {
 			document.getElementById('dungeonPrize'+i).className = 'prize-' + prizes[i];
 		}
@@ -897,7 +1095,20 @@
 				
 				document.getElementById(label).innerHTML = flags.doorshuffle === 'C' && !items['chestknown'+label.substring(5)] ? (value - 1) + '+' : value;
 			}
-		}		
+		}	
+
+		if (label.substring(0,6) === 'bigkey') {
+			if (items[label]) {
+				document.getElementById(label).className = label.substring(0,10) == 'bigkeyhalf' ? 'bigkeyhalf collected' : 'bigkey collected';
+			} else {
+				document.getElementById(label).className = label.substring(0,10) == 'bigkeyhalf' ? 'bigkeyhalf' : 'bigkey';
+			}
+		}
+		
+		if (label.substring(0,8) === 'smallkey') {
+			document.getElementById(label).innerHTML = items[label];
+        }
+		
 		
 		if ((typeof value) === 'boolean') {
 			nodes.forEach(node=>node.classList[items[label] ? 'add' : 'remove'](isboss ? 'defeated' : 'active'));
@@ -3324,6 +3535,17 @@
 			document.getElementById('dungeonEnemy7').style.visibility = 'hidden';
 			document.getElementById('dungeonEnemy8').style.visibility = 'hidden';
 			document.getElementById('dungeonEnemy9').style.visibility = 'hidden';
+		} else {
+			document.getElementById('dungeonEnemy0').style.visibility = '';
+			document.getElementById('dungeonEnemy1').style.visibility = '';
+			document.getElementById('dungeonEnemy2').style.visibility = '';
+			document.getElementById('dungeonEnemy3').style.visibility = '';
+			document.getElementById('dungeonEnemy4').style.visibility = '';
+			document.getElementById('dungeonEnemy5').style.visibility = '';
+			document.getElementById('dungeonEnemy6').style.visibility = '';
+			document.getElementById('dungeonEnemy7').style.visibility = '';
+			document.getElementById('dungeonEnemy8').style.visibility = '';
+			document.getElementById('dungeonEnemy9').style.visibility = '';
 		}
 
 		//Hide map if not using
@@ -3359,6 +3581,18 @@
 			document.getElementById('bigkey8').style.visibility = 'hidden';
 			document.getElementById('bigkey9').style.visibility = 'hidden';
 			document.getElementById('bigkey10').style.visibility = 'hidden';
+		} else {
+			document.getElementById('bigkey0').style.visibility = '';
+			document.getElementById('bigkey1').style.visibility = '';
+			document.getElementById('bigkey2').style.visibility = '';
+			document.getElementById('bigkey3').style.visibility = '';
+			document.getElementById('bigkey4').style.visibility = '';
+			document.getElementById('bigkey5').style.visibility = '';
+			document.getElementById('bigkey6').style.visibility = '';
+			document.getElementById('bigkey7').style.visibility = '';
+			document.getElementById('bigkey8').style.visibility = '';
+			document.getElementById('bigkey9').style.visibility = '';
+			document.getElementById('bigkey10').style.visibility = '';
 		}
 		
 		//If small keys are not shuffled, hide the icons
@@ -3378,6 +3612,22 @@
 			document.getElementById('smallkeyhalf0').style.visibility = 'hidden';
 			document.getElementById('smallhalfheader1').style.visibility = 'hidden';
 			document.getElementById('smallkeyhalf1').style.visibility = 'hidden';
+		} else {
+			document.getElementById('smallkey0').style.visibility = '';
+			document.getElementById('smallkey1').style.visibility = '';
+			document.getElementById('smallkey2').style.visibility = '';
+			document.getElementById('smallkey3').style.visibility = '';
+			document.getElementById('smallkey4').style.visibility = '';
+			document.getElementById('smallkey5').style.visibility = '';
+			document.getElementById('smallkey6').style.visibility = '';
+			document.getElementById('smallkey7').style.visibility = '';
+			document.getElementById('smallkey8').style.visibility = '';
+			document.getElementById('smallkey9').style.visibility = '';
+			document.getElementById('smallkey10').style.visibility = '';
+			document.getElementById('smallhalfheader0').style.visibility = '';
+			document.getElementById('smallkeyhalf0').style.visibility = '';
+			document.getElementById('smallhalfheader1').style.visibility = '';
+			document.getElementById('smallkeyhalf1').style.visibility = '';
 		}
 		
 		//If all keys are not shuffled, change the chest styles
@@ -3412,7 +3662,38 @@
 			document.getElementById('chest9').classList.add('large');
 			document.getElementById("c9bkdiv").classList.add('hidden');
 			document.getElementById("c9skdiv").classList.add('hidden');			
-		}		
+		} else {
+			document.getElementById('chest0').classList.remove('large');
+			document.getElementById("c0bkdiv").classList.remove('hidden');
+			document.getElementById("c0skdiv").classList.remove('hidden');
+			document.getElementById('chest1').classList.remove('large');
+			document.getElementById("c1bkdiv").classList.remove('hidden');
+			document.getElementById("c1skdiv").classList.remove('hidden');
+			document.getElementById('chest2').classList.remove('large');
+			document.getElementById("c2bkdiv").classList.remove('hidden');
+			document.getElementById("c2skdiv").classList.remove('hidden');
+			document.getElementById('chest3').classList.remove('large');
+			document.getElementById("c3bkdiv").classList.remove('hidden');
+			document.getElementById("c3skdiv").classList.remove('hidden');
+			document.getElementById('chest4').classList.remove('large');
+			document.getElementById("c4bkdiv").classList.remove('hidden');
+			document.getElementById("c4skdiv").classList.remove('hidden');
+			document.getElementById('chest5').classList.remove('large');
+			document.getElementById("c5bkdiv").classList.remove('hidden');
+			document.getElementById("c5skdiv").classList.remove('hidden');
+			document.getElementById('chest6').classList.remove('large');
+			document.getElementById("c6bkdiv").classList.remove('hidden');
+			document.getElementById("c6skdiv").classList.remove('hidden');
+			document.getElementById('chest7').classList.remove('large');
+			document.getElementById("c7bkdiv").classList.remove('hidden');
+			document.getElementById("c7skdiv").classList.remove('hidden');
+			document.getElementById('chest8').classList.remove('large');
+			document.getElementById("c8bkdiv").classList.remove('hidden');
+			document.getElementById("c8skdiv").classList.remove('hidden');
+			document.getElementById('chest9').classList.remove('large');
+			document.getElementById("c9bkdiv").classList.remove('hidden');
+			document.getElementById("c9skdiv").classList.remove('hidden');		
+		}
 		
 		//If game type is Retro, default the keys to max and decrement
 		if (flags.gametype === 'R') {

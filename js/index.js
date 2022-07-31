@@ -118,7 +118,7 @@ function launch_tracker() {
 	var trackingport = document.getElementById('autotrackingport').value;
 	var restreamingcode = document.getElementById('restreamingcode').value;
 	var restreamer = document.querySelector('input[name="restreamgroup"]:checked').value;
-	var restreamdelay = (document.getElementById("restreamingdelay").checked === true ? "1" : "0");
+	var restreamdelay = document.getElementById('restreamingdelay').value;
 	var spritesel = document.getElementById("spriteselect");
 	var sprite = spritesel.options[spritesel.selectedIndex].value;
 	
