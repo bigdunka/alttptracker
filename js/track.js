@@ -6,6 +6,7 @@
 	var connectFinish = false;
 	var connectorid = 0;
 	var swapTowers = false;
+	var swapGanon = false;
 	var loadPrimer = false;
 	var trackingTimer = null;
 	var restreamingguid = "0";
@@ -1335,7 +1336,8 @@
 								entrancetype = 'connector';
 							}
 						}
-						document.getElementById('entranceMap'+k).className = 'entrance ' + entrances[k].is_available() + entrancetype;
+						var ent = document.getElementById('entranceMap'+k);
+						ent.className = 'entrance ' + entrances[k].is_available() + entrancetype + (ent.classList.contains('highlight') ? ' highlight' : '');
 					}
 				}
 				for (var k = 0; k < dungeonChecks.length; k++) {
@@ -1360,10 +1362,16 @@
 			if(event.data.logic && flags.overworldshuffle != 'N')
 			{
 				var newSwapTowers = event.data.towerSwap === true;
+				var newSwapGanon = event.data.ganonSwap === true;
 				if(swapTowers !== newSwapTowers)
 				{
 					swapTowers = newSwapTowers;
 					updateLayoutTowers();
+				}
+				if(swapGanon !== newSwapGanon)
+				{
+					swapGanon = newSwapGanon;
+					updateLayoutGanon();
 				}
 				if(event.data.helpDesert && doorCheck(1,false,false,false,[(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'boots' : '','firesource','killbomb'],'connector') === "available")
 					event.data.items[48] = event.data.items[48] === "darkpossible" ?"darkavailable" :"available";
@@ -1413,7 +1421,7 @@
 						else
 							if(event.data == "RESETLOGIC" && flags.overworldshuffle != 'N' && doorWindow && !doorWindow.closed)
 							{
-								swapTowers = false;
+								swapTowers = swapGanon = false;
 								resetChestsKeepTrackedData();
 								updateLayout();
 								updateMapTracker();
@@ -3218,7 +3226,7 @@
 		}
 
 		if (resetLogic) {
-			swapTowers = false;
+			swapTowers = swapGanon = false;
 			resetChestsKeepTrackedData();
 		}
 
@@ -3307,21 +3315,7 @@
 		else
 		{
 			document.getElementById('locationMap2').style.left = "5%";
-			if (flags.gametype === 'I') {
-				window.document.getElementById('locationMap1').style.visibility = 'hidden';
-				window.document.getElementById('entranceMap10').style.top = "40.0%";
-				window.document.getElementById('entranceMap93').style.left = "25.7%";
-				window.document.getElementById('entranceMap93').style.top = "43.0%";
-				window.document.getElementById('entranceMap95').style.left = "23.2%";
-				window.document.getElementById('entranceMap95').style.top = "44.0%";
-			} else {
-				window.document.getElementById('locationMap1').style.visibility = 'inherit';
-				window.document.getElementById('entranceMap10').style.top = "42%";
-				window.document.getElementById('entranceMap93').style.left = "75.7%";
-				window.document.getElementById('entranceMap93').style.top = "42%";
-				window.document.getElementById('entranceMap95').style.left = "72.4%";
-				window.document.getElementById('entranceMap95').style.top = "50%";
-			}
+			updateLayoutGanon();
 		}
 		
 		//Replace HC and CT overworld locations by dungeons if Door Shuffle is on
@@ -3354,7 +3348,7 @@
     window.updateLayoutTowers = function() {
 		//Moved locations in Inverted and Overworld Shuffle
 		if (flags.entrancemode === 'N') {
-			if (flags.overworldshuffle === 'N' ? (flags.gametype === 'I') : swapTowers) {
+			if (flags.overworldshuffle === 'N' ? flags.gametype === 'I' : swapTowers) {
 				document.getElementById('locationMap65').style.left = "74.5%";
 				document.getElementById('locationMap65').style.top = "5%";
 				
@@ -3396,6 +3390,27 @@
 				document.getElementById('bossMap12').style.top = "52.5%";
 				document.getElementById('dungeon12').style.left = "25%";
 				document.getElementById('dungeon12').style.top = "52.5%";
+			}
+		}
+	};
+
+    window.updateLayoutGanon = function() {
+		//Moved locations in Inverted and Overworld Shuffle
+		if (flags.entrancemode != 'N') {
+			if (flags.overworldshuffle === 'N' ? flags.gametype === 'I' : swapGanon) {
+				window.document.getElementById('locationMap1').style.visibility = 'hidden';
+				window.document.getElementById('entranceMap10').style.top = "40.0%";
+				window.document.getElementById('entranceMap93').style.left = "25.7%";
+				window.document.getElementById('entranceMap93').style.top = "43.0%";
+				window.document.getElementById('entranceMap95').style.left = "23.2%";
+				window.document.getElementById('entranceMap95').style.top = "44.0%";
+			} else {
+				window.document.getElementById('locationMap1').style.visibility = 'inherit';
+				window.document.getElementById('entranceMap10').style.top = "42%";
+				window.document.getElementById('entranceMap93').style.left = "75.7%";
+				window.document.getElementById('entranceMap93').style.top = "42%";
+				window.document.getElementById('entranceMap95').style.left = "72.4%";
+				window.document.getElementById('entranceMap95').style.top = "50%";
 			}
 		}
 	};

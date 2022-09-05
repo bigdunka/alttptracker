@@ -62,8 +62,9 @@
 		screenLinksLayout.push([0x00,0x2D,0x80,0x82]);
 		screenLinksEntrance.push([0x03,0x0A]);
 		screenLinksEntrance.push([0x05,0x07]);
-		screenLinksLayout.push([0x0F,0x35,0x81]);
-		screenLinksLayout.push([0x12,0x15,0x33,0x3F]);
+		screenLinksWhirlpool.push([0x0F,0x35]);
+		screenLinksLayout.push([0x0F,0x81]);
+		screenLinksWhirlpool.push([0x12,0x15,0x33,0x3F]);
 		screenLinksEntrance.push([0x13,0x14,0x1B]);
 		screenLinksLayout.push([0x1A,0x1B]);
 		screenLinksLayout.push([0x28,0x29]);
@@ -496,6 +497,7 @@
 		createDefaultConnector(0x45,"Bottom Main",0x45,"Top Main",null,false);
 		createDefaultConnector(0x45,"Top Main",0x45,"Island","glovesandbomb",true);
 		createDefaultConnector(0x47,"Portal",0x45,"Spiral","connectortr",false);
+		createDefaultConnector(0x45,"Spiral",0x47,"Main","connectortrback",false);
 		createDefaultConnector(0x1B,"Main",0x1B,"Passage Exit","bushes",false);
 		createDefaultConnector(0x1B,"Courtyard",0x13,"Main","connectorhccsanc",false);
 		createDefaultConnector(0x1B,"Courtyard",0x1B,"Balcony","connectorhcchcb",false);
@@ -891,13 +893,13 @@
 
 	window.vanillaTransitionsMode = function(button)
 	{
-		if(owshuffle !== 'N' || crossedow === 'C')
+		if(layoutshuffle !== 'N' || whirlpoolshuffle || crossedow === 'C')
 		{
 			for(let screen of overworldScreens.values())
 				for(let edge of screen.edges.values())
 					if(edge.out && !edgesCompatible(edge,edge.out))
 						deleteSimilarParallel(edge);
-			if(owshuffle === 'N')
+			if(layoutshuffle === 'N')
 			{
 				connectEdgesByKeys(0x1A,"E1",0x1B,"W1",true);
 				connectEdgesByKeys(0x68,"E0",0x69,"W0",true);
@@ -906,17 +908,20 @@
 				connectEdgesByKeys(0x00,"N1",0x80,"S1",true);
 				connectEdgesByKeys(0x0F,"N1",0x81,"S1",true);
 				connectEdgesByKeys(0x2D,"W0",0x82,"E1",true);
-				connectEdgesByKeys(0x0F,"ZW",0x35,"ZW",true);
-				connectEdgesByKeys(0x12,"ZW",0x3F,"ZW",true);
-				connectEdgesByKeys(0x15,"ZW",0x33,"ZW",true);
-				connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true);
 				if(similarow)
 				{
 					connectEdgesByKeys(0x28,"E1",0x29,"W1",true);
 					connectEdgesByKeys(0x68,"E2",0x69,"W2",true);
 				}
 			}
-			if(owshuffle === 'P')
+			if(!whirlpoolshuffle)
+			{
+				connectEdgesByKeys(0x0F,"ZW",0x35,"ZW",true);
+				connectEdgesByKeys(0x12,"ZW",0x3F,"ZW",true);
+				connectEdgesByKeys(0x15,"ZW",0x33,"ZW",true);
+				connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true);
+			}
+			if(layoutshuffle === 'P')
 			{
 				connectEdgesByKeys(0x2D,"W0",0x82,"E1",true);
 				if(similarow)
@@ -945,7 +950,7 @@
 			}
 			for(let screen of overworldScreens.values())
 				for(let edge of screen.edges.values())
-					if(edge.out && ((owshuffle !== 'F' && edge.parallel) || (similarow && edge.similarGroup !== 1)))
+					if(edge.out && ((layoutshuffle !== 'F' && edge.parallel) || (similarow && edge.similarGroup !== 1)))
 						connectSimilarParallel(edge,edge.out);
 		}
 		if(mixedow)
@@ -1003,7 +1008,7 @@
 
 	window.getConnectedEdge = function(edge,source)
 	{
-		if(owshuffle === 'N' && crossedow !== 'C')
+		if((edge.string === "ZW" ?!whirlpoolshuffle :layoutshuffle === 'N') && (crossedow !== 'C' || !edge.parallel))
 		{
 			if(mixedow && edge.parallel)
 			{
@@ -1036,7 +1041,7 @@
 
 	window.getAssumedConnectedEdge = function(edge,source,assumptions)
 	{
-		if(owshuffle === 'N' && crossedow !== 'C')
+		if((edge.string === "ZW" ?!whirlpoolshuffle :layoutshuffle === 'N') && (crossedow !== 'C' || !edge.parallel))
 		{
 			if(mixedow && edge.parallel)
 			{
@@ -1095,7 +1100,7 @@
 			if(!edge.water || checkRule("flippers",items,darkWorld))
 			{
 				visitedScreenEdges.add(edge);
-				if(mixedow && owshuffle === 'N' && crossedow !== 'C' && (edge.parallel || crossedow === 'P') && getAssumedMixedState(edge.vanilla.screen,assumptions) === "unknown")
+				if(mixedow && (edge.string === "ZW" ?!whirlpoolshuffle :layoutshuffle === 'N') && (!edge.parallel || crossedow !== 'C') && (edge.parallel || crossedow === 'P') && getAssumedMixedState(edge.vanilla.screen,assumptions) === "unknown")
 				{
 					addContinueRegion(edge.vanilla.screen.id,getAssumedMixedState(current.screen,assumptions),edge.vanilla.region,crossedow === 'P' ?edge.vanilla.region :edge.parallel.vanilla.region,checkableScreens,continueRegions);
 				}
@@ -1548,6 +1553,7 @@
 			}
 		//Special rules for certain locations
 		let towerSwap = "unknown";
+		let ganonSwap = "unknown";
 		if(mixedow)
 		{
 			if((overworldScreens.get(0x1B).mixedState !== "unknown" && (overworldScreens.get(0x1B).mixedState === "swapped") === (worldState === 'I')) || (overworldScreens.get(0x03).mixedState !== "unknown" && (overworldScreens.get(0x03).mixedState === "swapped") === (worldState === 'I')))
@@ -1555,9 +1561,11 @@
 			else
 				if(overworldScreens.get(0x1B).mixedState !== "unknown" && (overworldScreens.get(0x1B).mixedState === "swapped") !== (worldState === 'I') && overworldScreens.get(0x03).mixedState !== "unknown" && (overworldScreens.get(0x03).mixedState === "swapped") !== (worldState === 'I'))
 					towerSwap = true;
+			if(overworldScreens.get(0x1B).mixedState !== "unknown")
+				ganonSwap = (overworldScreens.get(0x1B).mixedState === "swapped") !== (worldState === 'I');
 		}
 		else
-			towerSwap = worldState === 'I';
+			towerSwap = ganonSwap = worldState === 'I';
 		if(towerSwap === true)
 		{
 			data.items[65] = data.items[66] = data.special["Inverted Castle Tower Access"] || "unavailable";
@@ -1587,7 +1595,17 @@
 			if(data.dungeonsBunny[80] !== data.dungeonsBunny[96])
 				data.dungeonsBunny[80] = data.dungeonsBunny[96] = false;
 		}
-		if((mixedow && overworldScreens.get(0x03).mixedState === "swapped") !== (worldState === 'I'))
+		if(ganonSwap === true)
+		{
+			data.entrances[93] = data.special["Inverted Ganon"] || "unavailable";
+			data.entrances[95] = data.special["Inverted Ganon Exit"] || "unavailable";
+		}
+		if(ganonSwap === "unknown")
+		{
+			data.entrances[93] = "unavailable";
+			data.entrances[95] = "unavailable";
+		}
+		if((mixedow && overworldScreens.get(0x03).mixedState === "unknown") || (mixedow && overworldScreens.get(0x03).mixedState === "swapped") !== (worldState === 'I'))
 		{
 			if(entranceEnabled)
 			{
@@ -1607,11 +1625,6 @@
 				if(data.items[34] === "unavailable")
 					data.items[34] = "possible";
 			}
-		if((mixedow && overworldScreens.get(0x1B).mixedState === "swapped") !== (worldState === 'I'))
-		{
-			data.entrances[93] = data.special["Inverted Ganon"] || "unavailable";
-			data.entrances[95] = data.special["Inverted Ganon Exit"] || "unavailable";
-		}
 		orSpecial(data.items,21,data.special["HSC Bottom Back"],"available");
 		orSpecial(data.items,22,data.special["HSC Top Back"],"available");
 		orSpecial(data.items,56,data.special["Uncle Drop"],"available");
@@ -1715,7 +1728,7 @@
 					if(items.book)
 					{
 						data.items[48] = "possible";
-						if(data.special["Desert Access"] && (mixedow && overworldScreens.get(0x30).mixedState === "swapped") !== (worldState === 'I'))
+						if(data.special["Desert Access"] && (!mixedow || overworldScreens.get(0x30).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x30).mixedState === "swapped") !== (worldState === 'I'))
 							data.helpDesert = true;
 					}
 				}
@@ -1723,7 +1736,7 @@
 					if(data.special["Desert Access"])
 						data.items[48] = data.special["Desert Access"];
 			//Mimic Cave
-			if(items.mirror && items.hammer && items.moonpearl && data.items[4] === "unavailable" && data.entrances[136] !== "unavailable" && (mixedow && overworldScreens.get(0x05).mixedState === "swapped") === (worldState === 'I'))
+			if(items.mirror && items.hammer && items.moonpearl && data.items[4] === "unavailable" && data.entrances[136] !== "unavailable" && (!mixedow || overworldScreens.get(0x1B).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x05).mixedState === "swapped") === (worldState === 'I'))
 				if(door)
 				{
 					data.items[4] = "possible";
@@ -1740,7 +1753,7 @@
 			if(door)
 			{
 				//Desert Palace
-				if((mixedow && overworldScreens.get(0x30).mixedState === "swapped") !== (worldState === 'I'))
+				if((!mixedow || overworldScreens.get(0x30).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x30).mixedState === "swapped") !== (worldState === 'I'))
 				{
 					if(data.dungeons[8] !== "unavailable")
 					{
@@ -1752,7 +1765,7 @@
 				if(data.dungeons[8] !== "unavailable" && data.dungeons[9] !== "unavailable" && data.dungeons[11] !== "unavailable")
 					data.dungeons[10] = data.dungeons[8] === "available" && data.dungeons[9] === "available" && data.dungeons[11] === "available" ?"available" :"possible";
 				//Skull Woods
-				if((mixedow && overworldScreens.get(0x00).mixedState === "swapped") === (worldState === 'I'))
+				if((!mixedow || overworldScreens.get(0x00).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x00).mixedState === "swapped") === (worldState === 'I'))
 				{
 					if(data.dungeons[40] !== "unavailable" && data.dungeons[41] !== "unavailable" && data.dungeons[44] !== "unavailable" && data.dungeons[45] !== "unavailable" && data.dungeons[46] !== "unavailable")
 					{
@@ -1762,7 +1775,7 @@
 					}
 				}
 				//Turtle Rock
-				if((mixedow && overworldScreens.get(0x05).mixedState === "swapped") === (worldState === 'I'))
+				if((!mixedow || overworldScreens.get(0x05).mixedState !== "unknown") && (mixedow && overworldScreens.get(0x05).mixedState === "swapped") === (worldState === 'I'))
 				{
 					if(data.dungeons[72] !== "unavailable" && items.bomb)
 						data.dungeons[73] = data.dungeons[74] = data.dungeons[72];
@@ -1809,6 +1822,7 @@
 		}
 		data.special = null;
 		data.towerSwap = towerSwap;
+		data.ganonSwap = ganonSwap;
 		return data;
 	};
 
@@ -2229,7 +2243,7 @@
 
 	window.compatibleParallel = function(edge1,edge2)
 	{
-		return (owshuffle === 'F' || !edge1.parallel === !edge2.parallel) && (owshuffle !== 'N' || edge1 === edge2.vanilla || edge1.parallel === edge2.vanilla);
+		return (layoutshuffle === 'F' || !edge1.parallel === !edge2.parallel) && ((edge1.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N') || edge1 === edge2.vanilla || edge1.parallel === edge2.vanilla);
 	};
 
 	window.compatibleSimilar = function(edge1,edge2)
@@ -2288,7 +2302,7 @@
 	window.connectParallel = function(edge1,edge2)
 	{
 		connectEdges(edge1,edge2,true);
-		if(owshuffle !== 'F' && edge1.parallel && edge2.parallel)
+		if(layoutshuffle !== 'F' && edge1.parallel && edge2.parallel)
 			connectEdges(edge1.parallel,edge2.parallel,true);
 	};
 
@@ -2326,7 +2340,7 @@
 	window.deleteParallel = function(edge)
 	{
 		deleteConnections(edge);
-		if(owshuffle !== 'F' && edge.parallel)
+		if(layoutshuffle !== 'F' && edge.parallel)
 			deleteConnections(edge.parallel);
 	};
 
@@ -2348,20 +2362,29 @@
 		return screen.darkWorld;
 	};
 
+	window.getScreenLinks = function()
+	{
+		let screenLinks = screenLinksGlobal;
+		if(layoutshuffle === 'N' && crossedow === 'N')
+			screenLinks = screenLinks.concat(screenLinksLayout);
+		if(!whirlpoolshuffle && crossedow === 'N')
+			screenLinks = screenLinks.concat(screenLinksWhirlpool);
+		if(!entranceEnabled)
+			screenLinks = screenLinks.concat(screenLinksEntrance);
+		return screenLinks;
+	};
+
 	window.setMixedScreen = function(screen,state)
 	{
 		screen.mixedState = state;
 		if(screen.parallel)
 			screen.parallel.mixedState = state;
-		let screenLinks = screenLinksGlobal;
-		if(owshuffle === 'N' && crossedow === 'N')
-			screenLinks = screenLinks.concat(screenLinksLayout);
-		if(!entranceEnabled)
-			screenLinks = screenLinks.concat(screenLinksEntrance);
 		let id = screen.id&0xBF;
-		if(owshuffle === 'N' && crossedow === 'N' && !entranceEnabled && [0x13,0x14,0x1A].includes(id))
+		if(layoutshuffle === 'N' && crossedow === 'N' && !whirlpoolshuffle && [0x35,0x81].includes(id))
+			id = 0x0F;
+		if(layoutshuffle === 'N' && crossedow === 'N' && !entranceEnabled && [0x13,0x14,0x1A].includes(id))
 			id = 0x1B;
-		for(let group of screenLinks)
+		for(let group of getScreenLinks())
 			if(group.includes(id))
 			{
 				for(let n of group)
@@ -2379,16 +2402,13 @@
 
 	window.getScreenLinkGroup = function(id)
 	{
-		let screenLinks = screenLinksGlobal;
-		if(owshuffle === 'N' && crossedow === 'N')
-			screenLinks = screenLinks.concat(screenLinksLayout);
-		if(!entranceEnabled)
-			screenLinks = screenLinks.concat(screenLinksEntrance);
 		id &= 0xBF;
-		if(owshuffle === 'N' && crossedow === 'N' && !entranceEnabled && [0x13,0x14,0x1A].includes(id))
+		if(layoutshuffle === 'N' && crossedow === 'N' && !whirlpoolshuffle && [0x35,0x81].includes(id))
+			id = 0x0F;
+		if(layoutshuffle === 'N' && crossedow === 'N' && !entranceEnabled && [0x13,0x14,0x1A].includes(id))
 			id = 0x1B;
 		let linkGroup = [id];
-		for(let group of screenLinks)
+		for(let group of getScreenLinks())
 			if(group.includes(id))
 				for(let n of group)
 					if(!linkGroup.includes(n))
@@ -2506,6 +2526,7 @@
 		dungeonImportant.push({"dungeon":1,"name":"East Lobby","supertile":0x85,"part":"full","priority":1});
 		dungeonImportant.push({"dungeon":1,"name":"North Hall","supertile":0x74,"part":"full","priority":1});
 		dungeonEntrances.push({"dungeon":2,"name":"Entrance","supertile":0x77,"part":"full"});
+		dungeonEntrances.push({"dungeon":2,"name":"Boss Room","supertile":0x07,"part":"full"});
 		dungeonImportant.push({"dungeon":2,"name":"Lobby","supertile":0x77,"part":"full","priority":3});
 		dungeonImportant.push({"dungeon":2,"name":"Big Key Door","supertile":0x31,"part":"full","priority":2});
 		dungeonImportant.push({"dungeon":2,"name":"Big Chest Room","supertile":0x27,"part":"full","priority":2});
@@ -2571,13 +2592,15 @@
 		dungeonEntrances.push({"dungeon":11,"name":"East","supertile":0x62,"part":"full"});
 		dungeonEntrances.push({"dungeon":11,"name":"Back","supertile":0x11,"part":"full"});
 		dungeonEntrances.push({"dungeon":11,"name":"Sanctuary","supertile":0x12,"part":"full"});
-		dungeonEntrances.push({"dungeon":11,"name":"Zelda's Cell","supertile":0x80,"part":"topright"});
 		dungeonEntrances.push({"dungeon":12,"name":"Entrance","supertile":0x30,"part":"bottomleft"});
+		dungeonStandard.push({"dungeon":11,"name":"Zelda's Cell","supertile":0x80,"part":"topright"});
+		dungeonStandard.push({"dungeon":11,"name":"Throne Room","supertile":0x51,"part":"topmiddle"});
 		lobbyEntrances.push({"name":"Entr- ance",file:"dungeonentrance0"});
 		lobbyEntrances.push({"name":"Entr- ance 1",file:"dungeonentrance1"});
 		lobbyEntrances.push({"name":"Entr- ance 2",file:"dungeonentrance2"});
 		lobbyEntrances.push({"name":"Entr- ance 3",file:"dungeonentrance3"});
 		lobbyEntrances.push({"name":"Entr- ance 4",file:"dungeonentrance4"});
+		lobbyHera = {"dungeon":2,"name":"Boss Room","supertile":0x07,"part":"full"};
 		lobbySanctuary = {"dungeon":11,"name":"Sanctuary","supertile":0x12,"part":"full"};
 		lobbySW.push({"dungeon":5,"name":"Front West Drop","supertile":0x67,"part":"topleft"});
 		lobbySW.push({"dungeon":5,"name":"Front Pinball Drop","supertile":0x68,"part":"full"});
@@ -2586,7 +2609,6 @@
 		lobbyTT.push({"dungeon":6,"name":"Blind's Cell","supertile":0x45,"part":"topright"});
 		lobbyTT.push({"dungeon":6,"name":"Boss Room","supertile":0xAC,"part":"bottomright"});
 		lobbyHC.push({"dungeon":11,"name":"Back of Escape Drop","supertile":0x11,"part":"full"});
-		lobbyHC.push({"dungeon":11,"name":"Zelda's Cell","supertile":0x80,"part":"topright"});
 		for(let k = 0; k < dungeonEntrances.length; k++)
 		{
 			let id = "0"+toBase62(k);
@@ -2599,7 +2621,7 @@
 			dungeonImportant[k].id = id;
 			roomMap[id] = dungeonImportant[k];
 		}
-		let lobbyAll = lobbyEntrances.concat(lobbySanctuary,lobbySW,lobbyTT,lobbyHC)
+		let lobbyAll = lobbyEntrances.concat(lobbyHera,lobbySanctuary,lobbySW,lobbyTT,lobbyHC,dungeonStandard)
 		for(let k = 0; k < lobbyAll.length; k++)
 		{
 			let id = "2"+toBase62(k);
@@ -2672,7 +2694,7 @@
 		itemicons.push({"folder":"dungeons","file":"spikefloor","basic":[7,8]});
 		itemicons.push({"folder":"items","file":"magic"});
 		itemicons.push({"folder":"dungeons","file":"smallchest"});
-		itemicons.push({"folder":"dungeons","file":"bigchest","basic":[0,1,2,3,4,5,6,7,8,9,10]});
+		itemicons.push({"folder":"dungeons","file":"bigchest","basic":[0,1,2,3,4,5,6,7,8,9,10,11]});
 		itemicons.push({"folder":"dungeons","file":"talltorch","basic":[1,10]});
 		itemicons.push({"folder":"dungeons","file":"keysteal"});
 		itemicons.push({"folder":"dungeons","file":"map"});

@@ -1,15 +1,15 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Instructions</title>
-		<script type="text/javascript" src="js/index.js?v=20014"></script>
-		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20014"></script>
-		<script type="text/javascript" src="js/jquery.powertip.js?v=20014"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js?v=20014"></script>
-		<link href="css/jquery.powertip.css?v=20014" rel="stylesheet" />
-		<link href="css/launcher.css?v=20014" rel="stylesheet">
-		<link href="css/fonts.css?v=20014" rel="stylesheet">
-		<link href="css/sprites.css?v=20014" rel="stylesheet">
-		<link href="css/toast.css?v=20014" rel="stylesheet">
+		<script type="text/javascript" src="js/index.js?v=20015"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20015"></script>
+		<script type="text/javascript" src="js/jquery.powertip.js?v=20015"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js?v=20015"></script>
+		<link href="css/jquery.powertip.css?v=20015" rel="stylesheet" />
+		<link href="css/launcher.css?v=20015" rel="stylesheet">
+		<link href="css/fonts.css?v=20015" rel="stylesheet">
+		<link href="css/sprites.css?v=20015" rel="stylesheet">
+		<link href="css/toast.css?v=20015" rel="stylesheet">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
 		<script>
@@ -65,7 +65,7 @@
 				<div class="header-main-div">
 					<a href="./index.html"><img src="./images/overlay/header.png" class="header-main-img"></a>
 					<div class="header-news-div" >
-						<span class="default-white-text">Build 2.0.014 073122 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
+						<span class="default-white-text">Build 2.0.015 090422 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
 					</div>
 				</div>
 				<div class="header-links">
@@ -373,7 +373,8 @@
 					Your currently loaded tracked paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.<br><br>
 					Access the <b>Settings</b> menu by clicking on the cogwheel. The settings you can find here are automatically saved for future sessions.<br>
 					The <b>General</b> tab provides customization options for the theme of the tracker, and other behavior.<br>
-					The <b>Dungeons</b> tab lets you decide how many room nodes are displayed when you click on <b>Insert room node</b> while building a dungeon path in Crossed Door Shuffle. A basic explanation and a button that opens a preview are available below.
+					The <b>Dungeons</b> tab lets you decide how many room nodes are displayed when you click on <b>Insert room node</b> while building a dungeon path in Crossed Door Shuffle. A basic explanation and a button that opens a preview are available below.<br>
+					For Basic Door Shuffle, you can decide whether all or only dungeon-specific symbols are shown when making a dungeon path.
 					<br><br>
 					<h3>Example: Vanilla Palace of Darkness</h3>
 					Let us demonstrate the techniques described above with a specific example: Palace of Darkness like it would be without Door Shuffle. Lobby Shuffle will be off for this example.<br><br>
@@ -400,7 +401,6 @@
 					<span>(<a href="#dungeon" style="color: white">For help with the Dungeon Tracker which is located in the same window, click here!</a>)</span>
 					<br><br>
 					<div style="border: 2px dashed orange; padding: 4px; background-color: rgba(255,64,0,.125);">
-						<b>NOTE:</b> This tracking feature is still in beta state. Expect various things to change in the future.<br>
 						<span>We'd appreciate feedback. If you have suggestions, encountered a problem or simply want to say if this feature was helpful for you, feel free to message Catobat#4610 on Discord. Thank you!</span>
 					</div>
 					<br>
@@ -417,10 +417,10 @@
 					Alternatively, if you want to continue with a previous session, go to <b>Restore previous session</b> near the bottom of the start page (or <b>Save and restore</b> on the main page at a later point) and use one of the buttons to load the respective saved data. Clicking on a button will show you the time when this save was created before confirming to load the data.<br>
 					Next, access the <b>Overworld Tracking</b> page by clicking on the overworld icon below <b>Overworld Tracker</b> at the top of the main page or in the sidebar. If Door Shuffle is disabled, you can consider this the hub page (otherwise, you'll be switching between this and the individual dungeons).<br>
 					The top of this page contains the <b>Full map</b> (which can be hidden with the arrow in the top-right), though it can also be accessed as a popout by clicking on one of the various <b>Full map</b> buttons throughout the tracker. If you have the sidebar enabled, you can even access this map from anywhere in the tracker without having to leave the page you're currently on! The use of this map of course depends on the mode you're playing, see the following sections for an explanation.<br>
-					Depending on the size of the window, you may want to check <b>Side by side</b> to fit both worlds on the screen at once. Otherwise, you can always use the <b>Switch worlds</b> button. The size of the map is handled automatically based on window size by default, but you can also choose to change the zoom level manually using the <b>-</b> and <b>+</b> buttons. You should always leave some free space at the bottom for buttons that pop up if you click on a screen or transition.<br>
+					Depending on the size of the window, both worlds may fit on the screen at once. Otherwise, you can always use the <b>Switch worlds</b> button. The size of the map is handled automatically based on window size by default, but you can also choose to change the zoom level manually using the <b>-</b> and <b>+</b> buttons. You should always leave some free space at the bottom for buttons that pop up if you click on a screen or transition. More options are available through the <b>Edit map view</b> button.<br>
 					If you know your Sanctuary (Dark Chapel in Inverted) save & quit spot will be vanilla (no Entrance or Door Shuffle), select <b>Sanctuary</b> (or <b>Dark Chapel</b>) under <b>Common starting locations</b> on the <b>Overworld Tracking</b> page. This is important for both the logic and finding convenient paths throughout the seed. For more information on these start locations and how to add save & quit spots in other places, read the <b>Common starting locations</b> section below.<br>
 					<br><br>
-					<h3>Parallel or Full Layout Shuffle: Tracking overworld transitions</h3>
+					<h3>Parallel and Full Layout Shuffle and Whirlpool Shuffle: Tracking overworld transitions</h3>
 					The recommended way of tracking screen transitions is by opening the <b>Full map</b> which can be accessed from the top of the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which transitions are currently accessible and which transitions have been tracked so far.<br>
 					To track a transition, simply click on the edge you started from and then on the edge you ended up at. For convenience, for the second part only edges with a matching direction and ground type will light up. Certain overworld options such as <b>Keep Similar</b> can restrict the possible choices even further.<br>
 					As you will notice later, to be able to use the full potential of this tracker, you are expected to track every single overworld transition you take. Don't worry, it will easily be worth it!<br>
@@ -430,7 +430,7 @@
 					<center><img src="./images/overlay/instructions28.png"><img style="margin-left: 8px; vertical-align: top;" src="./images/overlay/instructions36.png"></center>
 					<center><img src="./images/overlay/instructions29.png" style="margin-top: 8px;"></center>
 					<br>
-					<h3>Crossed Overworld: Tracking overworld transitions</h3>
+					<h3>Crossed Overworld: Tracking crossed transitions</h3>
 					If this is combined with Parallel or Full Layout Shuffle, see the section above. The only difference is that transitions can now go across worlds. Such transitions will be marked with a cross.<br><br>
 					Otherwise, if the layout is vanilla:<br>
 					<b>Polar</b>: This option only has an effect if <b>Mixed Overworld</b> is enabled. All screen transitions are determined by the tracked screen states (see the section below).<br>
@@ -445,6 +445,7 @@
 					Open the <b>Full map</b> which can be accessed from the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which screen states have been tracked so far and which versions (Light and Dark World) belong to which world.<br>
 					Whenever you visit a screen for the first time, pay attention to its state, move the cursor to the question mark on that screen in the tracker and click on <b>Normal</b> or <b>Swapped</b> respectively.<br>
 					In case of a misclick, click on the screen that has accidentally been tracked and then on <b>Reset state</b> below the map.<br>
+					If Mixed is combined with any of the above Overworld Shuffle modes and a transition is connected to a screen with unknown state, the edge will have a question mark. Whether it's additionally displayed as a crossed transition depends on the vanilla state of the target screen.<br>
 					Tip: If you're unsure if you're currently looking at the Light World or Dark World map in the tracker, pay attention to the tree in the bottom-left corner in the desert/mire area. It will either be a Light World or Dark World tree depending on which world is being displayed behind it.
 					<br><br>
 					<center><img src="./images/overlay/instructions31.png"><img style="margin-left: 8px; vertical-align: top;" src="./images/overlay/instructions32.png"></center>
@@ -497,7 +498,8 @@
 					<br>
 					<h3>Settings and saving</h3>
 					These should depend on the settings of the seed so the logic can work properly. See the sections above for explanations on how tracking the individual Overworld Shuffle modes works.<br>
-					Enabling one of the <b>Layout Shuffle</b> options allows you to track screen transitions. With <b>Parallel</b>, tracking an overworld transition in one world will automatically also mark the corresponding transition in the other world if a such parallel version exists. <b>Full</b> doesn't have this restriction.<br>
+					Enabling one of the <b>Layout Shuffle</b> options allows you to track screen edge transitions. With <b>Parallel</b>, tracking an overworld transition in one world will automatically also mark the corresponding transition in the other world if a such parallel version exists. <b>Full</b> doesn't have this restriction.<br>
+					Similarly, <b>Whirlpool Shuffle</b> allows you to track whirlpool transitions.
 					The <b>Keep Similar</b> option should be checked when the seed was rolled with the <b>Keep Similar Edges Together</b> option to quickly fill in groups of transitions.<br>
 					<b>Crossed Overworld</b> allows you to connect edges between the Light World and Dark World, even if the layout is vanilla.<br>
 					In <b>Mixed Overworld</b>, you can mark every overworld screen as normal or swapped.<br>

@@ -624,7 +624,7 @@
 	};
 
     window.entranceChests = function(entranceNames,dungeonID) {
-		if (items['chest'+dungeonID] > 0) {
+		if (items['chest'+dungeonID] > 0 || (dungeonID < 10 && !dungeons[dungeonID].is_beaten)) {
 			var entranceAvail = [];
 			var entranceBunny = [];
 			var found = false;
@@ -671,43 +671,6 @@
 	
 			if (found) {
 				var c = dungeonChests(dungeonID,entranceAvail,entranceBunny);
-				if (dungeonID < 10) {
-					document.getElementById('entranceBoss'+dungeonID).style.visibility = (!dungeons[dungeonID].is_beaten ? 'visible' : 'hidden');
-					
-					switch (dungeonID) {
-						case 0:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? EPBoss() : 'unavailable');
-							break;
-						case 1:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(DPBoss('unavailable', (hasFoundLocation('dp_n') && !entranceBunny[3] ? 'available' : 'unavailable')));
-							break;
-						case 2:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? HeraBoss() : 'unavailable');
-							break;
-						case 3:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? PoDBoss() : 'unavailable');
-							break;
-						case 4:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? SPBoss() : 'unavailable');
-							break;
-						case 5:
-							if (!hasFoundLocation('sw')) document.getElementById('entranceBoss'+dungeonID).style.visibility = 'hidden';
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(SWBoss('unavailable', (hasFoundLocation('sw') && !entranceBunny[0] ? 'available' : 'unavailable')));
-							break;
-						case 6:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? TTBoss() : 'unavailable');
-							break;
-						case 7:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? IPBoss() : 'unavailable');
-							break;
-						case 8:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? MMBoss() : 'unavailable');
-							break;
-						case 9:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? TRBoss() : 'unavailable');
-							break;
-					}
-				}
 				if (c === 'available') {
 					document.getElementById('chest'+dungeonID).style.backgroundColor = 'lime';
 					document.getElementById('chest'+dungeonID).style.color = 'black';
@@ -726,6 +689,10 @@
 				} else if (c === 'information') {
 					document.getElementById('chest'+dungeonID).style.backgroundColor = 'orange';
 					document.getElementById('chest'+dungeonID).style.color = 'black';
+				}
+				if (dungeonID < 10) {
+					document.getElementById('entranceBoss'+dungeonID).style.visibility = (!dungeons[dungeonID].is_beaten && flags.overworldshuffle === 'N' ? 'visible' : 'hidden');
+					document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(dungeonBoss(dungeonID,entranceAvail,entranceBunny));
 				}
 			} else {
 				if (dungeonID < 10) {
