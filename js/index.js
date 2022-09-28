@@ -208,6 +208,9 @@ function loadarchivepreset() {
 		case "CasualBoots":
 			loadbootspreset();
 			break;
+		case "ChampionsHunt":
+			loadchuntpreset();
+			break;
 		case "ChampionsSwordless":
 			loadcswordlesspreset();
 			break;
@@ -1002,6 +1005,36 @@ function loadinvertedcrosskeyspreset() {
 	window.scrollTo(0,document.body.scrollHeight);
 	showToast();
 }
+
+function loadchuntpreset() {
+	resetallstartingitems();
+	setstartingitem("boots",22,"1");
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalother").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 5;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsassured").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	showToast();
+}
+
 
 function importflags() {
 	var i = document.getElementById("importflag").value;

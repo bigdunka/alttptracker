@@ -1500,8 +1500,8 @@
 		disableBlur = document.getElementById("settingsdisableblur").checked;
 		searchMirrorPortalDefault = document.getElementById("settingssearchmirrorportaldefault").checked;
 		omitForeignSymbols = document.getElementById("settingsomitforeignsymbols").checked;
-		mapModeAutoMain = newData.mapModeAutoMain === true;
-		mapModeAutoPopout = newData.mapModeAutoPopout === true;
+		mapModeAutoMain = newData.mapModeAutoMain !== false;
+		mapModeAutoPopout = newData.mapModeAutoPopout !== false;
 		mapModeMain = newData.mapModeMain;
 		if(!["single","horizontal","vertical"].includes(mapModeMain))
 			mapModeMain = "single";
