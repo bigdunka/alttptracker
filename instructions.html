@@ -1,15 +1,15 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Instructions</title>
-		<script type="text/javascript" src="js/index.js?v=20016"></script>
-		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20016"></script>
-		<script type="text/javascript" src="js/jquery.powertip.js?v=20016"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js?v=20016"></script>
-		<link href="css/jquery.powertip.css?v=20016" rel="stylesheet" />
-		<link href="css/launcher.css?v=20016" rel="stylesheet">
-		<link href="css/fonts.css?v=20016" rel="stylesheet">
-		<link href="css/sprites.css?v=20016" rel="stylesheet">
-		<link href="css/toast.css?v=20016" rel="stylesheet">
+		<script type="text/javascript" src="js/index.js?v=20017"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20017"></script>
+		<script type="text/javascript" src="js/jquery.powertip.js?v=20017"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js?v=20017"></script>
+		<link href="css/jquery.powertip.css?v=20017" rel="stylesheet" />
+		<link href="css/launcher.css?v=20017" rel="stylesheet">
+		<link href="css/fonts.css?v=20017" rel="stylesheet">
+		<link href="css/sprites.css?v=20017" rel="stylesheet">
+		<link href="css/toast.css?v=20017" rel="stylesheet">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
 		<script>
@@ -65,7 +65,7 @@
 				<div class="header-main-div">
 					<a href="./index.html"><img src="./images/overlay/header.png" class="header-main-img"></a>
 					<div class="header-news-div" >
-						<span class="default-white-text">Build 2.0.016 092822 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
+						<span class="default-white-text">Build 2.0.015 090422 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
 					</div>
 				</div>
 				<div class="header-links">
@@ -412,8 +412,8 @@
 					<h3>First steps</h3>
 					When opening the Overworld Tracker window, you are first asked to select the overworld mode settings for your seed (or continue a previous session, see below). When you're done and you're sure the settings are correct, click on <b>Start, mode settings are final</b>. If you're not sure about a mode setting and it might change later, use <b>Start, mode settings may change</b>.<br>
 					If you want to start out with the least restrictive settings (anything can be connected to anything and marked as anything), and possibly narrow down the mode later on (Mystery seed), you can ignore the settings above and click on <b>Mystery mode (start with least restrictive settings)</b>.<br>
-					In either case, all settings can be changed later, though it's best to have them entered correctly from the start so the tracker can fill in certain screen transitions automatically (and doesn't fill in too much if you set the mode to something too restrictive). If you want to apply this automatic fill after changing the settings later (and finalizing them), click on <b>Make mode-specific transition adjustments</b> in the yellow box below the mode settings if it appears.<br>
-					For more information regarding the individual settings, see <b>Settings and saving</b> below. For the syncing process between the two tracker windows (items, connectors and logic), see <b>Items and sync</b> and <b>Sync logic and all data with main window</b>.<br>
+					In either case, all settings can be changed later, though it's best to have them entered correctly from the start so the tracker can fill in certain screen transitions automatically (and doesn't fill in too much if you set the mode to something too restrictive). If you want to apply this automatic fill after changing the settings later (and finalizing them), click on <b>What would be affected?</b> or <b>Accept changes</b> in the yellow box below the mode settings if it appears, or <b>Auto fixes</b> on the overworld map.<br>
+					For more information regarding the individual settings, see <b>Settings and saving</b> below. For the syncing process between the two tracker windows (items, connectors and logic), see <b>Items and sync</b> and <b>Sync with main window</b> below.<br>
 					Alternatively, if you want to continue with a previous session, go to <b>Restore previous session</b> near the bottom of the start page (or <b>Save and restore</b> on the main page at a later point) and use one of the buttons to load the respective saved data. Clicking on a button will show you the time when this save was created before confirming to load the data.<br>
 					Next, access the <b>Overworld Tracking</b> page by clicking on the overworld icon below <b>Overworld Tracker</b> at the top of the main page or in the sidebar. If Door Shuffle is disabled, you can consider this the hub page (otherwise, you'll be switching between this and the individual dungeons).<br>
 					The top of this page contains the <b>Full map</b> (which can be hidden with the arrow in the top-right), though it can also be accessed as a popout by clicking on one of the various <b>Full map</b> buttons throughout the tracker. If you have the sidebar enabled, you can even access this map from anywhere in the tracker without having to leave the page you're currently on! The use of this map of course depends on the mode you're playing, see the following sections for an explanation.<br>
@@ -422,9 +422,11 @@
 					<br><br>
 					<h3>Parallel and Full Layout Shuffle and Whirlpool Shuffle: Tracking overworld transitions</h3>
 					The recommended way of tracking screen transitions is by opening the <b>Full map</b> which can be accessed from the top of the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which transitions are currently accessible and which transitions have been tracked so far.<br>
-					To track a transition, simply click on the edge you started from and then on the edge you ended up at. For convenience, for the second part only edges with a matching direction and ground type will light up. Certain overworld options such as <b>Keep Similar</b> can restrict the possible choices even further.<br>
+					To track a transition, simply click on the edge you started from and then on the edge you ended up at. For convenience, for the second part only edges with a matching direction will light up. Certain overworld options such as <b>Keep Similar</b> and <b>Free Terrain</b> can restrict the possible choices even further.<br>
 					As you will notice later, to be able to use the full potential of this tracker, you are expected to track every single overworld transition you take. Don't worry, it will easily be worth it!<br>
-					If you marked a transition wrong by accident, click on one of the affected edges and then <b>Delete connection</b> below the map.<br>
+					If you marked a transition wrong by accident, click on one of the affected edges and then <b>Disconnect</b> below the map.<br>
+					If a whirlpool loops to itself, click on the whirlpool once and then on <b>Self-loop</b> below the map.<br>
+					When playing with some form of <b>Decoupled Overworld</b>, the order in which the two edges are clicked is important: First click the one where the transition starts and then the one where it ends. The controls under the map while an edge is selected have separate buttons for deleting connections that lead away from this edge and connections going to this edge.<br>
 					On the full map, you can see where certain transitions lead by moving the cursor over a screen or a single edge. However, for most cases, there is a much better way of finding out how to get back to a specific place: the <b>Search path</b> feature.
 					<br><br>
 					<center><img src="./images/overlay/instructions28.png"><img style="margin-left: 8px; vertical-align: top;" src="./images/overlay/instructions36.png"></center>
@@ -444,7 +446,7 @@
 					In Mixed, every overworld screen is in one of two states: normal or swapped. If it's in swapped state, the screen version that normally belongs to the Dark World is now part of the Light World.<br>
 					Open the <b>Full map</b> which can be accessed from the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which screen states have been tracked so far and which versions (Light and Dark World) belong to which world.<br>
 					Whenever you visit a screen for the first time, pay attention to its state, move the cursor to the question mark on that screen in the tracker and click on <b>Normal</b> or <b>Swapped</b> respectively.<br>
-					In case of a misclick, click on the screen that has accidentally been tracked and then on <b>Reset state</b> below the map.<br>
+					In case of a misclick, click on the screen that has accidentally been tracked and then on <b>Reset state</b> or <b>Swap</b> below the map.<br>
 					If Mixed is combined with any of the above Overworld Shuffle modes and a transition is connected to a screen with unknown state, the edge will have a question mark. Whether it's additionally displayed as a crossed transition depends on the vanilla state of the target screen.<br>
 					Tip: If you're unsure if you're currently looking at the Light World or Dark World map in the tracker, pay attention to the tree in the bottom-left corner in the desert/mire area. It will either be a Light World or Dark World tree depending on which world is being displayed behind it.
 					<br><br>
@@ -462,8 +464,10 @@
 					If the target screen is divided into multiple logical regions (like Bonk Rocks and the rest on the Sanctuary screen), the tracker attempts to find paths to all of them. If the search result list is long, consider filtering them by fixing a target region with a button press (<b>Rocks</b> in the previous example). It can also be helpful to look at which screen edge each path ends, indicated by a gray square on the last screen.<br>
 					If, instead of (only) starting at the common start locations, you want to see if there's a quick path from your current location in the game, you can click on <b>Select screen</b> next to <b>Start: Common starting locations</b> and select a start screen. All logical regions of this screen are considered by default, but just like with the target, it can be restricted to a specified region.<br>
 					If a starting screen is selected, there are three different modes in which paths are shown: In <b>Must start here</b> (default), only paths that start on the selected screen are shown, but fluting and using a save & quit is permitted. With <b>Or from common</b>, (direct) paths that start at the selected screen or at common starts are mixed together. Use <b>No flute/quit</b> to only obtain direct paths (no fluting or save & quit) that start at the selected screen.<br>
-					By default, if you have the mirror, the search also considers possible mirror portal placements, but only at the start or target regions. Paths using mirror portals will never replace other paths in the list, they're just additional results. To disable this, uncheck <b>Mirror portals</b> next to <b>Options:</b>.<br>
-					If you currently have a <b>follower</b> that restricts your movement, like the red bomb (no ledges, connectors or save & quits), you can select the follower in the <b>Options:</b> row.<br>
+					When you check <b>Mirror portals</b> next to <b>Options:</b> and you have the mirror, the search also considers possible mirror portal placements, but only at the start or target regions. Paths using mirror portals will never replace other paths in the list, they're just additional search results.<br>
+					If you currently have a <b>follower</b> that restricts your movement, like the red bomb (no ledges, connectors or save & quits), you can select the follower in the <b>Options:</b> row so that the search respects these rules.<br>
+					Enable the option <b>Must preserve mirror portal</b> to only see paths that won't use the mirror or save & quits.<br>
+					With <b>Ignore item rules</b> enabled, the search pretends like you have access to any item that might be relevant for overworld traversal.<br>
 					Click on a path to view it with more details and lines connecting the edges of the screens. You can also click on <b>View on map</b> to attach the path to the full overworld map, highlighting screens that are on the path and numbering them, or <b>Pin for later</b> to permanently display it in a list on the <b>Overworld Tracking</b> page.<br>
 					Note: For this feature to work properly, it is important that you have the common starting locations, items and connectors set correctly. Please refer to the following sections for more information. In the tracker, the bottom of the page also has a checklist for common issues with quick tips.
 					<br><br>
@@ -478,20 +482,20 @@
 					By default, your current item inventory gets sent from the main tracker window to this window.<br>
 					If you only use this Overworld Tracker in combination with another item/map tracker, don't forget to also mark certain items here in the <b>Overworld Tracking</b> menu!<br>
 					Below the item list is a checkbox that determines if the flute is currently active. This information is important for the logic. This can also be set through the <b>Full map</b> by clicking on the <b>Flute activated</b> button after the flute was obtained.<br>
-					If item (or connector) changes in the main window are somehow no longer being received even though <b>Sync with main window</b> is enabled (this can happen if a window was refreshed or the main window switched between vanilla and shuffled Entrances in Mystery mode), there is a way you can fix this problem:<br>
+					If item (or connector) changes in the main window are somehow no longer being received even though item sync is enabled (this can happen if a window was refreshed), there is a way you can fix this problem:<br>
 					In the overworld window, go back to the start page. Under <b>Save and restore</b> and next to <b>Manual save:</b>, click on <b>Save data</b>. Close this window. In the item tracker window, click on the map icon next to the player sprite to open a new Overworld Tracker window. Finally, click on <b>Load manual save</b> under <b>Restore previous session</b> (or at a later point <b>Load data</b> next to <b>Manual save:</b> on the main page) to get your tracking progress back.
 					<br><br>
-					<h3>Sync logic and all data with main window</h3>
+					<h3>Sync with main window</h3>
 					If you are also using the Community Tracker for item and map tracking, the logic from the Overworld Tracker can be used by the map tracker in the main tracker window. (This also means that the map tracker considers you responsible for telling the Overworld Tracker about flute activation and your save & quit spots!)<br>
-					This is enabled by default. If you want to disable this functionality, uncheck <b>Sync logic and all data with main window</b> below the mode options. Note that, in this case, the main window logic will ignore Overworld Shuffle completely.<br>
-					Enabling this full sync between the two tracker windows also means that items and connector caves will be shared between both windows. Please refer to the previous section for more information on that.<br>
+					This is enabled by default (this default can be change in the tracker settings). If you want to disable this functionality, uncheck <b>Sync everything (logic, game mode, items and entrances)</b> below the mode options. Note that, in this case, the main window logic will ignore Overworld Shuffle completely.<br>
+					Enabling this full sync between the two tracker windows also means that items and connector caves will be shared between both windows. Otherwise, <b>Sync items</b> and <b>Sync connector caves</b> can still be enabeld individually. Please refer to the previous section for more information on that.<br>
 					Note: It is very important that the tracker has been opened through the Community Tracker launcher and that some kind of <b>Overworld Shuffle</b> has been enabled in the launcher. All non-overworld-specific mode settings should also be correctly set there as these will also be used by the Overworld Tracker logic.
 					<br><br>
 					<h3>Connector caves</h3>
 					If <b>Entrance Shuffle</b> is disabled, there are a few checkboxes below the items you can use to tell the tracker logic which dungeon connectors you can currently use. If, in addition, <b>Door Shuffle</b> is enabled, a couple more checkboxes are displayed.<br>
 					If <b>Entrance Shuffle</b> is enabled, by default all connectors you marked on the map tracker get sent from the main tracker window to this window. Connectors then start at the entrance you clicked first and end on the second clicked one.<br>
 					However, mostly for routing purposes, it can be helpful for this tracker to know if a connector is also usable in the other direction. If this is the case (and you currently have the items needed to do so), we recommend clicking on <b>Both directions</b> when you're getting asked by the tracker. Otherwise, click on <b>Only one direction</b>. This can be changed later by clicking on the connector on the <b>Overworld Tracking</b> page.<br>
-					If you are not using the built-in Entrance map tracker to mark connectors, make sure to disable <b>Sync with main</b> above the connector list. This will allow you do add or remove connectors from within this window.<br>
+					If you are not using the built-in Entrance map tracker to mark connectors, make sure to disable <b>Sync everything (logic, game mode, items and entrances)</b> and <b>Sync connector caves</b> in the sync settings (see above). This will allow you do add or remove connectors from within this window.<br>
 					To add a connector in this manner, go to the <b>Full map</b>, click on the screen where the connector starts, and click on <b>New connector</b>. Then, click on the screen where the connector ends, maybe fill in region details depending on the screens, and determine whether you are currently able to also use this connector in the other direction, too.
 					<br><br>
 					<center><img src="./images/overlay/instructions33.png"></center>
@@ -499,14 +503,16 @@
 					<h3>Settings and saving</h3>
 					These should depend on the settings of the seed so the logic can work properly. See the sections above for explanations on how tracking the individual Overworld Shuffle modes works.<br>
 					Enabling one of the <b>Layout Shuffle</b> options allows you to track screen edge transitions. With <b>Parallel</b>, tracking an overworld transition in one world will automatically also mark the corresponding transition in the other world if a such parallel version exists. <b>Full</b> doesn't have this restriction.<br>
-					Similarly, <b>Whirlpool Shuffle</b> allows you to track whirlpool transitions.
-					The <b>Keep Similar</b> option should be checked when the seed was rolled with the <b>Keep Similar Edges Together</b> option to quickly fill in groups of transitions.<br>
-					<b>Crossed Overworld</b> allows you to connect edges between the Light World and Dark World, even if the layout is vanilla.<br>
+					Similarly, <b>Whirlpool Shuffle</b> allows you to track whirlpool transitions.<br>
+					The <b>Keep Similar</b> option should be checked when the seed was rolled with the <b>Keep Similar Edges Together</b> option to quickly fill in groups of transitions in Layout Shuffle or Crossed Overworld. Which groups of edges count as similar depends on the Free Terrain setting.<br>
+					<b>Crossed Overworld</b> allows you to connect edges between the Light World and Dark World, even if the layout is vanilla. In <b>Polar</b> with vanilla layout, marking edges is not needed as all edges will be vanilla.<br>
+					<b>Free Terrain</b> allows you to connect land with water edges in Layout Shuffle.<br>
+					With <b>Decoupled Overworld</b> connecting two edges in Layout Shuffle, Whirlpool Shuffle or Crossed Overworld will only mark it in one direction. Both sides of an edge can do different things. In <b>Chaos</b> (as opposed to <b>One-to-one</b>), there can be multiple edges leading to the same edge.<br>
 					In <b>Mixed Overworld</b>, you can mark every overworld screen as normal or swapped.<br>
 					When <b>Flute Shuffle</b> is enabled, the 8 flute spots are assumed to not be vanilla and will have to be marked.<br>
 					The <b>World State</b> option needs to be set correctly to let the tracker now if the Inverted rules apply.<br>
 					If some kind of <b>Entrance Shuffle</b> is enabled, the corresponding box should be checked to let the tracker know if the connector caves will be vanilla.<br>
-					Changing the mode may cause a yellow box with a button labelled <b>Make mode-specific transition adjustments</b> to appear. If all settings are final, we recommend clicking on this button. This will connect all transitions that are guaranteed to be vanilla with your selected seed settings.<br><br>
+					Changing the mode may cause a yellow box with some text about making transition adjustments based on the mode and some buttons to appear. Additionally, a button <b>Auto fixes</b> will appear on the full overworld map. If all mode settings are final, we recommend clicking on <b>What would be affected?</b> to get more information (which could prevent you from making a mistake) and then accepting the changes if you're sure all mode settings are correct.<br><br>
 					If your browser supports and permits Local Storage, you can save your entire tracking progress in this window by clicking on <b>Save data</b> to the right of <b>Manual save:</b>. If you continue playing the seed at some later point, just click on <b>Load data</b> to the left.<br>
 					Even if you forgot to save manually, there's a chance your progress is still automatically saved. Click on <b>Load data</b> next to <b>Auto-save:</b> to try.<br>
 					Your currently loaded tracked transitions, states and paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.<br><br>

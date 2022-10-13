@@ -2,6 +2,8 @@
 	'use strict';
 	window.opposite = {"N":"S","S":"N","W":"E","E":"W","Z":"Z"};
 	window.className = {"N":"north","S":"south","W":"west","E":"east","Z":"whirlpool"};
+	window.dotOffsetX = {"N":0,"S":0,"W":4,"E":-4,"Z":0};
+	window.dotOffsetY = {"N":4,"S":-4,"W":0,"E":0,"Z":-4};
 	window.specialEdgeTypes = ["PO","MI","CO","SQ","FL","MP"];
 	window.entranceItemToItem = {};
 
@@ -71,173 +73,173 @@
 		screenLinksEntrance.push([0x28,0x29]);
 		screenLinksLayout.push([0x30,0x3A]);
 		screenLinksGlobal.push([0x80,0x82]);
-		let specialEdge = createOverworldEdge(0x00,"Northwest","N",1,1,false,.3);
+		let specialEdge = createOverworldEdge(0x00,"Northwest","N",1,1,1,false,.3);
 		specialEdge.y = specialEdge.y2 = .35;
-		createDoubleOverworldEdge(0x00,"Northeast","E",1,1,false,.3);
-		createDoubleOverworldEdge(0x00,"Southwest","S",0,2,false,.2);
-		createDoubleOverworldEdge(0x00,"South","S",1,2,false,.75);
-		createDoubleOverworldEdge(0x00,"Southeast","S",2,1,false,1.8);
-		createDoubleOverworldEdge(0x02,"Main","W",1,1,false,.3);
-		createDoubleOverworldEdge(0x02,"Main","S",1,1,false,.4);
-		createDoubleOverworldEdge(0x03,"Top","E",0,1,false,.25);
-		createDoubleOverworldEdge(0x03,"Bottom","E",2,1,false,1.65);
-		createDoubleOverworldEdge(0x05,"Top West","W",0,1,false,.25);
-		createDoubleOverworldEdge(0x05,"Bottom West","W",2,1,false,1.65);
-		createDoubleOverworldEdge(0x05,"Top Main","E",1,1,false,.25);
-		createDoubleOverworldEdge(0x07,"Main","W",1,1,false,.25);
-		createDoubleOverworldEdge(0x0A,"Main","N",1,1,false,.4);
-		createDoubleOverworldEdge(0x0A,"Main","S",1,1,false,.55);
-		createOverworldEdge(0x0F,"Main","N",1,1,false,.65);
-		createDoubleOverworldEdge(0x0F,"Main","S",1,1,false,.75);
+		createDoubleOverworldEdge(0x00,"Northeast","E",1,1,1,false,.3);
+		createDoubleOverworldEdge(0x00,"Southwest","S",0,2,2,false,.2);
+		createDoubleOverworldEdge(0x00,"South","S",1,2,2,false,.75);
+		createDoubleOverworldEdge(0x00,"Southeast","S",2,1,1,false,1.8);
+		createDoubleOverworldEdge(0x02,"Main","W",1,1,1,false,.3);
+		createDoubleOverworldEdge(0x02,"Main","S",1,1,1,false,.4);
+		createDoubleOverworldEdge(0x03,"Top","E",0,1,1,false,.25);
+		createDoubleOverworldEdge(0x03,"Bottom","E",2,1,1,false,1.65);
+		createDoubleOverworldEdge(0x05,"Top West","W",0,1,1,false,.25);
+		createDoubleOverworldEdge(0x05,"Bottom West","W",2,1,1,false,1.65);
+		createDoubleOverworldEdge(0x05,"Top Main","E",1,1,1,false,.25);
+		createDoubleOverworldEdge(0x07,"Main","W",1,1,1,false,.25);
+		createDoubleOverworldEdge(0x0A,"Main","N",1,1,1,false,.4);
+		createDoubleOverworldEdge(0x0A,"Main","S",1,1,1,false,.55);
+		createOverworldEdge(0x0F,"Main","N",1,1,1,false,.65);
+		createDoubleOverworldEdge(0x0F,"Main","S",1,1,1,false,.75);
 		createWhirlpool(0x0F,"Main",.25,.6);
-		createDoubleOverworldEdge(0x10,"West","N",0,2,false,.2);
-		createDoubleOverworldEdge(0x10,"North","N",2,2,false,.75);
-		createDoubleOverworldEdge(0x10,"West","S",0,2,false,.3);
-		createDoubleOverworldEdge(0x10,"South","S",2,2,false,.65);
-		createDoubleOverworldEdge(0x11,"Main","N",1,1,false,.8);
-		createDoubleOverworldEdge(0x11,"Main","E",0,2,false,.3);
-		createDoubleOverworldEdge(0x11,"Main","E",2,2,false,.75);
-		createDoubleOverworldEdge(0x11,"Main","S",1,1,false,.55);
-		createDoubleOverworldEdge(0x12,"Main","N",1,1,false,.55);
-		createDoubleOverworldEdge(0x12,"Main","W",0,2,false,.3);
-		createDoubleOverworldEdge(0x12,"Main","W",2,2,false,.75);
-		createDoubleOverworldEdge(0x12,"Main","E",0,2,false,.4);
-		createDoubleOverworldEdge(0x12,"Main","E",2,2,false,.75);
-		createDoubleOverworldEdge(0x12,"Main","S",0,2,false,.3);
-		createDoubleOverworldEdge(0x12,"Main","S",2,2,false,.6);
+		createDoubleOverworldEdge(0x10,"West","N",0,2,2,false,.2);
+		createDoubleOverworldEdge(0x10,"North","N",2,2,2,false,.75);
+		createDoubleOverworldEdge(0x10,"West","S",0,2,2,false,.3);
+		createDoubleOverworldEdge(0x10,"South","S",2,2,2,false,.65);
+		createDoubleOverworldEdge(0x11,"Main","N",1,1,1,false,.8);
+		createDoubleOverworldEdge(0x11,"Main","E",0,2,2,false,.3);
+		createDoubleOverworldEdge(0x11,"Main","E",2,2,2,false,.75);
+		createDoubleOverworldEdge(0x11,"Main","S",1,1,1,false,.55);
+		createDoubleOverworldEdge(0x12,"Main","N",1,1,1,false,.55);
+		createDoubleOverworldEdge(0x12,"Main","W",0,2,2,false,.3);
+		createDoubleOverworldEdge(0x12,"Main","W",2,2,2,false,.75);
+		createDoubleOverworldEdge(0x12,"Main","E",0,2,2,false,.4);
+		createDoubleOverworldEdge(0x12,"Main","E",2,2,2,false,.75);
+		createDoubleOverworldEdge(0x12,"Main","S",0,2,2,false,.3);
+		createDoubleOverworldEdge(0x12,"Main","S",2,2,2,false,.6);
 		createWhirlpool(0x12,"Main",.5,.5);
-		createDoubleOverworldEdge(0x13,"Rocks","W",0,2,false,.4);
-		createDoubleOverworldEdge(0x13,"Main","W",2,2,false,.75);
-		createDoubleOverworldEdge(0x13,"Main","E",1,1,false,.55);
-		createDoubleOverworldEdge(0x14,"Main","W",1,1,false,.55);
-		createDoubleOverworldEdge(0x14,"Main","E",1,1,false,.55);
-		createDoubleOverworldEdge(0x15,"West","W",1,1,false,.55);
-		createDoubleOverworldEdge(0x15,"River","E",0,1,true,.25);
-		createDoubleOverworldEdge(0x15,"East","E",1,2,false,.45);
-		createDoubleOverworldEdge(0x15,"East","E",2,2,false,.7);
-		createDoubleOverworldEdge(0x15,"West","S",0,2,false,.3);
-		createDoubleOverworldEdge(0x15,"River","S",1,1,true,.6);
-		createDoubleOverworldEdge(0x15,"East","S",2,2,false,.8);
+		createDoubleOverworldEdge(0x13,"Rocks","W",0,2,2,false,.4);
+		createDoubleOverworldEdge(0x13,"Main","W",2,2,2,false,.75);
+		createDoubleOverworldEdge(0x13,"Main","E",1,1,1,false,.55);
+		createDoubleOverworldEdge(0x14,"Main","W",1,1,1,false,.55);
+		createDoubleOverworldEdge(0x14,"Main","E",1,1,1,false,.55);
+		createDoubleOverworldEdge(0x15,"West","W",1,1,1,false,.55);
+		createDoubleOverworldEdge(0x15,"River","E",0,1,3,true,.25);
+		createDoubleOverworldEdge(0x15,"East","E",1,2,3,false,.45);
+		createDoubleOverworldEdge(0x15,"East","E",2,2,3,false,.7);
+		createDoubleOverworldEdge(0x15,"West","S",0,2,3,false,.3);
+		createDoubleOverworldEdge(0x15,"River","S",1,1,3,true,.6);
+		createDoubleOverworldEdge(0x15,"East","S",2,2,3,false,.8);
 		createWhirlpool(0x15,"River",.55,.3);
 		createWhirlpool(0x55,"River",.55,.3);
-		createDoubleOverworldEdge(0x16,"River","W",0,1,true,.25);
-		createDoubleOverworldEdge(0x16,"West","W",1,2,false,.45);
-		createDoubleOverworldEdge(0x16,"West","W",2,2,false,.7);
-		createDoubleOverworldEdge(0x16,"River","E",0,1,true,.15);
-		createDoubleOverworldEdge(0x16,"East","E",2,1,false,.35);
-		createDoubleOverworldEdge(0x17,"East","N",1,1,false,.75);
-		createDoubleOverworldEdge(0x17,"River","W",0,1,true,.15);
-		createDoubleOverworldEdge(0x17,"West","W",2,1,false,.35);
-		createDoubleOverworldEdge(0x18,"Main","N",0,2,false,.3);
-		createDoubleOverworldEdge(0x18,"Main","N",1,2,false,.65);
-		createDoubleOverworldEdge(0x18,"Main","N",2,1,false,1.55);
-		createDoubleOverworldEdge(0x18,"Main","E",1,1,false,1.6);
-		createDoubleOverworldEdge(0x18,"Main","S",1,1,false,1.7);
-		createDoubleOverworldEdge(0x1A,"Main","N",0,2,false,.3);
-		createDoubleOverworldEdge(0x1A,"Main","N",2,2,false,.6);
-		createOverworldEdge(0x1A,"Main","E",1,1,false,.6);
-		createOverworldEdge(0x1B,"Main","W",1,1,false,.6);
-		createDoubleOverworldEdge(0x1B,"East","E",1,1,false,1.3);
-		createDoubleOverworldEdge(0x1B,"Southwest","S",0,1,false,.25);
-		createDoubleOverworldEdge(0x1B,"South","S",2,1,false,1.6);
-		createDoubleOverworldEdge(0x1D,"West","N",0,2,false,.3);
-		createDoubleOverworldEdge(0x1D,"River","N",1,1,true,.6);
-		createDoubleOverworldEdge(0x1D,"Northeast","N",2,2,false,.8);
-		createDoubleOverworldEdge(0x1D,"Southeast","S",1,1,false,.35);
-		createDoubleOverworldEdge(0x1E,"Main","S",0,1,false,.25);
-		createDoubleOverworldEdge(0x1E,"Main","S",2,1,false,1.75);
-		createDoubleOverworldEdge(0x22,"West","W",1,1,false,.6);
-		createDoubleOverworldEdge(0x25,"Main","N",1,1,false,.35);
-		createDoubleOverworldEdge(0x25,"Main","W",1,1,false,.3);
-		createDoubleOverworldEdge(0x25,"Main","S",1,1,false,.45);
-		let edge1 = createOverworldEdge(0x28,"Bottom","E",1,1,false,.9);
-		createOverworldEdge(0x68,"Top","E",0,2,false,.7);
-		let edge2 = createOverworldEdge(0x68,"Bottom","E",2,2,false,.9);
+		createDoubleOverworldEdge(0x16,"River","W",0,1,3,true,.25);
+		createDoubleOverworldEdge(0x16,"West","W",1,2,3,false,.45);
+		createDoubleOverworldEdge(0x16,"West","W",2,2,3,false,.7);
+		createDoubleOverworldEdge(0x16,"River","E",0,1,2,true,.15);
+		createDoubleOverworldEdge(0x16,"East","E",2,1,2,false,.35);
+		createDoubleOverworldEdge(0x17,"East","N",1,1,1,false,.75);
+		createDoubleOverworldEdge(0x17,"River","W",0,1,2,true,.15);
+		createDoubleOverworldEdge(0x17,"West","W",2,1,2,false,.35);
+		createDoubleOverworldEdge(0x18,"Main","N",0,2,2,false,.3);
+		createDoubleOverworldEdge(0x18,"Main","N",1,2,2,false,.65);
+		createDoubleOverworldEdge(0x18,"Main","N",2,1,1,false,1.55);
+		createDoubleOverworldEdge(0x18,"Main","E",1,1,1,false,1.6);
+		createDoubleOverworldEdge(0x18,"Main","S",1,1,1,false,1.7);
+		createDoubleOverworldEdge(0x1A,"Main","N",0,2,2,false,.3);
+		createDoubleOverworldEdge(0x1A,"Main","N",2,2,2,false,.6);
+		createOverworldEdge(0x1A,"Main","E",1,1,1,false,.6);
+		createOverworldEdge(0x1B,"Main","W",1,1,1,false,.6);
+		createDoubleOverworldEdge(0x1B,"East","E",1,1,1,false,1.3);
+		createDoubleOverworldEdge(0x1B,"Southwest","S",0,1,1,false,.25);
+		createDoubleOverworldEdge(0x1B,"South","S",2,1,1,false,1.6);
+		createDoubleOverworldEdge(0x1D,"West","N",0,2,3,false,.3);
+		createDoubleOverworldEdge(0x1D,"River","N",1,1,3,true,.6);
+		createDoubleOverworldEdge(0x1D,"Northeast","N",2,2,3,false,.8);
+		createDoubleOverworldEdge(0x1D,"Southeast","S",1,1,1,false,.35);
+		createDoubleOverworldEdge(0x1E,"Main","S",0,1,1,false,.25);
+		createDoubleOverworldEdge(0x1E,"Main","S",2,1,1,false,1.75);
+		createDoubleOverworldEdge(0x22,"West","W",1,1,1,false,.6);
+		createDoubleOverworldEdge(0x25,"Main","N",1,1,1,false,.35);
+		createDoubleOverworldEdge(0x25,"Main","W",1,1,1,false,.3);
+		createDoubleOverworldEdge(0x25,"Main","S",1,1,1,false,.45);
+		let edge1 = createOverworldEdge(0x28,"Bottom","E",1,1,1,false,.9);
+		createOverworldEdge(0x68,"Top","E",0,2,2,false,.7);
+		let edge2 = createOverworldEdge(0x68,"Bottom","E",2,2,2,false,.9);
 		edge1.parallel = edge2;
 		edge2.parallel = edge1;
-		createDoubleOverworldEdge(0x29,"Top","N",1,1,false,.7);
-		edge1 = createOverworldEdge(0x29,"Bottom","W",1,1,false,.9);
-		createOverworldEdge(0x69,"Bottom","W",0,2,false,.7);
-		edge2 = createOverworldEdge(0x69,"Bottom","W",2,2,false,.9);
+		createDoubleOverworldEdge(0x29,"Top","N",1,1,1,false,.7);
+		edge1 = createOverworldEdge(0x29,"Bottom","W",1,1,1,false,.9);
+		createOverworldEdge(0x69,"Bottom","W",0,2,2,false,.7);
+		edge2 = createOverworldEdge(0x69,"Bottom","W",2,2,2,false,.9);
 		edge1.parallel = edge2;
 		edge2.parallel = edge1;
-		createDoubleOverworldEdge(0x29,"Bottom","E",1,1,false,.7);
-		createDoubleOverworldEdge(0x2A,"Southwest","W",1,1,false,.7);
-		createDoubleOverworldEdge(0x2A,"Southwest","S",0,2,false,.15);
-		createDoubleOverworldEdge(0x2A,"Main","S",2,2,false,.45);
-		createDoubleOverworldEdge(0x2B,"Main","N",1,1,false,.25);
-		createDoubleOverworldEdge(0x2B,"Main","E",0,3,false,.35);
-		createDoubleOverworldEdge(0x2B,"Main","E",1,3,false,.6);
-		createDoubleOverworldEdge(0x2B,"Main","E",2,3,false,.8);
-		createDoubleOverworldEdge(0x2B,"Main","S",1,1,false,.3);
-		createDoubleOverworldEdge(0x2C,"Main","N",1,1,false,.6);
-		createDoubleOverworldEdge(0x2C,"Main","W",0,3,false,.35);
-		createDoubleOverworldEdge(0x2C,"Main","W",1,3,false,.6);
-		createDoubleOverworldEdge(0x2C,"Main","W",2,3,false,.8);
-		createDoubleOverworldEdge(0x2C,"Main","S",1,1,false,.45);
-		createDoubleOverworldEdge(0x2C,"Main","E",1,1,false,.8);
-		createDoubleOverworldEdge(0x2D,"North","N",1,1,false,.45);
-		specialEdge = createOverworldEdge(0x2D,"River","W",0,1,true,.6);
+		createDoubleOverworldEdge(0x29,"Bottom","E",1,1,1,false,.7);
+		createDoubleOverworldEdge(0x2A,"Southwest","W",1,1,1,false,.7);
+		createDoubleOverworldEdge(0x2A,"Southwest","S",0,2,2,false,.15);
+		createDoubleOverworldEdge(0x2A,"Main","S",2,2,2,false,.45);
+		createDoubleOverworldEdge(0x2B,"Main","N",1,1,1,false,.25);
+		createDoubleOverworldEdge(0x2B,"Main","E",0,3,3,false,.35);
+		createDoubleOverworldEdge(0x2B,"Main","E",1,3,3,false,.6);
+		createDoubleOverworldEdge(0x2B,"Main","E",2,3,3,false,.8);
+		createDoubleOverworldEdge(0x2B,"Main","S",1,1,1,false,.3);
+		createDoubleOverworldEdge(0x2C,"Main","N",1,1,1,false,.6);
+		createDoubleOverworldEdge(0x2C,"Main","W",0,3,3,false,.35);
+		createDoubleOverworldEdge(0x2C,"Main","W",1,3,3,false,.6);
+		createDoubleOverworldEdge(0x2C,"Main","W",2,3,3,false,.8);
+		createDoubleOverworldEdge(0x2C,"Main","S",1,1,1,false,.45);
+		createDoubleOverworldEdge(0x2C,"Main","E",1,1,1,false,.8);
+		createDoubleOverworldEdge(0x2D,"North","N",1,1,1,false,.45);
+		specialEdge = createOverworldEdge(0x2D,"River","W",0,1,1,true,.6);
 		specialEdge.x = specialEdge.x2 = .65;
-		edge1 = createOverworldEdge(0x2D,"South","W",2,1,false,.8);
-		edge2 = createOverworldEdge(0x6D,"South","W",1,1,false,.8);
+		edge1 = createOverworldEdge(0x2D,"South","W",2,1,1,false,.8);
+		edge2 = createOverworldEdge(0x6D,"South","W",1,1,1,false,.8);
 		edge1.parallel = edge2;
 		edge2.parallel = edge1;
-		createDoubleOverworldEdge(0x2D,"North","E",0,1,false,.3);
-		createDoubleOverworldEdge(0x2D,"River","E",2,1,true,.65);
-		createDoubleOverworldEdge(0x2D,"South","S",1,1,false,.45);
-		createDoubleOverworldEdge(0x2E,"Main","N",1,1,false,.25);
-		createDoubleOverworldEdge(0x2E,"Main","W",0,1,false,.3);
-		createDoubleOverworldEdge(0x2E,"River","W",2,1,true,.65);
-		createDoubleOverworldEdge(0x2E,"River","S",0,1,true,.6);
-		createDoubleOverworldEdge(0x2E,"Main","S",2,1,false,.85);
-		createDoubleOverworldEdge(0x2F,"Main","N",1,1,false,.75);
-		createOverworldEdge(0x30,"Tablet","E",0,2,false,1.5);
-		createOverworldEdge(0x30,"Main","E",2,2,false,1.8);
-		createDoubleOverworldEdge(0x32,"Main","N",0,2,false,.15);
-		createDoubleOverworldEdge(0x32,"North","N",2,2,false,.45);
-		createDoubleOverworldEdge(0x32,"Main","E",1,1,false,.5);
-		createDoubleOverworldEdge(0x33,"West","N",1,1,false,.3);
-		createDoubleOverworldEdge(0x33,"West","W",1,1,false,.5);
-		createDoubleOverworldEdge(0x33,"East","E",0,2,false,.3);
-		createDoubleOverworldEdge(0x33,"East","E",1,1,true,.55);
-		createDoubleOverworldEdge(0x33,"East","E",2,2,false,.8);
-		createDoubleOverworldEdge(0x33,"East","S",1,1,false,.6);
+		createDoubleOverworldEdge(0x2D,"North","E",0,1,2,false,.3);
+		createDoubleOverworldEdge(0x2D,"River","E",2,1,2,true,.65);
+		createDoubleOverworldEdge(0x2D,"South","S",1,1,1,false,.45);
+		createDoubleOverworldEdge(0x2E,"Main","N",1,1,1,false,.25);
+		createDoubleOverworldEdge(0x2E,"Main","W",0,1,2,false,.3);
+		createDoubleOverworldEdge(0x2E,"River","W",2,1,2,true,.65);
+		createDoubleOverworldEdge(0x2E,"River","S",0,1,2,true,.6);
+		createDoubleOverworldEdge(0x2E,"Main","S",2,1,2,false,.85);
+		createDoubleOverworldEdge(0x2F,"Main","N",1,1,1,false,.75);
+		createOverworldEdge(0x30,"Tablet","E",0,2,2,false,1.5);
+		createOverworldEdge(0x30,"Main","E",2,2,2,false,1.8);
+		createDoubleOverworldEdge(0x32,"Main","N",0,2,2,false,.15);
+		createDoubleOverworldEdge(0x32,"North","N",2,2,2,false,.45);
+		createDoubleOverworldEdge(0x32,"Main","E",1,1,1,false,.5);
+		createDoubleOverworldEdge(0x33,"West","N",1,1,1,false,.3);
+		createDoubleOverworldEdge(0x33,"West","W",1,1,1,false,.5);
+		createDoubleOverworldEdge(0x33,"East","E",0,2,3,false,.3);
+		createDoubleOverworldEdge(0x33,"East","E",1,1,3,true,.55);
+		createDoubleOverworldEdge(0x33,"East","E",2,2,3,false,.8);
+		createDoubleOverworldEdge(0x33,"East","S",1,1,1,false,.6);
 		createWhirlpool(0x33,"East",.65,.6);
-		createDoubleOverworldEdge(0x34,"Main","N",1,1,false,.45);
-		createDoubleOverworldEdge(0x34,"Main","W",0,2,false,.3);
-		createDoubleOverworldEdge(0x34,"Main","W",1,1,true,.55);
-		createDoubleOverworldEdge(0x34,"Main","W",2,2,false,.8);
-		createDoubleOverworldEdge(0x34,"Main","S",1,1,false,.5);
-		createDoubleOverworldEdge(0x35,"Northwest","N",0,1,false,.45);
-		createDoubleOverworldEdge(0x35,"Lake","N",1,1,true,1.6);
-		createDoubleOverworldEdge(0x35,"Northeast","N",2,1,false,1.85);
-		createDoubleOverworldEdge(0x35,"Southwest","W",1,1,false,1.8);
-		createDoubleOverworldEdge(0x35,"Lake","E",0,1,true,1.6);
-		createDoubleOverworldEdge(0x35,"Southeast","E",2,1,false,1.85);
+		createDoubleOverworldEdge(0x34,"Main","N",1,1,1,false,.45);
+		createDoubleOverworldEdge(0x34,"Main","W",0,2,3,false,.3);
+		createDoubleOverworldEdge(0x34,"Main","W",1,1,3,true,.55);
+		createDoubleOverworldEdge(0x34,"Main","W",2,2,3,false,.8);
+		createDoubleOverworldEdge(0x34,"Main","S",1,1,1,false,.5);
+		createDoubleOverworldEdge(0x35,"Northwest","N",0,1,1,false,.45);
+		createDoubleOverworldEdge(0x35,"Lake","N",1,1,2,true,1.6);
+		createDoubleOverworldEdge(0x35,"Northeast","N",2,1,2,false,1.85);
+		createDoubleOverworldEdge(0x35,"Southwest","W",1,1,1,false,1.8);
+		createDoubleOverworldEdge(0x35,"Lake","E",0,1,2,true,1.6);
+		createDoubleOverworldEdge(0x35,"Southeast","E",2,1,2,false,1.85);
 		createWhirlpool(0x35,"Lake",1.3,1.35);
-		createDoubleOverworldEdge(0x37,"Main","S",0,1,true,.25);
-		createDoubleOverworldEdge(0x37,"Main","S",2,1,false,.65);
-		createOverworldEdge(0x3A,"Ledge","W",0,2,false,.5);
-		createOverworldEdge(0x3A,"Main","W",2,2,false,.8);
-		createDoubleOverworldEdge(0x3A,"Main","E",0,2,false,.6);
-		createDoubleOverworldEdge(0x3A,"Southeast","E",2,2,false,.85);
-		createDoubleOverworldEdge(0x3B,"Main","N",1,1,false,.6);
-		createDoubleOverworldEdge(0x3B,"Main","W",0,2,false,.6);
-		createDoubleOverworldEdge(0x3B,"Main","W",2,2,false,.85);
-		createDoubleOverworldEdge(0x3B,"Main","E",1,1,false,.5);
-		createDoubleOverworldEdge(0x3C,"Main","N",1,1,false,.5);
-		createDoubleOverworldEdge(0x3C,"Main","W",1,1,false,.5);
-		createDoubleOverworldEdge(0x3C,"Main","E",1,1,false,.8);
-		createDoubleOverworldEdge(0x3F,"Waterfall","N",0,1,true,.25);
-		createDoubleOverworldEdge(0x3F,"Main","N",2,1,false,.65);
-		createDoubleOverworldEdge(0x3F,"Main","W",0,1,true,.6);
-		createDoubleOverworldEdge(0x3F,"Main","W",2,1,false,.85);
+		createDoubleOverworldEdge(0x37,"Main","S",0,1,2,true,.25);
+		createDoubleOverworldEdge(0x37,"Main","S",2,1,2,false,.65);
+		createOverworldEdge(0x3A,"Ledge","W",0,2,2,false,.5);
+		createOverworldEdge(0x3A,"Main","W",2,2,2,false,.8);
+		createDoubleOverworldEdge(0x3A,"Main","E",0,2,2,false,.6);
+		createDoubleOverworldEdge(0x3A,"Southeast","E",2,2,2,false,.85);
+		createDoubleOverworldEdge(0x3B,"Main","N",1,1,1,false,.6);
+		createDoubleOverworldEdge(0x3B,"Main","W",0,2,2,false,.6);
+		createDoubleOverworldEdge(0x3B,"Main","W",2,2,2,false,.85);
+		createDoubleOverworldEdge(0x3B,"Main","E",1,1,1,false,.5);
+		createDoubleOverworldEdge(0x3C,"Main","N",1,1,1,false,.5);
+		createDoubleOverworldEdge(0x3C,"Main","W",1,1,1,false,.5);
+		createDoubleOverworldEdge(0x3C,"Main","E",1,1,1,false,.8);
+		createDoubleOverworldEdge(0x3F,"Waterfall","N",0,1,2,true,.25);
+		createDoubleOverworldEdge(0x3F,"Main","N",2,1,2,false,.65);
+		createDoubleOverworldEdge(0x3F,"Main","W",0,1,2,true,.6);
+		createDoubleOverworldEdge(0x3F,"Main","W",2,1,2,false,.85);
 		createWhirlpool(0x3F,"Main",.25,.4);
 		createWhirlpool(0x7F,"Main",.25,.4);
-		createOverworldEdge(0x80,"Main","S",1,1,false,.45);
-		createOverworldEdge(0x81,"Main","S",1,1,false,.5);
-		createOverworldEdge(0x82,"Main","E",1,1,true,.6);
+		createOverworldEdge(0x80,"Main","S",1,1,1,false,.45);
+		createOverworldEdge(0x81,"Main","S",1,1,1,false,.5);
+		createOverworldEdge(0x82,"Main","E",1,1,1,true,.6);
 		setVanillaTransition(0x00,"N1",0x80,"S1");
 		setVanillaTransition(0x00,"E1",0x02,"W1");
 		setVanillaTransition(0x00,"S0",0x10,"N0");
@@ -362,7 +364,8 @@
 		createOpenLogicEdge(0x47,"Portal","Main","ledge",false);
 		createInvertedLogicEdge(0x07,"Portal","Main","hammermitts",false);
 		createInvertedLogicEdge(0x47,"Main","Portal","ledge",true);
-		createDoublePortal(0x07,"Portal","mitts");
+		createPortal(0x07,"Portal","hammer");
+		createPortal(0x47,"Portal","mitts");
 		createDoubleLogicEdge(0x0A,"Main","Bottom Cave","gloves",true);
 		createDoubleLogicEdge(0x0A,"Ledge","Main","ledge",false);
 		createDoubleLogicEdge(0x0A,"Bottom Cave","Main","ledge",false);
@@ -405,6 +408,7 @@
 		createSingleLogicEdge(0x1B,"Main","South",null,true);
 		createSingleLogicEdge(0x1B,"South","Southwest","bushes",true);
 		createSingleLogicEdge(0x5B,"South","Southwest",null,true);
+		createSingleLogicEdge(0x1B,"Main","Courtyard","mirror",true);
 		createSingleLogicEdge(0x5B,"Main","Courtyard",null,true);
 		createSingleLogicEdge(0x5B,"Courtyard","Balcony",null,true);
 		createSingleLogicEdge(0x1B,"Balcony","Courtyard","ledge",false);
@@ -596,6 +600,7 @@
 		createItemLocation(0x13,"Main",58,-1,"bushes");
 		createItemLocation(0x22,"Northeast",59,-1,"powder");
 		createItemLocation(0x69,"Frog",60,-1,null);
+		createSpecialLocation(0x69,"Frog","Frog",null);
 		createSpecialLocation(0x22,"Main","Smith",null);
 		createItemLocation(0x5B,"Main",61,-1,"bushes");
 		createSpecialLocation(0x6C,"Main","Red Bomb","redcrystals");
@@ -891,78 +896,262 @@
         setEntranceRegion(0x7B,"Main",[89]);
 	};
 
-	window.vanillaTransitionsMode = function(button)
+	window.getFixedEdgePairs = function()
 	{
-		if(layoutshuffle !== 'N' || whirlpoolshuffle || crossedow === 'C')
+		let fixedEdges = [];
+		if(layoutshuffle === 'N' && crossedow === 'C')
 		{
-			for(let screen of overworldScreens.values())
-				for(let edge of screen.edges.values())
-					if(edge.out && !edgesCompatible(edge,edge.out))
-						deleteSimilarParallel(edge);
-			if(layoutshuffle === 'N')
+			/*fixedEdges.push(getEdgesByKeys(0x1A,"E1",0x1B,"W1"));
+			fixedEdges.push(getEdgesByKeys(0x68,"E0",0x69,"W0"));
+			fixedEdges.push(getEdgesByKeys(0x30,"E0",0x3A,"W0"));
+			fixedEdges.push(getEdgesByKeys(0x30,"E2",0x3A,"W2"));
+			fixedEdges.push(getEdgesByKeys(0x00,"N1",0x80,"S1"));
+			fixedEdges.push(getEdgesByKeys(0x0F,"N1",0x81,"S1"));
+			fixedEdges.push(getEdgesByKeys(0x2D,"W0",0x82,"E1"));*/
+			if(similarow)
 			{
-				connectEdgesByKeys(0x1A,"E1",0x1B,"W1",true);
-				connectEdgesByKeys(0x68,"E0",0x69,"W0",true);
-				connectEdgesByKeys(0x30,"E0",0x3A,"W0",true);
-				connectEdgesByKeys(0x30,"E2",0x3A,"W2",true);
-				connectEdgesByKeys(0x00,"N1",0x80,"S1",true);
-				connectEdgesByKeys(0x0F,"N1",0x81,"S1",true);
-				connectEdgesByKeys(0x2D,"W0",0x82,"E1",true);
-				if(similarow)
-				{
-					connectEdgesByKeys(0x28,"E1",0x29,"W1",true);
-					connectEdgesByKeys(0x68,"E2",0x69,"W2",true);
-				}
+				fixedEdges.push(getEdgesByKeys(0x28,"E1",0x29,"W1"));
+				fixedEdges.push(getEdgesByKeys(0x68,"E2",0x69,"W2"));
 			}
-			if(!whirlpoolshuffle)
-			{
-				connectEdgesByKeys(0x0F,"ZW",0x35,"ZW",true);
-				connectEdgesByKeys(0x12,"ZW",0x3F,"ZW",true);
-				connectEdgesByKeys(0x15,"ZW",0x33,"ZW",true);
-				connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true);
-			}
-			if(layoutshuffle === 'P')
-			{
-				connectEdgesByKeys(0x2D,"W0",0x82,"E1",true);
-				if(similarow)
-				{
-					connectEdgesByKeys(0x1A,"E1",0x1B,"W1",true);
-					connectEdgesByKeys(0x28,"E1",0x29,"W1",true);
-					connectEdgesByKeys(0x68,"E0",0x69,"W0",true);
-					connectEdgesByKeys(0x68,"E2",0x69,"W2",true);
-					connectEdgesByKeys(0x30,"E0",0x3A,"W0",true);
-					connectEdgesByKeys(0x30,"E2",0x3A,"W2",true);
-				}
-				else
-					if(crossedow !== 'C' && (!mixedow || crossedow === 'P'))
-						connectEdgesByKeys(0x68,"E0",0x69,"W0",true);
-			}
-			if(crossedow !== 'C' && (!mixedow || crossedow === 'P'))
-				connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true);
-			if(similarow && crossedow !== 'C' && (!mixedow || crossedow === 'P'))
-			{
-				connectEdgesByKeys(0x2B,"E0",0x2C,"W0",true);
-				connectEdgesByKeys(0x2B,"E1",0x2C,"W1",true);
-				connectEdgesByKeys(0x2B,"E2",0x2C,"W2",true);
-				connectEdgesByKeys(0x6B,"E0",0x6C,"W0",true);
-				connectEdgesByKeys(0x6B,"E1",0x6C,"W1",true);
-				connectEdgesByKeys(0x6B,"E2",0x6C,"W2",true);
-			}
-			for(let screen of overworldScreens.values())
-				for(let edge of screen.edges.values())
-					if(edge.out && ((layoutshuffle !== 'F' && edge.parallel) || (similarow && edge.similarGroup !== 1)))
-						connectSimilarParallel(edge,edge.out);
 		}
+		/*if(!whirlpoolshuffle)
+		{
+			fixedEdges.push(getEdgesByKeys(0x0F,"ZW",0x35,"ZW"));
+			fixedEdges.push(getEdgesByKeys(0x12,"ZW",0x3F,"ZW"));
+			fixedEdges.push(getEdgesByKeys(0x15,"ZW",0x33,"ZW"));
+			fixedEdges.push(getEdgesByKeys(0x55,"ZW",0x7F,"ZW"));
+		}*/
+		if(layoutshuffle === 'P')
+		{
+			if(!terrainow)
+				fixedEdges.push(getEdgesByKeys(0x2D,"W0",0x82,"E1"));
+			if(similarow)
+			{
+				if(!terrainow)
+					fixedEdges.push(getEdgesByKeys(0x1A,"E1",0x1B,"W1"));
+				fixedEdges.push(getEdgesByKeys(0x28,"E1",0x29,"W1"));
+				fixedEdges.push(getEdgesByKeys(0x68,"E0",0x69,"W0"));
+				fixedEdges.push(getEdgesByKeys(0x68,"E2",0x69,"W2"));
+				fixedEdges.push(getEdgesByKeys(0x30,"E0",0x3A,"W0"));
+				fixedEdges.push(getEdgesByKeys(0x30,"E2",0x3A,"W2"));
+			}
+			else
+				if(crossedow !== 'C' && (!mixedow || crossedow === 'P'))
+					fixedEdges.push(getEdgesByKeys(0x68,"E0",0x69,"W0"));
+		}
+		//if(crossedow !== 'C' && (!mixedow || crossedow === 'P'))
+		//	connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true,true);
+		if(layoutshuffle !== 'N' && similarow && !terrainow && crossedow !== 'C' && (!mixedow || crossedow === 'P'))
+		{
+			fixedEdges.push(getEdgesByKeys(0x2B,"E0",0x2C,"W0"));
+			fixedEdges.push(getEdgesByKeys(0x2B,"E1",0x2C,"W1"));
+			fixedEdges.push(getEdgesByKeys(0x2B,"E2",0x2C,"W2"));
+			fixedEdges.push(getEdgesByKeys(0x6B,"E0",0x6C,"W0"));
+			fixedEdges.push(getEdgesByKeys(0x6B,"E1",0x6C,"W1"));
+			fixedEdges.push(getEdgesByKeys(0x6B,"E2",0x6C,"W2"));
+		}
+		if(layoutshuffle !== 'N' && similarow && terrainow && crossedow !== 'C' && (!mixedow || crossedow === 'P'))
+		{
+			fixedEdges.push(getEdgesByKeys(0x15,"S0",0x1D,"N0"));
+			fixedEdges.push(getEdgesByKeys(0x15,"S1",0x1D,"N1"));
+			fixedEdges.push(getEdgesByKeys(0x15,"S2",0x1D,"N2"));
+			fixedEdges.push(getEdgesByKeys(0x55,"S0",0x5D,"N0"));
+			fixedEdges.push(getEdgesByKeys(0x55,"S1",0x5D,"N1"));
+			fixedEdges.push(getEdgesByKeys(0x55,"S2",0x5D,"N2"));
+		}
+		return fixedEdges;
+	};
+
+	window.checkAutoAdjustments = function(makeAdjustments)
+	{
+		let info = {};
+		let invalidScreensCount = 0,inconsistentGroupsCount = 0,missingScreensCount = 0,inconsistentSimilarCount = 0,inconsistentParallelCount = 0,inconsistentCoupledCount = 0,invalidEdgesCount = 0,invalidIndegreeCount = 0,missingFixedCount = 0,missingSimilarCount = 0,missingParallelCount = 0,missingCoupledCount = 0;
+		let inconsistentGroups = [],missingScreensNormal = [],missingScreensSwapped = [],invalidEdges = [],invalidIndegree = [];
 		if(mixedow)
 		{
-			for(let [id,screen] of overworldScreens)
-				if((id < 0x40 || id >= 0x80) && screen.mixedState !== "unknown")
-					setMixedScreen(screen,screen.mixedState);
 			if(worldState === 'S')
 				for(let id of [0x1B,0x2B,0x2C])
-					setMixedScreen(overworldScreens.get(id),"normal");
+				{
+					if(makeAdjustments)
+						setMixedScreen(overworldScreens.get(id),"normal");
+					else
+					{
+						let group = getScreenLinkGroup(id,false);
+						for(let i of group)
+							if(overworldScreens.get(i).mixedState !== "normal")
+								invalidScreensCount++;
+					}
+				}
+			for(let [id,screen] of overworldScreens)
+				if(id < 0x40 || id >= 0x80)
+				{
+					let group = getScreenLinkGroup(id,false);
+					let isUnknown = false,isNormal = false,isSwapped = false;
+					for(let i of group)
+					{
+						let screen = overworldScreens.get(i);
+						if(screen.mixedState === "unknown")
+							isUnknown = true;
+						if(screen.mixedState === "normal")
+							isNormal = true;
+						if(screen.mixedState === "swapped")
+							isSwapped = true;
+					}
+					if(isUnknown+isNormal+isSwapped > 1)
+					{
+						if(isNormal && isSwapped)
+						{
+							inconsistentGroupsCount++;
+							inconsistentGroups.push(group);
+						}
+						else
+						{
+							missingScreensCount++;
+							(isNormal ?missingScreensNormal :missingScreensSwapped).push(group);
+						}
+					}
+				}
+			if(makeAdjustments)
+			{
+				for(let group of inconsistentGroups)
+					setMixedScreen(group[0],"unknown");
+				for(let group of missingScreensNormal)
+					setMixedScreen(group[0],"normal");
+				for(let group of missingScreensSwapped)
+					setMixedScreen(group[0],"swapped");
+			}
 		}
-		document.getElementById("overworldoptionsfinalbox").style.display = "none";
+		for(let screen of overworldScreens.values())
+			for(let edge of screen.edges.values())
+				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)))
+				{
+					if(edge.out && !edgesCompatible(edge,edge.out))
+					{
+						invalidEdgesCount++;
+						if(makeAdjustments)
+							deleteConnections(edge,true,false);
+						else
+							invalidEdges.push(edge);
+					}
+				}
+		for(let screen of overworldScreens.values())
+			for(let edge of screen.edges.values())
+				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)))
+				{
+					if(decoupledow !== 'C' && edge.in.length > 1)
+					{
+						invalidIndegreeCount++;
+						invalidIndegree.push(edge);
+						if(makeAdjustments)
+							for(let e in edge.in)
+								deleteConnections(e,true,false);
+					}
+				}
+		for(let screen of overworldScreens.values())
+			for(let edge of screen.edges.values())
+				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
+				{
+					let edgeList1 = getSimilarGroup(edge),edgeList2 = getSimilarGroup(edge.out);
+					let invalid = false;
+					for(let e of edgeList1)
+						if(e.out && getSimilarGroup(e.out)[0] !== edgeList2[0])
+						{
+							invalid = true;
+							inconsistentSimilarCount++;
+						}
+					if(invalid && makeAdjustments)
+						for(let e of edgeList1)
+							if(e.out)
+								deleteConnections(e,true,false);
+				}
+		for(let screen of overworldScreens.values())
+			for(let edge of screen.edges.values())
+				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
+				{
+					let invalid = false;
+					if((layoutshuffle === 'P' || (layoutshuffle === 'N' && decoupledow !== 'C')) && edge.parallel && edge.out.parallel && edge.parallel.out && edge.out.parallel !== edge.parallel.out)
+					{
+						invalid = true;
+						inconsistentParallelCount++;
+					}
+					if(invalid && makeAdjustments)
+					{
+						deleteConnections(edge,true,false);
+						deleteConnections(edge.parallel,true,false);
+					}
+			}
+		for(let screen of overworldScreens.values())
+			for(let edge of screen.edges.values())
+				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
+				{
+					let invalid = false;
+					if(decoupledow === 'N' && (edge.in.length === 1 && edge.out !== edge.in[0]))
+					{
+						invalid = true;
+						inconsistentCoupledCount++;
+					}
+					if(invalid && makeAdjustments)
+					{
+						deleteConnections(edge,true,true);
+					}
+				}
+		for(let [edge1,edge2] of getFixedEdgePairs())
+			if(edge1.out !== edge2 || edge2.out !== edge1)
+			{
+				missingFixedCount++;
+				if(makeAdjustments)
+					connectEdges(edge1,edge2,true,true);
+			}
+		for(let screen of overworldScreens.values())
+			for(let edge of screen.edges.values())
+				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
+				{
+					let edgeList = getSimilarGroup(edge);
+					for(let e of edgeList)
+					{
+						if(!e.out)
+							missingSimilarCount++;
+						else
+							if((layoutshuffle === 'P' || (layoutshuffle === 'N' && decoupledow !== 'C')) && edge.parallel && edge.out.parallel && !edge.parallel.out)
+							{
+								missingParallelCount++;
+							}
+					}
+					if(decoupledow === 'N' && !edge.in.length)
+						missingCoupledCount++
+					if(makeAdjustments)
+						connectSimilarParallel(edge,edge.out,decoupledow === 'N',decoupledow !== 'C');
+				}
+		info.invalidScreensCount = invalidScreensCount;
+		info.inconsistentGroupsCount = inconsistentGroupsCount;
+		info.missingScreensCount = missingScreensCount;
+		info.invalidEdgesCount = invalidEdgesCount;
+		info.invalidIndegreeCount = invalidIndegreeCount;
+		info.inconsistentSimilarCount = inconsistentSimilarCount;
+		info.inconsistentParallelCount = inconsistentParallelCount;
+		info.inconsistentCoupledCount = inconsistentCoupledCount;
+		info.missingFixedCount = missingFixedCount;
+		info.missingSimilarCount = missingSimilarCount;
+		info.missingParallelCount = missingParallelCount;
+		info.missingCoupledCount = missingCoupledCount;
+		info.inconsistentGroups = inconsistentGroups;
+		info.invalidEdges = invalidEdges;
+		info.invalidIndegree = invalidIndegree;
+		info.hasChanges = invalidScreensCount || inconsistentGroupsCount || missingScreensCount || invalidEdgesCount || invalidIndegreeCount || inconsistentSimilarCount || inconsistentParallelCount || inconsistentCoupledCount || missingFixedCount || missingSimilarCount || missingParallelCount || missingCoupledCount;
+		if(!makeAdjustments && info.hasChanges)
+		{
+			document.getElementById("overworldoptionsfinalbox").style.display = "block";
+		}
+		else
+		{
+			document.getElementById("overworldoptionsfinalbox").style.display = "none";
+		}
+		return info;
+	};
+
+	window.vanillaTransitionsMode = function(button)
+	{
+		checkAutoAdjustments(true);
 		sendUpdate();
 		updateReachableEdges();
 		drawFullOverworldPanels();
@@ -970,33 +1159,115 @@
 			buttonFlash(button);
 	};
 
+	window.vanillaHorizontal = function(button)
+	{
+		if(confirm("Warning: This will replace all existing horizontal edge connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
+		{
+			for(let screen of overworldScreens.values())
+				for(let edge of screen.edges.values())
+					if(edge.direction === "E")
+						connectEdges(edge,edge.vanilla,true,true);
+			if(button)
+			{
+				sendUpdate();
+				updateReachableEdges();
+				drawFullOverworldPanels();
+				buttonFlash(button);
+			}
+		}
+	};
+
+	window.vanillaVertical = function(button)
+	{
+		if(confirm("Warning: This will replace all existing vertical edge connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
+		{
+			for(let screen of overworldScreens.values())
+				for(let edge of screen.edges.values())
+					if(edge.direction === "S")
+						connectEdges(edge,edge.vanilla,true,true);
+			if(button)
+			{
+				sendUpdate();
+				updateReachableEdges();
+				drawFullOverworldPanels();
+				buttonFlash(button);
+			}
+		}
+	};
+
 	window.vanillaWhirlpools = function(button)
 	{
-		connectEdgesByKeys(0x0F,"ZW",0x35,"ZW",true);
-		connectEdgesByKeys(0x12,"ZW",0x3F,"ZW",true);
-		connectEdgesByKeys(0x15,"ZW",0x33,"ZW",true);
-		connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true);
-		if(button)
+		if(confirm("Warning: This will replace all existing whirlpool connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
 		{
-			sendUpdate();
-			updateReachableEdges();
-			drawFullOverworldPanels();
-			buttonFlash(button);
+			connectEdgesByKeys(0x0F,"ZW",0x35,"ZW",true,true);
+			connectEdgesByKeys(0x12,"ZW",0x3F,"ZW",true,true);
+			connectEdgesByKeys(0x15,"ZW",0x33,"ZW",true,true);
+			connectEdgesByKeys(0x55,"ZW",0x7F,"ZW",true,true);
+			if(button)
+			{
+				sendUpdate();
+				updateReachableEdges();
+				drawFullOverworldPanels();
+				buttonFlash(button);
+			}
 		}
 	};
 
 	window.vanillaSpecialScreens = function(button)
 	{
-		connectEdgesByKeys(0x00,"N1",0x80,"S1",true);
-		connectEdgesByKeys(0x0F,"N1",0x81,"S1",true);
-		connectEdgesByKeys(0x2D,"W0",0x82,"E1",true);
-		if(button)
+		if(confirm("Warning: This will replace all existing special screen connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
 		{
-			sendUpdate();
-			updateReachableEdges();
-			drawFullOverworldPanels();
-			buttonFlash(button);
+			connectEdgesByKeys(0x00,"N1",0x80,"S1",true,true);
+			connectEdgesByKeys(0x0F,"N1",0x81,"S1",true,true);
+			connectEdgesByKeys(0x2D,"W0",0x82,"E1",true,true);
+			if(button)
+			{
+				sendUpdate();
+				updateReachableEdges();
+				drawFullOverworldPanels();
+				buttonFlash(button);
+			}
 		}
+	};
+
+	window.clearStatesAndEdges = function(button)
+	{
+		if(confirm("Warning: This will delete all marked Mixed states and connections between screen edges and whirlpools. Also, this cannot be undone. Continue?"))
+		{
+			for(let screen of overworldScreens.values())
+			{
+				screen.mixedState = "unknown";
+				for(let edge of screen.edges.values())
+				{
+					edge.out = null;
+					edge.in = [];
+				}
+			}
+			checkAutoAdjustments(false);
+			if(button)
+			{
+				sendUpdate();
+				updateReachableEdges();
+				drawFullOverworldPanels();
+				buttonFlash(button);
+			}
+		}
+	};
+
+	window.getSimilarGroup = function(edge)
+	{
+		let edgeList = [],edges = edge.screen.edges;
+		if(similarow && (terrainow ?edge.similarGroupTerrain :edge.similarGroup) !== 1)
+		{
+			for(let k = 0; k < 3; k++)
+			{
+				if(edges.has(edge.direction+k) && (terrainow ?edges.get(edge.direction+k).similarGroupTerrain :edges.get(edge.direction+k).similarGroup) !== 1)
+					edgeList.push(edges.get(edge.direction+k));
+			}
+		}
+		else
+			edgeList.push(edge);
+		return edgeList;
 	};
 
 	window.isDarkWorld = function(screen)
@@ -1006,19 +1277,20 @@
 		return screen.darkWorld;
 	};
 
-	window.getConnectedEdge = function(edge,source)
+	window.getConnectedEdge = function(edge,sources)
 	{
 		if((edge.string === "ZW" ?!whirlpoolshuffle :layoutshuffle === 'N') && (crossedow !== 'C' || !edge.parallel))
 		{
 			if(mixedow && edge.parallel)
 			{
 				if(edge.screen.mixedState === "unknown" || edge.vanilla.screen.mixedState === "unknown")
-					return null;
-				return crossedow === 'P' || edge.screen.mixedState === edge.vanilla.screen.mixedState ?edge.vanilla :edge.parallel.vanilla;
+					return sources ?[] :null;
+				let r = crossedow === 'P' || edge.screen.mixedState === edge.vanilla.screen.mixedState ?edge.vanilla :edge.parallel.vanilla;
+				return sources ?[r] :r;
 			}
-			return edge.vanilla;
+			return sources ?[edge.vanilla] :edge.vanilla;
 		}
-		return source ?edge.in :edge.out;
+		return sources ?edge.in :edge.out;
 	};
 
 	window.getAssumedMixedState = function(screen,assumptions)
@@ -1039,19 +1311,20 @@
 		return screen.darkWorld;
 	};
 
-	window.getAssumedConnectedEdge = function(edge,source,assumptions)
+	window.getAssumedConnectedEdge = function(edge,sources,assumptions)
 	{
 		if((edge.string === "ZW" ?!whirlpoolshuffle :layoutshuffle === 'N') && (crossedow !== 'C' || !edge.parallel))
 		{
 			if(mixedow && edge.parallel)
 			{
 				if(getAssumedMixedState(edge.screen,assumptions) === "unknown" || getAssumedMixedState(edge.vanilla.screen,assumptions) === "unknown")
-					return null;
-				return crossedow === 'P' || getAssumedMixedState(edge.screen,assumptions) === getAssumedMixedState(edge.vanilla.screen,assumptions) ?edge.vanilla :edge.parallel.vanilla;
+					return sources ?[] :null;
+				let r = crossedow === 'P' || getAssumedMixedState(edge.screen,assumptions) === getAssumedMixedState(edge.vanilla.screen,assumptions) ?edge.vanilla :edge.parallel.vanilla;
+				return sources ?[r] :r;
 			}
-			return edge.vanilla;
+			return sources ?[edge.vanilla] :edge.vanilla;
 		}
-		return source ?edge.in :edge.out;
+		return sources ?edge.in :edge.out;
 	};
 
 	window.addContinueRegion = function(id,state,normalRegion,swappedRegion,checkableScreens,continueRegions)
@@ -1107,7 +1380,7 @@
 				else
 				{
 					let targetEdge = getAssumedConnectedEdge(edge,false,assumptions);
-					if(targetEdge && (!edge.water || checkRule("flippers",items,isAssumedDarkWorld(targetEdge.screen,assumptions))) && !visitedRegions.has(targetEdge.region))
+					if(targetEdge && (!targetEdge.water || checkRule("flippers",items,isAssumedDarkWorld(targetEdge.screen,assumptions))) && !visitedRegions.has(targetEdge.region))
 					{
 						explore(targetEdge.region,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,assumptions);
 					}
@@ -1181,18 +1454,20 @@
 				}
 			}
 			for(let edge of current.screenEdges)
-			{
-				let distance = current.distance+1;
-				let sourceEdge = getConnectedEdge(edge,true);
-				if(sourceEdge && (!edge.water || (checkRule("flippers",items,isDarkWorld(sourceEdge.screen)) && checkRule("flippers",items,darkWorld))) && distance < sourceEdge.region.distance)
+				if(!edge.water || checkRule("flippers",items,darkWorld))
 				{
-					sourceEdge.region.distance = distance;
-					sourceEdge.region.nextRegion = current;
-					sourceEdge.region.nextEdgeType = "S";
-					sourceEdge.region.nextEdge = sourceEdge;
-					reachable.add(sourceEdge.region);
+					let distance = current.distance+1;
+					let sourceEdges = getConnectedEdge(edge,true);
+					for(let sourceEdge of sourceEdges)
+						if(sourceEdge && (!sourceEdge.water || checkRule("flippers",items,isDarkWorld(sourceEdge.screen))) && distance < sourceEdge.region.distance)
+						{
+							sourceEdge.region.distance = distance;
+							sourceEdge.region.nextRegion = current;
+							sourceEdge.region.nextEdgeType = "S";
+							sourceEdge.region.nextEdge = sourceEdge;
+							reachable.add(sourceEdge.region);
+						}
 				}
-			}
 			if(current.parallel)
 			{
 				let distance = current.distance+1,parallel = current.parallel;
@@ -1248,7 +1523,7 @@
 		items.follower = follower;
 		options.saveQuitEdges = true;
 		options.fluteEdges = true;
-		options.keepMirrorPortal = false;
+		options.keepMirrorPortal = items.keepMirrorPortal = false;
 		explore(start,items,options,reachable,new Set(),new Set(),new Map(),emptyMap);
 		if(reachable.has(target))
 		{
@@ -1267,7 +1542,7 @@
 			}
 			if(mirrorTarget !== "unavailable" && availability !== "available")
 			{
-				options.keepMirrorPortal = true;
+				options.keepMirrorPortal = items.keepMirrorPortal = true;
 				reachable.clear();
 				explore(start,items,options,reachable,new Set(),new Set(),new Map(),emptyMap);
 				if(reachable.has(target.parallel))
@@ -1292,7 +1567,7 @@
 			case "bushes":
 				return items.moonpearl || (darkWorld === (worldState === 'I'));
 			case "mirror":
-				return items.mirror;
+				return items.mirror && !items.keepMirrorPortal;
 			case "lantern":
 				return items.lantern;
 			case "agahnim":
@@ -1675,8 +1950,7 @@
 				data.items[60] === "possible";
 		}
 		//Purple chest
-		if(!entranceEnabled)
-			andSpecial(data.items,28,data.items[60]);
+		andSpecial(data.items,28,entranceEnabled ?data.special["Frog"] :data.items[60]);
 		if(data.items[28] !== "unavailable")
 		{
 			let mirrorStart = canPlaceMirrorPortal(overworldScreens.get(0x62).regions.get("Main"),regions,extraRegions,maybeLightRegions,maybeDarkRegions);
@@ -2085,14 +2359,16 @@
 		edge.direction = "Z";
 		edge.symbol = "W";
 		edge.string = "ZW";
-		edge.similarGroup = 1;
+		edge.similarGroup = edge.similarGroupTerrain = 1;
 		edge.water = true;
 		edge.x = edge.x2 = x;
 		edge.y = edge.y2 = y;
+		edge.out = null;
+		edge.in = [];
 		screen.edges.set("ZW",edge);
 	};
 
-	window.createOverworldEdge = function(screenID,regionName,direction,symbol,similarGroup,water,position)
+	window.createOverworldEdge = function(screenID,regionName,direction,symbol,similarGroup,similarGroupTerrain,water,position)
 	{
 		let edge = {},screen = overworldScreens.get(screenID);
 		edge.screen = screen;
@@ -2102,6 +2378,7 @@
 		edge.symbol = symbol;
 		edge.string = direction+symbol;
 		edge.similarGroup = similarGroup;
+		edge.similarGroupTerrain = similarGroupTerrain;
 		edge.water = water;
 		edge.position = position;
 		switch(edge.direction)
@@ -2126,14 +2403,16 @@
 				edge.x2 = screen.big ?1.75 :.875;
 				edge.y = edge.y2 = position;
 		}
+		edge.out = null;
+		edge.in = [];
 		screen.edges.set(edge.string,edge);
 		return edge;
 	};
 
-	window.createDoubleOverworldEdge = function(screenID,region,direction,symbol,similarGroup,water,position)
+	window.createDoubleOverworldEdge = function(screenID,region,direction,symbol,similarGroup,similarGroupTerrain,water,position)
 	{
-		let edge1 = createOverworldEdge(screenID,region,direction,symbol,similarGroup,water,position);
-		let edge2 = createOverworldEdge(screenID+0x40,region,direction,symbol,similarGroup,water,position);
+		let edge1 = createOverworldEdge(screenID,region,direction,symbol,similarGroup,similarGroupTerrain,water,position);
+		let edge2 = createOverworldEdge(screenID+0x40,region,direction,symbol,similarGroup,similarGroupTerrain,water,position);
 		edge1.parallel = edge2;
 		edge2.parallel = edge1;
 	};
@@ -2202,43 +2481,73 @@
 		}
 	};
 
-	window.connectEdges = function(edge1,edge2,bidirectional)
+	window.getNiceEdgeName = function(edge)
+	{
+		if(edge.string === "ZW")
+			return edge.screen.name+" Whirlpool";
+		let s = edge.screen.name+" "+edge.direction;
+		return s+(edge.direction === "N" || edge.direction === "S" ?["W","C","E"][edge.symbol] :["N","C","S"][edge.symbol]);
+	};
+
+	window.connectEdges = function(edge1,edge2,bidirectional,indegreeOne)
 	{
 		if(edge1.out)
-			edge1.out.in = null;
-		if(edge2.in)
-			edge2.in.out = null;
-		edge1.out = edge2;
-		edge2.in = edge1;
-		if(bidirectional)
 		{
-			if(edge1.in)
-				edge1.in.out = null;
-			if(edge2.out)
-				edge2.out.in = null;
-			edge1.in = edge2;
+			edge1.out.in = edge1.out.in.filter(e=>e !== edge1);
+			edge1.out = null;
+		}
+		if(indegreeOne && edge2.in.length)
+		{
+			for(let e of edge2.in)
+				e.out = null;
+			edge2.in = [];
+		}
+		if(bidirectional && edge2.out)
+		{
+			edge2.out.in = edge2.out.in.filter(e=>e !== edge2);
+			edge2.out = null;
+		}
+		if(bidirectional && indegreeOne && edge1.in.length)
+		{
+			for(let e of edge1.in)
+				e.out = null;
+			edge1.in = [];
+		}
+		if(!edge2.in.includes(edge1))
+		{
+			edge1.out = edge2;
+			edge2.in.push(edge1);
+		}
+		if(bidirectional && !edge1.in.includes(edge2))
+		{
 			edge2.out = edge1;
+			edge1.in.push(edge2);
 		}
 	};
 
-	window.connectEdgesByKeys = function(screenID1,edgeID1,screenID2,edgeID2,bidirectional)
+	window.connectEdgesByKeys = function(screenID1,edgeID1,screenID2,edgeID2,bidirectional,indegreeOne)
 	{
-		connectEdges(overworldScreens.get(screenID1).edges.get(edgeID1),overworldScreens.get(screenID2).edges.get(edgeID2),bidirectional);
+		connectEdges(overworldScreens.get(screenID1).edges.get(edgeID1),overworldScreens.get(screenID2).edges.get(edgeID2),bidirectional,indegreeOne);
+	};
+
+	window.getEdgesByKeys = function(screenID1,edgeID1,screenID2,edgeID2)
+	{
+		return [overworldScreens.get(screenID1).edges.get(edgeID1),overworldScreens.get(screenID2).edges.get(edgeID2)];
 	};
 
 	window.edgesCompatible = function(edge1,edge2)
 	{
-		return edge1.direction === opposite[edge2.direction] && edge1.water === edge2.water && (worldState !== 'S' || crossedow === 'C' || mixedow || (edge1.escapeEdge === edge2.escapeEdge)) && maybeCompatibleWorlds(edge1.screen,edge2.screen) && compatibleParallel(edge1,edge2) && compatibleSimilar(edge1,edge2);
+		return edge1.direction === opposite[edge2.direction] && (terrainow || edge1.water === edge2.water) && (worldState !== 'S' || crossedow === 'C' || mixedow || edge1.escapeEdge === edge2.escapeEdge) && maybeCompatibleWorlds(edge1.screen,edge2.screen) && compatibleParallel(edge1,edge2) && compatibleSimilar(edge1,edge2);
 	};
 
 	window.maybeCompatibleWorlds = function(screen1,screen2)
 	{
-		return crossedow === 'C' || (crossedow === 'P' ?(screen1.darkWorld === screen2.darkWorld) :((mixedow && (screen1.mixedState === "unknown" || screen2.mixedState === "unknown")) || isDarkWorld(screen1) === isDarkWorld(screen2)));
+		return crossedow === 'C' || (crossedow === 'P' ?screen1.darkWorld === screen2.darkWorld :(mixedow && (screen1.mixedState === "unknown" || screen2.mixedState === "unknown")) || isDarkWorld(screen1) === isDarkWorld(screen2));
 	};
 
 	window.compatibleKnownWorlds = function(screen1,screen2)
 	{
-		return (!mixedow || (screen1.mixedState !== "unknown" && screen2.mixedState !== "unknown")) && (crossedow === 'C' || (crossedow === 'P' ?(screen1.darkWorld === screen2.darkWorld) :(isDarkWorld(screen1) === isDarkWorld(screen2))));
+		return (!mixedow || (screen1.mixedState !== "unknown" && screen2.mixedState !== "unknown")) && (crossedow === 'C' || (crossedow === 'P' ?screen1.darkWorld === screen2.darkWorld :isDarkWorld(screen1) === isDarkWorld(screen2)));
 	};
 
 	window.compatibleParallel = function(edge1,edge2)
@@ -2250,11 +2559,11 @@
 	{
 		if(!similarow)
 			return true;
-		if(edge1.water || edge2.water)
+		if((!terrainow && edge1.water) || edge1.string === "ZW")
 			return true;
-		if(edge1.similarGroup !== edge2.similarGroup)
+		if(terrainow ?edge1.similarGroupTerrain !== edge2.similarGroupTerrain :edge1.similarGroup !== edge2.similarGroup)
 			return false;
-		switch(edge1.similarGroup)
+		switch(terrainow ?edge1.similarGroupTerrain :edge1.similarGroup)
 		{
 			case 1:
 				return true;
@@ -2269,90 +2578,90 @@
 	{
 		let edges = edge.screen.edges;
 		for(let k = 0; k < 3; k++)
-			if(edges.has(edge.direction+k) && edges.get(edge.direction+k).similarGroup === 2)
+			if(edges.has(edge.direction+k) && (terrainow ?edges.get(edge.direction+k).similarGroupTerrain :edges.get(edge.direction+k).similarGroup) === 2)
 				return k === edge.symbol;
 	};
 
-	window.connectSimilarParallel = function(edge1,edge2)
+	window.connectSimilarParallel = function(edge1,edge2,bidirectional,indegreeOne)
 	{
-		if(similarow && edge1.similarGroup !== 1 && edge1.similarGroup === edge2.similarGroup)
+		if(similarow && (terrainow ?(edge1.similarGroupTerrain !== 1 && edge1.similarGroupTerrain === edge2.similarGroupTerrain) :(edge1.similarGroup !== 1 && edge1.similarGroup === edge2.similarGroup)))
 		{
 			let edges1 = edge1.screen.edges,edges2 = edge2.screen.edges;
-			if(edge1.similarGroup === 3)
+			if((terrainow ?edge1.similarGroupTerrain :edge1.similarGroup) === 3)
 				for(let k = 0; k < 3; k++)
-					connectParallel(edges1.get(edge1.direction+k),edges2.get(edge2.direction+k));
+					connectParallel(edges1.get(edge1.direction+k),edges2.get(edge2.direction+k),bidirectional,indegreeOne);
 			else
 			{
 				let edgeList1 = [],edgeList2 = [];
 				for(let k = 0; k < 3; k++)
 				{
-					if(edges1.has(edge1.direction+k) && edges1.get(edge1.direction+k).similarGroup === 2)
+					if(edges1.has(edge1.direction+k) && (terrainow ?edges1.get(edge1.direction+k).similarGroupTerrain :edges1.get(edge1.direction+k).similarGroup) === 2)
 						edgeList1.push(edges1.get(edge1.direction+k));
-					if(edges2.has(edge2.direction+k) && edges2.get(edge2.direction+k).similarGroup === 2)
+					if(edges2.has(edge2.direction+k) && (terrainow ?edges2.get(edge2.direction+k).similarGroupTerrain :edges2.get(edge2.direction+k).similarGroup) === 2)
 						edgeList2.push(edges2.get(edge2.direction+k));
 				}
-				connectParallel(edgeList1[0],edgeList2[0]);
-				connectParallel(edgeList1[1],edgeList2[1]);
+				connectParallel(edgeList1[0],edgeList2[0],bidirectional,indegreeOne);
+				connectParallel(edgeList1[1],edgeList2[1],bidirectional,indegreeOne);
 			}
 		}
 		else
-			connectParallel(edge1,edge2);
+			connectParallel(edge1,edge2,bidirectional,indegreeOne);
 	};
 
-	window.connectParallel = function(edge1,edge2)
+	window.connectParallel = function(edge1,edge2,bidirectional,indegreeOne)
 	{
-		connectEdges(edge1,edge2,true);
-		if(layoutshuffle !== 'F' && edge1.parallel && edge2.parallel)
-			connectEdges(edge1.parallel,edge2.parallel,true);
+		connectEdges(edge1,edge2,bidirectional,indegreeOne);
+		if((layoutshuffle === 'P' || (layoutshuffle === 'N' && decoupledow !== 'C')) && edge1.parallel && edge2.parallel)
+			connectEdges(edge1.parallel,edge2.parallel,bidirectional,indegreeOne);
 	};
 
-	window.deleteConnections = function(edge)
+	window.deleteConnections = function(edge,deleteOut,deleteIn)
 	{
-		if(edge.out)
+		if(deleteOut && edge.out)
 		{
-			edge.out.in = null;
+			edge.out.in = edge.out.in.filter(e=>e !== edge);
 			edge.out = null;
 		}
-		if(edge.in)
+		if(deleteIn && edge.in.length)
 		{
-			edge.in.out = null;
-			edge.in = null;
+			for(let e of edge.in)
+				e.out = null;
+			edge.in = [];
 		}
 	};
 
-	window.deleteSimilarParallel = function(edge)
+	window.deleteSimilarParallel = function(edge,deleteOut,deleteIn)
 	{
-		if(similarow && edge.similarGroup !== 1)
+		if(similarow && (terrainow ?edge.similarGroupTerrain :edge.similarGroup) !== 1)
 		{
 			let edges = edge.screen.edges;
-			if(edge.similarGroup === 3)
+			if((terrainow ?edge.similarGroupTerrain :edge.similarGroup) === 3)
 				for(let k = 0; k < 3; k++)
-					deleteParallel(edges.get(edge.direction+k));
+					deleteParallel(edges.get(edge.direction+k),deleteOut,deleteIn);
 			else
 				for(let k = 0; k < 3; k++)
-					if(edges.has(edge.direction+k) && edges.get(edge.direction+k).similarGroup === 2)
-						deleteParallel(edges.get(edge.direction+k));
+					if(edges.has(edge.direction+k) && (terrainow ?edges.get(edge.direction+k).similarGroupTerrain :edges.get(edge.direction+k).similarGroup) === 2)
+						deleteParallel(edges.get(edge.direction+k),deleteOut,deleteIn);
 		}
 		else
-			deleteParallel(edge);
+			deleteParallel(edge,deleteOut,deleteIn);
 	};
 
-	window.deleteParallel = function(edge)
+	window.deleteParallel = function(edge,deleteOut,deleteIn)
 	{
-		deleteConnections(edge);
-		if(layoutshuffle !== 'F' && edge.parallel)
-			deleteConnections(edge.parallel);
+		deleteConnections(edge,deleteOut,deleteIn);
+		if((layoutshuffle === 'P' || (layoutshuffle === 'N' && decoupledow !== 'C')) && edge.parallel)
+			deleteConnections(edge.parallel,deleteOut,deleteIn);
 	};
 
 	window.clearOverworldTransitions = function()
 	{
 		for(let screen of overworldScreens.values())
 			for(let edge of screen.edges.values())
-				if(edge.out)
-				{
-					edge.out.in = null;
-					edge.out = null;
-				}
+			{
+				edge.out = null;
+				edge.in = [];
+			}
 	};
 
 	window.isDarkWorld = function(screen)
@@ -2400,7 +2709,7 @@
 			}
 	};
 
-	window.getScreenLinkGroup = function(id)
+	window.getScreenLinkGroup = function(id,includeDarkWorld)
 	{
 		id &= 0xBF;
 		if(layoutshuffle === 'N' && crossedow === 'N' && !whirlpoolshuffle && [0x35,0x81].includes(id))
@@ -2408,11 +2717,17 @@
 		if(layoutshuffle === 'N' && crossedow === 'N' && !entranceEnabled && [0x13,0x14,0x1A].includes(id))
 			id = 0x1B;
 		let linkGroup = [id];
+		if(includeDarkWorld && id < 0x40)
+			linkGroup.push(id+0x40);
 		for(let group of getScreenLinks())
 			if(group.includes(id))
 				for(let n of group)
 					if(!linkGroup.includes(n))
+					{
 						linkGroup.push(n);
+						if(includeDarkWorld && n < 0x40)
+							linkGroup.push(n+0x40);
+					}
 		return linkGroup;
 	};
 

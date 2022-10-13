@@ -621,11 +621,11 @@
 					if (flags.gametype === 'S') return 'available';
 					if (flags.wildkeys || flags.gametype == 'R') {
 						if (items.glove) return 'available';
-						if (items.smallkeyhalf0 === 1 || flags.gametype == 'R') return (items.lantern || items.firerod) ? 'available' : 'darkavailable';
+						if (items.smallkeyhalf0 === 1 || flags.gametype == 'R') return canDoTorchDarkRooms() ? 'available' : 'darkavailable';
 						return 'unavailable';
 					}
 					
-					return items.glove ? 'available' : (items.lantern || items.firerod) ? 'possible' : 'darkpossible';
+					return items.glove ? 'available' : canDoTorchDarkRooms() ? 'possible' : 'darkpossible';
 				}
 			}, { // [56]
 				caption: "Castle Secret Entrance (Uncle + 1)",
@@ -679,7 +679,7 @@
 				caption: 'Escape Sewer Dark Room {lantern}',
 				is_opened: flags.gametype === 'S',
 				is_available: function() {
-					return flags.gametype === 'S' || (items.lantern || (flags.itemplacement === 'A' && items.firerod)) ? 'available' : 'darkavailable';
+					return flags.gametype === 'S' || canDoTorchDarkRooms() ? 'available' : 'darkavailable';
 				}
 			}, { // [64]
 				caption: 'Waterfall of Wishing (2) {flippers}',
@@ -1890,12 +1890,20 @@
 				caption: 'Escape Sewer Side Room (3) {bomb}/{boots} (may need small key)',
 				is_opened: false,
 				is_available: function() {
-					if(!canReachLightWorldBunny())
+					if(!canReachLightWorldBunny() || !items.moonpearl)
 						return 'unavailable';
 					var doorcheck = window.doorCheck(11,false,false,true,['glove','killbomb','bombdash'],'item');
 					if(doorcheck)
 						return items.moonpearl ? doorcheck : 'unavailable';
-					return canReachLightWorldBunny() && (items.bomb || items.boots) ? ((items.glove || items.smallkeyhalf0 > 0) && items.moonpearl ? 'available' : (items.mirror ? 'possible' : 'unavailable')) : 'unavailable';
+					if (!items.bomb && !items.boots) return 'unavailable';
+					if (flags.wildkeys) {
+						if (items.glove) return 'available';
+						if (items.bomb || melee_bow() || items.firerod || cane()) {
+							if (items.smallkeyhalf0 === 1) return canDoTorchDarkRooms() ? 'available' : 'darkavailable';
+						}
+						return 'unavailable';
+					}
+					return items.glove ? 'available' : (items.bomb || melee_bow() || rod() || cane() ? (canDoTorchDarkRooms() ? 'possible' : 'darkpossible') : 'unavailable');
 				}
 			}, { // [56]
 				caption: "Castle Secret Entrance (Uncle + 1)",
@@ -1965,7 +1973,7 @@
 					var doorcheck = window.doorCheck(11,false,false,true,['glove','killbomb','bombdash'],'item');
 					if(doorcheck)
 						return items.moonpearl ? doorcheck : 'unavailable';
-					return canReachLightWorldBunny() && items.moonpearl ? ((items.lantern || items.firerod) ? 'available' : 'darkavailable') : 'unavailable';
+					return canReachLightWorldBunny() && items.moonpearl ? (canDoTorchDarkRooms() ? 'available' : 'darkavailable') : 'unavailable';
 				}
 			}, { // [64]
 				caption: 'Waterfall of Wishing (2) {flippers}',
@@ -2338,7 +2346,7 @@
 					return window.GTBoss();
 				},
 				can_get_chest: function() {
-					if (items.glove < 2 || (!items.hookshot && !items.mirror) || !canReachDarkWorld()) return 'unavailable';
+					if (items.glove < 2 || (!items.hookshot && (!items.mirror || !items.hammer)) || !canReachDarkWorld()) return 'unavailable';
 					if (flags.opentowercount == 8) {
 						return (items.lantern || items.flute) ? 'possible' : 'darkpossible';
 					}
@@ -2808,12 +2816,12 @@
 					if (flags.wildkeys || flags.gametype == 'R') {
 						if (items.glove) return 'available';
 						if (items.bomb || melee_bow() || items.firerod || cane()) {
-							if (items.smallkeyhalf0 === 1 || flags.gametype == 'R') return (items.lantern || items.firerod) ? 'available' : 'darkavailable';
+							if (items.smallkeyhalf0 === 1 || flags.gametype == 'R') return canDoTorchDarkRooms() ? 'available' : 'darkavailable';
 						}
 						return 'unavailable';
 					}
 					
-					return items.glove ? 'available' : (items.bomb || melee_bow() || rod() || cane() ? (items.lantern || items.firerod ? 'possible' : 'darkpossible') : 'unavailable');
+					return items.glove ? 'available' : (items.bomb || melee_bow() || rod() || cane() ? (canDoTorchDarkRooms() ? 'possible' : 'darkpossible') : 'unavailable');
 				}
 			}, { // [56]
 				caption: "Castle Secret Entrance (Uncle + 1)",
@@ -2878,7 +2886,7 @@
 					var doorcheck = window.doorCheck(11,false,false,flags.gametype != 'S',['glove','killbomb','bombdash'],'item');
 					if(doorcheck)
 						return doorcheck;
-					return flags.gametype === 'S' || (items.lantern || items.firerod) ? 'available' : 'darkavailable';
+					return flags.gametype === 'S' || canDoTorchDarkRooms() ? 'available' : 'darkavailable';
 				}
 			}, { // [64]
 				caption: 'Waterfall of Wishing (2) {flippers}',

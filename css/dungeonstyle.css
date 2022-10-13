@@ -34,10 +34,9 @@ a, a:visited{ color: #80C0FF; }
 #sidebar { display: none; width: 0px; }
 .showsidebar #sidebar { width: 67px; height: 100%; float: left; position: fixed; top: 0; left: 0; display: flex; flex-direction: column; }
 #main { min-width: 256px; min-height: 100vh; float: left; flex-grow: 1; }
-.showsidebar:not(.welcomemode) #main { border-left: 1px solid white; padding-left: 4px; margin-left: 67px; }
-.light .showsidebar:not(.welcomemode) #main { border-color: black; }
+.showsidebar #main { border-left: 1px solid white; padding-left: 4px; margin-left: 67px; }
+.light .showsidebar #main { border-color: black; }
 .showsidebar .nosidebar { display: none; width: 0px; }
-.welcomemode .nosidebar { display: none; width: 0px; }
 .activetab { border-color: skyblue!important; }
 .light .activetab { border-color: rgb(0,0,255)!important; }
 .light .buttonsquare.activetab { border-color: rgb(255,255,0)!important; }
@@ -56,14 +55,12 @@ a, a:visited{ color: #80C0FF; }
 
 #overworldoptionsfinalbox { border: 1px solid yellow; display: none; }
 .light #overworldoptionsfinalbox { border-color: #C0C000; }
-#overworldglobalsyncbox { border: 1px solid white; margin-top: 4px; }
-.light #overworldglobalsyncbox { border-color: black; }
 #overworldsyncerrortext { padding: 2px 4px; color: rgb(255,192,192); }
 .light #overworldsyncerrortext { color: rgb(128,0,0); }
 
 .fixedtop { position: fixed; top: 0; background-color: black; z-index: 2; overflow: hidden; }
 .light .fixedtop { background-color: #F8F8F8; }
-.showsidebar:not(.welcomemode) .fixedtop { padding-right: 72px; }
+.showsidebar .fixedtop { padding-right: 72px; }
 .scenetitle { margin: 14px 12px 10px 10px; }
 
 .dungeon { border: 1px solid white; margin: 1px; }
@@ -127,6 +124,7 @@ a, a:visited{ color: #80C0FF; }
 .north { border-radius: 0 0 37.5% 37.5%; }
 .east { border-radius: 37.5% 0 0 37.5%; }
 .whirlpool { border-radius: 37.5%; }
+.owedgegray { cursor: default; overflow: hidden; width: 8px; height: 8px; position: absolute; border-radius: 37.5%; pointer-events: none; user-select: none; color: black!important; background-color: rgb(128,128,128); text-align: center; font-size: 8px; line-height: 8px; opacity: .75; }
 .flutesymbol { overflow: hidden; width: 32px; height: 32px; background-size: 32px 32px; position: absolute; background-image: url(../images/items/flute.png); pointer-events: none; }
 .savequitsymbol { overflow: hidden; width: 32px; height: 32px; background-size: 32px 32px; position: absolute; background-image: url(../images/interface/savequit.png); pointer-events: none; }
 .activateflute { width: 96px; height: 26px; z-index: 2; cursor: default; position: absolute; box-shadow: inset 0px 0px 0px 1px black; color: black; background-color: lightskyblue; font-size: 14px; display: inline-block; text-align: center; line-height: 25px; border-radius: 6px; user-select: none; }
@@ -149,26 +147,22 @@ a, a:visited{ color: #80C0FF; }
 .turqoise { background-color: rgb(0,192,255); }
 .blue { background-color: blue; }
 
-.crossedleft {
-    background: 
-       linear-gradient(to top left,
-           rgba(0,0,0,0) 0%,
-           rgba(0,0,0,0) calc(50% - 2px),
-           rgba(0,192,255,1) 50%,
-           rgba(0,0,0,0) calc(50% + 2px),
-           rgba(0,0,0,0) 100%);
+.crossedleft { background: linear-gradient(to top left, rgba(0,0,0,0) calc(50% - 1.5px), rgb(0,192,255) calc(50% - 0.5px) calc(50% + 0.5px), rgba(0,0,0,0) calc(50% + 1.5px));
    min-height: 2px;
    min-width: 2px; position: absolute; pointer-events: none;
 }
 
-.crossedright {
-    background: 
-       linear-gradient(to top right,
-           rgba(0,0,0,0) 0%,
-           rgba(0,0,0,0) calc(50% - 2px),
-           rgba(0,192,255,1) 50%,
-           rgba(0,0,0,0) calc(50% + 2px),
-           rgba(0,0,0,0) 100%);
+.crossedright { background: linear-gradient(to top right, rgba(0,0,0,0) calc(50% - 1.5px), rgb(0,192,255) calc(50% - 0.5px) calc(50% + 0.5px), rgba(0,0,0,0) calc(50% + 1.5px));
+   min-height: 2px;
+   min-width: 2px; position: absolute; pointer-events: none;
+}
+
+.crossedgrayleft { background: linear-gradient(to top left, rgba(0,0,0,0) calc(50% - 1.5px), rgb(192,192,192) calc(50% - 0.5px) calc(50% + 0.5px), rgba(0,0,0,0) calc(50% + 1.5px));
+   min-height: 2px;
+   min-width: 2px; position: absolute; pointer-events: none;
+}
+
+.crossedgrayright { background: linear-gradient(to top right, rgba(0,0,0,0) calc(50% - 1.5px), rgb(192,192,192) calc(50% - 0.5px) calc(50% + 0.5px), rgba(0,0,0,0) calc(50% + 1.5px));
    min-height: 2px;
    min-width: 2px; position: absolute; pointer-events: none;
 }
@@ -193,7 +187,7 @@ a, a:visited{ color: #80C0FF; }
 .leftfadeout { width: 16px; height: 64px; z-index: 2; background-image: linear-gradient(to right, black, transparent); position: absolute; pointer-events: none; }
 .light .leftfadeout { background-image: linear-gradient(to right, white, transparent); }
 
-.symbolnode { margin: 0px; width: 32px; height: 32px; background-size: 32px 32px; position: absolute; z-index: -1; }
+.symbolnode { margin: 0px; width: 32px; height: 32px; background-size: 32px 32px; position: absolute; }
 .symbolnode.small { width: 16px; height: 16px; background-size: 16px 16px; }
 .pathsymbol { float: left; margin: 0px; width: 32px; height: 32px; background-size: 32px 32px; position: relative; }
 .hint .pathsymbol { margin-right: 4px; }
@@ -213,6 +207,7 @@ a, a:visited{ color: #80C0FF; }
 
 .buttonsquare { border: 1px solid white; width: 26px; height: 26px; user-select: none; }
 .light .buttonsquare { filter: invert(100%); }
+.buttonsquare.dense { margin: 2px; }
 .buttonsquare.disabled { cursor: default; filter: brightness(60%); }
 .light .buttonsquare.disabled { filter: brightness(60%) invert(100%); }
 .buttonsquare.home { background-image: url(../images/interface/home.png); cursor: pointer; }

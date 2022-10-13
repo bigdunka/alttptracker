@@ -1,15 +1,15 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Release Notes</title>
-		<script type="text/javascript" src="js/index.js?v=20016"></script>
-		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20016"></script>
-		<script type="text/javascript" src="js/jquery.powertip.js?v=20016"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js?v=20016"></script>
-		<link href="css/jquery.powertip.css?v=20016" rel="stylesheet" />
-		<link href="css/launcher.css?v=20016" rel="stylesheet">
-		<link href="css/fonts.css?v=20016" rel="stylesheet">
-		<link href="css/sprites.css?v=20016" rel="stylesheet">
-		<link href="css/toast.css?v=20016" rel="stylesheet">
+		<script type="text/javascript" src="js/index.js?v=20017"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20017"></script>
+		<script type="text/javascript" src="js/jquery.powertip.js?v=20017"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js?v=20017"></script>
+		<link href="css/jquery.powertip.css?v=20017" rel="stylesheet" />
+		<link href="css/launcher.css?v=20017" rel="stylesheet">
+		<link href="css/fonts.css?v=20017" rel="stylesheet">
+		<link href="css/sprites.css?v=20017" rel="stylesheet">
+		<link href="css/toast.css?v=20017" rel="stylesheet">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3T0KM2W1L"></script>
 		<script>
@@ -38,7 +38,7 @@
 				<div class="header-main-div">
 					<a href="./index.html"><img src="./images/overlay/header.png" class="header-main-img"></a>
 					<div class="header-news-div" >
-						<span class="default-white-text">Build 2.0.016 092822 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
+						<span class="default-white-text">Build 2.0.017 101222 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
 					</div>
 				</div>
 				<div class="header-links">
@@ -63,6 +63,28 @@
 				<div class="preset-div">
 					<span id="gameplayarrow"></span> Release 2.0
 					<div id="release20">
+						<b><i>10/12/2022 Build 2.0.017 101222</i></b><br>
+						<ul>
+							Big thanks to Catobat for the following changes:<br>
+							<u>Logic Changes</u><br>
+							<li>Logic fixes for TR portal, HC gate and Purple Chest</li>
+							<li>Torch dark rooms are now only considered in logic with only Fire Rod if Entrance Shuffle, Door Shuffle, Overworld Shuffle and Shopsanity are all disabled</li>
+							<li>Added Dam requirement for SP boss in Entrance Shuffle</li>
+							<li>Fixed GT reachability logic</li>
+							<li>Fixed GT climb logic in Retro</li>
+							<li>Fixed PoD chest logic in Retro</li>
+							<li>Fixed Back of Escape logic in Inverted in unusual scenarios</li>
+							<u>Interface Changes</u><br>
+							<li>Added support for Free Terrain</li>
+							<li>Added support for Decoupled Overworld</li>
+							<li>Overhauled the behavior for after changing mode settings later on (like in Mystery) and the automatic transition adjustments the tracker then offers you to do. The text and button for these adjustments are only displayed if there actually are changes that would happen. It can provide a list of what types of changes would happen, for example if any edges that are invalid in the current mode would get deleted, or if any edges will be deduced from the mode or already tracked edges. All of this can also be accessed through a new button on the full overworld map for convenience.</li>
+							<li>Overhauled the controls under the overworld map while a transition is selected. The names of the selected transition and all currently connected transitions are now displayed. Hovering over any "Disconnect" buttons or names of connected transitions will highlight the corresponding line(s) on the map. A button was added to allow whirlpools to loop with themselves in Whirlpool Shuffle.</li>
+							<li>Changed the interface for syncing the tracker with the main window and added a setting for the default sync type when the tracker window is opened</li>
+							<li>Fixed some issues with swapping screens in Mixed Overworld, and hovering over the controls for the Mixed state will now highlight the affected screens on the map above</li>
+							<li>Hovering over an arrow or whirlpool in a path that is attached to the overworld map now highlights only the corresponding connection</li>
+							<li>Added two new options to the Overworld Path Search for requiring not to move the mirror portal (if one is currently placed) and ignoring item requirements</li>
+							<li>Added buttons at the bottom of the Overworld Tracking page for setting all horizontal or all vertical edges to vanilla or deleting all edges and screen states</li>
+						</ul>
 						<b><i>9/28/2022 Build 2.0.016 092822</i></b><br>
 						<ul>
 							<u>Interface Changes</u><br>
