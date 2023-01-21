@@ -88,6 +88,28 @@
     var maxchests10 = flags.doorshuffle === 'C' ? 32 : chests10;
     var maxchests11 = flags.doorshuffle === 'C' ? 32 : chests11;
     var maxchests12 = flags.doorshuffle === 'C' ? 32 : chests12;
+
+    var dungeonKeys = {
+        ep: { chests: 0, pots: 2},
+        dp: { chests: 1, pots: 3},
+        th: { chests: 1, pots: 0},
+        pd: { chests: 6, pots: 0},
+        sp: { chests: 1, pots: 5},
+        sw: { chests: 3, pots: 2},
+        tt: { chests: 1, pots: 2},
+        ip: { chests: 2, pots: 4},
+        mm: { chests: 3, pots: 3},
+        tr: { chests: 4, pots: 2},
+        gt: { chests: 4, pots: 4},
+        hc: { chests: 1, pots: 3},
+        at: { chests: 2, pots: 2},
+    };
+
+    var keyCount = function(dungeonKeyInfo) { 
+        if (flags.doorshuffle === 'C') { return 29; }
+        return dungeonKeyInfo.chests + (flags.doorshuffle === 'P' ? dungeonKeyInfo.pots : 0);
+    }
+
     var range = {
         tunic: { min: 1, max: 3 },
         sword: { min: 0, max: 4 },
@@ -96,19 +118,19 @@
         bow: { min: 0, max: 3 },
         boomerang: { min: 0, max: 3 },
         glove: { min: 0, max: 2 },
-        smallkey0: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 0 },
-        smallkey1: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
-        smallkey2: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
-        smallkey3: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 6 },
-        smallkey4: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
-        smallkey5: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 3 },
-        smallkey6: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
-        smallkey7: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 2 },
-        smallkey8: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 3 },
-        smallkey9: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 4 },
-        smallkey10: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 4 },
-        smallkeyhalf0: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 1 },
-        smallkeyhalf1: { min: 0, max: flags.doorshuffle === 'C' ? 29 : 2 },
+        smallkey0: { min: 0, max: keyCount(dungeonKeys.ep) },
+        smallkey1: { min: 0, max: keyCount(dungeonKeys.dp) },
+        smallkey2: { min: 0, max: keyCount(dungeonKeys.th) },
+        smallkey3: { min: 0, max: keyCount(dungeonKeys.pd) },
+        smallkey4: { min: 0, max: keyCount(dungeonKeys.sp) },
+        smallkey5: { min: 0, max: keyCount(dungeonKeys.sw) },
+        smallkey6: { min: 0, max: keyCount(dungeonKeys.tt) },
+        smallkey7: { min: 0, max: keyCount(dungeonKeys.ip) },
+        smallkey8: { min: 0, max: keyCount(dungeonKeys.mm) },
+        smallkey9: { min: 0, max: keyCount(dungeonKeys.tr) },
+        smallkey10: { min: 0, max: keyCount(dungeonKeys.gt) },
+        smallkeyhalf0: { min: 0, max: keyCount(dungeonKeys.hc) },
+        smallkeyhalf1: { min: 0, max: keyCount(dungeonKeys.at) },
         chest0: { min: 0, max: maxchests0 },
         chest1: { min: 0, max: maxchests1 },
         chest2: { min: 0, max: maxchests2 },
