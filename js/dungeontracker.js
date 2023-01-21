@@ -5,18 +5,21 @@
 	window.lobbyshuffle = true;
 	window.excludesmallkeys = true;
 	window.excludebigkeys = true;
-	window.owshuffle = 'N';
+	window.layoutshuffle = 'N';
+	window.whirlpoolshuffle = false;
+	window.terrainow = false;
 	window.crossedow = 'N';
 	window.similarow = false;
+	window.decoupledow = 'N';
 	window.mixedow = false;
 	window.fluteshuffle = false;
 	window.worldState = 'O';
 	window.entranceEnabled = false;
 
 	let outstandingUpdate = false,awaitingNextUpdate = true,awaitingResponse = false,enableAutoSave = false,initWidth = 0,initHeight = 0,currentDungeon = -1,currentPath = null,clickedPathIndex,currentlyEditing = false,editingIndex,globalHasBranch = false,roomModalClickAction = null,visibleSidebar = true,welcomeMode = true;
-	let ownItems = {},reachableEdges = null,showOverworldModeSection = false,showFullMapMain = true,expandedMainTable = true,showChecklist = false,currentOWPath = null,currentOWScreen = null,fullOverworldMode = null,fullOWFixedEdge = null,fullOWSelectedScreen = null,fullOWSelectedEdge = null,fullOWConnectorStart = null,fullOWConnectorEnd = null,extraOWScreen = null,extraOWDirection = null,fullOWPath = null,hoveredPathNumber = -1,lastUnknownConnectorIndex = -1,useMain = true,backToMain = true;
-	let searchResults = new Map(),searchStartRegion = null,searchTargetRegion = null,searchStartScreen = null,searchAddCommonStarts = false,searchSaveQuitFluteEdges = false,searchResultsLength = 0,searchResultPaths = [],clickedOverworldPathIndex,clickedOverworldPathListName,clickedOverworldPath = null,clickedConnectorIndex,drawDarkWorldMain = false,drawDarkWorldPopout = false,sideBySideMain = false,sideBySidePopout = false,fullZoomMain = .8,fullZoomPopout = .8,fullZoomAutoMain = true,fullZoomAutoPopout = true,pathZoom = 1,fullPathCompact = true;
-	let theme = "dark",invertDirectionColors = false,restoreWindowSize = true,autoSaveSafety = true,drawFluteSpots = "fluteshuffle",drawSaveQuitSpots = "startshuffle",forceMapOrder = false,preventClickEdgeScreen = true,disableBlur = false,searchStartDefault = "onlystartscreen",searchMirrorPortalDefault = false,importantRoomNodes = "default";
+	let ownItems = {},reachableEdges = null,showOverworldModeSection = false,showFullMapMain = true,expandedMainTable = true,showChecklist = false,currentOWPath = null,currentOWScreen = null,fullOverworldMode = null,fullOWFixedEdge = null,fullOWSelectedScreen = null,fullOWSelectedEdge = null,fullOWConnectorStart = null,fullOWConnectorEnd = null,extraOWScreen = null,extraOWDirection = null,fullOWPath = null,hoveredPathNumber = -1,lastUnknownConnectorIndex = -1,useMain = true,backToMain = true,editMapModeMain = true;
+	let searchResults = new Map(),searchStartRegion = null,searchTargetRegion = null,searchStartScreen = null,searchAddCommonStarts = false,searchSaveQuitFluteEdges = false,searchResultsLength = 0,searchResultPaths = [],clickedOverworldPathIndex,clickedOverworldPathListName,clickedOverworldPath = null,clickedConnectorIndex,drawDarkWorldMain = false,drawDarkWorldPopout = false,mapModeMain = "single",mapModePopout = "single",mapModeAutoMain = true,mapModeAutoPopout = true,fullZoomMain = .8,fullZoomPopout = .8,fullZoomAutoMain = true,fullZoomAutoPopout = true,pathZoom = 1,fullPathCompact = true;
+	let theme = "dark",invertDirectionColors = false,roundDirections = false,restoreWindowSize = true,defaultSync = "everything",autoSaveSafety = true,drawFluteSpots = "fluteshuffle",drawSaveQuitSpots = "startshuffle",hideTopBar = false,preventClickEdgeScreen = true,disableBlur = false,overworldMainColumns = "auto",searchStartDefault = "onlystartscreen",searchMirrorPortalDefault = false,importantRoomNodes = "default",omitForeignSymbols = true;
 	window.dungeonPaths = [];
 	window.entranceConnectors = [];
 	window.allStartRegions = [];
@@ -31,7 +34,7 @@
 	const dungeonNamesShort = ["EP","DP","ToH","PoD","SP","SW","TT","IP","MM","TR","GT","HC","CT"];
 	const vanillaFluteSpots = [0x03,0x16,0x18,0x2C,0x2F,0x30,0x3B,0x3F];
 	const checkboxFlagsTrack = ["globalsync","itemsync","activeflutebox","connectorsync","pinnedlinkshouse","pinnedsanctuary","pinnedoldman","pinnedpyramid"];
-	const checkboxFlagsDisplay = ["settingsinvertdirectioncolors","settingsrestorewindowsize","settingsautosavesafety","settingsforcemaporder","settingspreventclickedgescreen","settingsdisableblur","settingssearchmirrorportaldefault","showmorerooms","splitpath","owsidebaredit","owsidebarnew","owsidebarsearch","compactpinned","compactprevious","alwaysfollowmarked","compactsearchresults","mainsidebysideow","sidebysideow","mainzoomautoow","zoomautoow"];
+	const checkboxFlagsDisplay = ["settingsinvertdirectioncolors","settingsrounddirections","settingsrestorewindowsize","settingsautosavesafety","settingshidetopbar","settingspreventclickedgescreen","settingsdisableblur","settingssearchmirrorportaldefault","settingsomitforeignsymbols","showmorerooms","splitpath","owsidebaredit","owsidebarnew","owsidebarsearch","compactpinned","compactprevious","alwaysfollowmarked","compactsearchresults","mainzoomautoow","zoomautoow"];
 	const searchStartDefaultHelp = {"canstartcommon":"Takes both the selected screen and all common start points (save & quit spots) into account, mixed together.","onlystartscreen":"Always starts at selected screen, but can save & quit to common starts and use flute (if available).","noflutequit":"Always starts at selected screen and searches direct paths without using save & quit or flute."};
 	const importantRoomNodesHelp = {"fewer":"Similar to \"Default\", but some of the simpler rooms are left out (mostly from groups of multiple similar rooms).","default":"Roughly, these are the rooms or supertiles that are bounded by at least 5 screen transitions, or that play a special role (like TT Attic).","more":"Roughly, these are the rooms or supertiles that are bounded by at least 4 screen transitions, or that play a special role (like TT Attic)."};
 	const fullOWTitle = {"newpath":"Start a new path","continuepath":"Where does this transition lead to?","searchpath":"Select a target screen or preset","searchpathtarget":"Select a new target screen","searchpathstart":"Select a starting screen","editedges":"Full overworld map","editflutespots":"Click on screens to toggle flute spots"};
@@ -40,6 +43,7 @@
 	window.overworldScreens = new Map();
 	window.screenLinksGlobal = [];
 	window.screenLinksLayout = [];
+	window.screenLinksWhirlpool = [];
 	window.screenLinksEntrance = [];
 	window.entranceIndexToRegion = {};
 	window.overworldEdgeToDirection = {};
@@ -48,7 +52,9 @@
 	window.continueRegions = new Map();
 	window.emptyMap = new Map();
 	window.dungeonEntrances = [];
+	window.dungeonStandard = [];
 	window.lobbyEntrances = [];
+	window.lobbyHera = null;
 	window.lobbySanctuary = null;
 	window.lobbySW = [];
 	window.lobbyTT = [];
@@ -245,7 +251,7 @@
 		sendUpdate();
 	};
 
-	window.createRoomNode = function(room,showDungeonName = false,clickAction = "startPath",left = null)
+	window.createRoomNode = function(room,showDungeonName = false,clickAction = "startPath",left = 0,top = 0)
 	{
 		let file,x,y,scale,classes = "roomnode",name;
 		if(room.file)
@@ -268,6 +274,10 @@
 				case "topleft":
 					scale = 1;
 					break;
+				case "topmiddle":
+					scale = 1;
+					x += 32;
+					break;
 				case "topright":
 					scale = 1;
 					x += 64;
@@ -284,17 +294,17 @@
 			}
 		}
 		let onClick = clickAction === "startPath" ?"startPath(\""+room.id+"\")" :(clickAction === "append" ?"appendToPath(\""+room.id+"\"); hideRoomModal()" :"");
-		return "<div class='"+classes+"' onclick='"+onClick+"'"+(left ?" style='left: "+left+"px;'" :"")+"><img class='roomnodeimg' src='./images/dungeons/"+file+".png' style='transform: scale("+scale+") translateX(-"+x+"px) translateY(-"+y+"px);'><span class='roomtt'><label class='ttlabel'>"+name+"</label></span></div>";
+		return "<div class='"+classes+"' onclick='"+onClick+"'"+(left || top ?" style='left: "+left+"px; top: "+top+"px;'" :"")+"><img class='roomnodeimg' src='./images/dungeons/"+file+".png' style='transform: scale("+scale+") translateX(-"+x+"px) translateY(-"+y+"px);'><span class='roomtt'><label class='ttlabel'>"+name+"</label></span></div>";
 	};
 
-	window.createSymbolNode = function(symbol,left,top,small = false)
+	window.createSymbolNode = function(symbol,left,top,small = false,extraString = null)
 	{
-		return "<div class='symbolnode"+(small ?" small" :"")+(symbol.direction ?" direction" :"")+"' style='background-image: url("+"./images/"+symbol.folder+"/"+symbol.file+".png); left: "+left+"px; top: "+top+"px;"+(symbol.rotate ?" transform: rotate("+symbol.rotate+"deg);" :"")+"'></div>";
+		return "<div class='symbolnode"+(small ?" small" :"")+(symbol.direction ?" direction" :"")+"' style='background-image: url("+"./images/"+symbol.folder+"/"+symbol.file+".png); left: "+left+"px; top: "+top+"px;"+(symbol.rotate ?" transform: rotate("+symbol.rotate+"deg);" :"")+"' "+(extraString ?extraString :"")+"></div>";
 	};
 
-	window.drawPath = function(path,markLastBranch = false)
+	window.drawPath = function(path,markLastBranch = false,maxWidth = 0)
 	{
-		let s = "",topEdge = 0,bottomEdge = 0,left,lastBranch = -1;
+		let s = "",topEdge = 0,bottomEdge = 0,left = 0,top = 0,lastBranchLeft = -1,lastBranchTop = -1;
 		globalHasBranch = false;
 		for(let k = 0; k < path.length; k += 2)
 		{
@@ -307,13 +317,25 @@
 				case '1'://Important room
 				case '2'://Entrance (Lobby Shuffle)
 					left = Math.max(topEdge,bottomEdge);
-					s += createRoomNode(roomMap[id],doorshuffle === 'C',"nothing",left);
-					topEdge = bottomEdge = left+(roomMap[id].file ?32 :64);
+					let nextWidth = (roomMap[id].file ?32 :64);
+					if(maxWidth && left+nextWidth > maxWidth)
+					{
+						left = topEdge = bottomEdge = 32;
+						top += 64;
+					}
+					s += createRoomNode(roomMap[id],doorshuffle === 'C',"nothing",left,top);
+					topEdge = bottomEdge = left+nextWidth;
 					break;
 				case 'd'://Direction
 					left = topEdge < bottomEdge ?bottomEdge-16 :topEdge;
-					s += createSymbolNode(symbolMap[id],left,0);
-					lastBranch = left;
+					if(maxWidth && left+32 > maxWidth)
+					{
+						left = topEdge = bottomEdge = 32;
+						top += 64;
+					}
+					s += createSymbolNode(symbolMap[id],left,top+0);
+					lastBranchLeft = left;
+					lastBranchTop = top;
 					topEdge = left+32;
 					break;
 				case 'o'://Object or marker that affects routing
@@ -321,7 +343,12 @@
 				case 'i'://Item requirement
 				case 'b'://Boss
 					left = bottomEdge < topEdge ?topEdge-16 :bottomEdge;
-					s += createSymbolNode(symbolMap[id],left,32);
+					if(maxWidth && left+32 > maxWidth)
+					{
+						left = topEdge = bottomEdge = 32;
+						top += 64;
+					}
+					s += createSymbolNode(symbolMap[id],left,top+32);
 					bottomEdge = left+32;
 					break;
 				default:
@@ -330,12 +357,12 @@
 				}
 			}
 		}
-		if(markLastBranch && lastBranch != -1)
+		if(markLastBranch && lastBranchLeft != -1)
 		{
 			globalHasBranch = true;
-			s += "<div class='symbolnode' style='width: 16px; height: 64px; border-left: 2px dashed "+(theme === "light" ?"#C0C000" :"yellow")+"; opacity: .75; left: "+lastBranch+"px;'></div>";
+			s += "<div class='symbolnode' style='width: 16px; height: 64px; border-left: 2px dashed "+(theme === "light" ?"#C0C000" :"yellow")+"; opacity: .75; left: "+lastBranchLeft+"px; top: "+lastBranchTop+"px;'></div>";
 		}
-		return s;
+		return maxWidth ?[s,top+64] :s;
 	};
 
 	window.editPath = function()
@@ -431,7 +458,7 @@
 		sendUpdate();
 	};
 
-	window.startPath = function(path,editing=false)
+	window.startPath = function(path,editing = false)
 	{
 		currentPath = path;
 		document.getElementById("currentpathheader").innerHTML = (editing ?"Editing an existing" :"Creating a new")+" path in "+dungeonNamesShort[currentDungeon];
@@ -587,7 +614,7 @@
 		let s = "";
 		for(let k = 0; k < list.length; k++)
 		{
-			if(doorshuffle !== 'C' && list[k].basic && !list[k].basic.includes(currentDungeon))
+			if(doorshuffle !== 'C' && omitForeignSymbols && list[k].basic && !list[k].basic.includes(currentDungeon))
 				continue;
 			let id = list[k].id;
 			let style = "background-image: url("+"./images/"+list[k].folder+"/"+list[k].file+".png);"
@@ -682,17 +709,21 @@
 
 	window.hideSidebar = function()
 	{
-		document.getElementById("app").classList.remove("showsidebar");
 		visibleSidebar = false;
+		document.getElementById("app").classList.remove("showsidebar");
 		resizeHandler();
 	};
 
 	window.showClickPathModal = function(event,index)
 	{
+		let width = Math.max(264,document.body.clientWidth-52);
 		clickedPathIndex = index;
-		document.getElementById("currentclickedpath").innerHTML = drawPath(dungeonPaths[currentDungeon].paths[index],true);
-		document.getElementById("clickPathModalMain").style.left = (visibleSidebar ?"64" :"4")+"px";
-		document.getElementById("clickPathModalMain").style.top = Math.min(event.clientY-20,window.innerHeight-64-48)+"px";
+		let [drawn,height] = drawPath(dungeonPaths[currentDungeon].paths[index],true,width-8);
+		document.getElementById("currentclickedpath").style.height = height+"px";
+		document.getElementById("currentclickedpath").innerHTML = drawn;
+		document.getElementById("clickPathModalMain").style.left = "32px";
+		document.getElementById("clickPathModalMain").style.top = Math.min(event.clientY-20,window.innerHeight-height-48)+"px";
+		document.getElementById("clickPathModalMain").style.width = width+"px";
 		document.getElementById("forkbutton2").classList.remove("disabled");
 		if(!globalHasBranch)
 			document.getElementById("forkbutton2").classList.add("disabled");
@@ -721,6 +752,9 @@
 		{
 			switch(currentDungeon)
 			{
+				case 2:
+					starts += createRoomNode(lobbyEntrances[0],showDungeonName,clickAction)+createRoomNode(lobbyHera,showDungeonName,clickAction);
+					break;
 				case 5:
 					for(let k = 1; k < lobbyEntrances.length; k++)
 						starts += createRoomNode(lobbyEntrances[k],showDungeonName,clickAction);
@@ -755,6 +789,9 @@
 				if(dungeonEntrances[k].dungeon === currentDungeon)
 					starts += createRoomNode(dungeonEntrances[k],showDungeonName,clickAction);
 		}
+		if(worldState === 'S' && currentDungeon === 11)
+			for(let k = 0; k < dungeonStandard.length; k++)
+				starts += createRoomNode(dungeonStandard[k],showDungeonName,clickAction);
 		return starts;
 	};
 
@@ -848,19 +885,22 @@
 
 	window.updateOverworldShuffle = function(showVanillaOWBox)
 	{
-		owshuffle = document.getElementById("selectowshuffle").value[0];
+		layoutshuffle = document.getElementById("layoutshuffle").value[0];
+		whirlpoolshuffle = document.getElementById("whirlpoolshuffle").checked;
+		terrainow = document.getElementById("terrainow").checked;
 		crossedow = document.getElementById("crossedow").value[0];
 		similarow = document.getElementById("similarow").checked;
+		decoupledow = document.getElementById("decoupledow").value[0];
 		mixedow = document.getElementById("mixedow").checked;
 		fluteshuffle = document.getElementById("fluteshuffle").checked;
 		worldState = document.getElementById("selectworldstate").value[0];
 		entranceEnabled = document.getElementById("entranceenabled").checked;
-		if(owshuffle === 'N' && crossedow === 'N' && !mixedow)
+		if(layoutshuffle === 'N' && !whirlpoolshuffle && crossedow === 'N' && !mixedow)
 			document.getElementById("overworldoptionsfinalbox").style.display = "none";
 		else
 			if(showVanillaOWBox)
-				document.getElementById("overworldoptionsfinalbox").style.display = "block";
-		document.getElementById("vanillawelcome").style.display = owshuffle === 'N' && crossedow !== 'C' ?"none" :"block";
+				checkAutoAdjustments(false);
+		document.getElementById("vanillawelcome").style.display = layoutshuffle === 'N' && crossedow !== 'C' ?"none" :"none";
 		updateOverviewElements();
 		sendUpdate();
 		updateReachableEdges();
@@ -869,16 +909,16 @@
 	window.updateSidebarElements = function()
 	{
 		document.getElementById("sidebaredit").style.display = document.getElementById("owsidebaredit").checked ?"block" :"none";
-		document.getElementById("sidebarnew").style.display = owshuffle !== 'N' && document.getElementById("owsidebarnew").checked ?"block" :"none";
+		document.getElementById("sidebarnew").style.display = (layoutshuffle !== 'N' || whirlpoolshuffle) && document.getElementById("owsidebarnew").checked ?"block" :"none";
 		document.getElementById("sidebarsearch").style.display = document.getElementById("owsidebarsearch").checked ?"block" :"none";
 	};
 
 	window.updateOverviewElements = function()
 	{
-		let noOverworld = owshuffle === 'N' && crossedow === 'N' && !mixedow && !fluteshuffle && !document.getElementById("globalsync").checked;
+		let noOverworld = layoutshuffle === 'N' && !whirlpoolshuffle && crossedow === 'N' && !mixedow && !fluteshuffle && !document.getElementById("globalsync").checked;
 		document.getElementById("overviewtitle").innerHTML = doorshuffle === 'N' ?(noOverworld ?"Please select a mode" :"Overworld Tracker") :(noOverworld ?"Dungeon Tracker" :"Overworld and Dungeon Tracker");
 		document.getElementById("overviewoverworld").style.display = noOverworld ?"none" :"block";
-		document.getElementById("overviewownewpath").style.display = owshuffle === 'N' ?"none" :"block";
+		document.getElementById("overviewownewpath").style.display = layoutshuffle === 'N' && !whirlpoolshuffle ?"none" :"block";
 		document.getElementById("overviewdungeons").style.display = doorshuffle === 'N' ?"none" :"block";
 		document.getElementById("dungeonoptions").style.display = doorshuffle === 'N' ?"none" :"block";
 		document.getElementById("changeworldstateentrance").style.display = document.getElementById("globalsync").checked ?"block" :"none";
@@ -912,8 +952,10 @@
 
 	window.checkIfResponded = function()
 	{
-		if(awaitingResponse && window.opener && !welcomeMode && (document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked))
+		if(awaitingResponse && window.opener && (document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked))
 		{
+			document.getElementById("syncstatus").innerHTML = "Status: Connection interrupted";
+			document.getElementById("syncstatus").style.color = theme === "dark" ?"#FFC0C0" :"#800000";
 			document.getElementById("overworldsyncerror").style.display = "block";
 		}
 		else
@@ -922,6 +964,7 @@
 
 	window.updateGlobalSync = function()
 	{
+		updateSyncStatus();
 		if(document.getElementById("globalsync").checked)
 		{
 			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = true;
@@ -948,6 +991,7 @@
 
 	window.updateItemSync = function()
 	{
+		updateSyncStatus();
 		if((document.getElementById("itemsync").checked || document.getElementById("globalsync").checked) && window.opener && !window.opener.closed)
 		{
 			testConnection(false);
@@ -959,6 +1003,7 @@
 
 	window.updateConnectorSync = function()
 	{
+		updateSyncStatus();
 		if((document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked) && window.opener && !window.opener.closed)
 		{
 			testConnection(false);
@@ -969,6 +1014,32 @@
 		updateConnectorList();
 		if(showFullMapMain && document.getElementById("owmain").style.display === "block")
 			loadFullOverworldMain();
+	};
+
+	window.updateSyncStatus = function()
+	{
+		if(document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
+			if(window.opener)
+				if(window.opener.closed)
+				{
+					document.getElementById("syncstatus").innerHTML = "Status: Connection interrupted";
+					document.getElementById("syncstatus").style.color = theme === "dark" ?"#FFC0C0" :"#800000";
+				}
+				else
+				{
+					document.getElementById("syncstatus").innerHTML = "Status: Testing...";
+					document.getElementById("syncstatus").style.color = "";
+				}
+			else
+			{
+				document.getElementById("syncstatus").innerHTML = "Status: Not opened from main";
+				document.getElementById("syncstatus").style.color = theme === "dark" ?"#FFC0C0" :"#800000";
+			}
+		else
+		{
+			document.getElementById("syncstatus").innerHTML = "Status: Disabled";
+			document.getElementById("syncstatus").style.color = "";
+		}
 	};
 
 	window.showGlobalSyncInfo = function()
@@ -1002,12 +1073,13 @@
 			if(newItems.flags && newItems.flags.hasOwnProperty("gametype"))
 			{
 				let newState = newItems.flags.gametype;
-				if(newState != worldState && (newState === 'S' || newState === 'O' || newState === 'I' || newState === 'R'))
+				if(newState != worldState && (newState === 'O' || newState === 'S' || newState === 'I' || newState === 'R'))
 				{
 					worldState = newState;
 					document.getElementById("selectworldstate").value = ""+worldState;
-					if(owshuffle !== 'N' || crossedow !== 'N' || mixedow)
-						document.getElementById("overworldoptionsfinalbox").style.display = "block";
+					checkAutoAdjustments(false);
+					hideAutoAdjustModal();
+					hideEditMapModeModal();
 					hideFullOverworldModal();
 					if(document.getElementById("owmain").style.display === "block")
 						loadOverworld();
@@ -1021,8 +1093,9 @@
 				{
 					entranceEnabled = newState === 'S';
 					document.getElementById("entranceenabled").checked = entranceEnabled;
-					if(owshuffle !== 'N' || crossedow !== 'N' || mixedow)
-						document.getElementById("overworldoptionsfinalbox").style.display = "block";
+					checkAutoAdjustments(false);
+					hideAutoAdjustModal();
+					hideEditMapModeModal();
 					hideFullOverworldModal();
 					if(document.getElementById("owmain").style.display === "block")
 						loadOverworld();
@@ -1138,6 +1211,11 @@
 			{
 				awaitingResponse = false;
 				document.getElementById("overworldsyncerror").style.display = "none";
+				if(document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
+				{
+					document.getElementById("syncstatus").innerHTML = "Status: Connected";
+					document.getElementById("syncstatus").style.color = theme === "dark" ?"#C0FFC0" :"#004000";
+				}
 			}
 			if(event.data === "MYSTERYRELOAD")
 			{
@@ -1192,9 +1270,12 @@
 		all.lobbyshuffle = lobbyshuffle;
 		all.excludesmallkeys = excludesmallkeys;
 		all.excludebigkeys = excludebigkeys;
-		all.owshuffle = owshuffle;
+		all.layoutshuffle = layoutshuffle;
+		all.whirlpoolshuffle = whirlpoolshuffle;
+		all.terrainow = terrainow;
 		all.crossedow = crossedow;
 		all.similarow = similarow;
+		all.decoupledow = decoupledow;
 		all.mixedow = mixedow;
 		all.fluteshuffle = fluteshuffle;
 		all.worldState = worldState;
@@ -1223,16 +1304,18 @@
 		lobbyshuffle = newData.lobbyshuffle;
 		excludesmallkeys = newData.excludesmallkeys;
 		excludebigkeys = newData.excludebigkeys;
-		owshuffle = newData.owshuffle;
-		if(owshuffle !== 'N' && owshuffle !== 'P' && owshuffle !== 'F')
-			owshuffle = 'N';
+		layoutshuffle = newData.layoutshuffle;
+		if(!layoutshuffle)
+			layoutshuffle = newData.owshuffle;
+		if(layoutshuffle !== 'N' && layoutshuffle !== 'P' && layoutshuffle !== 'F')
+			layoutshuffle = 'N';
 		clearOverworldTransitions();
 		try
 		{
 			let overworldTransitions = newData.overworldTransitions;
 			if(overworldTransitions)
 				for(let [screenID1,edgeID1,screenID2,edgeID2] of overworldTransitions)
-					connectEdgesByKeys(screenID1,edgeID1,screenID2,edgeID2,true);
+					connectEdgesByKeys(screenID1,edgeID1,screenID2,edgeID2,false,false);
 		}
 		catch(error)
 		{
@@ -1341,23 +1424,30 @@
 			crossedow = 'C';
 		if(crossedow !== 'N' && crossedow !== 'P' && crossedow !== 'C')
 			crossedow = 'N';
-		similarow = newData.similarow;
-		mixedow = newData.mixedow;
-		fluteshuffle = newData.fluteshuffle;
+		whirlpoolshuffle = newData.whirlpoolshuffle === true;
+		terrainow = newData.terrainow === true;
+		similarow = newData.similarow === true;
+		decoupledow = newData.decoupledow;
+		if(decoupledow !== 'N' && decoupledow !== 'O' && decoupledow !== 'C')
+			decoupledow = 'N';
+		mixedow = newData.mixedow === true;
+		fluteshuffle = newData.fluteshuffle === true;
 		document.getElementById("selectdoorshuffle").value = ""+doorshuffle;
 		document.getElementById("lobbyshuffle").checked = lobbyshuffle;
 		document.getElementById("excludesmallkeys").checked = excludesmallkeys;
 		document.getElementById("excludebigkeys").checked = excludebigkeys;
-		document.getElementById("selectowshuffle").value = ""+owshuffle;
+		document.getElementById("layoutshuffle").value = ""+layoutshuffle;
+		document.getElementById("whirlpoolshuffle").checked = whirlpoolshuffle;
+		document.getElementById("terrainow").checked = terrainow;
 		document.getElementById("crossedow").value = ""+crossedow;
 		document.getElementById("similarow").checked = similarow;
+		document.getElementById("decoupledow").value = ""+decoupledow;
 		document.getElementById("mixedow").checked = mixedow;
 		document.getElementById("fluteshuffle").checked = fluteshuffle;
 		for(let checkboxFlag of checkboxFlagsTrack)
 			document.getElementById(checkboxFlag).checked = newData[checkboxFlag];
 		if(showOverworldModeSection !== newData.showOverworldModeSection)
 			toggleOverworldModeSection();
-		document.getElementById("overworldoptionsfinalbox").style.display = newData.showOptionsFinalBox && (owshuffle !== 'N' || crossedow !== 'N' || mixedow) ?"block" :"none";
 		if(document.getElementById("globalsync").checked)
 		{
 			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = true;
@@ -1366,7 +1456,7 @@
 		{
 			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = false;
 			worldState = newData.worldState;
-			if(worldState !== 'S' && worldState !== 'O' && worldState !== 'I' && worldState !== 'R')
+			if(worldState !== 'O' && worldState !== 'S' && worldState !== 'I' && worldState !== 'R')
 				worldState = 'O';
 			entranceEnabled = newData.entranceEnabled;
 			document.getElementById("selectworldstate").value = ""+worldState;
@@ -1382,6 +1472,11 @@
 		updateConnectorList();
 		updateStartRegionList();
 		updateMainPathLists();
+		document.getElementById("overworldoptionsfinalbox").style.display = "none";
+		if(newData.showOptionsFinalBox)
+			checkAutoAdjustments(false);
+		if((document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked) && window.opener && !window.opener.closed)
+			window.opener.postMessage("ITEMS","*");
 		return true;
 	};
 
@@ -1389,16 +1484,20 @@
 	{
 		let all = {};
 		all.theme = theme;
+		all.defaultSync = defaultSync;
 		all.drawFluteSpots = drawFluteSpots;
 		all.drawSaveQuitSpots = drawSaveQuitSpots;
+		all.overworldMainColumns = overworldMainColumns;
 		all.searchStartDefault = searchStartDefault;
 		all.importantRoomNodes = importantRoomNodes;
 		all.visibleSidebar = visibleSidebar;
 		all.showFullMapMain = showFullMapMain;
 		all.expandedMainTable = expandedMainTable;
 		all.showChecklist = showChecklist;
-		all.sideBySideMain = sideBySideMain;
-		all.sideBySidePopout = sideBySidePopout;
+		all.mapModeAutoMain = mapModeAutoMain;
+		all.mapModeAutoPopout = mapModeAutoPopout;
+		all.mapModeMain = mapModeMain;
+		all.mapModePopout = mapModePopout;
 		all.fullZoomMain = fullZoomMain;
 		all.fullZoomPopout = fullZoomPopout;
 		all.pathZoom = pathZoom;
@@ -1420,10 +1519,14 @@
 			return false;
 		if(newData.theme && (newData.theme === "dark" || newData.theme === "light"))
 			document.getElementById("settingstheme").value = theme = newData.theme;
+		if(newData.defaultSync && (newData.defaultSync === "everything" || newData.defaultSync === "itemsentrances" || newData.defaultSync === "items" || newData.defaultSync === "entrances" || newData.defaultSync === "nothing"))
+			document.getElementById("settingsdefaultsync").value = defaultSync = newData.defaultSync;
 		if(newData.drawFluteSpots && (newData.drawFluteSpots === "no" || newData.drawFluteSpots === "fluteshuffle" || newData.drawFluteSpots === "yes"))
 			document.getElementById("settingsdrawflutespots").value = drawFluteSpots = newData.drawFluteSpots;
 		if(newData.drawSaveQuitSpots && (newData.drawSaveQuitSpots === "no" || newData.drawSaveQuitSpots === "startshuffle" || newData.drawSaveQuitSpots === "yes"))
 			document.getElementById("settingsdrawsavequitspots").value = drawSaveQuitSpots = newData.drawSaveQuitSpots;
+		if(newData.overworldMainColumns && (newData.overworldMainColumns === "auto" || newData.overworldMainColumns === "1" || newData.overworldMainColumns === "2"))
+			document.getElementById("settingsmaincolumns").value = overworldMainColumns = newData.overworldMainColumns;
 		if(newData.searchStartDefault && (newData.searchStartDefault === "canstartcommon" || newData.searchStartDefault === "onlystartscreen" || newData.searchStartDefault === "noflutequit"))
 			document.getElementById("settingssearchstartdefault").value = searchStartDefault = newData.searchStartDefault;
 		if(newData.importantRoomNodes && (newData.importantRoomNodes === "fewer" || newData.importantRoomNodes === "default" || newData.importantRoomNodes === "more"))
@@ -1442,14 +1545,22 @@
 			if(newData[checkboxFlag] === false || newData[checkboxFlag] === true)
 				document.getElementById(checkboxFlag).checked = newData[checkboxFlag];
 		invertDirectionColors = document.getElementById("settingsinvertdirectioncolors").checked;
+		roundDirections = document.getElementById("settingsrounddirections").checked;
 		restoreWindowSize = document.getElementById("settingsrestorewindowsize").checked;
 		autoSaveSafety = document.getElementById("settingsautosavesafety").checked;
-		forceMapOrder = document.getElementById("settingsforcemaporder").checked;
+		hideTopBar = document.getElementById("settingshidetopbar").checked;
 		preventClickEdgeScreen = document.getElementById("settingspreventclickedgescreen").checked;
 		disableBlur = document.getElementById("settingsdisableblur").checked;
 		searchMirrorPortalDefault = document.getElementById("settingssearchmirrorportaldefault").checked;
-		sideBySideMain = document.getElementById("mainsidebysideow").checked;
-		sideBySidePopout = document.getElementById("sidebysideow").checked;
+		omitForeignSymbols = document.getElementById("settingsomitforeignsymbols").checked;
+		mapModeAutoMain = newData.mapModeAutoMain === true;
+		mapModeAutoPopout = newData.mapModeAutoPopout === true;
+		mapModeMain = newData.mapModeMain;
+		if(!["single","horizontal","vertical"].includes(mapModeMain))
+			mapModeMain = "single";
+		mapModePopout = newData.mapModePopout;
+		if(!["single","horizontal","vertical"].includes(mapModePopout))
+			mapModePopout = "single";
 		fullZoomAutoMain = document.getElementById("mainzoomautoow").checked;
 		fullZoomAutoPopout = document.getElementById("zoomautoow").checked;
 		fullZoomMain = newData.fullZoomMain ?Math.max(.5,Math.min(newData.fullZoomMain,1.5)) :.8;
@@ -1464,10 +1575,11 @@
 		catch(error)
 		{
 		}
+		document.getElementById("fullowmainsettingsbutton").style.display = showFullMapMain && hideTopBar && mapModeMain !== "single" ?"block" :"none";
 		updateTheme();
 		newData.visibleSidebar ?showSidebar() :hideSidebar();
-		maybeForceMapOrderMain();
-		maybeForceMapOrderPopout();
+		updateOverworldMainColumns();
+		updateTopBars();
 		updateOverviewElements();
 		updateMainPathLists();
 		applyFullOverworldZoomMain();
@@ -1479,8 +1591,7 @@
 	window.loadManual = function()
 	{
 		let data = JSON.parse(localStorage.getItem("dungeonData"));
-		let extra = welcomeMode ?"" :"\nThis will replace all currently set dungeon paths, overworld transitions and notes.";
-		if(data && confirm("Load saved data from local storage?"+extra+"\n\nSaved at: "+data.timeString))
+		if(data && confirm("Load saved data from local storage?"+getLoadText(data)))
 			if(loadAllTrack(data))
 				loadOverview();
 			else
@@ -1498,8 +1609,7 @@
 	window.loadAuto = function()
 	{
 		let data = JSON.parse(localStorage.getItem("dungeonDataAutoSave"));
-		let extra = welcomeMode ?"" :"\nThis will replace all currently set dungeon paths, overworld transitions and notes.";
-		if(data && confirm("Load auto-save data from local storage?"+extra+"\n\nSaved at: "+data.timeString))
+		if(data && confirm("Load auto-save data from local storage?"+getLoadText(data)))
 			if(loadAllTrack(data))
 				loadOverview();
 			else
@@ -1516,6 +1626,14 @@
 		document.getElementById("saveauto").classList.add("disabled");
 		if(button)
 			buttonFlash(button);
+	};
+
+	window.getLoadText = function(data)
+	{
+		let s = (welcomeMode ?"" :"\nThis will replace all currently set dungeon paths, overworld transitions and notes.")+"\n\nSaved at: "+data.timeString;
+		if(data.buildString != window.buildString)
+			s += "\n\nWARNING:\nThis save was created with an older version of the tracker. Some elements might load incorrectly or not at all.";
+		return s;
 	};
 
 	window.clearData = function()
@@ -1535,9 +1653,7 @@
 			customFluteSpots = [0x30];
 			pinnedPaths = [];
 			previousPaths = [];
-			document.getElementById("overworldoptionsfinalbox").style.display = owshuffle !== 'N' || crossedow !== 'N' || mixedow ?"block" :"none";
-			maybeForceMapOrderMain();
-			maybeForceMapOrderPopout();
+			checkAutoAdjustments(false);
 			updateOverviewElements();
 			updateReachableEdges();
 			updateItemTracker();
@@ -1545,6 +1661,8 @@
 			updateStartRegionList();
 			updateMainPathLists();
 			loadOverview();
+			if((document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked) && window.opener && !window.opener.closed)
+				window.opener.postMessage("ITEMS","*");
 		}
 	};
 
@@ -1564,16 +1682,20 @@
 		{
 			theme = "dark";
 			invertDirectionColors = false;
+			roundDirections = false;
 			restoreWindowSize = true;
+			defaultSync = "everything";
 			autoSaveSafety = true;
 			drawFluteSpots = "fluteshuffle";
 			drawSaveQuitSpots = "startshuffle";
-			forceMapOrder = false;
+			hideTopBar = false;
 			preventClickEdgeScreen = true;
 			disableBlur = false;
+			overworldMainColumns = "auto";
 			searchStartDefault = "onlystartscreen";
 			searchMirrorPortalDefault = false;
 			importantRoomNodes = "default";
+			omitForeignSymbols = true;
 			resetDisplayCheckboxFlags();
 			showSidebar();
 			if(!showFullMapMain)
@@ -1582,15 +1704,15 @@
 				toggleOverworldMainTable();
 			if(showChecklist)
 				toggleChecklist();
-			if(sideBySideMain)
-				toggleSideBySideMain();
-			if(sideBySidePopout)
-				toggleSideBySidePopout();
+			mapModeMain = mapModePopout = "single";
+			mapModeAutoMain = mapModeAutoPopout = true;
 			fullZoomMain = fullZoomPopout = .8;
 			fullZoomAutoMain = fullZoomAutoPopout = true;
 			pathZoom = 1;
 			fullPathCompact = true;
 			updateTheme();
+			updateOverworldMainColumns();
+			updateTopBars();
 			updateOverviewElements();
 			updateMainPathLists();
 			applyFullOverworldZoomMain();
@@ -1602,12 +1724,14 @@
 	window.resetDisplayCheckboxFlags = function()
 	{
 		document.getElementById("settingsinvertdirectioncolors").checked = invertDirectionColors;
+		document.getElementById("settingsrounddirections").checked = roundDirections;
 		document.getElementById("settingsrestorewindowsize").checked = restoreWindowSize;
 		document.getElementById("settingsautosavesafety").checked = autoSaveSafety;
-		document.getElementById("settingsforcemaporder").checked = forceMapOrder;
+		document.getElementById("settingshidetopbar").checked = hideTopBar;
 		document.getElementById("settingspreventclickedgescreen").checked = preventClickEdgeScreen;
 		document.getElementById("settingsdisableblur").checked = disableBlur;
 		document.getElementById("settingssearchmirrorportaldefault").checked = searchMirrorPortalDefault;
+		document.getElementById("settingsomitforeignsymbols").checked = omitForeignSymbols;
 		document.getElementById("showmorerooms").checked = false;
 		document.getElementById("splitpath").checked = true;
 		document.getElementById("owsidebaredit").checked = true;
@@ -1617,8 +1741,6 @@
 		document.getElementById("compactprevious").checked = true;
 		document.getElementById("alwaysfollowmarked").checked = true;
 		document.getElementById("compactsearchresults").checked = true;
-		document.getElementById("mainsidebysideow").checked = false;
-		document.getElementById("sidebysideow").checked = false;
 		document.getElementById("mainzoomautoow").checked = true;
 		document.getElementById("zoomautoow").checked = true;
 	};
@@ -1681,7 +1803,7 @@
 			vanillaSpecialScreens(null);
 		if(modeFinal && !entranceEnabled && (worldState === 'S' || worldState === 'I' || doorshuffle === 'N'))
 			document.getElementById("pinnedsanctuary").checked = true;
-		if(document.getElementById("globalsync").checked)
+		if(document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
 			testConnection(true);
 		if(modeFinal)
 			vanillaTransitionsMode(null);
@@ -1698,9 +1820,12 @@
 		document.getElementById("lobbyshuffle").checked = true;
 		document.getElementById("excludesmallkeys").checked = false;
 		document.getElementById("excludebigkeys").checked = false;
-		document.getElementById("selectowshuffle").value = 'F';
+		document.getElementById("layoutshuffle").value = 'F';
+		document.getElementById("whirlpoolshuffle").checked = true;
+		document.getElementById("terrainow").checked = true;
 		document.getElementById("crossedow").value = 'C';
 		document.getElementById("similarow").checked = false;
+		document.getElementById("decoupledow").value = 'C';
 		document.getElementById("mixedow").checked = true;
 		document.getElementById("fluteshuffle").checked = true;
 		welcomeStart(false);
@@ -1719,9 +1844,9 @@
 		if(doorshuffle !== 'N' && doorshuffle !== 'B' && doorshuffle !== 'C')
 			doorshuffle = 'C';
 		if(query.overworld_shuffle)
-			owshuffle = query.overworld_shuffle[0];
-		if(owshuffle !== 'N' && owshuffle !== 'P' && owshuffle !== 'F')
-			owshuffle = 'N';
+			layoutshuffle = query.overworld_shuffle[0];
+		if(layoutshuffle !== 'N' && layoutshuffle !== 'P' && layoutshuffle !== 'F')
+			layoutshuffle = 'N';
         if((query.wild_keys+'').toLowerCase() === 'true' || query.world_state === 'R' || query.world_state === 'r')
             excludesmallkeys = false;
         if((query.wild_big_keys+'').toLowerCase() === 'true')
@@ -1732,8 +1857,8 @@
 			worldState = 'O';
 		if(query.entrance_shuffle && query.entrance_shuffle !== 'N' && query.entrance_shuffle !== 'n')
 			entranceEnabled = true;
-		let sync = (query.init_sync+'').toLowerCase() === 'true';
-		if(sync || owshuffle !== 'N')
+		let initSync = (query.init_sync+'').toLowerCase() === 'true';
+		if(initSync || layoutshuffle !== 'N')
 			toggleOverworldModeSection();
 		initWidth = window.outerWidth;
 		initHeight = window.outerHeight;
@@ -1744,16 +1869,21 @@
 		document.getElementById("lobbyshuffle").checked = lobbyshuffle;
 		document.getElementById("excludesmallkeys").checked = excludesmallkeys;
 		document.getElementById("excludebigkeys").checked = excludebigkeys;
-		document.getElementById("selectowshuffle").value = ""+owshuffle;
+		document.getElementById("layoutshuffle").value = ""+layoutshuffle;
+		document.getElementById("whirlpoolshuffle").checked = layoutshuffle !== 'N';
+		document.getElementById("terrainow").checked = false;
 		document.getElementById("crossedow").value = 'N';
 		document.getElementById("similarow").checked = false;
+		document.getElementById("decoupledow").value = 'N';
 		document.getElementById("mixedow").checked = false;
 		document.getElementById("fluteshuffle").checked = false;
 		document.getElementById("selectworldstate").value = ""+worldState;
 		document.getElementById("entranceenabled").checked = entranceEnabled;
-		document.getElementById("globalsync").checked = sync;
+		document.getElementById("globalsync").checked = false;
 		document.getElementById("itemsync").checked = false;
+		document.getElementById("connectorsync").checked = false;
 		document.getElementById("connectortr").checked = false;
+		document.getElementById("connectortrback").checked = false;
 		document.getElementById("connectorhccsanc").checked = false;
 		document.getElementById("connectorhcchcb").checked = false;
 		document.getElementById("connectorboesanc").checked = false;
@@ -1761,18 +1891,45 @@
 		document.getElementById("connectorboehcc").checked = false;
 		document.getElementById("connectorsanchcb").checked = false;
 		document.getElementById("connectorsanchcc").checked = false;
-		document.getElementById("connectorsync").checked = false;
 		document.getElementById("owpathsnote").value = "";
 		document.getElementById("pinnedlinkshouse").checked = true;
 		document.getElementById("pinnedsanctuary").checked = false;
 		document.getElementById("pinnedoldman").checked = false;
 		document.getElementById("pinnedpyramid").checked = false;
 		setWelcomeMode(!query.request_update);
-		document.getElementById("vanillawelcome").style.display = owshuffle === 'N' ?"none" :"block";
-		if(sync)
-			document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = true;
-		if(!query.request_update && (owshuffle !== 'N' || crossedow !== 'N' || mixedow))
-			document.getElementById("overworldoptionsfinalbox").style.display = "block";
+		document.getElementById("vanillawelcome").style.display = layoutshuffle === 'N' ?"none" :"none";
+		initializeOverworldGraph();
+		initializeRoomsAndSymbols();
+		try
+		{
+			let data = JSON.parse(localStorage.getItem("displayData"));
+			loadAllDisplay(data);
+		}
+		catch(error)
+		{
+			console.log(error);
+		}
+		if(initSync && defaultSync !== "nothing")
+		{
+			switch(defaultSync)
+			{
+				case "everything":
+					document.getElementById("globalsync").checked = true;
+					document.getElementById("itemsync").disabled = document.getElementById("connectorsync").disabled = document.getElementById("selectworldstate").disabled = document.getElementById("entranceenabled").disabled = true;
+					break;
+				case "itemsentrances":
+					document.getElementById("itemsync").checked = true;
+					document.getElementById("connectorsync").checked = true;
+					break;
+				case "items":
+					document.getElementById("itemsync").checked = true;
+					break;
+				case "entrances":
+					document.getElementById("connectorsync").checked = true;
+			}
+		}
+		if(!query.request_update)
+			checkAutoAdjustments(false);
 		try
 		{
 			if(localStorage.getItem("dungeonData"))
@@ -1790,23 +1947,13 @@
 		{
 			console.log(error);
 		}
-		initializeOverworldGraph();
-		initializeRoomsAndSymbols();
 		updateReachableEdges();
 		loadOverview();
 		updateOverviewElements();
 		resizeHandler();
-		try
-		{
-			let data = JSON.parse(localStorage.getItem("displayData"));
-			loadAllDisplay(data);
-		}
-		catch(error)
-		{
-			console.log(error);
-		}
 		window.addEventListener("resize",resizeHandler,false);
 		window.addEventListener("keydown",keyDown,false);
+		updateSyncStatus();
 		if(window.opener && !window.opener.closed)
 		{
 			window.addEventListener("message",receiveMessage,false);
@@ -1846,7 +1993,9 @@
 		document.getElementById("settingsdoor").style.display = "none";
 		document.getElementById("settingstheme").value = theme;
 		document.getElementById("settingsinvertdirectioncolors").checked = invertDirectionColors;
+		document.getElementById("settingsrounddirections").checked = roundDirections;
 		document.getElementById("settingsrestorewindowsize").checked = restoreWindowSize;
+		document.getElementById("settingsdefaultsync").value = defaultSync;
 		document.getElementById("settingsautosavesafety").checked = autoSaveSafety;
 	};
 
@@ -1860,9 +2009,10 @@
 		document.getElementById("settingsdoor").style.display = "none";
 		document.getElementById("settingsdrawflutespots").value = drawFluteSpots;
 		document.getElementById("settingsdrawsavequitspots").value = drawSaveQuitSpots;
-		document.getElementById("settingsforcemaporder").checked = forceMapOrder;
+		document.getElementById("settingshidetopbar").checked = hideTopBar;
 		document.getElementById("settingspreventclickedgescreen").checked = preventClickEdgeScreen;
 		document.getElementById("settingsdisableblur").checked = disableBlur;
+		document.getElementById("settingsmaincolumns").value = overworldMainColumns;
 		document.getElementById("settingssearchstartdefault").value = searchStartDefault;
 		document.getElementById("settingssearchmirrorportaldefault").checked = searchMirrorPortalDefault;
 		document.getElementById("settingssearchstartdefaulttext").innerHTML = "Explanation: "+searchStartDefaultHelp[searchStartDefault];
@@ -1877,6 +2027,7 @@
 		document.getElementById("settingsoverworld").style.display = "none";
 		document.getElementById("settingsdoor").style.display = "block";
 		document.getElementById("settingsimportantroomnodes").value = importantRoomNodes;
+		document.getElementById("settingsomitforeignsymbols").checked = omitForeignSymbols;
 		document.getElementById("settingsimportantroomnodestext").innerHTML = "Description: "+importantRoomNodesHelp[importantRoomNodes];
 	};
 
@@ -1884,7 +2035,9 @@
 	{
 		theme = document.getElementById("settingstheme").value;
 		invertDirectionColors = document.getElementById("settingsinvertdirectioncolors").checked;
+		roundDirections = document.getElementById("settingsrounddirections").checked;
 		restoreWindowSize = document.getElementById("settingsrestorewindowsize").checked;
+		defaultSync = document.getElementById("settingsdefaultsync").value;
 		autoSaveSafety = document.getElementById("settingsautosavesafety").checked;
 		trySaveDisplayData();
 	};
@@ -1893,13 +2046,14 @@
 	{
 		drawFluteSpots = document.getElementById("settingsdrawflutespots").value;
 		drawSaveQuitSpots = document.getElementById("settingsdrawsavequitspots").value;
-		forceMapOrder = document.getElementById("settingsforcemaporder").checked;
+		hideTopBar = document.getElementById("settingshidetopbar").checked;
 		preventClickEdgeScreen = document.getElementById("settingspreventclickedgescreen").checked;
 		disableBlur = document.getElementById("settingsdisableblur").checked;
+		overworldMainColumns = document.getElementById("settingsmaincolumns").value;
 		searchStartDefault = document.getElementById("settingssearchstartdefault").value;
 		searchMirrorPortalDefault = document.getElementById("settingssearchmirrorportaldefault").checked;
-		maybeForceMapOrderMain();
-		maybeForceMapOrderPopout();
+		updateOverworldMainColumns();
+		updateTopBars();
 		document.getElementById("settingssearchstartdefaulttext").innerHTML = "Explanation: "+searchStartDefaultHelp[searchStartDefault];
 		trySaveDisplayData();
 	};
@@ -1907,6 +2061,7 @@
 	window.updateDoorSettings = function()
 	{
 		importantRoomNodes = document.getElementById("settingsimportantroomnodes").value;
+		omitForeignSymbols = document.getElementById("settingsomitforeignsymbols").checked;
 		document.getElementById("settingsimportantroomnodestext").innerHTML = "Description: "+importantRoomNodesHelp[importantRoomNodes];
 		trySaveDisplayData();
 	};
@@ -1932,18 +2087,65 @@
 			document.body.classList.add("invdir");
 		else
 			document.body.classList.remove("invdir");
+		for(let k of [2,5,8,11])
+			directions[k].file = roundDirections ?"arrowrightdownround" :"arrowrightdown";
+		for(let k of [1,4,7,10])
+			directions[k].file = roundDirections ?"arrowrightupround" :"arrowrightup";
+		document.getElementById("arrowpreview1").style.backgroundImage = roundDirections ?"url(./images/dungeons/arrowrightupround.png)" :"url(./images/dungeons/arrowrightup.png)";
+		document.getElementById("arrowpreview2").style.backgroundImage = roundDirections ?"url(./images/dungeons/arrowrightdownround.png)" :"url(./images/dungeons/arrowrightdown.png)";
 		if(disableBlur)
 			document.body.classList.add("noblur");
 		else
 			document.body.classList.remove("noblur");
+		updateSyncStatus();
+	};
+
+	window.openTrackerSettings = function()
+	{
+		hideEditMapModeModal();
+		hideFullOverworldModal();
+		switchScene("settings");
+		loadOverworldSettings();
+	};
+
+	window.openModeSettings = function()
+	{
+		hideEditMapModeModal();
+		hideFullOverworldModal();
+		home();
+		scrollTo(0,document.getElementById("modesettings").getBoundingClientRect().top-36);
+	};
+
+	window.openSyncSettings = function()
+	{
+		home();
+		scrollTo(0,document.getElementById("syncsectiontitle").getBoundingClientRect().top-36);
+	};
+
+	window.openItems = function()
+	{
+		sideLoadOverworld();
+		scrollTo(0,document.getElementById("overworlditems").getBoundingClientRect().top-64);
+	};
+
+	window.openConnectors = function()
+	{
+		sideLoadOverworld();
+		scrollTo(0,document.getElementById(entranceEnabled ?"owentrancecontainer" :"dungeonconnectorsdefault").getBoundingClientRect().top-64);
+	};
+
+	window.openCommonStarts = function()
+	{
+		sideLoadOverworld();
+		scrollTo(0,document.getElementById("commonstartinglocations").getBoundingClientRect().top-64);
 	};
 
 	window.loadOverworld = function()
 	{
 		currentDungeon = -1;
 		currentOWPath = null;
-		document.getElementById("owmaintablenewpath").style.display = owshuffle === 'N' ?"none" :"table-row";
-		document.getElementById("owmaintablemininewpath").style.display = owshuffle === 'N' ?"none" :"";
+		document.getElementById("owmaintablenewpath").style.display = layoutshuffle === 'N' && !whirlpoolshuffle ?"none" :"table-row";
+		document.getElementById("owmaintablemininewpath").style.display = layoutshuffle === 'N' && !whirlpoolshuffle ?"none" :"";
 		document.getElementById("pinnedlinkshouse").nextSibling.innerHTML = worldState === 'I' ?"Bomb Shop" :"Link's House";
 		document.getElementById("pinnedsanctuary").nextSibling.innerHTML = worldState === 'I' ?"Dark Chapel" :"Sanctuary";
 		document.getElementById("pinnedoldman").nextSibling.innerHTML = worldState === 'I' ?"Mountain Cave" :"Mountain Cave";
@@ -1952,8 +2154,8 @@
 		document.getElementById("dungeonconnectorsdoors").style.display = entranceEnabled || doorshuffle === 'N' ?"none" :"block";
 		document.getElementById("owentrancecontainer").style.display = entranceEnabled ?"block" :"none";
 		document.getElementById("owfluteshufflerow").style.display = fluteshuffle ?"block" :"none";
-		document.getElementById("owpreviouspathscontainer").style.display = owshuffle === 'N' ?"none" :"block";
-		document.getElementById("owvanillatransitions").style.display = owshuffle === 'N' && crossedow !== 'C' ?"none" :"";
+		document.getElementById("owpreviouspathscontainer").style.display = layoutshuffle === 'N' && !whirlpoolshuffle ?"none" :"block";
+		document.getElementById("owvanillatransitions").style.display = layoutshuffle === 'N' && !whirlpoolshuffle && crossedow !== 'C' ?"none" :"";
 		updateConnectorList();
 		updateStartRegionList();
 		updateMainPathLists();
@@ -1976,9 +2178,9 @@
 	{
 		fullOWSelectedScreen = fullOWSelectedEdge = fullOWConnectorStart = fullOWFixedEdge = null;
 		document.getElementById("fullowmainscreenactions").style.display = "none";
-		document.getElementById("fullowmainnewpath").style.display = owshuffle === 'N' ?"none" :"block";
+		document.getElementById("fullowmainnewpath").style.display = layoutshuffle === 'N' && !whirlpoolshuffle ?"none" :"block";
 		document.getElementById("fullowmainmixedactions").style.display = mixedow ?"block" :"none";
-		document.getElementById("fullowmainswapscreenwithedges").style.display = (owshuffle !== 'N' || crossedow === 'C') ?"block" :"none";
+		document.getElementById("fullowmainswapscreenwithedges").style.display = (layoutshuffle !== 'N' || crossedow === 'C') ?"block" :"none";
 		document.getElementById("fullowmainnewconnector").style.display = entranceEnabled && !document.getElementById("connectorsync").checked && !document.getElementById("globalsync").checked ?"block" :"none";
 		document.getElementById("fullowmainedgeactions").style.display = "none";
 		document.getElementById("fullowmainconnectoractions").style.display = "none";
@@ -1986,6 +2188,8 @@
 		document.getElementById("fullowmainrepeatsearch").style.display = fullOWPath && fullOWPath.search ?"block" :"none";
 		fullCheckConnectorDetails();
 		drawFullOverworldPanel(true);
+		if(mapModeAutoMain)
+			pickMapModeMain();
 		if(fullZoomAutoMain)
 			calculateFullZoomMain();
 	};
@@ -2012,15 +2216,17 @@
 	{
 		showOverworldModeSection = !showOverworldModeSection;
 		document.getElementById("toggleowmodesection").className = showOverworldModeSection ?"buttonsquare collapsesection" :"buttonsquare expandsection";
-		document.getElementById("overworldmodelayout").style.display = showOverworldModeSection ?"inline-block" :"none";
+		document.getElementById("overworldmodehelp").style.display = showOverworldModeSection ?"inline-block" :"none";
 		document.getElementById("overworldmodesection").style.display = showOverworldModeSection ?"block" :"none";
 	};
 
 	window.toggleFullOverworldMain = function()
 	{
 		showFullMapMain = !showFullMapMain;
+		document.getElementById("fullowmainsettingsbutton").style.display = showFullMapMain && hideTopBar && mapModeMain !== "single" ?"block" :"none";
 		document.getElementById("togglefullowmain").className = showFullMapMain ?"cell buttonsquare collapsesection" :"cell buttonsquare expandsection";
 		document.getElementById("fullowmainpage").style.display = showFullMapMain ?"block" :"none";
+		updateTopBars();
 		if(showFullMapMain && document.getElementById("owmain").style.display === "block")
 			loadFullOverworldMain();
 	};
@@ -2293,7 +2499,7 @@
 	{
 		if(fluteshuffle)
 		{
-			if(!sideBySidePopout)
+			if(mapModePopout === "single")
 				drawDarkWorldPopout = worldState === 'I';
 			showFullOverworldModal("editflutespots");
 		}
@@ -2362,9 +2568,9 @@
 				}
 				else
 				{
-					if(edge.direction === opposite[fullOWSelectedEdge.direction] && edge.water === fullOWSelectedEdge.water)
+					if(edge.direction === opposite[fullOWSelectedEdge.direction])
 					{
-						connectSimilarParallel(fullOWSelectedEdge,edge);
+						connectSimilarParallel(fullOWSelectedEdge,edge,decoupledow === 'N',decoupledow !== 'C');
 						fullOWSelectedEdge = null;
 						document.getElementById(mainString+"edgeactions").style.display = "none";
 						fullCheckConnectorDetails();
@@ -2375,30 +2581,30 @@
 			}
 			else
 			{
-				if(owshuffle === 'N')
+				if(edgeString === "ZW" ?!whirlpoolshuffle :layoutshuffle === 'N')
 				{
 					let edge = overworldScreens.get(screenID).edges.get(edgeString);
-					if(similarow && (screenID%0x40 === 0x28 || screenID%0x40 === 0x29) && (edge.vanilla.screen.id%0x40 === 0x28 || edge.vanilla.screen.id%0x40 === 0x29))
-						edge = overworldScreens.get(0x68).edges.get("E0");
+					if(similarow && decoupledow !== 'C' && (screenID%0x40 === 0x28 || screenID%0x40 === 0x29) && (edge.vanilla.screen.id%0x40 === 0x28 || edge.vanilla.screen.id%0x40 === 0x29))
+						edge = edge.direction === "E" ?overworldScreens.get(0x68).edges.get("E0") :overworldScreens.get(0x69).edges.get("W0");
 					let edgeVanilla = !edge.parallel || isDarkWorld(edge.screen) === isDarkWorld(edge.vanilla.screen) ?edge.vanilla :edge.parallel.vanilla;
 					if(edge.out)
 					{
-						if(edge.out === edgeVanilla)
+						if(edge.out === edgeVanilla && edge.parallel)
 						{
-							connectSimilarParallel(edge,edge.parallel ?edgeVanilla.parallel :edgeVanilla);
+							connectSimilarParallel(edge,edgeVanilla.parallel,decoupledow === 'N',decoupledow !== 'C');
 							outstandingUpdate = true;
 							updateReachableEdges();
 						}
 						else
 						{
-							deleteSimilarParallel(edge);
+							deleteSimilarParallel(edge,true,decoupledow === 'N');
 							outstandingUpdate = true;
 							updateReachableEdges();
 						}
 					}
 					else
 					{
-						connectSimilarParallel(edge,edgeVanilla);
+						connectSimilarParallel(edge,edgeVanilla,decoupledow === 'N',decoupledow !== 'C');
 						outstandingUpdate = true;
 						updateReachableEdges();
 					}
@@ -2410,16 +2616,7 @@
 					document.getElementById(mainString+"screenactions").style.display = "none";
 					document.getElementById(mainString+"edgeactions").style.display = "block";
 					document.getElementById(mainString+"unknownconnector").style.display = "none";
-					if(fullOWSelectedEdge.out || fullOWSelectedEdge.in)
-					{
-						document.getElementById(mainString+"edgetext").innerHTML = "This transition is already set. Clicking on another edge will replace the old connection.";
-						document.getElementById(mainString+"edgedelete").classList.remove("disabled");
-					}
-					else
-					{
-						document.getElementById(mainString+"edgetext").innerHTML = "Click on another edge to set a screen transition.";
-						document.getElementById(mainString+"edgedelete").classList.add("disabled");
-					}
+					updateEdgeActions(main);
 				}
 			}
 			drawFullOverworldPanels();
@@ -2484,6 +2681,92 @@
 		}
 	};
 
+	window.updateEdgeActions = function(main)
+	{
+		let mainString = main ?"fullowmain" :"fullow";
+		document.getElementById(mainString+"edgeloop").style.display = fullOWSelectedEdge.string === "ZW" ?"block" :"none";
+		document.getElementById(mainString+"edgecoupled").style.display = decoupledow !== 'N' ?"none" :"block";
+		document.getElementById(mainString+"edgedecoupled").style.display = decoupledow !== 'N' ?"block" :"none";
+		document.getElementById(mainString+"edgename").innerHTML = getNiceEdgeName(fullOWSelectedEdge);
+		if(decoupledow === 'N')
+		{
+			if(fullOWSelectedEdge.out)
+			{
+				document.getElementById(mainString+"edgetext").innerHTML = "Clicking on another edge will replace the old connection.";
+				document.getElementById(mainString+"edgecoupledtext").style.display = "none";
+				document.getElementById(mainString+"edgecoupledname").innerHTML = getNiceEdgeName(fullOWSelectedEdge.out);
+				document.getElementById(mainString+"edgecoupledname").style.display = "";
+				document.getElementById(mainString+"edgecoupleddelete").classList.remove("disabled");
+			}
+			else
+			{
+				document.getElementById(mainString+"edgetext").innerHTML = "Click on another edge to set the destination.";
+				document.getElementById(mainString+"edgecoupledtext").style.display = "";
+				document.getElementById(mainString+"edgecoupledname").style.display = "none";
+				if(fullOWSelectedEdge.in.length)
+					document.getElementById(mainString+"edgecoupleddelete").classList.remove("disabled");
+				else
+					document.getElementById(mainString+"edgecoupleddelete").classList.add("disabled");
+			}
+			document.getElementById(mainString+"edgecoupleddelete").setAttribute("onmouseover","hoverEdge("+fullOWSelectedEdge.screen.id+",'"+fullOWSelectedEdge.string+"')");
+		}
+		else
+		{
+			if(fullOWSelectedEdge.out)
+			{
+				document.getElementById(mainString+"edgedecoupledouttext").style.display = "none";
+				document.getElementById(mainString+"edgedecoupledoutname").innerHTML = getNiceEdgeName(fullOWSelectedEdge.out);
+				document.getElementById(mainString+"edgedecoupledoutname").style.display = "";
+				document.getElementById(mainString+"edgedecoupledoutdelete").classList.remove("disabled");
+			}
+			else
+			{
+				document.getElementById(mainString+"edgedecoupledouttext").style.display = "";
+				document.getElementById(mainString+"edgedecoupledoutname").style.display = "none";
+				document.getElementById(mainString+"edgedecoupledoutdelete").classList.add("disabled");
+			}
+			if(decoupledow === 'C' || fullOWSelectedEdge.in.length > 1)
+			{
+				document.getElementById(mainString+"edgedecoupledinonerow").style.display = "none";
+				document.getElementById(mainString+"edgedecoupledinrow").style.display = "block";
+			}
+			else
+			{
+				document.getElementById(mainString+"edgedecoupledinonerow").style.display = "block";
+				document.getElementById(mainString+"edgedecoupledinrow").style.display = "none";
+			}
+			if(fullOWSelectedEdge.in.length)
+			{
+				document.getElementById(mainString+"edgedecoupledinonetext").style.display = "none";
+				document.getElementById(mainString+"edgedecoupledinonename").innerHTML = getNiceEdgeName(fullOWSelectedEdge.in[0]);
+				document.getElementById(mainString+"edgedecoupledinonename").style.display = "";
+				document.getElementById(mainString+"edgedecoupledinonedelete").classList.remove("disabled");
+				document.getElementById(mainString+"edgedecoupledintext").innerHTML = fullOWSelectedEdge.in.length+(fullOWSelectedEdge.in.length === 1 ?" edge:" :" edges:");
+				document.getElementById(mainString+"edgedecoupledindelete").classList.remove("disabled");
+				let s = "";
+				for(let k = 0; k < fullOWSelectedEdge.in.length; k++)
+				{
+					s += "<div class='cell' onmouseover='hoverEdgeInSingle("+fullOWSelectedEdge.screen.id+",\""+fullOWSelectedEdge.string+"\","+k+")' onmouseout='clearFullOverlay("+main+")'>";
+					s += "<div class='cell buttonbox dense' onclick='fullOverworldSelectEdgeIn("+k+")'>"+getNiceEdgeName(fullOWSelectedEdge.in[k])+"</div>";
+					s += "<div class='cell buttonsquare close redborder dense' onclick='fullOverworldDeleteConnectionSingleIn("+k+")'></div></div>";
+				}
+				document.getElementById(mainString+"edgedecoupledinbuttons").innerHTML = s;
+			}
+			else
+			{
+				document.getElementById(mainString+"edgedecoupledinonetext").style.display = "";
+				document.getElementById(mainString+"edgedecoupledinonename").style.display = "none";
+				document.getElementById(mainString+"edgedecoupledinonedelete").classList.add("disabled");
+				document.getElementById(mainString+"edgedecoupledintext").innerHTML = "(No edges set that lead here)";
+				document.getElementById(mainString+"edgedecoupledindelete").classList.add("disabled");
+				document.getElementById(mainString+"edgedecoupledinbuttons").innerHTML = "";
+			}
+			document.getElementById(mainString+"edgedecoupledoutdelete").setAttribute("onmouseover","hoverEdgeOut("+fullOWSelectedEdge.screen.id+",'"+fullOWSelectedEdge.string+"')");
+			document.getElementById(mainString+"edgedecoupledinonedelete").setAttribute("onmouseover","hoverEdgeInAll("+fullOWSelectedEdge.screen.id+",'"+fullOWSelectedEdge.string+"')");
+			document.getElementById(mainString+"edgedecoupledindelete").setAttribute("onmouseover","hoverEdgeInAll("+fullOWSelectedEdge.screen.id+",'"+fullOWSelectedEdge.string+"')");
+		}
+	};
+
 	window.fullOverworldNewPath = function()
 	{
 		startOverworldPath(fullOWSelectedScreen.id);
@@ -2507,23 +2790,42 @@
 
 	window.fullOverworldSwapScreen = function(button,includeEdges)
 	{
-		if(fullOWSelectedScreen.mixedState !== "unknown")
+		if(mixedow && fullOWSelectedScreen && fullOWSelectedScreen.mixedState !== "unknown")
 		{
 			if(includeEdges)
 			{
-				let group = getScreenLinkGroup(fullOWSelectedScreen.id),gameLeft = fullOWSelectedScreen.id%0x40 === 0x28,gameRight = fullOWSelectedScreen.id%0x40 === 0x29;
-				for(let edge of fullOWSelectedScreen.edges.values())
-					if(edge.parallel && (!similarow || (!gameLeft && (!gameRight || edge.direction !== "W"))) && ((edge.out && !group.includes(edge.out.screen.id)) || (edge.parallel.out && !group.includes(edge.parallel.out.screen.id))))
+				let group = getScreenLinkGroup(fullOWSelectedScreen.id,true);
+				for(let id of group)
+					if(id < 0x40 || id >= 0x80)
 					{
-						let old = edge.out;
-						if(edge.parallel.out)
-							connectEdges(edge,edge.parallel.out,true);
-						else
-							deleteConnections(edge);
-						if(old)
-							connectEdges(edge.parallel,old,true);
-						else
-							deleteConnections(edge.parallel);
+						let screen = overworldScreens.get(id),gameLeft = screen.id%0x40 === 0x28,gameRight = screen.id%0x40 === 0x29;
+						for(let edge of screen.edges.values())
+							if(edge.parallel && (!similarow || (!gameLeft && (!gameRight || edge.direction !== "W"))))
+							{
+								if((edge.out && !group.includes(edge.out.screen.id)) || (edge.parallel.out && !group.includes(edge.parallel.out.screen.id)))
+								{
+									let old = edge.out;
+									if(edge.parallel.out)
+										connectEdges(edge,edge.parallel.out,false,false);
+									else
+										deleteConnections(edge,true,false);
+									if(old)
+										connectEdges(edge.parallel,old,false,false);
+									else
+										deleteConnections(edge.parallel,true,false);
+								}
+								let edgeList1 = [],edgeList2 = [];
+								for(let e of edge.in)
+									if(!group.includes(e.screen.id))
+										edgeList1.push(e);
+								for(let e of edgeList1)
+									connectEdges(e,edge.parallel,false,false);
+								for(let e of edge.parallel.in)
+									if(!group.includes(e.screen.id) && !edgeList1.includes(e))
+										edgeList2.push(e);
+								for(let e of edgeList2)
+									connectEdges(e,edge,false,false);
+							}
 					}
 			}
 			setMixedScreen(fullOWSelectedScreen,fullOWSelectedScreen.mixedState === "normal" ?"swapped" :"normal");
@@ -2532,6 +2834,7 @@
 			updateReachableEdges();
 			drawFullOverworldPanels();
 			document.getElementById(useMain ?"fullowmainmixedscreenstate" :"fullowmixedscreenstate").innerHTML = "Mixed state: "+fullOWSelectedScreen.mixedState;
+			hoverMixedGroup(true);
 		}
 	};
 
@@ -2588,7 +2891,19 @@
 		button.setAttribute("onclick","addStartRegion(this,'"+regionName+"')");
 	};
 
-	window.fullOverworldUnselectEdge = function()
+	window.fullOverworldLoopEdge = function()
+	{
+		if(fullOWSelectedEdge && fullOWSelectedEdge.string === "ZW" && whirlpoolshuffle)
+		{
+			connectEdges(fullOWSelectedEdge,fullOWSelectedEdge,false,decoupledow !== 'C');
+			fullOWSelectedEdge = null;
+			document.getElementById(useMain ?"fullowmainedgeactions" :"fullowedgeactions").style.display = "none";
+			fullCheckConnectorDetails();
+			drawFullOverworldPanels();
+		}
+	};
+
+	window.fullOverworldDeselectEdge = function()
 	{
 		fullOWSelectedEdge = null;
 		document.getElementById(useMain ?"fullowmainedgeactions" :"fullowedgeactions").style.display = "none";
@@ -2596,17 +2911,70 @@
 		drawFullOverworldPanelCurrent();
 	};
 
-	window.fullOverworldDeleteConnection = function()
+	window.fullOverworldDeleteConnectionAll = function()
 	{
-		if(fullOWSelectedEdge && (fullOWSelectedEdge.out || fullOWSelectedEdge.in))
+		if(fullOWSelectedEdge && (fullOWSelectedEdge.out || fullOWSelectedEdge.in.length))
 		{
-			deleteSimilarParallel(fullOWSelectedEdge);
+			deleteSimilarParallel(fullOWSelectedEdge,true,true);
 			fullOWSelectedEdge = null;
 			document.getElementById(useMain ?"fullowmainedgeactions" :"fullowedgeactions").style.display = "none";
 			outstandingUpdate = true;
 			fullCheckConnectorDetails();
 			updateReachableEdges();
 			drawFullOverworldPanels();
+		}
+	};
+
+	window.fullOverworldDeleteConnectionOut = function()
+	{
+		if(fullOWSelectedEdge && fullOWSelectedEdge.out)
+		{
+			deleteSimilarParallel(fullOWSelectedEdge,true,false);
+			updateReachableEdges();
+			drawFullOverworldPanels();
+			updateEdgeActions(useMain);
+		}
+	};
+
+	window.fullOverworldDeleteConnectionAllIn = function()
+	{
+		if(fullOWSelectedEdge && fullOWSelectedEdge.in.length)
+		{
+			deleteSimilarParallel(fullOWSelectedEdge,false,true);
+			updateReachableEdges();
+			drawFullOverworldPanels();
+			updateEdgeActions(useMain);
+		}
+	};
+
+	window.fullOverworldDeleteConnectionSingleIn = function(index)
+	{
+		if(fullOWSelectedEdge && index < fullOWSelectedEdge.in.length)
+		{
+			deleteConnections(fullOWSelectedEdge.in[index],true,false);
+			updateReachableEdges();
+			drawFullOverworldPanels();
+			updateEdgeActions(useMain);
+		}
+	};
+
+	window.fullOverworldSelectEdgeOut = function()
+	{
+		if(fullOWSelectedEdge && fullOWSelectedEdge.out)
+		{
+			fullOWSelectedEdge = fullOWSelectedEdge.out;
+			drawFullOverworldPanels();
+			updateEdgeActions(useMain);
+		}
+	};
+
+	window.fullOverworldSelectEdgeIn = function(index)
+	{
+		if(fullOWSelectedEdge && index < fullOWSelectedEdge.in.length)
+		{
+			fullOWSelectedEdge = fullOWSelectedEdge.in[index];
+			drawFullOverworldPanels();
+			updateEdgeActions(useMain);
 		}
 	};
 
@@ -2668,7 +3036,7 @@
 
 	window.startOverworldPath = function(id)
 	{
-		if(owshuffle !== 'N')
+		if(layoutshuffle !== 'N' || whirlpoolshuffle)
 		{
 			currentOWPath = [id];
 			let screen = currentOWScreen = overworldScreens.get(id);
@@ -2707,7 +3075,7 @@
 	window.appendToOverworldPath = function(edgeString)
 	{
 		currentOWPath.push(edgeString);
-		if(edgeString == "PO" || edgeString == "MI")
+		if(edgeString === "PO" || edgeString === "MI")
 		{
 			currentOWScreen = currentOWScreen.parallel;
 			currentOWPath.push(edgeString,currentOWScreen.id);
@@ -2716,11 +3084,15 @@
 		}
 		else
 		{
-			let edge = currentOWScreen.edges.get(edgeString);
-			if(edge.out && document.getElementById("alwaysfollowmarked").checked)
+			let edge = currentOWScreen.edges.get(edgeString),targetEdge = null;
+			if((edgeString === "ZW" ?!whirlpoolshuffle :layoutshuffle === 'N') && (crossedow !== 'C' || !edge.parallel))
+				targetEdge = getConnectedEdge(edge,false);
+			if(!targetEdge && edge.out && document.getElementById("alwaysfollowmarked").checked)
+				targetEdge = edge.out;
+			if(targetEdge)
 			{
-				currentOWScreen = edge.out.screen;
-				currentOWPath.push(edge.out.string,currentOWScreen.id);
+				currentOWScreen = targetEdge.screen;
+				currentOWPath.push(targetEdge.string,currentOWScreen.id);
 				updateCurrentOverworldPath();
 				drawDirectionsFromScreen(currentOWScreen);
 			}
@@ -2728,7 +3100,7 @@
 			{
 				updateCurrentOverworldPath();
 				fullOWFixedEdge = edge;
-				if(!sideBySidePopout && crossedow === 'N')
+				if(mapModePopout === "single" && crossedow === 'N')
 					drawDarkWorldPopout = isDarkWorld(currentOWScreen);
 				showFullOverworldModal("continuepath");
 			}
@@ -2795,7 +3167,7 @@
 	{
 		if(fluteshuffle)
 		{
-			if(!sideBySidePopout)
+			if(mapModePopout === "single")
 				drawDarkWorldPopout = worldState === 'I';
 			showFullOverworldModal("editflutespots");
 		}
@@ -2880,20 +3252,21 @@
 					if(k != 0 && !specialEdgeTypes.includes(path[k-1]))
 					{
 						let edge = screen.edges.get(path[k-1][0]+path[k-1][1]);
-						let newX = left+edge.x2*128*scale,newY = top+edge.y2*128*scale;
+						let newX = left+edge.x2*128*scale-dotOffsetX[edge.direction];
+						let newY = top+edge.y2*128*scale-dotOffsetY[edge.direction];
 						s += "<div class='owedgedot to' style='left: "+(newX-4)+"px; top: "+(newY-4)+"px;'></div>";
 						if(detailed || path.length <= 4)
 						{
 							let minX = Math.min(lastEdgeX,newX),maxX = Math.max(lastEdgeX,newX);
 							let minY = Math.min(lastEdgeY,newY),maxY = Math.max(lastEdgeY,newY);
-							s += "<div class='crossed"+(((lastEdgeY > newY) != (lastEdgeX > newX)) ?"left" :"right")+"' style='left: "+minX+"px; top: "+minY+"px; width: "+(maxX-minX)+"px; height: "+(maxY-minY)+"px; z-index: -1;'></div>"
+							s += "<div class='crossed"+(((lastEdgeY > newY) != (lastEdgeX > newX)) ?"left" :"right")+"' style='left: "+minX+"px; top: "+minY+"px; width: "+(maxX-minX)+"px; height: "+(maxY-minY)+"px;'></div>"
 						}
 					}
 					if(k != path.length-1 && !specialEdgeTypes.includes(path[k+1]))
 					{
 						let edge = screen.edges.get(path[k+1]);
-						lastEdgeX = left+edge.x2*128*scale;
-						lastEdgeY = top+edge.y2*128*scale;
+						lastEdgeX = left+edge.x2*128*scale+dotOffsetX[edge.direction];
+						lastEdgeY = top+edge.y2*128*scale+dotOffsetY[edge.direction];
 						s += "<div class='owedgedot' style='left: "+(lastEdgeX-4)+"px; top: "+(lastEdgeY-4)+"px;'></div>";
 					}
 					left += 64;
@@ -2915,7 +3288,8 @@
 					left = 32;
 					top += 64;
 				}
-				s += createSymbolNode(overworldEdgeToDirection[path[k]],left,top);
+				let extraString = drawNumbers && (path[k] === "ZW" || "012".indexOf(path[k][1]) != -1) ?"onmouseover='hoverEdgeOut("+path[k-1]+",\""+path[k]+"\")' onmouseout='clearFullOverlay(null)'" :null;
+				s += createSymbolNode(overworldEdgeToDirection[path[k]],left,top,false,extraString);
 				left += 32;
 				break;
 			case 2://Edge to
@@ -2946,7 +3320,7 @@
 			{
 				let screen1 = overworldScreens.get(currentOWPath[k-3]),screen2 = overworldScreens.get(currentOWPath[k]);
 				let edge1 = screen1.edges.get(currentOWPath[k-2]),edge2 = screen2.edges.get(currentOWPath[k-1]);
-				connectSimilarParallel(edge1,edge2);
+				connectSimilarParallel(edge1,edge2,decoupledow === 'N',decoupledow !== 'C');
 			}
 		previousPaths.unshift({path:currentOWPath});
 		updateMainPathLists();
@@ -2995,6 +3369,8 @@
 		setSearchStartMode(searchStartDefault);
 		document.getElementById("owsearchmirrorportals").checked = searchMirrorPortalDefault;
 		document.getElementById("owsearchfollower").value = "none";
+		document.getElementById("owsearchignoreitemrules").checked = false;
+		document.getElementById("owsearchkeepmirrorportal").checked = false;
 		hideFullOverworldModal();
 		switchScene("owsearch");
 		searchOverworldPath(true,true);
@@ -3044,6 +3420,8 @@
 			searchTargetRegion = search.targetRegion && currentOWScreen.regions.size !== 1 ?currentOWScreen.regions.get(search.targetRegion) :null;
 			document.getElementById("owsearchmirrorportals").checked = !!search.mirrorPortals;
 			document.getElementById("owsearchfollower").value = search.follower ?search.follower :"none";
+			document.getElementById("owsearchignoreitemrules").checked = !!search.ignoreItemRules;
+			document.getElementById("owsearchkeepmirrorportal").checked = !!search.keepMirrorPortal;
 			switchScene("owsearch");
 			searchOverworldPath(false,false);
 		}
@@ -3075,6 +3453,8 @@
 			search.targetRegion = searchTargetRegion.name;
 		search.mirrorPortals = document.getElementById("owsearchmirrorportals").checked;
 		search.follower = document.getElementById("owsearchfollower").value;
+		search.ignoreItemRules = document.getElementById("owsearchignoreitemrules").checked;
+		search.keepMirrorPortal = document.getElementById("owsearchkeepmirrorportal").checked;
 		return search;
 	};
 
@@ -3097,14 +3477,15 @@
 		document.getElementById("owsearchresults").style.height = "0";
 		searchResultsLength = 0;
 		searchResultPaths = [];
-		document.getElementById("checklistedges").style.display = owshuffle !== 'N' || crossedow === 'C' ?"table-row" :"none";
+		document.getElementById("checklistedges").style.display = layoutshuffle !== 'N' || whirlpoolshuffle || crossedow === 'C' ?"table-row" :"none";
 		document.getElementById("checklistmixed").style.display = mixedow ?"table-row" :"none";
 		document.getElementById("checklistflute").style.display = fluteshuffle ?"table-row" :"none";
 		hideFullOverworldModal();
 		let items = getModifiedOwnItems();
 		if(document.getElementById("owsearchfollower").value !== "none")
 			items.follower = document.getElementById("owsearchfollower").value;
-		document.getElementById("owsearchmirrorportals").disabled = !items.mirror;
+		if(document.getElementById("owsearchignoreitemrules").checked)
+			giveAllItems(items);
 		let startRegions = searchStartScreen ?(searchStartRegion ?[searchStartRegion] :Array.from(searchStartScreen.regions.values())) :allStartRegions.concat(fluteSpotRegions);
 		if(searchStartScreen && searchAddCommonStarts)
 			startRegions = startRegions.concat(allStartRegions,fluteSpotRegions);
@@ -3113,7 +3494,7 @@
 		options.fluteEdges = searchStartScreen && searchSaveQuitFluteEdges;
 		for(let region of screen.regions.values())
 		{
-			options.keepMirrorPortal = false;
+			options.keepMirrorPortal = items.keepMirrorPortal = document.getElementById("owsearchkeepmirrorportal").checked;
 			dijkstra(region,items,options);
 			let pathsToRegion = [];
 			for(let start of startRegions)
@@ -3134,7 +3515,7 @@
 			}
 			if(document.getElementById("owsearchmirrorportals").checked && items.mirror && isDarkWorld(screen) !== (worldState === 'I') && region.parallel && !region.mirrorBlock)
 			{
-				options.keepMirrorPortal = true;
+				options.keepMirrorPortal = items.keepMirrorPortal = true;
 				dijkstra(region.parallel,items,options);
 				for(let start of startRegions)
 				{
@@ -3418,7 +3799,7 @@
 			ownItems.mitts = false;
 			document.getElementById("itemgloves").classList.remove("collected","mitts");
 		}
-		for(let item of ["connectortr","connectorhccsanc","connectorhcchcb","connectorboesanc","connectorboehcb","connectorboehcc","connectorsanchcb","connectorsanchcc"])
+		for(let item of ["connectortr","connectortrback","connectorhccsanc","connectorhcchcb","connectorboesanc","connectorboehcb","connectorboehcc","connectorsanchcb","connectorsanchcc"])
 			document.getElementById(item).checked = ownItems[item];
 	};
 
@@ -3438,7 +3819,7 @@
 	window.drawFullOverworldPanel = function(main)
 	{
 		let drawDarkWorld = main ?drawDarkWorldMain :drawDarkWorldPopout;
-		let sideBySide = main ?sideBySideMain :sideBySidePopout;
+		let mapMode = main ?mapModeMain :mapModePopout;
 		let mainString = main ?"fullowmain" :"fullow";
 		let mode = main ?"editedges" :fullOverworldMode;
 		document.getElementById(mainString+"paneloverlay").innerHTML = "";
@@ -3450,7 +3831,7 @@
 		for(let [id,screen] of overworldScreens)
 		{
 			let darkWorld = isDarkWorld(screen);
-			if((!sideBySide && darkWorld != drawDarkWorld) || (screen.special && mode === "editflutespots"))
+			if((mapMode === "single" && darkWorld != drawDarkWorld && (!mixedow || !screen.special || screen.mixedState !== "unknown")) || (screen.special && mode === "editflutespots"))
 				continue;
 			let unknownScreen = mixedow && screen.mixedState === "unknown" && mode !== "editflutespots";
 			let scale = .5,classes = "owscreen full",onClick = unknownScreen ?"" :"clickScreenFull(event,"+id+","+main+")",valid = true;
@@ -3484,13 +3865,15 @@
 				classes += " unknown";
 			let x = screen.special ?screen.x :id%8*128*scale;
 			let y = screen.special ?screen.y :(id%0x40 >> 3)*128*scale;
-			if(sideBySide && darkWorld != drawDarkWorld)
+			if(mapMode === "horizontal" && darkWorld != drawDarkWorld)
 				x += 1024*scale;
-			s += "<div id='full"+(main ?"main" :"popout")+id+"' class='"+classes+"' onclick='"+onClick+(unknownScreen || (owshuffle === 'N' && crossedow !== 'C') ?"' " :"' onmouseover='hoverScreen("+id+","+main+")' onmouseout='clearFullOverlay("+main+")' ");
+			if(mapMode === "vertical" && darkWorld != drawDarkWorld)
+				y += 1024*scale;
+			s += "<div id='full"+(main ?"main" :"popout")+id+"' class='"+classes+"' onclick='"+onClick+(unknownScreen || (layoutshuffle === 'N' && !whirlpoolshuffle && crossedow !== 'C') ?"' " :"' onmouseover='hoverScreen("+id+","+main+")' onmouseout='clearFullOverlay("+main+")' ");
 			if(screen.special)
 				s += "style='left: "+x+"px; top: "+y+"px; z-index: 1'><div class='specialshadow'><img class='roomnodeimg' src='./images/overlay/"+screen.file+".png' style='transform: scale("+scale+");'></div>";
 			else
-				s += "style='left: "+x+"px; top: "+y+"px;'><img class='roomnodeimg' src='./images/overlay/"+(screen.darkWorld ?"dark" :"light")+"world.png' style='transform: translateX(-"+x%(1024*scale)+"px) translateY(-"+y+"px) scale("+scale+");'>";
+				s += "style='left: "+x+"px; top: "+y+"px;'><img class='roomnodeimg' src='./images/overlay/"+(screen.darkWorld ?"dark" :"light")+"world.png' style='transform: translateX(-"+x%(1024*scale)+"px) translateY(-"+y%(1024*scale)+"px) scale("+scale+");'>";
 			s += "<span class='roomtt'>";
 			if(unknownScreen)
 			{
@@ -3511,9 +3894,9 @@
 					}
 			if((mode === "editflutespots" || ((drawFluteSpots === "on" || (drawFluteSpots === "fluteshuffle" && fluteshuffle)) && ownItems.flute && document.getElementById("activeflutebox").checked)) && darkWorld === (worldState === 'I') && (fluteshuffle ?customFluteSpots :vanillaFluteSpots).includes(id%0x40))
 				s += "<div class='flutesymbol' style='left: "+(x+getBigScreenSubareaX(screen)+16)+"px; top: "+(y+getBigScreenSubareaY(screen)+16)+"px; opacity: "+(mode === "editflutespots" ?1 :.75)+"'></div>";
-			if(!fullOWConnectorStart && !unknownScreen && (mode !== "editflutespots") && (owshuffle !== 'N' || crossedow === 'C'))
+			if(!fullOWConnectorStart && !unknownScreen && mode !== "editflutespots" && (layoutshuffle !== 'N' || whirlpoolshuffle || crossedow === 'C'))
 				for(let edge of screen.edges.values())
-					if(!fixedEdge || edge === fixedEdge || edgesCompatible(edge,fixedEdge))
+					if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)) && (!fixedEdge || edge === fixedEdge || edgesCompatible(edge,fixedEdge)))
 					{
 						classes = "owedge "+className[edge.direction];
 						if(edge === fixedEdge || edge === fullOWSelectedEdge)
@@ -3526,19 +3909,26 @@
 							classes += edge.out ?" blue" :" red";
 						s += "<div class='"+classes+"' style='left: "+(x+edge.x*128*scale-8)+"px; top: "+(y+edge.y*128*scale-8)+"px;"+(screen.special ?" z-index: 1;" :"")+"'";
 						if(mode === "editedges")
-							s += " onclick='clickEdgeFull("+id+",\""+edge.string+"\","+main+")' onmouseover='hoverEdge("+id+",\""+edge.string+"\","+main+")' onmouseout='clearFullOverlay("+main+")'";
-						s += "></div>";
+							s += " onclick='clickEdgeFull("+id+",\""+edge.string+"\","+main+")' onmouseover='hoverEdge("+id+",\""+edge.string+"\")' onmouseout='clearFullOverlay("+main+")'";
+						s += edge.out && mixedow && edge.out.screen.mixedState === "unknown" ?">?</div>" :"></div>";
+						if(edge.in.length && (decoupledow !== 'N' || edge.in.length > 1 || edge.out !== edge.in[0]))
+						{
+							classes = "owedgegray";
+							s += "<div class='"+classes+"' style='left: "+(x+edge.x*128*scale-4)+"px; top: "+(y+edge.y*128*scale-4)+"px;"+(screen.special ?" z-index: 1;" :"")+"'>"+(decoupledow === 'C' || edge.in.length > 1 ?edge.in.length :"")+"</div>";
+						}
 					}
-			if((id === 0x18 || (id === 0x58 && !sideBySide)) && !fullOWConnectorStart && ownItems.flute && !document.getElementById("activeflutebox").checked)
+			if((id === 0x18 || (id === 0x58 && mapMode === "single")) && mode === "editedges" && !fullOWConnectorStart && ownItems.flute && !document.getElementById("activeflutebox").checked)
 				s += "<span class='activateflute"+(visitedScreenEdges.has(overworldScreens.get(0x18).edges.get("N0")) && (ownItems.moonpearl || (id === 0x18) === (darkWorld === (worldState === 'I'))) ?" green" :"")+"' style='left: "+(x+16)+"px; top: "+(y+26)+"px;' onclick='clickFluteActivated()'>Flute activated</span>";
-			if(id%0x40 === 0x18 && (darkWorld === (worldState === 'I') || !sideBySide) && mode === "editedges" && !fullOWConnectorStart && fluteshuffle && customFluteSpots.length != 8 && ownItems.flute && document.getElementById("activeflutebox").checked)
+			if(id%0x40 === 0x18 && (darkWorld === (worldState === 'I') || mapMode === "single") && mode === "editedges" && !fullOWConnectorStart && fluteshuffle && customFluteSpots.length != 8 && ownItems.flute && document.getElementById("activeflutebox").checked)
 				s += "<span class='activateflute"+(true ?" green" :"")+"' style='left: "+(x+16)+"px; top: "+(y+26)+"px;' onclick='clickSetFluteSpots()'>Set flute spots</span>";
+			if((id === 0x03 || (id === 0x43 && drawDarkWorld)) && mode === "editedges" && !fullOWConnectorStart && document.getElementById("overworldoptionsfinalbox").style.display === "block")
+				s += "<span class='activateflute green' style='left: "+(x+16)+"px; top: "+(y+94)+"px;' onclick='showAutoAdjustModal()'>Auto fixes</span>";
 			if(id%0x40 === 0x30 && mixedow && !darkWorld)
 				s += "<div class='lightworldsymbol' style='left: "+(x+1)+"px; top: "+(y+47)+"px;'></div>";
 			if(id%0x40 === 0x30 && mixedow && darkWorld)
 				s += "<div class='darkworldsymbol' style='left: "+(x+1)+"px; top: "+(y+47)+"px;'></div>";
 			if(indexInPath !== -1)
-				s += "<div class='pathnumber' style='left: "+(x+getBigScreenSubareaX(screen)+24)+"px; top: "+(y+getBigScreenSubareaY(screen)+24)+"px;'>"+indexInPath/3+"</div>";
+				s += "<div class='pathnumber' style='left: "+(x+getBigScreenSubareaX(screen)+24)+"px; top: "+(y+getBigScreenSubareaY(screen)+24)+"px;"+(screen.special ?" z-index: 1;" :"")+"'>"+indexInPath/3+"</div>";
 		}
 		document.getElementById(mainString+"panelmain").innerHTML = s;
 		if(mode === "editedges" && fullOWPath)
@@ -3550,17 +3940,21 @@
 				{
 					let screen1 = overworldScreens.get(fullOWPath.path[k-3]),screen2 = overworldScreens.get(fullOWPath.path[k]),scale = .5;
 					let edge1 = screen1.edges.get(fullOWPath.path[k-2]),edge2 = screen2.edges.get(fullOWPath.path[k-1]);
-					let x = screen1.special ?screen1.x :screen1.id%8*128*scale;
+					let x = screen1.special ?screen1.x :screen1.id%0x08*128*scale;
 					let y = screen1.special ?screen1.y :(screen1.id%0x40 >> 3)*128*scale;
-					if(sideBySide && isDarkWorld(screen1) != drawDarkWorld)
+					if(mapMode === "horizontal" && isDarkWorld(screen1) != drawDarkWorld)
 						x += 1024*scale;
-					s += drawFullEdgeConnection(edge1,edge2,x,y,sideBySide || isDarkWorld(screen1) === isDarkWorld(screen2) ?1 :.5);
-					s += "<div class='owedgedot' style='left: "+(x+edge1.x*128*scale-4)+"px; top: "+(y+edge1.y*128*scale-4)+"px;'></div>";
-					x = screen2.special ?screen2.x :screen2.id%8*128*scale;
+					if(mapMode === "vertical" && isDarkWorld(screen1) != drawDarkWorld)
+						y += 1024*scale;
+					s += drawFullEdgeConnection(edge1,edge2,x,y,false,mapMode != "single" || isDarkWorld(screen1) === isDarkWorld(screen2) ?1 :.5);
+					s += "<div class='owedgedot' style='left: "+(x+edge1.x*128*scale-4+dotOffsetX[edge1.direction])+"px; top: "+(y+edge1.y*128*scale-4+dotOffsetY[edge1.direction])+"px;'></div>";
+					x = screen2.special ?screen2.x :screen2.id%0x08*128*scale;
 					y = screen2.special ?screen2.y :(screen2.id%0x40 >> 3)*128*scale;
-					if(sideBySide && isDarkWorld(screen2) != drawDarkWorld)
+					if(mapMode === "horizontal" && isDarkWorld(screen2) != drawDarkWorld)
 						x += 1024*scale;
-					s += "<div class='owedgedot to' style='left: "+(x+edge2.x*128*scale-4)+"px; top: "+(y+edge2.y*128*scale-4)+"px;'></div>";
+					if(mapMode === "vertical" && isDarkWorld(screen2) != drawDarkWorld)
+						y += 1024*scale;
+					s += "<div class='owedgedot to' style='left: "+(x+edge2.x*128*scale-4-dotOffsetX[edge2.direction])+"px; top: "+(y+edge2.y*128*scale-4-dotOffsetY[edge2.direction])+"px;'></div>";
 				}
 			}
 			document.getElementById(mainString+"panelpathoverlay").innerHTML = s;
@@ -3604,13 +3998,13 @@
 			scale = .5;
 		if(mode === "search")
 			scale /= 2;
-		let x = screen.special ?0 :screen.id%8*128*scale;
+		let x = screen.special ?0 :screen.id%0x08*128*scale;
 		let y = screen.special ?0 :(screen.id%0x40 >> 3)*128*scale;
 		let file = screen.special ?screen.file :(screen.darkWorld ?"darkworld" :"lightworld");
 		s += "<div class='"+classes+"' style='left: "+0+"px; top: "+0+"px;'><img class='bigroomnodeimg' src='./images/overlay/"+file+".png' style='transform: translateX(-"+x+"px) translateY(-"+y+"px) scale("+scale+");'></div>";
 		if(mode !== "connector" && mode !== "search")
 			for(let [edgeString,edge] of screen.edges)
-				if(mode === "alledges" || (edge.direction === extraOWDirection && !edge.water))
+				if(mode === "alledges" || (edge.direction === extraOWDirection && (terrainow || !edge.water)))
 				{
 					classes = "bigowedge "+className[edge.direction];
 					if(visitedScreenEdges.has(edge))
@@ -3623,54 +4017,110 @@
 		return s;
 	};
 
-	window.drawFullEdgeConnection = function(edge1,edge2,x1,y1,opacity,main)
+	window.drawFullEdgeConnection = function(edge1,edge2,x1,y1,gray,opacity,main,invert = false)
 	{
 		let scale = .5;
-		let lastEdgeX = x1+edge1.x*128*scale;
-		let lastEdgeY = y1+edge1.y*128*scale;
-		let newX = (edge2.screen.special ?edge2.screen.x :edge2.screen.id%8*128*scale)+edge2.x*128*scale;
-		let newY = (edge2.screen.special ?edge2.screen.y :(edge2.screen.id%0x40 >> 3)*128*scale)+edge2.y*128*scale;
-		if((main ?sideBySideMain :sideBySidePopout) && isDarkWorld(edge2.screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
+		let lastEdgeX = x1+edge1.x*128*scale+dotOffsetX[edge1.direction]*(invert ?-1 :1);
+		let lastEdgeY = y1+edge1.y*128*scale+dotOffsetY[edge1.direction]*(invert ?-1 :1);
+		let newX = (edge2.screen.special ?edge2.screen.x :edge2.screen.id%0x08*128*scale)+edge2.x*128*scale-dotOffsetX[edge2.direction]*(invert ?-1 :1);
+		let newY = (edge2.screen.special ?edge2.screen.y :(edge2.screen.id%0x40 >> 3)*128*scale)+edge2.y*128*scale-dotOffsetY[edge2.direction]*(invert ?-1 :1);
+		if((main ?mapModeMain === "horizontal" :mapModePopout === "horizontal") && isDarkWorld(edge2.screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
 			newX += 1024*scale;
+		if((main ?mapModeMain === "vertical" :mapModePopout === "vertical") && isDarkWorld(edge2.screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
+			newY += 1024*scale;
 		let minX = Math.min(lastEdgeX,newX),maxX = Math.max(lastEdgeX,newX);
 		let minY = Math.min(lastEdgeY,newY),maxY = Math.max(lastEdgeY,newY);
-		return "<div class='crossed"+(((lastEdgeY > newY) != (lastEdgeX > newX)) ?"left" :"right")+"' style='left: "+minX+"px; top: "+minY+"px; width: "+(maxX-minX)+"px; height: "+(maxY-minY)+"px; opacity: "+opacity+";'></div>";
+		return "<div class='crossed"+(gray ?"gray" :"")+(((lastEdgeY > newY) != (lastEdgeX > newX)) ?"left" :"right")+"' style='left: "+minX+"px; top: "+minY+"px; width: "+(maxX-minX)+"px; height: "+(maxY-minY)+"px; opacity: "+opacity+";'></div>";
 	};
 
 	window.hoverScreen = function(id,main)
 	{
 		let screen = overworldScreens.get(id),s = "",scale = .5;
-		let x = screen.special ?screen.x :id%8*128*scale;
+		let x = screen.special ?screen.x :id%0x08*128*scale;
 		let y = screen.special ?screen.y :(id%0x40 >> 3)*128*scale;
-		if((main ?sideBySideMain :sideBySidePopout) && isDarkWorld(screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
+		if((main ?mapModeMain === "horizontal" :mapModePopout === "horizontal") && isDarkWorld(screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
 			x += 1024*scale;
+		if((main ?mapModeMain === "vertical" :mapModePopout === "vertical") && isDarkWorld(screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
+			y += 1024*scale;
 		for(let edge of screen.edges.values())
-			if(edge.out)
-				s += drawFullEdgeConnection(edge,edge.out,x,y,(main ?sideBySideMain :sideBySidePopout) || isDarkWorld(screen) === isDarkWorld(edge.out.screen) ?1 :.5,main);
+			if(edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel))
+			{
+				if(edge.out)
+					s += drawFullEdgeConnection(edge,edge.out,x,y,false,(main ?mapModeMain !== "single" :mapModePopout !== "single") || isDarkWorld(screen) === isDarkWorld(edge.out.screen) ?1 :.5,main);
+				for(let e of edge.in)
+					if(decoupledow !== 'N' || edge.in.length > 1 || e !== edge.out)
+						s += drawFullEdgeConnection(edge,e,x,y,true,(main ?mapModeMain !== "single" :mapModePopout !== "single") || isDarkWorld(screen) === isDarkWorld(e.screen) ?1 :.5,main,true);
+			}
 		document.getElementById(main ?"fullowmainpaneloverlay" :"fullowpaneloverlay").innerHTML = s;
 		document.getElementById(main ?"fullowmainpanelpathoverlay" :"fullowpanelpathoverlay").style.display = "none";
 	};
 
-	window.hoverEdge = function(id,edgeString,main)
+	window.drawEdgeFullOverlay = function(screen,edge,drawOut,drawIn,inMode,main)
 	{
-		let screen = overworldScreens.get(id),s = "",scale = .5;
-		let edge = screen.edges.get(edgeString);
-		if(edge.out)
-		{
-			let x = screen.special ?screen.x :id%8*128*scale;
-			let y = screen.special ?screen.y :(id%0x40 >> 3)*128*scale;
-			if((main ?sideBySideMain :sideBySidePopout) && isDarkWorld(screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
-				x += 1024*scale;
-			s += drawFullEdgeConnection(edge,edge.out,x,y,(main ?sideBySideMain :sideBySidePopout) || isDarkWorld(screen) === isDarkWorld(edge.out.screen) ?1 :.5,main);
-		}
+		let s = "",scale = .5;
+		let x = screen.special ?screen.x :screen.id%0x08*128*scale;
+		let y = screen.special ?screen.y :(screen.id%0x40 >> 3)*128*scale;
+		if((main ?mapModeMain === "horizontal" :mapModePopout === "horizontal") && isDarkWorld(screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
+			x += 1024*scale;
+		if((main ?mapModeMain === "vertical" :mapModePopout === "vertical") && isDarkWorld(screen) != (main ?drawDarkWorldMain :drawDarkWorldPopout))
+			y += 1024*scale;
+		if(drawOut && edge.out)
+			s += drawFullEdgeConnection(edge,edge.out,x,y,false,(main ?mapModeMain !== "single" :mapModePopout !== "single") || isDarkWorld(screen) === isDarkWorld(edge.out.screen) ?1 :.5,main);
+		if(drawIn)
+			for(let e of edge.in)
+				if(!inMode || (inMode === "auto" ?decoupledow !== 'N' || edge.in.length > 1 || e !== edge.out :e === inMode))
+					s += drawFullEdgeConnection(edge,e,x,y,true,(main ?mapModeMain !== "single" :mapModePopout !== "single") || isDarkWorld(screen) === isDarkWorld(e.screen) ?1 :.5,main,true);
 		document.getElementById(main ?"fullowmainpaneloverlay" :"fullowpaneloverlay").innerHTML = s;
 		document.getElementById(main ?"fullowmainpanelpathoverlay" :"fullowpanelpathoverlay").style.display = "none";
+	};
+
+	window.hoverEdge = function(id,edgeString)
+	{
+		let screen = overworldScreens.get(id),edge = screen.edges.get(edgeString);
+		drawEdgeFullOverlay(screen,edge,true,true,"auto",useMain);
+	};
+
+	window.hoverEdgeOut = function(id,edgeString)
+	{
+		let screen = overworldScreens.get(id),edge = screen.edges.get(edgeString);
+		drawEdgeFullOverlay(screen,edge,true,false,null,useMain);
+	};
+
+	window.hoverEdgeInSingle = function(id,edgeString,index)
+	{
+		let screen = overworldScreens.get(id),edge = screen.edges.get(edgeString);
+		if(index < edge.in.length)
+			drawEdgeFullOverlay(screen,edge,false,true,edge.in[index],useMain);
+	};
+
+	window.hoverEdgeInAll = function(id,edgeString)
+	{
+		let screen = overworldScreens.get(id),edge = screen.edges.get(edgeString);
+		drawEdgeFullOverlay(screen,edge,false,true,null,useMain);
 	};
 
 	window.clearFullOverlay = function(main)
 	{
+		if(main === null)
+			main = useMain;
 		document.getElementById(main ?"fullowmainpaneloverlay" :"fullowpaneloverlay").innerHTML = "";
 		document.getElementById(main ?"fullowmainpanelpathoverlay" :"fullowpanelpathoverlay").style.display = "block";
+	};
+
+	window.hoverMixedGroup = function(enable)
+	{
+		if(mixedow && fullOWSelectedScreen)
+		{
+			for(let id of getScreenLinkGroup(fullOWSelectedScreen.id,true))
+			{
+				let element = document.getElementById("full"+(useMain ?"main" :"popout")+id);
+				if(element)
+					if(enable)
+						element.classList.add("highlighted");
+					else
+						element.classList.remove("highlighted");
+			}
+		}
 	};
 
 	window.hoverPathNumber = function(id)
@@ -3710,9 +4160,9 @@
 			document.getElementById("fullowpanel").classList.remove("clickedges");
 		fullOWSelectedScreen = fullOWSelectedEdge = fullOWConnectorStart = null;
 		document.getElementById("fullowscreenactions").style.display = "none";
-		document.getElementById("fullownewpath").style.display = owshuffle === 'N' ?"none" :"block";
+		document.getElementById("fullownewpath").style.display = layoutshuffle === 'N' && !whirlpoolshuffle ?"none" :"block";
 		document.getElementById("fullowmixedactions").style.display = mixedow ?"block" :"none";
-		document.getElementById("fullowswapscreenwithedges").style.display = (owshuffle !== 'N' || crossedow === 'C') ?"block" :"none";
+		document.getElementById("fullowswapscreenwithedges").style.display = (layoutshuffle !== 'N' || crossedow === 'C') ?"block" :"none";
 		document.getElementById("fullownewconnector").style.display = entranceEnabled && !document.getElementById("connectorsync").checked && !document.getElementById("globalsync").checked ?"block" :"none";
 		document.getElementById("fullowedgeactions").style.display = "none";
 		document.getElementById("fullowconnectoractions").style.display = "none";
@@ -3724,6 +4174,8 @@
 		fullCheckConnectorDetails();
 		drawFullOverworldPanel(false);
 		document.getElementById("fullowModal").style.display = "block";
+		if(mapModeAutoPopout)
+			pickMapModePopout();
 		if(fullZoomAutoPopout)
 			calculateFullZoomPopout();
 	};
@@ -3814,7 +4266,7 @@
 
 	window.showClickOverworldPathModal = function(event,pathIndex,listName)
 	{
-		let width = document.body.clientWidth-64;
+		let width = Math.max(264,document.body.clientWidth-52);
 		clickedOverworldPathIndex = pathIndex;
 		clickedOverworldPathListName = listName;
 		clickedOverworldPath = (listName === "pinned" ?pinnedPaths :(listName === "previous" ?previousPaths :searchResultPaths))[pathIndex];
@@ -3827,7 +4279,7 @@
 		document.getElementById("saveowpath").style.display = listName === "pinned" ?"none" :"block";
 		document.getElementById("repeatsearch").style.display = listName === "search" || !clickedOverworldPath.search ?"none" :"block";
 		document.getElementById("deleteowpath").style.display = listName === "search" ?"none" :"block";
-		document.getElementById("clickOWPathModalMain").style.left = "40px";
+		document.getElementById("clickOWPathModalMain").style.left = "28px";
 		document.getElementById("clickOWPathModalMain").style.top = Math.min(event.clientY-20,window.innerHeight-height-48)+"px";
 		document.getElementById("clickOWPathModalMain").style.width = width+"px";
 		document.getElementById("clickOWPathModal").style.display = "block";
@@ -3875,6 +4327,138 @@
 		document.getElementById("clickconnectorModal").style.display = "none";
 	};
 
+	window.showEditMapModeModal = function(main)
+	{
+		editMapModeMain = main;
+		if(main)
+			scrollTo(0,0);
+		document.getElementById("mapmodeauto").checked = main ?mapModeAutoMain :mapModeAutoPopout;
+		document.getElementById("mapmode"+(main ?mapModeMain :mapModePopout)).checked = true;
+		updateZoomEditMapModeModal();
+		document.getElementById("editmapmodeModal").style.display = "block";
+	};
+
+	window.hideEditMapModeModal = function()
+	{
+		document.getElementById("editmapmodeModal").style.display = "none";
+	};
+
+	window.showOverworldModeHelpModal = function()
+	{
+		document.getElementById("owmodehelpModal").style.display = "block";
+		document.getElementById("owmodehelpModalMain").scrollTo(0,0);
+	};
+
+	window.hideOverworldModeHelpModal = function()
+	{
+		document.getElementById("owmodehelpModal").style.display = "none";
+	};
+
+	window.showAutoAdjustModal = function()
+	{
+		let info = checkAutoAdjustments(false);
+		if(info.invalidEdgesCount)
+		{
+			document.getElementById("autoadjustinvalidedgeout").innerHTML = getNiceEdgeName(info.invalidEdges[0]);
+			document.getElementById("autoadjustinvalidedgeout").setAttribute("onclick","viewEdgeOnFullMap("+info.invalidEdges[0].screen.id+",'"+info.invalidEdges[0].string+"')");
+			document.getElementById("autoadjustinvalidedgein").innerHTML = getNiceEdgeName(info.invalidEdges[0].out);
+			document.getElementById("autoadjustinvalidedgein").setAttribute("onclick","viewEdgeOnFullMap("+info.invalidEdges[0].out.screen.id+",'"+info.invalidEdges[0].out.string+"')");
+		}
+		if(info.invalidIndegreeCount)
+		{
+			document.getElementById("autoadjustinvalidindegreein").innerHTML = getNiceEdgeName(info.invalidIndegree[0]);
+			document.getElementById("autoadjustinvalidindegreein").setAttribute("onclick","viewEdgeOnFullMap("+info.invalidIndegree[0].screen.id+",'"+info.invalidIndegree[0].string+"')");
+		}
+		document.getElementById("autoadjustinvalidscreen").style.display = info.invalidScreensCount ?"block" :"none";
+		document.getElementById("autoadjustinconsistentgroup").style.display = info.inconsistentGroupsCount ?"block" :"none";
+		document.getElementById("autoadjustmissingscreen").style.display = info.missingScreensCount ?"block" :"none";
+		document.getElementById("autoadjustinvalidedge").style.display = info.invalidEdgesCount ?"block" :"none";
+		document.getElementById("autoadjustinvalidindegree").style.display = info.invalidIndegreeCount ?"block" :"none";
+		if(!!info.inconsistentSimilarCount+!!info.inconsistentParallelCount+!!info.inconsistentCoupledCount > 1)
+		{
+			document.getElementById("autoadjustinconsistentedge").style.display = "block";
+			document.getElementById("autoadjustinconsistentsimilar").style.display = "none";
+			document.getElementById("autoadjustinconsistentparallel").style.display = "none";
+			document.getElementById("autoadjustinconsistentcoupled").style.display = "none";
+		}
+		else
+		{
+			document.getElementById("autoadjustinconsistentedge").style.display = "none";
+			document.getElementById("autoadjustinconsistentsimilar").style.display = info.inconsistentSimilarCount ?"block" :"none";
+			document.getElementById("autoadjustinconsistentparallel").style.display = info.inconsistentParallelCount ?"block" :"none";
+			document.getElementById("autoadjustinconsistentcoupled").style.display = info.inconsistentCoupledCount ?"block" :"none";
+		}
+		document.getElementById("autoadjustmissingfixed").style.display = info.missingFixedCount ?"block" :"none";
+		if(!!info.missingSimilarCount+!!info.missingParallelCount+!!info.missingCoupledCount > 1)
+		{
+			document.getElementById("autoadjustmissingedge").style.display = "block";
+			document.getElementById("autoadjustmissingsimilar").style.display = "none";
+			document.getElementById("autoadjustmissingparallel").style.display = "none";
+			document.getElementById("autoadjustmissingcoupled").style.display = "none";
+		}
+		else
+		{
+			document.getElementById("autoadjustmissingedge").style.display = "none";
+			document.getElementById("autoadjustmissingsimilar").style.display = info.missingSimilarCount ?"block" :"none";
+			document.getElementById("autoadjustmissingparallel").style.display = info.missingParallelCount ?"block" :"none";
+			document.getElementById("autoadjustmissingcoupled").style.display = info.missingCoupledCount ?"block" :"none";
+		}
+		document.getElementById("autoadjustnone").style.display = info.hasChanges ?"none" :"block";
+		document.getElementById("autoadjustModal").style.display = "block";
+	};
+
+	window.hideAutoAdjustModal = function()
+	{
+		document.getElementById("autoadjustModal").style.display = "none";
+	};
+
+	window.viewEdgeOnFullMap = function(id,edgeString)
+	{
+		let edge = overworldScreens.get(id).edges.get(edgeString);
+		hideAutoAdjustModal();
+		hideFullOverworldModal();
+		showFullOverworldModal("editedges");
+		fullOWSelectedEdge = edge;
+		document.getElementById("fullowedgeactions").style.display = "block";
+		document.getElementById("fullowunknownconnector").style.display = "none";
+		updateEdgeActions(false);
+		drawFullOverworldPanels();
+	};
+
+	window.updateZoomEditMapModeModal = function()
+	{
+		let fullZoom = editMapModeMain ?fullZoomMain :fullZoomPopout;
+		document.getElementById("mapmodezoomvalue").innerHTML = "Zoom: "+(fullZoom*100).toFixed(1)+"%";
+		document.getElementById("mapmodezoomauto").checked = editMapModeMain ?fullZoomAutoMain :fullZoomAutoPopout;
+		if(fullZoom <= .5)
+			document.getElementById("mapmodezoomout").classList.add("disabled");
+		else
+			document.getElementById("mapmodezoomout").classList.remove("disabled");
+		if(fullZoom >= 1.5)
+			document.getElementById("mapmodezoomin").classList.add("disabled");
+		else
+			document.getElementById("mapmodezoomin").classList.remove("disabled");
+	};
+
+	window.zoomAutoFullOverworldMapMode = function(checkbox)
+	{
+		editMapModeMain ?zoomAutoFullOverworldMain(checkbox) :zoomAutoFullOverworldPopout(checkbox);
+		updateZoomEditMapModeModal();
+		document.getElementById(editMapModeMain ?"mainzoomautoow" :"zoomautoow").checked = checkbox.checked;
+	};
+
+	window.zoomOutFullOverworldMapMode = function()
+	{
+		editMapModeMain ?zoomOutFullOverworldMain() :zoomOutFullOverworldPopout();
+		updateZoomEditMapModeModal();
+	};
+
+	window.zoomInFullOverworldMapMode = function()
+	{
+		editMapModeMain ?zoomInFullOverworldMain() :zoomInFullOverworldPopout();
+		updateZoomEditMapModeModal();
+	}
+
 	window.updateConnectorButton = function()
 	{
 		if(document.querySelector("input[name='connectorstartgroup']:checked") && document.querySelector("input[name='connectorendgroup']:checked"))
@@ -3895,50 +4479,108 @@
 		drawFullOverworldPanel(false);
 	};
 
-	window.toggleSideBySideMain = function()
+	window.switchFullOverworldEditMapMode = function(button)
 	{
-		sideBySideMain = !sideBySideMain;
-		maybeForceMapOrderMain();
-		outstandingUpdate = true;
-		if(fullZoomAutoMain)
-			calculateFullZoomMain();
-		if(document.getElementById("owmain").style.display === "block")
+		editMapModeMain ?switchFullOverworldMain() :switchFullOverworldPopout();
+		buttonFlash(button);
+	};
+
+	window.setMapMode = function(mapMode)
+	{
+		if(editMapModeMain)
+		{
+			mapModeAutoMain = document.getElementById("mapmodeauto").checked = false;
+			mapModeMain = mapMode;
+			if(fullZoomAutoMain)
+				calculateFullZoomMain();
 			drawFullOverworldPanel(true);
-	};
-
-	window.toggleSideBySidePopout = function()
-	{
-		sideBySidePopout = !sideBySidePopout;
-		maybeForceMapOrderPopout();
-		outstandingUpdate = true;
-		if(fullZoomAutoPopout)
-			calculateFullZoomPopout();
-		if(!useMain)
+		}
+		else
+		{
+			mapModeAutoPopout = document.getElementById("mapmodeauto").checked = false;
+			mapModePopout = mapMode;
+			if(fullZoomAutoPopout)
+				calculateFullZoomPopout();
 			drawFullOverworldPanel(false);
+		}
+		outstandingUpdate = true;
+		updateZoomEditMapModeModal();
+		updateTopBars();
 	};
 
-	window.maybeForceMapOrderMain = function()
+	window.toggleMapModeAuto = function()
 	{
-		if(forceMapOrder)
+		if(editMapModeMain)
 		{
-			document.getElementById("mainswitchow").style.display = sideBySideMain ?"none" :"block";
-			if(sideBySideMain)
-				drawDarkWorldMain = false;
+			mapModeAutoMain = document.getElementById("mapmodeauto").checked;
+			if(mapModeAutoMain)
+				pickMapModeMain();
 		}
 		else
-			document.getElementById("mainswitchow").style.display = "block";
+		{
+			mapModeAutoPopout = document.getElementById("mapmodeauto").checked;
+			if(mapModeAutoPopout)
+				pickMapModePopout();
+		}
+		outstandingUpdate = true;
 	};
 
-	window.maybeForceMapOrderPopout = function()
+	window.pickMapModeMain = function()
 	{
-		if(forceMapOrder)
-		{
-			document.getElementById("switchow").style.display = sideBySidePopout ?"none" :"block";
-			if(sideBySidePopout)
-				drawDarkWorldPopout = false;
-		}
+		let maxWidth = document.body.clientWidth-(visibleSidebar ?72 :0),maxHeight = window.innerHeight-252;
+		let singleZoom = Math.max(256,Math.min(Math.min(maxWidth,maxHeight),768))/512;
+		let oldMapMode = mapModeMain;
+		if(Math.max(.5,Math.min(maxWidth/1024,(maxHeight+(hideTopBar ?34 :0))/512)) >= Math.min(singleZoom*7/8,.75))
+			mapModeMain = "horizontal";
 		else
-			document.getElementById("switchow").style.display = "block";
+			if(Math.max(.5,Math.min(maxWidth/512,(maxHeight+(hideTopBar ?34 :0))/1024)) >= Math.min(singleZoom*7/8,.75))
+				mapModeMain = "vertical";
+			else
+				mapModeMain = "single";
+		if(mapModeMain != oldMapMode)
+		{
+			if(document.getElementById("editmapmodeModal").style.display === "block" && editMapModeMain)
+				document.getElementById("mapmode"+mapModeMain).checked = true;
+			if(fullZoomAutoMain)
+				calculateFullZoomMain();
+			drawFullOverworldPanels();
+			updateZoomEditMapModeModal();
+			updateTopBars();
+		}
+	};
+
+	window.pickMapModePopout = function()
+	{
+		let maxWidth = document.body.clientWidth-14,maxHeight = window.innerHeight-212;
+		let singleZoom = Math.max(256,Math.min(Math.min(maxWidth,maxHeight),768))/512;
+		let oldMapMode = mapModePopout;
+		if(Math.max(.5,Math.min(maxWidth/1024,(maxHeight+(hideTopBar ?34 :0))/512)) >= Math.min(singleZoom*7/8,.75))
+			mapModePopout = "horizontal";
+		else
+			if(Math.max(.5,Math.min(maxWidth/512,(maxHeight+(hideTopBar ?34 :0))/1024)) >= Math.min(singleZoom*7/8,.75))
+				mapModePopout = "vertical";
+			else
+				mapModePopout = "single";
+		if(mapModePopout != oldMapMode)
+		{
+			if(document.getElementById("editmapmodeModal").style.display === "block" && !editMapModeMain)
+				document.getElementById("mapmode"+mapModePopout).checked = true;
+			if(fullZoomAutoPopout)
+				calculateFullZoomPopout();
+			drawFullOverworldPanels();
+			updateZoomEditMapModeModal();
+			updateTopBars();
+		}
+	};
+
+	window.updateTopBars = function()
+	{
+		document.getElementById("fullowmaintitlebar").style.marginBottom = showFullMapMain && hideTopBar && mapModeMain !== "single" ?"4px" :"0";
+		document.getElementById("fullowmainsettingsbutton").style.display = showFullMapMain && hideTopBar && mapModeMain !== "single" ?"block" :"none";
+		document.getElementById("fullowmainsettingsbar").style.display = hideTopBar && mapModeMain !== "single" ?"none" :"block";
+		document.getElementById("fullowtitlebar").style.marginBottom = hideTopBar && mapModePopout !== "single" ?"4px" :"0";
+		document.getElementById("fullowsettingsbutton").style.display = hideTopBar && mapModePopout !== "single" ?"block" :"none";
+		document.getElementById("fullowsettingsbar").style.display = hideTopBar && mapModePopout !== "single" ?"none" :"block";
 	};
 
 	window.zoomAutoFullOverworldMain = function(checkbox)
@@ -4023,17 +4665,34 @@
 
 	window.resizeHandler = function()
 	{
+		updateOverworldMainColumns();
+		if(mapModeAutoMain && showFullMapMain && document.getElementById("owmain").style.display === "block")
+			pickMapModeMain();
 		if(fullZoomAutoMain && showFullMapMain && document.getElementById("owmain").style.display === "block")
 			calculateFullZoomMain();
+		if(mapModeAutoPopout && !useMain)
+			pickMapModePopout();
 		if(fullZoomAutoPopout && !useMain)
 			calculateFullZoomPopout();
+		if(document.getElementById("editmapmodeModal").style.display == "block")
+			updateZoomEditMapModeModal();
+	};
+
+	window.updateOverworldMainColumns = function()
+	{
+		if(overworldMainColumns === "2" || (overworldMainColumns === "auto" && document.body.clientWidth-(visibleSidebar ?72 :0) >= 850))
+			document.getElementById("owmaincolumncontainer").classList.add("columns2");
+		else
+			document.getElementById("owmaincolumncontainer").classList.remove("columns2");
 	};
 
 	window.calculateFullZoomMain = function()
 	{
-		let maxWidth = document.body.clientWidth-(visibleSidebar ?72 :0),maxHeight = window.innerHeight-252;
-		if(sideBySideMain)
+		let maxWidth = document.body.clientWidth-(visibleSidebar ?72 :0),maxHeight = window.innerHeight-252+(hideTopBar && mapModeMain !== "single" ?34 :0);
+		if(mapModeMain === "horizontal")
 			maxWidth /= 2;
+		if(mapModeMain === "vertical")
+			maxHeight /= 2;
 		let size = Math.max(256,Math.min(Math.min(maxWidth,maxHeight),768));
 		fullZoomMain = size/512;
 		applyFullOverworldZoomMain();
@@ -4049,9 +4708,11 @@
 
 	window.calculateFullZoomPopout = function()
 	{
-		let maxWidth = document.body.clientWidth-14,maxHeight = window.innerHeight-212;
-		if(sideBySidePopout)
+		let maxWidth = document.body.clientWidth-14,maxHeight = window.innerHeight-212+(hideTopBar && mapModePopout !== "single" ?34 :0);
+		if(mapModePopout === "horizontal")
 			maxWidth /= 2;
+		if(mapModePopout === "vertical")
+			maxHeight /= 2;
 		let size = Math.max(256,Math.min(Math.min(maxWidth,maxHeight),768));
 		fullZoomPopout = size/512;
 		applyFullOverworldZoomPopout();
@@ -4067,15 +4728,17 @@
 
 	window.applyFullOverworldZoomMain = function()
 	{
-		document.getElementById("fullowmainpanel").style.width = 512*(sideBySideMain ?2 :1)+"px";
-		document.getElementById("fullowmainpanelrow").style.height = 512*fullZoomMain+"px";
+		document.getElementById("fullowmainpanel").style.width = 512*(mapModeMain === "horizontal" ?2 :1)+"px";
+		document.getElementById("fullowmainpanel").style.height = 512*(mapModeMain === "vertical" ?2 :1)+"px";
+		document.getElementById("fullowmainpanelrow").style.height = 512*(mapModeMain === "vertical" ?2 :1)*fullZoomMain+"px";
 		document.getElementById("fullowmainpanel").style.transform = "scale("+fullZoomMain+")";
 	};
 
 	window.applyFullOverworldZoomPopout = function()
 	{
-		document.getElementById("fullowpanel").style.width = 512*(sideBySidePopout ?2 :1)+"px";
-		document.getElementById("fullowpanelrow").style.height = 512*fullZoomPopout+"px";
+		document.getElementById("fullowpanel").style.width = 512*(mapModePopout === "horizontal" ?2 :1)+"px";
+		document.getElementById("fullowpanel").style.height = 512*(mapModePopout === "vertical" ?2 :1)+"px";
+		document.getElementById("fullowpanelrow").style.height = 512*(mapModePopout === "vertical" ?2 :1)*fullZoomPopout+"px";
 		document.getElementById("fullowpanel").style.transform = "scale("+fullZoomPopout+")";
 	};
 
@@ -4132,6 +4795,7 @@
 	{
 		let items = Object.assign({},ownItems);
 		items.follower = null;
+		items.keepMirrorPortal = false;
 		if(!document.getElementById("activeflutebox").checked)
 			items.flute = false;
 		if(!document.getElementById("globalsync").checked && !document.getElementById("itemsync").checked)
@@ -4149,6 +4813,12 @@
 			items.connectorboesanc = items.connectorboehcb = items.connectorboehcc = false;
 		}
 		return items;
+	};
+
+	window.giveAllItems = function(items)
+	{
+		items.bomb = items.moonpearl = items.gloves = items.mitts = items.hammer = items.hookshot = items.flippers = true;
+		items.mirror = items.flute = items.boots = items.book = items.lantern = items.cape = items.agahnim = true;
 	};
 
 	window.updateReachableEdges = function()
@@ -4198,7 +4868,7 @@
 					let edgesAssumeNormal = new Set(visitedScreenEdges),edgesAssumeSwapped = new Set(visitedScreenEdges);
 					let checkableAssumeNormal = new Set(checkableScreens),checkableAssumeSwapped = new Set(checkableScreens);
 					let continueAssumeNormal = new Map(),continueAssumeSwapped = new Map();
-					let group = getScreenLinkGroup(id);
+					let group = getScreenLinkGroup(id,false);
 					for(let n of group)
 						assumedScreens.add(n);
 					for(let n of group)
@@ -4295,12 +4965,12 @@
 			}
 		}
 		visitedRegions = setUnion(visitedRegions,evr);
-		let c = 0;
-		for(let edge of visitedScreenEdges)
-			if(!edge.out)
-				c++;
-		if(owshuffle !== 'N' || crossedow === 'C')
+		if(layoutshuffle !== 'N' || whirlpoolshuffle || crossedow === 'C')
 		{
+			let c = 0;
+			for(let edge of visitedScreenEdges)
+				if(!edge.out && (edge.string === "ZW" ?whirlpoolshuffle :(layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel))))
+					c++;
 			document.getElementById("sidesummaryow").innerHTML = c;
 			document.getElementById("summaryow").innerHTML = c;
 		}

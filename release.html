@@ -1,15 +1,15 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Release Notes</title>
-		<script type="text/javascript" src="js/index.js?v=20012"></script>
-		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20012"></script>
-		<script type="text/javascript" src="js/jquery.powertip.js?v=20012"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js?v=20012"></script>
-		<link href="css/jquery.powertip.css?v=20012" rel="stylesheet" />
-		<link href="css/launcher.css?v=20012" rel="stylesheet">
-		<link href="css/fonts.css?v=20012" rel="stylesheet">
-		<link href="css/sprites.css?v=20012" rel="stylesheet">
-		<link href="css/toast.css?v=20012" rel="stylesheet">
+		<script type="text/javascript" src="js/index.js?v=20019"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20019"></script>
+		<script type="text/javascript" src="js/jquery.powertip.js?v=20019"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js?v=20019"></script>
+		<link href="css/jquery.powertip.css?v=20019" rel="stylesheet" />
+		<link href="css/launcher.css?v=20019" rel="stylesheet">
+		<link href="css/fonts.css?v=20019" rel="stylesheet">
+		<link href="css/sprites.css?v=20019" rel="stylesheet">
+		<link href="css/toast.css?v=20019" rel="stylesheet">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3T0KM2W1L"></script>
 		<script>
@@ -38,7 +38,7 @@
 				<div class="header-main-div">
 					<a href="./index.html"><img src="./images/overlay/header.png" class="header-main-img"></a>
 					<div class="header-news-div" >
-						<span class="default-white-text">Build 2.0.012 071522 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
+						<span class="default-white-text">Build 2.0.019 120622 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: BigDunka#8354)<br>Check Known Issues for current known outstanding issues</span>
 					</div>
 				</div>
 				<div class="header-links">
@@ -63,6 +63,74 @@
 				<div class="preset-div">
 					<span id="gameplayarrow"></span> Release 2.0
 					<div id="release20">
+						<b><i>12/06/2022 Build 2.0.019 120622</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updated button presets for ALTTPR Ladder Season Sixteen Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>)</li>
+							<li>Reverted change for tracking on mobile, as we work for a better method to allow for mobile stylesheets</li>
+						</ul>
+						<b><i>10/23/2022 Build 2.0.018 102322</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Small style change to allow for tracking on mobile, just in time for SGL</li>
+						</ul>
+						<b><i>10/12/2022 Build 2.0.017 101222</i></b><br>
+						<ul>
+							Big thanks to Catobat for the following changes:<br>
+							<u>Logic Changes</u><br>
+							<li>Logic fixes for TR portal, HC gate and Purple Chest</li>
+							<li>Torch dark rooms are now only considered in logic with only Fire Rod if Entrance Shuffle, Door Shuffle, Overworld Shuffle and Shopsanity are all disabled</li>
+							<li>Added Dam requirement for SP boss in Entrance Shuffle</li>
+							<li>Fixed GT reachability logic</li>
+							<li>Fixed GT climb logic in Retro</li>
+							<li>Fixed PoD chest logic in Retro</li>
+							<li>Fixed Back of Escape logic in Inverted in unusual scenarios</li>
+							<u>Interface Changes</u><br>
+							<li>Added support for Free Terrain</li>
+							<li>Added support for Decoupled Overworld</li>
+							<li>Overhauled the behavior for after changing mode settings later on (like in Mystery) and the automatic transition adjustments the tracker then offers you to do. The text and button for these adjustments are only displayed if there actually are changes that would happen. It can provide a list of what types of changes would happen, for example if any edges that are invalid in the current mode would get deleted, or if any edges will be deduced from the mode or already tracked edges. All of this can also be accessed through a new button on the full overworld map for convenience.</li>
+							<li>Overhauled the controls under the overworld map while a transition is selected. The names of the selected transition and all currently connected transitions are now displayed. Hovering over any "Disconnect" buttons or names of connected transitions will highlight the corresponding line(s) on the map. A button was added to allow whirlpools to loop with themselves in Whirlpool Shuffle.</li>
+							<li>Changed the interface for syncing the tracker with the main window and added a setting for the default sync type when the tracker window is opened</li>
+							<li>Fixed some issues with swapping screens in Mixed Overworld, and hovering over the controls for the Mixed state will now highlight the affected screens on the map above</li>
+							<li>Hovering over an arrow or whirlpool in a path that is attached to the overworld map now highlights only the corresponding connection</li>
+							<li>Added two new options to the Overworld Path Search for requiring not to move the mirror portal (if one is currently placed) and ignoring item requirements</li>
+							<li>Added buttons at the bottom of the Overworld Tracking page for setting all horizontal or all vertical edges to vanilla or deleting all edges and screen states</li>
+						</ul>
+						<b><i>9/28/2022 Build 2.0.016 092822</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updated button presets for ALTTPR Ladder Season Fifteen Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>)</li>
+						</ul>
+						<b><i>9/4/2022 Build 2.0.015 090422</i></b><br>
+						<ul>
+							Thanks to Catobat for the following changes:<br>
+							<u>Logic Changes</u><br>
+							<li>Fixed boss availability in Entrance Shuffle with Door Shuffle or vanilla dungeon items</li>
+							<li>Fixed minor visual bug with entrance highlighting</li>
+							<u>Interface Changes</u><br>
+							<li>Split up Layout Shuffle and Whirlpool Shuffle into separate settings</li>
+							<li>In Crossed Overworld with vanilla layout, edges that only have one option no longer have to be marked and are hidden</li>
+							<li>Added a vertical map layout and a new menu and option for changing the map layout</li>
+							<li>Added an option to have 2 columns on the Overworld Tracking main page</li>
+							<li>Added a short overview over all available Overworld Shuffle settings</li>
+							<li>In mode combinations involving Mixed Overworld, edges that have been connected to screens with unknown Mixed state now have a question mark</li>
+							<li>Added a connector checkbox from the back of TR to the front for vanilla entrances</li>
+							<li>Added Throne Room for Standard and Hera Boss Room in Door Shuffle/li>
+							<li>Added option for which symbols are shown in Basic Door Shuffle</li>
+							<li>Fixed visual bug with the Ganon drop in Entrance Shuffle with Mixed Overworld</li>
+						</ul>
+						<b><i>7/31/2022 Build 2.0.014 073122</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Updates and fixes for restreaming mode</li>
+						</ul>
+						<b><i>7/30/2022 Build 2.0.013 073022</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Fix for spoiler mode, where the spoiler select screen wasn't displaying properly</li>
+							<li>Fix for a few sprites with images not showing up properly</li>
+							<li>Updated button presets for ALTTPR Ladder Season Fourteen Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>)</li>
+						</ul>
 						<b><i>7/15/2022 Build 2.0.012 071522</i></b><br>
 						<ul>
 							<u>Logic Changes</u><br>

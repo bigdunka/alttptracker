@@ -29,12 +29,12 @@
         mapmode: query.d.charAt(0),
         spoilermode: query.d.charAt(1),
         spheresmode: query.d.charAt(2),
-        autotracking: query.d.charAt(3),
-        trackingport: query.d.charAt(4) + query.d.charAt(5) + query.d.charAt(6) + query.d.charAt(7),
-        restreamingcode: query.d.charAt(8) + query.d.charAt(9) + query.d.charAt(10) + query.d.charAt(11) + query.d.charAt(12) + query.d.charAt(13),
-        restreamer: query.d.charAt(14),
-        restreamdelay: query.d.charAt(15),
-        startingitems: query.s,
+		autotracking: query.d.charAt(3),
+		trackingport: query.d.charAt(4) + query.d.charAt(5) + query.d.charAt(6) + query.d.charAt(7),
+		restreamingcode: query.d.charAt(8) + query.d.charAt(9) + query.d.charAt(10) + query.d.charAt(11) + query.d.charAt(12) + query.d.charAt(13),
+		restreamer: query.d.charAt(14),
+		restreamdelay: query.d.substr(15),
+		startingitems: query.s,
         sprite: query.p.replace('#','').replace('!',''),
     };
     
@@ -271,7 +271,15 @@
         inc: limit(1, range),
         dec: limit(-1, range)
     };
-    
+	
+	function getdelay() {
+		s = '';
+		;
+		while (d.length > 0) {
+			s 
+		}
+	}
+	
     function limit(delta, limits) {
         return function(item) {
             var value = items[item],

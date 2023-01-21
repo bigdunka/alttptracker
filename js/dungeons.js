@@ -397,7 +397,7 @@
 		}
 		if(onlyDarkPossible)
 			doorcheck = 'dark'+doorcheck;
-		if(doorcheck === 'available' && !onlyDarkPossible && !items.lantern && (darkRoom || (torchDarkRoom/* && (!items.firerod || flags.itemplacement === 'B')*/)))//Advanced placement in the future?
+		if(doorcheck === 'available' && !onlyDarkPossible && !items.lantern && (darkRoom || torchDarkRoom))
 			doorcheck = 'darkavailable';//Could require light source
 		return doorcheck;
 	};
@@ -624,7 +624,7 @@
 	};
 
     window.entranceChests = function(entranceNames,dungeonID) {
-		if (items['chest'+dungeonID] > 0) {
+		if (items['chest'+dungeonID] > 0 || (dungeonID < 10 && !dungeons[dungeonID].is_beaten)) {
 			var entranceAvail = [];
 			var entranceBunny = [];
 			var found = false;
@@ -671,43 +671,6 @@
 	
 			if (found) {
 				var c = dungeonChests(dungeonID,entranceAvail,entranceBunny);
-				if (dungeonID < 10) {
-					document.getElementById('entranceBoss'+dungeonID).style.visibility = (!dungeons[dungeonID].is_beaten ? 'visible' : 'hidden');
-					
-					switch (dungeonID) {
-						case 0:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? EPBoss() : 'unavailable');
-							break;
-						case 1:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(DPBoss('unavailable', (hasFoundLocation('dp_n') && !entranceBunny[3] ? 'available' : 'unavailable')));
-							break;
-						case 2:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? HeraBoss() : 'unavailable');
-							break;
-						case 3:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? PoDBoss() : 'unavailable');
-							break;
-						case 4:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? SPBoss() : 'unavailable');
-							break;
-						case 5:
-							if (!hasFoundLocation('sw')) document.getElementById('entranceBoss'+dungeonID).style.visibility = 'hidden';
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(SWBoss('unavailable', (hasFoundLocation('sw') && !entranceBunny[0] ? 'available' : 'unavailable')));
-							break;
-						case 6:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? TTBoss() : 'unavailable');
-							break;
-						case 7:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? IPBoss() : 'unavailable');
-							break;
-						case 8:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? MMBoss() : 'unavailable');
-							break;
-						case 9:
-							document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(!entranceBunny[0] ? TRBoss() : 'unavailable');
-							break;
-					}
-				}
 				if (c === 'available') {
 					document.getElementById('chest'+dungeonID).style.backgroundColor = 'lime';
 					document.getElementById('chest'+dungeonID).style.color = 'black';
@@ -726,6 +689,10 @@
 				} else if (c === 'information') {
 					document.getElementById('chest'+dungeonID).style.backgroundColor = 'orange';
 					document.getElementById('chest'+dungeonID).style.color = 'black';
+				}
+				if (dungeonID < 10) {
+					document.getElementById('entranceBoss'+dungeonID).style.visibility = (!dungeons[dungeonID].is_beaten && flags.overworldshuffle === 'N' ? 'visible' : 'hidden');
+					document.getElementById('entranceBoss'+dungeonID).style.background = ConvertBossToColor(dungeonBoss(dungeonID,entranceAvail,entranceBunny));
 				}
 			} else {
 				if (dungeonID < 10) {
@@ -753,7 +720,11 @@
 		} else {
 			return 'red';
 		}
-	}
+	};
+
+    window.canDoTorchDarkRooms = function() {
+		return items.lantern || (items.firerod && flags.entrancemode === 'N' && flags.doorshuffle === 'N' && flags.overworldshuffle === 'N' && flags.shopsanity === 'N');
+	};
 
     window.EPBoss = function() {
 		var dungeoncheck = enemizer_check(0);
@@ -763,10 +734,10 @@
 		//Dark Room check
 		if (!items.lantern) {
 			if (flags.wildbigkeys) {
-				if (items.firerod) return dungeoncheck;
+				if (canDoTorchDarkRooms()) return dungeoncheck;
 				return dungeoncheck === 'possible' ? 'darkpossible' : 'darkavailable';
 			} else {
-				if (items.firerod) return 'possible';
+				if (canDoTorchDarkRooms()) return 'possible';
 				return dungeoncheck === 'possible' ? 'darkpossible' : 'darkavailable';
 			}
 		}
@@ -829,6 +800,9 @@
     };
 
     window.SPBoss = function() {
+		if (flags.entrancemode != 'N') {
+			if (!hasFoundLocation('dam')) return 'unavailable';
+		}
 		if (!items.flippers || (!items.mirror && flags.entrancemode === 'N')) return 'unavailable';
 		var dungeoncheck = enemizer_check(4);
 		if (!items.hammer || !items.hookshot || (items.smallkey4 === 0 && flags.gametype != 'R')) return 'unavailable';
@@ -1237,9 +1211,9 @@
 				//Harmless Hellway
 				chests[7] = 'K'; //Reserved key 6
 				//Dark Basement - Left
-				chests[8] = (items.lantern || items.firerod) ? 'A' : 'DA';
+				chests[8] = canDoTorchDarkRooms() ? 'A' : 'DA';
 				//Dark Basement - Right
-				chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
+				chests[9] = canDoTorchDarkRooms() ? 'A' : 'DA';
 				//Dark Maze - Top
 				chests[10] = (items.lantern ? 'A' : 'DA');
 				//Dark Maze - Bottom
@@ -1268,9 +1242,9 @@
 				//Harmless Hellway
 				chests[7] = 'P';
 				//Dark Basement - Left
-				chests[8] = (items.lantern || items.firerod) ? 'P' : 'DP';
+				chests[8] = canDoTorchDarkRooms() ? 'P' : 'DP';
 				//Dark Basement - Right
-				chests[9] = (items.lantern || items.firerod) ? 'P' : 'DP';
+				chests[9] = canDoTorchDarkRooms() ? 'P' : 'DP';
 				//Dark Maze - Top
 				chests[10] = (items.lantern ? 'P' : 'DP');
 				//Dark Maze - Bottom
@@ -1303,9 +1277,9 @@
 			//Harmless Hellway
 			chests[7] = 'A';
 			//Dark Basement - Left
-			chests[8] = (items.lantern || items.firerod) ? 'A' : 'DA';
+			chests[8] = canDoTorchDarkRooms() ? 'A' : 'DA';
 			//Dark Basement - Right
-			chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
+			chests[9] = canDoTorchDarkRooms() ? 'A' : 'DA';
 			//Dark Maze - Top
 			chests[10] = (items.lantern ? 'A' : 'DA');
 			//Dark Maze - Bottom
@@ -1313,7 +1287,9 @@
 			//Big Chest
 			if (items.bigkey3) {
 				chests[12] = (items.bomb ? items.lantern ? 'A' : 'DA' : 'P');
-			}			
+			}
+			//Boss
+			chests[13] = ConvertBossToChest(PoDBoss());
 		
 		//3) Small Key shuffle only
 		} else if (!flags.wildbigkeys && flags.wildkeys) {
@@ -1342,9 +1318,9 @@
 				//Compass Chest
 				chests[6] = 'A';
 				//Dark Basement - Left
-				chests[8] = (items.lantern || items.firerod) ? 'A' : 'DA';
+				chests[8] = canDoTorchDarkRooms() ? 'A' : 'DA';
 				//Dark Basement - Right
-				chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
+				chests[9] = canDoTorchDarkRooms() ? 'A' : 'DA';
 			}
 			
 			if (((items.hammer && ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.bomb || items.boots))) && items.smallkey3 > 3) || items.smallkey3 > 4) {
@@ -1386,9 +1362,9 @@
 				//Harmless Hellway
 				chests[7] = 'A';
 				//Dark Basement - Left
-				chests[8] = (items.lantern || items.firerod) ? 'A' : 'DA';
+				chests[8] = canDoTorchDarkRooms() ? 'A' : 'DA';
 				//Dark Basement - Right
-				chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
+				chests[9] = canDoTorchDarkRooms() ? 'A' : 'DA';
 				//Dark Maze - Top
 				chests[10] = (items.lantern ? 'A' : 'DA');
 				//Dark Maze - Bottom
@@ -1417,9 +1393,9 @@
 				//Harmless Hellway
 				chests[7] = 'P';
 				//Dark Basement - Left
-				chests[8] = (items.lantern || items.firerod) ? 'P' : 'DP';
+				chests[8] = canDoTorchDarkRooms() ? 'P' : 'DP';
 				//Dark Basement - Right
-				chests[9] = (items.lantern || items.firerod) ? 'P' : 'DP';
+				chests[9] = canDoTorchDarkRooms() ? 'P' : 'DP';
 				//Dark Maze - Top
 				chests[10] = (items.lantern ? 'P' : 'DP');
 				//Dark Maze - Bottom
@@ -1456,9 +1432,9 @@
 				//Compass Chest
 				chests[6] = 'A';
 				//Dark Basement - Left
-				chests[8] = (items.lantern || items.firerod) ? 'A' : 'DA';
+				chests[8] = canDoTorchDarkRooms() ? 'A' : 'DA';
 				//Dark Basement - Right
-				chests[9] = (items.lantern || items.firerod) ? 'A' : 'DA';
+				chests[9] = canDoTorchDarkRooms() ? 'A' : 'DA';
 			}
 			
 			//Harmless Hellway
@@ -2640,7 +2616,7 @@
 				}
 			}
 			
-			if ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
+			if ((!flags.wildbigkeys || items.bigkey10) && (items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod)) {
 				//Mini Helmasaur Room - Left - 3
 				chests[23] = 'A';
 				//Mini Helmasaur Room - Right - 3
@@ -3042,7 +3018,7 @@
 			weapon = true;
 		}
 		//Walk from front to back
-		if (front != 'unavailable' && back != 'available' && items.lantern && (weapon || items.icerod || flags.gametype === 'R')) {//Could consider dark room navigation
+		if (front != 'unavailable' && back != 'available' && canDoTorchDarkRooms() && (weapon || items.icerod || flags.gametype === 'R')) {//Could consider dark room navigation
 			if (flags.gametype === 'R') {
 				back = front;
 			} else {
@@ -3068,7 +3044,7 @@
 				chests[1] = front === 'available' ? 'A' : 'P';
 				chests[2] = front === 'available' ? 'A' : 'P';
 			}
-			if (items.lantern || flags.gametype === 'S') {
+			if (canDoTorchDarkRooms() || flags.gametype === 'S') {
 				chests[3] = front === 'available' ? 'A' : 'P';
 			} else {
 				chests[3] = front === 'available' ? 'DA' : 'DP';
@@ -3076,13 +3052,13 @@
 		} else {
 			if (back != 'unavailable' && (weapon || items.icerod)) {
 				if (flags.gametype === 'R') {
-					chests[3] = (items.lantern ? '' : 'D')+(back === 'available' ? 'A' : 'P');
+					chests[3] = (canDoTorchDarkRooms() ? '' : 'D')+(back === 'available' ? 'A' : 'P');
 				} else {
 					if (!flags.wildkeys) {
-						chests[3] = items.lantern ? 'P' : 'DP';
+						chests[3] = canDoTorchDarkRooms() ? 'P' : 'DP';
 					} else {
 						if (items.smallkeyhalf0) {
-							chests[3] = (items.lantern ? '' : 'D')+(back === 'available' ? 'A' : 'P');
+							chests[3] = (canDoTorchDarkRooms() ? '' : 'D')+(back === 'available' ? 'A' : 'P');
 						}
 					}
 				}
