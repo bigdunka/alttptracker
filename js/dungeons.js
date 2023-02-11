@@ -1130,7 +1130,7 @@
 			}
 		} else {
 			if (items.lantern || items.firerod) {
-				chests[2] = 'K';
+				chests[2] = (isDark ? 'DA' : 'A');
 			} else {
 				chests[2] = 'U';
 			}
