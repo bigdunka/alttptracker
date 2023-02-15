@@ -1174,21 +1174,21 @@
 				<center><input type="button" onclick="closeSpoilerModal();" value="Cancel and Close" /></center>
 			</div>
 		</div>
-		<div class="modal fade" id="flagsModal" aria-hidden="true" style="width: 400px; height: 354px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 22px; left: 24px; display: none;">
+		<div class="modal fade" id="flagsModal" aria-hidden="true" style="width: 400px; height: 384px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 22px; left: 24px; display: none;">
 			<div>
 				<div style="user-select: none;">
 					<h3 style="width: 190px; display: inline-block; margin-left: 12px;">Change Flags</h3>
 					<span id="flagsmaintab" class="tab" onclick="openMainSettings();">Main settings</span>
 					<span id="flagsextratab" class="tab" onclick="openExtraSettings();">Extra settings</span>
 				</div>
-				<div style="height: 256px;">
+				<div style="height: 290px;">
 					<table id="flagsmain" width="380px" height="72px" style="margin: auto;">
 						<tr>
 							<td width="140px">
 								World State:
 							</td>
 							<td>
-								<select id="stateselect" style="width: 140px">
+								<select id="stateselect" style="width: 140px" onchange="updateMysteryPointTotal()">
 									<option value="S">Standard</option>
 									<option value="O">Open</option>
 									<option value="I">Inverted</option>
@@ -1212,9 +1212,10 @@
 								Boss Shuffle:
 							</td>
 							<td>
-								<select id="bossselect" style="width: 140px">
+								<select id="bossselect" style="width: 140px" onchange="updateMysteryPointTotal()">
 									<option value="N">None</option>
-									<option value="S">Simple/Full/Random</option>
+									<option value="S">Simple/Full</option>
+									<option value="R">Random</option>
 								</select>
 							</td>
 						</tr>
@@ -1223,7 +1224,7 @@
 								Enemy Shuffle:
 							</td>
 							<td>
-								<select id="enemyselect" style="width: 140px">
+								<select id="enemyselect" style="width: 140px" onchange="updateMysteryPointTotal()">
 									<option value="N">None</option>
 									<option value="S">Shuffled/Random</option>
 								</select>
@@ -1234,13 +1235,13 @@
 								Dungeon Items:
 							</td>
 							<td style="user-select: none;">
-								<input id="shuffledmaps" type="checkbox" />
+								<input id="shuffledmaps" type="checkbox" onchange="updateMysteryPointTotal()"/>
 								<label for="shuffledmaps" style="width:100px">Maps</label>
-								<input id="shuffledcompasses" type="checkbox" />
+								<input id="shuffledcompasses" type="checkbox" onchange="updateMysteryPointTotal()"/>
 								<label for="shuffledcompasses" style="width:100px">Compasses</label><br>
-								<input id="shuffledkeys" type="checkbox" />
+								<input id="shuffledkeys" type="checkbox" onchange="updateMysteryPointTotal()"/>
 								<label for="shuffledkeys" style="width:100px">Small Keys</label>
-								<input id="shuffledbigkeys" type="checkbox" />
+								<input id="shuffledbigkeys" type="checkbox" onchange="updateMysteryPointTotal()"/>
 								<label for="shuffledbigkeys" style="width:100px" >Big Keys</label>
 							</td>
 						</tr>
@@ -1249,7 +1250,7 @@
 								Goal:
 							</td>
 							<td>
-								<select id="goalselect" style="width: 140px">
+								<select id="goalselect" style="width: 140px" onchange="updateMysteryPointTotal()">
 									<option value="G">Ganon</option>
 									<option value="F">Fast Ganon</option>
 									<option value="A">All Dungeons</option>
@@ -1263,11 +1264,23 @@
 								Swords:
 							</td>
 							<td>
-								<select id="swordselect" style="width: 140px">
+								<select id="swordselect" style="width: 140px" onchange="updateMysteryPointTotal()">
 									<option value="R">Randomized</option>
 									<option value="A">Assured</option>
 									<option value="V">Vanilla</option>
 									<option value="S">Swordless</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Item Pool:
+							</td>
+							<td>
+								<select id="itempoolselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+									<option value="N">Normal</option>
+									<option value="H">Hard</option>
+									<option value="E">Expert</option>
 								</select>
 							</td>
 						</tr>
@@ -1279,8 +1292,82 @@
 								<input id="activatedflute" type="checkbox" style="transform: scale(1.5);" />
 							</td>
 						</tr>
+						<tr>
+							<td width="120px">
+								Total Points:
+							</td>
+							<td>
+								<label id="mysterypointtotal">0</label>
+							</td>
+						</tr>
 					</table>
 					<table id="flagsextra" width="380px" height="12px" style="margin: auto;">
+						<tr>
+							<td width="120px">
+								Starting Items:
+							</td>
+							<td style="user-select: none;">
+								<input id="starthookshot" type="checkbox" onchange="updateMysteryPointTotal()"/>
+								<label for="starthookshot" style="width:100px">Hookshot</label>
+								<input id="startfirerod" type="checkbox" onchange="updateMysteryPointTotal()"/>
+								<label for="startfirerod" style="width:100px">Firerod</label><br>
+								<input id="starticerod" type="checkbox" onchange="updateMysteryPointTotal()"/>
+								<label for="starticerod" style="width:100px">Icerod</label>
+								<input id="startflippers" type="checkbox" onchange="updateMysteryPointTotal()"/>
+								<label for="startflippers" style="width:100px">Flippers</label><br>
+								<input id="startflute" type="checkbox" onchange="updateMysteryPointTotal()"/>
+								<label for="startflute" style="width:100px">Flute</label>
+								<input id="startmirror" type="checkbox" onchange="updateMysteryPointTotal()"/>
+								<label for="startmirror" style="width:100px">Mirror</label><br>
+								<input id="startboots" type="checkbox" onchange="updateMysteryPointTotal()"/>
+								<label for="startboots" style="width:100px">Boots</label>
+							</td>
+						</tr>
+						<tr>
+							<td width="100px">
+								Enemy Damage:
+							</td>
+							<td>
+								<select id="enemydamageselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+									<option value="N">None</option>
+									<option value="S">Shuffled/Random</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td width="100px">
+								Enemy Health:
+							</td>
+							<td>
+								<select id="enemyhealthselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+									<option value="N">None</option>
+									<option value="E">Easy</option>
+									<option value="H">Hard</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Accessibility:
+							</td>
+							<td>
+								<select id="accessibilityselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+									<option value="100">100%</option>
+									<option value="B">Beatable</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Hints:
+							</td>
+							<td>
+								<select id="hintselect" style="width: 140px" onchange="updateMysteryPointTotal()">
+									<option value="Y">Yes</option>
+									<option value="N">No</option>
+								</select>
+							</td>
+						</tr>
 						<tr>
 							<td width="140px">
 								Door Shuffle:

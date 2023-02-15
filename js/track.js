@@ -2627,6 +2627,172 @@
 		$('#flagsModal').hide();
 	}
 
+	window.updateMysteryPointTotal = function() {
+		var worldstate = 0;
+		switch (document.getElementById("stateselect").value) {
+			case "O":
+			case "S":
+				worldstate = 0;
+				break;
+			case "I":
+			case "R":
+				worldstate = 20
+				break;
+		}
+		
+		var goal = 0;
+		switch (document.getElementById('goalselect').value) {
+			case 'G':
+			case 'F':
+				goal = 0;
+				break;
+			case 'A':
+			case 'P':
+				goal = 10;
+				break;
+			case 'O':
+				goal = 20;
+				break;
+		}
+
+		var swords = 0;
+		switch (document.getElementById('swordselect').value) {
+			case "R":
+			case "A":
+				swords = 0;
+				break;
+			case "V":
+				swords = 10;
+				break;
+			case "S":
+				swords = 20;
+				break;
+		}
+
+		var itempool = 0;
+		switch (document.getElementById('itempoolselect').value) {
+			case "N":
+				itempool = 0;
+				break;
+			case "H":
+				itempool = 20;
+				break;
+			case "E":
+				itempool = 30;
+				break;
+		}
+
+		var accessibility = 0;
+		switch (document.getElementById('accessibilityselect').value) {
+			case "100":
+				accessibility = 0;
+				break;
+			case "B":
+				accessibility = 10;
+				break;
+		}
+
+		var opentower = 0;
+		switch (flags.opentowercount) {
+			case 0:
+			case 1:
+				opentower = 20;
+				break;
+			case 2:
+			case 3:
+			case 4:
+				opentower = 10;
+				break;
+			default:
+				opentower = 0;
+				break;
+		}
+
+		var ganonvuln = 0;
+		switch (flags.ganonvulncount) {
+			case 3:
+			case 4:
+				ganonvuln = 10;
+				break;
+			default:
+				ganonvuln = 0;
+				break;
+		}
+
+		var hints = 0;
+		switch (document.getElementById('hintselect').value) {
+			case "Y":
+				hints = 10;
+				break;
+			case "N":
+				hints = 0;
+				break;
+		}
+
+		var bossshuffle = 0;
+		switch (document.getElementById('bossselect').value) {
+			case "N":
+				bossshuffle = 0;
+				break;
+			case "S":
+				bossshuffle = 20;
+				break;
+			case "R":
+				bossshuffle = 30;
+				break;
+		}
+
+		var enemyshuffle = 0;
+		switch (document.getElementById('enemyselect').value) {
+			case "N":
+				enemyshuffle = 0;
+				break;
+			case "S":
+				enemyshuffle = 20;
+				break;
+		}
+
+		var enemydamage = 0;
+		switch (document.getElementById('enemydamageselect').value) {
+			case "N":
+				enemydamage = 0;
+				break;
+			case "S":
+				enemydamage = 30;
+				break;
+		}
+
+		var enemyhealth = 0;
+		switch (document.getElementById('enemyhealthselect').value) {
+			case "N":
+				enemyhealth = 0;
+				break;
+			case "E":
+				enemyhealth = 20;
+				break;
+			case "H":
+				enemyhealth = 30;
+				break;
+		}
+
+		var dungeonitems = 0;
+		dungeonitems += (document.getElementById('shuffledmaps').checked) ? 10 : 0;
+		dungeonitems += (document.getElementById('shuffledcompasses').checked) ? 10 : 0;
+		dungeonitems += (document.getElementById('shuffledkeys').checked) ? 10 : 0;
+		dungeonitems += (document.getElementById('shuffledbigkeys').checked) ? 10 : 0;
+
+		var startingitems = 0;
+		startingitems += (document.getElementById('starthookshot').checked) ? 20 : 0;
+		startingitems += (document.getElementById('startfirerod').checked) ? 20 : 0;
+		startingitems += (document.getElementById('starticerod').checked) ? 20 : 0;
+		startingitems += (document.getElementById('startflippers').checked) ? 20 : 0;
+		startingitems += (document.getElementById('startflute').checked) ? 20 : 0;
+		startingitems += (document.getElementById('startmirror').checked) ? 20 : 0;
+		startingitems += (document.getElementById('startboots').checked) ? 0 : 20;
+
+		document.getElementById("mysterypointtotal").innerHTML = (worldstate + goal + swords + itempool + accessibility + opentower + ganonvuln + hints + bossshuffle + enemyshuffle + enemydamage + enemyhealth + dungeonitems + startingitems);
+	}
+
 	window.adjustFlags = function() {
 		//Clean up states and variables before we start
 		click_map();
@@ -3199,6 +3365,7 @@
 			}
 		}
 		
+		updateMysteryPointTotal();
 		$('#flagsModal').hide();
 	}
 	
