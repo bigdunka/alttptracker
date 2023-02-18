@@ -16,10 +16,16 @@ function load_cookie() {
 		}
 		if (c.indexOf('a-Y') > -1) {
 			document.getElementById("autotrackingyes").checked = true;
-			var p = c.substr(c.indexOf('a-Y') + 3);
-			if (p.indexOf('|') > 0) {
-				p = p.substr(0, p.indexOf('|'));
+			var a = c.substr(c.indexOf('a-Y') + 3);
+			if (a.indexOf('|') > 0) {
+				var portSeparator = a.indexOf('|');
+				var p = a.substr(0, portSeparator);
 				document.getElementById("autotrackingport").value = p;
+				var h = a.substr(portSeparator + 1);
+				h = h.substr(0, h.indexOf('|'));
+				if (h) {
+					document.getElementById("autotrackinghost").value = h;
+				}
 			}
 		}
 		if (c.indexOf('p-') > -1) {
@@ -116,6 +122,7 @@ function launch_tracker() {
 	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
 	var autotracking = document.querySelector('input[name="autotrackinggroup"]:checked').value;
 	var trackingport = document.getElementById('autotrackingport').value;
+	var trackinghost = document.getElementById('autotrackinghost').value;
 	var restreamingcode = document.getElementById('restreamingcode').value;
 	var restreamer = document.querySelector('input[name="restreamgroup"]:checked').value;
 	var restreamdelay = document.getElementById('restreamingdelay').value;
@@ -141,7 +148,7 @@ function launch_tracker() {
 	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
 	
 	if (document.getElementById("remembersettings").checked == true) {
-		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + "|p-" + sprite;
+		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + (trackinghost ? "|" + trackinghost : "") + "|p-" + sprite;
 		document.cookie = "settings=" + settings + "; expires=Sat, 3 Jan 2026 12:00:00 UTC";
 	} else {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -151,8 +158,8 @@ function launch_tracker() {
 		alert('NOTICE: Inverted OWG is currently not supported for logic, all locations will be flagged as available.');
 		glitches = 'M';
 	}
-	
-	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}&s={startingitemstring}&p={sprite}&r={epoch}'
+
+	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}&s={startingitemstring}&p={sprite}&h={trackinghost}&r={epoch}'
 			.replace('{world}', world)
 			.replace('{entrance}', entrance)
 			.replace('{door}', door)
@@ -185,6 +192,7 @@ function launch_tracker() {
 			.replace('{restreamdelay}', restreamdelay)
 			.replace('{startingitemstring}', startingitemstring)
 			.replace('{sprite}', sprite)
+			.replace('{trackinghost}', trackinghost)
 			.replace('{epoch}', Date.now()),
 			//.replace('{compact}', (map === "C" ? '&map=C' : '')),
 		'',
