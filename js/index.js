@@ -186,7 +186,7 @@ function launch_tracker() {
 			.replace('{spoiler}', spoiler)
 			.replace('{sphere}', sphere)
 			.replace('{autotracking}', autotracking)
-			.replace('{trackingport}', trackingport)
+			.replace('{trackingport}', String(trackingport).padStart(4, '0'))
 			.replace('{restreamingcode}', restreamingcode)
 			.replace('{restreamer}', restreamer)
 			.replace('{restreamdelay}', restreamdelay)
