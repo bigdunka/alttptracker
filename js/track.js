@@ -37,297 +37,6 @@
 	window.doorWindow = null;
 	window.dungeonData = null;
 	
-	window.modes = [];
-
-	window.modes.push({
-		valid: true,
-		name: "Current",
-		worldstate: "",
-		entrance: "",
-		mapshuffle: "",
-		smallkeyshuffle: "",
-		bigkeyshuffle: "",
-		goal: "",
-		swords: "",
-		startingboots: "",
-		startingflute: "",
-		bootshint: "",
-		duplicate: ""
-	});
-
-	modes.push({
-		valid: true,
-		name: "AD Keysanity",
-		worldstate: "Open",
-		entrance: "No",
-		mapshuffle: "Yes",
-		smallkeyshuffle: "Yes",
-		bigkeyshuffle: "Yes",
-		goal: "Dungeons",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Ambrosia",
-		worldstate: "Standard",
-		entrance: "No",
-		mapshuffle: "No",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Ganon",
-		swords: "Assured",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "Yes",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Champions Swordless",
-		worldstate: "Open",
-		entrance: "No",
-		mapshuffle: "Yes",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Ganon",
-		swords: "Swordless",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Enemizer",
-		worldstate: "Open",
-		entrance: "No",
-		mapshuffle: "No",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Ganon",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Gold Rush",
-		worldstate: "Open",
-		entrance: "No",
-		mapshuffle: "No",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Triforce",
-		swords: "Randomized",
-		startingboots: "Yes",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Hard Standard",
-		worldstate: "Standard",
-		entrance: "No",
-		mapshuffle: "No",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Ganon",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Inverted AD Keys",
-		worldstate: "Inverted",
-		entrance: "No",
-		mapshuffle: "Yes",
-		smallkeyshuffle: "Yes",
-		bigkeyshuffle: "Yes",
-		goal: "Dungeons",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Inverted Keysanity",
-		worldstate: "Inverted",
-		entrance: "No",
-		mapshuffle: "Yes",
-		smallkeyshuffle: "Yes",
-		bigkeyshuffle: "Yes",
-		goal: "Ganon",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Ludicrous Speed",
-		worldstate: "Open",
-		entrance: "No",
-		mapshuffle: "No",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Ganon",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No",
-		duplicate: "Yes"
-	});
-
-	modes.push({
-		valid: true,
-		name: "MC Shuffle",
-		worldstate: "Open",
-		entrance: "No",
-		mapshuffle: "Yes",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Ganon",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Open Boots",
-		worldstate: "Open",
-		entrance: "No",
-		mapshuffle: "No",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Ganon",
-		swords: "Randomized",
-		startingboots: "Yes",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Open Keysanity",
-		worldstate: "Open",
-		entrance: "No",
-		mapshuffle: "Yes",
-		smallkeyshuffle: "Yes",
-		bigkeyshuffle: "Yes",
-		goal: "Ganon",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Potpourri",
-		worldstate: "Open",
-		entrance: "No",
-		mapshuffle: "No",
-		smallkeyshuffle: "Yes",
-		bigkeyshuffle: "Yes",
-		goal: "Dungeons",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "Yes",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Reduced Crystals",
-		worldstate: "Open",
-		entrance: "No",
-		mapshuffle: "No",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Fast",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Retrance",
-		worldstate: "Retro",
-		entrance: "Yes",
-		mapshuffle: "Yes",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "Yes",
-		goal: "Fast",
-		swords: "Assured",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "SGL Casual Boots",
-		worldstate: "Standard",
-		entrance: "No",
-		mapshuffle: "No",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Ganon",
-		swords: "Assured",
-		startingboots: "Yes",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});
-
-	modes.push({
-		valid: true,
-		name: "Standard",
-		worldstate: "Standard",
-		entrance: "No",
-		mapshuffle: "No",
-		smallkeyshuffle: "No",
-		bigkeyshuffle: "No",
-		goal: "Ganon",
-		swords: "Randomized",
-		startingboots: "No",
-		startingflute: "No",
-		bootshint: "No",
-		duplicate: "No"
-	});	
-	
 	window.resetTrackerTimer = function() {
 		clearTimeout(trackingTimer);
 		trackingTimer = setTimeout(sendTrackerCommand, 2000);
@@ -1508,22 +1217,22 @@
 	window.getDungeonBackground = function(x) {
 		switch (x) {
 			case 'available':
-				return 'lime';
+				return (flags.colormode === "N" ? 'lime' : '#055fe6');
 				break;
 			case 'unavailable':
-				return '#900';
+				return (flags.colormode === "N" ? 'red' : '#c46902');
 				break;
 			case 'possible':
-				return 'yellow';
+				return (flags.colormode === "N" ? 'yellow' : '#faf600');
 				break;
 			case 'information':
-				return 'orange';
+				return (flags.colormode === "N" ? 'orange' : '#d53ae6');
 				break;
 			case 'darkavailable':
-				return 'blue';
+				return (flags.colormode === "N" ? 'blue' : '#034f6d');
 				break;
 			case 'darkpossible':
-				return 'purple';
+				return (flags.colormode === "N" ? 'purple' : '#cdbd00');
 				break;
 		}
 	};
@@ -3434,6 +3143,10 @@
 			setTimeout(setPrimer, 1000);
 		}
 		
+		if (flags.colormode === "Y") {
+			document.getElementById("alternatestyle").href = "css/alternatecolorstyle.css?v="+buildString;
+		}
+		
 		loadStyleAndChests();
 
 		//If spoiler mode, first show the modal to load the spoiler log
@@ -3454,22 +3167,22 @@
 				const dungeonID = k;
 				constantFunctionsEDC[a].push(function() {
 					if (a === 'available') {
-						document.getElementById('chest'+dungeonID).style.backgroundColor = 'lime';
+						document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'lime' : '#055fe6');
 						document.getElementById('chest'+dungeonID).style.color = 'black';
 					} else if (a === 'darkavailable') {
-						document.getElementById('chest'+dungeonID).style.backgroundColor = 'blue';
+						document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'blue' : '#034f6d');
 						document.getElementById('chest'+dungeonID).style.color = 'white';
 					} else if (a === 'possible') {
-						document.getElementById('chest'+dungeonID).style.backgroundColor = 'yellow';
+						document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'yellow' : '#faf600');
 						document.getElementById('chest'+dungeonID).style.color = 'black';
 					} else if (a === 'darkpossible') {
-						document.getElementById('chest'+dungeonID).style.backgroundColor = 'purple';
+						document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'purple' : '#cdbd00');
 						document.getElementById('chest'+dungeonID).style.color = 'white';
 					} else if (a === 'unavailable') {
-						document.getElementById('chest'+dungeonID).style.backgroundColor = 'red';
+						document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'red' : '#c46902');
 						document.getElementById('chest'+dungeonID).style.color = 'white';
 					} else if (a === 'information') {
-						document.getElementById('chest'+dungeonID).style.backgroundColor = 'orange';
+						document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'orange' : '#d53ae6');
 						document.getElementById('chest'+dungeonID).style.color = 'black';
 					}
 				});

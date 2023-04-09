@@ -29,6 +29,9 @@ function load_cookie() {
 			}
 			document.getElementById("spriteselect").value = sprite;
 		}
+		if (c.indexOf('c-Y') > -1) {
+			document.getElementById("alternatecoloryes").checked = true;
+		}
 	}
 }
 
@@ -114,6 +117,7 @@ function launch_tracker() {
 	var map = document.querySelector('input[name="mapgroup"]:checked').value;
 	var spoiler = document.querySelector('input[name="spoilergroup"]:checked').value;
 	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
+	var color = document.querySelector('input[name="alternatecolorgroup"]:checked').value;
 	var autotracking = document.querySelector('input[name="autotrackinggroup"]:checked').value;
 	var trackingport = document.getElementById('autotrackingport').value;
 	var restreamingcode = document.getElementById('restreamingcode').value;
@@ -141,7 +145,7 @@ function launch_tracker() {
 	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
 	
 	if (document.getElementById("remembersettings").checked == true) {
-		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + "|p-" + sprite;
+		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + "|c-" + color + "|p-" + sprite;
 		document.cookie = "settings=" + settings + "; expires=Sat, 3 Jan 2026 12:00:00 UTC";
 	} else {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
@@ -152,7 +156,7 @@ function launch_tracker() {
 		glitches = 'M';
 	}
 	
-	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}&s={startingitemstring}&p={sprite}&r={epoch}'
+	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{color}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}&s={startingitemstring}&p={sprite}&r={epoch}'
 			.replace('{world}', world)
 			.replace('{entrance}', entrance)
 			.replace('{door}', door)
@@ -178,6 +182,7 @@ function launch_tracker() {
 			.replace('{map}', map)
 			.replace('{spoiler}', spoiler)
 			.replace('{sphere}', sphere)
+			.replace('{color}', color)
 			.replace('{autotracking}', autotracking)
 			.replace('{trackingport}', trackingport)
 			.replace('{restreamingcode}', restreamingcode)
@@ -220,6 +225,9 @@ function loadarchivepreset() {
 		case "Enemizer":
 			loadenemizerpreset();
 			break;
+		case "FADKeysanity":
+			loadadkeyspreset();
+			break;
 		case "GoldRush":
 			loadgoldrushspreset();
 			break;
@@ -237,6 +245,9 @@ function loadarchivepreset() {
 			break;
 		case "LudicrousSpeed":
 			loadludicrouspreset();
+			break;
+		case "MCBoss":
+			loadmcbosspreset();
 			break;
 		case "MCShuffle":
 			loadmcshufflepreset();
@@ -265,10 +276,41 @@ function loadarchivepreset() {
 		case "Standard":
 			loadstandardpreset();
 			break;
+		case "StandardBoots":
+			loadstandardbootspreset();
+			break;
 		
 	}
 	
 	
+}
+
+function loadopenpreset() {
+	resetallstartingitems();
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	showToast();
 }
 
 function loadopenpreset() {

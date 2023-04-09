@@ -672,22 +672,22 @@
 			if (found) {
 				var c = dungeonChests(dungeonID,entranceAvail,entranceBunny);
 				if (c === 'available') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'lime';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'lime' : '#055fe6');
 					document.getElementById('chest'+dungeonID).style.color = 'black';
 				} else if (c === 'darkavailable') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'blue';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'blue' : '#034f6d');
 					document.getElementById('chest'+dungeonID).style.color = 'white';
 				} else if (c === 'possible') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'yellow';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'yellow' : '#faf600');
 					document.getElementById('chest'+dungeonID).style.color = 'black';
 				} else if (c === 'darkpossible') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'purple';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'purple' : '#cdbd00');
 					document.getElementById('chest'+dungeonID).style.color = 'white';
 				} else if (c === 'unavailable') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'red';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'red' : '#c46902');
 					document.getElementById('chest'+dungeonID).style.color = 'white';
 				} else if (c === 'information') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'orange';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'orange' : '#d53ae6');
 					document.getElementById('chest'+dungeonID).style.color = 'black';
 				}
 				if (dungeonID < 10) {
@@ -1130,7 +1130,7 @@
 			}
 		} else {
 			if (items.lantern || items.firerod) {
-				chests[2] = (isDark ? 'DA' : 'A');
+				chests[2] = (flags.wildkeys ? (isDark ? 'DA' : 'A') : 'K');
 			} else {
 				chests[2] = 'U';
 			}
