@@ -62,7 +62,7 @@
 				if (items.sword > 0 || items.hammer || items.bow > 1) return 'available';
 				break;
 			case 5:
-				if (items.hookshot && (items.sword > 0 || items.hammer)) return 'available';
+				if (items.hookshot && (items.sword > 0 || items.hammer || (items.bow > 1 && (items.firerod || items.icerod))) || ((items.firerod || items.icerod) && items.bottle > 1 || (items.bottle > 0 && items.magic))) return 'available';
 				break;
 			case 6:
 				if (items.sword > 0 || items.hammer || items.firerod || items.byrna || items.somaria) return 'available';
