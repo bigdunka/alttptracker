@@ -1,15 +1,15 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Instructions</title>
-		<script type="text/javascript" src="js/index.js?v=20027"></script>
-		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20027"></script>
-		<script type="text/javascript" src="js/jquery.powertip.js?v=20027"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js?v=20027"></script>
-		<link href="css/jquery.powertip.css?v=20027" rel="stylesheet" />
-		<link href="css/launcher.css?v=20027" rel="stylesheet">
-		<link href="css/fonts.css?v=20027" rel="stylesheet">
-		<link href="css/sprites.css?v=20027" rel="stylesheet">
-		<link href="css/toast.css?v=20027" rel="stylesheet">
+		<script type="text/javascript" src="js/index.js?v=20028"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.js?v=20028"></script>
+		<script type="text/javascript" src="js/jquery.powertip.js?v=20028"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js?v=20028"></script>
+		<link href="css/jquery.powertip.css?v=20028" rel="stylesheet" />
+		<link href="css/launcher.css?v=20028" rel="stylesheet">
+		<link href="css/fonts.css?v=20028" rel="stylesheet">
+		<link href="css/sprites.css?v=20028" rel="stylesheet">
+		<link href="css/toast.css?v=20028" rel="stylesheet">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=UA-128165990-1"></script>
 		<script>
@@ -65,7 +65,7 @@
 				<div class="header-main-div">
 					<a href="./index.html"><img src="./images/overlay/header.png" class="header-main-img"></a>
 					<div class="header-news-div" >
-						<span class="default-white-text">Build 2.0.027 072923 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: @bigdunka)<br>Check Known Issues for current known outstanding issues</span>
+						<span class="default-white-text">Build 2.0.028 083123 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: @bigdunka)<br>Check Known Issues for current known outstanding issues</span>
 					</div>
 				</div>
 				<div class="header-links">
@@ -370,7 +370,8 @@
 					You can decide whether <b>Small Keys</b> or <b>Big Keys</b> should be included in the dungeon overview. The main intention is that, if all keys are in their respective dungeons in your seed, information about where keys are needed is only important while in that dungeon.<br><br>
 					If your browser supports and permits Local Storage, you can save your entire tracking progress in this window by clicking on <b>Save data</b> to the right of <b>Manual save:</b>. If you continue playing the seed at some later point, just click on <b>Load data</b> to the left.<br>
 					Even if you forgot to save manually, there's a chance your progress is still automatically saved. Click on <b>Load data</b> next to <b>Auto-save:</b> to try.<br>
-					Your currently loaded tracked paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.<br><br>
+					Tracked data can also be saved to and loaded from a file using the buttons in the <b>JSON file</b> row.<br>
+					Your currently loaded tracked paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset tracking:</b> line.<br><br>
 					Access the <b>Settings</b> menu by clicking on the cogwheel. The settings you can find here are automatically saved for future sessions.<br>
 					The <b>General</b> tab provides customization options for the theme of the tracker, and other behavior.<br>
 					The <b>Dungeons</b> tab lets you decide how many room nodes are displayed when you click on <b>Insert room node</b> while building a dungeon path in Crossed Door Shuffle. A basic explanation and a button that opens a preview are available below.<br>
@@ -401,7 +402,7 @@
 					<span>(<a href="#dungeon" style="color: white">For help with the Dungeon Tracker which is located in the same window, click here!</a>)</span>
 					<br><br>
 					<div style="border: 2px dashed orange; padding: 4px; background-color: rgba(255,64,0,.125);">
-						<span>We'd appreciate feedback. If you have suggestions, encountered a problem or simply want to say if this feature was helpful for you, feel free to message Catobat#4610 on Discord. Thank you!</span>
+						<span>We'd appreciate feedback. If you have suggestions, encountered a problem or simply want to say if this feature was helpful for you, feel free to message Catobat on Discord. Thank you!</span>
 					</div>
 					<br>
 					Overworld Shuffle is a new mode where tracking becomes much more important than usual.<br>
@@ -436,7 +437,7 @@
 					If this is combined with Parallel or Full Layout Shuffle, see the section above. The only difference is that transitions can now go across worlds. Such transitions will be marked with a cross.<br><br>
 					Otherwise, if the layout is vanilla:<br>
 					<b>Polar</b>: This option only has an effect if <b>Mixed Overworld</b> is enabled. All screen transitions are determined by the tracked screen states (see the section below).<br>
-					<b>Chaos</b>: Open the <b>Full map</b> which can be accessed from the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which transitions are currently accessible and which transitions have been tracked so far.<br>
+					<b>Unrestricted</b>: Open the <b>Full map</b> which can be accessed from the <b>Overworld Tracking</b> page, window main page or sidebar. This will open a large overworld map and show you which transitions are currently accessible and which transitions have been tracked so far.<br>
 					If you want to track a transition that isn't yet tracked, click on the transition once to mark it as vanilla (same world) or twice to mark it as the crossed variant, indicated by a cross. Click a third time to reset it to the untracked state.<br>
 					When this option is combined with <b>Keep Similar</b>, clicking on one edge will affect all edges that are in the same group of similar edges.
 					<br><br>
@@ -469,6 +470,7 @@
 					Enable the option <b>Must preserve mirror portal</b> to only see paths that won't use the mirror or save & quits.<br>
 					With <b>Ignore item rules</b> enabled, the search pretends like you have access to any item that might be relevant for overworld traversal.<br>
 					Click on a path to view it with more details and lines connecting the edges of the screens. You can also click on <b>View on map</b> to attach the path to the full overworld map, highlighting screens that are on the path and numbering them, or <b>Pin for later</b> to permanently display it in a list on the <b>Overworld Tracking</b> page.<br>
+					At the top the page there are some shortcut buttons, for example for quickly starting a new search that starts at the currently set target screen, all that remains after clicking the button is clicking on the new target screen.<br>
 					Note: For this feature to work properly, it is important that you have the common starting locations, items and connectors set correctly. Please refer to the following sections for more information. In the tracker, the bottom of the page also has a checklist for common issues with quick tips.
 					<br><br>
 					<h3>Common starting locations</h3>
@@ -498,14 +500,21 @@
 					If you are not using the built-in Entrance map tracker to mark connectors, make sure to disable <b>Sync everything (logic, game mode, items and entrances)</b> and <b>Sync connector caves</b> in the sync settings (see above). This will allow you do add or remove connectors from within this window.<br>
 					To add a connector in this manner, go to the <b>Full map</b>, click on the screen where the connector starts, and click on <b>New connector</b>. Then, click on the screen where the connector ends, maybe fill in region details depending on the screens, and determine whether you are currently able to also use this connector in the other direction, too.
 					<br><br>
+					<h3>Customizer and bulk edge actions</h3>
+					Near the bottom of the <b>Overworld Tracking</b> page, the button <b>Export marked states and transitions as Customizer YAML</b> can be used to save a YAML file that includes full information about the overworld mode settings and (depending on mode) all marked edge connections, screen states and flute spots.<br>
+					This file can then be loaded in the Overworld Randomizer to generate seeds that have all the set connections, states and flute spots. Everything not specified will be randomized like normal under the selected mode settings.<br>
+					For playing a Customizer seed, the button <b>Bulk transition actions</b> opens a window with several buttons that set a certain group of edges to use their vanilla connections, for example all horizontal edges or all Dark World transitions. This button only appears if the current mode allows for randomized edges.<br>
+					Most of these options can also be selected when launching the tracker, in the <b>Customizer:</b> line right below the overworld mode settings. Currently this is only supported when Mixed Overworld is disabled. 
+					<br><br>
 					<center><img src="./images/overlay/instructions33.png"></center>
 					<br>
 					<h3>Settings and saving</h3>
 					These should depend on the settings of the seed so the logic can work properly. See the sections above for explanations on how tracking the individual Overworld Shuffle modes works.<br>
 					Enabling one of the <b>Layout Shuffle</b> options allows you to track screen edge transitions. With <b>Parallel</b>, tracking an overworld transition in one world will automatically also mark the corresponding transition in the other world if a such parallel version exists. <b>Full</b> doesn't have this restriction.<br>
 					Similarly, <b>Whirlpool Shuffle</b> allows you to track whirlpool transitions.<br>
-					The <b>Keep Similar</b> option should be checked when the seed was rolled with the <b>Keep Similar Edges Together</b> option to quickly fill in groups of transitions in Layout Shuffle or Crossed Overworld. Which groups of edges count as similar depends on the Free Terrain setting.<br>
 					<b>Crossed Overworld</b> allows you to connect edges between the Light World and Dark World, even if the layout is vanilla. In <b>Polar</b> with vanilla layout, marking edges is not needed as all edges will be vanilla.<br>
+					The <b>Keep Similar</b> option should be checked when the seed was rolled with the <b>Keep Similar Edges Together</b> option to quickly fill in groups of transitions in Layout Shuffle or Crossed Overworld. Which groups of edges count as similar depends on the Free Terrain setting.<br>
+					If <b>Swapped Overworld</b> is enabled, edges in Layout Shuffle and Whirlpool Shuffle fulfill additional rules and connecting 2 edges will usually result in another connection getting automatically marked. In Crossed, this might make it so all edges are already determined and cannot be tracked.<br>
 					<b>Free Terrain</b> allows you to connect land with water edges in Layout Shuffle.<br>
 					With <b>Decoupled Overworld</b> connecting two edges in Layout Shuffle, Whirlpool Shuffle or Crossed Overworld will only mark it in one direction. Both sides of an edge can do different things. In <b>Chaos</b> (as opposed to <b>One-to-one</b>), there can be multiple edges leading to the same edge.<br>
 					In <b>Mixed Overworld</b>, you can mark every overworld screen as normal or swapped.<br>
@@ -515,7 +524,8 @@
 					Changing the mode may cause a yellow box with some text about making transition adjustments based on the mode and some buttons to appear. Additionally, a button <b>Auto fixes</b> will appear on the full overworld map. If all mode settings are final, we recommend clicking on <b>What would be affected?</b> to get more information (which could prevent you from making a mistake) and then accepting the changes if you're sure all mode settings are correct.<br><br>
 					If your browser supports and permits Local Storage, you can save your entire tracking progress in this window by clicking on <b>Save data</b> to the right of <b>Manual save:</b>. If you continue playing the seed at some later point, just click on <b>Load data</b> to the left.<br>
 					Even if you forgot to save manually, there's a chance your progress is still automatically saved. Click on <b>Load data</b> next to <b>Auto-save:</b> to try.<br>
-					Your currently loaded tracked transitions, states and paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset:</b> line.<br><br>
+					Tracked data can also be saved to and loaded from a file using the buttons in the <b>JSON file</b> row.<br>
+					Your currently loaded tracked transitions, states and paths and the saved data in Local Storage can be cleared using the respective buttons in the <b>Reset tracking:</b> line.<br><br>
 					Access the <b>Settings</b> menu by clicking on the cogwheel. The settings you can find here are automatically saved for future sessions.<br>
 					The <b>General</b> tab provides customization options for the theme of the tracker, and other behavior.<br>
 					The <b>Overworld</b> tab contains settings for the full overworld map, and the default behavior for new overworld searches.

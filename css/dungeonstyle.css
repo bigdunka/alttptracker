@@ -99,6 +99,12 @@ a, a:visited{ color: #80C0FF; }
 .owscreen.full { cursor: inherit; box-shadow: inset 0px 0px 0px 1px black; }
 .owscreen.active { box-shadow: inset 0px 0px 4px 4px white; }
 .owscreen.active .specialshadow { box-shadow: inset 0px 0px 4px 4px white; }
+.owscreen.connectedout { box-shadow: inset 0px 0px 0px 2px rgb(0,128,160); }
+.owscreen.active.connectedout { box-shadow: inset 0px 0px 4px 4px rgb(0,128,160); }
+.owscreen.connectedin { box-shadow: inset 0px 0px 0px 2px #C0C0C0; }
+.owscreen.active.connectedin { box-shadow: inset 0px 0px 4px 4px #C0C0C0; }
+.owscreen.connectedout.connectedin { box-shadow: inset 0px 0px 0px 2px rgb(0,192,255); }
+.owscreen.active.connectedout.connectedin { box-shadow: inset 0px 0px 4px 4px rgb(0,192,255); }
 .owscreen.single { cursor: default; }
 .owscreen.bigscreen { width: 128px; height: 128px; }
 .owscreen.gray .roomnodeimg { filter: grayscale(100%); }
@@ -113,6 +119,8 @@ a, a:visited{ color: #80C0FF; }
 .specialshadow { box-shadow: inset 0px 0px 0px 2px black; width: 64px; height: 64px; }
 .owedge { cursor: default; overflow: hidden; width: 16px; height: 16px; position: absolute; box-shadow: inset 0px 0px 0px 1px black; pointer-events: none; user-select: none; color: black; text-align: center; font-size: 12px; line-height: 16px; }
 .owedge.active:not(hover) { box-shadow: inset 0px 0px 3px 3px white; }
+.owedge.unshuffled { opacity: .5; pointer-events: none!important; }
+.owedge.unshuffled.blue { background-color: rgb(96,96,255); }
 .fullowpanel.clickedges .owedge { pointer-events: all; }
 .owedge:hover { box-shadow: inset 0px 0px 0px 1px white; }
 .owedgedot { width: 8px; height: 8px; position: absolute; box-shadow: inset 0px 0px 0px 1px black; background-color: rgb(0,192,255); pointer-events: none; z-index: 1; }
