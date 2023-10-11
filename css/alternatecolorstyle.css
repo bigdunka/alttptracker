@@ -1,0 +1,8 @@
+.unavailable { background-color: #c46902; }
+.available { background-color: #055fe6; }
+.possible { background-color: #faf600; }
+.information { background-color: #d53ae6; }
+.darkavailable { background-color: #034f6d; }
+.darkpossible { background-color: #cdbd00; }
+.partialavailable { background-color: #fee090; }
+.opened { background-color: #858585; }

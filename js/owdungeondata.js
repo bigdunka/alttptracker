@@ -25,7 +25,7 @@
 		createDoubleOverworldScreen(0x16,"Potion Shop","Dark Potion Shop",false,["West","East","River"],"West");
 		createDoubleOverworldScreen(0x17,"Zora Warning","Cafish Warning",false,["West","East","River"],"East");
 		createDoubleOverworldScreen(0x18,"Kakariko","Village of Outcasts",true,["Main","Blocked House","Southwest"],"Main");
-		createDoubleOverworldScreen(0x1A,"Forgotten Forest","Curiosity Shop",false,["Main","Blocked House"],"Main");
+		createDoubleOverworldScreen(0x1A,"Forgotten Forest","Curiosity Shop",false,["Main","Blocked House"],"Blocked House");
 		createDoubleOverworldScreen(0x1B,"Hyrule Castle","Pyramid",true,["Main","East","South","Southwest","Courtyard","Balcony","Pyramid Exit","Passage Exit"],"Courtyard");
 		createDoubleOverworldScreen(0x1D,"Wooden Bridge","Broken Bridge",false,["West","Northeast","Southeast","River"],"Northeast");
 		createDoubleOverworldScreen(0x1E,"Eastern Palace","Palace of Darkness",true,null,"Main");
@@ -53,7 +53,7 @@
 		specialScreen.x = 32;
 		specialScreen.y = 0;
 		specialScreen.file = "pedestal";
-		specialScreen = createOverworldScreen(0x81,"Zora's Domain",false,["Main","Southeast"],"Main");
+		specialScreen = createOverworldScreen(0x81,"Zora's Domain",true,["Main","Southeast"],"Main");
 		specialScreen.x = 384;
 		specialScreen.y = 32;
 		specialScreen.file = "zora";
@@ -323,6 +323,58 @@
 		setEscapeEdges(0x2B,"E0");
 		setEscapeEdges(0x2B,"E1");
 		setEscapeEdges(0x2B,"E2");
+		setRandomizerNames(0x00,"Lost Woods","W","","N","WCE");
+		setRandomizerNames(0x40,"Skull Woods","","","N","WCE");
+		setDoubleRandomizerNames(0x02,"Lumberjack","Dark Lumberjack","","N","","W");
+		setDoubleRandomizerNames(0x03,"West Death Mountain","West Dark Death Mountain","","","NS","");
+		setDoubleRandomizerNames(0x05,"East Death Mountain","East Dark Death Mountain","","NS","N","");
+		setDoubleRandomizerNames(0x07,"Death Mountain TR Pegs","Turtle Rock","","N","","");
+		setDoubleRandomizerNames(0x0A,"Mountain Pass","Bumper Cave","W","","","E");
+		setRandomizerNames(0x0F,"Zora Waterfall","E","","","E");
+		setRandomizerNames(0x4F,"Catfish","","","","E");
+		setDoubleRandomizerNames(0x10,"Lost Woods Pass","Skull Woods Pass","WE","","","WE");
+		setDoubleRandomizerNames(0x11,"Kakariko Fortune","Dark Fortune","E","","NS","C");
+		setDoubleRandomizerNames(0x12,"Kakariko Pond","Outcast Pond","E","NS","NS","WE");
+		setDoubleRandomizerNames(0x13,"Sanctuary","Dark Chapel","","NS","C","");
+		setDoubleRandomizerNames(0x14,"Graveyard","Dark Graveyard","","C","C","");
+		setDoubleRandomizerNames(0x15,"River Bend","Qirn Jump","","C","NCS","WCE");
+		setDoubleRandomizerNames(0x16,"Potion Shop","Dark Witch","","NCS","NC","");
+		setDoubleRandomizerNames(0x17,"Zora Approach","Catfish Approach","E","NC","","");
+		setDoubleRandomizerNames(0x18,"Kakariko","Village of Outcasts","WCE","","S","E");
+		setRandomizerNames(0x1A,"Forgotten Forest","WE","","S","");
+		setRandomizerNames(0x5A,"Shield Shop","WE","","","");
+		setRandomizerNames(0x1B,"Hyrule Castle","","N","S","WE");
+		setRandomizerNames(0x5B,"Pyramid","","","S","WE");
+		setDoubleRandomizerNames(0x1D,"Wooden Bridge","Broken Bridge","WCE","","","W");
+		setDoubleRandomizerNames(0x1E,"Eastern Palace","Palace of Darkness","","","","WE");
+		setDoubleRandomizerNames(0x22,"Blacksmith","Hammer Pegs","","S","","");
+		setDoubleRandomizerNames(0x25,"Sand Dunes","Dark Dunes","W","N","","C");
+		setRandomizerNames(0x28,"Maze Race","","","S","");
+		setRandomizerNames(0x68,"Dig Game","","","CS","");
+		setRandomizerNames(0x29,"Kakariko Suburb","E","S","S","");
+		setRandomizerNames(0x69,"Frog","E","CS","S","");
+		setDoubleRandomizerNames(0x2A,"Flute Boy","Stumpy","","S","","WC");
+		setDoubleRandomizerNames(0x2B,"Central Bonk Rocks","Dark Bonk Rocks","W","","NCS","W");
+		setDoubleRandomizerNames(0x2C,"Links House","Big Bomb Shop","E","NCS","S","C");
+		setRandomizerNames(0x2D,"Stone Bridge","C","CS","NC","C");
+		setRandomizerNames(0x6D,"Hammer Bridge","C","S","NC","C");
+		setDoubleRandomizerNames(0x2E,"Tree Line","Dark Tree Line","W","NC","","CE");
+		setDoubleRandomizerNames(0x2F,"Eastern Nook","Palace of Darkness Nook","E","","","");
+		setRandomizerNames(0x30,"Desert","","","CS","");
+		setRandomizerNames(0x70,"Misery Mire","","","","");
+		setDoubleRandomizerNames(0x32,"Flute Boy Approach","Stumpy Approach","WC","","C","");
+		setDoubleRandomizerNames(0x33,"C Whirlpool","Dark C Whirlpool","W","C","NCS","C");
+		setDoubleRandomizerNames(0x34,"Statues","Hype Cave","C","NCS","","C");
+		setDoubleRandomizerNames(0x35,"Lake Hylia","Ice Lake","WCE","S","CS","");
+		setDoubleRandomizerNames(0x37,"Ice Cave","Shopping Mall","","","","WE");
+		setRandomizerNames(0x3A,"Desert Pass","","CS","CS","");
+		setRandomizerNames(0x7A,"Swamp Nook","","","CS","");
+		setDoubleRandomizerNames(0x3B,"Dam","Swamp","C","CS","C","");
+		setDoubleRandomizerNames(0x3C,"South Pass","Dark South Pass","C","C","S","");
+		setDoubleRandomizerNames(0x3F,"Octoballoon","Bomber Corner","WE","CS","","");
+		setRandomizerNames(0x80,"Master Sword Meadow","","","","C");
+		setRandomizerNames(0x81,"Zoras Domain","","","","W");
+		setRandomizerNames(0x82,"Hobo","","","C","");
 		createSingleLogicEdge(0x00,"Southwest","South",null,true);
 		createSingleLogicEdge(0x00,"Southwest","Northwest",null,true);
 		createDoubleLogicEdge(0x00,"Northwest","North","bushes",true);
@@ -965,8 +1017,8 @@
 	window.checkAutoAdjustments = function(makeAdjustments)
 	{
 		let info = {};
-		let invalidScreensCount = 0,inconsistentGroupsCount = 0,missingScreensCount = 0,inconsistentSimilarCount = 0,inconsistentParallelCount = 0,inconsistentCoupledCount = 0,invalidEdgesCount = 0,invalidIndegreeCount = 0,missingFixedCount = 0,missingSimilarCount = 0,missingParallelCount = 0,missingCoupledCount = 0;
-		let inconsistentGroups = [],missingScreensNormal = [],missingScreensSwapped = [],invalidEdges = [],invalidIndegree = [];
+		let invalidScreensCount = 0,inconsistentGroupsCount = 0,missingScreensCount = 0,inconsistentSimilarCount = 0,inconsistentSwappedCount = 0,inconsistentParallelCount = 0,inconsistentCoupledCount = 0,invalidEdgesCount = 0,invalidIndegreeCount = 0,missingFixedCount = 0,missingSimilarCount = 0,missingSwappedCount = 0,missingParallelCount = 0,missingCoupledCount = 0;
+		let inconsistentGroups = [],missingScreensNormal = [],missingScreensSwapped = [],invalidEdges = [],invalidIndegree = [],inconsistentEdges = [];
 		if(mixedow)
 		{
 			if(worldState === 'S')
@@ -982,7 +1034,7 @@
 								invalidScreensCount++;
 					}
 				}
-			for(let [id,screen] of overworldScreens)
+			for(let id of overworldScreens.keys())
 				if(id < 0x40 || id >= 0x80)
 				{
 					let group = getScreenLinkGroup(id,false);
@@ -1014,16 +1066,16 @@
 			if(makeAdjustments)
 			{
 				for(let group of inconsistentGroups)
-					setMixedScreen(group[0],"unknown");
+					setMixedScreen(overworldScreens.get(group[0]),"unknown");
 				for(let group of missingScreensNormal)
-					setMixedScreen(group[0],"normal");
+					setMixedScreen(overworldScreens.get(group[0]),"normal");
 				for(let group of missingScreensSwapped)
-					setMixedScreen(group[0],"swapped");
+					setMixedScreen(overworldScreens.get(group[0]),"swapped");
 			}
 		}
 		for(let screen of overworldScreens.values())
 			for(let edge of screen.edges.values())
-				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)))
+				if(isShuffledEdge(edge))
 				{
 					if(edge.out && !edgesCompatible(edge,edge.out))
 					{
@@ -1036,7 +1088,7 @@
 				}
 		for(let screen of overworldScreens.values())
 			for(let edge of screen.edges.values())
-				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)))
+				if(isShuffledEdge(edge))
 				{
 					if(decoupledow !== 'C' && edge.in.length > 1)
 					{
@@ -1049,7 +1101,7 @@
 				}
 		for(let screen of overworldScreens.values())
 			for(let edge of screen.edges.values())
-				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
+				if(isShuffledEdge(edge) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
 				{
 					let edgeList1 = getSimilarGroup(edge),edgeList2 = getSimilarGroup(edge.out);
 					let invalid = false;
@@ -1059,14 +1111,37 @@
 							invalid = true;
 							inconsistentSimilarCount++;
 						}
-					if(invalid && makeAdjustments)
+					if(invalid)
 						for(let e of edgeList1)
 							if(e.out)
-								deleteConnections(e,true,false);
+							{
+								inconsistentEdges.push(e);
+								if(decoupledow === 'N' && e.out.out === e)
+									inconsistentEdges.push(e.out);
+							}
 				}
 		for(let screen of overworldScreens.values())
 			for(let edge of screen.edges.values())
-				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
+				if(isShuffledEdge(edge) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
+				{
+					let invalid = false;
+					if(swappedow && edge.vanilla.out && edge.out.vanilla !== edge.vanilla.out)
+					{
+						invalid = true;
+						inconsistentSwappedCount++;
+					}
+					if(invalid)
+					{
+						inconsistentEdges.push(edge,edge.vanilla);
+						if(decoupledow === 'N' && edge.out.out === edge)
+							inconsistentEdges.push(edge.out);
+						if(decoupledow === 'N' && edge.vanilla.out.out === edge.vanilla)
+							inconsistentEdges.push(edge.vanilla.out);
+					}
+			}
+		for(let screen of overworldScreens.values())
+			for(let edge of screen.edges.values())
+				if(isShuffledEdge(edge) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
 				{
 					let invalid = false;
 					if((layoutshuffle === 'P' || (layoutshuffle === 'N' && decoupledow !== 'C')) && edge.parallel && edge.out.parallel && edge.parallel.out && edge.out.parallel !== edge.parallel.out)
@@ -1074,25 +1149,33 @@
 						invalid = true;
 						inconsistentParallelCount++;
 					}
-					if(invalid && makeAdjustments)
+					if(invalid)
 					{
-						deleteConnections(edge,true,false);
-						deleteConnections(edge.parallel,true,false);
+						inconsistentEdges.push(edge,edge.parallel);
+						if(decoupledow === 'N' && edge.out.out === edge)
+							inconsistentEdges.push(edge.out);
+						if(decoupledow === 'N' && edge.parallel.out.out === edge.parallel)
+							inconsistentEdges.push(edge.parallel.out);
 					}
 			}
+		if(makeAdjustments)
+			for(let edge of inconsistentEdges)
+				deleteConnections(edge,true,false);
 		for(let screen of overworldScreens.values())
 			for(let edge of screen.edges.values())
-				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
+				if(isShuffledEdge(edge) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
 				{
 					let invalid = false;
-					if(decoupledow === 'N' && (edge.in.length === 1 && edge.out !== edge.in[0]))
+					if(decoupledow === 'N' && edge.in.length === 1 && edge.out !== edge.in[0])
 					{
 						invalid = true;
 						inconsistentCoupledCount++;
 					}
-					if(invalid && makeAdjustments)
+					if(invalid)
 					{
-						deleteConnections(edge,true,true);
+						inconsistentEdges.push(edge,edge.in[0]);
+						if(makeAdjustments)
+							deleteConnections(edge,true,true);
 					}
 				}
 		for(let [edge1,edge2] of getFixedEdgePairs())
@@ -1104,23 +1187,20 @@
 			}
 		for(let screen of overworldScreens.values())
 			for(let edge of screen.edges.values())
-				if((edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel)) && edge.out && (makeAdjustments || !invalidEdges.includes(edge)))
+				if(isShuffledEdge(edge) && edge.out && (makeAdjustments || (!invalidEdges.includes(edge) && !inconsistentEdges.includes(edge))))
 				{
 					let edgeList = getSimilarGroup(edge);
 					for(let e of edgeList)
-					{
 						if(!e.out)
-							missingSimilarCount++;
-						else
-							if((layoutshuffle === 'P' || (layoutshuffle === 'N' && decoupledow !== 'C')) && edge.parallel && edge.out.parallel && !edge.parallel.out)
-							{
-								missingParallelCount++;
-							}
-					}
+							missingSimilarCount++;//TODO not count inconsistent ones
+					if(swappedow && !edge.vanilla.out)
+						missingSwappedCount++;
+					if((layoutshuffle === 'P' || (layoutshuffle === 'N' && decoupledow !== 'C')) && edge.parallel && edge.out.parallel && !edge.parallel.out)
+						missingParallelCount++;
 					if(decoupledow === 'N' && !edge.in.length)
 						missingCoupledCount++
 					if(makeAdjustments)
-						connectSimilarParallel(edge,edge.out,decoupledow === 'N',decoupledow !== 'C');
+						connectSimilarSwappedParallel(edge,edge.out,decoupledow === 'N',decoupledow !== 'C');
 				}
 		info.invalidScreensCount = invalidScreensCount;
 		info.inconsistentGroupsCount = inconsistentGroupsCount;
@@ -1128,16 +1208,19 @@
 		info.invalidEdgesCount = invalidEdgesCount;
 		info.invalidIndegreeCount = invalidIndegreeCount;
 		info.inconsistentSimilarCount = inconsistentSimilarCount;
+		info.inconsistentSwappedCount = inconsistentSwappedCount;
 		info.inconsistentParallelCount = inconsistentParallelCount;
 		info.inconsistentCoupledCount = inconsistentCoupledCount;
 		info.missingFixedCount = missingFixedCount;
 		info.missingSimilarCount = missingSimilarCount;
+		info.missingSwappedCount = missingSwappedCount;
 		info.missingParallelCount = missingParallelCount;
 		info.missingCoupledCount = missingCoupledCount;
 		info.inconsistentGroups = inconsistentGroups;
 		info.invalidEdges = invalidEdges;
 		info.invalidIndegree = invalidIndegree;
-		info.hasChanges = invalidScreensCount || inconsistentGroupsCount || missingScreensCount || invalidEdgesCount || invalidIndegreeCount || inconsistentSimilarCount || inconsistentParallelCount || inconsistentCoupledCount || missingFixedCount || missingSimilarCount || missingParallelCount || missingCoupledCount;
+		info.inconsistentEdges = inconsistentEdges;
+		info.hasChanges = invalidScreensCount || inconsistentGroupsCount || missingScreensCount || invalidEdgesCount || invalidIndegreeCount || inconsistentSimilarCount || inconsistentSwappedCount || inconsistentParallelCount || inconsistentCoupledCount || missingFixedCount || missingSimilarCount || missingSwappedCount || missingParallelCount || missingCoupledCount;
 		if(!makeAdjustments && info.hasChanges)
 		{
 			document.getElementById("overworldoptionsfinalbox").style.display = "block";
@@ -1161,7 +1244,7 @@
 
 	window.vanillaHorizontal = function(button)
 	{
-		if(confirm("Warning: This will replace all existing horizontal edge connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
+		if(!button || confirm("Warning: This will replace all existing horizontal edge connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
 		{
 			for(let screen of overworldScreens.values())
 				for(let edge of screen.edges.values())
@@ -1179,7 +1262,7 @@
 
 	window.vanillaVertical = function(button)
 	{
-		if(confirm("Warning: This will replace all existing vertical edge connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
+		if(!button || confirm("Warning: This will replace all existing vertical edge connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
 		{
 			for(let screen of overworldScreens.values())
 				for(let edge of screen.edges.values())
@@ -1197,7 +1280,7 @@
 
 	window.vanillaWhirlpools = function(button)
 	{
-		if(confirm("Warning: This will replace all existing whirlpool connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
+		if(!button || confirm("Warning: This will replace all existing whirlpool connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
 		{
 			connectEdgesByKeys(0x0F,"ZW",0x35,"ZW",true,true);
 			connectEdgesByKeys(0x12,"ZW",0x3F,"ZW",true,true);
@@ -1213,9 +1296,83 @@
 		}
 	};
 
+	window.vanillaLight = function(button)
+	{
+		if(!button || confirm("Warning: This will replace all existing connections from Light World edges and whirlpools. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
+		{
+			for(let screen of overworldScreens.values())
+				if(!screen.darkWorld)
+					for(let edge of screen.edges.values())
+						if(edge.direction === "E" || edge.direction === "S" || edge.direction === "Z")
+							connectEdges(edge,edge.vanilla,true,true);
+			if(button)
+			{
+				sendUpdate();
+				updateReachableEdges();
+				drawFullOverworldPanels();
+				buttonFlash(button);
+			}
+		}
+	};
+
+	window.vanillaDark = function(button)
+	{
+		if(!button || confirm("Warning: This will replace all existing connections from Dark World edges and whirlpools. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
+		{
+			for(let screen of overworldScreens.values())
+				if(screen.darkWorld)
+					for(let edge of screen.edges.values())
+						if(edge.direction === "E" || edge.direction === "S" || edge.direction === "Z")
+							connectEdges(edge,edge.vanilla,true,true);
+			if(button)
+			{
+				sendUpdate();
+				updateReachableEdges();
+				drawFullOverworldPanels();
+				buttonFlash(button);
+			}
+		}
+	};
+
+	window.vanillaSmallScreens = function(button)
+	{
+		if(!button || confirm("Warning: This will replace all existing connections from edges and whirlpools that connect two small screens in vanilla. Large screens include Kakariko, Hyrule Castle and Zora's Domain. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
+		{
+			for(let screen of overworldScreens.values())
+				for(let edge of screen.edges.values())
+					if((edge.direction === "E" || edge.direction === "S" || edge.direction === "Z") && !edge.screen.bigInGame && !edge.vanilla.screen.bigInGame)
+						connectEdges(edge,edge.vanilla,true,true);
+			if(button)
+			{
+				sendUpdate();
+				updateReachableEdges();
+				drawFullOverworldPanels();
+				buttonFlash(button);
+			}
+		}
+	};
+
+	window.vanillaLargeScreens = function(button)
+	{
+		if(!button || confirm("Warning: This will replace all existing connections from edges and whirlpools that touch at least one large screen in vanilla. Large screens include Kakariko, Hyrule Castle and Zora's Domain. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
+		{
+			for(let screen of overworldScreens.values())
+				for(let edge of screen.edges.values())
+					if((edge.direction === "E" || edge.direction === "S" || edge.direction === "Z") && (edge.screen.bigInGame || edge.vanilla.screen.bigInGame))
+						connectEdges(edge,edge.vanilla,true,true);
+			if(button)
+			{
+				sendUpdate();
+				updateReachableEdges();
+				drawFullOverworldPanels();
+				buttonFlash(button);
+			}
+		}
+	};
+
 	window.vanillaSpecialScreens = function(button)
 	{
-		if(confirm("Warning: This will replace all existing special screen connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
+		if(!button || confirm("Warning: This will replace all existing special screen connections. Also, these changes cannot be undone without deleting each connection individually. Continue?"))
 		{
 			connectEdgesByKeys(0x00,"N1",0x80,"S1",true,true);
 			connectEdgesByKeys(0x0F,"N1",0x81,"S1",true,true);
@@ -1232,7 +1389,7 @@
 
 	window.clearStatesAndEdges = function(button)
 	{
-		if(confirm("Warning: This will delete all marked Mixed states and connections between screen edges and whirlpools. Also, this cannot be undone. Continue?"))
+		if(!button || confirm("Warning: This will delete all marked Mixed states and connections between screen edges and whirlpools. Also, this cannot be undone. Continue?"))
 		{
 			for(let screen of overworldScreens.values())
 			{
@@ -1277,18 +1434,26 @@
 		return screen.darkWorld;
 	};
 
+	window.isShuffledEdge = function(edge)
+	{
+		return edge.string === "ZW" ?whirlpoolshuffle :layoutshuffle !== 'N' || (crossedow === 'C' && edge.parallel && !swappedow);
+	};
+
 	window.getConnectedEdge = function(edge,sources)
 	{
-		if((edge.string === "ZW" ?!whirlpoolshuffle :layoutshuffle === 'N') && (crossedow !== 'C' || !edge.parallel))
+		if(!isShuffledEdge(edge))
 		{
 			if(mixedow && edge.parallel)
 			{
 				if(edge.screen.mixedState === "unknown" || edge.vanilla.screen.mixedState === "unknown")
 					return sources ?[] :null;
 				let r = crossedow === 'P' || edge.screen.mixedState === edge.vanilla.screen.mixedState ?edge.vanilla :edge.parallel.vanilla;
+				if(swappedow && crossedow === 'C')
+					r = r.parallel;
 				return sources ?[r] :r;
 			}
-			return sources ?[edge.vanilla] :edge.vanilla;
+			let r = swappedow && edge.parallel && crossedow === 'C' ?edge.parallel.vanilla :edge.vanilla;
+			return sources ?[r] :r;
 		}
 		return sources ?edge.in :edge.out;
 	};
@@ -1313,16 +1478,19 @@
 
 	window.getAssumedConnectedEdge = function(edge,sources,assumptions)
 	{
-		if((edge.string === "ZW" ?!whirlpoolshuffle :layoutshuffle === 'N') && (crossedow !== 'C' || !edge.parallel))
+		if(!isShuffledEdge(edge))
 		{
 			if(mixedow && edge.parallel)
 			{
 				if(getAssumedMixedState(edge.screen,assumptions) === "unknown" || getAssumedMixedState(edge.vanilla.screen,assumptions) === "unknown")
 					return sources ?[] :null;
 				let r = crossedow === 'P' || getAssumedMixedState(edge.screen,assumptions) === getAssumedMixedState(edge.vanilla.screen,assumptions) ?edge.vanilla :edge.parallel.vanilla;
+				if(swappedow && crossedow === 'C')
+					r = r.parallel;
 				return sources ?[r] :r;
 			}
-			return sources ?[edge.vanilla] :edge.vanilla;
+			let r = swappedow && edge.parallel && crossedow === 'C' ?edge.parallel.vanilla :edge.vanilla;
+			return sources ?[r] :r;
 		}
 		return sources ?edge.in :edge.out;
 	};
@@ -1373,7 +1541,7 @@
 			if(!edge.water || checkRule("flippers",items,darkWorld))
 			{
 				visitedScreenEdges.add(edge);
-				if(mixedow && (edge.string === "ZW" ?!whirlpoolshuffle :layoutshuffle === 'N') && (!edge.parallel || crossedow !== 'C') && (edge.parallel || crossedow === 'P') && getAssumedMixedState(edge.vanilla.screen,assumptions) === "unknown")
+				if(mixedow && !isShuffledEdge(edge) && (edge.parallel || crossedow === 'P') && getAssumedMixedState(edge.vanilla.screen,assumptions) === "unknown")
 				{
 					addContinueRegion(edge.vanilla.screen.id,getAssumedMixedState(current.screen,assumptions),edge.vanilla.region,crossedow === 'P' ?edge.vanilla.region :edge.parallel.vanilla.region,checkableScreens,continueRegions);
 				}
@@ -2344,6 +2512,35 @@
 		createSingleLogicEdge(screenID+0x40,regionName1,regionName2,rule,bidirectional);
 	};
 
+	window.setRandomizerNames = function(screenID,name,north,west,east,south)
+	{
+		let screen = overworldScreens.get(screenID);
+		let edgeNameData = {"N":north,"W":west,"E":east,"S":south};
+		let counts = {"N":0,"W":0,"E":0,"S":0};
+		screen.randomizerName = name;
+		for(let edge of screen.edges.values())
+		{
+			if(edge.direction === "Z")
+			{
+				let baseName = name;
+				if(baseName.endsWith(" Waterfall") || baseName.endsWith(" Whirlpool"))
+					baseName = baseName.substring(0,baseName.length-10);
+				edge.randomizerName = baseName+" Whirlpool";
+			}
+			else
+			{
+				edge.randomizerName = name+" "+edge.direction+edgeNameData[edge.direction].charAt(counts[edge.direction]);
+				counts[edge.direction]++;
+			}
+		}
+	};
+
+	window.setDoubleRandomizerNames = function(screenID,nameLight,nameDark,north,west,east,south)
+	{
+		setRandomizerNames(screenID,nameLight,north,west,east,south);
+		setRandomizerNames(screenID+0x40,nameDark,north,west,east,south);
+	};
+
 	window.setEscapeEdges = function(screenID,edgeString)
 	{
 		let edge = overworldScreens.get(screenID).edges.get(edgeString);
@@ -2436,7 +2633,8 @@
 		screen.darkWorld = screenID >= 0x40 && screenID < 0x80;
 		screen.special = screenID >= 0x80;
 		screen.name = name;
-		screen.big = big;
+		screen.big = big && screenID < 0x80;
+		screen.bigInGame = big;
 		screen.edges = new Map();
 		screen.regions = new Map();
         screen.entranceRegions = [];
@@ -2582,14 +2780,14 @@
 				return k === edge.symbol;
 	};
 
-	window.connectSimilarParallel = function(edge1,edge2,bidirectional,indegreeOne)
+	window.connectSimilarSwappedParallel = function(edge1,edge2,bidirectional,indegreeOne)
 	{
 		if(similarow && (terrainow ?(edge1.similarGroupTerrain !== 1 && edge1.similarGroupTerrain === edge2.similarGroupTerrain) :(edge1.similarGroup !== 1 && edge1.similarGroup === edge2.similarGroup)))
 		{
 			let edges1 = edge1.screen.edges,edges2 = edge2.screen.edges;
 			if((terrainow ?edge1.similarGroupTerrain :edge1.similarGroup) === 3)
 				for(let k = 0; k < 3; k++)
-					connectParallel(edges1.get(edge1.direction+k),edges2.get(edge2.direction+k),bidirectional,indegreeOne);
+					connectSwappedParallel(edges1.get(edge1.direction+k),edges2.get(edge2.direction+k),bidirectional,indegreeOne);
 			else
 			{
 				let edgeList1 = [],edgeList2 = [];
@@ -2600,12 +2798,19 @@
 					if(edges2.has(edge2.direction+k) && (terrainow ?edges2.get(edge2.direction+k).similarGroupTerrain :edges2.get(edge2.direction+k).similarGroup) === 2)
 						edgeList2.push(edges2.get(edge2.direction+k));
 				}
-				connectParallel(edgeList1[0],edgeList2[0],bidirectional,indegreeOne);
-				connectParallel(edgeList1[1],edgeList2[1],bidirectional,indegreeOne);
+				connectSwappedParallel(edgeList1[0],edgeList2[0],bidirectional,indegreeOne);
+				connectSwappedParallel(edgeList1[1],edgeList2[1],bidirectional,indegreeOne);
 			}
 		}
 		else
-			connectParallel(edge1,edge2,bidirectional,indegreeOne);
+			connectSwappedParallel(edge1,edge2,bidirectional,indegreeOne);
+	};
+
+	window.connectSwappedParallel = function(edge1,edge2,bidirectional,indegreeOne)
+	{
+		connectParallel(edge1,edge2,bidirectional,indegreeOne);
+		if(swappedow && edge1 != edge2 && edge1.vanilla != edge2)
+			connectParallel(edge1.vanilla,edge2.vanilla,bidirectional,indegreeOne);
 	};
 
 	window.connectParallel = function(edge1,edge2,bidirectional,indegreeOne)
@@ -2630,21 +2835,28 @@
 		}
 	};
 
-	window.deleteSimilarParallel = function(edge,deleteOut,deleteIn)
+	window.deleteSimilarSwappedParallel = function(edge,deleteOut,deleteIn)
 	{
 		if(similarow && (terrainow ?edge.similarGroupTerrain :edge.similarGroup) !== 1)
 		{
 			let edges = edge.screen.edges;
 			if((terrainow ?edge.similarGroupTerrain :edge.similarGroup) === 3)
 				for(let k = 0; k < 3; k++)
-					deleteParallel(edges.get(edge.direction+k),deleteOut,deleteIn);
+					deleteSwappedParallel(edges.get(edge.direction+k),deleteOut,deleteIn);
 			else
 				for(let k = 0; k < 3; k++)
 					if(edges.has(edge.direction+k) && (terrainow ?edges.get(edge.direction+k).similarGroupTerrain :edges.get(edge.direction+k).similarGroup) === 2)
-						deleteParallel(edges.get(edge.direction+k),deleteOut,deleteIn);
+						deleteSwappedParallel(edges.get(edge.direction+k),deleteOut,deleteIn);
 		}
 		else
-			deleteParallel(edge,deleteOut,deleteIn);
+			deleteSwappedParallel(edge,deleteOut,deleteIn);
+	};
+
+	window.deleteSwappedParallel = function(edge,deleteOut,deleteIn)
+	{
+		deleteParallel(edge,deleteOut,deleteIn);
+		if(swappedow)
+			deleteParallel(edge.vanilla,deleteOut,deleteIn);
 	};
 
 	window.deleteParallel = function(edge,deleteOut,deleteIn)

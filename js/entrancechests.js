@@ -4526,7 +4526,7 @@
 				is_connector: false,
 				is_available: function() {
 					if (hasFoundEntrance(68)) return 'available';
-					if (canReachDWWDM() && items.mirror) return 'available';
+					if ((canReachDWWDM() || canReachWDM()) && items.mirror) return 'available';
 					return (canReachWDMNorth()) ? 'available' : 'unavailable';
 				}
 			}, { // [69]
