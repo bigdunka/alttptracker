@@ -2888,19 +2888,19 @@
 				}
 			}
 			
-			if ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod) && items.smallkey10 > 0 && items.bigkey10) {
+			if ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod) && (items.smallkey10 > 0 || flags.entrancemode != 'Y') && items.bigkey10) {
 				//Mini Helmasaur Room - Left - 3
-				chests[23] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+				chests[23] = ((items.smallkey10 > 2 || flags.gametype == 'R' || flags.entrancemode != 'Y') ? 'A' : 'P');
 				//Mini Helmasaur Room - Right - 3
-				chests[24] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+				chests[24] = ((items.smallkey10 > 2 || flags.gametype == 'R' || flags.entrancemode != 'Y') ? 'A' : 'P');
 
 				if (items.bomb) {
 					//Pre-Moldorm Chest - 3
-					chests[25] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+					chests[25] = ((items.smallkey10 > 2 || flags.gametype == 'R' || (flags.entrancemode != 'Y' && items.smallkey10 > 0)) ? 'A' : 'P');
 					
 					if (items.hookshot) {
 						//Moldorm Chest - 3
-						chests[26] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+						chests[26] = ((items.smallkey10 > 2 || flags.gametype == 'R' || (flags.entrancemode != 'Y' && items.smallkey10 > 1)) ? 'A' : 'P');
 					}
 				}
 			}

@@ -1653,7 +1653,7 @@
 				is_opened: false,
 				is_available: function() {
 					if (items.glove === 0 && !activeFlute()) return 'unavailable';
-					return (items.boots || items.hookshot) && (items.glove || (items.mirror && (items.moonpearl || items.glove === 2))) ?
+					return (items.boots || items.hookshot) && (items.glove || (items.mirror && ((items.moonpearl && items.hookshot) || items.glove === 2))) ?
 						(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
 						'unavailable';
 				}
