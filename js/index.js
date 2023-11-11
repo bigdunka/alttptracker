@@ -2,7 +2,7 @@ var startingitemstring = "00000000000000000000000000";
 
 function load_cookie() {
 	var c = document.cookie;
-	
+
 	if (c.indexOf('settings') > -1) {
 		document.getElementById("remembersettings").checked = true;
 		if (c.indexOf('m-M') > -1) {
@@ -35,6 +35,9 @@ function load_cookie() {
 			}
 			document.getElementById("spriteselect").value = sprite;
 		}
+		if (c.indexOf('c-Y') > -1) {
+			document.getElementById("alternatecoloryes").checked = true;
+		}
 	}
 }
 
@@ -60,7 +63,7 @@ function setstartingitem(x, y, z) {
 	document.getElementById("starting" + x).classList.remove(x + startingitemstring.charAt(y));
 	startingitemstring = startingitemstring.substring(0, y) + z + startingitemstring.substring(y + 1);
 	document.getElementById("starting" + x).classList.add(x + startingitemstring.charAt(y));
-	document.getElementById("starting" + x).style.opacity = (startingitemstring.charAt(y) === "0" ? "0.25" : "1.0");	
+	document.getElementById("starting" + x).style.opacity = (startingitemstring.charAt(y) === "0" ? "0.25" : "1.0");
 }
 
 function resetallstartingitems() {
@@ -95,7 +98,7 @@ function resetallstartingitems() {
 function launch_tracker() {
 	var world = document.querySelector('input[name="gametypegroup"]:checked').value;
 	var entrance = document.querySelector('input[name="entrancegroup"]:checked').value;
-	var door = document.querySelector('input[name="doorgroup"]:checked').value;	
+	var door = document.querySelector('input[name="doorgroup"]:checked').value;
 	var overworld = document.querySelector('input[name="overworldgroup"]:checked').value;
 	var boss = document.querySelector('input[name="bossgroup"]:checked').value;
 	var enemy = document.querySelector('input[name="enemygroup"]:checked').value;
@@ -120,6 +123,7 @@ function launch_tracker() {
 	var map = document.querySelector('input[name="mapgroup"]:checked').value;
 	var spoiler = document.querySelector('input[name="spoilergroup"]:checked').value;
 	var sphere = document.querySelector('input[name="spheregroup"]:checked').value;
+	var color = document.querySelector('input[name="alternatecolorgroup"]:checked').value;
 	var autotracking = document.querySelector('input[name="autotrackinggroup"]:checked').value;
 	var trackingport = document.getElementById('autotrackingport').value;
 	var trackinghost = document.getElementById('autotrackinghost').value;
@@ -128,7 +132,7 @@ function launch_tracker() {
 	var restreamdelay = document.getElementById('restreamingdelay').value;
 	var spritesel = document.getElementById("spriteselect");
 	var sprite = spritesel.options[spritesel.selectedIndex].value;
-	
+
 	if (restreamingcode != "") {
 		if (restreamingcode.length != 6) {
 			alert("Restreaming codes require exactly 6 characters");
@@ -143,23 +147,23 @@ function launch_tracker() {
 	} else {
 		restreamingcode = "000000";
 	}
-	
+
 	var width = map === "M" ? 1340 : 448;
 	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
-	
+
 	if (document.getElementById("remembersettings").checked == true) {
-		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + (trackinghost ? "|" + trackinghost : "") + "|p-" + sprite;
+		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + (trackinghost ? "|" + trackinghost : "") + "|c-" + color + "|p-" + sprite;
 		document.cookie = "settings=" + settings + "; expires=Sat, 3 Jan 2026 12:00:00 UTC";
 	} else {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
 	}
-	
+
 	if (glitches === 'O' && world === "I") {
 		alert('NOTICE: Inverted OWG is currently not supported for logic, all locations will be flagged as available.');
 		glitches = 'M';
 	}
 
-	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}&s={startingitemstring}&p={sprite}&h={trackinghost}&r={epoch}'
+	var trackerWindow = window.open('tracker.html?f={world}{entrance}{door}{overworld}{boss}{enemy}{unknown}{glitches}{shuffledmaps}{shuffledcompasses}{shuffledsmallkeys}{shuffledbigkeys}{shopsanity}{ambrosia}{nonprogressivebows}{activatedflute}{goal}{tower}{towercrystals}{ganon}{ganoncrystals}{swords}&d={map}{spoiler}{sphere}{color}{autotracking}{trackingport}{restreamingcode}{restreamer}{restreamdelay}&s={startingitemstring}&p={sprite}&h={trackinghost}&r={epoch}'
 			.replace('{world}', world)
 			.replace('{entrance}', entrance)
 			.replace('{door}', door)
@@ -185,6 +189,7 @@ function launch_tracker() {
 			.replace('{map}', map)
 			.replace('{spoiler}', spoiler)
 			.replace('{sphere}', sphere)
+			.replace('{color}', color)
 			.replace('{autotracking}', autotracking)
 			.replace('{trackingport}', String(trackingport).padStart(4, '0'))
 			.replace('{restreamingcode}', restreamingcode)
@@ -228,6 +233,9 @@ function loadarchivepreset() {
 		case "Enemizer":
 			loadenemizerpreset();
 			break;
+		case "FADKeysanity":
+			loadadkeyspreset();
+			break;
 		case "GoldRush":
 			loadgoldrushspreset();
 			break;
@@ -245,6 +253,9 @@ function loadarchivepreset() {
 			break;
 		case "LudicrousSpeed":
 			loadludicrouspreset();
+			break;
+		case "MCBoss":
+			loadmcbosspreset();
 			break;
 		case "MCShuffle":
 			loadmcshufflepreset();
@@ -273,10 +284,44 @@ function loadarchivepreset() {
 		case "Standard":
 			loadstandardpreset();
 			break;
-		
+		case "StandardBoots":
+			loadstandardbootspreset();
+			break;
+		case "Patron":
+			loadpatronpreset();
+			break;
+
 	}
-	
-	
+
+
+}
+
+function loadopenpreset() {
+	resetallstartingitems();
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	showToast();
 }
 
 function loadopenpreset() {
@@ -530,7 +575,7 @@ function loadopenkeyspreset() {
 	document.getElementById("nonprogressivebowsno").checked = true;
 	document.getElementById("activatedfluteno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
-	showToast();	
+	showToast();
 }
 
 function loadadkeyspreset() {
@@ -558,7 +603,7 @@ function loadadkeyspreset() {
 	document.getElementById("nonprogressivebowsno").checked = true;
 	document.getElementById("activatedfluteno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
-	showToast();	
+	showToast();
 }
 
 function loadreducedpreset() {
@@ -614,8 +659,8 @@ function loadinvrosiapreset() {
 	document.getElementById("nonprogressivebowsno").checked = true;
 	document.getElementById("activatedfluteno").checked = true;
 	window.scrollTo(0,document.body.scrollHeight);
-	showToast();		
-	
+	showToast();
+
 }
 
 function loadstandardpreset() {
@@ -1043,37 +1088,97 @@ function loadchuntpreset() {
 	showToast();
 }
 
+function loadstandardbootspreset() {
+	resetallstartingitems();
+	setstartingitem("boots",22,"1");
+	document.getElementById("gametypestandard").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	showToast();
+}
+
+function loadpatronpreset() {
+	resetallstartingitems();
+	setstartingitem("hookshot",3,"1");
+	setstartingitem("glove",23,"1");
+	setstartingitem("flute",14,"1");
+	document.getElementById("gametypeinverted").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossshuffled").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalfast").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 0;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteyes").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	showToast();
+}
+
 
 function importflags() {
 	var i = document.getElementById("importflag").value;
-	
+
 	if (i.indexOf('/') > 1) {
 		i = i.substr(i.lastIndexOf('/') + 1);
 	}
 	if (i.indexOf('#') > 1) {
 		i = i.substr(0,i.indexOf('#'));
 	}
-	
+
 	$.getJSON("https://alttpr-patch-data.s3.us-east-2.amazonaws.com/" + i + ".json", function(data) {
 		var d = data.spoiler;
-		
+
 		if (d.meta.spoilers === "mystery") {
 			loadmysterypreset(false);
 		} else {
 			document.getElementById("gametype" + d.meta.mode).checked = true;
-			
+
 			//Entrance flag
 			if (d.meta.shuffle != null) {
 				document.getElementById("entrancesimple").checked = true;
 			} else {
 				document.getElementById("entrancenone").checked = true;
 			}
-			
+
 			document.getElementById("doornone").checked = true;
 			document.getElementById("overworldno").checked = true;
 			document.getElementById("shopsanityno").checked = true;
 			document.getElementById("ambrosiano").checked = true;
-			
+
 			if (data.spoiler.meta["enemizer.enemy_shuffle"] === "none") {
 				document.getElementById("enemynone").checked = true;
 			} else {
@@ -1084,7 +1189,7 @@ function importflags() {
 			} else {
 				document.getElementById("bossshuffled").checked = true;
 			}
-			
+
 			//Glitches flag
 			switch (d.meta.dungeon_items) {
 				case "standard":
@@ -1113,7 +1218,7 @@ function importflags() {
 					break;
 			}
 			//document.getElementById("placement" + d.meta.item_placement).checked = true;
-			
+
 			switch (d.meta.goal) {
 				case "ganon":
 					document.getElementById("goalganon").checked = true;
@@ -1130,9 +1235,9 @@ function importflags() {
 				default:
 					document.getElementById("goalother").checked = true;
 					break;
-				
+
 			}
-			
+
 			if (d.meta.entry_crystals_tower === 'random') {
 				document.getElementById("goalrandom").checked = true;
 				document.getElementById("towerselect").value = 7;
@@ -1148,16 +1253,16 @@ function importflags() {
 				document.getElementById("ganoncrystal").checked = true;
 				document.getElementById("ganonselect").value = d.meta.entry_crystals_ganon;
 			}
-			
+
 			document.getElementById("swords" + d.meta.weapons).checked = true;
 		}
-		
+
 		window.scrollTo(0,document.body.scrollHeight);
 		showToast();
 	});
 }
 
-			
+
 function showToast() {
   // Get the snackbar DIV
   var x = document.getElementById("snackbar");
@@ -1172,7 +1277,7 @@ function showToast() {
 function togglediv(x) {
 	var d = document.getElementById(x + "div");
 	var a = document.getElementById(x + "arrow");
-	
+
 	if (d.style.display === "block") {
 		d.style.display = "none";
 		a.innerHTML = "&#9660;";
@@ -1185,7 +1290,7 @@ function togglediv(x) {
 function togglereleasediv(x) {
 	var d = document.getElementById("release" + x);
 	var a = document.getElementById("arrow" + x);
-	
+
 	if (d.style.display === "block") {
 		d.style.display = "none";
 		a.innerHTML = "&#9660;";

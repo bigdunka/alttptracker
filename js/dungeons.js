@@ -62,7 +62,7 @@
 				if (items.sword > 0 || items.hammer || items.bow > 1) return 'available';
 				break;
 			case 5:
-				if (items.hookshot && (items.sword > 0 || items.hammer)) return 'available';
+				if (items.hookshot && ((items.sword > 0 || items.hammer || (items.bow > 1 && (items.firerod || items.icerod))) || ((items.firerod || items.icerod) && items.bottle > 1 || (items.bottle > 0 && items.magic)))) return 'available';
 				break;
 			case 6:
 				if (items.sword > 0 || items.hammer || items.firerod || items.byrna || items.somaria) return 'available';
@@ -672,22 +672,22 @@
 			if (found) {
 				var c = dungeonChests(dungeonID,entranceAvail,entranceBunny);
 				if (c === 'available') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'lime';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'lime' : '#055fe6');
 					document.getElementById('chest'+dungeonID).style.color = 'black';
 				} else if (c === 'darkavailable') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'blue';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'blue' : '#034f6d');
 					document.getElementById('chest'+dungeonID).style.color = 'white';
 				} else if (c === 'possible') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'yellow';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'yellow' : '#faf600');
 					document.getElementById('chest'+dungeonID).style.color = 'black';
 				} else if (c === 'darkpossible') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'purple';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'purple' : '#cdbd00');
 					document.getElementById('chest'+dungeonID).style.color = 'white';
 				} else if (c === 'unavailable') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'red';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'red' : '#c46902');
 					document.getElementById('chest'+dungeonID).style.color = 'white';
 				} else if (c === 'information') {
-					document.getElementById('chest'+dungeonID).style.backgroundColor = 'orange';
+					document.getElementById('chest'+dungeonID).style.backgroundColor = (flags.colormode === "N" ? 'orange' : '#d53ae6');
 					document.getElementById('chest'+dungeonID).style.color = 'black';
 				}
 				if (dungeonID < 10) {
@@ -1130,7 +1130,7 @@
 			}
 		} else {
 			if (items.lantern || items.firerod) {
-				chests[2] = (isDark ? 'DA' : 'A');
+				chests[2] = (flags.wildkeys ? (isDark ? 'DA' : 'A') : 'K');
 			} else {
 				chests[2] = 'U';
 			}
@@ -2888,19 +2888,19 @@
 				}
 			}
 			
-			if ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod) && items.smallkey10 > 0 && items.bigkey10) {
+			if ((items.bow > 1 || flags.enemyshuffle != 'N') && (items.lantern || items.firerod) && (items.smallkey10 > 0 || flags.entrancemode != 'Y') && items.bigkey10) {
 				//Mini Helmasaur Room - Left - 3
-				chests[23] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+				chests[23] = ((items.smallkey10 > 2 || flags.gametype == 'R' || flags.entrancemode != 'Y') ? 'A' : 'P');
 				//Mini Helmasaur Room - Right - 3
-				chests[24] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+				chests[24] = ((items.smallkey10 > 2 || flags.gametype == 'R' || flags.entrancemode != 'Y') ? 'A' : 'P');
 
 				if (items.bomb) {
 					//Pre-Moldorm Chest - 3
-					chests[25] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+					chests[25] = ((items.smallkey10 > 2 || flags.gametype == 'R' || (flags.entrancemode != 'Y' && items.smallkey10 > 0)) ? 'A' : 'P');
 					
 					if (items.hookshot) {
 						//Moldorm Chest - 3
-						chests[26] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
+						chests[26] = ((items.smallkey10 > 2 || flags.gametype == 'R' || (flags.entrancemode != 'Y' && items.smallkey10 > 1)) ? 'A' : 'P');
 					}
 				}
 			}

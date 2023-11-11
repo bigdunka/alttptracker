@@ -1653,7 +1653,7 @@
 				is_opened: false,
 				is_available: function() {
 					if (items.glove === 0 && !activeFlute()) return 'unavailable';
-					return (items.boots || items.hookshot) && (items.glove || (items.mirror && (items.moonpearl || items.glove === 2))) ?
+					return (items.boots || items.hookshot) && (items.glove || (items.mirror && ((items.moonpearl && items.hookshot) || items.glove === 2))) ?
 						(items.lantern || activeFlute() ? 'available' : 'darkavailable') :
 						'unavailable';
 				}
@@ -1700,7 +1700,7 @@
 				caption: 'Gary\'s Lunchbox (save the frog first)',
 				is_opened: false,
 				is_available: function() {
-					return (items.mirror || (items.glove === 2 && (items.moonpearl || items.agahnim))) && canReachLightWorldBunny() ? 'available' : 'unavailable';
+					return (items.mirror || (items.glove === 2 && activeFlute()) || (items.glove === 2 && (items.moonpearl || items.agahnim))) && canReachLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [29]
 				caption: 'Fugitive under the bridge {flippers}',
@@ -1938,7 +1938,7 @@
 				caption: 'Take the frog home',
 				is_opened: false,
 				is_available: function() {
-					return (items.mirror || (items.glove === 2 && (items.moonpearl || items.agahnim))) && canReachLightWorldBunny() ? 'available' : 'unavailable';
+					return (items.mirror || (items.glove === 2 && activeFlute()) || (items.glove === 2 && (items.moonpearl || items.agahnim))) && canReachLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [61]
 				caption: 'Fat Fairy: Buy OJ bomb from Light Link\'s House after {crystal}5 {crystal}6 (2 items)',
@@ -2076,7 +2076,7 @@
 				caption: 'Potion Shop (3)',
 				is_opened: false,
 				is_available: function() {
-					return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'possible') : 'unavailable';
+					return canReachLightWorld() ? 'available' : 'unavailable';
 				}
 			}, { // [77]
 				caption: 'Pond of Happiness (2)',
@@ -2968,7 +2968,7 @@
 				caption: 'Dark Death Mountain Shop (3)',
 				is_opened: false,
 				is_available: function() {
-					return items.moonpearl && items.glove === 2 && (items.hookshot || (items.mirror && items.hammer)) ?
+					return items.glove === 2 && (items.hookshot || (items.mirror && items.hammer)) ?
 						items.lantern || items.flute ? 'available' : 'darkavailable' : 'unavailable';
 				}
 			}, { // [73]
