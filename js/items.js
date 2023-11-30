@@ -37,6 +37,7 @@
 		restreamdelay: query.d.substr(16),
 		startingitems: query.s,
         sprite: query.p.replace('#','').replace('!',''),
+        trackinghost: (query.h)||"localhost",
     };
 	
 	window.maptype = query.map;
