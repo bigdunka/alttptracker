@@ -948,21 +948,25 @@
 		if (label.substring(0,12) === 'smallkeyhalf') {
 			if (flags.gametype != 'R') {
 				var value = items.inc(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 				skipkey = true;
 			} else {
 				var value = items.dec(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 				skipkey = true;
 			}
         }		
-		if (label.substring(0,8) === 'smallkey' && label.substring(0,12) != 'smallkeyhalf') {
+		else if (label.substring(0,8) === 'smallkey') {
 			if (flags.gametype != 'R') {
 				var value = items.inc(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 				skipkey = true;
 			} else {
 				var value = items.dec(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 				skipkey = true;
 			}
@@ -1323,18 +1327,22 @@
 		if (label.substring(0,12) === 'smallkeyhalf') {
 			if (flags.gametype != 'R') {
 				var value = items.dec(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 			} else {
 				var value = items.inc(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 			}
         }		
-		if (label.substring(0,8) === 'smallkey' && label.substring(0,12) != 'smallkeyhalf') {
+		else if (label.substring(0,8) === 'smallkey') {
 			if (flags.gametype != 'R') {
 				var value = items.dec(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 			} else {
 				var value = items.inc(label);
+				document.getElementById(label).style.color = (value === items.range[label].max) ? "green" : "white";
 				document.getElementById(label).innerHTML = value;
 			}
         }
@@ -2328,6 +2336,172 @@
 		$('#flagsModal').hide();
 	}
 
+	window.updateMysteryPointTotal = function() {
+		var worldstate = 0;
+		switch (document.getElementById("stateselect").value) {
+			case "O":
+			case "S":
+				worldstate = 0;
+				break;
+			case "I":
+			case "R":
+				worldstate = 20
+				break;
+		}
+		
+		var goal = 0;
+		switch (document.getElementById('goalselect').value) {
+			case 'G':
+			case 'F':
+				goal = 0;
+				break;
+			case 'A':
+			case 'P':
+				goal = 10;
+				break;
+			case 'O':
+				goal = 20;
+				break;
+		}
+
+		var swords = 0;
+		switch (document.getElementById('swordselect').value) {
+			case "R":
+			case "A":
+				swords = 0;
+				break;
+			case "V":
+				swords = 10;
+				break;
+			case "S":
+				swords = 20;
+				break;
+		}
+
+		var itempool = 0;
+		switch (document.getElementById('itempoolselect').value) {
+			case "N":
+				itempool = 0;
+				break;
+			case "H":
+				itempool = 20;
+				break;
+			case "E":
+				itempool = 30;
+				break;
+		}
+
+		var accessibility = 0;
+		switch (document.getElementById('accessibilityselect').value) {
+			case "100":
+				accessibility = 0;
+				break;
+			case "B":
+				accessibility = 10;
+				break;
+		}
+
+		var opentower = 0;
+		switch (flags.opentowercount) {
+			case 0:
+			case 1:
+				opentower = 20;
+				break;
+			case 2:
+			case 3:
+			case 4:
+				opentower = 10;
+				break;
+			default:
+				opentower = 0;
+				break;
+		}
+
+		var ganonvuln = 0;
+		switch (flags.ganonvulncount) {
+			case 3:
+			case 4:
+				ganonvuln = 10;
+				break;
+			default:
+				ganonvuln = 0;
+				break;
+		}
+
+		var hints = 0;
+		switch (document.getElementById('hintselect').value) {
+			case "Y":
+				hints = 10;
+				break;
+			case "N":
+				hints = 0;
+				break;
+		}
+
+		var bossshuffle = 0;
+		switch (document.getElementById('bossselect').value) {
+			case "N":
+				bossshuffle = 0;
+				break;
+			case "S":
+				bossshuffle = 20;
+				break;
+			case "R":
+				bossshuffle = 30;
+				break;
+		}
+
+		var enemyshuffle = 0;
+		switch (document.getElementById('enemyselect').value) {
+			case "N":
+				enemyshuffle = 0;
+				break;
+			case "S":
+				enemyshuffle = 20;
+				break;
+		}
+
+		var enemydamage = 0;
+		switch (document.getElementById('enemydamageselect').value) {
+			case "N":
+				enemydamage = 0;
+				break;
+			case "S":
+				enemydamage = 30;
+				break;
+		}
+
+		var enemyhealth = 0;
+		switch (document.getElementById('enemyhealthselect').value) {
+			case "N":
+				enemyhealth = 0;
+				break;
+			case "E":
+				enemyhealth = 20;
+				break;
+			case "H":
+				enemyhealth = 30;
+				break;
+		}
+
+		var dungeonitems = 0;
+		dungeonitems += (document.getElementById('shuffledmaps').checked) ? 10 : 0;
+		dungeonitems += (document.getElementById('shuffledcompasses').checked) ? 10 : 0;
+		dungeonitems += (document.getElementById('shuffledkeys').checked) ? 10 : 0;
+		dungeonitems += (document.getElementById('shuffledbigkeys').checked) ? 10 : 0;
+
+		var startingitems = 0;
+		startingitems += (document.getElementById('starthookshot').checked) ? 20 : 0;
+		startingitems += (document.getElementById('startfirerod').checked) ? 20 : 0;
+		startingitems += (document.getElementById('starticerod').checked) ? 20 : 0;
+		startingitems += (document.getElementById('startflippers').checked) ? 20 : 0;
+		startingitems += (document.getElementById('startflute').checked) ? 20 : 0;
+		startingitems += (document.getElementById('startmirror').checked) ? 20 : 0;
+		startingitems += (document.getElementById('startboots').checked) ? 0 : 20;
+
+		document.getElementById("mysterypointtotal").innerHTML = (worldstate + goal + swords + itempool + accessibility + opentower + ganonvuln + hints + bossshuffle + enemyshuffle + enemydamage + enemyhealth + dungeonitems + startingitems);
+	}
+
 	window.adjustFlags = function() {
 		//Clean up states and variables before we start
 		click_map();
@@ -2519,70 +2693,8 @@
 				}
 			}
 			
-			items.inc = limit(1, {
-				tunic: { min: 1, max: 3 },
-				sword: { max: 4 },
-				shield: { max: 3 },
-				bottle: { max: 4 },
-				bow: { max: 3 },
-				boomerang: { max: 3 },
-				glove: { max: 2 },
-				smallkey0: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 0 },
-				smallkey1: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey2: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey3: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 6 },
-				smallkey4: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey5: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 3 },
-				smallkey6: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey7: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 2 },
-				smallkey8: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 3 },
-				smallkey9: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 4 },
-				smallkey10: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 4 },
-				smallkeyhalf0: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkeyhalf1: { min: 0, max: document.getElementById('doorselect').value === 'C' ? 29 : 2 },
-				chest0: { min: 0, max: maxchests0 },
-				chest1: { min: 0, max: maxchests1 },
-				chest2: { min: 0, max: maxchests2 },
-				chest3: { min: 0, max: maxchests3 },
-				chest4: { min: 0, max: maxchests4 },
-				chest5: { min: 0, max: maxchests5 },
-				chest6: { min: 0, max: maxchests6 },
-				chest7: { min: 0, max: maxchests7 },
-				chest8: { min: 0, max: maxchests8 },
-				chest9: { min: 0, max: maxchests9 },
-				chest10: { min: 0, max: maxchests10 },
-				chest11: { min: 0, max: maxchests11 },
-				chest12: { min: 0, max: maxchests12 }
-			}); 
-			
-			items.dec = limit(-1, {
-				chest0: { max: maxchests0 },
-				chest1: { max: maxchests1 },
-				chest2: { max: maxchests2 },
-				chest3: { max: maxchests3 },
-				chest4: { max: maxchests4 },
-				chest5: { max: maxchests5 },
-				chest6: { max: maxchests6 },
-				chest7: { max: maxchests7 },
-				chest8: { max: maxchests8 },
-				chest9: { max: maxchests9 },
-				chest10: { max: maxchests10 },
-				chest11: { max: maxchests11 },
-				chest12: { max: maxchests12 },
-				smallkey0: { max: document.getElementById('doorselect').value === 'C' ? 29 : 0 },
-				smallkey1: { max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey2: { max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey3: { max: document.getElementById('doorselect').value === 'C' ? 29 : 6 },
-				smallkey4: { max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey5: { max: document.getElementById('doorselect').value === 'C' ? 29 : 3 },
-				smallkey6: { max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkey7: { max: document.getElementById('doorselect').value === 'C' ? 29 : 2 },
-				smallkey8: { max: document.getElementById('doorselect').value === 'C' ? 29 : 3 },
-				smallkey9: { max: document.getElementById('doorselect').value === 'C' ? 29 : 4 },
-				smallkey10: { max: document.getElementById('doorselect').value === 'C' ? 29 : 4 },
-				smallkeyhalf0: { max: document.getElementById('doorselect').value === 'C' ? 29 : 1 },
-				smallkeyhalf1: { max: document.getElementById('doorselect').value === 'C' ? 29 : 2 }
-			});
+			items.inc = limit(1, items.range);
+			items.dec = limit(-1, items.range);
 
 			flags.doorshuffle = document.getElementById('doorselect').value;
 
@@ -2962,6 +3074,7 @@
 			}
 		}
 		
+		updateMysteryPointTotal();
 		$('#flagsModal').hide();
 	}
 	
