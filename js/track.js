@@ -973,11 +973,19 @@
 			is_boss = nodes[0].classList.contains('boss');
 			if ((typeof items[label]) === 'boolean') {
 				items[label] = !items[label];
-				
+
 				if (items[label] == true)
 					lastItem = label;
 				else
 					lastItem = null;
+				if (label === 'mushroom') {
+					if (!window.mushroomfound) {
+						window.mushroomfound = true;
+					}
+					if (window.mushroomfound) {
+						items[label] = true;
+					}
+				}
 				nodes.forEach(node=>node.classList[items[label] ? 'add' : 'remove'](is_boss ? 'defeated' : 'active'));
 			} else {
 				if (label === 'sword' && flags.swordmode === 'S') {

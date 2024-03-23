@@ -348,8 +348,15 @@ function autotrackDoTracking(data) {
 
     function setitem(item, value) {
         click_map();
-        while (items[item] != value)
-            toggle(item);
+		if (item != 'mushroom') {
+			while (items[item] != value)
+				toggle(item);
+		} else {
+			if (!window.mushroomfound) {
+				while (items[item] != value)
+					toggle(item);
+			}
+		}
     };
 
 	if (changed(0x343)) // Bombs
