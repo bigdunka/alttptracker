@@ -38,12 +38,13 @@
 		return true;
 	}
 	
+	function anybottle() { return items.bottle1 > 0 || items.bottle2 > 0 || items.bottle3 > 0 || items.bottle4 > 0}
     function melee() { return items.sword || items.hammer; }
     function melee_bow() { return melee() || items.bow > 1; }
     function cane() { return items.somaria || items.byrna; }
     function rod() { return items.firerod || items.icerod; }
     function canHitSwitch() { return items.bomb || melee_bow() || cane() || rod() || items.boomerang || items.hookshot; }
-    function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 1 || items.hammer || items.firerod || (items.byrna && (items.bottle > 0 || items.magic)); }
+    function agatowerweapon() { return items.sword > 0 || items.somaria || items.bow > 1 || items.hammer || items.firerod || (items.byrna && (anybottle() || items.magic)); }
     function always() { return 'available'; }
 
 	function can_reach_outcast() {
@@ -353,7 +354,7 @@
 				caption: 'Byrna Spike Cave',
 				is_opened: false,
 				is_available: function() {
-					return canReachWDM() && items.moonpearl && items.glove && items.hammer && (items.byrna || (items.cape && (items.bottle || items.magic))) ?
+					return canReachWDM() && items.moonpearl && items.glove && items.hammer && (items.byrna || (items.cape && (anybottle() || items.magic))) ?
 						items.lantern || items.flute || items.boots ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
@@ -439,7 +440,7 @@
 				caption: 'Lazy Drunk Kid: Distract him with {bottle} because he can\'t lay off the sauce!',
 				is_opened: false,
 				is_available: function() {
-					return items.bottle ? 'available' : 'unavailable';
+					return anybottle() ? 'available' : 'unavailable';
 				}
 			}, { // [28]
 				caption: 'Gary\'s Lunchbox (save the frog first)',
@@ -1599,7 +1600,7 @@
 				caption: 'Byrna Spike Cave',
 				is_opened: false,
 				is_available: function() {
-					return items.glove && items.hammer && (items.byrna || (items.cape && (items.bottle || items.magic))) ?
+					return items.glove && items.hammer && (items.byrna || (items.cape && (anybottle() || items.magic))) ?
 						items.lantern || activeFlute() ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
@@ -1694,7 +1695,7 @@
 				caption: 'Lazy Drunk Kid: Distract him with {bottle} because he can\'t lay off the sauce!',
 				is_opened: false,
 				is_available: function() {
-					return canReachLightWorldBunny() && items.bottle ? 'available' : 'unavailable';
+					return canReachLightWorldBunny() && anybottle() ? 'available' : 'unavailable';
 				}
 			}, { // [28]
 				caption: 'Gary\'s Lunchbox (save the frog first)',
@@ -2513,7 +2514,7 @@
 				caption: 'Byrna Spike Cave',
 				is_opened: false,
 				is_available: function() {
-					return items.moonpearl && items.glove && items.hammer && (items.byrna || (items.cape && (items.bottle || items.magic))) ?
+					return items.moonpearl && items.glove && items.hammer && (items.byrna || (items.cape && (anybottle() || items.magic))) ?
 						items.lantern || items.flute ? 'available' : 'darkavailable' :
 						'unavailable';
 				}
@@ -2607,7 +2608,7 @@
 				caption: 'Lazy Drunk Kid: Distract him with {bottle} because he can\'t lay off the sauce!',
 				is_opened: false,
 				is_available: function() {
-					return items.bottle ? 'available' : 'unavailable';
+					return anybottle() ? 'available' : 'unavailable';
 				}
 			}, { // [28]
 				caption: 'Gary\'s Lunchbox (save the frog first)',

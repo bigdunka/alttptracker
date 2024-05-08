@@ -142,13 +142,18 @@ function launch_tracker() {
 	}
 	
 	var width = map === "M" ? 1340 : 448;
-	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : 448;
+	var height = sphere === "Y" ? map === "C" ? 988 : 744 : map === "C" ? 692 : map === "V" ? 1330 : 448;
 	
 	if (document.getElementById("remembersettings").checked == true) {
 		var settings = "m-" + map + "|s-" + sphere + "|a-" + autotracking + trackingport + "|c-" + color + "|p-" + sprite;
 		document.cookie = "settings=" + settings + "; expires=Sat, 3 Jan 2026 12:00:00 UTC";
 	} else {
 		document.cookie = "settings=; expires=Thu, 01 Jan 1970 00:00:00 UTC";
+	}
+	
+	if (map === 'V' && sphere === "Y") {
+		alert('NOTICE: Sphere tracking is not available with vertical maps and it will be disabled.');
+		sphere = 'N';
 	}
 	
 	if (glitches === 'O' && world === "I") {

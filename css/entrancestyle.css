@@ -14,6 +14,7 @@ body {
 .row:after { clear: both; }
 .cell { position: relative; float: left; }
 .cell.split { height: 64px; width: 64px; position: relative; float: left; background-image: url(../images/items/splitbackground.png); }
+.cell.splitblank { height: 64px; width: 64px; position: relative; float: left; }
 
 #app { width: 1340px; height: 744px; overflow: hidden; display: block!important; }
 #app.mapless { width: 448px; }
@@ -97,11 +98,18 @@ body {
   background-size: 100% 100%;
 }
 
-#map {
-  width: 884px;
+#map_light {
+  width: 442px;
   height: 448px;
   margin-left: 8px;
-  background-image: url(../images/overlay/map.png);
+  background-image: url(../images/overlay/map_light.png);
+  background-size: 100% 100%;
+}
+
+#map_dark {
+  width: 442px;
+  height: 448px;
+  background-image: url(../images/overlay/map_dark.png);
   background-size: 100% 100%;
 }
 
@@ -130,7 +138,7 @@ body {
   float: left;
 }
 
-#map .boss {
+#map_light .boss {
   width: 24px;
   height: 24px;
   margin-left: -12px;
@@ -138,7 +146,19 @@ body {
   position: absolute;
   background-repeat: no-repeat;
   background-position: center;
-  background-size: 75% 75%;
+  background-size: 90% 90%;
+  z-index: 2;
+}
+
+#map_dark .boss {
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  margin-top: -12px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90% 90%;
   z-index: 2;
 }
 
@@ -330,11 +350,18 @@ body {
 .shovel { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image: url(../images/items/shovel.png); }
 .net { background-image: url(../images/items/net.png); }
 .book { background-image: url(../images/items/book.png); }
-.bottle { background-image: url(../images/items/bottle0.png); }
-.bottle.active-1 { background-image: url(../images/items/bottle1.png); }
-.bottle.active-2 { background-image: url(../images/items/bottle2.png); }
-.bottle.active-3 { background-image: url(../images/items/bottle3.png); }
-.bottle.active-4 { background-image: url(../images/items/bottle4.png); }
+.bottle1 { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image: url(../images/items/bottle0.png); }
+.bottle2 { width: 32px; height: 32px; background-size: 32px; top: 0; left: 32; background-image: url(../images/items/bottle0.png); }
+.bottle3 { width: 32px; height: 32px; background-size: 32px; top: 32; left: 0; background-image: url(../images/items/bottle0.png); }
+.bottle4 { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image: url(../images/items/bottle0.png); }
+div[class*=" bottle"].active-0 { background-image: url(../images/items/bottle0.png); }
+div[class*=" bottle"].active-1 { background-image: url(../images/items/bottle1.png); }
+div[class*=" bottle"].active-2 { background-image: url(../images/items/bottle2.png); }
+div[class*=" bottle"].active-3 { background-image: url(../images/items/bottle3.png); }
+div[class*=" bottle"].active-4 { background-image: url(../images/items/bottle4.png); }
+div[class*=" bottle"].active-5 { background-image: url(../images/items/bottle5.png); }
+div[class*=" bottle"].active-6 { background-image: url(../images/items/bottle6.png); }
+div[class*=" bottle"].active-7 { background-image: url(../images/items/bottle7.png); }
 .somaria { background-image: url(../images/items/somaria.png); }
 .byrna { background-image: url(../images/items/byrna.png); }
 .cape { background-image: url(../images/items/cape.png); }
@@ -421,177 +448,182 @@ body {
 
 #bossMapAgahnim, #castle { left: 25.0%; top: 52.6%; }
 
-#locationMap0 { left: 22.4%; top: 93.4%; z-index: 2; }
-#locationMap1 { left: 27.4%; top: 67.9%; z-index: 2; }
-#locationMap2 { left: 5%;  top: 46.8%; z-index: 2; }
-#locationMap3 { left: 66%; top: 69.5%; z-index: 2; }
-#locationMap4 { left: 65.2%; top: 52.2%; z-index: 2; }
-#locationMap5 { left: 35.2%; top: 70.3%; z-index: 2; }
-#locationMap6 { left: 21.0%; top: 3.0%; z-index: 2; }
-#locationMap7 { left: 11.0%; top: 92.2%; z-index: 2; }
-#locationMap8 { left: 96.0%; top: 17.2%; z-index: 2; }
-#locationMap9 { left: 48.0%; top: 12.1%; z-index: 2; }
-#locationMap10 { left: 21.8%; top: 22.4%; z-index: 2; }
-#locationMap11 { left: 6.2%;  top: 8.6%; z-index: 2; }
-#locationMap12 { left: 25.4%; top: 8.5%; z-index: 2; }
-#locationMap13 { left: 40.8%; top: 3.0%; z-index: 2; }
-#locationMap14 { left: 1.8%;  top: 69.8%; z-index: 2; }
-#locationMap15 { left: 1.5%;  top: 91.0%; z-index: 2; }
-#locationMap16 { left: 36.5%; top: 83.9%; z-index: 2; }
-#locationMap17 { left: 67.1%; top: 15.2%; z-index: 2; }
-#locationMap18 { left: 79.0%; top: 43.5%; z-index: 2; }
-#locationMap19 { left: 52.9%; top: 69.2%; z-index: 2; }
-#locationMap20 { left: 47.7%; top: 17.3%; z-index: 2; }
-#locationMap21 { left: 14.4%; top: 66.2%; z-index: 2; }
-#locationMap22 { left: 2.5%;  top: 3.2%; z-index: 2; }
+#locationMap0 { left: 44.8%; top: 93.4%; z-index: 2; }
+#locationMap1 { left: 54.8%; top: 67.9%; z-index: 2; }
+#locationMap2 { left: 10%; top: 46.8%; z-index: 2; }
+#locationMap3 { left: 32%; top: 69.5%; z-index: 2; }
+#locationMap4 { left: 30.4%; top: 52.2%; z-index: 2; }
+#locationMap5 { left: 70.4%; top: 70.3%; z-index: 2; }
+#locationMap6 { left: 42%; top: 3.0%; z-index: 2; }
+#locationMap7 { left: 22%; top: 92.2%; z-index: 2; }
+#locationMap8 { left: 92%; top: 17.2%; z-index: 2; }
+#locationMap9 { left: 96%; top: 12.1%; z-index: 2; }
+#locationMap10 { left: 43.6%; top: 22.4%; z-index: 2; }
+#locationMap11 { left: 12.4%; top: 8.6%; z-index: 2; }
+#locationMap12 { left: 50.8%; top: 8.5%; z-index: 2; }
+#locationMap13 { left: 81.6%; top: 3.0%; z-index: 2; }
+#locationMap14 { left: 3.6%; top: 69.8%; z-index: 2; }
+#locationMap15 { left: 3%; top: 91.0%; z-index: 2; }
+#locationMap16 { left: 73%; top: 83.9%; z-index: 2; }
+#locationMap17 { left: 34.2%; top: 15.2%; z-index: 2; }
+#locationMap18 { left: 58%; top: 43.5%; z-index: 2; }
+#locationMap19 { left: 5.8%; top: 69.2%; z-index: 2; }
+#locationMap20 { left: 95.4%; top: 17.3%; z-index: 2; }
+#locationMap21 { left: 28.8%; top: 66.2%; z-index: 2; }
+#locationMap22 { left: 5%; top: 3.2%; z-index: 2; }
 
 #entranceModalLightWorld { width: 276px; float: left; }
 #entranceModalGeneral { width: 222px; float: left; }
 #entranceModalDarkWorld { width: 276px; float: left; }
 
+#connectorStop { cursor: pointer; position: absolute; top: 89.6%; left: 87.6%; z-index: 2; visibility: hidden; }
+#entranceSummary { cursor: pointer; position: absolute; top: 89.6%; left: 87.6%; z-index: 2; }
+#hideConnectorLines { cursor: pointer; position: absolute; top: 89.6%; left: 1.2%; z-index: 2; }
+
 #summaryModal { width: 884px; left: 456px; }
 #summaryModalMain { width: 800px; height: 300px; left: 40px; top: 50px; }
 
-#entranceMap0 { left: 28%; top: 72%; z-index: 2; }
-#entranceMap1 { left: 24.5%; top: 67%; z-index: 2; }
-#entranceMap2 { left: 24%; top: 96%; z-index: 2; }
-#entranceMap3 { left: 14%; top: 84%; z-index: 2; }
-#entranceMap4 { left: 40.7%; top: 35%; z-index: 2; }
-#entranceMap5 { left: 45.7%; top: 17%; z-index: 2; }
-#entranceMap6 { left: 31%; top: 80%; z-index: 2; }
-#entranceMap7 { left: 25.7%; top: 46%; z-index: 2; }
-#entranceMap8 { left: 23.2%; top: 41%; z-index: 2; }
-#entranceMap9 { left: 28.2%; top: 41%; z-index: 2; }
-#entranceMap10 { left: 25.7%; top: 42%; z-index: 2; }
-#entranceMap11 { left: 28.2%; top: 44%; z-index: 2; }
-#entranceMap12 { left: 30.5%; top: 42.5%; z-index: 2; }
-#entranceMap13 { left: 23.7%; top: 28%; z-index: 2; }
-#entranceMap14 { left: 20%; top: 30%; z-index: 2; }
-#entranceMap15 { left: 26.7%; top: 30%; z-index: 2; }
-#entranceMap16 { left: 29.3%; top: 28.4%; z-index: 2; }
-#entranceMap17 { left: 31%; top: 30%; z-index: 2; }
-#entranceMap18 { left: 34%; top: 29%; z-index: 2; }
-#entranceMap19 { left: 33%; top: 32%; z-index: 2; }
-#entranceMap20 { left: 10.1%; top: 3.1%; z-index: 2; }
-#entranceMap21 { left: 10.3%; top: 13.2%; z-index: 2; }
-#entranceMap22 { left: 10%; top: 16%; z-index: 2; }
-#entranceMap23 { left: 17.6%; top: 7.4%; z-index: 2; }
-#entranceMap24 { left: 17%; top: 4.5%; z-index: 2; }
-#entranceMap25 { left: 15.7%; top: 9%; z-index: 2; }
-#entranceMap26 { left: 18%; top: 19.7%; z-index: 2; }
-#entranceMap27 { left: 10.3%; top: 33%; z-index: 2; }
-#entranceMap28 { left: 2%; top: 43%; z-index: 2; }
-#entranceMap29 { left: 3.5%; top: 44%; z-index: 2; }
-#entranceMap30 { left: 7%; top: 43%; z-index: 2; }
-#entranceMap31 { left: 8.2%; top: 43%; z-index: 2; }
-#entranceMap32 { left: 9.3%; top: 43%; z-index: 2; }
-#entranceMap33 { left: 3.3%; top: 48%; z-index: 2; }
-#entranceMap34 { left: 11%; top: 49%; z-index: 2; }
-#entranceMap35 { left: 5.6%; top: 55%; z-index: 2; }
-#entranceMap36 { left: 8.4%; top: 55%; z-index: 2; }
-#entranceMap37 { left: 10.9%; top: 55%; z-index: 2; }
-#entranceMap38 { left: 2.3%; top: 61%; z-index: 2; }
-#entranceMap39 { left: 6.3%; top: 59%; z-index: 2; }
-#entranceMap40 { left: 8.7%; top: 58%; z-index: 2; }
-#entranceMap41 { left: 8.7%; top: 61%; z-index: 2; }
-#entranceMap42 { left: 15.6%; top: 54%; z-index: 2; }
-#entranceMap43 { left: 16.6%; top: 57%; z-index: 2; }
-#entranceMap44 { left: 17.3%; top: 55%; z-index: 2; }
-#entranceMap45 { left: 8.4%; top: 67%; z-index: 2; }
-#entranceMap46 { left: 6%; top: 72%; z-index: 2; }
-#entranceMap47 { left: 8%; top: 72%; z-index: 2; }
-#entranceMap48 { left: 11.4%; top: 70.3%; z-index: 2; }
-#entranceMap49 { left: 48.6%; top: 40%; z-index: 2; }
-#entranceMap50 { left: 41.4%; top: 46%; z-index: 2; }
-#entranceMap51 { left: 42%; top: 65.4%; z-index: 2; }
-#entranceMap52 { left: 49.6%; top: 71%; z-index: 2; }
-#entranceMap53 { left: 4.4%; top: 82%; z-index: 2; }
-#entranceMap54 { left: 2.5%; top: 81%; z-index: 2; }
-#entranceMap55 { left: 6.3%; top: 81%; z-index: 2; }
-#entranceMap56 { left: 4.4%; top: 78%; z-index: 2; }
-#entranceMap57 { left: 9.5%; top: 79%; z-index: 2; }
-#entranceMap58 { left: 10.8%; top: 83%; z-index: 2; }
-#entranceMap59 { left: 14.7%; top: 90%; z-index: 2; }
-#entranceMap60 { left: 16.3%; top: 96%; z-index: 2; }
-#entranceMap61 { left: 37.2%; top: 78%; z-index: 2; }
-#entranceMap62 { left: 33.2%; top: 81%; z-index: 2; }
-#entranceMap63 { left: 33.4%; top: 95%; z-index: 2; }
-#entranceMap64 { left: 40.4%; top: 86%; z-index: 2; }
-#entranceMap65 { left: 45.3%; top: 78%; z-index: 2; }
-#entranceMap66 { left: 46.7%; top: 78%; z-index: 2; }
-#entranceMap67 { left: 45.9%; top: 80%; z-index: 2; }
-#entranceMap68 { left: 28.7%; top: 5%; z-index: 2; }
-#entranceMap69 { left: 25.1%; top: 11%; z-index: 2; }
-#entranceMap70 { left: 23.5%; top: 15%; z-index: 2; }
-#entranceMap71 { left: 25%; top: 16%; z-index: 2; }
-#entranceMap72 { left: 20.8%; top: 20%; z-index: 2; }
-#entranceMap73 { left: 20.4%; top: 14%; z-index: 2; }
-#entranceMap74 { left: 18.7%; top: 16%; z-index: 2; }
-#entranceMap75 { left: 23.3%; top: 25%; z-index: 2; }
-#entranceMap76 { left: 27.5%; top: 17.4%; z-index: 2; }
-#entranceMap77 { left: 43.3%; top: 7.4%; z-index: 2; }
-#entranceMap78 { left: 43.8%; top: 23%; z-index: 2; }
-#entranceMap79 { left: 43.8%; top: 16%; z-index: 2; }
-#entranceMap80 { left: 40.5%; top: 10%; z-index: 2; }
-#entranceMap81 { left: 40.5%; top: 14%; z-index: 2; }
-#entranceMap82 { left: 42.5%; top: 16%; z-index: 2; }
-#entranceMap83 { left: 41.6%; top: 12.4%; z-index: 2; }
-#entranceMap84 { left: 41.6%; top: 14.9%; z-index: 2; }
-#entranceMap85 { left: 42.9%; top: 10%; z-index: 2; }
-#entranceMap86 { left: 78.0%; top: 72%; z-index: 2; }
-#entranceMap87 { left: 74.5%; top: 67%; z-index: 2; }
-#entranceMap88 { left: 81.0%; top: 80%; z-index: 2; }
-#entranceMap89 { left: 74.2%; top: 96%; z-index: 2; }
-#entranceMap90 { left: 73.7%; top: 28%; z-index: 2; }
-#entranceMap91 { left: 67.4%; top: 46.6%; z-index: 2; }
-#entranceMap92 { left: 90.7%; top: 35%; z-index: 2; }
-#entranceMap93 { left: 75.7%; top: 42%; z-index: 2; }
-#entranceMap94 { left: 74.0%; top: 50%; z-index: 2; }
-#entranceMap95 { left: 72.4%; top: 50%; z-index: 2; }
-#entranceMap96 { left: 52.7%; top: 6.5%; z-index: 2; }
-#entranceMap97 { left: 53.7%; top: 14%; z-index: 2; }
-#entranceMap98 { left: 56.7%; top: 10%; z-index: 2; }
-#entranceMap99 { left: 57.8%; top: 16%; z-index: 2; }
-#entranceMap100 { left: 58.5%; top: 19%; z-index: 2; }
-#entranceMap101 { left: 60.2%; top: 13.5%; z-index: 2; }
-#entranceMap102 { left: 59.7%; top: 16%; z-index: 2; }
-#entranceMap103 { left: 60.8%; top: 18%; z-index: 2; }
-#entranceMap104 { left: 67.5%; top: 6.7%; z-index: 2; }
-#entranceMap105 { left: 68.5%; top: 19%; z-index: 2; }
-#entranceMap106 { left: 60.1%; top: 33%; z-index: 2; }
-#entranceMap107 { left: 53.0%; top: 47%; z-index: 2; }
-#entranceMap108 { left: 57.0%; top: 49%; z-index: 2; }
-#entranceMap109 { left: 61.0%; top: 49%; z-index: 2; }
-#entranceMap110 { left: 61.0%; top: 54%; z-index: 2; }
-#entranceMap111 { left: 56.3%; top: 59%; z-index: 2; }
-#entranceMap112 { left: 66.5%; top: 62%; z-index: 2; }
-#entranceMap113 { left: 61.5%; top: 71%; z-index: 2; }
-#entranceMap114 { left: 98.6%; top: 41%; z-index: 2; }
-#entranceMap115 { left: 93.3%; top: 52%; z-index: 2; }
-#entranceMap116 { left: 92.0%; top: 65.7%; z-index: 2; }
-#entranceMap117 { left: 99.6%; top: 71%; z-index: 2; }
-#entranceMap118 { left: 90.5%; top: 87%; z-index: 2; }
-#entranceMap119 { left: 83.3%; top: 81%; z-index: 2; }
-#entranceMap120 { left: 95.3%; top: 78%; z-index: 2; }
-#entranceMap121 { left: 96.7%; top: 78%; z-index: 2; }
-#entranceMap122 { left: 95.9%; top: 80%; z-index: 2; }
-#entranceMap123 { left: 54.4%; top: 84%; z-index: 2; }
-#entranceMap124 { left: 52.7%; top: 81%; z-index: 2; }
-#entranceMap125 { left: 56.3%; top: 81%; z-index: 2; }
-#entranceMap126 { left: 60.6%; top: 83%; z-index: 2; }
-#entranceMap127 { left: 78.8%; top: 5%; z-index: 2; }
-#entranceMap128 { left: 79.4%; top: 16%; z-index: 2; }
-#entranceMap129 { left: 68.8%; top: 16%; z-index: 2; }
-#entranceMap130 { left: 70.8%; top: 20%; z-index: 2; }
-#entranceMap131 { left: 90.8%; top: 3%; z-index: 2; }
-#entranceMap132 { left: 92.2%; top: 7.5%; z-index: 2; }
-#entranceMap133 { left: 93.8%; top: 7.2%; z-index: 2; }
-#entranceMap134 { left: 92.5%; top: 16%; z-index: 2; }
-#entranceMap135 { left: 93.8%; top: 16%; z-index: 2; }
-#entranceMap136 { left: 97.7%; top: 9%; z-index: 2; }
-#entranceMap137 { left: 91.7%; top: 13%; z-index: 2; }
-#entranceMap138 { left: 90.6%; top: 10%; z-index: 2; }
-#entranceMap139 { left: 92.9%; top: 10%; z-index: 2; }
+#entranceMap0 { left: 56%; top: 72%; z-index: 2; }
+#entranceMap1 { left: 49%; top: 67%; z-index: 2; }
+#entranceMap2 { left: 48%; top: 96%; z-index: 2; }
+#entranceMap3 { left: 28%; top: 84%; z-index: 2; }
+#entranceMap4 { left: 81.4%; top: 35%; z-index: 2; }
+#entranceMap5 { left: 91.4%; top: 17%; z-index: 2; }
+#entranceMap6 { left: 62%; top: 80%; z-index: 2; }
+#entranceMap7 { left: 51.4%; top: 46%; z-index: 2; }
+#entranceMap8 { left: 46.4%; top: 41%; z-index: 2; }
+#entranceMap9 { left: 56.4%; top: 41%; z-index: 2; }
+#entranceMap10 { left: 51.4%; top: 42%; z-index: 2; }
+#entranceMap11 { left: 56.4%; top: 44%; z-index: 2; }
+#entranceMap12 { left: 61%; top: 42.5%; z-index: 2; }
+#entranceMap13 { left: 47.4%; top: 28%; z-index: 2; }
+#entranceMap14 { left: 40%; top: 30%; z-index: 2; }
+#entranceMap15 { left: 53.4%; top: 30%; z-index: 2; }
+#entranceMap16 { left: 58.6%; top: 28.4%; z-index: 2; }
+#entranceMap17 { left: 62%; top: 30%; z-index: 2; }
+#entranceMap18 { left: 68%; top: 29%; z-index: 2; }
+#entranceMap19 { left: 66%; top: 32%; z-index: 2; }
+#entranceMap20 { left: 20.2%; top: 3.1%; z-index: 2; }
+#entranceMap21 { left: 20.6%; top: 13.2%; z-index: 2; }
+#entranceMap22 { left: 20%; top: 16%; z-index: 2; }
+#entranceMap23 { left: 35.2%; top: 7.4%; z-index: 2; }
+#entranceMap24 { left: 34%; top: 4.5%; z-index: 2; }
+#entranceMap25 { left: 31.4%; top: 9%; z-index: 2; }
+#entranceMap26 { left: 36%; top: 19.7%; z-index: 2; }
+#entranceMap27 { left: 20.6%; top: 33%; z-index: 2; }
+#entranceMap28 { left: 4%; top: 43%; z-index: 2; }
+#entranceMap29 { left: 7%; top: 44%; z-index: 2; }
+#entranceMap30 { left: 14%; top: 43%; z-index: 2; }
+#entranceMap31 { left: 16.4%; top: 43%; z-index: 2; }
+#entranceMap32 { left: 18.6%; top: 43%; z-index: 2; }
+#entranceMap33 { left: 6.6%; top: 48%; z-index: 2; }
+#entranceMap34 { left: 22%; top: 49%; z-index: 2; }
+#entranceMap35 { left: 11.2%; top: 55%; z-index: 2; }
+#entranceMap36 { left: 16.8%; top: 55%; z-index: 2; }
+#entranceMap37 { left: 21.8%; top: 55%; z-index: 2; }
+#entranceMap38 { left: 4.6%; top: 61%; z-index: 2; }
+#entranceMap39 { left: 12.6%; top: 59%; z-index: 2; }
+#entranceMap40 { left: 17.4%; top: 58%; z-index: 2; }
+#entranceMap41 { left: 17.4%; top: 61%; z-index: 2; }
+#entranceMap42 { left: 31.2%; top: 54%; z-index: 2; }
+#entranceMap43 { left: 33.2%; top: 57%; z-index: 2; }
+#entranceMap44 { left: 34.6%; top: 55%; z-index: 2; }
+#entranceMap45 { left: 16.8%; top: 67%; z-index: 2; }
+#entranceMap46 { left: 12%; top: 72%; z-index: 2; }
+#entranceMap47 { left: 16%; top: 72%; z-index: 2; }
+#entranceMap48 { left: 22.8%; top: 70.3%; z-index: 2; }
+#entranceMap49 { left: 97.2%; top: 40%; z-index: 2; }
+#entranceMap50 { left: 82.8%; top: 46%; z-index: 2; }
+#entranceMap51 { left: 84%; top: 65.4%; z-index: 2; }
+#entranceMap52 { left: 99.2%; top: 71%; z-index: 2; }
+#entranceMap53 { left: 8.8%; top: 82%; z-index: 2; }
+#entranceMap54 { left: 5%; top: 81%; z-index: 2; }
+#entranceMap55 { left: 12.6%; top: 81%; z-index: 2; }
+#entranceMap56 { left: 8.8%; top: 78%; z-index: 2; }
+#entranceMap57 { left: 19%; top: 79%; z-index: 2; }
+#entranceMap58 { left: 21.6%; top: 83%; z-index: 2; }
+#entranceMap59 { left: 29.4%; top: 90%; z-index: 2; }
+#entranceMap60 { left: 32.6%; top: 96%; z-index: 2; }
+#entranceMap61 { left: 74.4%; top: 78%; z-index: 2; }
+#entranceMap62 { left: 66.4%; top: 81%; z-index: 2; }
+#entranceMap63 { left: 66.8%; top: 95%; z-index: 2; }
+#entranceMap64 { left: 80.8%; top: 86%; z-index: 2; }
+#entranceMap65 { left: 90.6%; top: 78%; z-index: 2; }
+#entranceMap66 { left: 93.4%; top: 78%; z-index: 2; }
+#entranceMap67 { left: 91.8%; top: 80%; z-index: 2; }
+#entranceMap68 { left: 57.4%; top: 5%; z-index: 2; }
+#entranceMap69 { left: 50.2%; top: 11%; z-index: 2; }
+#entranceMap70 { left: 47%; top: 15%; z-index: 2; }
+#entranceMap71 { left: 50%; top: 16%; z-index: 2; }
+#entranceMap72 { left: 41.6%; top: 20%; z-index: 2; }
+#entranceMap73 { left: 40.8%; top: 14%; z-index: 2; }
+#entranceMap74 { left: 37.4%; top: 16%; z-index: 2; }
+#entranceMap75 { left: 46.6%; top: 25%; z-index: 2; }
+#entranceMap76 { left: 55%; top: 17.4%; z-index: 2; }
+#entranceMap77 { left: 86.6%; top: 7.4%; z-index: 2; }
+#entranceMap78 { left: 87.6%; top: 23%; z-index: 2; }
+#entranceMap79 { left: 87.6%; top: 16%; z-index: 2; }
+#entranceMap80 { left: 81%; top: 10%; z-index: 2; }
+#entranceMap81 { left: 81%; top: 14%; z-index: 2; }
+#entranceMap82 { left: 85%; top: 16%; z-index: 2; }
+#entranceMap83 { left: 83.2%; top: 12.4%; z-index: 2; }
+#entranceMap84 { left: 83.2%; top: 14.9%; z-index: 2; }
+#entranceMap85 { left: 85.8%; top: 10%; z-index: 2; }
+
+#entranceMap86 { left: 56%; top: 72%; z-index: 2; }
+#entranceMap87 { left: 49%; top: 67%; z-index: 2; }
+#entranceMap88 { left: 62%; top: 80%; z-index: 2; }
+#entranceMap89 { left: 48.4%; top: 96%; z-index: 2; }
+#entranceMap90 { left: 47.4%; top: 28%; z-index: 2; }
+#entranceMap91 { left: 34.8%; top: 46.6%; z-index: 2; }
+#entranceMap92 { left: 81.4%; top: 35%; z-index: 2; }
+#entranceMap93 { left: 51.4%; top: 42%; z-index: 2; }
+#entranceMap94 { left: 48%; top: 50%; z-index: 2; }
+#entranceMap95 { left: 44.8%; top: 50%; z-index: 2; }
+#entranceMap96 { left: 5.4%; top: 6.5%; z-index: 2; }
+#entranceMap97 { left: 7.4%; top: 14%; z-index: 2; }
+#entranceMap98 { left: 13.4%; top: 10%; z-index: 2; }
+#entranceMap99 { left: 15.6%; top: 16%; z-index: 2; }
+#entranceMap100 { left: 17%; top: 19%; z-index: 2; }
+#entranceMap101 { left: 20.4%; top: 13.5%; z-index: 2; }
+#entranceMap102 { left: 19.4%; top: 16%; z-index: 2; }
+#entranceMap103 { left: 21.6%; top: 18%; z-index: 2; }
+#entranceMap104 { left: 35%; top: 6.7%; z-index: 2; }
+#entranceMap105 { left: 37%; top: 19%; z-index: 2; }
+#entranceMap106 { left: 20.2%; top: 33%; z-index: 2; }
+#entranceMap107 { left: 6%; top: 47%; z-index: 2; }
+#entranceMap108 { left: 14%; top: 49%; z-index: 2; }
+#entranceMap109 { left: 22%; top: 49%; z-index: 2; }
+#entranceMap110 { left: 22%; top: 54%; z-index: 2; }
+#entranceMap111 { left: 12.6%; top: 59%; z-index: 2; }
+#entranceMap112 { left: 33%; top: 62%; z-index: 2; }
+#entranceMap113 { left: 23%; top: 71%; z-index: 2; }
+#entranceMap114 { left: 97.2%; top: 41%; z-index: 2; }
+#entranceMap115 { left: 86.6%; top: 52%; z-index: 2; }
+#entranceMap116 { left: 84%; top: 65.7%; z-index: 2; }
+#entranceMap117 { left: 99.2%; top: 71%; z-index: 2; }
+#entranceMap118 { left: 81%; top: 87%; z-index: 2; }
+#entranceMap119 { left: 66.6%; top: 81%; z-index: 2; }
+#entranceMap120 { left: 90.6%; top: 78%; z-index: 2; }
+#entranceMap121 { left: 93.4%; top: 78%; z-index: 2; }
+#entranceMap122 { left: 91.8%; top: 80%; z-index: 2; }
+#entranceMap123 { left: 8.8%; top: 84%; z-index: 2; }
+#entranceMap124 { left: 5.4%; top: 81%; z-index: 2; }
+#entranceMap125 { left: 12.6%; top: 81%; z-index: 2; }
+#entranceMap126 { left: 21.2%; top: 83%; z-index: 2; }
+#entranceMap127 { left: 57.6%; top: 5%; z-index: 2; }
+#entranceMap128 { left: 58.8%; top: 16%; z-index: 2; }
+#entranceMap129 { left: 37.6%; top: 16%; z-index: 2; }
+#entranceMap130 { left: 41.6%; top: 20%; z-index: 2; }
+#entranceMap131 { left: 81.6%; top: 3%; z-index: 2; }
+#entranceMap132 { left: 84.4%; top: 7.5%; z-index: 2; }
+#entranceMap133 { left: 87.6%; top: 7.2%; z-index: 2; }
+#entranceMap134 { left: 85%; top: 16%; z-index: 2; }
+#entranceMap135 { left: 87.6%; top: 16%; z-index: 2; }
+#entranceMap136 { left: 95.4%; top: 9%; z-index: 2; }
+#entranceMap137 { left: 83.4%; top: 13%; z-index: 2; }
+#entranceMap138 { left: 81.2%; top: 10%; z-index: 2; }
+#entranceMap139 { left: 85.8%; top: 10%; z-index: 2; }
 
 .entranceBossDiv {
 	position: absolute; 

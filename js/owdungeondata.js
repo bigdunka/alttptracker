@@ -585,7 +585,7 @@
 		createItemLocation(0x74,"Main",16,-1,"bomb");
 		createItemLocation(0x05,"Bottom Main",17,-1,"bomb");
 		createSpecialLocation(0x05,"Bottom Main","Bombless Paradox","paradoxswitch");
-		createItemLocation(0x13,"Main",18,-1,"boots");
+		createItemLocation(0x13,"Rocks",18,-1,"boots");
 		createItemLocation(0x35,"Southwest",19,-1,"bomb");
 		createItemLocation(0x37,"Main",20,-1,"bomb");
 		createItemLocation(0x45,"Top Main",21,-1,"hscbottom");

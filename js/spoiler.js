@@ -262,6 +262,10 @@
         case "BowAndSilverArrows":
             return "Bow And Silver Arrows";
 		case "bottle":
+		case "bottle1":
+		case "bottle2":
+		case "bottle3":
+		case "bottle4":
 		case "Bottle":
 			return "Bottle";
 		case "BottleWithRedPotion":

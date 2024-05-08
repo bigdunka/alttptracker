@@ -55,42 +55,39 @@
 		chestmod++;
 	}
 	
-	var chestmodcrossed = chestmod;
-	
 	if (flags.wildbigkeys) {
 		chestmod++;
-		if (flags.wildkeys || flags.gametype === 'R') {
-			chestmodcrossed++;
-		}		
 	}
 	
-	var chests0 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 3 + chestmod;
-	var chests1 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
-	var chests2 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
-	var chests3 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 6 : 0);
-	var chests4 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 6 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
-	var chests5 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
-	var chests6 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 4 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
-	var chests7 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 3 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 2 : 0);
-	var chests8 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
-	var chests9 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
-	var chests10 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 20 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
-	var chests11 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : 6 + (flags.wildmaps ? 1 : 0) + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
-	var chests12 = flags.doorshuffle === 'C' ? 3 + chestmodcrossed : ((flags.wildkeys || flags.gametype === 'R') ? 2 : 0);
-		
-    var maxchests0 = flags.doorshuffle === 'C' ? 32 : chests0;
-    var maxchests1 = flags.doorshuffle === 'C' ? 32 : chests1;
-    var maxchests2 = flags.doorshuffle === 'C' ? 32 : chests2;
-    var maxchests3 = flags.doorshuffle === 'C' ? 32 : chests3;
-    var maxchests4 = flags.doorshuffle === 'C' ? 32 : chests4;
-    var maxchests5 = flags.doorshuffle === 'C' ? 32 : chests5;
-    var maxchests6 = flags.doorshuffle === 'C' ? 32 : chests6;
-    var maxchests7 = flags.doorshuffle === 'C' ? 32 : chests7;
-    var maxchests8 = flags.doorshuffle === 'C' ? 32 : chests8;
-    var maxchests9 = flags.doorshuffle === 'C' ? 32 : chests9;
-    var maxchests10 = flags.doorshuffle === 'C' ? 32 : chests10;
-    var maxchests11 = flags.doorshuffle === 'C' ? 32 : chests11;
-    var maxchests12 = flags.doorshuffle === 'C' ? 32 : chests12;
+	var chests0 = flags.doorshuffle === 'C' ? 3 : 3 + chestmod;
+	var chests1 = flags.doorshuffle === 'C' ? 3 : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+	var chests2 = flags.doorshuffle === 'C' ? 3 : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+	var chests3 = flags.doorshuffle === 'C' ? 3 : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 6 : 0);
+	var chests4 = flags.doorshuffle === 'C' ? 3 : 6 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+	var chests5 = flags.doorshuffle === 'C' ? 3 : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
+	var chests6 = flags.doorshuffle === 'C' ? 3 : 4 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+	var chests7 = flags.doorshuffle === 'C' ? 3 : 3 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 2 : 0);
+	var chests8 = flags.doorshuffle === 'C' ? 3 : 2 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 3 : 0);
+	var chests9 = flags.doorshuffle === 'C' ? 3 : 5 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
+	var chests10 = flags.doorshuffle === 'C' ? 3 : 20 + chestmod + ((flags.wildkeys || flags.gametype === 'R') ? 4 : 0);
+	var chests11 = flags.doorshuffle === 'C' ? 3 : 6 + (flags.wildmaps ? 1 : 0) + ((flags.wildkeys || flags.gametype === 'R') ? 1 : 0);
+	var chests12 = flags.doorshuffle === 'C' ? 3 : ((flags.wildkeys || flags.gametype === 'R') ? 2 : 0);
+	
+    var doorsmaxchests = 500;
+
+    var maxchests0 = flags.doorshuffle === 'C' ? doorsmaxchests : chests0;
+    var maxchests1 = flags.doorshuffle === 'C' ? doorsmaxchests : chests1;
+    var maxchests2 = flags.doorshuffle === 'C' ? doorsmaxchests : chests2;
+    var maxchests3 = flags.doorshuffle === 'C' ? doorsmaxchests : chests3;
+    var maxchests4 = flags.doorshuffle === 'C' ? doorsmaxchests : chests4;
+    var maxchests5 = flags.doorshuffle === 'C' ? doorsmaxchests : chests5;
+    var maxchests6 = flags.doorshuffle === 'C' ? doorsmaxchests : chests6;
+    var maxchests7 = flags.doorshuffle === 'C' ? doorsmaxchests : chests7;
+    var maxchests8 = flags.doorshuffle === 'C' ? doorsmaxchests : chests8;
+    var maxchests9 = flags.doorshuffle === 'C' ? doorsmaxchests : chests9;
+    var maxchests10 = flags.doorshuffle === 'C' ? doorsmaxchests : chests10;
+    var maxchests11 = flags.doorshuffle === 'C' ? doorsmaxchests : chests11;
+    var maxchests12 = flags.doorshuffle === 'C' ? doorsmaxchests : chests12;
 	
     window.items = {
         tunic: 1,
@@ -116,7 +113,10 @@
         net: false,
         book: false,
 
-        bottle: 0,
+        bottle1: 0,
+		bottle2: 0,
+		bottle3: 0,
+		bottle4: 0,
         somaria: false,
         byrna: false,
         cape: false,
@@ -217,7 +217,10 @@
             tunic: { min: 1, max: 3 },
             sword: { max: 4 },
             shield: { max: 3 },
-            bottle: { max: 4 },
+            bottle1: { min: 0, max: 7 },
+			bottle2: { min: 0, max: 7 },
+			bottle3: { min: 0, max: 7 },
+			bottle4: { min: 0, max: 7 },
             bow: { max: 3 },
             boomerang: { max: 3 },
             glove: { max: 2 },
@@ -249,6 +252,10 @@
 			chest12: { min: 0, max: maxchests12 }
         }),
         dec: limit(-1, {
+            bottle1: { min: 0, max: 7 },
+			bottle2: { min: 0, max: 7 },
+			bottle3: { min: 0, max: 7 },
+			bottle4: { min: 0, max: 7 },			
 			chest0: { max: maxchests0 },
             chest1: { max: maxchests1 },
             chest2: { max: maxchests2 },

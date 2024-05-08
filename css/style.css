@@ -14,6 +14,7 @@ body {
 .row:after { clear: both; }
 .cell { position: relative; float: left; }
 .cell.split { height: 64px; width: 64px; position: relative; float: left; background-image: url(../images/items/splitbackground.png); }
+.cell.splitblank { height: 64px; width: 64px; position: relative; float: left; }
 
 #app { width: 1340px; height: 744px; overflow: hidden; display: block!important; }
 #app.mapless { width: 448px; }
@@ -97,11 +98,18 @@ body {
   background-size: 100% 100%;
 }
 
-#map {
-  width: 884px;
+#map_light {
+  width: 442px;
   height: 448px;
   margin-left: 8px;
-  background-image: url(../images/overlay/map.png);
+  background-image: url(../images/overlay/map_light.png);
+  background-size: 100% 100%;
+}
+
+#map_dark {
+  width: 442px;
+  height: 448px;
+  background-image: url(../images/overlay/map_dark.png);
   background-size: 100% 100%;
 }
 
@@ -120,7 +128,19 @@ body {
   float: left;
 }
 
-#map .boss {
+#map_light .boss {
+  width: 24px;
+  height: 24px;
+  margin-left: -12px;
+  margin-top: -12px;
+  position: absolute;
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 90% 90%;
+  z-index: 2;
+}
+
+#map_dark .boss {
   width: 24px;
   height: 24px;
   margin-left: -12px;
@@ -245,7 +265,7 @@ body {
 .ganongoalselect { background-color: #333; width: 244px; height: 24px; z-index: 99; position: absolute; top: 24; left: 0; }
 .changeflags { width: 24px; height: 24px; z-index: 2; position: absolute; top: 48; left: 0; }
 .goalselect { height: 24px; width: 24px; } 
-.showpaths { width: 24px; height: 24px; z-index: 2; position: absolute; top: 72; left: 0; }
+.showpaths { width: 24px; height: 24px; z-index: 2; position: absolute; top: 72; left: 0; user-select: none; }
 
 .bomb { background-image: url(../images/items/bomb.png); }
 .bow { background-image: url(../images/items/bow0.png); }
@@ -268,11 +288,18 @@ body {
 .shovel { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image: url(../images/items/shovel.png); }
 .net { background-image: url(../images/items/net.png); }
 .book { background-image: url(../images/items/book.png); }
-.bottle { background-image: url(../images/items/bottle0.png); }
-.bottle.active-1 { background-image: url(../images/items/bottle1.png); }
-.bottle.active-2 { background-image: url(../images/items/bottle2.png); }
-.bottle.active-3 { background-image: url(../images/items/bottle3.png); }
-.bottle.active-4 { background-image: url(../images/items/bottle4.png); }
+.bottle1 { width: 32px; height: 32px; background-size: 32px; top: 0; left: 0; background-image: url(../images/items/bottle0.png); }
+.bottle2 { width: 32px; height: 32px; background-size: 32px; top: 0; left: 32; background-image: url(../images/items/bottle0.png); }
+.bottle3 { width: 32px; height: 32px; background-size: 32px; top: 32; left: 0; background-image: url(../images/items/bottle0.png); }
+.bottle4 { width: 32px; height: 32px; background-size: 32px; top: 32; left: 32; background-image: url(../images/items/bottle0.png); }
+div[class*=" bottle"].active-0 { background-image: url(../images/items/bottle0.png); }
+div[class*=" bottle"].active-1 { background-image: url(../images/items/bottle1.png); }
+div[class*=" bottle"].active-2 { background-image: url(../images/items/bottle2.png); }
+div[class*=" bottle"].active-3 { background-image: url(../images/items/bottle3.png); }
+div[class*=" bottle"].active-4 { background-image: url(../images/items/bottle4.png); }
+div[class*=" bottle"].active-5 { background-image: url(../images/items/bottle5.png); }
+div[class*=" bottle"].active-6 { background-image: url(../images/items/bottle6.png); }
+div[class*=" bottle"].active-7 { background-image: url(../images/items/bottle7.png); }
 .somaria { background-image: url(../images/items/somaria.png); }
 .byrna { background-image: url(../images/items/byrna.png); }
 .cape { background-image: url(../images/items/cape.png); }
@@ -358,99 +385,100 @@ body {
 .tab { padding: 4px; border: 2px solid white; color: blue; user-select: none; cursor: pointer; }
 .tab.active { border-color: black; color: black; background-color: #E0E0E0; cursor: default; }
 
-#bossMap0, #dungeon0 { left: 46.8%; top: 38.8%; }
-#bossMap1, #dungeon1 { left: 3.8%;  top: 78.4%; }
-#bossMap2, #dungeon2 { left: 31.0%; top: 5.5%; }
-#bossMap3, #dungeon3 { left: 97.0%; top: 40.0%; }
-#bossMap4, #dungeon4 { left: 73.5%; top: 91.0%; }
-#bossMap5, #dungeon5 { left: 53.3%; top: 5.4%; }
-#bossMap6, #dungeon6 { left: 56.4%; top: 47.9%; }
-#bossMap7, #dungeon7 { left: 89.8%; top: 85.8%; }
-#bossMap8, #dungeon8 { left: 55.8%; top: 82.9%; }
-#bossMap9, #dungeon9 { left: 96.9%; top: 7.0%; }
-#bossMap10, #dungeon10 { left: 79.0%; top: 5.5%; }
-#bossMap11, #dungeon11 { left: 25.0%; top: 37.5%; }
-#bossMapAgahnim, #castle, #bossMap12, #dungeon12 { left: 25.0%; top: 52.6%; }
+#bossMap0, #dungeon0 { left: 93.6%; top: 38.8%; }
+#bossMap1, #dungeon1 { left: 7.6%; top: 78.4%; }
+#bossMap2, #dungeon2 { left: 62%; top: 5.5%; }
+#bossMap3, #dungeon3 { left: 94%; top: 40.0%; }
+#bossMap4, #dungeon4 { left: 47%; top: 91.0%; }
+#bossMap5, #dungeon5 { left: 6.6%; top: 5.4%; }
+#bossMap6, #dungeon6 { left: 12.8%; top: 47.9%; }
+#bossMap7, #dungeon7 { left: 79.6%; top: 85.8%; }
+#bossMap8, #dungeon8 { left: 11.6%; top: 82.9%; }
+#bossMap9, #dungeon9 { left: 93.8%; top: 7.0%; }
+#bossMap10, #dungeon10 { left: 58%; top: 5.5%; }
+#bossMap11, #dungeon11 { left: 50%; top: 37.5%; }
+#bossMapAgahnim, #castle, #bossMap12, #dungeon12 { left: 50%; top: 52.6%; }
 
-#locationMap0 { left: 30.8%; top: 29.6%; }
-#locationMap1 { left: 23.4%; top: 93.4%; }
-#locationMap2 { left: 27.4%; top: 67.9%; }
-#locationMap3 { left: 39.9%; top: 9.3%; }
-#locationMap4 { left: 42.6%; top: 9.3%; }
-#locationMap5 { left: 8.1%;  top: 57.8%; }
-#locationMap6 { left: 4.4%;  top: 54.2%; }
-#locationMap7 { left: 55.4%; top: 57.8%; }
-#locationMap8 { left: 60.8%; top: 47.9%; }
-#locationMap9 { left: 10.0%; top: 82.6%; }
-#locationMap10 { left: 51.7%; top: 79.5%; }
-#locationMap11 { left: 92.8%; top: 14.7%; }
-#locationMap12 { left: 40.7%; top: 41.4%; }
-#locationMap13 { left: 78.6%; top: 14.9%; }
-#locationMap14 { left: 1.7%;  top: 41.0%; }
-#locationMap15 { left: 6.4%;  top: 41.0%; }
-#locationMap16 { left: 80.0%; top: 77.1%; }
-#locationMap17 { left: 41.4%; top: 17.1%; }
-#locationMap18 { left: 19.5%; top: 29.3%; }
-#locationMap19 { left: 32.6%; top: 93.4%; }
-#locationMap20 { left: 44.7%; top: 76.9%; }
-#locationMap21 { left: 91.6%; top: 8.6%; }
-#locationMap22 { left: 91.6%; top: 3.4%; }
-#locationMap23 { left: 52.1%; top: 46.4%; }
-#locationMap24 { left: 4.5%;  top: 46.8%; }
-#locationMap25 { left: 40.7%; top: 46.7%; }
-#locationMap26 { left: 65.5%; top: 68.6%; }
-#locationMap27 { left: 7.8%;  top: 52.1%; }
-#locationMap28 { left: 65.2%; top: 52.2%; }
-#locationMap29 { left: 35.4%; top: 69.7%; }
-#locationMap30 { left: 21.0%; top: 3.0%; }
-#locationMap31 { left: 11.0%; top: 92.2%; }
-#locationMap32 { left: 96.0%; top: 17.2%; }
-#locationMap33 { left: 48.0%; top: 12.1%; }
-#locationMap34 { left: 20.8%; top: 20.4%; }
-#locationMap35 { left: 40.8%; top: 32.5%; }
-#locationMap36 { left: 9.4%;  top: 13.0%; }
-#locationMap37 { left: 15.1%; top: 7.6%; }
-#locationMap38 { left: 24.3%; top: 14.8%; }
-#locationMap39 { left: 14.1%; top: 84.1%; }
-#locationMap40 { left: 28.1%; top: 27.0%; }
-#locationMap41 { left: 8.8%;  top: 77.3%; }
-#locationMap42 { left: 65.8%; top: 60.1%; }
-#locationMap43 { left: 7.7%;  top: 65.9%; }
-#locationMap44 { left: 6.2%;  top: 8.6%; }
-#locationMap45 { left: 25.4%; top: 8.5%; }
-#locationMap46 { left: 40.2%; top: 3.0%; }
-#locationMap47 { left: 1.8%;  top: 69.8%; }
-#locationMap48 { left: 1.5%;  top: 91.0%; }
-#locationMap49 { left: 36.1%; top: 82.9%; }
-#locationMap50 { left: 67.1%; top: 15.2%; }
-#locationMap51 { left: 79.0%; top: 43.5%; }
-#locationMap52 { left: 52.9%; top: 69.2%; }
-#locationMap53 { left: 47.7%; top: 17.3%; }
-#locationMap54 { left: 14.4%; top: 66.2%; }
-#locationMap55 { left: 26.8%; top: 32.4%; }
-#locationMap56 { left: 29.8%; top: 41.8%; }
-#locationMap57 { left: 25.0%; top: 44.1%; }
-#locationMap58 { left: 23.0%; top: 28.0%; }
-#locationMap59 { left: 16.0%; top: 58.0%; }
-#locationMap60 { left: 15.2%; top: 51.8%; }
-#locationMap61 { left: 73.5%; top: 48.5%; }
-#locationMap62 { left: 2.5%;  top: 3.2%; }
-#locationMap63 { left: 25.6%; top: 38.2%; }
-#locationMap64 { left: 44.9%; top: 14.7%; }
-#locationMap65 { left: 21.0%; top: 52.6%; }
-#locationMap66 { left: 29.0%; top: 52.6%; }
-#locationMap67 { left: 37.0%; top: 76.0%; }
-#locationMap68 { left: 5.2%; top: 59.6%; }
-#locationMap69 { left: 38.7%; top: 17.1%; }
-#locationMap70 { left: 83.5%; top: 78.5%; }
-#locationMap71 { left: 60.8%; top: 53.4%; }
-#locationMap72 { left: 93.3%; top: 20.2%; }
-#locationMap73 { left: 90.8%; top: 32.5%; }
-#locationMap74 { left: 66.6%; top: 6.3%; }
-#locationMap75 { left: 66.5%; top: 44.2%; }
-#locationMap76 { left: 40.0%; top: 27.5%; }
-#locationMap77 { left: 39.8%; top: 84.5%; }
-#locationMap78 { left: 77.4%; top: 67.9%; }
+#locationMap0 { left: 61.6%; top: 29.6%; }
+#locationMap1 { left: 46.8%; top: 93.4%; }
+#locationMap2 { left: 54.8%; top: 67.9%; }
+#locationMap3 { left: 79.8%; top: 9.3%; }
+#locationMap4 { left: 85.2%; top: 9.3%; }
+#locationMap5 { left: 16.2%; top: 57.8%; }
+#locationMap6 { left: 8.8%; top: 54.2%; }
+#locationMap9 { left: 20%; top: 82.6%; }
+#locationMap12 { left: 81.4%; top: 41.4%; }
+#locationMap14 { left: 3.4%; top: 41.0%; }
+#locationMap15 { left: 12.8%; top: 41.0%; }
+#locationMap17 { left: 82.8%; top: 17.1%; }
+#locationMap18 { left: 39%; top: 29.3%; }
+#locationMap19 { left: 65.2%; top: 93.4%; }
+#locationMap20 { left: 89.4%; top: 76.9%; }
+#locationMap24 { left: 9%; top: 46.8%; }
+#locationMap25 { left: 81.4%; top: 46.7%; }
+#locationMap27 { left: 15.6%; top: 52.1%; }
+#locationMap29 { left: 70.8%; top: 69.7%; }
+#locationMap30 { left: 42%; top: 3.0%; }
+#locationMap31 { left: 22%; top: 92.2%; }
+#locationMap33 { left: 96%; top: 12.1%; }
+#locationMap34 { left: 41.6%; top: 20.4%; }
+#locationMap35 { left: 81.6%; top: 32.5%; }
+#locationMap36 { left: 18.8%; top: 13.0%; }
+#locationMap37 { left: 30.2%; top: 7.6%; }
+#locationMap38 { left: 48.6%; top: 14.8%; }
+#locationMap39 { left: 28.2%; top: 84.1%; }
+#locationMap40 { left: 56.2%; top: 27.0%; }
+#locationMap41 { left: 17.6%; top: 77.3%; }
+#locationMap43 { left: 15.4%; top: 65.9%; }
+#locationMap44 { left: 12.4%; top: 8.6%; }
+#locationMap45 { left: 50.8%; top: 8.5%; }
+#locationMap46 { left: 80.4%; top: 3.0%; }
+#locationMap47 { left: 3.6%; top: 69.8%; }
+#locationMap48 { left: 3%; top: 91.0%; }
+#locationMap49 { left: 72.2%; top: 82.9%; }
+#locationMap53 { left: 95.4%; top: 17.3%; }
+#locationMap54 { left: 28.8%; top: 66.2%; }
+#locationMap55 { left: 53.6%; top: 32.4%; }
+#locationMap56 { left: 59.6%; top: 41.8%; }
+#locationMap57 { left: 50%; top: 44.1%; }
+#locationMap58 { left: 46%; top: 28.0%; }
+#locationMap59 { left: 32%; top: 58.0%; }
+#locationMap60 { left: 30.4%; top: 51.8%; }
+#locationMap62 { left: 5%; top: 3.2%; }
+#locationMap63 { left: 51.2%; top: 38.2%; }
+#locationMap64 { left: 89.8%; top: 14.7%; }
+#locationMap65 { left: 42%; top: 52.6%; }
+#locationMap66 { left: 58%; top: 52.6%; }
+#locationMap67 { left: 74%; top: 76.0%; }
+#locationMap68 { left: 10.4%; top: 59.6%; }
+#locationMap69 { left: 77.4%; top: 17.1%; }
+#locationMap76 { left: 80%; top: 27.5%; }
+#locationMap77 { left: 79.6%; top: 84.5%; }
+
+#locationMap7 { left: 10.8%; top: 57.8%; }
+#locationMap8 { left: 21.6%; top: 47.9%; }
+#locationMap10 { left: 3.4%; top: 79.5%; }
+#locationMap11 { left: 85.6%; top: 14.7%; }
+#locationMap13 { left: 57.2%; top: 14.9%; }
+#locationMap16 { left: 60%; top: 77.1%; }
+#locationMap21 { left: 83.2%; top: 8.6%; }
+#locationMap22 { left: 83.2%; top: 3.4%; }
+#locationMap23 { left: 4.2%; top: 46.4%; }
+#locationMap26 { left: 31%; top: 68.6%; }
+#locationMap28 { left: 30.4%; top: 52.2%; }
+#locationMap32 { left: 92%; top: 17.2%; }
+#locationMap42 { left: 31.6%; top: 60.1%; }
+#locationMap50 { left: 34.2%; top: 15.2%; }
+#locationMap51 { left: 58%; top: 43.5%; }
+#locationMap52 { left: 5.8%; top: 69.2%; }
+#locationMap61 { left: 47%; top: 48.5%; }
+#locationMap70 { left: 67%; top: 78.5%; }
+#locationMap71 { left: 21.6%; top: 53.4%; }
+#locationMap72 { left: 86.6%; top: 20.2%; }
+#locationMap73 { left: 81.6%; top: 32.5%; }
+#locationMap74 { left: 33.2%; top: 6.3%; }
+#locationMap75 { left: 33%; top: 44.2%; }
+#locationMap78 { left: 54.8%; top: 67.9%; }
 
 .instructionsDiv {
     width: 1200px;
