@@ -982,7 +982,7 @@
 					if (!window.mushroomfound) {
 						window.mushroomfound = true;
 					}
-					if (window.mushroomfound) {
+					if (window.mushroomfound && flags.autotracking != 'N') {
 						items[label] = true;
 					}
 				}
@@ -1559,8 +1559,16 @@
 					divtoadd.id = 'notediv' + document.getElementById('entranceID').value;
 					var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
 					
-					divtoadd.style.top = loc.offsetTop - 10;
-					divtoadd.style.left = loc.offsetLeft + 10;
+					if (loc.offsetTop < 20) {
+						divtoadd.style.top = loc.offsetTop + 15 + (loc.parentElement.id === "mapEntranceDiv_dark" && flags.mapmode === "V" ? 448 : 0);
+					} else {
+						divtoadd.style.top = loc.offsetTop - 15 + (loc.parentElement.id === "mapEntranceDiv_dark" && flags.mapmode === "V" ? 448 : 0);
+					}
+					
+					divtoadd.style.left = loc.offsetLeft - 14 + (loc.parentElement.id === "mapEntranceDiv_dark" ? (flags.mapmode === "V" ? -6 : (flags.mapmode === "C" ? 223 : 446)) : 0);
+				
+					//divtoadd.style.top = loc.offsetTop - 10;
+					//divtoadd.style.left = loc.offsetLeft + 10;
 					divtoadd.className = 'notediv';
 
 					divtoadd.style.width = 10;
@@ -1809,12 +1817,12 @@
 				var loc = document.getElementById('entranceMap' + document.getElementById('entranceID').value);
 				
 				if (loc.offsetTop < 20) {
-					divtoadd.style.top = loc.offsetTop + 15;
+					divtoadd.style.top = loc.offsetTop + 15 + (loc.parentElement.id === "mapEntranceDiv_dark" && flags.mapmode === "V" ? 448 : 0);
 				} else {
-					divtoadd.style.top = loc.offsetTop - 15;
+					divtoadd.style.top = loc.offsetTop - 15 + (loc.parentElement.id === "mapEntranceDiv_dark" && flags.mapmode === "V" ? 448 : 0);
 				}
 				
-				divtoadd.style.left = loc.offsetLeft - 14 + (loc.parentElement.id === "mapEntranceDiv_dark" ? 221 : 0);
+				divtoadd.style.left = loc.offsetLeft - 14 + (loc.parentElement.id === "mapEntranceDiv_dark" ? (flags.mapmode === "V" ? -6 : (flags.mapmode === "C" ? 221 : 442)) : 0);
 				divtoadd.className = 'informationdiv';
 
 				divtoadd.style.width = 40;
@@ -3058,7 +3066,7 @@
 				document.getElementById("connectorLineDiv").style.top = "448";
 				document.getElementById("informationDiv").style.height = "222px";
 				document.getElementById("informationDiv").style.left = "0";
-				document.getElementById("informationDiv").style.top = "448";
+				document.getElementById("informationDiv").style.top = (flags.spheresmode === "N" ? "448" : "744");
 				break;
 			case "V":
 				document.getElementById("map").style.width = "448px";

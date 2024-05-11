@@ -11,6 +11,10 @@ function load_cookie() {
 		if (c.indexOf('m-C') > -1) {
 			document.getElementById("mapsmall").checked = true;
 		}
+		if (c.indexOf('m-V') > -1) {
+			document.getElementById("mapvertical").checked = true;
+		} 
+		
 		if (c.indexOf('s-Y') > -1) {
 			document.getElementById("sphereyes").checked = true;
 		}
