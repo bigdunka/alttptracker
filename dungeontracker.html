@@ -2,14 +2,14 @@
 <html>
    <head>
       <title>ALTTP Randomizer Community Tracker - Dungeon Tracker</title>
-      <script src="js/jquery-3.3.1.js?v=21002"></script>
-      <script src="js/bootstrap.min.js?v=21002"></script>
-      <link rel="stylesheet" type="text/css" href="css/dungeonstyle.css?v=21002">
-      <link rel="stylesheet" type="text/css" href="css/sprites.css?v=21002">
-      <link rel="stylesheet" type="text/css" href="css/fonts.css?v=21002" >
-      <script src="js/util.js?v=21002"></script>
-      <script src="js/owdungeondata.js?v=21002"></script>
-      <script src="js/dungeontracker.js?v=21002"></script>
+      <script src="js/jquery-3.3.1.js?v=21003"></script>
+      <script src="js/bootstrap.min.js?v=21003"></script>
+      <link rel="stylesheet" type="text/css" href="css/dungeonstyle.css?v=21003">
+      <link rel="stylesheet" type="text/css" href="css/sprites.css?v=21003">
+      <link rel="stylesheet" type="text/css" href="css/fonts.css?v=21003" >
+      <script src="js/util.js?v=21003"></script>
+      <script src="js/owdungeondata.js?v=21003"></script>
+      <script src="js/dungeontracker.js?v=21003"></script>
       <!-- Global site tag (gtag.js) - Google Analytics -->
       <script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3T0KM2W1L"></script>
       <script>
@@ -295,22 +295,23 @@
                            <label><input type="checkbox" id="fluteshuffle" onchange="updateOverworldShuffle(false)" />Flute Shuffle</label>
                         </div>
                      </div>
-                  </div>
-                  <div class="row welcomeshown">
-                     <div style="display: inline-block;">
-                        <h3 class="textrow">Customizer:</h3>
-                     </div>
-                     <div class="rightalign" style="height: 20px; top: 5px; position: relative;">
-                        <select id="customizerpreset" style="width: 250px; font-size: 12px;">
-                           <option value="none">None/other</option>
-                           <option value="vanillahorizontal">Shuffle Vertical (vanilla horiz. edges)</option>
-                           <option value="vanillavertical">Shuffle Horizontal (vanilla vert. edges)</option>
-                           <option value="vanillalight">Shuffle Dark World (vanilla Light World)</option>
-                           <option value="vanilladark">Shuffle Light World (vanilla Dark World)</option>
-                           <option value="vanillasmallscreens">Shuffle Large Screens (v. small screens)</option>
-                           <option value="vanillalargescreens">Shuffle Small Screens (v. large screens)</option>
-                        </select>
-                        <span id="customizernotsupported" style="display: none;">(Setting not supported with Mixed Overworld)</span>
+                     <div class="row welcomeshown">
+                        <div style="display: inline-block;">
+                           <h3 class="textrow">Customizer:</h3>
+                        </div>
+                        <div class="rightalign" style="height: 20px; top: 5px; position: relative;">
+                           <select id="customizerpreset" style="width: 250px; font-size: 12px;">
+                              <option value="none">None/other</option>
+                              <option value="vanillahorizontal">Shuffle Vertical (vanilla horiz. edges)</option>
+                              <option value="vanillavertical">Shuffle Horizontal (vanilla vert. edges)</option>
+                              <option value="vanillalight">Shuffle Dark World (vanilla Light World)</option>
+                              <option value="vanilladark">Shuffle Light World (vanilla Dark World)</option>
+                              <option value="vanillasmallscreens">Shuffle Large Screens (v. small screens)</option>
+                              <option value="vanillalargescreens">Shuffle Small Screens (v. large screens)</option>
+                              <option value="vanillaspecialscreens">Vanilla special screens</option>
+                           </select>
+                           <span id="customizernotsupported" style="display: none;">(Setting not supported with Mixed Overworld)</span>
+                        </div>
                      </div>
                   </div>
                   <div class="row" style="margin-top: 4px;">
@@ -374,14 +375,6 @@
                      </div>
                   </div>
                   <div class="row welcomeshown" style="margin-top: 12px;">
-                     <div id="vanillawelcome">
-                        <div class="row">
-                           <label><input type="checkbox" id="vanillawhirlpoolswelcome" style="margin-top: 10px;" />[Legacy] All whirlpool transitions are vanillla</label>
-                        </div>
-                        <div class="row">
-                           <label><input type="checkbox" id="vanillaspecialwelcome" />[Legacy] Pedestal, Zora and Hobo transitions are vanillla</label>
-                        </div>
-                     </div>
                      <div class="buttonbox greenborder" onclick="welcomeStart(true)">Start, mode settings are final</div>
                      <div class="buttonbox greenborder" onclick="welcomeStart(false)">Start, mode settings may change</div>
                      <div class="buttonbox greenborder" onclick="welcomeStartMystery()">Mystery mode (start with least restrictive settings)</div>
@@ -1992,7 +1985,7 @@
                <div class="buttonbox" style="margin-top: 0;" onclick="vanillaLargeScreens(this)">Make all transitions from and to large screens vanilla</div>
             </div>
             <div class="row">
-               <div class="buttonbox" style="margin-top: 0; margin-bottom: 8px;" onclick="vanillaSpecialScreens(this)">[Legacy] Make Pedestal, Zora and Hobo transitions vanilla</div>
+               <div class="buttonbox" style="margin-top: 0; margin-bottom: 8px;" onclick="vanillaSpecialScreens(this)">Make Pedestal, Zora and Hobo transitions vanilla</div>
             </div>
          </div>
       </div>

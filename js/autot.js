@@ -38,7 +38,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4B4,
 		"keycount_ram": 0x4E2,
 		"dungeonindex": 2,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//DP
 	{
@@ -55,7 +56,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4B6,
 		"keycount_ram": 0x4E3,
 		"dungeonindex": 3,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//ToH
 	{
@@ -72,7 +74,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4C4,
 		"keycount_ram": 0x4EA,
 		"dungeonindex": 10,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//PoD
 	{
@@ -89,7 +92,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4BC,
 		"keycount_ram": 0x4E6,
 		"dungeonindex": 6,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//SP
 	{
@@ -106,7 +110,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4BA,
 		"keycount_ram": 0x4E5,
 		"dungeonindex": 5,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//SW
 	{
@@ -123,7 +128,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4C0,
 		"keycount_ram": 0x4E8,
 		"dungeonindex": 8,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//TT
 	{
@@ -140,7 +146,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4C6,
 		"keycount_ram": 0x4EB,
 		"dungeonindex": 11,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//IP
 	{
@@ -157,7 +164,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4C2,
 		"keycount_ram": 0x4E9,
 		"dungeonindex": 9,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//MM
 	{
@@ -174,7 +182,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4BE,
 		"keycount_ram": 0x4E7,
 		"dungeonindex": 7,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//TR
 	{
@@ -191,7 +200,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4C8,
 		"keycount_ram": 0x4EC,
 		"dungeonindex": 12,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//GT
 	{
@@ -208,7 +218,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4CA,
 		"keycount_ram": 0x4ED,
 		"dungeonindex": 13,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//HC
 	{
@@ -225,7 +236,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4B2,
 		"keycount_ram": 0x4E1,
 		"dungeonindex": 1,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	},
 	//CT
 	{
@@ -242,7 +254,8 @@ var dungeonitemlocations = [
 		"chestcount_ram": 0x4B8,
 		"keycount_ram": 0x4E4,
 		"dungeonindex": 4,
-		"subtractedkeysfromchests": false
+		"subtractedkeysfromchests": false,
+		"wastotalknown": false
 	}
 ];
 
@@ -829,7 +842,7 @@ function autotrackDoTracking(data) {
 					if (newbit(dungeonitemlocations[i]["chest"][j][0], dungeonitemlocations[i]["chest"][j][1])) {
 						currentcount++;
 						haschanged = true;
-						console.log("i: " + i.toString() + " j: " + j.toString());
+						//console.log("i: " + i.toString() + " j: " + j.toString());
 					}
 				}
 				
@@ -869,26 +882,35 @@ function autotrackDoTracking(data) {
 				if (romVersionHigh < 5) {
 					return;
 				}
-				//Check if the total key count is known to the player according to the game
-				if (data[dungeonitemlocations[i]["seenkeycount"][0]] & dungeonitemlocations[i]["seenkeycount"][1]) {
-					//Check if the total key count has already been read from the ROM, otherwise request it
-					if (!keycounts_rom_map.hasOwnProperty("" + i)) {
-						add_request(["keys", i]);
+				if (!flags.crosseddoorsknownchestsmode) {
+					//Check if the total key count is known to the player according to the game
+					if (data[dungeonitemlocations[i]["seenkeycount"][0]] & dungeonitemlocations[i]["seenkeycount"][1]) {
+						//Check if the total key count has already been read from the ROM, otherwise request it
+						if (!keycounts_rom_map.hasOwnProperty("" + i)) {
+							add_request(["keys", i]);
+						}
 					}
 				}
-				//Check if the total chest count is known to the player according to the game, otherwise we can't autotrack
-				if (data[dungeonitemlocations[i]["seenchestcount"][0]] & dungeonitemlocations[i]["seenchestcount"][1]) {
-					//Check if the total chest count has already been read from the ROM, otherwise request it
-					if (chestcounts_rom_map.hasOwnProperty("" + i)) {
-						//Check if it is already marked as known in the tracker
-						if (items["chestknown" + i]) {
-							var oldcount = dungeonitemlocations[i]["currentcount"];
-							var currentcount = data[dungeonitemlocations[i]["chestcount_ram"]] + (data[dungeonitemlocations[i]["chestcount_ram"] + 1] << 8);
-							
-							if (currentcount > oldcount || (!flags.wildkeys && keycounts_rom_map.hasOwnProperty("" + i) && !dungeonitemlocations[i]["subtractedkeysfromchests"])) {
-								//If it is a dungeon item and it isn't wild, increment oldcount so currentcount doesn't change
-								if (!flags.wildmaps && newbit(dungeonitemlocations[i]["map"][0], dungeonitemlocations[i]["map"][1])) oldcount++;
-								if (!flags.wildcompasses && newbit(dungeonitemlocations[i]["compass"][0], dungeonitemlocations[i]["compass"][1])) oldcount++;
+				//Check if the total chest count is already marked as known in the tracker
+				if (items["chestknown" + i]) {
+					if (dungeonitemlocations[i]["wastotalknown"]) {
+						//It was already known before, so the current chest count is expected to be accurate
+						var oldcount = dungeonitemlocations[i]["currentcount"];
+						var currentcount = data[dungeonitemlocations[i]["chestcount_ram"]] + (data[dungeonitemlocations[i]["chestcount_ram"] + 1] << 8);
+						
+						if (currentcount > oldcount || (!flags.crosseddoorsknownchestsmode && !flags.wildkeys && keycounts_rom_map.hasOwnProperty("" + i) && !dungeonitemlocations[i]["subtractedkeysfromchests"])) {
+							//If it is a dungeon item and it isn't wild, increment oldcount so currentcount doesn't change
+							if (!flags.wildmaps && newbit(dungeonitemlocations[i]["map"][0], dungeonitemlocations[i]["map"][1])) oldcount++;
+							if (!flags.wildcompasses && newbit(dungeonitemlocations[i]["compass"][0], dungeonitemlocations[i]["compass"][1])) oldcount++;
+							if (flags.crosseddoorsknownchestsmode) {
+								if (!flags.wildkeys && data[dungeonitemlocations[i]["smallkey"]] > dungeonitemlocations[i]["keycount"])
+								{
+									var newkeys = data[dungeonitemlocations[i]["smallkey"]] - dungeonitemlocations[i]["keycount"];
+									oldcount += newkeys;
+									dungeonitemlocations[i]["keycount"] += newkeys;
+								}
+								if (!flags.wildbigkeys && newbit(dungeonitemlocations[i]["bigkey"][0], dungeonitemlocations[i]["bigkey"][1])) oldcount++;
+							} else {
 								//Count keys we didn't know about as items since we haven't subtracted them from the total count
 								if (!flags.wildkeys && keycounts_rom_map.hasOwnProperty("" + i)) {
 									if (!dungeonitemlocations[i]["subtractedkeysfromchests"]) {
@@ -905,39 +927,59 @@ function autotrackDoTracking(data) {
 										}
 									}
 								}
-								
-								while (oldcount != currentcount) {
-									if (oldcount < currentcount) {
-										if (items["chest" + i] === 0) break;
-										toggle(dungeonitemlocations[i]["togglename"]);
-										oldcount++;
-									} else {
-										rightClickChest(dungeonitemlocations[i]["togglename"]);
-										oldcount--;
-									}
+							}
+							
+							while (oldcount != currentcount) {
+								if (oldcount < currentcount) {
+									if (items["chest" + i] === 0) break;
+									toggle(dungeonitemlocations[i]["togglename"]);
+									oldcount++;
+								} else {
+									rightClickChest(dungeonitemlocations[i]["togglename"]);
+									oldcount--;
 								}
-								//Save the value for the next change
-								dungeonitemlocations[i]["currentcount"] = currentcount;
 							}
-						} else {
-							//We now know the total chest count
-							clickCompass(i);
-							var total_chests = chestcounts_rom_map["" + i];
-							var current_chests = data[dungeonitemlocations[i]["chestcount_ram"]] + (data[dungeonitemlocations[i]["chestcount_ram"] + 1] << 8);
-							var remaining_chests = Math.max(0, total_chests - current_chests);
-							//Subtract known dungeon items still in the dungeon from remaining items
-							var remaining_items = remaining_chests;
-							if (!flags.wildmaps && (data[dungeonitemlocations[i]["map"][0]] & dungeonitemlocations[i]["map"][1]) === 0) remaining_items--;
-							if (!flags.wildcompasses && (data[dungeonitemlocations[i]["compass"][0]] & dungeonitemlocations[i]["compass"][1]) === 0) remaining_items--;
-							//Small keys are handled later, big keys are always counted as items
-							dungeonitemlocations[i]["currentcount"] = current_chests;
-							if (total_chests > 0) {
-								items["chest" + i] = remaining_items >= doorsmaxchests ? 0 : remaining_items + 1;
-								toggle(dungeonitemlocations[i]["togglename"]);
-							}
+							//Save the value for the next change
+							dungeonitemlocations[i]["currentcount"] = currentcount;
 						}
 					} else {
-						add_request(["chests", i]);
+						//This is new information, so initialize some values
+						dungeonitemlocations[i]["wastotalknown"] = true;
+						dungeonitemlocations[i]["currentcount"] = data[dungeonitemlocations[i]["chestcount_ram"]] + (data[dungeonitemlocations[i]["chestcount_ram"] + 1] << 8);
+						dungeonitemlocations[i]["keycount"] = data[dungeonitemlocations[i]["smallkey"]];
+					}
+				} else {
+					if (dungeonitemlocations[i]["wastotalknown"]) {
+						dungeonitemlocations[i]["subtractedkeysfromchests"] = false;
+						dungeonitemlocations[i]["wastotalknown"] = false;
+						dungeonitemlocations[i]["currentcount"] = 0;
+						dungeonitemlocations[i]["keycount"] = 0;
+					}
+					if (!flags.crosseddoorsknownchestsmode) {
+						//Check if the total chest count is known to the player according to the game, otherwise we can't autotrack
+						if (data[dungeonitemlocations[i]["seenchestcount"][0]] & dungeonitemlocations[i]["seenchestcount"][1]) {
+							//Check if the total chest count has already been read from the ROM, otherwise request it
+							if (chestcounts_rom_map.hasOwnProperty("" + i)) {
+								//We now know the total chest count
+								dungeonitemlocations[i]["wastotalknown"] = true;
+								clickCompass(i);
+								var total_chests = chestcounts_rom_map["" + i];
+								var current_chests = data[dungeonitemlocations[i]["chestcount_ram"]] + (data[dungeonitemlocations[i]["chestcount_ram"] + 1] << 8);
+								var remaining_chests = Math.max(0, total_chests - current_chests);
+								//Subtract known dungeon items still in the dungeon from remaining items
+								var remaining_items = remaining_chests;
+								if (!flags.wildmaps && (data[dungeonitemlocations[i]["map"][0]] & dungeonitemlocations[i]["map"][1]) === 0) remaining_items--;
+								if (!flags.wildcompasses && (data[dungeonitemlocations[i]["compass"][0]] & dungeonitemlocations[i]["compass"][1]) === 0) remaining_items--;
+								//Small keys are handled later, big keys are always counted as items
+								dungeonitemlocations[i]["currentcount"] = current_chests;
+								if (total_chests > 0) {
+									items["chest" + i] = remaining_items >= doorsmaxchests ? 0 : remaining_items + 1;
+									toggle(dungeonitemlocations[i]["togglename"]);
+								}
+							} else {
+								add_request(["chests", i]);
+							}
+						}
 					}
 				}
 			}

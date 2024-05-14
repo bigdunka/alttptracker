@@ -1,21 +1,21 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Tracker</title>
-		<script src="js/jquery-3.3.1.js?v=21002"></script>
-		<script src="js/bootstrap.min.js?v=21002"></script>
-		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=21002">
-		<link rel="stylesheet" type="text/css" href="css/fonts.css?v=21002">
+		<script src="js/jquery-3.3.1.js?v=21003"></script>
+		<script src="js/bootstrap.min.js?v=21003"></script>
+		<link rel="stylesheet" type="text/css" href="css/sprites.css?v=21003">
+		<link rel="stylesheet" type="text/css" href="css/fonts.css?v=21003">
 		<link rel="stylesheet" type="text/css" id="mainstyle">
 		<link rel="stylesheet" type="text/css" id="maincompactstyle">
 		<link rel="stylesheet" type="text/css" id="alternatestyle">
-		<script src="js/util.js?v=21002"></script>
-		<script src="js/items.js?v=21002"></script>
-		<script src="js/chests.js?v=21002"></script>
-		<script src="js/entrancechests.js?v=21002"></script>
-		<script src="js/track.js?v=21002"></script>
-		<script src="js/dungeons.js?v=21002"></script>
-		<script src="js/spoiler.js?v=21002"></script>
-		<script src="js/autot.js?v=21002"></script>
+		<script src="js/util.js?v=21003"></script>
+		<script src="js/items.js?v=21003"></script>
+		<script src="js/chests.js?v=21003"></script>
+		<script src="js/entrancechests.js?v=21003"></script>
+		<script src="js/track.js?v=21003"></script>
+		<script src="js/dungeons.js?v=21003"></script>
+		<script src="js/spoiler.js?v=21003"></script>
+		<script src="js/autot.js?v=21003"></script>
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3T0KM2W1L"></script>
 		<script>
@@ -98,7 +98,7 @@
 										<div class="cell">
 											<div id="chest10" class="chest" onClick="toggle('chest10')" onMouseover="showNiceItems(10)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest10');return false;">27</div>
 										</div>
-										<div class="cell compass" onClick="clickCompass(10)"></div>
+										<div class="cell compass" onClick="clickCompass(10)" oncontextmenu="javascript:rightClickCompass(10);return false;"></div>
 										<div class="cell">
 											<div id="bigkey10" class="bigkey" onClick="toggle('bigkey10')" onMouseover="findItems(['GT Big Key'])" onMouseout="unhighlightAll()"></div>
 										</div>
@@ -123,7 +123,7 @@
 										<div id="bigkey0" class="bigkey" onClick="toggle('bigkey0')" onMouseover="findItems(['EP Big Key'])" onMouseout="unhighlightAll()"></div>
 									</div>
 									<div class="cell" id="c0skdiv">
-										<div class="cell compass" onClick="clickCompass(0)"></div>
+										<div class="cell compass" onClick="clickCompass(0)" oncontextmenu="javascript:rightClickCompass(0);return false;"></div>
 										<div id="smallkey0" class="smallkeyfull" onClick="toggle('smallkey0')" onMouseover="findItems(['EP Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey0');return false;">0</div>
 									</div>
 								</div>
@@ -143,7 +143,7 @@
 										<div id="bigkey1" class="bigkey" onClick="toggle('bigkey1')" onMouseover="findItems(['DP Big Key'])" onMouseout="unhighlightAll()"></div>
 									</div>
 									<div class="cell" id="c1skdiv">
-										<div class="cell compass" onClick="clickCompass(1)"></div>
+										<div class="cell compass" onClick="clickCompass(1)" oncontextmenu="javascript:rightClickCompass(1);return false;"></div>
 										<div id="smallkey1" class="smallkeyfull" onClick="toggle('smallkey1')" onMouseover="findItems(['DP Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey1');return false;">0</div>
 									</div>
 								</div>
@@ -163,7 +163,7 @@
 										<div id="bigkey2" class="bigkey" onClick="toggle('bigkey2')" onMouseover="findItems(['ToH Big Key'])" onMouseout="unhighlightAll()"></div>
 									</div>
 									<div class="cell" id="c2skdiv">
-										<div class="cell compass" onClick="clickCompass(2)"></div>
+										<div class="cell compass" onClick="clickCompass(2)" oncontextmenu="javascript:rightClickCompass(2);return false;"></div>
 										<div id="smallkey2" class="smallkeyfull" onClick="toggle('smallkey2')" onMouseover="findItems(['ToH Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey2');return false;">0</div>
 									</div>
 								</div>
@@ -268,10 +268,10 @@
 								</div>
 								<div id="hcctchests" class="cell lowerchest">
 									<div id="smallhalfheader-hcc" class="smallhalfheader" style="left: 6px; top: 20px; position: absolute; z-index: 1; pointer-events: none;">HC</div>
-									<div class="cell compass" style="position: absolute;" onClick="clickCompass(11)"></div>
+									<div class="cell compass" style="position: absolute;" onClick="clickCompass(11)" oncontextmenu="javascript:rightClickCompass(11);return false;"></div>
 									<div id="chest11" class="chest" style="left: 32px; top: 0px; position: absolute;" onClick="toggle('chest11')" onMouseover="showNiceItems(11)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest11');return false;">8</div>
 									<div id="smallhalfheader-ctc" class="smallhalfheader" style="left: 6px; top: 52px; position: absolute; z-index: 1; pointer-events: none;">CT</div>
-									<div class="cell compass" style="top: 32px; position: absolute;" onClick="clickCompass(12)"></div>
+									<div class="cell compass" style="top: 32px; position: absolute;" onClick="clickCompass(12)" oncontextmenu="javascript:rightClickCompass(12);return false;"></div>
 									<div id="chest12" class="chest" style="left: 32px; top: 32px; position: absolute;" onClick="toggle('chest12')" onMouseover="showNiceItems(12)" onMouseout="clearCaption()" oncontextmenu="javascript:rightClickChest('chest12');return false;">2</div>
 								</div>
 							</div>
@@ -334,7 +334,7 @@
 									<div id="bigkey3" class="bigkey" onClick="toggle('bigkey3')" onMouseover="findItems(['PoD Big Key'])" onMouseout="unhighlightAll()"></div>
 								</div>
 								<div class="cell" id="c3skdiv">
-									<div class="cell compass" onClick="clickCompass(3)"></div>
+									<div class="cell compass" onClick="clickCompass(3)" oncontextmenu="javascript:rightClickCompass(3);return false;"></div>
 									<div id="smallkey3" class="smallkeyfull" onClick="toggle('smallkey3')" onMouseover="findItems(['PoD Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey3');return false;">0</div>
 								</div>
 							</div>
@@ -346,7 +346,7 @@
 									<div id="bigkey4" class="bigkey" onClick="toggle('bigkey4')" onMouseover="findItems(['SP Big Key'])" onMouseout="unhighlightAll()"></div>
 								</div>
 								<div class="cell" id="c4skdiv">
-									<div class="cell compass" onClick="clickCompass(4)"></div>
+									<div class="cell compass" onClick="clickCompass(4)" oncontextmenu="javascript:rightClickCompass(4);return false;"></div>
 									<div id="smallkey4" class="smallkeyfull" onClick="toggle('smallkey4')" onMouseover="findItems(['SP Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey4');return false;">0</div>
 								</div>
 							</div>
@@ -358,7 +358,7 @@
 									<div id="bigkey5" class="bigkey" onClick="toggle('bigkey5')" onMouseover="findItems(['SW Big Key'])" onMouseout="unhighlightAll()"></div>
 								</div>
 								<div class="cell" id="c5skdiv">
-									<div class="cell compass" onClick="clickCompass(5)"></div>
+									<div class="cell compass" onClick="clickCompass(5)" oncontextmenu="javascript:rightClickCompass(5);return false;"></div>
 									<div id="smallkey5" class="smallkeyfull" onClick="toggle('smallkey5')" onMouseover="findItems(['SW Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey5');return false;">0</div>
 								</div>
 							</div>
@@ -370,7 +370,7 @@
 									<div id="bigkey6" class="bigkey" onClick="toggle('bigkey6')" onMouseover="findItems(['TT Big Key'])" onMouseout="unhighlightAll()"></div>
 								</div>
 								<div class="cell" id="c6skdiv">
-									<div class="cell compass" onClick="clickCompass(6)"></div>
+									<div class="cell compass" onClick="clickCompass(6)" oncontextmenu="javascript:rightClickCompass(6);return false;"></div>
 									<div id="smallkey6" class="smallkeyfull" onClick="toggle('smallkey6')" onMouseover="findItems(['TT Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey6');return false;">0</div>
 								</div>
 							</div>
@@ -382,7 +382,7 @@
 									<div id="bigkey7" class="bigkey" onClick="toggle('bigkey7')" onMouseover="findItems(['IP Big Key'])" onMouseout="unhighlightAll()"></div>
 								</div>
 								<div class="cell" id="c7skdiv">
-									<div class="cell compass" onClick="clickCompass(7)"></div>
+									<div class="cell compass" onClick="clickCompass(7)" oncontextmenu="javascript:rightClickCompass(7);return false;"></div>
 									<div id="smallkey7" class="smallkeyfull" onClick="toggle('smallkey7')" onMouseover="findItems(['IP Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey7');return false;">0</div>
 								</div>
 							</div>
@@ -394,7 +394,7 @@
 									<div id="bigkey8" class="bigkey" onClick="toggle('bigkey8')" onMouseover="findItems(['MM Big Key'])" onMouseout="unhighlightAll()"></div>
 								</div>
 								<div class="cell" id="c8skdiv">
-									<div class="cell compass" onClick="clickCompass(8)"></div>
+									<div class="cell compass" onClick="clickCompass(8)" oncontextmenu="javascript:rightClickCompass(8);return false;"></div>
 									<div id="smallkey8" class="smallkeyfull" onClick="toggle('smallkey8')" onMouseover="findItems(['MM Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey8');return false;">0</div>
 								</div>
 							</div>
@@ -406,7 +406,7 @@
 									<div id="bigkey9" class="bigkey" onClick="toggle('bigkey9')" onMouseover="findItems(['TR Big Key'])" onMouseout="unhighlightAll()"></div>
 								</div>
 								<div class="cell" id="c9skdiv">
-									<div class="cell compass" onClick="clickCompass(9)"></div>
+									<div class="cell compass" onClick="clickCompass(9)" oncontextmenu="javascript:rightClickCompass(9);return false;"></div>
 									<div id="smallkey9" class="smallkeyfull" onClick="toggle('smallkey9')" onMouseover="findItems(['TR Key'])" onMouseout="unhighlightAll()" oncontextmenu="javascript:rightClickKey('smallkey9');return false;">0</div>
 								</div>
 							</div>
@@ -997,7 +997,7 @@
 			<div id="entranceModalMain" style="width: 800px; height: 300px; background-color: rgb(0,0,0,1); z-index: 4; position: absolute; top: 50px; left: 40px; border-style: solid; border-color: white; color: #FFF; " onclick="overrideEntranceClose();">
 				<div style="margin: 0px 10px 0px 10px;">
 					<input id="entranceID" type="text" style="visibility: collapse; height: 0px;"/><br>
-					<span id="entranceModalTitle" style="vertical-align: 8px;"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="addConnectorSpan" style="margin-right: 20px; cursor: pointer;" onclick="StartAConnectorModal();"><span style="vertical-align: 8px;">Add Connector:&nbsp;&nbsp;&nbsp;</span><img style="" src="./images/interface/connect.png" /></span><label style="vertical-align: 8px; white-space: nowrap;">Note: <input id="entranceModalNote" type="text" style="margin-top: 4px; width: 236px;" onkeypress="return checkReturn(event);" /></label><span id="connectTemplateSpan" style="cursor: pointer; visibility: hidden;" onclick="dosomething(1,2);" >Title&nbsp;&nbsp;&nbsp;<img id="connectTemplateImg" style="height: 15px;"src="./images/interface/cancel.png" />&nbsp;&nbsp;&nbsp;</span>
+					<span id="entranceModalTitle" style="vertical-align: 8px;"></span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="addConnectorSpan" style="margin-right: 20px; cursor: pointer;" onclick="StartAConnectorModal();"><span style="vertical-align: 8px;">Add Connector:&nbsp;&nbsp;&nbsp;</span><img src="./images/interface/connect.png" /></span><label style="vertical-align: 8px; white-space: nowrap;">Note: <input id="entranceModalNote" type="text" style="margin-top: 4px; width: 236px;" onkeypress="return checkReturn(event);" /></label><span id="connectTemplateSpan" style="cursor: pointer; visibility: hidden;" onclick="dosomething(1,2);" >Title&nbsp;&nbsp;&nbsp;<img id="connectTemplateImg" style="height: 15px;"src="./images/interface/cancel.png" />&nbsp;&nbsp;&nbsp;</span>
 					<hr>
 					<div>
 						Connected To: <span id="ConnectorListSpan"></span>
@@ -1325,6 +1325,60 @@
 					</table>
 				</div>
 				<center style="user-select: none; transform: scale(1.25);"><input type="button" onclick="closeFlagsModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="adjustFlags();" value="Submit" /></center>
+			</div>
+		</div>
+		<div class="modal fade" id="compassModal" aria-hidden="true" style="width: 400px; height: 354px; background-color: rgba(255, 255, 255, 1); z-index: 100; position: absolute; top: 22px; left: 24px; display: none;">
+			<div>
+				<div style="user-select: none;">
+					<h3 style="width: 250px; display: inline-block; margin-left: 12px;">Set Dungeon Item Counts</h3>
+				</div>
+				<div style="height: 256px;">
+					<table width="380px" height="72px" style="margin: auto;">
+					<div style="margin: 12px;">
+						Warning: This will overwrite the remaining item counts for all the dungeons, or at least those currently marked as having an unknown remaining item count!
+					</div>
+					<div style="margin: 12px;">
+						<label><input id="compassonlysetunknown" type="checkbox" />Only overwrite chest counts marked as unknown</label>
+					</div>
+					<div style="margin: 12px;">
+						<label><input id="compassknownchestsmode" type="checkbox" />Tell the autotracker that the chest and key counts are known</label>
+					</div>
+						<tr>
+							<td width="160px">
+								Include Pots:
+							</td>
+							<td>
+								<select id="compassincludepots" style="width: 140px">
+									<option value="None">None</option>
+									<option value="Key">Key Pots</option>
+									<option value="Filled">Non-Empty Pots</option>
+									<option value="All">All Pots</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td width="160px">
+								Include Enemy Drops:
+							</td>
+							<td>
+								<select id="compassincludedrops" style="width: 140px">
+									<option value="None">None</option>
+									<option value="Key">Key Drops</option>
+									<option value="All">All Enemy Drops</option>
+								</select>
+							</td>
+						</tr>
+						<tr>
+							<td width="160px">
+								Include Dungeon Prizes:
+							</td>
+							<td>
+								<input id="compassincludeprizes" type="checkbox" style="transform: scale(1.5);" />
+							</td>
+						</tr>
+					</table>
+				</div>
+				<center style="user-select: none; transform: scale(1.25);"><input type="button" onclick="closeCompassModal();" value="Cancel" />&nbsp;&nbsp;&nbsp;<input type="button" onclick="setAllChestCounts();" value="Submit" /></center>
 			</div>
 		</div>
 		<script>start()</script>

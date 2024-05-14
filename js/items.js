@@ -39,6 +39,7 @@
 		trackingport: query.a.substr(1),
 		startingitems: query.s,
         sprite: query.p.replace('#','').replace('!',''),
+        crosseddoorsknownchestsmode: false,
     };
 	
 	window.maptype = query.map;

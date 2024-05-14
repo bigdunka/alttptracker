@@ -904,7 +904,6 @@
 		else
 			if(showVanillaOWBox)
 				checkAutoAdjustments(false);
-		document.getElementById("vanillawelcome").style.display = layoutshuffle === 'N' && crossedow !== 'C' ?"none" :"none";
 		updateOverviewElements();
 		sendUpdate();
 		updateReachableEdges();
@@ -1971,10 +1970,6 @@
 	{
 		setWelcomeMode(false);
 		scrollTo(0,0);
-		if(document.getElementById("vanillawhirlpoolswelcome").checked)
-			vanillaWhirlpools(null);
-		if(document.getElementById("vanillaspecialwelcome").checked)
-			vanillaSpecialScreens(null);
 		if(!mixedow)
 			switch(document.getElementById("customizerpreset").value)
 			{
@@ -1995,10 +1990,13 @@
 					break;
 				case "vanillalargescreens":
 					vanillaLargeScreens(null);
+					break;
+				case "vanillaspecialscreens":
+					vanillaSpecialScreens(null);
 			}
 		if(!entranceEnabled || worldState === 'S')
 			document.getElementById("pinnedlinkshouse").checked = true;
-		if(!entranceEnabled && (worldState === 'S' || worldState === 'I' || doorshuffle === 'N'))
+		if(!entranceEnabled && (worldState === 'S' || doorshuffle === 'N' || (worldState === 'I' && !mixedow)))
 			document.getElementById("pinnedsanctuary").checked = true;
 		if(document.getElementById("itemsync").checked || document.getElementById("connectorsync").checked || document.getElementById("globalsync").checked)
 			testConnection(true);
@@ -2061,8 +2059,6 @@
 		initWidth = window.outerWidth;
 		initHeight = window.outerHeight;
 		resetDisplayCheckboxFlags();
-		document.getElementById("vanillawhirlpoolswelcome").checked = false;
-		document.getElementById("vanillaspecialwelcome").checked = false;
 		document.getElementById("selectdoorshuffle").value = ""+doorshuffle;
 		document.getElementById("lobbyshuffle").checked = lobbyshuffle;
 		document.getElementById("excludesmallkeys").checked = excludesmallkeys;
@@ -2097,7 +2093,6 @@
 		document.getElementById("pinnedoldman").checked = false;
 		document.getElementById("pinnedpyramid").checked = false;
 		setWelcomeMode(!query.request_update);
-		document.getElementById("vanillawelcome").style.display = layoutshuffle === 'N' ?"none" :"none";
 		initializeOverworldGraph();
 		initializeRoomsAndSymbols();
 		try
@@ -5144,7 +5139,7 @@
 		if(document.getElementById("pinnedlinkshouse").checked)
 			inspectStartRegion(0x2C,"Main",false);
 		if(document.getElementById("pinnedsanctuary").checked)
-			inspectStartRegion(worldState === 'I' ?0x53 :0x13,"Main",true);
+			inspectStartRegion(0x13,"Main",false);
 		if(document.getElementById("pinnedoldman").checked)
 			inspectStartRegion(0x03,"Bottom",true);
 		if(document.getElementById("pinnedpyramid").checked)

@@ -1356,6 +1356,67 @@
 		document.getElementById('chest'+dungeonid).innerHTML = items['chest'+dungeonid] == 0 ? '' : (flags.doorshuffle === 'C' && !items['chestknown'+dungeonid] ? (items['chest'+dungeonid] - 1) + '+' : items['chest'+dungeonid]);
 		updateMapTracker();
 	};
+	
+	window.rightClickCompass = function(dungeonid) {
+		document.getElementById('compassknownchestsmode').checked = true;
+		$('#flagsModal').hide();
+		$('#compassModal').show();
+	};
+	
+	window.closeCompassModal = function() {
+		$('#compassModal').hide();
+	};
+	
+	window.setAllChestCounts = function() {
+		var chestCounts = [6,6,6,14,10,8,8,8,8,12,27,8,2];
+		var keyChestCounts = [0,1,1,6,1,3,1,2,3,4,4,1,2];
+		var keyPotCounts = [1,3,0,0,5,1,2,2,2,0,3,0,0];
+		var filledPotCounts = [41,37,21,35,52,49,38,36,25,45,60,23,21];
+		var dungeonPotCounts = [51,50,37,39,61,82,46,53,39,49,92,34,25];
+		var keyDropCounts = [1,0,0,0,0,1,0,2,1,2,1,4,2];
+		var dungeonDropCounts = [48,51,32,52,55,55,67,77,44,27,79,66,32];
+		for (var i = 0; i < 13; i++) {
+			if (!document.getElementById('compassonlysetunknown').checked || !items["chestknown"+i]) {
+				var newCount = chestCounts[i];
+				switch (document.getElementById('compassincludepots').value) {
+					case "Key":
+						newCount += keyPotCounts[i];
+						break;
+					case "Filled":
+						newCount += filledPotCounts[i];
+						break;
+					case "All":
+						newCount += dungeonPotCounts[i];
+						break;
+				}
+				switch (document.getElementById('compassincludedrops').value) {
+					case "Key":
+						newCount += keyDropCounts[i];
+						break;
+					case "All":
+						newCount += dungeonDropCounts[i];
+						break;
+				}
+				if (document.getElementById('compassincludeprizes').checked && i < 10) newCount++;
+				if (!flags.wildmaps && i < 12) newCount--;
+				if (!flags.wildcompasses && i < 11) newCount--;
+				if (!flags.wildkeys) newCount -= keyChestCounts[i];
+				if (!flags.wildkeys && document.getElementById('compassincludepots').value !== "None") newCount -= keyPotCounts[i];
+				if (i === 11) {
+					if (!flags.wildkeys && document.getElementById('compassincludedrops').value !== "None") newCount -= keyDropCounts[i]-1;
+					if (!flags.wildbigkeys && document.getElementById('compassincludedrops').value !== "None") newCount--;
+				} else {
+					if (!flags.wildkeys && document.getElementById('compassincludedrops').value !== "None") newCount -= keyDropCounts[i];
+					if (!flags.wildbigkeys && i < 11) newCount--;
+				}
+				items["chestknown"+i] = true;
+				items["chest"+i] = newCount+1;
+				toggle("chest"+i);
+			}
+		}
+		flags.crosseddoorsknownchestsmode = document.getElementById('compassknownchestsmode').checked;
+		closeCompassModal();
+	};
 
     window.toggle_bomb_floor = function() {
 		if(rightClickedLocation != -1)
@@ -2381,6 +2442,7 @@
 		document.getElementById("shopsanitybox").checked = flags.shopsanity != 'N';
 		
 		openMainSettings();
+		$('#compassModal').hide();
 		$('#flagsModal').show();
 	}
 	
@@ -3339,6 +3401,11 @@
 		if (flags.spoilermode === 'Y') {
 			$('#spoilerModal').show();
 		}
+
+		document.getElementById('compassonlysetunknown').checked = true;
+		document.getElementById('compassincludepots').value = 'None';
+		document.getElementById('compassincludedrops').value = 'None';
+		document.getElementById('compassincludeprizes').checked = false;
 		
 		defineEntranceTypes();
 		document.getElementById('summaryFilter0').value = 'all';
