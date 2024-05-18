@@ -789,7 +789,7 @@
 		if (!items.bigkey3 || !items.hammer || items.bow < 2 || dungeoncheck === 'unavailable') return 'unavailable';
 		if (flags.wildbigkeys || flags.wildkeys) {
 			if (items.smallkey3 < 5 && flags.gametype != 'R') return 'unavailable';
-			if (items.smallkey3 === 5 && flags.gametype != 'R') {
+			if (items.smallkey3 > 4 && flags.gametype != 'R') {
 				return (items.lantern ? 'possible' : 'darkpossible');
 			} else {
 				return (dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
@@ -841,7 +841,7 @@
 			if (!items.hookshot && flags.gametype != 'R') return 'possible';
 		}
 		if (flags.wildkeys || flags.gametype === 'R') {
-			if (flags.gametype != 'R' && (items.smallkey7 === 0 || (items.smallkey7 === 1 && !items.somaria))) return 'possible';
+			if (flags.gametype != 'R' && (items.smallkey7 === 0 || (items.smallkey7 > 0 && !items.somaria))) return 'possible';
 		} else {
 			if (!items.hookshot || !items.somaria) return 'possible';
 		}
@@ -885,10 +885,10 @@
 			front = middle;
 		}
 		if (front != 'unavailable' && middle != 'available' && items.somaria && items.smallkey9 >= 2) {
-			middle = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 === 4 ? front : 'possible';
+			middle = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 > 3 ? front : 'possible';
 		}
 		if ((middle != 'unavailable' || bigchest != 'unavailable') && back != 'available' && items.somaria && items.lantern && (items.bomb || items.boots) && items.bigkey9) {
-			back = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 === 4 && flags.wildbigkeys ? (middle === 'available' ? middle : bigchest) : 'possible';
+			back = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 > 3 && flags.wildbigkeys ? (middle === 'available' ? middle : bigchest) : 'possible';
 		}
 		var dungeoncheck = enemizer_check(9);
 		if (!items.bigkey9 || !items.smallkey9 || !items.somaria || (back === 'unavailable' && !items.bomb && !items.boots) || dungeoncheck === 'unavailable') return 'unavailable';
@@ -1047,8 +1047,8 @@
 			} else {
 				//If wild keys simply need a key
 				if (flags.wildkeys) {
-					chests[2] = (items.smallkey1 === 1 ? 'A' : 'U');
-					chests[3] = (items.smallkey1 === 1 ? 'A' : 'U');
+					chests[2] = (items.smallkey1 > 0 ? 'A' : 'U');
+					chests[3] = (items.smallkey1 > 0 ? 'A' : 'U');
 				} else {
 					//If wild keys is off, but wild big keys is on, then it is only available if both boots and big key, otherwise possible
 					if (flags.wildbigkeys) {
@@ -1140,7 +1140,7 @@
 		if (flags.wildbigkeys) {
 			chests[3] = (items.bigkey2 ? (isDark ? 'DA' : 'A') : 'U');
 		} else if (flags.wildkeys) {
-			if (items.smallkey2 === 1 && (items.lantern || items.firerod)) {
+			if (items.smallkey2 > 0 && (items.lantern || items.firerod)) {
 				chests[3] = (isDark ? 'DA' : 'A');
 			} else {
 				chests[3] = (isDark ? 'DP' : 'P');
@@ -1157,7 +1157,7 @@
 		if (flags.wildbigkeys) {
 			chests[4] = (items.bigkey2 ? (isDark ? 'DA' : 'A') : 'U');
 		} else if (flags.wildkeys || flags.gametype === 'R') {
-			if ((items.smallkey2 === 1 || flags.gametype === 'R') && (items.lantern || items.firerod)) {
+			if ((items.smallkey2 > 0 || flags.gametype === 'R') && (items.lantern || items.firerod)) {
 				chests[4] = (isDark ? 'DA' : 'A');
 			} else {
 				chests[4] = (isDark ? 'DP' : 'P');
@@ -1621,7 +1621,7 @@
 			
 			//Big Chest			
 			if (flags.wildbigkeys || flags.wildkeys || flags.gametype === 'R') {
-				chests[6] = ((items.smallkey6 === 1 || flags.gametype == 'R') && items.hammer ? 'A' : 'U');
+				chests[6] = ((items.smallkey6 > 0 || flags.gametype == 'R') && items.hammer ? 'A' : 'U');
 			} else {
 				chests[6] = (items.hammer ? 'A' : 'P');
 			}
@@ -1753,14 +1753,14 @@
 			front = middle;
 		}
 		if (front != 'unavailable' && middle != 'available' && items.somaria && items.smallkey9 >= 2) {
-			middle = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 === 4 ? front : 'possible';
+			middle = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 > 3 ? front : 'possible';
 		}
 		if ((middle != 'unavailable' || bigchest != 'unavailable') && back != 'available' && items.somaria && items.lantern && (items.bomb || items.boots) && items.bigkey9) {
-			back = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 === 4 && flags.wildbigkeys ? (middle === 'available' ? middle : bigchest) : 'possible';
+			back = (flags.wildkeys || flags.gametype === 'R') && items.smallkey9 > 3 && flags.wildbigkeys ? (middle === 'available' ? middle : bigchest) : 'possible';
 		}
 		var dungeoncheck = enemizer_check(9);
 		//If we have absolutely everything, available
-		if (dungeoncheck === 'available' && front === 'available' && middle === 'available' && bigchest === 'available' && back === 'available' && items.somaria && (items.bomb || items.boots) && items.firerod && items.smallkey9 === 4 && items.bigkey9) return items.lantern ? 'available' : 'darkavailable';
+		if (dungeoncheck === 'available' && front === 'available' && middle === 'available' && bigchest === 'available' && back === 'available' && items.somaria && (items.bomb || items.boots) && items.firerod && items.smallkey9 > 3 && items.bigkey9) return items.lantern ? 'available' : 'darkavailable';
 		//Else, see if we can use Inverted or OWG logic
 		if (middle === 'available' && bigchest === 'available' && back === 'available') return TRBackChests();
 		if (middle === 'available' && bigchest === 'available' && TRMidChests().endsWith('available')) return TRMidChests();

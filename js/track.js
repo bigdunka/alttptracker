@@ -92,7 +92,10 @@
 					"shovel":items.shovel,
 					"net":items.net,
 					"book":items.book,
-					"bottle":items.bottle,
+					"bottle1":items.bottle1,
+					"bottle2":items.bottle2,
+					"bottle3":items.bottle3,
+					"bottle4":items.bottle4,
 					"somaria":items.somaria,
 					"byrna":items.byrna,
 					"cape":items.cape,
@@ -335,7 +338,10 @@
 					"shovel":items.shovel,
 					"net":items.net,
 					"book":items.book,
-					"bottle":items.bottle,
+					"bottle1":items.bottle1,
+					"bottle2":items.bottle2,
+					"bottle3":items.bottle3,
+					"bottle4":items.bottle4,
 					"somaria":items.somaria,
 					"byrna":items.byrna,
 					"cape":items.cape,
@@ -478,10 +484,7 @@
 				}								
 				
 			}
-			
-			
-			
-			
+
 			var xhr = new XMLHttpRequest();
 			xhr.open("POST", "../api/v1/RestreamerAPI/PostItemObject?code=" + flags.restreamingcode, true);
 			xhr.setRequestHeader("Content-Type", "application/json;charset=UTF-8");
@@ -553,7 +556,10 @@
 						items.shovel = megapack.shovel;
 						items.net = megapack.net;
 						items.book = megapack.book;
-						items.bottle = megapack.bottle;
+						items.bottle1 = megapack.bottle1;
+						items.bottle2 = megapack.bottle2;
+						items.bottle3 = megapack.bottle3;
+						items.bottle4 = megapack.bottle4;
 						items.somaria = megapack.somaria;
 						items.byrna = megapack.byrna;
 						items.cape = megapack.cape;
@@ -2656,7 +2662,6 @@
 				tunic: { min: 1, max: 3 },
 				sword: { max: 4 },
 				shield: { max: 3 },
-				bottle: { max: 4 },
 				bow: { max: 3 },
 				boomerang: { max: 3 },
 				glove: { max: 2 },
@@ -2685,10 +2690,18 @@
 				chest9: { min: 0, max: maxchests9 },
 				chest10: { min: 0, max: maxchests10 },
 				chest11: { min: 0, max: maxchests11 },
-				chest12: { min: 0, max: maxchests12 }
+				chest12: { min: 0, max: maxchests12 },
+				bottle1: { min: 0, max: 7 },
+				bottle2: { min: 0, max: 7 },
+				bottle3: { min: 0, max: 7 },
+				bottle4: { min: 0, max: 7 }
 			}); 
 			
 			items.dec = limit(-1, {
+				bottle1: { min: 0, max: 7 },
+				bottle2: { min: 0, max: 7 },
+				bottle3: { min: 0, max: 7 },
+				bottle4: { min: 0, max: 7 },	
 				chest0: { max: maxchests0 },
 				chest1: { max: maxchests1 },
 				chest2: { max: maxchests2 },

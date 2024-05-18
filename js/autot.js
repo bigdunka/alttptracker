@@ -258,6 +258,17 @@ var dungeonitemlocations = [
 		"wastotalknown": false
 	}
 ];
+	
+var dungeonitemflags = {};
+
+function setMysteryDungeonItems() {
+	dungeonitemflags = {
+		"wildmaps": flags.wildmaps,
+		"wildcompasses": flags.wildcompasses,
+		"wildkeys": flags.wildkeys,
+		"wildbigkeys": flags.wildbigkeys	
+	};
+}
 
 var romVersionLow = -1;
 var romVersionHigh = -1;
@@ -303,6 +314,10 @@ function autotrackConnect(host="ws://localhost:" + flags.trackingport) {
         autotrackCleanup();
         autotrackConnect(autotrackHost);
     }, autotrackTimeoutDelay);
+	
+	if (flags.unknown === "M") {
+		setMysteryDungeonItems();
+	}
 }
 
 function autotrackDisconnect() {
@@ -831,6 +846,26 @@ function autotrackDoTracking(data) {
     }
 	
 	if (flags.autotracking === "Y") {
+		// Check for Mystery changes, and if so, reset the flags and the current counts
+		if (flags.unknown === "M") {
+			if (flags.wildmaps != dungeonitemflags.wildmaps || flags.wildcompasses != dungeonitemflags.wildcompasses || flags.wildkeys != dungeonitemflags.wildkeys || flags.wildbigkeys != dungeonitemflags.wildbigkeys) {
+				dungeonitemlocations[0]["currentcount"] = items.chest0;
+				dungeonitemlocations[1]["currentcount"] = items.chest1;
+				dungeonitemlocations[2]["currentcount"] = items.chest2;
+				dungeonitemlocations[3]["currentcount"] = items.chest3;
+				dungeonitemlocations[4]["currentcount"] = items.chest4;
+				dungeonitemlocations[5]["currentcount"] = items.chest5;
+				dungeonitemlocations[6]["currentcount"] = items.chest6;
+				dungeonitemlocations[7]["currentcount"] = items.chest7;
+				dungeonitemlocations[8]["currentcount"] = items.chest8;
+				dungeonitemlocations[9]["currentcount"] = items.chest9;
+				dungeonitemlocations[10]["currentcount"] = items.chest10;
+				dungeonitemlocations[11]["currentcount"] = items.chest11;
+				dungeonitemlocations[12]["currentcount"] = items.chest12;
+				setMysteryDungeonItems();
+			}
+		}
+		
 		for (let i = 0; i < dungeonitemlocations.length; i++) {
 			//In Vanilla and Basic Doors, the total chest and key counts are always known, but not in Crossed
 			if (flags.doorshuffle === 'N' || flags.doorshuffle === 'B') {
