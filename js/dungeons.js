@@ -288,9 +288,9 @@
 				posRequired.push('laserbridge');
 			if(flags.entrancemode === 'N' && dungeon === 4)
 				posRequired.push('mirror');
-			if(flags.gametype != 'I' && flags.entrancemode === 'N' && flags.overworldshuffle === 'N' && dungeon === 1)
+			if(flags.gametype != 'I' && flags.entrancemode === 'N' && !owGraphLogic && dungeon === 1)
 				posRequired.push('mirrordesert');
-			if(flags.gametype === 'I' && flags.entrancemode === 'N' && flags.overworldshuffle === 'N' && dungeon === 5)
+			if(flags.gametype === 'I' && flags.entrancemode === 'N' && !owGraphLogic && dungeon === 5)
 				posRequired.push('mirrorskull');
 			darkRoom = torchDarkRoom = true;
 		}
@@ -402,7 +402,7 @@
 		return doorcheck;
 	};
 
-	//dungeonEntrances is an array of length dungeonEntranceCounts[dungeonID] with values 'available', 'possible' or 'unavailable'
+	//dungeonEntrances is an array of length dungeonEntranceCounts[dungeonID] with values 'available', 'darkavailable', 'possible', 'darkpossible' or 'unavailable'
 	//dungeonEntrancesBunny is an array of length dungeonEntranceCounts[dungeonID] with values true (can only access as a bunny) or false/null/undefined otherwise
 	window.dungeonBoss = function(dungeonID,dungeonEntrances,dungeonEntrancesBunny) {
 		if(dungeonID === 11)
@@ -414,13 +414,18 @@
 				dungeonEntrances[k] = "unavailable";
 			if(dungeonEntrances[k] !== "unavailable")
 			{
-				if(state !== "available")
-					state = dungeonEntrances[k];
+				state = bestAvailability(state,dungeonEntrances[k]);
 				if(!dungeonEntrancesBunny[k])
 					bunny = false;
 			}
 			if(dungeonEntrances[k] !== "available" || dungeonEntrancesBunny[k])
+			{
+				if(k !== 0 && dungeonID === 1 && dpFrontLogic)
+					continue;
+				if(k !== 0 && dungeonID === 9 && trFrontLogic)
+					continue;
 				allAccessible = false;
+			}
 		}
 		if(bunny)
 			return "unavailable";
@@ -433,12 +438,7 @@
 			case 1:
 				if(flags.doorshuffle === 'N')
 				{
-					var front = "unavailable",back = dungeonEntrances[3];
-					if(dungeonEntrances[0] === "available" || dungeonEntrances[1] === "available" || dungeonEntrances[2] === "available")
-						front = "available";
-					else
-						if(dungeonEntrances[0] === "possible" || dungeonEntrances[1] === "possible" || dungeonEntrances[2] === "possible")
-							front = "possible";
+					var front = bestAvailability(dungeonEntrances[0],dungeonEntrances[1],dungeonEntrances[2]),back = dungeonEntrances[3];
 					state = DPBoss(front,back);
 				}
 				else
@@ -456,12 +456,7 @@
 			case 5:
 				if(flags.doorshuffle === 'N')
 				{
-					var front = "unavailable",back = dungeonEntrances[3];
-					if(dungeonEntrances[0] === "available" || dungeonEntrances[1] === "available" || dungeonEntrances[2] === "available")
-						front = "available";
-					else
-						if(dungeonEntrances[0] === "possible" || dungeonEntrances[1] === "possible" || dungeonEntrances[2] === "possible")
-							front = "possible";
+					var front = bestAvailability(dungeonEntrances[0],dungeonEntrances[1],dungeonEntrances[2]),back = dungeonEntrances[3];
 					state = SWBoss(front,back);
 				}
 				else
@@ -477,7 +472,10 @@
 				state = flags.doorshuffle === 'N' ?MMBoss("available") :doorCheck(8,false,true,false,['hookshot','firesource','somaria','bomb'],'boss');
 				break;
 			case 9:
-				state = flags.doorshuffle === 'N' ?TRBoss(...dungeonEntrances) :doorCheck(9,false,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : ''],'boss');
+				if(trFrontLogic)
+					state = flags.doorshuffle === 'N' ?TRFrontBoss("available") :doorCheck(9,false,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : ''],'boss');
+				else
+					state = flags.doorshuffle === 'N' ?TRBoss(...dungeonEntrances) :doorCheck(9,false,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : ''],'boss');
 				break;
 			case 10:
 				if((crystalCheck() < flags.ganonvulncount && flags.goals != 'A') || ((crystalCheck() < flags.opentowercount || !items.agahnim2) && flags.goals != 'F') || (flags.goals === 'A' && (!items.agahnim || !allDungeonCheck())))
@@ -494,6 +492,18 @@
 					return "unavailable";
 				state = flags.doorshuffle === 'C' ?doorCheck(12,false,true,true,[],'boss') :CTBoss();
 		}
+		if(best === "darkavailable")
+		{
+			if(state === "available" || state === "possible")
+				state = "dark"+state;
+			best = "available";
+		}
+		if(best === "darkpossible")
+		{
+			if(state === "available" || state === "darkavailable" || state === "possible")
+				state = "darkpossible";
+			best = "possible";
+		}
 		if(flags.doorshuffle !== 'N' && state === "available" && (best === "possible" || !allAccessible))
 			return "possible";
 		if(flags.doorshuffle !== 'N' && state === "darkavailable" && (best === "possible" || !allAccessible))
@@ -505,7 +515,7 @@
 		return state;
 	};
 
-	//dungeonEntrances is an array of length dungeonEntranceCounts[dungeonID] with values 'available', 'possible' or 'unavailable'
+	//dungeonEntrances is an array of length dungeonEntranceCounts[dungeonID] with values 'available', 'darkavailable', 'possible', 'darkpossible' or 'unavailable'
 	//dungeonEntrancesBunny is an array of length dungeonEntranceCounts[dungeonID] with values true (can only access as a bunny) or false/null/undefined otherwise
 	window.dungeonChests = function(dungeonID,dungeonEntrances,dungeonEntrancesBunny) {
 		var state = "unavailable",bunny = true,allAccessible = true;
@@ -515,13 +525,18 @@
 				dungeonEntrances[k] = "unavailable";
 			if(dungeonEntrances[k] !== "unavailable")
 			{
-				if(state !== "available")
-					state = dungeonEntrances[k];
+				state = bestAvailability(state,dungeonEntrances[k]);
 				if(!dungeonEntrancesBunny[k])
 					bunny = false;
 			}
 			if(dungeonEntrances[k] !== "available" || dungeonEntrancesBunny[k])
+			{
+				if(k !== 0 && dungeonID === 1 && dpFrontLogic)
+					continue;
+				if(k !== 0 && dungeonID === 9 && trFrontLogic)
+					continue;
 				allAccessible = false;
+			}
 		}
 		if(state === "unavailable")
 			return "unavailable";
@@ -538,12 +553,7 @@
 			case 1:
 				if(flags.doorshuffle === 'N')
 				{
-					var front = "unavailable",back = dungeonEntrances[3];
-					if(dungeonEntrances[0] === "available" || dungeonEntrances[1] === "available" || dungeonEntrances[2] === "available")
-						front = "available";
-					else
-						if(dungeonEntrances[0] === "possible" || dungeonEntrances[1] === "possible" || dungeonEntrances[2] === "possible")
-							front = "possible";
+					var front = bestAvailability(dungeonEntrances[0],dungeonEntrances[1],dungeonEntrances[2]),back = dungeonEntrances[3];
 					state = DPChests(front,back);
 				}
 				else
@@ -561,12 +571,7 @@
 			case 5:
 				if(flags.doorshuffle === 'N')
 				{
-					var front = "unavailable",back = dungeonEntrances[3];
-					if(dungeonEntrances[0] === "available" || dungeonEntrances[1] === "available" || dungeonEntrances[2] === "available")
-						front = "available";
-					else
-						if(dungeonEntrances[0] === "possible" || dungeonEntrances[1] === "possible" || dungeonEntrances[2] === "possible")
-							front = "possible";
+					var front = bestAvailability(dungeonEntrances[0],dungeonEntrances[1],dungeonEntrances[2]),back = dungeonEntrances[3];
 					state = SWChests(front,back);
 				}
 				else
@@ -582,7 +587,10 @@
 				state = flags.doorshuffle === 'N' ?MMChests("available") :doorCheck(8,false,true,false,['hookshot','firesource','somaria','bomb'],'item',bunny);
 				break;
 			case 9:
-				state = flags.doorshuffle === 'N' ?TRChests(...dungeonEntrances) :doorCheck(9,false,true,false,['somaria','firerod','laserbridge'],'item',bunny);
+				if(trFrontLogic)
+					state = flags.doorshuffle === 'N' ?TRFrontChests("available") :doorCheck(9,false,true,false,['somaria','firerod','laserbridge'],'item',bunny);
+				else
+					state = flags.doorshuffle === 'N' ?TRChests(...dungeonEntrances) :doorCheck(9,false,true,false,['somaria','firerod','laserbridge'],'item',bunny);
 				break;
 			case 10:
 				state = flags.doorshuffle === 'N' ?GTChests() :doorCheck(10,false,false,false,['hammer','firerod','hookshot','boomerang','somaria','boots','bow',flags.bossshuffle === 'N' ? '' : 'icerod','bomb'],'item',bunny);
@@ -590,12 +598,7 @@
 			case 11:
 				if(flags.doorshuffle === 'N')
 				{
-					var front = "unavailable",back = dungeonEntrances[4],sanc = dungeonEntrances[3];
-					if(dungeonEntrances[0] === "available" || dungeonEntrances[1] === "available" || dungeonEntrances[2] === "available")
-						front = "available";
-					else
-						if(dungeonEntrances[0] === "possible" || dungeonEntrances[1] === "possible" || dungeonEntrances[2] === "possible")
-							front = "possible";
+					var front = bestAvailability(dungeonEntrances[0],dungeonEntrances[1],dungeonEntrances[2]),back = dungeonEntrances[4],sanc = dungeonEntrances[3];
 					state = HCChests(front,back,sanc);
 				}
 				else
@@ -603,6 +606,18 @@
 				break;
 			case 12:
 				state = flags.doorshuffle === 'N' ?CTChests() :doorCheck(12,false,true,true,['kill','swordorswordless'],'item',bunny);
+		}
+		if(best === "darkavailable")
+		{
+			if(state === "available" || state === "possible")
+				state = "dark"+state;
+			best = "available";
+		}
+		if(best === "darkpossible")
+		{
+			if(state === "available" || state === "darkavailable" || state === "possible")
+				state = "darkpossible";
+			best = "possible";
 		}
 		if(flags.doorshuffle !== 'N' && state === "available" && (best === "possible" || !allAccessible))
 			return "possible";
@@ -613,6 +628,29 @@
 		if(flags.doorshuffle === 'N' && state === "darkavailable" && best === "possible")
 			return "darkpossible";
 		return state;
+	};
+
+	window.bestAvailability = function(...availabilityList)
+	{
+		for(var k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "available")
+				return "available";
+		for(var k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "darkavailable")
+				return "darkavailable";
+		for(var k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "possible")
+				return "possible";
+		for(var k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "darkpossible")
+				return "darkpossible";
+		for(var k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "partialavailable")
+				return "partialavailable";
+		for(var k = 0; k < availabilityList.length; k++)
+			if(availabilityList[k] === "information")
+				return "information";
+		return "unavailable";
 	};
 
     window.entranceInDarkWorld = function(n) {
@@ -744,44 +782,35 @@
 		return dungeoncheck;
     };
 
-	//front and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+	//front and back can be 'available', 'darkavailable', 'possible', 'darkpossible' or 'unavailable', at most one can be 'unavailable'
     window.DPBoss = function(front = 'available',back = 'unavailable') {
 		if (front != back && flags.entrancemode === 'N' && (items.glove || flags.glitches != 'N')) {
-			if (front === 'available' || back === 'available') front = back = 'available';
-			else front = back = 'possible';
+			front = back = bestAvailability(front,back);
 		}
 		var dungeoncheck = enemizer_check(1);
 		if (!items.bigkey1 || dungeoncheck === 'unavailable' || back === 'unavailable' || (!items.firerod && !items.lantern)) return 'unavailable';
-		if (back === 'possible') return 'possible';
+		if (back === 'possible' || back === 'darkpossible') return back;
 		if (!flags.wildbigkeys) {
-			if (front != 'available') return front;
-			if ((flags.wildkeys && items.smallkey1 === 0 && flags.gametype != 'R') || !items.boots) return 'possible';
-			if (!flags.wildkeys && flags.gametype != 'R' && !items.boots) return 'possible';
+			if (front != 'available' && front != 'darkavailable') return front;
+			if ((flags.wildkeys && items.smallkey1 === 0 && flags.gametype != 'R') || !items.boots) return front === 'darkavailable' ? 'darkpossible' : 'possible';
+			if (!flags.wildkeys && flags.gametype != 'R' && !items.boots) return front === 'darkavailable' ? 'darkpossible' : 'possible';
 		}
 		return dungeoncheck;
     };
 
     window.HeraBoss = function() {
+		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && !owGraphLogic;
 		var dungeoncheck = enemizer_check(2);
 		if (!items.bigkey2 || dungeoncheck === 'unavailable') return 'unavailable';
 		if (flags.wildbigkeys) {
 			if (dungeoncheck === 'available') {
-				if (flags.entrancemode === 'N' && flags.overworldshuffle === 'N') {
-					return (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available';
-				} else {
-					return 'available';
-					
-				}
+				return isDark ? 'darkavailable' : 'available';
 			} else {
-				if (flags.entrancemode === 'N' && flags.overworldshuffle === 'N') {
-					return (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible';
-				} else {
-					return 'possible';
-				}				
+				return isDark ? 'darkpossible' : 'possible';
 			}
 		}	
-		if ((flags.wildkeys && (items.smallkey2 === 0 && flags.gametype != 'R')) || (!items.lantern && !items.firerod)) return (!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible';
-		return (dungeoncheck === 'available' ? ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkavailable' : 'available') : ((!items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots)) ? 'darkpossible' : 'possible'));
+		if ((flags.wildkeys && (items.smallkey2 === 0 && flags.gametype != 'R')) || (!items.lantern && !items.firerod)) return isDark ? 'darkpossible' : 'possible';
+		return (dungeoncheck === 'available' ? (isDark ? 'darkavailable' : 'available') : (isDark ? 'darkpossible' : 'possible'));
     };
 
     window.PoDBoss = function() {
@@ -809,16 +838,17 @@
 		return dungeoncheck;
     };
 
-	//front and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+	//front and back can be 'available', 'darkavailable', 'possible', 'darkpossible' or 'unavailable', at most one can be 'unavailable'
     window.SWBoss = function(front = 'available',back = 'unavailable') {
 		if (!items.firerod) return 'unavailable';
 		if (front != back && flags.entrancemode === 'N' && (items.firerod || front === 'unavailable')) {
-			if (front === 'available' || back === 'available') front = back = 'available';
-			else front = back = 'possible';
+			front = back = bestAvailability(front,back);
 		}
 		var dungeoncheck = enemizer_check(5);
-		var keycheck = front === 'available' || flags.gametype === 'R' || (flags.wildkeys && items.smallkey5) ? 'available' : front === 'possible' || (!flags.wildkeys && back != 'unavailable') ? 'possible' : 'unavailable';
+		var keycheck = front === 'available' || front === 'darkavailable' || flags.gametype === 'R' || (flags.wildkeys && items.smallkey5) ? 'available' : front === 'possible' || front === 'darkpossible' || (!flags.wildkeys && back != 'unavailable') ? 'possible' : 'unavailable';
 		if (back === 'unavailable' || dungeoncheck === 'unavailable' || keycheck === 'unavailable' || (items.sword === 0 && flags.swordmode != 'S')) return 'unavailable';
+		if (back === 'darkpossible' || (back === 'darkavailable' && keycheck === 'possible')) return 'darkpossible';
+		if (back === 'darkavailable' && keycheck === 'available') return 'darkavailable';
 		if (back === 'possible' || keycheck === 'possible') return 'possible';
 		return dungeoncheck;
 	};
@@ -869,7 +899,7 @@
 		return (dungeoncheck === 'possible' ? (items.lantern ? 'possible' : 'darkpossible') : 'unavailable');
     };
 
-	//front, middle, bigchest and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+	//front, middle, bigchest and back can be 'available', 'darkavailable', 'possible', 'darkpossible' or 'unavailable', at most one can be 'unavailable'
 	//Not properly implemented!
     window.TRBoss = function(front = 'available',middle = 'unavailable',bigchest = 'unavailable',back = 'unavailable') {
 		if (back != 'unavailable' && middle != 'available' && items.somaria && items.lantern && (items.bomb || items.boots)) {//More complicated with dark room navigation
@@ -1014,11 +1044,10 @@
 		return available_chests(0, chests, items.maxchest0, items.chest0); 		
     };
 
-	//front and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+	//front and back can be 'available', 'darkavailable', 'possible', 'darkpossible' or 'unavailable', at most one can be 'unavailable'
     window.DPChests = function(front = 'available',back = 'unavailable') {
 		if (front != back && flags.entrancemode === 'N' && (items.glove || flags.glitches != 'N')) {
-			if (front === 'available' || back === 'available') front = back = 'available';
-			else front = back = 'possible';
+			front = back = bestAvailability(front,back);
 		}
 
 		var chests = ['U','U','U','U','U','U'];
@@ -1084,9 +1113,14 @@
 				}
 			}
 
-			if (front === 'possible') {
+			if (front === 'possible' || front === 'darkavailable') {
 				for (var k = 0; k < 5; k++) {
-					if (chests[k] === 'A') chests[k] = 'P';
+					if (chests[k] === 'A') chests[k] = front === 'possible' ? 'P' : 'DA';
+				}
+			}
+			if (front === 'darkpossible') {
+				for (var k = 0; k < 5; k++) {
+					if (chests[k] === 'A' || chests[k] === 'P') chests[k] = 'D' + chests[k];
 				}
 			}
 		}
@@ -1098,7 +1132,7 @@
     };
 
     window.HeraChests = function() {
-		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
+		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && !owGraphLogic;
 		
 		var chests = ['U','U','U','U','U','U'];
 
@@ -1516,11 +1550,10 @@
 		return available_chests(4, chests, items.maxchest4, items.chest4);
     };
 
-	//front and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+	//front and back can be 'available', 'darkavailable', 'possible', 'darkpossible' or 'unavailable', at most one can be 'unavailable'
     window.SWChests = function(front = 'available',back = 'unavailable') {
 		if (front != back && flags.entrancemode === 'N' && (items.firerod || front === 'unavailable')) {
-			if (front === 'available' || back === 'available') front = back = 'available';
-			else front = back = 'possible';
+			front = back = bestAvailability(front,back);
 		}
 		var dungeoncheck = enemizer_check(5);
 		
@@ -1567,17 +1600,22 @@
 			//Big Key Chest
 			chests[5] = 'A';
 
-			if (front === 'possible') {
+			if (front === 'possible' || front === 'darkavailable') {
 				for (var k = 0; k < 6; k++) {
-					if (chests[k] === 'A') chests[k] = 'P';
+					if (chests[k] === 'A') chests[k] = front === 'possible' ? 'P' : 'DA';
+				}
+			}
+			if (front === 'darkpossible') {
+				for (var k = 0; k < 6; k++) {
+					if (chests[k] === 'A' || chests[k] === 'P') chests[k] = 'D' + chests[k];
 				}
 			}
 		}
 		
-		//Cannot proceed without fire rod
 		if (back != 'unavailable') {
 			//Bridge Room
-			chests[6] = back === 'available' ? (front != 'available' && !flags.wildkeys && flags.gametype != 'R' ? 'P' : 'A') : 'P';
+			chests[6] = back === 'available' || back === 'darkavailable' ? (front != 'available' && front != 'darkavailable' && !flags.wildkeys && flags.gametype != 'R' ? 'P' : 'A') : 'P';
+			if (back === 'darkavailable' || back === 'darkpossible' || (back === 'available' && front === 'darkavailable' && !flags.wildkeys && flags.gametype != 'R')) chests[6] = 'D' + chests[6];
 
 			//Boss
 			chests[7] = ConvertBossToChest(SWBoss(front,back));
@@ -1737,7 +1775,7 @@
 		return available_chests(8, chests, items.maxchest8, items.chest8);
     };
 
-	//front, middle, bigchest and back can be 'available', 'possible' or 'unavailable', at most one can be 'unavailable'
+	//front, middle, bigchest and back can be 'available', 'darkavailable', 'possible', 'darkpossible' or 'unavailable', at most one can be 'unavailable'
 	//Not properly implemented!
     window.TRChests = function(front = 'available',middle = 'unavailable',bigchest = 'unavailable',back = 'unavailable') {
 		if (back != 'unavailable' && middle != 'available' && items.somaria && items.lantern && (items.bomb || items.boots)) {//More complicated with dark room navigation
@@ -1783,7 +1821,7 @@
     window.TRFrontChests = function(medcheck) {
 		if (!items.somaria) return 'unavailable';
 		if (medcheck === 'unavailable') return 'unavailable';
-		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
+		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && !owGraphLogic;
 		
 		if (medcheck === 'possible') return (isDark ? 'darkpossible' : 'possible');
 
@@ -2005,7 +2043,7 @@
     };
 
 	window.TRMidChests = function() {
-		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
+		var isDark = !items.flute && !items.lantern && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && !owGraphLogic;
 		
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U'];
 		
@@ -2235,7 +2273,7 @@
     };
 
     window.TRBackChests = function() {
-		var isDark = !items.flute && !items.lantern && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
+		var isDark = !items.flute && !items.lantern && flags.entrancemode === 'N' && !owGraphLogic;
 		
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U'];
 		
@@ -2445,7 +2483,7 @@
     };
 
     window.GTChests = function() {
-		var isDark = !items.flute && !items.lantern && flags.gametype != 'I' && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && flags.overworldshuffle === 'N';
+		var isDark = !items.flute && !items.lantern && flags.gametype != 'I' && !(flags.glitches != 'N' && items.boots) && flags.entrancemode === 'N' && !owGraphLogic;
 
 		var chests = ['U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U','U'];
 		
@@ -3010,7 +3048,7 @@
 		return available_chests(10, chests, items.maxchest10, items.chest10);
     };
 
-	//front, back and sanc can be 'available', 'possible' or 'unavailable', at most two can be 'unavailable'
+	//front, back and sanc can be 'available', 'darkavailable', 'possible', 'darkpossible' or 'unavailable', at most two can be 'unavailable'
     window.HCChests = function(front = 'available',back = 'unavailable',sanc = 'unavailable') {
 		var weapon = items.bomb || melee_bow() || items.firerod || cane();
 		if (flags.gametype === 'S') {
@@ -3018,47 +3056,53 @@
 			weapon = true;
 		}
 		//Walk from front to back
-		if (front != 'unavailable' && back != 'available' && canDoTorchDarkRooms() && (weapon || items.icerod || flags.gametype === 'R')) {//Could consider dark room navigation
+		if (front != 'unavailable' && back != 'available' && (weapon || items.icerod || flags.gametype === 'R')) {
+			var backFromFront = canDoTorchDarkRooms() ? front : (front === 'available' || front === 'possible' ? 'dark' + front : front);
 			if (flags.gametype === 'R') {
-				back = front;
+				back = bestAvailability(back,backFromFront);
 			} else {
 				if (!flags.wildkeys) {
-					back = 'possible';
+					back = bestAvailability(back,backFromFront.startsWith('dark') ? 'darkpossible' : 'possible');
 				} else {
 					if (items.smallkeyhalf0) {
-						back = front;
+						back = bestAvailability(back,backFromFront);
 					}
 				}
 			}
 		}
 		//Walk from back to sanc
 		if (back != 'unavailable' && sanc != 'available') {
-			sanc = back;
+			sanc = bestAvailability(sanc,back);
 		}
 
 		var chests = ['U','U','U','U','U','U','U','U'];
 
+		var frontChest = ConvertBossToChest(front);
+		var backChest = ConvertBossToChest(back);
+		var sancChest = ConvertBossToChest(sanc);
+
 		if (front != 'unavailable') {
-			chests[0] = front === 'available' ? 'A' : 'P';
+			chests[0] = frontChest;
 			if (weapon) {
-				chests[1] = front === 'available' ? 'A' : 'P';
-				chests[2] = front === 'available' ? 'A' : 'P';
+				chests[1] = frontChest;
+				chests[2] = frontChest;
 			}
 			if (canDoTorchDarkRooms() || flags.gametype === 'S') {
-				chests[3] = front === 'available' ? 'A' : 'P';
+				chests[3] = frontChest;
 			} else {
-				chests[3] = front === 'available' ? 'DA' : 'DP';
+				chests[3] = front === 'available' || front === 'darkavailable' ? 'DA' : 'DP';
 			}
 		} else {
 			if (back != 'unavailable' && (weapon || items.icerod)) {
+				var darkCrossFromBack = canDoTorchDarkRooms() ? backChest : (backChest === 'A' || backChest === 'P' ? 'D' + backChest : backChest);
 				if (flags.gametype === 'R') {
-					chests[3] = (canDoTorchDarkRooms() ? '' : 'D')+(back === 'available' ? 'A' : 'P');
+					chests[3] = darkCrossFromBack;
 				} else {
 					if (!flags.wildkeys) {
-						chests[3] = canDoTorchDarkRooms() ? 'P' : 'DP';
+						chests[3] = darkCrossFromBack === 'A' ? 'P' : (darkCrossFromBack === 'DA' ? 'DP' : darkCrossFromBack);
 					} else {
 						if (items.smallkeyhalf0) {
-							chests[3] = (canDoTorchDarkRooms() ? '' : 'D')+(back === 'available' ? 'A' : 'P');
+							chests[3] = darkCrossFromBack;
 						}
 					}
 				}
@@ -3066,21 +3110,12 @@
 		}
 
 		if (back != 'unavailable' && (items.bomb || items.boots)) {
-			chests[4] = back === 'available' ? 'A' : 'P';
-			chests[5] = back === 'available' ? 'A' : 'P';
-			chests[6] = back === 'available' ? 'A' : 'P';
+			chests[4] = backChest;
+			chests[5] = backChest;
+			chests[6] = backChest;
 		}
 		if (sanc != 'unavailable') {
-			chests[7] = sanc === 'available' ? 'A' : 'P';
-		}
-		//Dark room navigation
-		if (front != 'unavailable' && back === 'unavailable' && (weapon || items.icerod || flags.gametype === 'R') && (flags.gametype === 'R' || !flags.wildkeys || items.smallkeyhalf0) && (items.bomb || items.boots)) {
-			chests[4] = front === 'available' && (flags.gametype === 'R' || (flags.wildkeys && items.smallkeyhalf0)) ? 'DA' : 'DP';
-			chests[5] = front === 'available' && (flags.gametype === 'R' || (flags.wildkeys && items.smallkeyhalf0)) ? 'DA' : 'DP';
-			chests[6] = front === 'available' && (flags.gametype === 'R' || (flags.wildkeys && items.smallkeyhalf0)) ? 'DA' : 'DP';
-		}
-		if (front != 'unavailable' && sanc === 'unavailable' && (weapon || items.icerod || flags.gametype === 'R') && (flags.gametype === 'R' || !flags.wildkeys || items.smallkeyhalf0)) {
-			chests[7] = front === 'available' && (flags.gametype === 'R' || (flags.wildkeys && items.smallkeyhalf0)) ? 'DA' : 'DP';
+			chests[7] = sancChest;
 		}
 		if (!flags.wildkeys && flags.gametype != 'R') {
 			if (flags.gametype === 'S') {
@@ -3089,6 +3124,10 @@
 				for (var k = 0; k < 8; k++) {//Small key could be anywhere. Temporary bad solution
 					if (chests[k] === 'A') {
 						chests[k] = 'P';
+						break;
+					}
+					if (chests[k] === 'DA') {
+						chests[k] = 'DP';
 						break;
 					}
 				}

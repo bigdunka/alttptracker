@@ -144,6 +144,8 @@ a, a:visited{ color: #80C0FF; }
 .owscreen:hover .questionmark { visibility: hidden; opacity: 0; }
 .questionmark.greentext { color: lime; }
 .questionmark.yellowtext { color: yellow; }
+.questionmark.bluetext { color: blue; }
+.questionmark.purpletext { color: purple; }
 .lightworldsymbol { overflow: hidden; width: 64px; height: 80px; background-size: 64px 80px; position: absolute; background-image: url(../images/interface/lw.png); pointer-events: none; z-index: 3; }
 .darkworldsymbol { overflow: hidden; width: 64px; height: 80px; background-size: 64px 80px; position: absolute; background-image: url(../images/interface/dw.png); pointer-events: none; z-index: 3; }
 .pathnumber { background-color: black; opacity: .75; overflow: hidden; width: 16px; height: 16px; position: absolute; pointer-events: none; font-size: 12px; line-height: 15px; text-align: center; border-radius: 50%; box-shadow: 0 0 2px 2px black; cursor: default; user-select: none; }

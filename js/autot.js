@@ -33,6 +33,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4E2,
 		"keycount": 0,
 		"bigkey": [0x367, 0x20],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x404, 0x20],
 		"seenkeycount": [0x475, 0x20],
 		"chestcount_ram": 0x4B4,
@@ -51,6 +52,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4E3,
 		"keycount": 0,
 		"bigkey": [0x367, 0x10],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x404, 0x10],
 		"seenkeycount": [0x475, 0x10],
 		"chestcount_ram": 0x4B6,
@@ -69,6 +71,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4EA,
 		"keycount": 0,
 		"bigkey": [0x366, 0x20],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x403, 0x20],
 		"seenkeycount": [0x474, 0x20],
 		"chestcount_ram": 0x4C4,
@@ -87,6 +90,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4E6,
 		"keycount": 0,
 		"bigkey": [0x367, 0x02],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x404, 0x02],
 		"seenkeycount": [0x475, 0x02],
 		"chestcount_ram": 0x4BC,
@@ -105,6 +109,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4E5,
 		"keycount": 0,
 		"bigkey": [0x367, 0x04],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x404, 0x04],
 		"seenkeycount": [0x475, 0x04],
 		"chestcount_ram": 0x4BA,
@@ -123,6 +128,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4E8,
 		"keycount": 0,
 		"bigkey": [0x366, 0x80],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x403, 0x80],
 		"seenkeycount": [0x474, 0x80],
 		"chestcount_ram": 0x4C0,
@@ -141,6 +147,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4EB,
 		"keycount": 0,
 		"bigkey": [0x366, 0x10],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x403, 0x10],
 		"seenkeycount": [0x474, 0x10],
 		"chestcount_ram": 0x4C6,
@@ -159,6 +166,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4E9,
 		"keycount": 0,
 		"bigkey": [0x366, 0x40],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x403, 0x40],
 		"seenkeycount": [0x474, 0x40],
 		"chestcount_ram": 0x4C2,
@@ -177,6 +185,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4E7,
 		"keycount": 0,
 		"bigkey": [0x367, 0x01],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x404, 0x01],
 		"seenkeycount": [0x475, 0x01],
 		"chestcount_ram": 0x4BE,
@@ -195,6 +204,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4EC,
 		"keycount": 0,
 		"bigkey": [0x366, 0x08],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x403, 0x08],
 		"seenkeycount": [0x474, 0x08],
 		"chestcount_ram": 0x4C8,
@@ -213,6 +223,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4ED,
 		"keycount": 0,
 		"bigkey": [0x366, 0x04],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x403, 0x04],
 		"seenkeycount": [0x474, 0x04],
 		"chestcount_ram": 0x4CA,
@@ -231,6 +242,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4E0,
 		"keycount": 0,
 		"bigkey": [0x367, 0x40],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x404, 0x40],
 		"seenkeycount": [0x475, 0x40],
 		"chestcount_ram": 0x4B2,
@@ -249,6 +261,7 @@ var dungeonitemlocations = [
 		"smallkey": 0x4E4,
 		"keycount": 0,
 		"bigkey": [0x367, 0x08],
+		"dungeonitembuffer": 0,
 		"seenchestcount": [0x404, 0x08],
 		"seenkeycount": [0x475, 0x08],
 		"chestcount_ram": 0x4B8,
@@ -872,7 +885,24 @@ function autotrackDoTracking(data) {
 				var haschanged = false;
 				var oldcount = dungeonitemlocations[i]["currentcount"];
 				var currentcount = oldcount;
+				var buffer = dungeonitemlocations[i]["dungeonitembuffer"];
 
+				//Workaround for a baserom bug that counts vanilla Hera keys twice, using the fact that there is only one Hera key
+				var currentKeyCount = data[dungeonitemlocations[i]["smallkey"]];
+				if (i === 2 && currentKeyCount > 1 && !flags.wildkeys) currentKeyCount = 1;
+
+				//First check for new items that had to be in the dungeon
+				if (!flags.wildmaps && newbit(dungeonitemlocations[i]["map"][0], dungeonitemlocations[i]["map"][1])) buffer++;
+				if (!flags.wildcompasses && newbit(dungeonitemlocations[i]["compass"][0], dungeonitemlocations[i]["compass"][1])) buffer++;
+				if (!flags.wildkeys && currentKeyCount > dungeonitemlocations[i]["keycount"])
+				{
+					var newkeys = currentKeyCount - dungeonitemlocations[i]["keycount"];
+					buffer += newkeys;
+					dungeonitemlocations[i]["keycount"] += newkeys;
+				}
+				if (!flags.wildbigkeys && newbit(dungeonitemlocations[i]["bigkey"][0], dungeonitemlocations[i]["bigkey"][1])) buffer++;
+
+				//Look for new checked locations
 				for (let j = 0; j < dungeonitemlocations[i]["chest"].length; j++) {
 					if (newbit(dungeonitemlocations[i]["chest"][j][0], dungeonitemlocations[i]["chest"][j][1])) {
 						currentcount++;
@@ -882,16 +912,10 @@ function autotrackDoTracking(data) {
 				}
 				
 				if (haschanged) {
-					//If it is a dungeon item and it isn't wild, increment oldcount so currentcount doesn't change
-					if (!flags.wildmaps && newbit(dungeonitemlocations[i]["map"][0], dungeonitemlocations[i]["map"][1])) oldcount++;
-					if (!flags.wildcompasses && newbit(dungeonitemlocations[i]["compass"][0], dungeonitemlocations[i]["compass"][1])) oldcount++;
-					if (!flags.wildkeys && data[dungeonitemlocations[i]["smallkey"]] > dungeonitemlocations[i]["keycount"])
-					{
-						var newkeys = data[dungeonitemlocations[i]["smallkey"]] - dungeonitemlocations[i]["keycount"];
-						oldcount += newkeys;
-						dungeonitemlocations[i]["keycount"] += newkeys;
-					}
-					if (!flags.wildbigkeys && newbit(dungeonitemlocations[i]["bigkey"][0], dungeonitemlocations[i]["bigkey"][1])) oldcount++;
+					//If we got new dungeon items since the last change, increment oldcount so currentcount doesn't change
+					var dungeonitemadjust = Math.min(buffer, currentcount - oldcount);
+					oldcount += dungeonitemadjust;
+					buffer -= dungeonitemadjust;
 					
 					while (oldcount != currentcount) {
 						if (oldcount < currentcount) {
@@ -907,6 +931,7 @@ function autotrackDoTracking(data) {
 					//Save the value for the next change
 					dungeonitemlocations[i]["currentcount"] = currentcount;
 				}
+				dungeonitemlocations[i]["dungeonitembuffer"] = buffer;
 			} else {
 				//Check baserom version to ensure we're only reading the correct and allowed values from the ROM
 				if (romVersionHigh === -1) {

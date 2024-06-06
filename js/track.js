@@ -13,6 +13,9 @@
 	window.connectorIndex = [];
 	window.connectorOne = [];
 	window.connectorTwo = [];
+	window.owGraphLogic = false;
+	window.dpFrontLogic = false;
+	window.trFrontLogic = false;
 	
     window.prizes = [];
     window.enemizer = [];
@@ -934,6 +937,9 @@
 				resetTrackerTimer();
 			}
 
+			if(doorWindow && !doorWindow.closed)
+				doorWindow.postMessage(cloneItems(),"*");
+
             return;
         }
 		
@@ -1035,7 +1041,7 @@
 		
 		if (flags.restreamer === "T" && loadPrimer === true) {
 			resetTrackerTimer();
-		}		
+		}
 
 		if(doorWindow && !doorWindow.closed)
 			doorWindow.postMessage(cloneItems(),"*");
@@ -1084,6 +1090,7 @@
 		{
 			if(event.data.logic && flags.overworldshuffle != 'N')
 			{
+				owGraphLogic = true;
 				var newSwapTowers = event.data.towerSwap === true;
 				var newSwapGanon = event.data.ganonSwap === true;
 				if(swapTowers !== newSwapTowers)
@@ -1096,6 +1103,8 @@
 					swapGanon = newSwapGanon;
 					updateLayoutGanon();
 				}
+				dpFrontLogic = event.data.dpFrontLogic === true;
+				trFrontLogic = event.data.trFrontLogic === true;
 				if(event.data.helpDesert && doorCheck(1,false,false,false,[(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'boots' : '','firesource','killbomb'],'connector') === "available")
 					event.data.items[48] = event.data.items[48] === "darkpossible" ?"darkavailable" :"available";
 				if(event.data.helpMimic && doorCheck(9,false,true,false,['somaria','firerod',(!flags.wildkeys && flags.gametype != 'R') || !flags.wildbigkeys ? 'laserbridge' : '','bomb'],'connector') === "available")
@@ -1115,7 +1124,7 @@
 					dungeons[k].is_beatable = constantFunctions[bossAvail];
 					dungeons[k].can_get_chest = constantFunctions[chestsAvail];
 					if(flags.entrancemode != 'N')
-					{//Not fully implemented, disable entrance chest colors for now
+					{//Not fully implemented (OW tracker doesn't know about dungeon locations), disable entrance chest colors for now
 						//dungeonChecks[k].can_get_chest = constantFunctionsEDC[chestsAvail][k];
 						const dungeonID = k;
 						dungeonChecks[k].can_get_chest = function() {
@@ -1144,7 +1153,7 @@
 						else
 							if(event.data == "RESETLOGIC" && flags.overworldshuffle != 'N' && doorWindow && !doorWindow.closed)
 							{
-								swapTowers = swapGanon = false;
+								owGraphLogic = swapTowers = swapGanon = dpFrontLogic = trFrontLogic = false;
 								resetChestsKeepTrackedData();
 								updateLayout();
 								updateMapTracker();
@@ -3081,7 +3090,7 @@
 		}
 
 		if (resetLogic) {
-			swapTowers = swapGanon = false;
+			owGraphLogic = swapTowers = swapGanon = dpFrontLogic = trFrontLogic = false;
 			resetChestsKeepTrackedData();
 		}
 

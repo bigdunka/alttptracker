@@ -48,9 +48,11 @@
 	window.screenLinksEntrance = [];
 	window.entranceIndexToRegion = {};
 	window.overworldEdgeToDirection = {};
-	window.checkableScreens = new Set();
-	window.maybeCheckableScreens = new Set();
-	window.continueRegions = new Map();
+	window.checkableScreensGlobal = new Set();
+	window.maybeCheckableScreensGlobal = new Set();
+	window.checkableScreensDarkRoomsGlobal = new Set();
+	window.maybeCheckableScreensDarkRoomsGlobal = new Set();
+	window.continueRegionsGlobal = new Map();
 	window.emptyMap = new Map();
 	window.dungeonEntrances = [];
 	window.dungeonStandard = [];
@@ -1332,7 +1334,7 @@
 			if(mixedStates)
 				for(let [id,state] of mixedStates)
 				{
-					if(["unknown","normal","swapped"].includes(""+state))
+					if(["unknown","normal","flipped"].includes(""+state))
 					{
 						let screen = overworldScreens.get(id);
 						screen.mixedState = ""+state;
@@ -1757,7 +1759,7 @@
 				{
 					if(screen.mixedState === "normal")
 						normalScreens.push(id);
-					if(screen.mixedState === "swapped")
+					if(screen.mixedState === "flipped")
 						swappedScreens.push(id);
 				}
 			if(normalScreens.length == 0)
@@ -3028,7 +3030,7 @@
 							}
 					}
 			}
-			setMixedScreen(fullOWSelectedScreen,fullOWSelectedScreen.mixedState === "normal" ?"swapped" :"normal");
+			setMixedScreen(fullOWSelectedScreen,fullOWSelectedScreen.mixedState === "normal" ?"flipped" :"normal");
 			outstandingUpdate = true;
 			buttonFlash(button);
 			updateReachableEdges();
@@ -3703,14 +3705,14 @@
 		document.getElementById("checklistflute").style.display = fluteshuffle ?"table-row" :"none";
 		hideFullOverworldModal();
 		let items = getModifiedOwnItems();
-		if(document.getElementById("owsearchfollower").value !== "none")
-			items.follower = document.getElementById("owsearchfollower").value;
 		if(document.getElementById("owsearchignoreitemrules").checked)
 			giveAllItems(items);
 		let startRegions = searchStartScreen ?(searchStartRegion ?[searchStartRegion] :Array.from(searchStartScreen.regions.values())) :allStartRegions.concat(fluteSpotRegions);
 		if(searchStartScreen && searchAddCommonStarts)
 			startRegions = startRegions.concat(allStartRegions,fluteSpotRegions);
 		let options = {};
+		if(document.getElementById("owsearchfollower").value !== "none")
+			options.follower = document.getElementById("owsearchfollower").value;
 		options.saveQuitEdges = searchStartScreen && searchSaveQuitFluteEdges;
 		options.fluteEdges = searchStartScreen && searchSaveQuitFluteEdges;
 		for(let region of screen.regions.values())
@@ -4105,7 +4107,7 @@
 				let left = getBigScreenSubareaX(screen),top = getBigScreenSubareaY(screen);
 				s += "<span class='fullmixed normal' "+(top ?"style='left: "+(left+4)+"px; top: "+(top+4)+"px;' " :"")+"onclick='clickNormalScreen("+id+")'>Normal</span>";
 				s += "<span class='fullmixed swapped' "+(top ?"style='left: "+(left+4)+"px; top: "+(top+34)+"px;' " :"")+"onclick='clickSwappedScreen("+id+")'>Flipped</span>";
-				s += "</span><span class='questionmark"+(checkableScreens.has(id&0xBF) ?" greentext" :(maybeCheckableScreens.has(id&0xBF) ?" yellowtext" :""))+"'"+(top ?" style='left: "+left+"px; top: "+top+"px;' " :"")+">?";
+				s += "</span><span class='questionmark"+(checkableScreensGlobal.has(id&0xBF) ?" greentext" :(checkableScreensDarkRoomsGlobal.has(id&0xBF) ?" bluetext" :(maybeCheckableScreensGlobal.has(id&0xBF) ?" yellowtext" :(maybeCheckableScreensDarkRoomsGlobal.has(id&0xBF) ?" purpletext" :""))))+"'"+(top ?" style='left: "+left+"px; top: "+top+"px;' " :"")+">?";
 			}
 			else
 				s += "<label class='ttlabel'"+(x+y ?"" :" style='line-height: 144px;'")+">"+screen.name+"</label>";
@@ -4249,7 +4251,7 @@
 
 	window.clickSwappedScreen = function(id)
 	{
-		setMixedScreen(overworldScreens.get(id),"swapped");
+		setMixedScreen(overworldScreens.get(id),"flipped");
 		outstandingUpdate = true;
 		updateReachableEdges();
 		drawFullOverworldPanels();
@@ -5099,7 +5101,6 @@
 	window.getModifiedOwnItems = function()
 	{
 		let items = Object.assign({},ownItems);
-		items.follower = null;
 		items.keepMirrorPortal = false;
 		if(!document.getElementById("activeflutebox").checked)
 			items.flute = false;
@@ -5129,13 +5130,13 @@
 	window.updateReachableEdges = function()
 	{
 		let items = getModifiedOwnItems();
-		checkableScreens.clear();
-		maybeCheckableScreens.clear();
-		continueRegions.clear();
 		fixedStartRegions = [];
 		fluteSpotRegions = [];
-		let maybeVisitedRegions = new Set(),evr = new Set(),mvrl = new Set(),mvrd = new Set();
-		let visitedRegions = new Set(),visitedScreenEdges = new Set();
+		checkableScreensGlobal.clear();
+		maybeCheckableScreensGlobal.clear();
+		checkableScreensDarkRoomsGlobal.clear();
+		maybeCheckableScreensDarkRoomsGlobal.clear();
+		continueRegionsGlobal.clear();
 		if(document.getElementById("pinnedlinkshouse").checked)
 			inspectStartRegion(0x2C,"Main",false);
 		if(document.getElementById("pinnedsanctuary").checked)
@@ -5149,131 +5150,11 @@
 				inspectStartRegion(id,null,false);
 		allStartRegions = fixedStartRegions.concat(customStartRegions);
 		let startRegions = allStartRegions.concat(fluteSpotRegions);
-		let options = {};
-		for(let start of startRegions)
-			if(!visitedRegions.has(start) && (!mixedow || start.screen.mixedState !== "unknown"))
-				explore(start,items,options,visitedRegions,visitedScreenEdges,checkableScreens,continueRegions,emptyMap);
-		if(mixedow && checkableScreens.size != 0)
-		{//Find more checkable screens (bad algorithm, but works well enough to be useful)
-			let assumedScreens = new Set();
-			let nextScreens = checkableScreens;
-			let cr = new Map(continueRegions);
-			let mcr = new Map();
-			let maybeMode = false;
-			while(nextScreens.size != 0)
-			{
-				let cs = Array.from(nextScreens);
-				nextScreens = new Set();
-				for(let id of cs)
-				{
-					if(assumedScreens.has(id))
-						continue;
-					let assumptions = new Map();
-					let regionsAssumeNormal = new Set(visitedRegions),regionsAssumeSwapped = new Set(visitedRegions);
-					let edgesAssumeNormal = new Set(visitedScreenEdges),edgesAssumeSwapped = new Set(visitedScreenEdges);
-					let checkableAssumeNormal = new Set(checkableScreens),checkableAssumeSwapped = new Set(checkableScreens);
-					let continueAssumeNormal = new Map(),continueAssumeSwapped = new Map();
-					let group = getScreenLinkGroup(id,false);
-					for(let n of group)
-						assumedScreens.add(n);
-					for(let n of group)
-						assumptions.set(n,"normal");
-					for(let n of group)
-						if(cr.has(n+" normal"))
-							for(let start of cr.get(n+" normal"))
-								explore(start,items,options,regionsAssumeNormal,edgesAssumeNormal,checkableAssumeNormal,continueAssumeNormal,assumptions);
-					for(let n of group)
-						assumptions.set(n,"swapped");
-					for(let n of group)
-						if(cr.has(n+" swapped"))
-							for(let start of cr.get(n+" swapped"))
-								explore(start,items,options,regionsAssumeSwapped,edgesAssumeSwapped,checkableAssumeSwapped,continueAssumeSwapped,assumptions);
-					let diffNormal = setDifference(checkableAssumeNormal,new Set()),diffSwapped = setDifference(checkableAssumeSwapped,new Set());
-					let commonCheckable = setIntersection(diffNormal,diffSwapped);
-					let maybeCheckable = setUnion(checkableAssumeNormal,checkableAssumeSwapped);
-					if(!maybeMode)
-						for(let c of commonCheckable)
-						{
-							nextScreens.add(c);
-							if(!cr.has(c+" normal"))
-								cr.set(c+" normal",new Set());
-							if(!cr.has(c+" swapped"))
-								cr.set(c+" swapped",new Set());
-							let crNormal = cr.get(c+" normal"),crSwapped = cr.get(c+" swapped");
-							let normalSize = crNormal.size,swappedSize = crSwapped.size;
-							let commonNormal = setIntersection(continueAssumeNormal.get(c+" normal"),continueAssumeSwapped.get(c+" normal"));
-							for(let region of commonNormal)
-								crNormal.add(region);
-							let commonSwapped = setIntersection(continueAssumeNormal.get(c+" swapped"),continueAssumeSwapped.get(c+" swapped"));
-							for(let region of commonSwapped)
-								crSwapped.add(region);
-							if(crNormal.size != normalSize || crSwapped.size != swappedSize)
-								assumedScreens.delete(c);
-						}
-					for(let c of maybeCheckable)
-					{
-						(maybeMode ?nextScreens :maybeCheckableScreens).add(c);
-						if(!mcr.has(c+" normal"))
-							mcr.set(c+" normal",new Set());
-						if(!mcr.has(c+" swapped"))
-							mcr.set(c+" swapped",new Set());
-						let crNormal = mcr.get(c+" normal"),crSwapped = mcr.get(c+" swapped");
-						let normalSize = crNormal.size,swappedSize = crSwapped.size;
-						let commonNormal = setUnion(continueAssumeNormal.get(c+" normal"),continueAssumeSwapped.get(c+" normal"));
-						for(let region of commonNormal)
-							crNormal.add(region);
-						let commonSwapped = setUnion(continueAssumeNormal.get(c+" swapped"),continueAssumeSwapped.get(c+" swapped"));
-						for(let region of commonSwapped)
-							crSwapped.add(region);
-						if(crNormal.size != normalSize || crSwapped.size != swappedSize)
-							assumedScreens.delete(c);
-					}
-					let commonRegions = setIntersection(regionsAssumeNormal,regionsAssumeSwapped);
-					let maybeRegions = setUnion(regionsAssumeNormal,regionsAssumeSwapped);
-					if(!maybeMode)
-					{
-						for(let region of commonRegions)
-						{
-							evr.add(region);
-						}
-					}
-					for(let region of maybeRegions)
-					{
-						maybeVisitedRegions.add(region);
-					}
-					for(let region of regionsAssumeNormal)
-					{
-						(region.screen.darkWorld ?mvrd :mvrl).add(region);
-					}
-					for(let region of regionsAssumeSwapped)
-					{
-						(region.screen.darkWorld ?mvrl :mvrd).add(region);
-					}
-				}
-				if(nextScreens.size == 0)
-				{
-					if(maybeMode)
-					{
-						for(let n of assumedScreens)
-							maybeCheckableScreens.add(n);
-					}
-					else
-					{
-						for(let n of assumedScreens)
-							checkableScreens.add(n);
-						assumedScreens.clear();
-						cr = mcr;
-						maybeMode = true;
-						nextScreens = maybeCheckableScreens;
-					}
-				}
-			}
-		}
-		visitedRegions = setUnion(visitedRegions,evr);
+		let r = determineOverworldAvailability(items,startRegions,checkableScreensGlobal,continueRegionsGlobal);
 		if(layoutshuffle !== 'N' || whirlpoolshuffle || crossedow === 'C')
 		{
 			let c = 0;
-			for(let edge of visitedScreenEdges)
+			for(let edge of r.visitedScreenEdges)
 				if(!edge.out && (isShuffledEdge(edge)))
 					c++;
 			document.getElementById("sidesummaryow").innerHTML = c;
@@ -5284,10 +5165,15 @@
 			document.getElementById("sidesummaryow").innerHTML = "";
 			document.getElementById("summaryow").innerHTML = "";
 		}
-		reachableEdges = visitedScreenEdges;
+		reachableEdges = r.visitedScreenEdges;
+		checkableScreensGlobal = r.checkableScreens;
+		maybeCheckableScreensGlobal = r.maybeCheckableScreens;
+		checkableScreensDarkRoomsGlobal = r.checkableScreensDarkRooms;
+		maybeCheckableScreensDarkRoomsGlobal = r.maybeCheckableScreensDarkRooms;
+		continueRegionsGlobal = r.continueRegions;
 		if(!welcomeMode && document.getElementById("globalsync").checked && window.opener && !window.opener.closed)
 		{
-			window.opener.postMessage(determineLocationAvailability(visitedRegions,evr,mvrl,mvrd,items),"*");
+			window.opener.postMessage(determineLocationAvailability(items,r),"*");
 		}
 	};
 
@@ -5299,20 +5185,20 @@
 			if(screen.mixedState === "unknown")
 			{
 				let id = screenID&0xBF;
-				checkableScreens.add(id);
+				checkableScreensGlobal.add(id);
 				let keyNormal = id+" normal",keySwapped = id+" swapped";
-				if(!continueRegions.has(keyNormal))
-					continueRegions.set(keyNormal,new Set());
-				if(!continueRegions.has(keySwapped))
-					continueRegions.set(keySwapped,new Set());
+				if(!continueRegionsGlobal.has(keyNormal))
+					continueRegionsGlobal.set(keyNormal,new Set());
+				if(!continueRegionsGlobal.has(keySwapped))
+					continueRegionsGlobal.set(keySwapped,new Set());
 				let region = regionName ?screen.regions.get(regionName) :screen.fluteRegion;
-				continueRegions.get(keyNormal).add(ignoreSwaps || worldState !== 'I' ?region :region.parallel);
-				continueRegions.get(keySwapped).add(ignoreSwaps || worldState === 'I' ?region :region.parallel);
+				continueRegionsGlobal.get(keyNormal).add(ignoreSwaps || worldState !== 'I' ?region :region.parallel);
+				continueRegionsGlobal.get(keySwapped).add(ignoreSwaps || worldState === 'I' ?region :region.parallel);
 			}
 			else
 			{
 				let region = regionName ?screen.regions.get(regionName) :screen.fluteRegion;
-				(regionName ?fixedStartRegions :fluteSpotRegions).push(ignoreSwaps || (screen.mixedState === "swapped") === (worldState === 'I') ?region :region.parallel);
+				(regionName ?fixedStartRegions :fluteSpotRegions).push(ignoreSwaps || (screen.mixedState === "flipped") === (worldState === 'I') ?region :region.parallel);
 			}
 		}
 		else
