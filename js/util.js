@@ -1,7 +1,7 @@
 (function (window) {
 	'use strict';
 
-	window.buildString = "21004";
+	window.buildString = "21006";
 
 	// based on https://github.com/medialize/URI.js/blob/gh-pages/src/URI.js
 	window.uri_query = memoize(function () {

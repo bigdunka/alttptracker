@@ -818,7 +818,7 @@
 		if (!items.bigkey3 || !items.hammer || items.bow < 2 || dungeoncheck === 'unavailable') return 'unavailable';
 		if (flags.wildbigkeys || flags.wildkeys) {
 			if (items.smallkey3 < 5 && flags.gametype != 'R') return 'unavailable';
-			if (items.smallkey3 > 4 && flags.gametype != 'R') {
+			if ((items.smallkey3 > 4 && items.smallkey3 != 6) && flags.gametype != 'R') {
 				return (items.lantern ? 'possible' : 'darkpossible');
 			} else {
 				return (dungeoncheck === 'available' ? (items.lantern ? 'available' : 'darkavailable') : (items.lantern ? 'possible' : 'darkpossible'));
