@@ -1,15 +1,15 @@
 <html>
 	<head>
 		<title>ALTTP Randomizer Community Tracker - Release Notes</title>
-		<script type="text/javascript" src="js/index.js?v=21007"></script>
-		<script type="text/javascript" src="js/jquery-3.3.1.js?v=21007"></script>
-		<script type="text/javascript" src="js/jquery.powertip.js?v=21007"></script>
-		<script type="text/javascript" src="js/bootstrap.min.js?v=21007"></script>
-		<link href="css/jquery.powertip.css?v=21007" rel="stylesheet" />
-		<link href="css/launcher.css?v=21007" rel="stylesheet">
-		<link href="css/fonts.css?v=21007" rel="stylesheet">
-		<link href="css/sprites.css?v=21007" rel="stylesheet">
-		<link href="css/toast.css?v=21007" rel="stylesheet">
+		<script type="text/javascript" src="js/index.js?v=21008"></script>
+		<script type="text/javascript" src="js/jquery-3.3.1.js?v=21008"></script>
+		<script type="text/javascript" src="js/jquery.powertip.js?v=21008"></script>
+		<script type="text/javascript" src="js/bootstrap.min.js?v=21008"></script>
+		<link href="css/jquery.powertip.css?v=21008" rel="stylesheet" />
+		<link href="css/launcher.css?v=21008" rel="stylesheet">
+		<link href="css/fonts.css?v=21008" rel="stylesheet">
+		<link href="css/sprites.css?v=21008" rel="stylesheet">
+		<link href="css/toast.css?v=21008" rel="stylesheet">
 		<!-- Global site tag (gtag.js) - Google Analytics -->
 		<script async src="https://www.googletagmanager.com/gtag/js?id=G-Z3T0KM2W1L"></script>
 		<script>
@@ -38,7 +38,7 @@
 				<div class="header-main-div">
 					<a href="./index.html"><img src="./images/overlay/header.png" class="header-main-img"></a>
 					<div class="header-news-div" >
-						<span class="default-white-text">Build 2.1.007 082624 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: @bigdunka)<br>Check Known Issues for current known outstanding issues</span>
+						<span class="default-white-text">Build 2.1.008 092824 - Compatible for v31.x.x<br>Report any issues to Dunka (Discord: @bigdunka)<br>Check Known Issues for current known outstanding issues</span>
 					</div>
 				</div>
 				<div class="header-links">
@@ -63,6 +63,15 @@
 				<div class="preset-div">
 					<span id="gameplayarrow"></span> Release 2.1
 					<div id="release21">
+						<b><i>09/28/2024 Build 2.1.008 092824</i></b><br>
+						<ul>
+							<u>Interface Changes</u><br>
+							<li>Added a new "Remind Me" checkbox in entrance tracking, for setting locations which you need to remember to go back and check (ie: can see, but cannot finish). It is located to the right of the note field in the right click menu for locations. These will show up on the map as yellow when checked.</li>
+							<li>Fix for preset saving of Classic autotracking toggle</li>
+							<u>Logic Changes</u><br>
+							<li>Fixed GT Moldorm logic check to include a melee weapon</li>
+							<li>Fixed Zora Ledge information check in inverted to also include a glove</li>
+						</ul>
 						<b><i>08/26/2024 Build 2.1.007 082624</i></b><br>
 						<ul>
 							<u>Interface Changes</u><br>
@@ -72,6 +81,7 @@
 						<ul>
 							<u>Interface Changes</u><br>
 							<li>Updated button presets for ALTTPR Ladder Season Twenty-Five Modes (<a href="https://alttprladder.com" target="_blank">https://alttprladder.com</a>)</li>
+							<u>Logic Changes</u><br>
 							<li>Fixed boss small key check for PoD from being possible with 6 or more small keys</li>
 						</ul>
 						<b><i>06/06/2024 Build 2.1.005 060624</i></b><br>
@@ -81,6 +91,7 @@
 							Big thanks to Catobat for the following changes:<br>
 							<li>Fixed autotracking dungeon items being counted as non-dungeon items when dropped by a boss, on a torch or in Hera Basement Cage</li>
 							<li>Keys autotracking in Hera Basement Cage no longer counted twice</li>
+							<u>Logic Changes</u><br>
 							<li>Fixed Hera boss logic in entrance sometimes saying dark rooms are required</li>
 							<li>Added dark room navigation support to the logic in overworld shuffle</li>
 							<li>Several small logic improvements to overworld and bug fixes (normal TR layout, flipped SP without Moon Pearl, dungeon logic not updating after getting items, and more)</li>
@@ -91,6 +102,7 @@
 							<li>Fixed dungeon chest tracking issue with Mystery after changing flags</li>
 							NOTE: If you do a hard reset of your game, chest tracking may become inaccurate. This is still a work in progress and we will look for a fix for this problem. Please report this or any other issues you may find with dungeon tracking with Mystery or any other mode.
 							<li>Fixed Bottle tracking issue in Mystery after changing flags</li>
+							<u>Logic Changes</u><br>
 							<li>Fixed key logic with small keys over the normal limit in some dungeons</li>
 							<li>Fixed logical loop overflow with recent EDDM logic change</li>
 						</ul>

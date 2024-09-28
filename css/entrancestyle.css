@@ -202,6 +202,7 @@ body {
 .availableconnector { background-color: turquoise; }
 .availabledungeon { background-color: violet; }
 .availablekeylocation { background-color: blue; }
+.remindmelocation { background-color: #fffb00; }
 .possible { background-color: yellow; }
 .information { background-color: orange; }
 .darkavailable { background-color: blue; }

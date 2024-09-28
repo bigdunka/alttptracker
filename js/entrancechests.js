@@ -359,6 +359,7 @@
 			window.entrances = [{ // [0]
 				caption: 'Bomb Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -368,6 +369,7 @@
 			}, { // [1]
 				caption: 'Bonk Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -378,6 +380,7 @@
 			}, { // [2]
 				caption: 'Dam',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -387,6 +390,7 @@
 			}, { // [3]
 				caption: 'Haunted Grove',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -396,6 +400,7 @@
 			}, { // [4]
 				caption: 'Magic Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -406,6 +411,7 @@
 			}, { // [5]
 				caption: 'Well of Wishing',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -416,6 +422,7 @@
 			}, { // [6]
 				caption: 'Hype Fairy {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -426,6 +433,7 @@
 			}, { // [7]
 				caption: 'Hyrule Castle - Main Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -435,6 +443,7 @@
 			}, { // [8]
 				caption: 'Hyrule Castle - Top Entrance (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -447,6 +456,7 @@
 			}, { // [9]
 				caption: 'Hyrule Castle - Top Entrance (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -459,6 +469,7 @@
 			}, { // [10]
 				caption: 'Hyrule Castle - Ganon\'s Tower',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -478,6 +489,7 @@
 			}, { // [11]
 				caption: 'Hyrule Castle - Secret Entrance Stairs',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -488,6 +500,7 @@
 			}, { // [12]
 				caption: 'Hyrule Castle - Secret Entrance Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -497,6 +510,7 @@
 			}, { // [13]
 				caption: 'Sanctuary',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -506,6 +520,7 @@
 			}, { // [14]
 				caption: 'Bonk Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -516,6 +531,7 @@
 			}, { // [15]
 				caption: 'Grave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -525,6 +541,7 @@
 			}, { // [16]
 				caption: 'Graveyard Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -535,6 +552,7 @@
 			}, { // [17]
 				caption: 'King\'s Grave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -545,6 +563,7 @@
 			}, { // [18]
 				caption: 'North Fairy Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -554,6 +573,7 @@
 			}, { // [19]
 				caption: 'North Fairy Cave Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -563,6 +583,7 @@
 			}, { // [20]
 				caption: 'Woods Chest Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -572,6 +593,7 @@
 			}, { // [21]
 				caption: 'Thief\'s Hideout',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -581,6 +603,7 @@
 			}, { // [22]
 				caption: 'Hideout Stump',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -590,6 +613,7 @@
 			}, { // [23]
 				caption: 'Lumberjack Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -599,6 +623,7 @@
 			}, { // [24]
 				caption: 'Lumberjack Tree Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -608,6 +633,7 @@
 			}, { // [25]
 				caption: 'Lumberjack Tree',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -617,6 +643,7 @@
 			}, { // [26]
 				caption: 'Bumper Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -627,6 +654,7 @@
 			}, { // [27]
 				caption: 'Kakariko Fortune Teller',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -636,6 +664,7 @@
 			}, { // [28]
 				caption: 'Well Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -645,6 +674,7 @@
 			}, { // [29]
 				caption: 'Well Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -654,6 +684,7 @@
 			}, { // [30]
 				caption: 'Thief\'s Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -663,6 +694,7 @@
 			}, { // [31]
 				caption: 'Elder\'s House (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -672,6 +704,7 @@
 			}, { // [32]
 				caption: 'Elder\'s House (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -681,6 +714,7 @@
 			}, { // [33]
 				caption: 'Snitch Lady (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -690,6 +724,7 @@
 			}, { // [34]
 				caption: 'Snitch Lady (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -699,6 +734,7 @@
 			}, { // [35]
 				caption: 'Chicken House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -708,6 +744,7 @@
 			}, { // [36]
 				caption: 'Lazy Kid\'s House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -717,6 +754,7 @@
 			}, { // [37]
 				caption: 'Bush Covered House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -727,6 +765,7 @@
 			}, { // [38]
 				caption: 'Kakariko Bomb Hut {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -737,6 +776,7 @@
 			}, { // [39]
 				caption: 'Shop (Kak)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -746,6 +786,7 @@
 			}, { // [40]
 				caption: 'Tavern (Back)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -756,6 +797,7 @@
 			}, { // [41]
 				caption: 'Tavern (Front)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -765,6 +807,7 @@
 			}, { // [42]
 				caption: 'Swordsmiths',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -774,6 +817,7 @@
 			}, { // [43]
 				caption: 'Bat Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -783,6 +827,7 @@
 			}, { // [44]
 				caption: 'Bat Cave Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -792,6 +837,7 @@
 			}, { // [45]
 				caption: 'Library',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -801,6 +847,7 @@
 			}, { // [46]
 				caption: 'Two Brothers (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -811,6 +858,7 @@
 			}, { // [47]
 				caption: 'Two Brothers (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -820,6 +868,7 @@
 			}, { // [48]
 				caption: 'Kakariko Chest Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -829,6 +878,7 @@
 			}, { // [49]
 				caption: 'Eastern Palace',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -838,6 +888,7 @@
 			}, { // [50]
 				caption: 'Sahasrahla\'s Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -847,6 +898,7 @@
 			}, { // [51]
 				caption: 'Eastern Fairy Spring',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -856,6 +908,7 @@
 			}, { // [52]
 				caption: 'Eastern Fairy Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -865,6 +918,7 @@
 			}, { // [53]
 				caption: 'Desert Palace - Main Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -875,6 +929,7 @@
 			}, { // [54]
 				caption: 'Desert Palace - West Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -886,6 +941,7 @@
 			}, { // [55]
 				caption: 'Desert Palace - East Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -896,6 +952,7 @@
 			}, { // [56]
 				caption: 'Desert Palace - North Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -907,6 +964,7 @@
 			}, { // [57]
 				caption: 'Checkerboard Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -917,6 +975,7 @@
 			}, { // [58]
 				caption: 'Aginah\'s Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -926,6 +985,7 @@
 			}, { // [59]
 				caption: 'Desert Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -935,6 +995,7 @@
 			}, { // [60]
 				caption: '50 Rupee Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -945,6 +1006,7 @@
 			}, { // [61]
 				caption: 'Shop (Lake)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -954,6 +1016,7 @@
 			}, { // [62]
 				caption: 'Lake Fortune Teller',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -963,6 +1026,7 @@
 			}, { // [63]
 				caption: 'Mini Moldorm Cave {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -973,6 +1037,7 @@
 			}, { // [64]
 				caption: 'Pond of Happiness',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -985,6 +1050,7 @@
 			}, { // [65]
 				caption: 'Ice Rod Cave {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -995,6 +1061,7 @@
 			}, { // [66]
 				caption: 'Good Bee Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1004,6 +1071,7 @@
 			}, { // [67]
 				caption: '20 Rupee Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1014,6 +1082,7 @@
 			}, { // [68]
 				caption: 'Tower of Hera',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1026,6 +1095,7 @@
 			}, { // [69]
 				caption: 'Spectacle Rock Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1035,6 +1105,7 @@
 			}, { // [70]
 				caption: 'Spectacle Rock Cave Peak',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1044,6 +1115,7 @@
 			}, { // [71]
 				caption: 'Spectacle Rock Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1053,6 +1125,7 @@
 			}, { // [72]
 				caption: 'Ascension Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1062,6 +1135,7 @@
 			}, { // [73]
 				caption: 'Return Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1071,6 +1145,7 @@
 			}, { // [74]
 				caption: 'Bumper Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1081,6 +1156,7 @@
 			}, { // [75]
 				caption: 'Old Man Cave (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1090,6 +1166,7 @@
 			}, { // [76]
 				caption: 'Old Man Cave (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1099,6 +1176,7 @@
 			}, { // [77]
 				caption: 'Paradox Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1111,6 +1189,7 @@
 			}, { // [78]
 				caption: 'Paradox Cave (Middle)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1120,6 +1199,7 @@
 			}, { // [79]
 				caption: 'Paradox Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1129,6 +1209,7 @@
 			}, { // [80]
 				caption: 'Spiral Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1141,6 +1222,7 @@
 			}, { // [81]
 				caption: 'Spiral Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1150,6 +1232,7 @@
 			}, { // [82]
 				caption: 'Hookshot Fairy Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1159,6 +1242,7 @@
 			}, { // [83]
 				caption: 'Fairy Ascension Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1171,6 +1255,7 @@
 			}, { // [84]
 				caption: 'Fairy Ascension Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1184,6 +1269,7 @@
 			}, { // [85]
 				caption: 'Mimic Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1196,6 +1282,7 @@
 			}, { // [86]
 				caption: 'Link\'s House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1205,6 +1292,7 @@
 			}, { // [87]
 				caption: 'Dark Bonk Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1218,6 +1306,7 @@
 			}, { // [88]
 				caption: 'Hype Cave {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1227,6 +1316,7 @@
 			}, { // [89]
 				caption: 'Swamp Palace',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1236,6 +1326,7 @@
 			}, { // [90]
 				caption: 'Dark Sanctuary',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1245,6 +1336,7 @@
 			}, { // [91]
 				caption: 'Forest Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1254,6 +1346,7 @@
 			}, { // [92]
 				caption: 'Dark North East Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1269,6 +1362,7 @@
 			}, { // [93]
 				caption: 'Hyrule Castle Hole',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1278,6 +1372,7 @@
 			}, { // [94]
 				caption: 'Fat Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1295,6 +1390,7 @@
 			}, { // [95]
 				caption: 'Hyrule Castle Hole Exit',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1304,6 +1400,7 @@
 			}, { // [96]
 				caption: 'Skull Woods - Back Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1318,6 +1415,7 @@
 			}, { // [97]
 				caption: 'Skull Woods - West Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1331,6 +1429,7 @@
 			}, { // [98]
 				caption: 'Skull Woods - North Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1344,6 +1443,7 @@
 			}, { // [99]
 				caption: 'Skull Woods - Central Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1353,6 +1453,7 @@
 			}, { // [100]
 				caption: 'Skull Woods - South Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1362,6 +1463,7 @@
 			}, { // [101]
 				caption: 'Skull Woods - NE Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1371,6 +1473,7 @@
 			}, { // [102]
 				caption: 'Skull Woods - East Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1380,6 +1483,7 @@
 			}, { // [103]
 				caption: 'Skull Woods - SE Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1389,6 +1493,7 @@
 			}, { // [104]
 				caption: 'Lumberjack Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1398,6 +1503,7 @@
 			}, { // [105]
 				caption: 'Ascension Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1409,6 +1515,7 @@
 			}, { // [106]
 				caption: 'VoO Fortune Teller',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1418,6 +1525,7 @@
 			}, { // [107]
 				caption: 'VoO Chest Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1427,6 +1535,7 @@
 			}, { // [108]
 				caption: 'Thieves\' Town',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1436,6 +1545,7 @@
 			}, { // [109]
 				caption: 'C-Shaped House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1445,6 +1555,7 @@
 			}, { // [110]
 				caption: 'VoO Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1457,6 +1568,7 @@
 			}, { // [111]
 				caption: 'VoO Bombable Hut {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1467,6 +1579,7 @@
 			}, { // [112]
 				caption: 'Hammer Peg Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1478,6 +1591,7 @@
 			}, { // [113]
 				caption: 'Arrow Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1487,6 +1601,7 @@
 			}, { // [114]
 				caption: 'Palace of Darkness',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1496,6 +1611,7 @@
 			}, { // [115]
 				caption: 'PoD North Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1505,6 +1621,7 @@
 			}, { // [116]
 				caption: 'PoD Fairy Spring',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1514,6 +1631,7 @@
 			}, { // [117]
 				caption: 'PoD South Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1523,6 +1641,7 @@
 			}, { // [118]
 				caption: 'Ice Palace',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1534,6 +1653,7 @@
 			}, { // [119]
 				caption: 'Dark Lake Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1543,6 +1663,7 @@
 			}, { // [120]
 				caption: 'Ledge Fairy {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1558,6 +1679,7 @@
 			}, { // [121]
 				caption: 'Ledge Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1569,6 +1691,7 @@
 			}, { // [122]
 				caption: 'Ledge Spike Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1582,6 +1705,7 @@
 			}, { // [123]
 				caption: 'Misery Mire',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1593,6 +1717,7 @@
 			}, { // [124]
 				caption: 'Mire Shed',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1602,6 +1727,7 @@
 			}, { // [125]
 				caption: 'Mire Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1611,6 +1737,7 @@
 			}, { // [126]
 				caption: 'Mire Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1620,6 +1747,7 @@
 			}, { // [127]
 				caption: 'Agahnim\'s Tower',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1630,6 +1758,7 @@
 			}, { // [128]
 				caption: 'Spike Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1639,6 +1768,7 @@
 			}, { // [129]
 				caption: 'Return Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1650,6 +1780,7 @@
 			}, { // [130]
 				caption: 'Dark Fairy Spring',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1659,6 +1790,7 @@
 			}, { // [131]
 				caption: 'Hookshot Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1673,6 +1805,7 @@
 			}, { // [132]
 				caption: 'Hookshot Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1683,6 +1816,7 @@
 			}, { // [133]
 				caption: 'Superbunny Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1692,6 +1826,7 @@
 			}, { // [134]
 				caption: 'Superbunny Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1703,6 +1838,7 @@
 			}, { // [135]
 				caption: 'DDM Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1714,6 +1850,7 @@
 			}, { // [136]
 				caption: 'Turtle Rock - Main Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1725,6 +1862,7 @@
 			}, { // [137]
 				caption: 'Turtle Rock - Back Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1739,6 +1877,7 @@
 			}, { // [138]
 				caption: 'Turtle Rock Ledge - West Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1753,6 +1892,7 @@
 			}, { // [139]
 				caption: 'Turtle Rock Ledge - East Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -1942,6 +2082,7 @@
 			window.chests = [{ // [0]
 				caption: 'Light World Swamp',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (!hasFoundLocation('dam') ) return 'unavailable';
 					return canReachInvertedLightWorldBunny() ? 'available' : 'unavailable';
@@ -1949,6 +2090,7 @@
 			}, { // [1]
 				caption: 'Stoops Lonk\'s Hoose',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					// this is hidden in inverted, see script at bottom of entrancetracker.html
 					return 'available';
@@ -1956,30 +2098,35 @@
 			}, { // [2]
 				caption: 'Bottle Vendor: Pay 100 rupees',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return canReachInvertedLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [3]
 				caption: 'Ol\' Stumpy',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return canReachInvertedSouthDW() ? 'available' : 'unavailable';
 				}
 			}, { // [4]
 				caption: 'Gary\'s Lunchbox (save the frog first)',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return (items.mirror || (items.glove === 2 && canReachInvertedNorthDW())) && canReachInvertedLightWorldBunny() ? 'available' : 'unavailable';
 				}
 			}, { // [5]
 				caption: 'Fugitive under the bridge {flippers}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return items.flippers && canReachInvertedLightWorld() ? 'available' : 'unavailable';
 				}
 			}, { // [6]
 				caption: 'Ether Tablet {sword2}{book}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (!items.book) return 'unavailable';
 					if (hasFoundEntrance(68)) return (items.sword >= 2 || (flags.swordmode === 'S' && items.hammer)) ? 'available' : 'information';
@@ -1990,6 +2137,7 @@
 			}, { // [7]
 				caption: 'Bombos Tablet {sword2}{book}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (!items.book) return 'unavailable';
 					return canReachInvertedLightWorldBunny() ?
@@ -1999,6 +2147,7 @@
 			}, { // [8]
 				caption: 'Catfish',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (items.glove && canReachInvertedEastDW()) return 'available';
 					return items.moonpearl && items.flippers && items.mirror && canReachInvertedLightWorldBunny() ? 'available' : 'unavailable';
@@ -2006,12 +2155,14 @@
 			}, { // [9]
 				caption: 'King Zora: Pay 500 rupees',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return canReachInvertedLightWorld() ? (items.flippers || items.glove ? 'available' : 'unavailable') : 'unavailable';
 				}
 			}, { // [10]
 				caption: 'Lost Old Man {lantern}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (canReachInvertedDarkDeathMountain() && (hasFoundEntrance(68) || (items.moonpearl && items.hammer &&
 						(items.glove === 2 || hasFoundEntrance(77))))) return items.lantern ? 'available' : 'darkavailable';
@@ -2023,12 +2174,14 @@
 			}, { // [11]
 				caption: 'Mushroom',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return canReachInvertedLightWorldBunny() ? (items.moonpearl ? 'available' : 'information') : 'unavailable';
 				}
 			}, { // [12]
 				caption: 'Spectacle Rock',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (hasFoundEntrance(68)) return 'available';
 					if (items.moonpearl && items.hammer && hasFoundEntrance(77)) return 'available';
@@ -2038,6 +2191,7 @@
 			}, { // [13]
 				caption: 'Floating Island',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (hasFoundEntrance(77)) return 'available';
 					if (items.moonpearl && items.hammer && hasFoundEntrance(68)) return 'available';
@@ -2047,6 +2201,7 @@
 			}, { // [14]
 				caption: 'Race Minigame',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (items.moonpearl && hasFoundEntrance(46)) return 'available';
 					return canReachInvertedLightWorldBunny() ? 'information' : 'unavailable';
@@ -2054,6 +2209,7 @@
 			}, { // [15]
 				caption: 'Desert West Ledge',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (hasFoundEntrance(54)) return 'available';
 					if (items.moonpearl && items.glove && hasFoundEntrance(56)) return 'available';
@@ -2062,6 +2218,7 @@
 			}, { // [16]
 				caption: 'Lake Hylia Island {flippers}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (!canReachInvertedLightWorldBunny())
 						return 'unavailable';
@@ -2070,6 +2227,7 @@
 			}, { // [17]
 				caption: 'Bumper Cave',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (hasFoundEntrance(129)) return 'available';
 					return canReachInvertedNorthDW() ? 'information' : 'unavailable';
@@ -2077,6 +2235,7 @@
 			}, { // [18]
 				caption: 'Pyramid',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (canReachInvertedEastDW()) return 'available';
 					if ((items.hammer || (items.flippers && items.glove)) && canReachInvertedNorthDW()) return 'available';				
@@ -2085,12 +2244,14 @@
 			}, { // [19]
 				caption: 'Alec Baldwin\'s Dig-a-Thon: Pay 80 rupees',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return canReachInvertedSouthDW() ? 'available' : 'unavailable';
 				}
 			}, { // [20]
 				caption: 'Zora River Ledge {flippers}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (!canReachInvertedLightWorld())
 						return 'unavailable';
@@ -2103,12 +2264,14 @@
 			}, { // [21]
 				caption: 'Buried Item {shovel}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return items.shovel && canReachInvertedLightWorld() ? 'available' : 'unavailable';
 				}
 			}, { // [22]
 				caption: 'Master Sword Pedestal {pendant0}{pendant1}{pendant2} (can check with {book})',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if(!canReachInvertedLightWorldBunny())
 						return 'unavailable';
@@ -2125,6 +2288,7 @@
 			window.entrances = [{ // [0]
 				caption: 'Link\'s House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2135,6 +2299,7 @@
 			}, { // [1]
 				caption: 'Bonk Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2145,6 +2310,7 @@
 			}, { // [2]
 				caption: 'Dam',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2155,6 +2321,7 @@
 			}, { // [3]
 				caption: 'Haunted Grove',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2165,6 +2332,7 @@
 			}, { // [4]
 				caption: 'Magic Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2175,6 +2343,7 @@
 			}, { // [5]
 				caption: 'Well of Wishing',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2185,6 +2354,7 @@
 			}, { // [6]
 				caption: 'Hype Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2195,6 +2365,7 @@
 			}, { // [7]
 				caption: 'Hyrule Castle - Main Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2205,6 +2376,7 @@
 			}, { // [8]
 				caption: 'Hyrule Castle - Top Entrance (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2215,6 +2387,7 @@
 			}, { // [9]
 				caption: 'Hyrule Castle - Top Entrance (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2225,6 +2398,7 @@
 			}, { // [10]
 				caption: 'Hyrule Castle - Agahnim\'s Tower',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2235,6 +2409,7 @@
 			}, { // [11]
 				caption: 'Hyrule Castle - Secret Entrance Stairs',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2245,6 +2420,7 @@
 			}, { // [12]
 				caption: 'Hyrule Castle - Secret Entrance Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2255,6 +2431,7 @@
 			}, { // [13]
 				caption: 'Sanctuary',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2265,6 +2442,7 @@
 			}, { // [14]
 				caption: 'Bonk Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2275,6 +2453,7 @@
 			}, { // [15]
 				caption: 'Grave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2285,6 +2464,7 @@
 			}, { // [16]
 				caption: 'Graveyard Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2295,6 +2475,7 @@
 			}, { // [17]
 				caption: 'King\'s Grave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2305,6 +2486,7 @@
 			}, { // [18]
 				caption: 'North Fairy Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2315,6 +2497,7 @@
 			}, { // [19]
 				caption: 'North Fairy Cave Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2325,6 +2508,7 @@
 			}, { // [20]
 				caption: 'Woods Chest Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2335,6 +2519,7 @@
 			}, { // [21]
 				caption: 'Thief\'s Hideout',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2345,6 +2530,7 @@
 			}, { // [22]
 				caption: 'Hideout Stump',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2355,6 +2541,7 @@
 			}, { // [23]
 				caption: 'Lumberjack Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2365,6 +2552,7 @@
 			}, { // [24]
 				caption: 'Lumberjack Tree Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2375,6 +2563,7 @@
 			}, { // [25]
 				caption: 'Lumberjack Tree',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2385,6 +2574,7 @@
 			}, { // [26]
 				caption: 'Ascension Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2395,6 +2585,7 @@
 			}, { // [27]
 				caption: 'Kakariko Fortune Teller',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2405,6 +2596,7 @@
 			}, { // [28]
 				caption: 'Well Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2415,6 +2607,7 @@
 			}, { // [29]
 				caption: 'Well Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2425,6 +2618,7 @@
 			}, { // [30]
 				caption: 'Thief\'s Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2435,6 +2629,7 @@
 			}, { // [31]
 				caption: 'Elder\'s House (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2445,6 +2640,7 @@
 			}, { // [32]
 				caption: 'Elder\'s House (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2455,6 +2651,7 @@
 			}, { // [33]
 				caption: 'Snitch Lady (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2465,6 +2662,7 @@
 			}, { // [34]
 				caption: 'Snitch Lady (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2475,6 +2673,7 @@
 			}, { // [35]
 				caption: 'Chicken House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2485,6 +2684,7 @@
 			}, { // [36]
 				caption: 'Lazy Kid\'s House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2495,6 +2695,7 @@
 			}, { // [37]
 				caption: 'Bush Covered House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2505,6 +2706,7 @@
 			}, { // [38]
 				caption: 'Kakariko Bomb Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2515,6 +2717,7 @@
 			}, { // [39]
 				caption: 'Shop (Kak)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2525,6 +2728,7 @@
 			}, { // [40]
 				caption: 'Tavern (Back)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2535,6 +2739,7 @@
 			}, { // [41]
 				caption: 'Tavern (Front)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2545,6 +2750,7 @@
 			}, { // [42]
 				caption: 'Swordsmiths',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2555,6 +2761,7 @@
 			}, { // [43]
 				caption: 'Bat Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2565,6 +2772,7 @@
 			}, { // [44]
 				caption: 'Bat Cave Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2575,6 +2783,7 @@
 			}, { // [45]
 				caption: 'Library',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2585,6 +2794,7 @@
 			}, { // [46]
 				caption: 'Two Brothers (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2595,6 +2805,7 @@
 			}, { // [47]
 				caption: 'Two Brothers (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2605,6 +2816,7 @@
 			}, { // [48]
 				caption: 'Kakariko Chest Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2615,6 +2827,7 @@
 			}, { // [49]
 				caption: 'Eastern Palace',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2625,6 +2838,7 @@
 			}, { // [50]
 				caption: 'Sahasrahla\'s Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2635,6 +2849,7 @@
 			}, { // [51]
 				caption: 'Eastern Fairy Spring',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2645,6 +2860,7 @@
 			}, { // [52]
 				caption: 'Eastern Fairy Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2655,6 +2871,7 @@
 			}, { // [53]
 				caption: 'Desert Palace - Main Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2665,6 +2882,7 @@
 			}, { // [54]
 				caption: 'Desert Palace - West Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2675,6 +2893,7 @@
 			}, { // [55]
 				caption: 'Desert Palace - East Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2685,6 +2904,7 @@
 			}, { // [56]
 				caption: 'Desert Palace - North Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2695,6 +2915,7 @@
 			}, { // [57]
 				caption: 'Checkerboard Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2705,6 +2926,7 @@
 			}, { // [58]
 				caption: 'Aginah\'s Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2715,6 +2937,7 @@
 			}, { // [59]
 				caption: 'Desert Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2725,6 +2948,7 @@
 			}, { // [60]
 				caption: '50 Rupee Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2735,6 +2959,7 @@
 			}, { // [61]
 				caption: 'Shop (Lake)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2745,6 +2970,7 @@
 			}, { // [62]
 				caption: 'Lake Fortune Teller',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2755,6 +2981,7 @@
 			}, { // [63]
 				caption: 'Mini Moldorm Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2765,6 +2992,7 @@
 			}, { // [64]
 				caption: 'Pond of Happiness',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2775,6 +3003,7 @@
 			}, { // [65]
 				caption: 'Ice Rod Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2785,6 +3014,7 @@
 			}, { // [66]
 				caption: 'Good Bee Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2795,6 +3025,7 @@
 			}, { // [67]
 				caption: '20 Rupee Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2805,6 +3036,7 @@
 			}, { // [68]
 				caption: 'Tower of Hera',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2815,6 +3047,7 @@
 			}, { // [69]
 				caption: 'Spectacle Rock Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2825,6 +3058,7 @@
 			}, { // [70]
 				caption: 'Spectacle Rock Cave Peak',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2835,6 +3069,7 @@
 			}, { // [71]
 				caption: 'Spectacle Rock Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2845,6 +3080,7 @@
 			}, { // [72]
 				caption: 'Ascension Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2855,6 +3091,7 @@
 			}, { // [73]
 				caption: 'Return Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2865,6 +3102,7 @@
 			}, { // [74]
 				caption: 'Return Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2875,6 +3113,7 @@
 			}, { // [75]
 				caption: 'Old Man Cave (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2885,6 +3124,7 @@
 			}, { // [76]
 				caption: 'Old Man Cave (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2895,6 +3135,7 @@
 			}, { // [77]
 				caption: 'Paradox Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2905,6 +3146,7 @@
 			}, { // [78]
 				caption: 'Paradox Cave (Middle)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2915,6 +3157,7 @@
 			}, { // [79]
 				caption: 'Paradox Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2925,6 +3168,7 @@
 			}, { // [80]
 				caption: 'Spiral Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2935,6 +3179,7 @@
 			}, { // [81]
 				caption: 'Spiral Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2945,6 +3190,7 @@
 			}, { // [82]
 				caption: 'Hookshot Fairy Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2955,6 +3201,7 @@
 			}, { // [83]
 				caption: 'Fairy Ascension Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2965,6 +3212,7 @@
 			}, { // [84]
 				caption: 'Fairy Ascension Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2975,6 +3223,7 @@
 			}, { // [85]
 				caption: 'Mimic Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2985,6 +3234,7 @@
 			}, { // [86]
 				caption: 'Bomb Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -2995,6 +3245,7 @@
 			}, { // [87]
 				caption: 'Dark Bonk Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3005,6 +3256,7 @@
 			}, { // [88]
 				caption: 'Hype Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3015,6 +3267,7 @@
 			}, { // [89]
 				caption: 'Swamp Palace',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3025,6 +3278,7 @@
 			}, { // [90]
 				caption: 'Dark Sanctuary',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3035,6 +3289,7 @@
 			}, { // [91]
 				caption: 'Forest Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3045,6 +3300,7 @@
 			}, { // [92]
 				caption: 'Dark North East Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3055,6 +3311,7 @@
 			}, { // [93]
 				caption: 'Pyramid Hole',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3065,6 +3322,7 @@
 			}, { // [94]
 				caption: 'Fat Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3075,6 +3333,7 @@
 			}, { // [95]
 				caption: 'Pyramid Exit',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3085,6 +3344,7 @@
 			}, { // [96]
 				caption: 'Skull Woods - Back Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3095,6 +3355,7 @@
 			}, { // [97]
 				caption: 'Skull Woods - West Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3105,6 +3366,7 @@
 			}, { // [98]
 				caption: 'Skull Woods - North Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3115,6 +3377,7 @@
 			}, { // [99]
 				caption: 'Skull Woods - Central Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3125,6 +3388,7 @@
 			}, { // [100]
 				caption: 'Skull Woods - South Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3135,6 +3399,7 @@
 			}, { // [101]
 				caption: 'Skull Woods - NE Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3145,6 +3410,7 @@
 			}, { // [102]
 				caption: 'Skull Woods - East Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3155,6 +3421,7 @@
 			}, { // [103]
 				caption: 'Skull Woods - SE Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3165,6 +3432,7 @@
 			}, { // [104]
 				caption: 'Lumberjack Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3175,6 +3443,7 @@
 			}, { // [105]
 				caption: 'Bumper Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3185,6 +3454,7 @@
 			}, { // [106]
 				caption: 'VoO Fortune Teller',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3195,6 +3465,7 @@
 			}, { // [107]
 				caption: 'VoO Chest Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3205,6 +3476,7 @@
 			}, { // [108]
 				caption: 'Thieves\' Town',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3215,6 +3487,7 @@
 			}, { // [109]
 				caption: 'C-Shaped House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3225,6 +3498,7 @@
 			}, { // [110]
 				caption: 'VoO Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3235,6 +3509,7 @@
 			}, { // [111]
 				caption: 'VoO Bombable Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3245,6 +3520,7 @@
 			}, { // [112]
 				caption: 'Hammer Peg Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3255,6 +3531,7 @@
 			}, { // [113]
 				caption: 'Arrow Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3265,6 +3542,7 @@
 			}, { // [114]
 				caption: 'Palace of Darkness',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3275,6 +3553,7 @@
 			}, { // [115]
 				caption: 'PoD North Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3285,6 +3564,7 @@
 			}, { // [116]
 				caption: 'PoD Fairy Spring',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3295,6 +3575,7 @@
 			}, { // [117]
 				caption: 'PoD South Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3305,6 +3586,7 @@
 			}, { // [118]
 				caption: 'Ice Palace',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3315,6 +3597,7 @@
 			}, { // [119]
 				caption: 'Dark Lake Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3325,6 +3608,7 @@
 			}, { // [120]
 				caption: 'Ledge Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3335,6 +3619,7 @@
 			}, { // [121]
 				caption: 'Ledge Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3345,6 +3630,7 @@
 			}, { // [122]
 				caption: 'Ledge Spike Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3355,6 +3641,7 @@
 			}, { // [123]
 				caption: 'Misery Mire',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3365,6 +3652,7 @@
 			}, { // [124]
 				caption: 'Mire Shed',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3375,6 +3663,7 @@
 			}, { // [125]
 				caption: 'Mire Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3385,6 +3674,7 @@
 			}, { // [126]
 				caption: 'Mire Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3395,6 +3685,7 @@
 			}, { // [127]
 				caption: 'Ganon\'s Tower',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3405,6 +3696,7 @@
 			}, { // [128]
 				caption: 'Spike Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3415,6 +3707,7 @@
 			}, { // [129]
 				caption: 'Bumper Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3425,6 +3718,7 @@
 			}, { // [130]
 				caption: 'Dark Fairy Spring',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3435,6 +3729,7 @@
 			}, { // [131]
 				caption: 'Hookshot Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3445,6 +3740,7 @@
 			}, { // [132]
 				caption: 'Hookshot Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3455,6 +3751,7 @@
 			}, { // [133]
 				caption: 'Superbunny Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3465,6 +3762,7 @@
 			}, { // [134]
 				caption: 'Superbunny Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3475,6 +3773,7 @@
 			}, { // [135]
 				caption: 'DDM Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3485,6 +3784,7 @@
 			}, { // [136]
 				caption: 'Turtle Rock - Main Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3495,6 +3795,7 @@
 			}, { // [137]
 				caption: 'Turtle Rock - Back Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3505,6 +3806,7 @@
 			}, { // [138]
 				caption: 'Turtle Rock Ledge - West Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3515,6 +3817,7 @@
 			}, { // [139]
 				caption: 'Turtle Rock Ledge - East Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3698,6 +4001,7 @@
 			window.chests = [{ // [0]
 				caption: 'Light World Swamp',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'unavailable') : 'unavailable';
@@ -3705,10 +4009,12 @@
 			}, { // [1]
 				caption: 'Stoops Lonk\'s Hoose',
 				is_opened: false,
+				remind_me: false,
 				is_available: always
 			}, { // [2]
 				caption: 'Bottle Vendor: Pay 100 rupees',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return canReachLightWorldBunny() ? 'available' : 'unavailable';
@@ -3716,10 +4022,12 @@
 			}, { // [3]
 				caption: 'Ol\' Stumpy',
 				is_opened: false,
+				remind_me: false,
 				is_available: always
 			}, { // [4]
 				caption: 'Gary\'s Lunchbox (save the frog first)',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return (items.mirror || items.glove === 2) && canReachLightWorldBunny() ? 'available' : 'unavailable';
@@ -3727,6 +4035,7 @@
 			}, { // [5]
 				caption: 'Fugitive under the bridge {flippers}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return canReachLightWorld() ? (items.flippers ? 'available' : 'unavailable') : 'unavailable';
@@ -3734,6 +4043,7 @@
 			}, { // [6]
 				caption: 'Ether Tablet {sword2}{book}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					/*return items.moonpearl && items.hammer && items.book && (activeFlute() || items.glove) && (items.hookshot || items.glove === 2) ?
@@ -3743,6 +4053,7 @@
 			}, { // [7]
 				caption: 'Bombos Tablet {sword2}{book}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					/*return canReachLightWorldBunny() && items.book ?
@@ -3752,6 +4063,7 @@
 			}, { // [8]
 				caption: 'Catfish',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					/*if(!items.glove)
@@ -3763,6 +4075,7 @@
 			}, { // [9]
 				caption: 'King Zora: Pay 500 rupees',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return canReachLightWorld() ? (items.flippers || items.glove ? 'available' : 'unavailable') : 'unavailable';
@@ -3770,6 +4083,7 @@
 			}, { // [10]
 				caption: 'Lost Old Man {lantern}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return items.glove || activeFlute() ? items.lantern ? 'available' : 'darkavailable' : 'unavailable';
@@ -3777,6 +4091,7 @@
 			}, { // [11]
 				caption: 'Mushroom',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'possible') : 'unavailable';
@@ -3784,6 +4099,7 @@
 			}, { // [12]
 				caption: 'Spectacle Rock',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					/*if(!(items.glove || activeFlute()))
@@ -3795,6 +4111,7 @@
 			}, { // [13]
 				caption: 'Floating Island',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					/*return (activeFlute() || items.glove) && ((items.hookshot && items.moonpearl) || items.glove === 2) ?
@@ -3804,6 +4121,7 @@
 			}, { // [14]
 				caption: 'Race Minigame {bomb}/{boots}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return canReachLightWorldBunny() ? (items.moonpearl ? 'available' : 'possible') : 'unavailable';
@@ -3811,6 +4129,7 @@
 			}, { // [15]
 				caption: 'Desert West Ledge {book}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return canReachLightWorldBunny() ? (items.book ? (items.moonpearl ? 'available' : 'information') : 'information') : 'unavailable';
@@ -3818,6 +4137,7 @@
 			}, { // [16]
 				caption: 'Lake Hylia Island {flippers}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					/*if(!canReachLightWorldBunny())
@@ -3827,6 +4147,7 @@
 			}, { // [17]
 				caption: 'Bumper Cave {cape}{mirror}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return items.glove && items.cape && items.mirror && canReachLightWorld() ? 'available' : 'information';
@@ -3834,6 +4155,7 @@
 			}, { // [18]
 				caption: 'Pyramid',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					/*if(canReachPyramid())
@@ -3843,10 +4165,12 @@
 			}, { // [19]
 				caption: 'Alec Baldwin\'s Dig-a-Thon: Pay 80 rupees',
 				is_opened: false,
+				remind_me: false,
 				is_available: always
 			}, { // [20]
 				caption: 'Zora River Ledge {flippers}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					/*if(!canReachLightWorld())
@@ -3858,6 +4182,7 @@
 			}, { // [21]
 				caption: 'Buried Item {shovel}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					//return items.shovel && canReachLightWorld() ? 'available' : 'unavailable';
@@ -3865,6 +4190,7 @@
 			}, { // [22]
 				caption: 'Master Sword Pedestal {pendant0}{pendant1}{pendant2} (can check with {book})',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return 'available';
 					/*if(!canReachLightWorldBunny())
@@ -3883,6 +4209,7 @@
 			window.entrances = [{ // [0]
 				caption: 'Link\'s House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3892,6 +4219,7 @@
 			}, { // [1]
 				caption: 'Bonk Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3902,6 +4230,7 @@
 			}, { // [2]
 				caption: 'Dam',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3911,6 +4240,7 @@
 			}, { // [3]
 				caption: 'Haunted Grove',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3921,6 +4251,7 @@
 			}, { // [4]
 				caption: 'Magic Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3930,6 +4261,7 @@
 			}, { // [5]
 				caption: 'Well of Wishing',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3940,6 +4272,7 @@
 			}, { // [6]
 				caption: 'Hype Fairy {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3949,6 +4282,7 @@
 			}, { // [7]
 				caption: 'Hyrule Castle - Main Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3958,6 +4292,7 @@
 			}, { // [8]
 				caption: 'Hyrule Castle - Top Entrance (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3968,6 +4303,7 @@
 			}, { // [9]
 				caption: 'Hyrule Castle - Top Entrance (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3978,6 +4314,7 @@
 			}, { // [10]
 				caption: 'Hyrule Castle - Agahnim\'s Tower',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3988,6 +4325,7 @@
 			}, { // [11]
 				caption: 'Hyrule Castle - Secret Entrance Stairs',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -3997,6 +4335,7 @@
 			}, { // [12]
 				caption: 'Hyrule Castle - Secret Entrance Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4006,6 +4345,7 @@
 			}, { // [13]
 				caption: 'Sanctuary',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4015,6 +4355,7 @@
 			}, { // [14]
 				caption: 'Bonk Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4025,6 +4366,7 @@
 			}, { // [15]
 				caption: 'Grave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4034,6 +4376,7 @@
 			}, { // [16]
 				caption: 'Graveyard Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4044,6 +4387,7 @@
 			}, { // [17]
 				caption: 'King\'s Grave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4056,6 +4400,7 @@
 			}, { // [18]
 				caption: 'North Fairy Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4065,6 +4410,7 @@
 			}, { // [19]
 				caption: 'North Fairy Cave Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4074,6 +4420,7 @@
 			}, { // [20]
 				caption: 'Woods Chest Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4083,6 +4430,7 @@
 			}, { // [21]
 				caption: 'Thief\'s Hideout',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4092,6 +4440,7 @@
 			}, { // [22]
 				caption: 'Hideout Stump',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4101,6 +4450,7 @@
 			}, { // [23]
 				caption: 'Lumberjack Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4110,6 +4460,7 @@
 			}, { // [24]
 				caption: 'Lumberjack Tree Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4119,6 +4470,7 @@
 			}, { // [25]
 				caption: 'Lumberjack Tree',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4129,6 +4481,7 @@
 			}, { // [26]
 				caption: 'Ascension Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4139,6 +4492,7 @@
 			}, { // [27]
 				caption: 'Kakariko Fortune Teller',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4148,6 +4502,7 @@
 			}, { // [28]
 				caption: 'Well Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4157,6 +4512,7 @@
 			}, { // [29]
 				caption: 'Well Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4166,6 +4522,7 @@
 			}, { // [30]
 				caption: 'Thief\'s Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4175,6 +4532,7 @@
 			}, { // [31]
 				caption: 'Elder\'s House (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4184,6 +4542,7 @@
 			}, { // [32]
 				caption: 'Elder\'s House (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4193,6 +4552,7 @@
 			}, { // [33]
 				caption: 'Snitch Lady (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4202,6 +4562,7 @@
 			}, { // [34]
 				caption: 'Snitch Lady (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4211,6 +4572,7 @@
 			}, { // [35]
 				caption: 'Chicken House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4220,6 +4582,7 @@
 			}, { // [36]
 				caption: 'Lazy Kid\'s House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4229,6 +4592,7 @@
 			}, { // [37]
 				caption: 'Bush Covered House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4238,6 +4602,7 @@
 			}, { // [38]
 				caption: 'Kakariko Bomb Hut {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4248,6 +4613,7 @@
 			}, { // [39]
 				caption: 'Shop (Kak)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4257,6 +4623,7 @@
 			}, { // [40]
 				caption: 'Tavern (Back)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4266,6 +4633,7 @@
 			}, { // [41]
 				caption: 'Tavern (Front)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4275,6 +4643,7 @@
 			}, { // [42]
 				caption: 'Swordsmiths',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4284,6 +4653,7 @@
 			}, { // [43]
 				caption: 'Bat Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4293,6 +4663,7 @@
 			}, { // [44]
 				caption: 'Bat Cave Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4302,6 +4673,7 @@
 			}, { // [45]
 				caption: 'Library',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4311,6 +4683,7 @@
 			}, { // [46]
 				caption: 'Two Brothers (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4321,6 +4694,7 @@
 			}, { // [47]
 				caption: 'Two Brothers (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4330,6 +4704,7 @@
 			}, { // [48]
 				caption: 'Kakariko Chest Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4339,6 +4714,7 @@
 			}, { // [49]
 				caption: 'Eastern Palace',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4348,6 +4724,7 @@
 			}, { // [50]
 				caption: 'Sahasrahla\'s Hut',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4357,6 +4734,7 @@
 			}, { // [51]
 				caption: 'Eastern Fairy Spring',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4366,6 +4744,7 @@
 			}, { // [52]
 				caption: 'Eastern Fairy Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4375,6 +4754,7 @@
 			}, { // [53]
 				caption: 'Desert Palace - Main Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4386,6 +4766,7 @@
 			}, { // [54]
 				caption: 'Desert Palace - West Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4396,6 +4777,7 @@
 			}, { // [55]
 				caption: 'Desert Palace - East Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4405,6 +4787,7 @@
 			}, { // [56]
 				caption: 'Desert Palace - North Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4415,6 +4798,7 @@
 			}, { // [57]
 				caption: 'Checkerboard Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4425,6 +4809,7 @@
 			}, { // [58]
 				caption: 'Aginah\'s Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4434,6 +4819,7 @@
 			}, { // [59]
 				caption: 'Desert Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4443,6 +4829,7 @@
 			}, { // [60]
 				caption: '50 Rupee Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4453,6 +4840,7 @@
 			}, { // [61]
 				caption: 'Shop (Lake)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4462,6 +4850,7 @@
 			}, { // [62]
 				caption: 'Lake Fortune Teller',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4471,6 +4860,7 @@
 			}, { // [63]
 				caption: 'Mini Moldorm Cave {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4481,6 +4871,7 @@
 			}, { // [64]
 				caption: 'Pond of Happiness',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4492,6 +4883,7 @@
 			}, { // [65]
 				caption: 'Ice Rod Cave {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4502,6 +4894,7 @@
 			}, { // [66]
 				caption: 'Good Bee Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4511,6 +4904,7 @@
 			}, { // [67]
 				caption: '20 Rupee Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4521,6 +4915,7 @@
 			}, { // [68]
 				caption: 'Tower of Hera',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4532,6 +4927,7 @@
 			}, { // [69]
 				caption: 'Spectacle Rock Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4542,6 +4938,7 @@
 			}, { // [70]
 				caption: 'Spectacle Rock Cave Peak',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4552,6 +4949,7 @@
 			}, { // [71]
 				caption: 'Spectacle Rock Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4562,6 +4960,7 @@
 			}, { // [72]
 				caption: 'Ascension Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4572,6 +4971,7 @@
 			}, { // [73]
 				caption: 'Return Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4582,6 +4982,7 @@
 			}, { // [74]
 				caption: 'Return Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4593,6 +4994,7 @@
 			}, { // [75]
 				caption: 'Old Man Cave (West)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4603,6 +5005,7 @@
 			}, { // [76]
 				caption: 'Old Man Cave (East)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4613,6 +5016,7 @@
 			}, { // [77]
 				caption: 'Paradox Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4623,6 +5027,7 @@
 			}, { // [78]
 				caption: 'Paradox Cave (Middle)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4633,6 +5038,7 @@
 			}, { // [79]
 				caption: 'Paradox Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4643,6 +5049,7 @@
 			}, { // [80]
 				caption: 'Spiral Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4653,6 +5060,7 @@
 			}, { // [81]
 				caption: 'Spiral Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4663,6 +5071,7 @@
 			}, { // [82]
 				caption: 'Hookshot Fairy Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4673,6 +5082,7 @@
 			}, { // [83]
 				caption: 'Fairy Ascension Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4683,6 +5093,7 @@
 			}, { // [84]
 				caption: 'Fairy Ascension Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4694,6 +5105,7 @@
 			}, { // [85]
 				caption: 'Mimic Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4704,6 +5116,7 @@
 			}, { // [86]
 				caption: 'Bomb Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4713,6 +5126,7 @@
 			}, { // [87]
 				caption: 'Dark Bonk Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4723,6 +5137,7 @@
 			}, { // [88]
 				caption: 'Hype Cave {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4733,6 +5148,7 @@
 			}, { // [89]
 				caption: 'Swamp Palace',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4742,6 +5158,7 @@
 			}, { // [90]
 				caption: 'Dark Sanctuary',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4751,6 +5168,7 @@
 			}, { // [91]
 				caption: 'Forest Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4760,6 +5178,7 @@
 			}, { // [92]
 				caption: 'Dark North East Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4775,6 +5194,7 @@
 			}, { // [93]
 				caption: 'Pyramid Hole',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4786,6 +5206,7 @@
 			}, { // [94]
 				caption: 'Fat Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4803,6 +5224,7 @@
 			}, { // [95]
 				caption: 'Pyramid Exit',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4814,6 +5236,7 @@
 			}, { // [96]
 				caption: 'Skull Woods - Back Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4825,6 +5248,7 @@
 			}, { // [97]
 				caption: 'Skull Woods - West Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4836,6 +5260,7 @@
 			}, { // [98]
 				caption: 'Skull Woods - North Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4847,6 +5272,7 @@
 			}, { // [99]
 				caption: 'Skull Woods - Central Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4857,6 +5283,7 @@
 			}, { // [100]
 				caption: 'Skull Woods - South Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4867,6 +5294,7 @@
 			}, { // [101]
 				caption: 'Skull Woods - NE Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4877,6 +5305,7 @@
 			}, { // [102]
 				caption: 'Skull Woods - East Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4887,6 +5316,7 @@
 			}, { // [103]
 				caption: 'Skull Woods - SE Drop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4897,6 +5327,7 @@
 			}, { // [104]
 				caption: 'Lumberjack Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4906,6 +5337,7 @@
 			}, { // [105]
 				caption: 'Bumper Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4916,6 +5348,7 @@
 			}, { // [106]
 				caption: 'VoO Fortune Teller',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4925,6 +5358,7 @@
 			}, { // [107]
 				caption: 'VoO Chest Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4934,6 +5368,7 @@
 			}, { // [108]
 				caption: 'Thieves\' Town',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4944,6 +5379,7 @@
 			}, { // [109]
 				caption: 'C-Shaped House',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4953,6 +5389,7 @@
 			}, { // [110]
 				caption: 'VoO Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4963,6 +5400,7 @@
 			}, { // [111]
 				caption: 'VoO Bombable Hut {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4973,6 +5411,7 @@
 			}, { // [112]
 				caption: 'Hammer Peg Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4983,6 +5422,7 @@
 			}, { // [113]
 				caption: 'Arrow Game',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -4993,6 +5433,7 @@
 			}, { // [114]
 				caption: 'Palace of Darkness',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5003,6 +5444,7 @@
 			}, { // [115]
 				caption: 'PoD North Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5013,6 +5455,7 @@
 			}, { // [116]
 				caption: 'PoD Fairy Spring',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5023,6 +5466,7 @@
 			}, { // [117]
 				caption: 'PoD South Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5033,6 +5477,7 @@
 			}, { // [118]
 				caption: 'Ice Palace',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5045,6 +5490,7 @@
 			}, { // [119]
 				caption: 'Dark Lake Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5055,6 +5501,7 @@
 			}, { // [120]
 				caption: 'Ledge Fairy {bomb}',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5065,6 +5512,7 @@
 			}, { // [121]
 				caption: 'Ledge Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5075,6 +5523,7 @@
 			}, { // [122]
 				caption: 'Ledge Spike Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5085,6 +5534,7 @@
 			}, { // [123]
 				caption: 'Misery Mire',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5096,6 +5546,7 @@
 			}, { // [124]
 				caption: 'Mire Shed',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5106,6 +5557,7 @@
 			}, { // [125]
 				caption: 'Mire Fairy',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5116,6 +5568,7 @@
 			}, { // [126]
 				caption: 'Mire Hint',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5126,6 +5579,7 @@
 			}, { // [127]
 				caption: 'Ganon\'s Tower',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5142,6 +5596,7 @@
 			}, { // [128]
 				caption: 'Spike Cave',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5152,6 +5607,7 @@
 			}, { // [129]
 				caption: 'Bumper Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5162,6 +5618,7 @@
 			}, { // [130]
 				caption: 'Dark Fairy Spring',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5172,6 +5629,7 @@
 			}, { // [131]
 				caption: 'Hookshot Cave (Exit)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5182,6 +5640,7 @@
 			}, { // [132]
 				caption: 'Hookshot Cave (Entrance)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5192,6 +5651,7 @@
 			}, { // [133]
 				caption: 'Superbunny Cave (Top)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5202,6 +5662,7 @@
 			}, { // [134]
 				caption: 'Superbunny Cave (Bottom)',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5212,6 +5673,7 @@
 			}, { // [135]
 				caption: 'DDM Shop',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5222,6 +5684,7 @@
 			}, { // [136]
 				caption: 'Turtle Rock - Main Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5234,6 +5697,7 @@
 			}, { // [137]
 				caption: 'Turtle Rock - Back Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5244,6 +5708,7 @@
 			}, { // [138]
 				caption: 'Turtle Rock Ledge - West Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5255,6 +5720,7 @@
 			}, { // [139]
 				caption: 'Turtle Rock Ledge - East Entrance',
 				is_opened: false,
+				remind_me: false,
 				note: '',
 				known_location: '',
 				is_connector: false,
@@ -5436,38 +5902,45 @@
 			window.chests = [{ // [0]
 				caption: 'Dam (Underwater)',
 				is_opened: false,
+				remind_me: false,
 				is_available: function () {
 					return hasFoundLocation('dam') ? 'available' : 'unavailable';
 				}
 			}, { // [1]
 				caption: 'Stoops Lonk\'s Hoose',
 				is_opened: (flags.gametype === 'S'),
+				remind_me: false,
 				is_available: always
 			}, { // [2]
 				caption: 'Bottle Vendor: Pay 100 rupees',
 				is_opened: false,
+				remind_me: false,
 				is_available: always
 			}, { // [3]
 				caption: 'Ol\' Stumpy',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return items.moonpearl && (canReachOutcast() || canReachDarkWorldSouth() || items.agahnim && items.hammer) ? 'available' : 'unavailable';
 				}
 			}, { // [4]
 				caption: 'Gary\'s Lunchbox (save the frog first)',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return items.moonpearl && items.glove === 2 ? 'available' : 'unavailable';
 				}
 			}, { // [5]
 				caption: 'Fugitive under the bridge {flippers}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return items.flippers ? 'available' : 'unavailable';
 				}
 			}, { // [6]
 				caption: 'Ether Tablet {sword2}{book}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if ((canReachWDMNorth() || (canReachDWWDM() && items.mirror)) && items.book) {
 						return (items.sword >= 2 || (flags.swordmode === 'S' && items.hammer)) ? 'available' : 'information';
@@ -5477,6 +5950,7 @@
 			}, { // [7]
 				caption: 'Bombos Tablet {mirror}{sword2}{book}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return items.book && items.mirror && canReachDarkWorldSouth() ?
 						(items.sword >= 2 || (flags.swordmode === 'S' && items.hammer))? 'available' : 'information' :
@@ -5485,6 +5959,7 @@
 			}, { // [8]
 				caption: 'Catfish',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if ((canReachDarkWorldEast() || hasFoundEntrance(92)) && items.moonpearl && items.glove) return 'available';
 					return items.moonpearl && items.glove && (items.agahnim || items.hammer || items.glove === 2 && items.flippers) ?
@@ -5493,12 +5968,14 @@
 			}, { // [9]
 				caption: 'King Zora: Pay 500 rupees',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return items.flippers || items.glove ? 'available' : 'unavailable';
 				}
 			}, { // [10]
 				caption: 'Lost Old Man {lantern}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (canReachWDMNorth()) {
 						return items.lantern ? 'available' : 'darkavailable';
@@ -5511,10 +5988,12 @@
 			}, { // [11]
 				caption: 'Mushroom',
 				is_opened: false,
+				remind_me: false,
 				is_available: always
 			}, { // [12]
 				caption: 'Spectacle Rock {mirror}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (canReachWDM()) {
 						return items.mirror ? 'available' : 'information';
@@ -5524,48 +6003,56 @@
 			}, { // [13]
 				caption: 'Floating Island {mirror}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return (hasFoundEntrance(131) && items.mirror) ? 'available' : (canReachEDMNorth() ? 'information' : 'unavailable');
 				}
 			}, { // [14]
 				caption: 'Race Minigame',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return (hasFoundEntrance(46) || (canReachDarkWorldSouth() && items.mirror) ? 'available' : 'information');
 				}
 			}, { // [15]
 				caption: 'Desert West Ledge',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return (hasFoundEntrance(54) || (items.mirror && canReachMiseryMire()) || (items.flute && items.glove === 2 && items.mirror) || (hasFoundEntrance(56) && items.glove > 0)) ? 'available' : 'information';
 				}
 			}, { // [16]
 				caption: 'Lake Hylia Island {mirror}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return items.flippers && items.mirror && items.moonpearl && (canReachDarkWorldEast() || canReachDarkWorldSouth()) ? 'available' : 'information';
 				}
 			}, { // [17]
 				caption: 'Bumper Cave {cape}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return hasFoundEntrance(129) ? 'available' : (canReachOutcast() ? 'information' : 'unavailable');
 				}
 			}, { // [18]
 				caption: 'Pyramid',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return canReachDarkWorldEast() || items.agahnim || items.glove && items.hammer && items.moonpearl || items.glove === 2 && items.moonpearl && items.flippers ? 'available' : 'unavailable';
 				}
 			}, { // [19]
 				caption: 'Alec Baldwin\'s Dig-a-Thon: Pay 80 rupees',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return items.moonpearl && (canReachOutcast() || canReachDarkWorldSouth() || (items.agahnim && items.moonpearl && items.hammer)) ? 'available' : 'unavailable';
 				}
 			}, { // [20]
 				caption: 'Zora River Ledge {flippers}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					if (items.flippers) return 'available';
 					if (items.glove) return 'information';
@@ -5574,12 +6061,14 @@
 			}, { // [21]
 				caption: 'Buried Itam {shovel}',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					return items.shovel ? 'available' : 'unavailable';
 				}
 			}, { // [22]
 				caption: 'Master Sword Pedestal {pendant0}{pendant1}{pendant2} (can check with {book})',
 				is_opened: false,
+				remind_me: false,
 				is_available: function() {
 					var pendant_count = 0;
 					for (var k = 0; k < 10; k++) {

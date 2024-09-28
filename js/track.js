@@ -1066,7 +1066,7 @@
 							}
 						}
 						var ent = document.getElementById('entranceMap'+k);
-						ent.className = 'entrance ' + entrances[k].is_available() + entrancetype + (ent.classList.contains('highlight') ? ' highlight' : '');
+						ent.className = 'entrance ' + entrances[k].is_available() + entrancetype + (ent.classList.contains('highlight') ? ' highlight' : '') + (entrances[k].remind_me ? ' remindmelocation' : '');
 					}
 				}
 				for (var k = 0; k < dungeonChecks.length; k++) {
@@ -1541,6 +1541,7 @@
 		document.getElementById('entranceModalTitle').innerHTML = entrances[n].caption.replace(/\s?\{[^}]+\}/g, '');
 		document.getElementById('entranceModalNote').value = entrances[n].note;
 		document.getElementById('ConnectorListSpan').innerHTML = '';
+		document.getElementById('entranceRemindMe').checked = entrances[n].remind_me;
 		var entrancecount = 0;
 		if (entrances[n].is_connector) {
 			for (var i = 0; i < connectorIndex.length; i++) {
@@ -1628,6 +1629,7 @@
 	window.hideEntranceModal = function() {
 		if (overrideEntranceCloseFlag === false) {
 			if (document.getElementById('entranceModal').style.display != 'none') {
+				entrances[document.getElementById('entranceID').value].remind_me = document.getElementById('entranceRemindMe').checked;
 				entrances[document.getElementById('entranceID').value].note = document.getElementById('entranceModalNote').value;
 				if (document.getElementById('entranceModalNote').value != '') {
 					//Add the note icon
@@ -1875,6 +1877,7 @@
 		
 		if (entrances[document.getElementById('entranceID').value].known_location === n) {
 			entrances[document.getElementById('entranceID').value].known_location = '';
+			entrances[document.getElementById('entranceID').value].remind_me = false;
 			entrances[document.getElementById('entranceID').value].type = 0;
 			var information = document.getElementById('informationdiv'+document.getElementById('entranceID').value);
 			if (information != null) {
@@ -1883,6 +1886,7 @@
 		} else {
 			entrances[document.getElementById('entranceID').value].known_location = n;
 			entrances[document.getElementById('entranceID').value].type = (t === true ? 2 : 3);
+			entrances[document.getElementById('entranceID').value].remind_me = document.getElementById('entranceRemindMe').checked;
 			document.getElementById(n).style.backgroundColor = '#00F';
 			
 			if (document.getElementById('informationdiv'+document.getElementById('entranceID').value) != null) {

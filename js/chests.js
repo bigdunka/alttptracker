@@ -1879,7 +1879,9 @@
 						return 'unavailable';
 					if(items.flippers)
 						return 'available';
-					return 'information';
+					if(items.glove)
+						return 'information';
+					return 'unavailable';
 				}
 			}, { // [54]
 				caption: 'Buried Item {shovel}',

@@ -2572,7 +2572,7 @@
 					//Pre-Moldorm Chest - 3
 					chests[25] = 'A';
 					
-					if (items.hookshot) {
+					if (items.hookshot && melee()) {
 						//Moldorm Chest
 						chests[26] = 'A';
 					}
@@ -2663,7 +2663,7 @@
 					//Pre-Moldorm Chest - 3
 					chests[25] = 'A';
 					
-					if (items.hookshot) {
+					if (items.hookshot && melee()) {
 						//Moldorm Chest
 						chests[26] = 'A';
 					}
@@ -2754,7 +2754,7 @@
 					//Pre-Moldorm Chest - 3
 					chests[25] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
 					
-					if (items.hookshot) {
+					if (items.hookshot && melee()) {
 						//Moldorm Chest - 3
 						chests[26] = ((items.smallkey10 > 2 || flags.gametype == 'R') ? 'A' : 'P');
 					}
@@ -2845,7 +2845,7 @@
 					//Pre-Moldorm Chest - 3
 					chests[25] = 'A';
 					
-					if (items.hookshot) {
+					if (items.hookshot && melee()) {
 						//Moldorm Chest
 						chests[26] = 'A';
 					}
@@ -2936,7 +2936,7 @@
 					//Pre-Moldorm Chest - 3
 					chests[25] = ((items.smallkey10 > 2 || flags.gametype == 'R' || (flags.entrancemode != 'Y' && items.smallkey10 > 0)) ? 'A' : 'P');
 					
-					if (items.hookshot) {
+					if (items.hookshot && melee()) {
 						//Moldorm Chest - 3
 						chests[26] = ((items.smallkey10 > 2 || flags.gametype == 'R' || (flags.entrancemode != 'Y' && items.smallkey10 > 1)) ? 'A' : 'P');
 					}
@@ -3030,7 +3030,7 @@
 					//Pre-Moldorm Chest - 3
 					chests[25] = 'A';
 					
-					if (items.hookshot) {
+					if (items.hookshot && melee()) {
 						//Moldorm Chest
 						chests[26] = 'A';
 					}
