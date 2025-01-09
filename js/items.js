@@ -124,6 +124,7 @@
         mirror: false,
 
         boots: false,
+		pboots: false,
         glove: 0,
         flippers: false,
         flute: false,

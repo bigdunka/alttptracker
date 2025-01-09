@@ -181,6 +181,7 @@ div {
 .mirror { background-image: url(../images/items/mirror.png); }
 .mirrorscroll { background-image: url(../images/dungeons/map.png); }
 .boots { background-image: url(../images/items/boots.png); }
+.pboots { background-image: url(../images/items/pboots.png); display: none; }
 .glove0 { background-image: url(../images/items/glove1.png); }
 .glove1 { background-image: url(../images/items/glove1.png); }
 .glove2 { background-image: url(../images/items/glove2.png); }

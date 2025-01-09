@@ -226,6 +226,9 @@ function loadarchivepreset() {
 		case "Ambroz1a":
 			loadambroz1apreset();
 			break;
+		case "BeginnerDoors":
+			loadbeginnerdoorspreset();
+			break;
 		case "BossHunt":
 			loadbosshuntpreset();
 			break;
@@ -298,6 +301,9 @@ function loadarchivepreset() {
 		case "Potpourri":
 			loadpotpourripreset();
 			break;
+		case "PotsAndBones":
+			loadpotsanddoorspreset();
+			break;
 		case "ReducedCrystals":
 			loadreducedpreset();
 			break;
@@ -319,6 +325,26 @@ function loadarchivepreset() {
 		case "CrossHunt":
 			loadcrosshuntpreset();
 			break;
+		case "XDHunt":
+			loadxdhuntpreset();
+			break;
+		case "TruePotHunt":
+			loadpothuntpreset();
+			break;
+		case "IntermediateDoors":
+			loadintermediatedoorspreset();
+			break;
+		case "ADKeysKeydrop":
+			loadadkeyskeydroppreset();
+			break;
+		case "Duality":
+			loaddualitypreset();
+			break;
+		case "LogicalEnemizer":
+			loadlogicalenemizerpreset();
+			break;
+			
+			
 	}
 	
 	
@@ -1405,6 +1431,250 @@ function loadsglopenbootspreset() {
 	window.scrollTo(0,document.body.scrollHeight);
 	showToast();
 }
+
+function loadbeginnerdoorspreset() {
+	resetallstartingitems();
+	document.getElementById("gametypestandard").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doorcrossed").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsassured").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	alert('Keydrop modes are not fully supported by the presets, you can set item drops by right clicking on the compass on the item tracker for door modes.');
+	showToast();
+}
+
+function loadpotsanddoorspreset() {
+	resetallstartingitems();
+	setstartingitem("boomerang",2,"2");
+	setstartingitem("lantern",11,"1");
+	setstartingitem("boots",22,"1");
+	document.getElementById("gametypestandard").checked = true;
+	document.getElementById("entrancesimple").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalother").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsassured").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	alert('Keydrop modes are not fully supported by the presets, you can set item drops by right clicking on the compass on the item tracker for door modes.');
+	showToast();
+}
+
+function loadxdhuntpreset() {
+	resetallstartingitems();
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancesimple").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalfast").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 4;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	alert('Keydrop modes are not fully supported by the presets, you can set item drops by right clicking on the compass on the item tracker for door modes. Also, autotracking shuffled dungeon prizes may not be compatible.');
+	showToast();
+}
+
+function loadpothuntpreset() {
+	resetallstartingitems();
+	setstartingitem("lantern",11,"1");
+	setstartingitem("boots",22,"1");
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancesimple").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalfast").checked = true;
+	document.getElementById("goalother").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityyes").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	alert('Keydrop modes are not fully supported by the presets, you can set item drops by right clicking on the compass on the item tracker for door modes.');
+	showToast();	
+}
+
+function loadintermediatedoorspreset() {
+	resetallstartingitems();
+	document.getElementById("gametypestandard").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doorcrossed").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsassured").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	alert('Keydrop modes are not fully supported by the presets, you can set item drops by right clicking on the compass on the item tracker for door modes.');
+	showToast();
+}
+
+function loadadkeyskeydroppreset() {
+	resetallstartingitems();
+	setstartingitem("boots",22,"1");
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goaldungeons").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	alert('Keydrop modes are not fully supported by the presets, you can set item drops by right clicking on the compass on the item tracker for door modes.');
+	showToast();
+	
+}
+
+function loaddualitypreset() {
+	resetallstartingitems();
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossnone").checked = true;
+	document.getElementById("enemynone").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalfast").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 1;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 5;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = true;
+	document.getElementById("shuffledcompasses").checked = true;
+	document.getElementById("shuffledsmallkeys").checked = true;
+	document.getElementById("shuffledbigkeys").checked = true;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	showToast();
+}
+
+function loadlogicalenemizerpreset() {
+	resetallstartingitems();
+	setstartingitem("boots",22,"1");
+	document.getElementById("gametypeopen").checked = true;
+	document.getElementById("entrancenone").checked = true;
+	document.getElementById("doornone").checked = true;
+	document.getElementById("overworldno").checked = true;
+	document.getElementById("bossshuffled").checked = true;
+	document.getElementById("enemyshuffled").checked = true;
+	document.getElementById("glitchesnone").checked = true;
+	document.getElementById("goalganon").checked = true;
+	document.getElementById("goalcrystal").checked = true;
+	document.getElementById("towerselect").value = 7;
+	document.getElementById("ganoncrystal").checked = true;
+	document.getElementById("ganonselect").value = 7;
+	document.getElementById("swordsrandomized").checked = true;
+	document.getElementById("unknownnone").checked = true;
+	document.getElementById("shopsanityno").checked = true;
+	document.getElementById("ambrosiano").checked = true;
+	document.getElementById("shuffledmaps").checked = false;
+	document.getElementById("shuffledcompasses").checked = false;
+	document.getElementById("shuffledsmallkeys").checked = false;
+	document.getElementById("shuffledbigkeys").checked = false;
+	document.getElementById("nonprogressivebowsno").checked = true;
+	document.getElementById("activatedfluteno").checked = true;
+	window.scrollTo(0,document.body.scrollHeight);
+	showToast();
+}
+
+
+
+
+
+
 
 
 function importflags() {

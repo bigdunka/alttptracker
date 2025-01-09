@@ -3151,7 +3151,7 @@
 			case "C":
 				document.getElementById("connectorLineDiv").style.height = "222px";
 				document.getElementById("connectorLineDiv").style.left = "0";
-				document.getElementById("connectorLineDiv").style.top = "448";
+				document.getElementById("connectorLineDiv").style.top = (flags.spheresmode === "N" ? "448" : "744");
 				document.getElementById("informationDiv").style.height = "222px";
 				document.getElementById("informationDiv").style.left = "0";
 				document.getElementById("informationDiv").style.top = (flags.spheresmode === "N" ? "448" : "744");
